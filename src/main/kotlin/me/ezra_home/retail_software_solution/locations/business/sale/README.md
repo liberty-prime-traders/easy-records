@@ -214,6 +214,8 @@ persistence model, lifecycle, and reconciliation logic.
   - `UNIT_PRICE_OVERRIDE`: `value` is the unit price the cashier typed, and the amount is `|lineTotal − value × quantity|`
     (`AdjustmentAmountCalculator`, rounded once to cents), recomputed on every save. Only a price override creates one;
     a client cannot add it.
+  - A line adjustment's amount is calculated against its own line, found by `ProductLineWithPrice.lineKey` (a saved
+    line's id, a session line's identity), never by product; an adjustment whose line is not in the list is refused.
 - Every adjustment references an `adjustment_reason_id` (org-schema lookup).
   The session validator validates the reason exists and that
   `AdjustmentReasonService.requireCanApply(reasonId, direction)` succeeds.
@@ -754,8 +756,13 @@ run** — i.e. as soon as the data it needs is in scope.
 - Defaults to 10; rejects `n <= 0` and `n > 1000`.
 - Sorted by `createdOn DESC`.
 
-### `SaleDataFetcher.getSaleHeader(saleId)` / `getSaleLines(saleId)`
-- Used by `SaleSessionLoader` to map an existing draft into a session.
+### `SaleDataFetcher.getSaleHeader(saleId)` / `getSaleLines(saleId)` / `getSaleLinesBySaleId(saleIds)`
+- Used by `SaleSessionLoader` to map an existing draft into a session, and by `SaleSessionCopier` to copy sales.
+- `getSaleLinesBySaleId` loads the lines and the product summaries of many sales in one pass and returns a list for
+  every requested id (empty when a sale has no lines); `getSaleLines` is the single-id case of it. `SaleLineDto`
+  carries the product's `baseUnitId` from that same summary lookup, so callers never query base units separately.
+  `SaleAdjustmentFetcher.getAdjustmentsBySaleId` is the matching batch for adjustments. Both batches read their rows
+  ordered by creation time, then id, so the order of a sale's lines and adjustments is the same on every read.
 - Snapshots are plain data classes in `sale/api/` (`SaleHeaderDto`,
   `SaleLineDto`) — they do not leak `SaleEntity` / `SaleLineEntity` across
   the package boundary.

@@ -22,6 +22,8 @@ data class SaleSessionLine(
 
 ) : ProductLineWithPrice {
 
+    override val lineKey: UUID = identity.key()
+
     companion object {
         // Multiplies first and divides last: multiply is exact, so the single division is the only rounding.
         fun lineTotal(defaultSalePrice: BigDecimal, lineQuantities: LineQuantities): BigDecimal =

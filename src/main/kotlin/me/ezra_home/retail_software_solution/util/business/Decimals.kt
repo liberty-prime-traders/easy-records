@@ -47,6 +47,12 @@ object Decimals {
     private fun stripZeroes(quantity: BigDecimal, roundingMode: RoundingMode): String =
         quantity.setScale(Scale4.scale, roundingMode).stripTrailingZeros().toPlainString()
 
+    // Null when the quotient does not terminate, so a rounded value is never mistaken for an exact one.
+    fun exactQuotientOrNull(dividend: BigDecimal, divisor: BigDecimal): BigDecimal? {
+        val quotient = dividend.divide(divisor, MathContext.DECIMAL128)
+        return if (quotient.multiply(divisor).compareTo(dividend) == 0) quotient else null
+    }
+
     fun requireMaxDecimalPlaces(value: BigDecimal, maxDecimalPlaces: Int, label: String) {
         if (value.stripTrailingZeros().scale() > maxDecimalPlaces) {
             throw RtsGenericException("$label can have at most $maxDecimalPlaces decimal places")

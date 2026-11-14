@@ -69,6 +69,9 @@ The order of execution is
   lines, no `.not()` tacked onto a multi-line call, no clever one-liners. Name each condition in a `val`
   (`val dispatchAlreadyPosted = ...`) and combine the names (`return dispatchCarriesCost && !dispatchAlreadyPosted`).
   If a reader has to parse it twice, split it.
+- Don't use `zip` to pair two lists. It pairs by position, so correctness silently depends on both lists keeping the
+  same order. Keep ordering explicit: build the result from one list and look the partner up by key
+  (`associateBy`, `getValue`), or map each element to its pair in a single pass.
 - Cut lines at 120 characters. Up to 124 can be argued for; 125 is a no-no.
 - variable and method names should be verbose. For example,
   - `val ceilingService: PurchasePaymentCeilingService` is bad

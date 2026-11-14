@@ -38,6 +38,11 @@ Internal collaborators (do not call from outside `sale_session`):
 - `SaleSessionLoader` — `loadFromSale` rehydrates an existing `SaleEntity` into
   the session shape via `DomainToSessionMapper`; `newSession` mints a fresh
   empty session
+- `SaleSessionCopier` — `copyFromSale` mints a new unsaved session from one source sale;
+  `copyFromSalesForConsolidation` copies the lines and adjustments of 2 to 20 distinct sales of one contact
+  (`guardConsolidationSelectionSize`, `guardSingleContactAcrossSales`) under fresh identities, each adjustment pointed at
+  the copy of its own sale's line, with `<reference> - <notes>` lines for sources that have notes. The copy keeps every
+  line as it was, so a product can appear on several lines; `line_merge` (section 11) is what folds them together
 - `SaleSessionAssembler` — orchestrates response/summary DTO assembly;
   delegates per-bean translation to `SessionToResponseMapper` (MapStruct)
 - `SaleSessionValidator` — runs structural validation on every mutation
@@ -127,7 +132,7 @@ for the supplied `saleId` — returns the existing one (one-session-per-sale
 guarantee).
 
 `start({copyFromSaleId})` mints a new unsaved DRAFT session from a DRAFT, VOIDED or DISCARDED sale
-(`SaleSessionLoader.copyFromSale`); a CONFIRMED source is rejected by `guardSourceSaleCopyable`, because copying
+(`SaleSessionCopier.copyFromSale`); a CONFIRMED source is rejected by `guardSourceSaleCopyable`, because copying
 a sale that really happened makes an accidental duplicate easy. It never short-circuits, and may be called
 repeatedly for the same source. It reads the persisted sale, so unsaved edits in the source's open session are not copied. The copy
 has `saleId = null`, fresh transient identities on every line and adjustment (adjustments re-keyed to the new
@@ -486,7 +491,8 @@ decimals (`QuantityLimits`), and a typed price is rejected beyond the money scal
 | Validation                      | `SaleSessionValidator`                                                                                                                                                                                                             |
 | Price override reconciliation   | `PriceOverrideReconciler`                                                                                                                                                                                                          |
 | Totals                          | `SaleSessionTotalsCalculator`                                                                                                                                                                                                      |
-| Load / mint                     | `SaleSessionLoader`, `DomainToSessionMapper`                                                                                                                                                                                       |
+| Load / mint / copy              | `SaleSessionLoader`, `SaleSessionCopier`, `DomainToSessionMapper`                                                                                                                                                                                       |
+| Line merge (consolidation)      | `SaleLineMerger`, `PerProductLinesMerger`, `MergedQuantityCalculator`, `MergedAdjustmentsBuilder`, `MergedPriceOverrideBuilder`, `EffectiveLineTotal` (package `line_merge`)                                                          |
 | Build response/summary          | `SaleSessionAssembler`, `SessionToResponseMapper`                                                                                                                                                                                  |
 | Post-mutation pipeline          | `SaleSessionUpdateFinalizer`                                                                                                                                                                                                       |
 | Session orchestration           | `SaleSessionHandler`, `SaleSession{Header,Line,Adjustment,Payment}Handler`, `SaleSessionPersister`                                                                                                                                 |
@@ -494,3 +500,62 @@ decimals (`QuantityLimits`), and a typed price is rejected beyond the money scal
 | Save sub-pieces                 | `SaleLineSync` (sale internal), `SaleSaveFinalizer` (sale internal), `SaleAdjustmentSyncer` (sale_adjustment/api), `SalePaymentAppender` (sale_payment/api, delegates to `SalePaymentWriter`), `SaleTotalsApplier` (sale internal) |
 | Session→SaleSaveRequest mapping | `SessionToSaveRequestMapper`                                                                                                                                                                                                       |
 | REST entry point                | `SaleSessionEndpoint` at `/secured/sale-sessions`                                                                                                                                                                                  |
+
+## 11. Line Merge (consolidation)
+
+`line_merge` folds the lines of several source sales into one line per product, or says why a product cannot be folded.
+`SaleLineMerger.merge(saleLines, saleAdjustments, inactiveLocationProductIds, unitConversionGraph)` is a pure function
+and stores nothing. It returns a `SaleLineMergeResult`: the merged lines and their adjustments, the lines and
+adjustments of every product that could not be merged (untouched, so the cashier can fix them), the order-level
+adjustments (untouched, because they belong to the sale, not to a product), and one `ConsolidationProblem` per blocked
+product. A line-level adjustment must point at a line in the input; one that does not is refused, not dropped.
+
+**Per product.** An inactive product is blocked. A product on a single line passes through unchanged. Lines of one product
+must share a list price (`defaultSalePrice`) unless every one of them carries a typed price, because a typed price replaces
+the list price in the effective total.
+
+**Which unit the merged line uses.** The candidates are, in order: the units the lines were sold in, smallest first; the
+rest of the product's unit tree (every unit under the storage unit) from the largest down; the storage unit last. The
+first candidate that works wins, so a readable unit is preferred and the smallest selected one stays the first choice.
+A candidate works when the combined quantity is exact with at most two decimals and under `MAX_USER_QUANTITY`, any typed
+price converts to that unit exactly and fits the money scale, the adjustments combine, and the merged effective total
+equals the sum of the sources' effective totals to the cent. When nothing works, the reported reason is the one from the
+candidate that got furthest (`MergeStep`: product checks, quantity, adjustments, total), the smallest selected unit
+winning a tie.
+
+**Quantity.** When the target is the unit id and size of every line, quantities and gross totals are added. Otherwise the
+quantity is the sum of `quantity × size` divided once by the target's size (`Decimals.exactQuotientOrNull`, which refuses a
+quotient that does not terminate), and the gross total is recomputed with `SaleSessionLine.lineTotal` from the list price.
+A line snapshots its unit's size when it is created and the size can be edited later, so the snapshot decides, not the unit
+id. The sizes and the tree come from the `UnitConversionGraph`.
+
+**Adjustments.** A line holds at most one price override and never one beside another adjustment
+(`guardLineOverrideExclusivity`, and `PriceOverrideReconciler` swaps an override instead of adding a second). Overrides
+merge when every line has one, the typed prices agree per target unit and fit the money scale, and the approvers agree; the
+merged direction and amount follow `LinePricing.overrideDifference`. The other adjustments merge when every line carries the
+same set (reason, direction, method, value) with the same approvers, and are then carried once. An adjustment amount is
+always calculated against its own line, found by `ProductLineWithPrice.lineKey`, never by product.
+
+**Exactness.** The final money check makes any accepted merge cost-neutral. It compares money only, so quantity exactness
+rests on `MergedQuantityCalculator`.
+
+| Kind                          | Step        | Meaning                                                                          |
+|-------------------------------|-------------|----------------------------------------------------------------------------------|
+| `INACTIVE_PRODUCT`            | product     | the product is not active                                                        |
+| `DIFFERENT_LIST_PRICES`       | product     | list prices differ and not every line carries a typed price                      |
+| `UNITS_NOT_EXACT`             | quantity    | the combined quantity is not a terminating number in that unit                   |
+| `QUANTITY_TOO_PRECISE`        | quantity    | the combined quantity needs more than two decimals                               |
+| `QUANTITY_TOO_LARGE`          | quantity    | the combined quantity is over the maximum                                        |
+| `OVERRIDE_ON_SOME_LINES_ONLY` | adjustments | some lines carry a typed price and others do not                                 |
+| `TYPED_PRICES_DIFFER`         | adjustments | the typed prices differ per target unit                                          |
+| `TYPED_PRICE_NOT_TYPEABLE`    | adjustments | the typed price per target unit is not exact or has more than two decimals       |
+| `APPROVERS_DIFFER`            | adjustments | the same adjustment was approved by different people                             |
+| `OTHER_ADJUSTMENTS_DIFFER`    | adjustments | the lines carry different percentage adjustments                                 |
+| `TOTAL_DRIFT`                 | total       | the merged effective total would differ from the sources' sum                    |
+
+**Story.** `ConsolidationProblemStoryWriter.write(consolidationProblems, problemSaleLines, sourceSaleReferenceByLineKey,
+unitNameByUnitId)` turns each `ConsolidationProblem` into a `BlockingProblem`: `documentReference` is the source sale
+references involved (each once, in line order, joined by ", "), `description` says what is wrong with the product, and
+`effect` lists the lines (quantity, unit, list price, source sale) and says how to fix it. It switches exhaustively on
+`ConsolidationProblemKind`, so a new kind will not compile until it has text. The caller supplies the sale reference per
+line key and the unit names; the writer fetches nothing.

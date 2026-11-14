@@ -105,11 +105,13 @@ class SaleDataFetcher(
         )
     }
 
-    fun getSaleLines(saleId: UUID): List<SaleLineDto> {
-        val lines = saleLineRepository.findBySaleId(saleId)
-        if (lines.isEmpty()) return emptyList()
+    fun getSaleLines(saleId: UUID): List<SaleLineDto> =
+        getSaleLinesBySaleId(listOf(saleId)).getValue(saleId)
+
+    fun getSaleLinesBySaleId(saleIds: List<UUID>): Map<UUID, List<SaleLineDto>> {
+        val lines = saleLineRepository.findBySaleIdInOrderByCreatedOnAscIdAsc(saleIds)
         val productSummaries = locationProductDataFetcher.findSummaryByIds(lines.map { it.locationProductId })
-        return lines.map { line ->
+        val saleLineDtosBySaleId = lines.groupBy({ it.saleId }, { line ->
             val productSummary = productSummaries.getValue(line.locationProductId)
             SaleLineDto(
                 id = line.id!!,
@@ -118,11 +120,13 @@ class SaleDataFetcher(
                 productPrintLabel = productSummary.printLabel,
                 userProvidedQuantity = line.userProvidedQuantity,
                 unitId = line.unitId,
+                baseUnitId = productSummary.baseUnitId,
                 storageUnitsPerUserProvidedUnit = line.storageUnitsPerUserProvidedUnit,
                 lineTotal = line.lineTotal,
                 defaultSalePrice = line.defaultSalePrice,
             )
-        }
+        })
+        return saleIds.associateWith { saleId -> saleLineDtosBySaleId[saleId].orEmpty() }
     }
 
     private fun extractHeader(saleEntity: SaleEntity): SaleHeaderDto = SaleHeaderDto(

@@ -19,16 +19,22 @@ class SaleAdjustmentFetcher(
         }
 
     fun getAdjustments(saleId: UUID): List<SaleAdjustmentDto> =
-        saleAdjustmentRepository.findBySaleId(saleId).map { entity ->
-            SaleAdjustmentDto(
-                id = entity.id!!,
-                saleLineId = entity.saleLineId,
-                adjustmentReasonId = entity.adjustmentReasonId,
-                direction = entity.direction,
-                calculationMethod = entity.calculationMethod,
-                value = entity.value,
-                note = entity.note,
-                approvedById = entity.approvedById,
-            )
-        }
+        getAdjustmentsBySaleId(listOf(saleId)).getValue(saleId)
+
+    fun getAdjustmentsBySaleId(saleIds: List<UUID>): Map<UUID, List<SaleAdjustmentDto>> {
+        val saleAdjustmentDtosBySaleId = saleAdjustmentRepository.findBySaleIdInOrderByCreatedOnAscIdAsc(saleIds)
+            .groupBy({ it.saleId }, { entity ->
+                SaleAdjustmentDto(
+                    id = entity.id!!,
+                    saleLineId = entity.saleLineId,
+                    adjustmentReasonId = entity.adjustmentReasonId,
+                    direction = entity.direction,
+                    calculationMethod = entity.calculationMethod,
+                    value = entity.value,
+                    note = entity.note,
+                    approvedById = entity.approvedById,
+                )
+            })
+        return saleIds.associateWith { saleId -> saleAdjustmentDtosBySaleId[saleId].orEmpty() }
+    }
 }

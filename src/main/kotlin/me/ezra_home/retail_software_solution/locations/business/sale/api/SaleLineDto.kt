@@ -10,6 +10,7 @@ data class SaleLineDto(
     val productPrintLabel: String,
     val userProvidedQuantity: BigDecimal,
     val unitId: UUID,
+    val baseUnitId: UUID,
     val storageUnitsPerUserProvidedUnit: Long,
     val lineTotal: BigDecimal,
     val defaultSalePrice: BigDecimal,

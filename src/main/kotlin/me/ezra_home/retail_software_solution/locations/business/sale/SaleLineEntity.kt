@@ -46,5 +46,8 @@ class SaleLineEntity(
 
 ) : HasReferenceEntity(), ProductLineWithPrice {
 
+    override val lineKey: UUID
+        get() = requireNotNull(id) { "Sale line has no id yet" }
+
     fun storageQuantity(): ExactQuantity = ExactQuantity.ofStorageFromUserProvided(userProvidedQuantity, storageUnitsPerUserProvidedUnit)
 }

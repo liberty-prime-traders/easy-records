@@ -24,11 +24,7 @@ interface DomainToSessionMapper {
     @Mapping(target = "storageQuantityReserved", constant = "0")
     @Mapping(target = "storageQuantityAvailable", constant = "0")
     @Mapping(source = "id", target = "identity", qualifiedBy = [PersistedSessionIdentity::class])
-    @Mapping(source = "locationProductId", target = "baseUnitId", qualifiedBy = [SaleLineBaseUnitId::class])
-    fun toSaleSessionLine(
-        saleLineDto: SaleLineDto,
-        @Context baseUnitIdsByLocationProductId: Map<UUID, UUID>,
-    ): SaleSessionLine
+    fun toSaleSessionLine(saleLineDto: SaleLineDto, ): SaleSessionLine
 
     @Mapping(source = "id", target = "identity", qualifiedBy = [PersistedSessionIdentity::class])
     @Mapping(

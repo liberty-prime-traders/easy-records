@@ -1,6 +1,7 @@
 package me.ezra_home.retail_software_solution.locations.business.sale_session
 
 import me.ezra_home.retail_software_solution.locations.business.location_product.api.LocationProductService
+import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleHeaderDto
 import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleStatus
 import me.ezra_home.retail_software_solution.locations.business.sale_payment.api.SalePaymentValidator
 import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSession
@@ -94,6 +95,26 @@ class SaleSessionValidator(
         }
     }
 
+    fun guardConsolidationSelectionSize(sourceSaleHeaders: List<SaleHeaderDto>) {
+        val sourceSaleIds = sourceSaleHeaders.map { it.id }
+        val sizeWithinLimits = sourceSaleIds.size in MINIMUM_SALES_TO_CONSOLIDATE..MAXIMUM_SALES_TO_CONSOLIDATE
+        if (!sizeWithinLimits) {
+            throw RtsGenericException(
+                "Select between $MINIMUM_SALES_TO_CONSOLIDATE and $MAXIMUM_SALES_TO_CONSOLIDATE sales to consolidate"
+            )
+        }
+        if (sourceSaleIds.toSet().size != sourceSaleIds.size) {
+            throw RtsGenericException("The same sale was selected more than once")
+        }
+    }
+
+    fun guardSingleContactAcrossSales(sourceSaleHeaders: List<SaleHeaderDto>) {
+        val distinctContactIds = sourceSaleHeaders.map { it.contactId }.toSet()
+        if (distinctContactIds.size > 1) {
+            throw RtsGenericException("Sales for different customers cannot be consolidated")
+        }
+    }
+
     fun guardNoInactiveProducts(saleSession: SaleSession) {
         locationProductService.guardAllActive(saleSession.saleLines.map { it.locationProductId })
     }
@@ -180,4 +201,8 @@ class SaleSessionValidator(
         }
     }
 
+    private companion object {
+        const val MINIMUM_SALES_TO_CONSOLIDATE = 2
+        const val MAXIMUM_SALES_TO_CONSOLIDATE = 20
+    }
 }

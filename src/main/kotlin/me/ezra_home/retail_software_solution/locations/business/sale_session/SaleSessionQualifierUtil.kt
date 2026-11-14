@@ -135,12 +135,6 @@ object SaleSessionQualifierUtil {
         @Context lineMappingContext: LineMappingContext,
     ): BigDecimal = lineMappingContext.netLineTotalFor(saleSessionLine)
 
-    @SaleLineBaseUnitId
-    fun resolveBaseUnitId(
-        locationProductId: UUID,
-        @Context baseUnitIdsByLocationProductId: Map<UUID, UUID>,
-    ): UUID = baseUnitIdsByLocationProductId.getValue(locationProductId)
-
     @LineUnitPriceOverride
     fun toLineUnitPriceOverride(
         saleSessionLine: SaleSessionLine,

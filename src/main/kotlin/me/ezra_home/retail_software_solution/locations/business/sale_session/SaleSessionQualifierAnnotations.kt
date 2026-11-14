@@ -50,11 +50,6 @@ annotation class SaleSessionPaymentStatus
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
 @Target(AnnotationTarget.FUNCTION)
-annotation class SaleLineBaseUnitId
-
-@Qualifier
-@Retention(AnnotationRetention.BINARY)
-@Target(AnnotationTarget.FUNCTION)
 annotation class LineUnitPriceOverride
 
 @Qualifier

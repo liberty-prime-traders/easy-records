@@ -1,6 +1,7 @@
 package me.ezra_home.retail_software_solution.locations.business.sale_session
 
 import me.ezra_home.retail_software_solution.locations.business.location_product.api.LocationProductService
+import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleHeaderDto
 import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleStatus
 import me.ezra_home.retail_software_solution.locations.business.sale_adjustment.api.PriceAdjustmentMethod
 import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSession
@@ -115,6 +116,48 @@ class SaleSessionValidatorTest {
             saleSessionValidator.guardSourceSaleCopyable(copyableStatus)
         }
     }
+
+    @Test
+    fun `sales of different contacts are refused for consolidation, sales of one contact are accepted`() {
+        val contactId = UUID.randomUUID()
+
+        saleSessionValidator.guardSingleContactAcrossSales(
+            listOf(saleHeader(contactId), saleHeader(contactId))
+        )
+        assertThrows(RtsGenericException::class.java) {
+            saleSessionValidator.guardSingleContactAcrossSales(
+                listOf(saleHeader(contactId), saleHeader(UUID.randomUUID()))
+            )
+        }
+    }
+
+    @Test
+    fun `a consolidation needs between two and twenty distinct sales`() {
+        val contactId = UUID.randomUUID()
+
+        saleSessionValidator.guardConsolidationSelectionSize(List(2) { saleHeader(contactId) })
+        saleSessionValidator.guardConsolidationSelectionSize(List(20) { saleHeader(contactId) })
+        listOf(0, 1, 21).forEach { refusedSize ->
+            assertThrows(RtsGenericException::class.java) {
+                saleSessionValidator.guardConsolidationSelectionSize(List(refusedSize) { saleHeader(contactId) })
+            }
+        }
+        val selectedTwice = saleHeader(contactId)
+        assertThrows(RtsGenericException::class.java) {
+            saleSessionValidator.guardConsolidationSelectionSize(listOf(selectedTwice, selectedTwice))
+        }
+    }
+
+    private fun saleHeader(contactId: UUID) = SaleHeaderDto(
+        id = UUID.randomUUID(),
+        referenceNumber = "SALE01",
+        version = 0,
+        status = SaleStatus.DRAFT,
+        contactId = contactId,
+        soldById = null,
+        dateSold = null,
+        notes = null,
+    )
 
     private fun percentageAdjustment(direction: AdjustmentDirection, percentage: BigDecimal, line: SaleSessionLine?) = SaleSessionAdjustment(
         identity = SessionIdentity.mintFreshIdentity(),
