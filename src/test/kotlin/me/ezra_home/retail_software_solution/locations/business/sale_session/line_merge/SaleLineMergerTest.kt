@@ -71,8 +71,12 @@ class SaleLineMergerTest {
     @Test
     fun `lines of one unit id whose snapshotted sizes differ merge through the conversion, not a plain sum`() {
         val cartonUnitId = UUID.randomUUID()
-        val olderCartonLine = saleLine(sugarId, "1", "24.00", unitId = cartonUnitId, storageUnitsPerUnit = 24, defaultSalePrice = "1.00")
-        val newerCartonLine = saleLine(sugarId, "1", "20.00", unitId = cartonUnitId, storageUnitsPerUnit = 20, defaultSalePrice = "1.00")
+        val olderCartonLine = saleLine(
+            sugarId, "1", "24.00", unitId = cartonUnitId, storageUnitsPerUnit = 24, defaultSalePrice = "1.00"
+        )
+        val newerCartonLine = saleLine(
+            sugarId, "1", "20.00", unitId = cartonUnitId, storageUnitsPerUnit = 20, defaultSalePrice = "1.00"
+        )
 
         val result = merge(listOf(olderCartonLine, newerCartonLine))
 
@@ -100,8 +104,12 @@ class SaleLineMergerTest {
 
     @Test
     fun `typed prices that only work in a larger selected unit merge in that unit`() {
-        val litreLine = saleLine(sugarId, "1", "20.00", unitId = UUID.randomUUID(), storageUnitsPerUnit = 1000, defaultSalePrice = "20.00")
-        val bottleLine = saleLine(sugarId, "1", "15.00", unitId = UUID.randomUUID(), storageUnitsPerUnit = 750, defaultSalePrice = "20.00")
+        val litreLine = saleLine(
+            sugarId, "1", "20.00", unitId = UUID.randomUUID(), storageUnitsPerUnit = 1000, defaultSalePrice = "20.00"
+        )
+        val bottleLine = saleLine(
+            sugarId, "1", "15.00", unitId = UUID.randomUUID(), storageUnitsPerUnit = 750, defaultSalePrice = "20.00"
+        )
 
         val result = merge(
             listOf(litreLine, bottleLine),
@@ -119,8 +127,12 @@ class SaleLineMergerTest {
     @Test
     fun `lines no selected unit can hold merge in a larger unit of the product's tree`() {
         val litreUnitId = UUID.randomUUID()
-        val jerrycanLine = saleLine(sugarId, "1", "400.00", unitId = UUID.randomUUID(), storageUnitsPerUnit = 20000, defaultSalePrice = "20.00")
-        val bottleLine = saleLine(sugarId, "1", "15.00", unitId = UUID.randomUUID(), storageUnitsPerUnit = 750, defaultSalePrice = "20.00")
+        val jerrycanLine = saleLine(
+            sugarId, "1", "400.00", unitId = UUID.randomUUID(), storageUnitsPerUnit = 20000, defaultSalePrice = "20.00"
+        )
+        val bottleLine = saleLine(
+            sugarId, "1", "15.00", unitId = UUID.randomUUID(), storageUnitsPerUnit = 750, defaultSalePrice = "20.00"
+        )
 
         val result = merge(
             listOf(jerrycanLine, bottleLine), storageUnitsPerBaseUnit = 1000, familySizes = mapOf(litreUnitId to 1000L),
@@ -136,8 +148,12 @@ class SaleLineMergerTest {
     @Test
     fun `typed prices no selected unit can hold merge in a larger unit of the tree`() {
         val litreUnitId = UUID.randomUUID()
-        val jerrycanLine = saleLine(sugarId, "1", "400.00", unitId = UUID.randomUUID(), storageUnitsPerUnit = 20000, defaultSalePrice = "20.00")
-        val bottleLine = saleLine(sugarId, "1", "15.00", unitId = UUID.randomUUID(), storageUnitsPerUnit = 750, defaultSalePrice = "20.00")
+        val jerrycanLine = saleLine(
+            sugarId, "1", "400.00", unitId = UUID.randomUUID(), storageUnitsPerUnit = 20000, defaultSalePrice = "20.00"
+        )
+        val bottleLine = saleLine(
+            sugarId, "1", "15.00", unitId = UUID.randomUUID(), storageUnitsPerUnit = 750, defaultSalePrice = "20.00"
+        )
 
         val result = merge(
             listOf(jerrycanLine, bottleLine),
@@ -154,8 +170,12 @@ class SaleLineMergerTest {
 
     @Test
     fun `typed prices that fit cents per storage unit merge in the storage unit`() {
-        val eightLine = saleLine(sugarId, "1", "8.00", unitId = UUID.randomUUID(), storageUnitsPerUnit = 8, defaultSalePrice = "1.00")
-        val nineLine = saleLine(sugarId, "1", "9.00", unitId = UUID.randomUUID(), storageUnitsPerUnit = 9, defaultSalePrice = "1.00")
+        val eightLine = saleLine(
+            sugarId, "1", "8.00", unitId = UUID.randomUUID(), storageUnitsPerUnit = 8, defaultSalePrice = "1.00"
+        )
+        val nineLine = saleLine(
+            sugarId, "1", "9.00", unitId = UUID.randomUUID(), storageUnitsPerUnit = 9, defaultSalePrice = "1.00"
+        )
 
         val result = merge(
             listOf(eightLine, nineLine),
@@ -170,8 +190,12 @@ class SaleLineMergerTest {
 
     @Test
     fun `typed prices that fit no unit of the tree are a problem and keep the lines`() {
-        val eightLine = saleLine(sugarId, "1", "8.00", unitId = UUID.randomUUID(), storageUnitsPerUnit = 8, defaultSalePrice = "1.00")
-        val nineLine = saleLine(sugarId, "1", "9.00", unitId = UUID.randomUUID(), storageUnitsPerUnit = 9, defaultSalePrice = "1.00")
+        val eightLine = saleLine(
+            sugarId, "1", "8.00", unitId = UUID.randomUUID(), storageUnitsPerUnit = 8, defaultSalePrice = "1.00"
+        )
+        val nineLine = saleLine(
+            sugarId, "1", "9.00", unitId = UUID.randomUUID(), storageUnitsPerUnit = 9, defaultSalePrice = "1.00"
+        )
 
         val result = merge(
             listOf(eightLine, nineLine),
@@ -184,8 +208,10 @@ class SaleLineMergerTest {
     }
 
     @Test
-    fun `lines in different units and list prices merge when every line carries the same typed price per smallest unit`() {
-        val dozenLine = saleLine(sugarId, "1", "180.00", unitId = dozenUnitId, storageUnitsPerUnit = 12, defaultSalePrice = "15.00")
+    fun `lines in different units and list prices merge when every line has the same typed price per smallest unit`() {
+        val dozenLine = saleLine(
+            sugarId, "1", "180.00", unitId = dozenUnitId, storageUnitsPerUnit = 12, defaultSalePrice = "15.00"
+        )
         val pieceLine = saleLine(sugarId, "5", "80.00", defaultSalePrice = "16.00")
 
         val result = merge(
@@ -203,8 +229,12 @@ class SaleLineMergerTest {
     @Test
     fun `lines of equal size under different unit ids merge as one unit through the conversion`() {
         val otherDozenUnitId = UUID.randomUUID()
-        val firstDozenLine = saleLine(sugarId, "2", "360.00", unitId = dozenUnitId, storageUnitsPerUnit = 12, defaultSalePrice = "15.00")
-        val secondDozenLine = saleLine(sugarId, "3", "540.00", unitId = otherDozenUnitId, storageUnitsPerUnit = 12, defaultSalePrice = "15.00")
+        val firstDozenLine = saleLine(
+            sugarId, "2", "360.00", unitId = dozenUnitId, storageUnitsPerUnit = 12, defaultSalePrice = "15.00"
+        )
+        val secondDozenLine = saleLine(
+            sugarId, "3", "540.00", unitId = otherDozenUnitId, storageUnitsPerUnit = 12, defaultSalePrice = "15.00"
+        )
 
         val result = merge(listOf(firstDozenLine, secondDozenLine))
 
@@ -229,8 +259,12 @@ class SaleLineMergerTest {
     @Test
     fun `the reason reported is the one from the unit that got furthest`() {
         val litreUnitId = UUID.randomUUID()
-        val jerrycanLine = saleLine(sugarId, "1", "400.00", unitId = UUID.randomUUID(), storageUnitsPerUnit = 20000, defaultSalePrice = "20.00")
-        val bottleLine = saleLine(sugarId, "1", "15.00", unitId = UUID.randomUUID(), storageUnitsPerUnit = 750, defaultSalePrice = "20.00")
+        val jerrycanLine = saleLine(
+            sugarId, "1", "400.00", unitId = UUID.randomUUID(), storageUnitsPerUnit = 20000, defaultSalePrice = "20.00"
+        )
+        val bottleLine = saleLine(
+            sugarId, "1", "15.00", unitId = UUID.randomUUID(), storageUnitsPerUnit = 750, defaultSalePrice = "20.00"
+        )
 
         val result = merge(
             listOf(jerrycanLine, bottleLine),
@@ -246,8 +280,12 @@ class SaleLineMergerTest {
     fun `a quantity no selected unit can hold falls back to the storage unit`() {
         val eightUnitId = UUID.randomUUID()
         val nineUnitId = UUID.randomUUID()
-        val eightLine = saleLine(sugarId, "1", "8.00", unitId = eightUnitId, storageUnitsPerUnit = 8, defaultSalePrice = "1.00")
-        val nineLine = saleLine(sugarId, "1", "9.00", unitId = nineUnitId, storageUnitsPerUnit = 9, defaultSalePrice = "1.00")
+        val eightLine = saleLine(
+            sugarId, "1", "8.00", unitId = eightUnitId, storageUnitsPerUnit = 8, defaultSalePrice = "1.00"
+        )
+        val nineLine = saleLine(
+            sugarId, "1", "9.00", unitId = nineUnitId, storageUnitsPerUnit = 9, defaultSalePrice = "1.00"
+        )
 
         val result = merge(listOf(eightLine, nineLine))
 
@@ -269,7 +307,9 @@ class SaleLineMergerTest {
 
     @Test
     fun `typed prices that cannot be expressed per smallest unit in cents are a problem`() {
-        val dozenLine = saleLine(sugarId, "1", "180.00", unitId = dozenUnitId, storageUnitsPerUnit = 12, defaultSalePrice = "15.00")
+        val dozenLine = saleLine(
+            sugarId, "1", "180.00", unitId = dozenUnitId, storageUnitsPerUnit = 12, defaultSalePrice = "15.00"
+        )
         val pieceLine = saleLine(sugarId, "12", "180.00", defaultSalePrice = "15.00")
 
         val result = merge(
@@ -329,7 +369,9 @@ class SaleLineMergerTest {
     @Test
     fun `price overrides that agree per smallest unit merge into one override on the smallest unit`() {
         val pieceLine = saleLine(sugarId, "12", "180.00", defaultSalePrice = "15.00")
-        val dozenLine = saleLine(sugarId, "1", "180.00", unitId = dozenUnitId, storageUnitsPerUnit = 12, defaultSalePrice = "15.00")
+        val dozenLine = saleLine(
+            sugarId, "1", "180.00", unitId = dozenUnitId, storageUnitsPerUnit = 12, defaultSalePrice = "15.00"
+        )
         val pieceOverride = priceOverride(pieceLine, "12.00")
         val dozenOverride = priceOverride(dozenLine, "144.00")
 
@@ -430,7 +472,7 @@ class SaleLineMergerTest {
     fun `order-level adjustments come back untouched and do not affect the merge`() {
         val firstLine = saleLine(sugarId, "3", "45.00")
         val secondLine = saleLine(sugarId, "4", "60.00")
-        val orderLevelDiscount = orderLevelDiscount("5")
+        val orderLevelDiscount = fivePercentOrderLevelDiscount()
 
         val result = merge(listOf(firstLine, secondLine), listOf(orderLevelDiscount))
 
@@ -504,13 +546,13 @@ class SaleLineMergerTest {
         defaultSalePrice = BigDecimal(defaultSalePrice),
     )
 
-    private fun orderLevelDiscount(percentage: String) = SaleSessionAdjustment(
+    private fun fivePercentOrderLevelDiscount() = SaleSessionAdjustment(
         identity = SessionIdentity.mintFreshIdentity(),
         relatedSaleLineIdentity = null,
         adjustmentReasonId = adjustmentReasonId,
         direction = AdjustmentDirection.DISCOUNT,
         calculationMethod = PriceAdjustmentMethod.PERCENTAGE,
-        value = BigDecimal(percentage),
+        value = BigDecimal("5"),
         note = null,
         approvedById = null,
     )
@@ -522,12 +564,22 @@ class SaleLineMergerTest {
     ): SaleSessionAdjustment {
         val typedPrice = BigDecimal(typedUnitPrice)
         val overrideDifference = saleLine.lineTotal.subtract(typedPrice.multiply(saleLine.userProvidedQuantity))
-        val direction = if (overrideDifference.signum() >= 0) AdjustmentDirection.DISCOUNT else AdjustmentDirection.SURCHARGE
+        val direction = if (overrideDifference.signum() >= 0) {
+            AdjustmentDirection.DISCOUNT
+        } else {
+            AdjustmentDirection.SURCHARGE
+        }
         return adjustment(saleLine, direction, PriceAdjustmentMethod.UNIT_PRICE_OVERRIDE, typedPrice, approvedById)
     }
 
     private fun percentageDiscount(saleLine: SaleSessionLine, percentage: String, approvedById: UUID? = null) =
-        adjustment(saleLine, AdjustmentDirection.DISCOUNT, PriceAdjustmentMethod.PERCENTAGE, BigDecimal(percentage), approvedById)
+        adjustment(
+            saleLine,
+            AdjustmentDirection.DISCOUNT,
+            PriceAdjustmentMethod.PERCENTAGE,
+            BigDecimal(percentage),
+            approvedById,
+        )
 
     private fun adjustment(
         saleLine: SaleSessionLine,

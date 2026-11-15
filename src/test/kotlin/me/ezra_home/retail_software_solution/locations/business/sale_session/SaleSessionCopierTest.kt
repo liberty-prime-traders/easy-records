@@ -30,7 +30,8 @@ class SaleSessionCopierTest {
 
     private val saleDataFetcher = mock(SaleDataFetcher::class.java)
     private val saleAdjustmentFetcher = mock(SaleAdjustmentFetcher::class.java)
-    private val saleSessionStockOverlay = mock(SaleSessionStockOverlay::class.java) { invocation -> invocation.getArgument<SaleSession>(0) }
+    private val saleSessionStockOverlay =
+        mock(SaleSessionStockOverlay::class.java) { invocation -> invocation.getArgument<SaleSession>(0) }
     private val saleSessionValidator = SaleSessionValidator(
         mock(AdjustmentReasonService::class.java),
         mock(LocationProductService::class.java),

@@ -6,6 +6,8 @@ import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleSta
 import me.ezra_home.retail_software_solution.locations.business.sale_payment.api.SalePaymentValidator
 import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSession
 import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionAdjustment
+import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionAction
+import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionRules
 import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionLine
 import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionTotals
 import me.ezra_home.retail_software_solution.organizations.business.adjustment_reason.api.AdjustmentDirection
@@ -13,7 +15,6 @@ import me.ezra_home.retail_software_solution.organizations.business.adjustment_r
 import me.ezra_home.retail_software_solution.organizations.business.adjustment_reason.api.SystemAdjustmentReason
 import me.ezra_home.retail_software_solution.util.business.Decimals
 import me.ezra_home.retail_software_solution.util.business.DisplayFormatters
-import me.ezra_home.retail_software_solution.util.enums.SystemContact
 import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Component
 import java.util.UUID
@@ -25,7 +26,10 @@ class SaleSessionValidator(
 ) {
 
     fun validate(saleSession: SaleSession) {
-        guardNoDuplicateProducts(saleSession.saleLines)
+        if (!SaleSessionRules.allowsDuplicateProducts(saleSession.kind)) {
+            guardNoDuplicateProducts(saleSession.saleLines)
+        }
+        guardOrderLevelAdjustmentsAllowed(saleSession)
         guardAdjustmentReferences(saleSession)
         guardAdjustmentReasons(saleSession.saleAdjustments)
         guardLineOverrideExclusivity(saleSession)
@@ -34,6 +38,12 @@ class SaleSessionValidator(
         )
         guardAmountsWithinMaximum(saleSession, totals)
         guardDiscountCeilings(saleSession, totals)
+    }
+
+    private fun guardOrderLevelAdjustmentsAllowed(saleSession: SaleSession) {
+        val refusal = SaleSessionRules.refusalOrNull(saleSession.kind, SaleSessionAction.ADD_ORDER_LEVEL_ADJUSTMENT)
+            ?: return
+        if (saleSession.saleAdjustments.any { it.relatedSaleLineIdentity == null }) throw RtsGenericException(refusal)
     }
 
     private fun guardAmountsWithinMaximum(saleSession: SaleSession, totals: SaleSessionTotals) {
@@ -73,15 +83,16 @@ class SaleSessionValidator(
         }
     }
 
-    fun guardMutable(saleSession: SaleSession) {
-        if (!saleSession.mutable()) {
-            throw RtsGenericException(
-                "Sale session is read-only because the underlying sale is ${saleSession.originalStatus}"
-            )
-        }
+    fun guardAllowed(saleSession: SaleSession, action: SaleSessionAction) {
+        if (saleSession.allows(action)) return
+        throw RtsGenericException(
+            SaleSessionRules.refusalOrNull(saleSession.kind, action)
+                ?: "Sale session is read-only because the underlying sale is ${saleSession.originalStatus}"
+        )
     }
 
     fun canAddPayments(saleSession: SaleSession) {
+        guardAllowed(saleSession, SaleSessionAction.ADD_PAYMENT)
         if (!saleSession.canAddPayments()) {
             throw RtsGenericException(
                 "Cannot add a payment because the sale is ${saleSession.originalStatus}"
@@ -90,7 +101,7 @@ class SaleSessionValidator(
     }
 
     fun guardSourceSaleCopyable(sourceSaleStatus: SaleStatus) {
-        if (sourceSaleStatus == SaleStatus.CONFIRMED) {
+        if (!SaleSessionRules.isCopyable(sourceSaleStatus)) {
             throw RtsGenericException("A confirmed sale cannot be copied")
         }
     }
@@ -126,14 +137,13 @@ class SaleSessionValidator(
     }
 
     fun guardWalkInFullyCovered(saleSession: SaleSession) {
-        if (saleSession.header.contactId != SystemContact.WALK_IN.id) return
-        if (saleSession.totals.paymentTotal < saleSession.totals.receivableTotal) {
+        if (saleSession.walkInIsNotFullyCovered()) {
             throw RtsGenericException("Walk-in sales require full payment coverage")
         }
     }
 
     fun guardPaymentsWithinTotal(saleSession: SaleSession) {
-        if (saleSession.totals.receivableTotal.signum() <= 0) return
+        if (!saleSession.paymentsExceedTotal()) return
         SalePaymentValidator.guardNotExceedingSaleTotal(
             totalSubmitted = saleSession.totals.paymentTotal,
             receivableTotal = saleSession.totals.receivableTotal,

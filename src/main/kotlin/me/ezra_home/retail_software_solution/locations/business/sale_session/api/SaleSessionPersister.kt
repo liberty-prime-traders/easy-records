@@ -28,7 +28,7 @@ class SaleSessionPersister(
 ) {
 
     fun saveDraft(sessionId: UUID): SaleSessionResponseDto {
-        val saleSession = loadAndValidate(sessionId)
+        val saleSession = loadAndValidate(sessionId, SaleSessionAction.SAVE_DRAFT)
         val saleSaveRequest = sessionToSaveRequestMapper.toSaleSaveRequest(saleSession)
         val saleSaveResult = draftSalePersister.saveDraft(saleSaveRequest)
         val saleSessionAfterSave = applySaleSaveResult(saleSession, saleSaveResult)
@@ -38,7 +38,7 @@ class SaleSessionPersister(
     }
 
     fun confirm(sessionId: UUID): SaleSessionResponseDto {
-        val saleSession = loadAndValidate(sessionId)
+        val saleSession = loadAndValidate(sessionId, SaleSessionAction.CONFIRM)
         saleSessionValidator.guardNonEmptyLines(saleSession)
         saleSessionValidator.guardWalkInFullyCovered(saleSession)
         saleSessionValidator.guardPaymentsWithinTotal(saleSession)
@@ -52,6 +52,7 @@ class SaleSessionPersister(
 
     fun voidSale(sessionId: UUID, saleSessionVoidDto: SaleSessionVoidDto): SaleSessionResponseDto {
         val saleSession = saleSessionStore.load(sessionId)
+        saleSessionValidator.guardAllowed(saleSession, SaleSessionAction.VOID_SALE)
         val saleId = saleSession.saleId
         if (saleId == null) {
             saleSessionStore.delete(sessionId)
@@ -70,9 +71,9 @@ class SaleSessionPersister(
         return saleSessionResponseDto
     }
 
-    private fun loadAndValidate(sessionId: UUID): SaleSession {
+    private fun loadAndValidate(sessionId: UUID, action: SaleSessionAction): SaleSession {
         val saleSession = saleSessionStore.load(sessionId)
-        saleSessionValidator.guardMutable(saleSession)
+        saleSessionValidator.guardAllowed(saleSession, action)
         val saleSessionWithTotals = SaleSessionTotalsCalculator.recompute(saleSession)
         saleSessionValidator.validate(saleSessionWithTotals)
         saleSessionValidator.guardNoInactiveProducts(saleSessionWithTotals)

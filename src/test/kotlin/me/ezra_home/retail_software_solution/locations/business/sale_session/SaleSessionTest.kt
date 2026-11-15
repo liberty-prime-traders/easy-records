@@ -1,7 +1,9 @@
 package me.ezra_home.retail_software_solution.locations.business.sale_session
 
 import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleStatus
+import me.ezra_home.retail_software_solution.locations.business.sale_session.api.PendingConsolidation
 import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSession
+import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionKind
 import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionHeader
 import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionTotals
 import me.ezra_home.retail_software_solution.util.enums.SystemContact
@@ -23,6 +25,17 @@ class SaleSessionTest {
     fun `warns when productsVersion is ahead of productsReservedAtVersion`() {
         val saleSession = buildSaleSession(productsVersion = 4, productsReservedAtVersion = 3)
         assertTrue(saleSession.showUnreservedChangesWarning)
+    }
+
+    @Test
+    fun `a pending consolidation never warns, however far its products version is ahead`() {
+        val pendingSession = buildSaleSession(productsVersion = 4, productsReservedAtVersion = 0).copy(
+            saleId = null,
+            saleVersion = null,
+            kind = SaleSessionKind.PENDING_CONSOLIDATION,
+            pendingConsolidation = PendingConsolidation(emptyList(), emptyMap()),
+        )
+        assertFalse(pendingSession.showUnreservedChangesWarning)
     }
 
     private fun buildSaleSession(productsVersion: Long, productsReservedAtVersion: Long): SaleSession {

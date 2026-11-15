@@ -20,6 +20,7 @@ interface SessionToSaveRequestMapper {
     @Mapping(source = "header.soldById", target = "soldById")
     @Mapping(source = "header.dateSold", target = "dateSold")
     @Mapping(source = "header.notes", target = "notes")
+    @Mapping(target = "preAllocatedReferenceNumber", ignore = true)
     fun toSaleSaveRequest(saleSession: SaleSession): SaleSaveRequest
 
     @Mapping(source = "identity", target = "clientKey", qualifiedBy = [SessionIdentityKey::class])

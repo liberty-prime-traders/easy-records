@@ -154,9 +154,9 @@ handlers allow:
 | `VOIDED`         | ❌ rejected                   | ❌ rejected                       | transient: n/a (unreachable); persisted: rejected (`guardSaleNotVoided`)    | none (view-only)       |
 | `DISCARDED`      | ❌ rejected                   | ❌ rejected                       | transient: n/a (unreachable); persisted: ⚠️ leaks through (see prose below) | none (view-only)       |
 
-`SaleSessionValidator.guardMutable` enforces the line/adjustment/header rules
-and `SaleSessionValidator.canAddPayments` gates add-payment. The commit
-handler calls `guardMutable` before either commit path. There is no status
+`SaleSessionValidator.guardAllowed` (the kind table, then the DRAFT-only status rule) enforces the
+line/adjustment/header rules and `SaleSessionValidator.canAddPayments` gates add-payment. The commit
+handler calls `guardAllowed` before either commit path. There is no status
 guard on the transient-discard branch: transient payments only exist on
 DRAFT sessions by construction (CONFIRMED-session adds short-circuit to
 `persisted` identities, and VOIDED/DISCARDED sessions reject `add` outright),
@@ -277,7 +277,7 @@ product gets deactivated).
 ### Save Draft (`POST /secured/sale-sessions/{sessionId}/draft`)
 ```
 1. SaleSessionPersister.saveDraft
-2. `guardMutable`, recompute totals, run full structural `validate`
+2. `guardAllowed` (`SAVE_DRAFT` / `CONFIRM`), recompute totals, run full structural `validate`
    (`loadAndValidate`, which also runs `guardNoInactiveProducts`)
 3. transform SaleSession → SaleSaveRequest (`SessionToSaveRequestMapper`)
 4. DraftSalePersister.saveDraft:
@@ -307,7 +307,7 @@ product gets deactivated).
 ### Confirm (`POST /secured/sale-sessions/{sessionId}/confirm`)
 ```
 1. SaleSessionPersister.confirm
-2. `guardMutable`, recompute totals, run full structural `validate`
+2. `guardAllowed` (`SAVE_DRAFT` / `CONFIRM`), recompute totals, run full structural `validate`
    (`loadAndValidate`, which also runs `guardNoInactiveProducts`)
 3. `guardNonEmptyLines`, `guardWalkInFullyCovered`, `guardPaymentsWithinTotal`
 4. transform SaleSession → SaleSaveRequest (`SessionToSaveRequestMapper`)
@@ -559,3 +559,80 @@ references involved (each once, in line order, joined by ", "), `description` sa
 `effect` lists the lines (quantity, unit, list price, source sale) and says how to fix it. It switches exhaustively on
 `ConsolidationProblemKind`, so a new kind will not compile until it has text. The caller supplies the sale reference per
 line key and the unit names; the writer fetches nothing.
+
+## 12. Pending consolidation session
+
+A `SaleSession` has a `kind`: `SALE` (every ordinary session) or `PENDING_CONSOLIDATION`. The kind and
+`pendingConsolidation` (the source sales with their ids, versions and references, the source sale reference per line key,
+the removed lines and the stock the sources hold) are present together, and a pending consolidation never has a sale id,
+a sale version or payments; the constructor refuses any other combination. `SaleSessionBuilder.asPendingConsolidation` is
+the only way to make one. The session lives in Redis only and holds just the lines of the products that could not be merged.
+No sale exists for it until a consolidation is generated, which is why it has no `saleId`.
+
+**One rules table.** `SaleSessionRules` (api) answers, per kind, which `SaleSessionAction` is allowed and why not:
+`refusalOrNull(kind, action)` is an exhaustive `when` per kind, so adding an action or a kind does not compile (and
+`SaleSessionRulesTest` fails) until every pairing is decided. Every mutating handler starts with
+`SaleSessionValidator.guardAllowed(session, action)`, which applies the table and then, for every action except payments and
+void, the status rule (`SaleSessionAction.needsMutableSale()`: the sale must still be a DRAFT). The header handler maps each
+provided field to its own action (`UPDATE_CONTACT`, `UPDATE_SOLD_BY`, `UPDATE_DATE_SOLD`, `UPDATE_NOTES`); an empty update is
+held to the notes rule. `validate` reads the same table for content: `allowsDuplicateProducts` and the
+`ADD_ORDER_LEVEL_ADJUSTMENT` answer. A pending consolidation allows notes, line edits and removals, restoring a removed
+line, line-level adjustments, removing adjustments and discarding (void). It refuses adding a line (`ADD_LINE`: the
+cashier fixes or removes what is shown and adds products to the generated draft), contact, sold-by, date-sold, order-level
+adjustments, payments, save-draft and confirm. Nothing detects a handler that does not call `guardAllowed`; a new handler
+must.
+
+**Issues.** `PendingConsolidationAssessor.assess(session, inactiveLocationProductIds, unitConversionGraph)` runs
+`SaleLineMerger.merge` on the held lines and passes the problems to `ConsolidationProblemStoryWriter`. The assembler loads
+the inactive product ids and the unit graph once per response and hands them to the assessor and to the line mapping.
+The response carries `kind`, `consolidationIssues` (`saleReferences`, `description`, `fix`) and
+`uiOptions.canGenerateConsolidatedSale`, true when no problem remains. The flag only drives the button; Generate re-runs
+the check on the server. Every held line has a source sale, since lines cannot be added.
+
+**Removed lines.** `PendingConsolidationRemovedLines.remove` moves a line, with its line-level adjustments, into
+`pendingConsolidation.removedSaleLines` instead of deleting it, and `restore` puts it back in its old position (it keeps
+its `rank`). `SaleSessionRules.keepsRemovedLines` chooses it for the pending kind; a sale just uses
+`SaleSession.withoutLine`, and `restore` is refused for it. The response lists them as `removedSaleLines` (product,
+quantity, unit, price, line total, source sale) for a "Removed lines" tab, and
+`POST /secured/sale-sessions/{sessionId}/lines/restore` (`RESTORE_REMOVED_LINE`) restores one. Removed lines are not
+assessed and are left out of the generated sale. Only held lines (problem products) can be removed, so a clean product
+cannot be dropped from a pending session.
+
+**Line order.** Each `SaleSessionLine` has a `rank` (decimal, also on `SaleSessionLineResponse`), and the session keeps its
+lines sorted by it (`SaleSessionUpdateFinalizer`). `SaleLineRanker` assigns it: a persisted sale and a single-sale copy
+are ranked alphabetically by product (case-insensitive: 1, 2, 3 ...); a consolidation gives each product one whole rank,
+in alphabetical order, and each further line of the same product a hundredth more (2.00, 2.01), so like products stay
+together; a line added in the session takes ranks below the lowest existing one (the first added is on top). Ranks are
+not stored on the sale: reloading a saved sale ranks alphabetically again. A merged line keeps the rank of its first
+source line.
+
+**Stock figures.** A pending session has no sale id, so the overlay cannot discount a reservation of its own. Instead
+`PendingConsolidation.stockHeldBySourceSalesByLocationProductId` holds, per product, what the source sales hold
+(`StockHeldBySales`: reserved by DRAFT sources, taken by CONFIRMED ones, nothing for a DISCARDED one), calculated in
+storage units by `PendingConsolidationSourceStock.calculate` when the consolidation is selected. The overlay
+(`SaleSessionStockOverlay`) shows the stock as if those sales were already gone: on-hand plus the taken amount, reserved
+minus the reserved amount, available plus both. A saved draft gets the same treatment for its own reservation, which is
+the only case where the overlay looks reservations up. The snapshot is not refreshed, because a source that changes
+makes Generate abort anyway. The figures cover held products only, so a product that merges cleanly is not shown and can
+still turn out short when the draft is saved, which fails the save as for any draft.
+
+**What the form is told.** `SaleSessionUiOptionsBuilder` builds `uiOptions` from `SaleSession.allows(action)` (the rules
+table plus the DRAFT check): `canAddLines`, `canEditLines`, `canChangeContact`, `canSaveDraft`, `canConfirm`,
+`canAddPaymentsToSale`, `canCopySale` and `allowedDiscardAction` (`DISCARD_DRAFT`; `VOID_SALE` for a confirmed sale once no
+payment is left on it; `DISCARD_PENDING_CONSOLIDATION`; or null). `saveDraftBlockers` and `confirmBlockers` say why an
+allowed save or confirm is not ready: no lines, an unpaid walk-in, payments above the total, an inactive product. They use
+the confirm guards' own predicates (`SaleSession.walkInIsNotFullyCovered`, `paymentsExceedTotal`) and
+`SaleSessionUiOptionsBuilderTest` checks the line, walk-in and payment blockers against their guards; the inactive-product
+blocker comes from the same lookup the response already makes. They describe the session as last saved, so
+edits not yet sent are the form's own check. The form keeps no copy of these rules and does not sort the lines: the
+response is already in rank order.
+
+**Listing and warnings.** `getSessionsForUnsavedSales` lists a pending consolidation beside new sales, since it has no
+`saleId`, and `SaleSessionSummaryDto.kind` lets the UI label it (its `receivableTotal` is only the held lines' total). It
+never reserves stock (`SaleSessionRules.reservesStock`), so `showUnreservedChangesWarning` is always false for it.
+
+**Starting a session.** `SaleSessionLoader` and `SaleSessionCopier` return a new session with its stock figures filled
+in and its totals not yet computed; `SaleSessionUpdateFinalizer.finalize` computes them, so a caller must finalize what
+it starts. Creating a pending consolidation from a selection of sales, generating the consolidated
+draft and the source version check are not part of the session code: the session holds the data they need, and nothing
+in this package starts or finishes a consolidation.

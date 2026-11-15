@@ -70,6 +70,12 @@ class SaleSessionEndpoint(
         @RequestBody rowIdentityDto: SaleSessionRowIdentityDto,
     ): SaleSessionResponseDto = saleSessionLineHandler.removeLine(sessionId, rowIdentityDto)
 
+    @PostMapping("{sessionId}/lines/restore")
+    fun restoreLine(
+        @PathVariable sessionId: UUID,
+        @RequestBody rowIdentityDto: SaleSessionRowIdentityDto,
+    ): SaleSessionResponseDto = saleSessionLineHandler.restoreLine(sessionId, rowIdentityDto)
+
     @PostMapping("{sessionId}/adjustments")
     fun addAdjustment(
         @PathVariable sessionId: UUID,

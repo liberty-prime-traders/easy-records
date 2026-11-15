@@ -37,7 +37,9 @@ class SaleSessionCopier(
             notes = sourceSaleHeader.notes,
             referenceNumber = null,
         )
-        return buildCopiedSession(sessionId, copiedHeader, listOf(copiedContent))
+        return buildCopiedSession(
+            sessionId, copiedHeader, SaleLineRanker.alphabetical(copiedContent.saleLines), copiedContent.saleAdjustments
+        )
     }
 
     fun copyFromSalesForConsolidation(sessionId: UUID, sourceSaleHeaders: List<SaleHeaderDto>): SaleSession {
@@ -67,7 +69,12 @@ class SaleSessionCopier(
             notes = consolidatedNotes,
             referenceNumber = null,
         )
-        return buildCopiedSession(sessionId, copiedHeader, copiedContents)
+        return buildCopiedSession(
+            sessionId,
+            copiedHeader,
+            SaleLineRanker.alphabeticalWithLikeProductsTogether(copiedContents.flatMap { it.saleLines }),
+            copiedContents.flatMap { it.saleAdjustments },
+        )
     }
 
     private fun copySaleContent(
@@ -92,14 +99,15 @@ class SaleSessionCopier(
     private fun buildCopiedSession(
         sessionId: UUID,
         copiedHeader: SaleSessionHeader,
-        copiedContents: List<CopiedSaleContent>,
+        rankedSaleLines: List<SaleSessionLine>,
+        copiedSaleAdjustments: List<SaleSessionAdjustment>,
     ): SaleSession {
         val saleSessionBuilder = SaleSessionBuilder(sessionId)
             .withHeader(copiedHeader)
-            .withSaleLines(copiedContents.flatMap { it.saleLines })
-            .withSaleAdjustments(copiedContents.flatMap { it.saleAdjustments })
+            .withSaleLines(rankedSaleLines)
+            .withSaleAdjustments(copiedSaleAdjustments)
             .withLinesAwaitingReservation()
-        return SaleSessionTotalsCalculator.recompute(saleSessionStockOverlay.populate(saleSessionBuilder.build()))
+        return saleSessionStockOverlay.populate(saleSessionBuilder.build())
     }
 }
 

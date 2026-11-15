@@ -299,9 +299,9 @@ confirm, `taxBilled` is zero, so `receivableTotal()` is exactly
 `taxableAmount()` — the formula does not need two branches.
 
 `subtotal`, the four discount and surcharge buckets and `taxBilled` are
-non-null, default zero. `taxTotal` is the exception: it stays null until tax
-finalization has run, and `SaleValidator.guardCanVoid` treats null as
-"finalization still pending".
+non-null, default zero. `taxTotal` is the exception: it is null on a draft and set by
+`SaleTaxFinalizer` in the same transaction as confirm, and `SaleValidator.guardCanVoid` treats null on a
+non-draft sale as a stop.
 
 `taxableAmount()` is the pre-tax base — it is what tax is computed from
 (§7) and nothing else; a caller that means "amount owed" must never use it.
@@ -711,6 +711,13 @@ run** — i.e. as soon as the data it needs is in scope.
 - Persists `SaleEntity` at `DRAFT`, syncs lines, clears + re-issues
   reservations (with `guardSufficientStockForSale` in between), syncs
   adjustments, applies totals, then appends new payments.
+- A new sale may arrive with `SaleSaveRequest.preAllocatedReferenceNumber`
+  (from `SaleReferenceAllocator.allocate()`, the next `seq_sale_reference_number`
+  value). It is set on the entity so the reference listener leaves it alone;
+  it is refused for an existing sale. A sequence value is never handed back,
+  so a rolled-back transaction leaves a gap. The session mapper ignores the
+  field; the caller sets it with `copy`. `ConfirmedSalePersister` refuses it, since only a draft is saved
+  under a reserved reference.
 
 ### `ConfirmedSalePersister.confirm(SaleSaveRequest): SaleSaveResult`
 - Walk-in is allowed (and required to be fully paid).
@@ -729,8 +736,7 @@ run** — i.e. as soon as the data it needs is in scope.
 - CONFIRMED → VOIDED (restores stock, writes `SaleVoidEntity`, publishes
   `SaleVoidedEvent`).
 - Rejected if already voided/discarded, if active payments exist, or (for a
-  CONFIRMED sale) if tax finalization for it hasn't completed yet
-  (`sale.taxTotal == null`).
+  CONFIRMED sale) if `sale.taxTotal == null`, which confirm never leaves behind.
 - Confirmed-sale void requires the fiscal period **of today** to be open
   (the void itself is the bookable event).
 - DB defense-in-depth: `sale_void.sale_id` is `unique = true`, so a second
@@ -740,6 +746,14 @@ run** — i.e. as soon as the data it needs is in scope.
   `SaleSessionPersister.voidSale` loads the session, requires
   `saleId`, calls this primitive, and then deletes the session
   (`POST /secured/sale-sessions/{sessionId}/void`).
+
+### `SaleUpdater.voidSourceOfConsolidation(sourceSaleId, consolidatedSaleReferenceNumber)`
+- Locks the source, then: DISCARDED → returned untouched (never active, only
+  copied); DRAFT → DISCARDED; CONFIRMED → VOIDED. The latter two go through
+  `voidSale` with the reason `"Consolidated into <reference>"`
+  (`SaleUpdater.consolidationVoidReason`), so every `voidSale` rule applies,
+  including "no active payments" and "tax finalization pending". Payments are
+  voided by the caller first.
 
 ### `SaleUpdater.updateNotes(id, notes)` / `updatePaymentStatus(id, status)`
 - Both take the SALE advisory lock via `lockAndGetSale` and then assign

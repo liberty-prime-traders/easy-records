@@ -14,7 +14,8 @@ class SaleSessionUpdateFinalizer(
 
     fun finalize(updated: SaleSession): SaleSessionResponseDto {
         val touched = updated.markTouched(SessionContextProvider.getUserId())
-        val withTotals = SaleSessionTotalsCalculator.recompute(touched)
+        val rankedSession = touched.copy(saleLines = touched.saleLines.sortedBy { it.rank })
+        val withTotals = SaleSessionTotalsCalculator.recompute(rankedSession)
         saleSessionValidator.validate(withTotals)
         saleSessionStore.save(withTotals)
         return saleSessionAssembler.buildResponse(withTotals)

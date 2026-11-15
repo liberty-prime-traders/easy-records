@@ -43,6 +43,7 @@ class ConfirmedSalePersister(
 ) {
 
     fun confirm(saleSaveRequest: SaleSaveRequest): SaleSaveResult {
+        SaleValidator.guardNoPreAllocatedReferenceOnConfirm(saleSaveRequest)
         val effectiveDateSold = saleSaveRequest.dateSold ?: DateTimes.Offset.Now.organization()
         SaleValidator.guardDateSoldIsNotFuture(effectiveDateSold)
         fiscalPeriodService.requireOpenForDate(DateTimes.Local.atOrganizationZone(effectiveDateSold))

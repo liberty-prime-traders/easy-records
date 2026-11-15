@@ -16,6 +16,7 @@ data class SaleSaveRequest(
     val saleLines: List<SaleLineSaveRequest>,
     val saleAdjustments: List<SaleAdjustmentSaveRequest>,
     val salePayments: List<SalePaymentSaveRequest>,
+    val preAllocatedReferenceNumber: String? = null,
 )
 
 data class SaleLineSaveRequest(

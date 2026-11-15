@@ -5,6 +5,7 @@ import me.ezra_home.retail_software_solution.locations.business.location_product
 import me.ezra_home.retail_software_solution.locations.business.location_product.api.ProductStockBreakdownProvider
 import me.ezra_home.retail_software_solution.locations.business.lock.api.EntityAdvisoryLock
 import me.ezra_home.retail_software_solution.util.business.lock.LockNamespaces
+import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleSaveRequest
 import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleStatus
 import me.ezra_home.retail_software_solution.locations.business.sale_payment.api.SalePaymentFetcher
 import me.ezra_home.retail_software_solution.locations.business.stock.api.read.StockBalanceFetcher
@@ -28,6 +29,18 @@ class SaleValidator(
 ) {
 
     companion object {
+        fun guardNoPreAllocatedReferenceOnExistingSale(saleSaveRequest: SaleSaveRequest) {
+            if (saleSaveRequest.preAllocatedReferenceNumber != null) {
+                throw RtsGenericException("A reference number can only be pre-allocated for a new sale")
+            }
+        }
+
+        fun guardNoPreAllocatedReferenceOnConfirm(saleSaveRequest: SaleSaveRequest) {
+            if (saleSaveRequest.preAllocatedReferenceNumber != null) {
+                throw RtsGenericException("A reference number can only be pre-allocated when saving a draft")
+            }
+        }
+
         fun guardDateSoldIsNotFuture(dateSold: OffsetDateTime) {
             val orgToday = DateTimes.Local.Now.organization()
             val saleLocalDate = DateTimes.Local.atOrganizationZone(dateSold)

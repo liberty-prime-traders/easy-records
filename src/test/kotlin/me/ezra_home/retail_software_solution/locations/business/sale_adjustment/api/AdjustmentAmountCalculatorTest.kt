@@ -16,7 +16,11 @@ class AdjustmentAmountCalculatorTest {
     private val locationProductId = UUID.randomUUID()
     private val lineKey = UUID.randomUUID()
 
-    private fun line(userProvidedQuantity: String, lineTotal: String, lineKey: UUID = this.lineKey) = object : ProductLineWithPrice {
+    private fun line(
+        userProvidedQuantity: String,
+        lineTotal: String,
+        lineKey: UUID = this.lineKey,
+    ) = object : ProductLineWithPrice {
         override val lineKey: UUID = lineKey
         override val locationProductId: UUID = this@AdjustmentAmountCalculatorTest.locationProductId
         override val userProvidedQuantity: BigDecimal = BigDecimal(userProvidedQuantity)
@@ -35,8 +39,20 @@ class AdjustmentAmountCalculatorTest {
     fun `a percentage adjustment takes its base from the stored line total and order level takes the sum of all lines`() {
         val lines = listOf(line("18", "1000.0000"))
 
-        assertEquals(BigDecimal("100.00"), AdjustmentAmountCalculator.calculateAmount(adjustment(PriceAdjustmentMethod.PERCENTAGE, "10", onLine = true), lines))
-        assertEquals(BigDecimal("100.00"), AdjustmentAmountCalculator.calculateAmount(adjustment(PriceAdjustmentMethod.PERCENTAGE, "10", onLine = false), lines))
+        assertEquals(
+            BigDecimal("100.00"),
+            AdjustmentAmountCalculator.calculateAmount(
+                adjustment(PriceAdjustmentMethod.PERCENTAGE, "10", onLine = true),
+                lines,
+            ),
+        )
+        assertEquals(
+            BigDecimal("100.00"),
+            AdjustmentAmountCalculator.calculateAmount(
+                adjustment(PriceAdjustmentMethod.PERCENTAGE, "10", onLine = false),
+                lines,
+            ),
+        )
     }
 
     @Test
@@ -51,15 +67,33 @@ class AdjustmentAmountCalculatorTest {
     @Test
     fun `a unit price override is the line total minus the typed price times the quantity`() {
         val lines = listOf(line("2.50", "2500.0000"))
-        assertEquals(BigDecimal("2469.15"), AdjustmentAmountCalculator.calculateAmount(adjustment(PriceAdjustmentMethod.UNIT_PRICE_OVERRIDE, "12.34", onLine = true), lines))
+        assertEquals(
+            BigDecimal("2469.15"),
+            AdjustmentAmountCalculator.calculateAmount(
+                adjustment(PriceAdjustmentMethod.UNIT_PRICE_OVERRIDE, "12.34", onLine = true),
+                lines,
+            ),
+        )
     }
 
     @Test
     fun `a unit price override on a sub-cent product follows the typed price, not a rounded unit price`() {
         val lines = listOf(line("0.25", "250.0000"))
-        assertEquals(BigDecimal("249.96"), AdjustmentAmountCalculator.calculateAmount(adjustment(PriceAdjustmentMethod.UNIT_PRICE_OVERRIDE, "0.15", onLine = true), lines))
+        assertEquals(
+            BigDecimal("249.96"),
+            AdjustmentAmountCalculator.calculateAmount(
+                adjustment(PriceAdjustmentMethod.UNIT_PRICE_OVERRIDE, "0.15", onLine = true),
+                lines,
+            ),
+        )
         val afterQuantityEdit = listOf(line("4", "4000.0000"))
-        assertEquals(BigDecimal("3999.40"), AdjustmentAmountCalculator.calculateAmount(adjustment(PriceAdjustmentMethod.UNIT_PRICE_OVERRIDE, "0.15", onLine = true), afterQuantityEdit))
+        assertEquals(
+            BigDecimal("3999.40"),
+            AdjustmentAmountCalculator.calculateAmount(
+                adjustment(PriceAdjustmentMethod.UNIT_PRICE_OVERRIDE, "0.15", onLine = true),
+                afterQuantityEdit,
+            ),
+        )
     }
 
     @Test
@@ -78,7 +112,9 @@ class AdjustmentAmountCalculatorTest {
         val adjustmentOnMissingLine = adjustment(PriceAdjustmentMethod.PERCENTAGE, "10", onLine = true)
 
         assertThrows(RtsGenericException::class.java) {
-            AdjustmentAmountCalculator.calculateAmount(adjustmentOnMissingLine, listOf(line("1", "100.00", UUID.randomUUID())))
+            AdjustmentAmountCalculator.calculateAmount(
+                adjustmentOnMissingLine, listOf(line("1", "100.00", UUID.randomUUID()))
+            )
         }
     }
 }

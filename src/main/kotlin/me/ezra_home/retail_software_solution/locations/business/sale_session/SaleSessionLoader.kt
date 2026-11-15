@@ -34,7 +34,9 @@ class SaleSessionLoader(
         val saleAdjustmentSnapshots = saleAdjustmentFetcher.getAdjustments(saleId)
         val salePaymentSnapshots = salePaymentFetcher.getPaymentSnapshots(saleId)
 
-        val saleSessionLines = saleLineSnapshots.map(domainToSessionMapper::toSaleSessionLine)
+        val saleSessionLines = SaleLineRanker.alphabetical(
+            saleLineSnapshots.map(domainToSessionMapper::toSaleSessionLine)
+        )
         val relatedSaleLineIdentityBySaleLineId = saleSessionLines.associate { it.identity.id!! to it.identity }
         val saleSessionAdjustments = saleAdjustmentSnapshots.map { adjustmentSnapshot ->
             domainToSessionMapper.toSaleSessionAdjustment(adjustmentSnapshot, relatedSaleLineIdentityBySaleLineId)
@@ -52,5 +54,5 @@ class SaleSessionLoader(
     }
 
     private fun finish(saleSessionBuilder: SaleSessionBuilder): SaleSession =
-        SaleSessionTotalsCalculator.recompute(saleSessionStockOverlay.populate(saleSessionBuilder.build()))
+        saleSessionStockOverlay.populate(saleSessionBuilder.build())
 }

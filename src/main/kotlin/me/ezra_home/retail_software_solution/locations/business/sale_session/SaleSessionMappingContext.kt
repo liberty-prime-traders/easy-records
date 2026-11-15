@@ -1,6 +1,8 @@
 package me.ezra_home.retail_software_solution.locations.business.sale_session
 
 import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleVoidInfoDto
+import me.ezra_home.retail_software_solution.locations.business.sale_session.api.ConsolidationIssueResponse
+import me.ezra_home.retail_software_solution.locations.business.sale_session.api.RemovedSaleLineResponse
 import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionAdjustment
 import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionLine
 import me.ezra_home.retail_software_solution.util.quantity.QuantityBreakdown
@@ -12,7 +14,11 @@ data class SaleSessionMappingContext(
     val walkInCustomer: Boolean,
     val showActiveUserWarning: Boolean,
     val showUnreservedChangesWarning: Boolean,
-    val saleVoidInfo:  SaleVoidInfoDto?
+    val saleVoidInfo:  SaleVoidInfoDto?,
+    val consolidationIssues: List<ConsolidationIssueResponse>,
+    val canGenerateConsolidatedSale: Boolean,
+    val inactiveLocationProductIds: Set<UUID>,
+    val removedSaleLines: List<RemovedSaleLineResponse>,
 )
 
 data class AdjustmentMappingContext(

@@ -18,9 +18,18 @@ class SaleSessionHeaderHandler(
     private val saleSessionUpdateFinalizer: SaleSessionUpdateFinalizer,
 ) {
 
+    // A request that changes nothing still has to find the sale mutable, so it is held to the notes rule.
+    private fun headerActions(headerUpdateDto: SaleSessionHeaderUpdateDto): List<SaleSessionAction> =
+        listOfNotNull(
+            SaleSessionAction.UPDATE_CONTACT.takeIf { headerUpdateDto.contactId != null },
+            SaleSessionAction.UPDATE_SOLD_BY.takeIf { headerUpdateDto.soldById != null },
+            SaleSessionAction.UPDATE_DATE_SOLD.takeIf { headerUpdateDto.dateSold != null },
+            SaleSessionAction.UPDATE_NOTES.takeIf { headerUpdateDto.notes != null },
+        ).ifEmpty { listOf(SaleSessionAction.UPDATE_NOTES) }
+
     fun update(sessionId: UUID, headerUpdateDto: SaleSessionHeaderUpdateDto): SaleSessionResponseDto {
         val session = saleSessionStore.load(sessionId)
-        saleSessionValidator.guardMutable(session)
+        headerActions(headerUpdateDto).forEach { saleSessionValidator.guardAllowed(session, it) }
         val updatedHeader = session.header.copy(
             contactId = headerUpdateDto.contactId?.let {
                 it.orElseThrow { RtsGenericException("contactId cannot be cleared") }

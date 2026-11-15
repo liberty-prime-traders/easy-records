@@ -85,7 +85,11 @@ class DraftSalePersister(
     }
 
     private fun loadOrCreate(saleSaveRequest: SaleSaveRequest): SaleEntity {
-        val saleId = saleSaveRequest.saleId ?: return SaleEntity(contactId = saleSaveRequest.contactId, status = SaleStatus.DRAFT)
+        val saleId = saleSaveRequest.saleId
+            ?: return SaleEntity(contactId = saleSaveRequest.contactId, status = SaleStatus.DRAFT).also {
+                it.referenceNumber = saleSaveRequest.preAllocatedReferenceNumber
+            }
+        SaleValidator.guardNoPreAllocatedReferenceOnExistingSale(saleSaveRequest)
         return saleDataFetcher.loadDraftAtVersion(saleId, saleSaveRequest.expectedVersion)
     }
 

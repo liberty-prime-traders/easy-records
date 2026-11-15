@@ -3,6 +3,7 @@ package me.ezra_home.retail_software_solution.locations.business.sale.api
 import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
 import me.ezra_home.retail_software_solution.util.enums.PaymentStatus
 import me.ezra_home.retail_software_solution.locations.business.sale.SaleAssembler
+import me.ezra_home.retail_software_solution.locations.business.sale.SaleEntity
 import me.ezra_home.retail_software_solution.locations.business.sale.SaleRepository
 import me.ezra_home.retail_software_solution.locations.business.sale.SaleTaxFinalizer
 import me.ezra_home.retail_software_solution.locations.business.sale.SaleValidator
@@ -43,16 +44,23 @@ class SaleUpdater(
         saleRepository.save(sale)
     }
 
-    fun voidSale(saleVoidCreateDto: SaleVoidCreateDto): SaleSummary {
-        val sale = saleDataFetcher.lockAndGetSale(saleVoidCreateDto.saleId)
+    fun voidSourceOfConsolidation(sourceSaleId: UUID, consolidatedSaleReferenceNumber: String): SaleSummary {
+        val sourceSale = saleDataFetcher.lockAndGetSale(sourceSaleId)
+        if (sourceSale.status == SaleStatus.DISCARDED) return saleAssembler.buildSummary(sourceSale)
+        return voidLockedSale(sourceSale, consolidationVoidReason(consolidatedSaleReferenceNumber))
+    }
+
+    fun voidSale(saleVoidCreateDto: SaleVoidCreateDto): SaleSummary =
+        voidLockedSale(saleDataFetcher.lockAndGetSale(saleVoidCreateDto.saleId), saleVoidCreateDto.reason)
+
+    private fun voidLockedSale(sale: SaleEntity, reason: String): SaleSummary {
         saleValidator.guardCanVoid(sale)
+        val saleId = sale.id!!
         if (sale.status == SaleStatus.DRAFT) {
-            stockReserver.clearBySale(saleVoidCreateDto.saleId)
+            stockReserver.clearBySale(saleId)
             sale.status = SaleStatus.DISCARDED
         } else {
-            val saleVoidEntity = saleVoidRepository.save(
-                SaleVoidEntity(saleId = saleVoidCreateDto.saleId, reason = saleVoidCreateDto.reason)
-            )
+            val saleVoidEntity = saleVoidRepository.save(SaleVoidEntity(saleId = saleId, reason = reason))
             val voidDate = DateTimes.Local.atOrganizationZone(saleVoidEntity.requiredCreatedOn())
             fiscalPeriodService.requireOpenForDate(voidDate)
             saleStockUpdater.restoreStock(sale.requiredReference())
@@ -64,4 +72,8 @@ class SaleUpdater(
         return saleAssembler.buildSummary(sale)
     }
 
+    companion object {
+        fun consolidationVoidReason(consolidatedSaleReferenceNumber: String): String =
+            "Consolidated into $consolidatedSaleReferenceNumber"
+    }
 }

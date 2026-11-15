@@ -4,10 +4,14 @@ import me.ezra_home.retail_software_solution.locations.business.location_product
 import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleHeaderDto
 import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleStatus
 import me.ezra_home.retail_software_solution.locations.business.sale_adjustment.api.PriceAdjustmentMethod
+import me.ezra_home.retail_software_solution.locations.business.sale_session.api.PendingConsolidation
 import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSession
+import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionAction
 import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionAdjustment
 import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionHeader
+import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionKind
 import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionLine
+import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionPayment
 import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionTotals
 import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SessionIdentity
 import me.ezra_home.retail_software_solution.organizations.business.adjustment_reason.api.AdjustmentDirection
@@ -16,7 +20,9 @@ import me.ezra_home.retail_software_solution.organizations.business.adjustment_r
 import me.ezra_home.retail_software_solution.support.WithDefaultOrganizationSession
 import me.ezra_home.retail_software_solution.util.business.Decimals
 import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.doThrow
 import org.mockito.Mockito.mock
@@ -147,6 +153,104 @@ class SaleSessionValidatorTest {
             saleSessionValidator.guardConsolidationSelectionSize(listOf(selectedTwice, selectedTwice))
         }
     }
+
+    @Test
+    fun `a sale refuses two lines of one product, a pending consolidation holds them`() {
+        val firstLine = saleSessionLine(BigDecimal("10.00"))
+        val secondLine = firstLine.copy(identity = SessionIdentity.mintFreshIdentity())
+
+        assertThrows(RtsGenericException::class.java) {
+            saleSessionValidator.validate(saleSession(listOf(firstLine, secondLine)))
+        }
+        saleSessionValidator.validate(pendingConsolidationSession(listOf(firstLine, secondLine)))
+    }
+
+    @Test
+    fun `a pending consolidation refuses an order-level adjustment but accepts a line-level one`() {
+        val saleSessionLine = saleSessionLine(BigDecimal("10.00"))
+        val orderLevelAdjustment = percentageAdjustment(AdjustmentDirection.DISCOUNT, BigDecimal("5"), null)
+        val lineLevelAdjustment = percentageAdjustment(AdjustmentDirection.DISCOUNT, BigDecimal("5"), saleSessionLine)
+
+        saleSessionValidator.validate(pendingConsolidationSession(listOf(saleSessionLine), listOf(lineLevelAdjustment)))
+        assertThrows(RtsGenericException::class.java) {
+            saleSessionValidator.validate(
+                pendingConsolidationSession(listOf(saleSessionLine), listOf(orderLevelAdjustment))
+            )
+        }
+    }
+
+    @Test
+    fun `a pending consolidation refuses what the rules table refuses, a sale accepts all of it`() {
+        val pendingSession = pendingConsolidationSession(listOf(saleSessionLine(BigDecimal("10.00"))))
+        val saleSession = saleSession(listOf(saleSessionLine(BigDecimal("10.00"))))
+
+        listOf(
+            SaleSessionAction.UPDATE_CONTACT, SaleSessionAction.SAVE_DRAFT, SaleSessionAction.CONFIRM,
+            SaleSessionAction.ADD_PAYMENT, SaleSessionAction.ADD_ORDER_LEVEL_ADJUSTMENT,
+        ).forEach { action ->
+            saleSessionValidator.guardAllowed(saleSession, action)
+            assertThrows(RtsGenericException::class.java) { saleSessionValidator.guardAllowed(pendingSession, action) }
+        }
+        assertThrows(RtsGenericException::class.java) { saleSessionValidator.canAddPayments(pendingSession) }
+    }
+
+    @Test
+    fun `a refusal says whether the table or the sale status caused it`() {
+        val pendingSession = pendingConsolidationSession(emptyList())
+        val confirmedSession = saleSession(emptyList()).copy(originalStatus = SaleStatus.CONFIRMED)
+
+        val tableRefusal = assertThrows(RtsGenericException::class.java) {
+            saleSessionValidator.guardAllowed(pendingSession, SaleSessionAction.UPDATE_CONTACT)
+        }
+        val statusRefusal = assertThrows(RtsGenericException::class.java) {
+            saleSessionValidator.guardAllowed(confirmedSession, SaleSessionAction.EDIT_LINES)
+        }
+
+        assertEquals("The contact is the contact of the sales being combined", tableRefusal.message)
+        assertTrue(statusRefusal.message.contains("CONFIRMED"))
+    }
+
+    @Test
+    fun `an action that needs a mutable sale is refused once the sale is no longer a draft`() {
+        val confirmedSession = saleSession(emptyList()).copy(originalStatus = SaleStatus.CONFIRMED)
+
+        assertThrows(RtsGenericException::class.java) {
+            saleSessionValidator.guardAllowed(confirmedSession, SaleSessionAction.EDIT_LINES)
+        }
+        saleSessionValidator.guardAllowed(confirmedSession, SaleSessionAction.REMOVE_PAYMENT)
+    }
+
+    @Test
+    fun `a session is a pending consolidation exactly when it carries pending data`() {
+        val pendingSession = pendingConsolidationSession(emptyList())
+
+        assertRefusedAtConstruction { pendingSession.copy(pendingConsolidation = null) }
+        assertRefusedAtConstruction { pendingSession.copy(kind = SaleSessionKind.SALE) }
+    }
+
+    @Test
+    fun `a pending consolidation has no sale id, sale version or payments`() {
+        val pendingSession = pendingConsolidationSession(emptyList())
+        val payment = SaleSessionPayment(
+            SessionIdentity.mintFreshIdentity(), UUID.randomUUID(), BigDecimal.ONE, null, null
+        )
+
+        assertRefusedAtConstruction { pendingSession.copy(saleId = UUID.randomUUID()) }
+        assertRefusedAtConstruction { pendingSession.copy(saleVersion = 1L) }
+        assertRefusedAtConstruction { pendingSession.copy(salePayments = listOf(payment)) }
+    }
+
+    private fun assertRefusedAtConstruction(buildSaleSession: () -> SaleSession) {
+        assertThrows(RtsGenericException::class.java) { buildSaleSession() }
+    }
+
+    private fun pendingConsolidationSession(
+        saleSessionLines: List<SaleSessionLine>,
+        saleSessionAdjustments: List<SaleSessionAdjustment> = emptyList(),
+    ) = saleSession(saleSessionLines, saleSessionAdjustments).copy(
+        kind = SaleSessionKind.PENDING_CONSOLIDATION,
+        pendingConsolidation = PendingConsolidation(emptyList(), emptyMap()),
+    )
 
     private fun saleHeader(contactId: UUID) = SaleHeaderDto(
         id = UUID.randomUUID(),

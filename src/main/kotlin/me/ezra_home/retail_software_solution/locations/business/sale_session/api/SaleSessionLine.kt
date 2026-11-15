@@ -19,6 +19,7 @@ data class SaleSessionLine(
     val storageQuantityOnHand: BigDecimal = BigDecimal.ZERO,
     val storageQuantityReserved: BigDecimal = BigDecimal.ZERO,
     val storageQuantityAvailable: BigDecimal = BigDecimal.ZERO,
+    val rank: BigDecimal = BigDecimal.ZERO,
 
 ) : ProductLineWithPrice {
 
