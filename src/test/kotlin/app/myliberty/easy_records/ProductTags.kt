@@ -10,8 +10,9 @@ enum class ProductTag {
  * Product classification of every domain package, written relative to the root package. A domain takes its product
  * from the folder it sits in: `<tier>.business.<product>.<domain>` or `cross_tier.<product>.<domain>`, where the
  * product folder is `core`, `retail` or `billing`. The `platform` tier holds only core domains and has no product
- * folders. `configuration`, `messaging`, `util` and the `rest` packages are infrastructure, not domains, and carry
- * no tag. `ArchitectureTest` fails on a domain that is not under a product folder.
+ * folders. Endpoints are classified the same way by `<tier>.rest.endpoints.<product>`; they are not domains, so the
+ * boundary rule ignores them. `configuration`, `messaging` and `util` are infrastructure and carry no tag.
+ * `ArchitectureTest` fails on a domain or endpoint package that is not under a product folder.
  */
 object ProductTags {
 
@@ -52,13 +53,32 @@ object ProductTags {
         return if (packageSegments.size >= segmentCount) packageSegments.take(segmentCount).joinToString(".") else null
     }
 
-    fun tagsOf(domain: String): Set<ProductTag> {
-        val domainSegments = domain.split(".")
-        if (domainSegments.first() == PLATFORM_TIER) return setOf(ProductTag.CORE)
-        val productFolderDepth = if (domainSegments.first() == "cross_tier") 1 else 2
-        val productFolderTag = PRODUCT_FOLDER_TAGS[domainSegments.getOrNull(productFolderDepth)]
+    /** A domain, or the endpoint package of a tier, as the unit that carries a product tag. */
+    fun productScopeOf(packageName: String): String? {
+        domainOf(packageName)?.let { domain -> return domain }
+        if (!packageName.startsWith("$ROOT_PACKAGE.")) return null
+        val packageSegments = packageName.removePrefix("$ROOT_PACKAGE.").split(".")
+        val isEndpointPackage = packageSegments.first() in TIER_PACKAGES &&
+            packageSegments.getOrNull(1) == "rest" &&
+            packageSegments.getOrNull(2) == "endpoints"
+        if (!isEndpointPackage) return null
+        val hasProductFolder = packageSegments.first() != PLATFORM_TIER &&
+            packageSegments.getOrNull(3) in PRODUCT_FOLDER_TAGS
+        val segmentCount = if (hasProductFolder) 4 else 3
+        return packageSegments.take(segmentCount).joinToString(".")
+    }
+
+    fun tagsOf(scope: String): Set<ProductTag> {
+        val scopeSegments = scope.split(".")
+        if (scopeSegments.first() == PLATFORM_TIER) return setOf(ProductTag.CORE)
+        val productFolderDepth = when {
+            scopeSegments.first() == "cross_tier" -> 1
+            scopeSegments.getOrNull(1) == "rest" -> 3
+            else -> 2
+        }
+        val productFolderTag = PRODUCT_FOLDER_TAGS[scopeSegments.getOrNull(productFolderDepth)]
         return setOfNotNull(productFolderTag)
     }
 
-    fun tagOf(domain: String): ProductTag? = tagsOf(domain).singleOrNull()
+    fun tagOf(scope: String): ProductTag? = tagsOf(scope).singleOrNull()
 }

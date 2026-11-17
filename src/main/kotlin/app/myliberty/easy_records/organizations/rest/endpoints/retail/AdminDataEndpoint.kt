@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.rest.endpoints
+package app.myliberty.easy_records.organizations.rest.endpoints.retail
 
 import app.myliberty.easy_records.locations.business.retail.purchase_movement_context_backfill.api.PurchaseMovementContextBackfiller
 import app.myliberty.easy_records.locations.business.retail.sale_cogs_backfill.api.SaleLineCogsBackfiller

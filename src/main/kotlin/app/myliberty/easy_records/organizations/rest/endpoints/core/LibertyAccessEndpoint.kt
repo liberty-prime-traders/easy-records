@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.rest.endpoints
+package app.myliberty.easy_records.organizations.rest.endpoints.core
 
 import app.myliberty.easy_records.organizations.business.core.liberty_access.api.LibertyAccessService
 import app.myliberty.easy_records.util.enums.RtsPermission

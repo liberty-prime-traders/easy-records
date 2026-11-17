@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.rest.endpoints
+package app.myliberty.easy_records.organizations.rest.endpoints.retail
 
 import app.myliberty.easy_records.organizations.business.retail.product_group.api.ProductGroupInsertDto
 import app.myliberty.easy_records.organizations.business.retail.product_group.api.ProductGroupResponseDto

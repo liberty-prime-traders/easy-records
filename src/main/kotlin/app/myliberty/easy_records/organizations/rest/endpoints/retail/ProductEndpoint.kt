@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.rest.endpoints
+package app.myliberty.easy_records.organizations.rest.endpoints.retail
 
 import app.myliberty.easy_records.cross_tier.retail.product.search.common.ProductSearchParameters
 import app.myliberty.easy_records.organizations.business.retail.product.api.OrganizationProductInsertDto

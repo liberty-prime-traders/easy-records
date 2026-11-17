@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.rest.endpoints
+package app.myliberty.easy_records.locations.rest.endpoints.core
 
 import app.myliberty.easy_records.locations.business.core.tax_entry.api.TaxEntrySearchParameters
 import app.myliberty.easy_records.locations.business.core.tax_entry.api.TaxEntrySearchResultDto

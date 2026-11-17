@@ -37,7 +37,7 @@ organizations/  — org-scoped data: products, contacts, payment methods, fiscal
 locations/      — location-scoped operations: sales, purchases, inventory, stock
 ```
 
-Each domain lives under a product folder: `*/business/core/<domain>/` and `cross_tier/core/<domain>/` for core, `*/business/retail/<domain>/` and `cross_tier/retail/<domain>/` for retail. The `platform` tier holds only core domains and has no product folders. Anything not under `api/` is internal to that domain. **`ArchitectureTest` enforces this** — cross-domain access to non-`api` classes will fail the test suite. When cross-domain communication is needed, import from `<domain>/api/` only.
+Each domain lives under a product folder: `*/business/core/<domain>/` and `cross_tier/core/<domain>/` for core, `*/business/retail/<domain>/` and `cross_tier/retail/<domain>/` for retail. The `platform` tier holds only core domains and has no product folders. Endpoints are split the same way under `*/rest/endpoints/core/` and `*/rest/endpoints/retail/`. Anything not under `api/` is internal to that domain. **`ArchitectureTest` enforces this** — cross-domain access to non-`api` classes will fail the test suite. When cross-domain communication is needed, import from `<domain>/api/` only.
 
 ### Products
 

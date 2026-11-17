@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.rest.endpoints
+package app.myliberty.easy_records.locations.rest.endpoints.retail
 
 import app.myliberty.easy_records.locations.business.retail.opening_stock.api.OpeningStockBulkLineDto
 import app.myliberty.easy_records.locations.business.retail.opening_stock.api.OpeningStockBulkService

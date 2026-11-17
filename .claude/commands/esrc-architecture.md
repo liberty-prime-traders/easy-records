@@ -26,11 +26,12 @@ Three independent datasources — `platform`, `organization`, `location` — eac
 The platform hosts products on a shared core. A domain is tagged by the product folder it sits in: `core` for `*/business/core/<domain>/` and `cross_tier/core/<domain>/`,
 `retail` for `*/business/retail/<domain>/` and `cross_tier/retail/<domain>/`, and a later billing product gets its own folder the same way.
 The `platform` tier holds only core domains and has no product folders.
+Endpoints follow the same split: `*/rest/endpoints/core/` and `*/rest/endpoints/retail/` (platform endpoints stay flat); a new endpoint goes in the folder of the product its domains belong to.
 
 - A new retail domain goes under the `retail` folder of its tier; a new core domain goes under the `core` folder, beside `expense/`, `ledger/` and the rest.
 - `core` depends on no product; products never depend on each other.
 - A domain outside a product folder fails `ArchitectureTest`.
-- `configuration/`, `messaging/`, `util/` and the `rest/` packages are infrastructure and carry no tag.
+- `configuration/`, `messaging/` and `util/` are infrastructure and carry no tag.
 - `ProductTags.allowedCoreToRetailDependencies` holds the existing core-to-retail dependencies. Never add an entry for new code; remove
   an entry when its dependency goes.
 

@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.rest.endpoints
+package app.myliberty.easy_records.locations.rest.endpoints.retail
 
 import app.myliberty.easy_records.locations.business.retail.stock_adjustment.api.StockAdjustmentCategoryDescriptor
 import app.myliberty.easy_records.locations.business.retail.stock_adjustment.api.StockAdjustmentCreateDto

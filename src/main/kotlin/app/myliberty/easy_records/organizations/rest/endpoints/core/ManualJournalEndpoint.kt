@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.rest.endpoints
+package app.myliberty.easy_records.organizations.rest.endpoints.core
 
 import app.myliberty.easy_records.organizations.business.core.manual_journal.api.ManualJournalCreateDto
 import app.myliberty.easy_records.organizations.business.core.manual_journal.api.ManualJournalResponseDto

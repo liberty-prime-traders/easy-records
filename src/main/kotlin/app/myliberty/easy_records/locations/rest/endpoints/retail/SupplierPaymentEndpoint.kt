@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.rest.endpoints
+package app.myliberty.easy_records.locations.rest.endpoints.retail
 
 import app.myliberty.easy_records.locations.business.retail.supplier_payment.api.SupplierPaymentCreateDto
 import app.myliberty.easy_records.locations.business.retail.supplier_payment.api.SupplierPaymentDataFetcher

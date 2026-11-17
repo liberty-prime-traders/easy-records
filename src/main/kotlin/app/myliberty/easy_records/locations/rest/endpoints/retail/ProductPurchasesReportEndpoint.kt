@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.rest.endpoints
+package app.myliberty.easy_records.locations.rest.endpoints.retail
 
 import app.myliberty.easy_records.locations.business.retail.reports.product_purchases.api.ProductPurchasesDeliveryLineDto
 import app.myliberty.easy_records.locations.business.retail.reports.product_purchases.api.ProductPurchasesDeliveryLinesParameters

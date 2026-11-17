@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.rest.endpoints
+package app.myliberty.easy_records.organizations.rest.endpoints.core
 
 import app.myliberty.easy_records.organizations.business.core.loan.api.LoanCreateRequest
 import app.myliberty.easy_records.organizations.business.core.loan.api.LoanRepaymentCreateRequest

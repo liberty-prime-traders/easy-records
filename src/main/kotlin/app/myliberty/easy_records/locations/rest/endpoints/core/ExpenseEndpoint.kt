@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.rest.endpoints
+package app.myliberty.easy_records.locations.rest.endpoints.core
 
 import app.myliberty.easy_records.cross_tier.core.expense.ExpenseSourceType
 import app.myliberty.easy_records.cross_tier.core.expense.request.ExpensePaymentCreateRequest

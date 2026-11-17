@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.rest.endpoints
+package app.myliberty.easy_records.organizations.rest.endpoints.core
 
 import app.myliberty.easy_records.cross_tier.core.authority.MembershipUserSummary
 import app.myliberty.easy_records.cross_tier.core.authority.UserAccessDetail

@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.rest.endpoints
+package app.myliberty.easy_records.organizations.rest.endpoints.retail
 
 import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueFetcher
 import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueInsertDto

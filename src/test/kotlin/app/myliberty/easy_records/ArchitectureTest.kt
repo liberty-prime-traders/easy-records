@@ -93,13 +93,13 @@ class ArchitectureTest {
         }
     }
 
-    private fun areInsideADomain() = object : DescribedPredicate<JavaClass>("are inside a domain package") {
-        override fun test(javaClass: JavaClass) = ProductTags.domainOf(javaClass.packageName) != null
+    private fun areInsideADomain() = object : DescribedPredicate<JavaClass>("are inside a domain or endpoint package") {
+        override fun test(javaClass: JavaClass) = ProductTags.productScopeOf(javaClass.packageName) != null
     }
 
     private fun areTaggedAs(productTag: ProductTag) = object : DescribedPredicate<JavaClass>("are tagged $productTag") {
         override fun test(javaClass: JavaClass): Boolean {
-            val domain = ProductTags.domainOf(javaClass.packageName) ?: return false
+            val domain = ProductTags.productScopeOf(javaClass.packageName) ?: return false
             return ProductTags.tagOf(domain) == productTag
         }
     }
@@ -108,7 +108,7 @@ class ArchitectureTest {
         "be under exactly one product folder: core, retail or billing"
     ) {
         override fun check(javaClass: JavaClass, events: ConditionEvents) {
-            val domain = ProductTags.domainOf(javaClass.packageName) ?: return
+            val domain = ProductTags.productScopeOf(javaClass.packageName) ?: return
             if (ProductTags.tagsOf(domain).size != 1) {
                 events.add(SimpleConditionEvent.violated(
                     javaClass,
@@ -122,9 +122,9 @@ class ArchitectureTest {
         "not depend on $forbiddenTag domains"
     ) {
         override fun check(javaClass: JavaClass, events: ConditionEvents) {
-            val dependentDomain = ProductTags.domainOf(javaClass.packageName) ?: return
+            val dependentDomain = ProductTags.productScopeOf(javaClass.packageName) ?: return
             javaClass.directDependenciesFromSelf.forEach { dependency ->
-                val dependedOnDomain = ProductTags.domainOf(dependency.targetClass.packageName)
+                val dependedOnDomain = ProductTags.productScopeOf(dependency.targetClass.packageName)
                     ?: return@forEach
                 val reachesForbiddenTag = dependedOnDomain != dependentDomain &&
                     ProductTags.tagOf(dependedOnDomain) == forbiddenTag
