@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.fiscal_period
+package app.myliberty.easy_records.organizations.business.core.fiscal_period
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity

@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.organizations.business.loan
+package app.myliberty.easy_records.organizations.business.core.loan
 
-import app.myliberty.easy_records.organizations.business.contact.api.ContactDto
-import app.myliberty.easy_records.organizations.business.contact.api.ContactType
+import app.myliberty.easy_records.organizations.business.core.contact.api.ContactDto
+import app.myliberty.easy_records.organizations.business.core.contact.api.ContactType
 import app.myliberty.easy_records.util.model.HasReferenceEntity
 import org.mockito.ArgumentMatchers.any
 import java.time.OffsetDateTime

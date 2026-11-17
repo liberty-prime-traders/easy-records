@@ -1,9 +1,9 @@
-package app.myliberty.easy_records.organizations.business.account
+package app.myliberty.easy_records.organizations.business.core.account
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
-import app.myliberty.easy_records.organizations.business.account.api.AccountResponseDto
-import app.myliberty.easy_records.organizations.business.account.api.SystemAccount
-import app.myliberty.easy_records.organizations.business.opening_balance.api.OpeningBalanceReader
+import app.myliberty.easy_records.organizations.business.core.account.api.AccountResponseDto
+import app.myliberty.easy_records.organizations.business.core.account.api.SystemAccount
+import app.myliberty.easy_records.organizations.business.core.opening_balance.api.OpeningBalanceReader
 import app.myliberty.easy_records.util.ui_models.BalanceEffect
 import org.springframework.stereotype.Service
 import java.math.BigDecimal

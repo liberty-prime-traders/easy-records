@@ -1,10 +1,10 @@
-package app.myliberty.easy_records.cross_tier.authority
+package app.myliberty.easy_records.cross_tier.core.authority
 
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
-import app.myliberty.easy_records.locations.business.location_user.api.LocationUserService
-import app.myliberty.easy_records.locations.business.role_assignment.api.LocationRoleAssignmentService
-import app.myliberty.easy_records.organizations.business.organization_user.api.OrganizationUserService
-import app.myliberty.easy_records.organizations.business.role_assignment.api.OrgRoleAssignmentService
+import app.myliberty.easy_records.locations.business.core.location_user.api.LocationUserService
+import app.myliberty.easy_records.locations.business.core.role_assignment.api.LocationRoleAssignmentService
+import app.myliberty.easy_records.organizations.business.core.organization_user.api.OrganizationUserService
+import app.myliberty.easy_records.organizations.business.core.role_assignment.api.OrgRoleAssignmentService
 import app.myliberty.easy_records.platform.business.role_assignment.api.PlatformRoleAssignmentService
 import app.myliberty.easy_records.util.enums.RtsRole
 import app.myliberty.easy_records.util.enums.SchemaLevel

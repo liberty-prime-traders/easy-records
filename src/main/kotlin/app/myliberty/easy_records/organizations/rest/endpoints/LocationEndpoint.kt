@@ -1,9 +1,9 @@
 package app.myliberty.easy_records.organizations.rest.endpoints
 
-import app.myliberty.easy_records.organizations.business.location.api.LocationInsertDto
-import app.myliberty.easy_records.organizations.business.location.api.LocationResponseDto
-import app.myliberty.easy_records.organizations.business.location.api.LocationService
-import app.myliberty.easy_records.organizations.business.location.api.LocationUpdateDto
+import app.myliberty.easy_records.organizations.business.core.location.api.LocationInsertDto
+import app.myliberty.easy_records.organizations.business.core.location.api.LocationResponseDto
+import app.myliberty.easy_records.organizations.business.core.location.api.LocationService
+import app.myliberty.easy_records.organizations.business.core.location.api.LocationUpdateDto
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.GetMapping

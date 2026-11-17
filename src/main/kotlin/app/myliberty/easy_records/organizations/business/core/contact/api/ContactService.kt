@@ -1,13 +1,13 @@
-package app.myliberty.easy_records.organizations.business.contact.api
+package app.myliberty.easy_records.organizations.business.core.contact.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
-import app.myliberty.easy_records.organizations.business.contact.ContactCache
-import app.myliberty.easy_records.organizations.business.contact.ContactResponseMapper
-import app.myliberty.easy_records.organizations.business.contact.ContactValidator
-import app.myliberty.easy_records.organizations.business.contact_opening_balance.api.ContactOpeningBalanceReader
-import app.myliberty.easy_records.organizations.business.ledger.api.SubledgerBalanceDto
-import app.myliberty.easy_records.organizations.business.ledger.api.SubledgerEntryResponse
-import app.myliberty.easy_records.organizations.business.ledger.api.SubledgerService
+import app.myliberty.easy_records.organizations.business.core.contact.ContactCache
+import app.myliberty.easy_records.organizations.business.core.contact.ContactResponseMapper
+import app.myliberty.easy_records.organizations.business.core.contact.ContactValidator
+import app.myliberty.easy_records.organizations.business.core.contact_opening_balance.api.ContactOpeningBalanceReader
+import app.myliberty.easy_records.organizations.business.core.ledger.api.SubledgerBalanceDto
+import app.myliberty.easy_records.organizations.business.core.ledger.api.SubledgerEntryResponse
+import app.myliberty.easy_records.organizations.business.core.ledger.api.SubledgerService
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException
 import app.myliberty.easy_records.util.paging.PageRequest

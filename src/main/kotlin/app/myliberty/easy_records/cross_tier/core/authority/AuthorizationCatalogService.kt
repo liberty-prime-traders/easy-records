@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.cross_tier.authority
+package app.myliberty.easy_records.cross_tier.core.authority
 
 import app.myliberty.easy_records.platform.business.permission_assignment.api.PlatformPermissionAssignmentService
 import app.myliberty.easy_records.platform.business.role_assignment.api.PlatformRoleAssignmentService

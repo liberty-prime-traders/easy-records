@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.ledger.api
+package app.myliberty.easy_records.organizations.business.core.ledger.api
 
 import app.myliberty.easy_records.util.business.Decimals
 import app.myliberty.easy_records.util.ui_models.BalanceEffect

@@ -1,6 +1,6 @@
 package app.myliberty.easy_records.util.business.reference_number
 
-import app.myliberty.easy_records.organizations.business.org_table_registry.api.OrgTableRegistryService
+import app.myliberty.easy_records.organizations.business.core.org_table_registry.api.OrgTableRegistryService
 import app.myliberty.easy_records.platform.business.table_registry.api.TableRegistryService
 import app.myliberty.easy_records.util.enums.SchemaLevel
 import app.myliberty.easy_records.util.exceptions.RtsGenericException

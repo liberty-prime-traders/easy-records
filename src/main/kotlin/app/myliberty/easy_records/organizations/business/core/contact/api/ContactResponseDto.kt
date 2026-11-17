@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.contact.api
+package app.myliberty.easy_records.organizations.business.core.contact.api
 
 import app.myliberty.easy_records.util.business.MoneyDisplay
 import app.myliberty.easy_records.util.ui_models.BalanceEffect

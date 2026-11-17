@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.organizations.business.fund_movement.search
+package app.myliberty.easy_records.organizations.business.core.fund_movement.search
 
-import app.myliberty.easy_records.organizations.business.fund_movement.api.FundMovementSearchParameters
+import app.myliberty.easy_records.organizations.business.core.fund_movement.api.FundMovementSearchParameters
 import app.myliberty.easy_records.util.queries.SearchGuards
 
 object FundMovementSearchValidator {

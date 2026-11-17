@@ -2,7 +2,7 @@ package app.myliberty.easy_records.platform.business.organization_join_request.a
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnPlatformSchema
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
-import app.myliberty.easy_records.organizations.business.organization_user.api.OrganizationUserService
+import app.myliberty.easy_records.organizations.business.core.organization_user.api.OrganizationUserService
 import app.myliberty.easy_records.platform.business.organization.api.OrganizationDto
 import app.myliberty.easy_records.platform.business.organization.api.OrganizationResponseDto
 import app.myliberty.easy_records.platform.business.organization_join_request.OrganizationJoinRequestCache

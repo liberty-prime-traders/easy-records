@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.tax_rate
+package app.myliberty.easy_records.organizations.business.core.tax_rate
 
 import java.math.BigDecimal
 import java.time.LocalDate

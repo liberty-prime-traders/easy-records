@@ -1,9 +1,9 @@
-package app.myliberty.easy_records.organizations.business.manual_journal
+package app.myliberty.easy_records.organizations.business.core.manual_journal
 
-import app.myliberty.easy_records.organizations.business.account.api.AccountSelectionCandidate
-import app.myliberty.easy_records.organizations.business.account.api.EntryType
-import app.myliberty.easy_records.organizations.business.account_selection.api.AccountSelectionRule
-import app.myliberty.easy_records.organizations.business.manual_journal.api.ManualJournalLineCreateDto
+import app.myliberty.easy_records.organizations.business.core.account.api.AccountSelectionCandidate
+import app.myliberty.easy_records.organizations.business.core.account.api.EntryType
+import app.myliberty.easy_records.organizations.business.core.account_selection.api.AccountSelectionRule
+import app.myliberty.easy_records.organizations.business.core.manual_journal.api.ManualJournalLineCreateDto
 import app.myliberty.easy_records.util.business.StringUtils
 import java.math.BigDecimal
 

@@ -1,9 +1,9 @@
-package app.myliberty.easy_records.organizations.business.tag.mapping
+package app.myliberty.easy_records.organizations.business.core.tag.mapping
 
-import app.myliberty.easy_records.organizations.business.tag.TagEntity
-import app.myliberty.easy_records.organizations.business.tag.api.TagDto
-import app.myliberty.easy_records.organizations.business.tag.api.TagInsertDto
-import app.myliberty.easy_records.organizations.business.tag.api.TagResponseDto
+import app.myliberty.easy_records.organizations.business.core.tag.TagEntity
+import app.myliberty.easy_records.organizations.business.core.tag.api.TagDto
+import app.myliberty.easy_records.organizations.business.core.tag.api.TagInsertDto
+import app.myliberty.easy_records.organizations.business.core.tag.api.TagResponseDto
 import app.myliberty.easy_records.platform.business.sysuser.api.CreatorFullName
 import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
 import org.mapstruct.Mapper

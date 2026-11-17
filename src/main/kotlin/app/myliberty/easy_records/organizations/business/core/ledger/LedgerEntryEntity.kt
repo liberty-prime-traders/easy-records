@@ -1,11 +1,11 @@
-package app.myliberty.easy_records.organizations.business.ledger
+package app.myliberty.easy_records.organizations.business.core.ledger
 
 import jakarta.persistence.Column
 import jakarta.persistence.Convert
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
-import app.myliberty.easy_records.organizations.business.account.api.EntryType
-import app.myliberty.easy_records.organizations.business.account.api.EntryTypeConverter
+import app.myliberty.easy_records.organizations.business.core.account.api.EntryType
+import app.myliberty.easy_records.organizations.business.core.account.api.EntryTypeConverter
 import app.myliberty.easy_records.util.model.HasCreatorEntity
 import app.myliberty.easy_records.util.model.TableNames
 import java.math.BigDecimal

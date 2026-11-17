@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.organizations.business.account
+package app.myliberty.easy_records.organizations.business.core.account
 
-import app.myliberty.easy_records.organizations.business.account.api.AccountPosting
+import app.myliberty.easy_records.organizations.business.core.account.api.AccountPosting
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 
 object AccountAssertions {

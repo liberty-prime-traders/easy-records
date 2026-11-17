@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.cross_tier.expense.operation
+package app.myliberty.easy_records.cross_tier.core.expense.operation
 
 import java.util.UUID
 

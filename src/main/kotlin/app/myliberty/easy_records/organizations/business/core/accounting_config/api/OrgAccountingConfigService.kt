@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.organizations.business.accounting_config.api
+package app.myliberty.easy_records.organizations.business.core.accounting_config.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
-import app.myliberty.easy_records.organizations.business.accounting_config.OrgAccountingConfigCache
-import app.myliberty.easy_records.organizations.business.accounting_config.OrgAccountingConfigMapper
+import app.myliberty.easy_records.organizations.business.core.accounting_config.OrgAccountingConfigCache
+import app.myliberty.easy_records.organizations.business.core.accounting_config.OrgAccountingConfigMapper
 import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Service

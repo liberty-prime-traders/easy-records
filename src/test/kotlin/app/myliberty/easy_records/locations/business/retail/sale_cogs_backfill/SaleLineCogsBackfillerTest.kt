@@ -4,8 +4,8 @@ import app.myliberty.easy_records.configuration.session.OrgSession
 import app.myliberty.easy_records.configuration.session.SessionContext
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
 import app.myliberty.easy_records.locations.business.retail.sale_cogs_backfill.api.SaleLineCogsBackfiller
-import app.myliberty.easy_records.organizations.business.location.api.LocationDto
-import app.myliberty.easy_records.organizations.business.location.api.LocationService
+import app.myliberty.easy_records.organizations.business.core.location.api.LocationDto
+import app.myliberty.easy_records.organizations.business.core.location.api.LocationService
 import app.myliberty.easy_records.util.async.AsyncExecutor
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.junit.jupiter.api.AfterEach

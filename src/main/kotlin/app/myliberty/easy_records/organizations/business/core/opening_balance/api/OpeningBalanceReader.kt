@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.organizations.business.opening_balance.api
+package app.myliberty.easy_records.organizations.business.core.opening_balance.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
-import app.myliberty.easy_records.organizations.business.opening_balance.OpeningBalanceRepository
+import app.myliberty.easy_records.organizations.business.core.opening_balance.OpeningBalanceRepository
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 

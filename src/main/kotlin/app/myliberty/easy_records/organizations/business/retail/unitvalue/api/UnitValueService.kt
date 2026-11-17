@@ -1,7 +1,7 @@
 package app.myliberty.easy_records.organizations.business.retail.unitvalue.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
-import app.myliberty.easy_records.organizations.business.lock.api.OrgEntityAdvisoryLock
+import app.myliberty.easy_records.organizations.business.core.lock.api.OrgEntityAdvisoryLock
 import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.UnitConversionGraphFacade
 import app.myliberty.easy_records.organizations.business.retail.unitgroup.api.SystemUnitGroup
 import app.myliberty.easy_records.organizations.business.retail.unitvalue.UnitValueCache

@@ -1,6 +1,6 @@
 package app.myliberty.easy_records.organizations.business.retail.unitgroup
 
-import app.myliberty.easy_records.organizations.business.lock.api.OrgEntityAdvisoryLock
+import app.myliberty.easy_records.organizations.business.core.lock.api.OrgEntityAdvisoryLock
 import app.myliberty.easy_records.organizations.business.retail.unitgroup.api.SystemUnitGroup
 import app.myliberty.easy_records.organizations.business.retail.unitgroup.api.UnitGroupDto
 import app.myliberty.easy_records.util.business.lock.LockNamespaces

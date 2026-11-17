@@ -1,12 +1,12 @@
-package app.myliberty.easy_records.organizations.business.ledger.api
+package app.myliberty.easy_records.organizations.business.core.ledger.api
 
-import app.myliberty.easy_records.organizations.business.account.api.AccountService
-import app.myliberty.easy_records.organizations.business.fiscal_period.api.FiscalPeriodService
-import app.myliberty.easy_records.organizations.business.ledger.LedgerEntryGroupEntity
-import app.myliberty.easy_records.organizations.business.ledger.LedgerEntryGroupRepository
-import app.myliberty.easy_records.organizations.business.ledger.LedgerEntryRepository
-import app.myliberty.easy_records.organizations.business.ledger.SubledgerBalanceRepository
-import app.myliberty.easy_records.organizations.business.ledger.SubledgerEntryRepository
+import app.myliberty.easy_records.organizations.business.core.account.api.AccountService
+import app.myliberty.easy_records.organizations.business.core.fiscal_period.api.FiscalPeriodService
+import app.myliberty.easy_records.organizations.business.core.ledger.LedgerEntryGroupEntity
+import app.myliberty.easy_records.organizations.business.core.ledger.LedgerEntryGroupRepository
+import app.myliberty.easy_records.organizations.business.core.ledger.LedgerEntryRepository
+import app.myliberty.easy_records.organizations.business.core.ledger.SubledgerBalanceRepository
+import app.myliberty.easy_records.organizations.business.core.ledger.SubledgerEntryRepository
 import app.myliberty.easy_records.configuration.session.OrgSession
 import app.myliberty.easy_records.configuration.session.SessionContext
 import app.myliberty.easy_records.configuration.session.SessionContextProvider

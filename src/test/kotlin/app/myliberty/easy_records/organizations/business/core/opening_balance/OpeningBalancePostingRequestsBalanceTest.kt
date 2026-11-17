@@ -1,10 +1,10 @@
-package app.myliberty.easy_records.organizations.business.opening_balance
+package app.myliberty.easy_records.organizations.business.core.opening_balance
 
-import app.myliberty.easy_records.organizations.business.account.api.AccountPosting
-import app.myliberty.easy_records.organizations.business.account.api.EntryType
-import app.myliberty.easy_records.organizations.business.account.api.RecordingAccountService
-import app.myliberty.easy_records.organizations.business.account.api.SystemAccount
-import app.myliberty.easy_records.organizations.business.ledger.api.LedgerPostingRequest
+import app.myliberty.easy_records.organizations.business.core.account.api.AccountPosting
+import app.myliberty.easy_records.organizations.business.core.account.api.EntryType
+import app.myliberty.easy_records.organizations.business.core.account.api.RecordingAccountService
+import app.myliberty.easy_records.organizations.business.core.account.api.SystemAccount
+import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerPostingRequest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import java.math.BigDecimal

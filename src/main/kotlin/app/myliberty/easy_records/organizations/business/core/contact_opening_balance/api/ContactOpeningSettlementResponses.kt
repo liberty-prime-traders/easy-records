@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.contact_opening_balance.api
+package app.myliberty.easy_records.organizations.business.core.contact_opening_balance.api
 
 import app.myliberty.easy_records.util.business.MoneyDisplay
 import java.time.LocalDate

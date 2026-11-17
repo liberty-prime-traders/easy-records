@@ -1,20 +1,20 @@
-package app.myliberty.easy_records.cross_tier.expense.operation
+package app.myliberty.easy_records.cross_tier.core.expense.operation
 
-import app.myliberty.easy_records.cross_tier.expense.ExpenseSourceType
-import app.myliberty.easy_records.cross_tier.expense.ExpenseTier
-import app.myliberty.easy_records.cross_tier.expense.model.ExpenseAggregate
-import app.myliberty.easy_records.cross_tier.expense.model.ExpenseBatchDto
-import app.myliberty.easy_records.cross_tier.expense.model.ExpenseSource
-import app.myliberty.easy_records.cross_tier.expense.model.ExpenseSubmission
-import app.myliberty.easy_records.cross_tier.expense.model.NewExpense
-import app.myliberty.easy_records.cross_tier.expense.model.NewExpenseBatch
-import app.myliberty.easy_records.cross_tier.expense.model.ResolvedExpenseRow
-import app.myliberty.easy_records.cross_tier.expense.model.SettledExpense
-import app.myliberty.easy_records.cross_tier.expense.model.SourceDocument
-import app.myliberty.easy_records.cross_tier.expense.request.ExpenseVoidRequest
-import app.myliberty.easy_records.cross_tier.expense.request.StandaloneExpenseBatchRequest
-import app.myliberty.easy_records.cross_tier.expense.response.ExpenseResponseBuilder
-import app.myliberty.easy_records.cross_tier.expense.response.ExpenseSummaryResponse
+import app.myliberty.easy_records.cross_tier.core.expense.ExpenseSourceType
+import app.myliberty.easy_records.cross_tier.core.expense.ExpenseTier
+import app.myliberty.easy_records.cross_tier.core.expense.model.ExpenseAggregate
+import app.myliberty.easy_records.cross_tier.core.expense.model.ExpenseBatchDto
+import app.myliberty.easy_records.cross_tier.core.expense.model.ExpenseSource
+import app.myliberty.easy_records.cross_tier.core.expense.model.ExpenseSubmission
+import app.myliberty.easy_records.cross_tier.core.expense.model.NewExpense
+import app.myliberty.easy_records.cross_tier.core.expense.model.NewExpenseBatch
+import app.myliberty.easy_records.cross_tier.core.expense.model.ResolvedExpenseRow
+import app.myliberty.easy_records.cross_tier.core.expense.model.SettledExpense
+import app.myliberty.easy_records.cross_tier.core.expense.model.SourceDocument
+import app.myliberty.easy_records.cross_tier.core.expense.request.ExpenseVoidRequest
+import app.myliberty.easy_records.cross_tier.core.expense.request.StandaloneExpenseBatchRequest
+import app.myliberty.easy_records.cross_tier.core.expense.response.ExpenseResponseBuilder
+import app.myliberty.easy_records.cross_tier.core.expense.response.ExpenseSummaryResponse
 import app.myliberty.easy_records.util.business.StringUtils
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 

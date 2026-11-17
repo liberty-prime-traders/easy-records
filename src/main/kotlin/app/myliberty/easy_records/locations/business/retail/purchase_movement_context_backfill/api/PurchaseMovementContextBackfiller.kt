@@ -5,8 +5,8 @@ import app.myliberty.easy_records.configuration.session.withLocationSession
 import app.myliberty.easy_records.locations.business.retail.purchase_movement_context_backfill.LocationPurchaseMovementContextBackfiller
 import app.myliberty.easy_records.locations.business.retail.purchase_movement_context_backfill.PurchaseMovementContextBackfillLogFormatter
 import app.myliberty.easy_records.locations.business.retail.purchase_movement_context_backfill.PurchaseMovementContextBackfillResult
-import app.myliberty.easy_records.organizations.business.location.api.LocationDto
-import app.myliberty.easy_records.organizations.business.location.api.LocationService
+import app.myliberty.easy_records.organizations.business.core.location.api.LocationDto
+import app.myliberty.easy_records.organizations.business.core.location.api.LocationService
 import app.myliberty.easy_records.util.async.AsyncExecutor
 import app.myliberty.easy_records.util.enums.ServiceAccount
 import org.slf4j.LoggerFactory

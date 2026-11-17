@@ -1,10 +1,10 @@
-package app.myliberty.easy_records.organizations.business.contact_opening_balance
+package app.myliberty.easy_records.organizations.business.core.contact_opening_balance
 
-import app.myliberty.easy_records.organizations.business.contact_opening_balance.api.ContactOpeningSettlementResponse
-import app.myliberty.easy_records.organizations.business.contact_opening_balance.api.ContactOpeningSettlementSummaryResponse
-import app.myliberty.easy_records.organizations.business.contact_opening_balance.api.ContactOpeningSettlementVoidResponse
-import app.myliberty.easy_records.organizations.business.contact_opening_balance.api.ContactSubledgerDirection
-import app.myliberty.easy_records.organizations.business.account.api.AccountService
+import app.myliberty.easy_records.organizations.business.core.contact_opening_balance.api.ContactOpeningSettlementResponse
+import app.myliberty.easy_records.organizations.business.core.contact_opening_balance.api.ContactOpeningSettlementSummaryResponse
+import app.myliberty.easy_records.organizations.business.core.contact_opening_balance.api.ContactOpeningSettlementVoidResponse
+import app.myliberty.easy_records.organizations.business.core.contact_opening_balance.api.ContactSubledgerDirection
+import app.myliberty.easy_records.organizations.business.core.account.api.AccountService
 import app.myliberty.easy_records.util.business.MoneyDisplay
 import app.myliberty.easy_records.util.business.mappers.UserQualifier
 import org.springframework.stereotype.Component

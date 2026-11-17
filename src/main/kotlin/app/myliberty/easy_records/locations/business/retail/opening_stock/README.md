@@ -6,7 +6,7 @@ when it is first set up in the system. `opening_stock` rows are
 (`uq_opening_stock_location_product_id`), never corrected in place and
 never re-declared. There is no "re-declare" flow.
 
-This mirrors `organizations/business/opening_balance`'s shape (an
+This mirrors `organizations/business/core/opening_balance`'s shape (an
 append-only declaration entity that fans out into a Kafka event for
 ledger posting), adapted to the fact that a location's stock already has
 its own durable ledger — `stock/StockEntryEntity` /
@@ -134,7 +134,7 @@ exact storage figure), with `stockBalanceBreakdown` / `openingStockBreakdown` te
 wraps `OpeningStockRepository.findByLocationProductIdIn`.
 
 This split exists to dodge a Spring circular-bean dependency, the exact
-trap `organizations/business/opening_balance/README.md` describes for
+trap `organizations/business/core/opening_balance/README.md` describes for
 `AccountDataFetcher`/`OpeningBalanceReader`: `OpeningStockService`
 depends on `LocationProductService` and `LocationProductDataFetcher` (for
 `guardAllActive` and `findSummaryByIds`), and **both of those already

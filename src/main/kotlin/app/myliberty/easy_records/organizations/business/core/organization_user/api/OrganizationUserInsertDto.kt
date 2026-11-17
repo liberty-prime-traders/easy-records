@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.organization_user.api
+package app.myliberty.easy_records.organizations.business.core.organization_user.api
 
 import java.io.Serializable
 import java.util.UUID

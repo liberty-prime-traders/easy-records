@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.opening_balance
+package app.myliberty.easy_records.organizations.business.core.opening_balance
 
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query

@@ -1,6 +1,6 @@
 package app.myliberty.easy_records.platform.rest.endpoints
 
-import app.myliberty.easy_records.organizations.business.location.api.LocationResponseDto
+import app.myliberty.easy_records.organizations.business.core.location.api.LocationResponseDto
 import app.myliberty.easy_records.platform.business.organization.api.OrganizationInsertDto
 import app.myliberty.easy_records.platform.business.organization.api.OrganizationResponseDto
 import app.myliberty.easy_records.platform.business.organization.api.OrganizationService

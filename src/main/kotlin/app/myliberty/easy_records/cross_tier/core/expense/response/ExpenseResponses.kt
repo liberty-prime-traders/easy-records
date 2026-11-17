@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.cross_tier.expense.response
+package app.myliberty.easy_records.cross_tier.core.expense.response
 
-import app.myliberty.easy_records.cross_tier.expense.ExpenseSourceType
+import app.myliberty.easy_records.cross_tier.core.expense.ExpenseSourceType
 import app.myliberty.easy_records.util.enums.PaymentStatus
 import java.math.BigDecimal
 import java.time.LocalDate

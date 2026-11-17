@@ -2,7 +2,7 @@ package app.myliberty.easy_records.platform.business.feature.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnPlatformSchema
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
-import app.myliberty.easy_records.organizations.business.feature.api.OrganizationFeatureService
+import app.myliberty.easy_records.organizations.business.core.feature.api.OrganizationFeatureService
 import app.myliberty.easy_records.platform.business.feature.FeatureCache
 import app.myliberty.easy_records.platform.business.organization.api.OrganizationService
 import app.myliberty.easy_records.util.exceptions.RtsGenericException

@@ -1,8 +1,8 @@
 package app.myliberty.easy_records.organizations.rest.endpoints
 
-import app.myliberty.easy_records.organizations.business.accounting_config.api.OrgAccountingConfigResponseDto
-import app.myliberty.easy_records.organizations.business.accounting_config.api.OrgAccountingConfigService
-import app.myliberty.easy_records.organizations.business.accounting_config.api.OrgAccountingConfigUpdateDto
+import app.myliberty.easy_records.organizations.business.core.accounting_config.api.OrgAccountingConfigResponseDto
+import app.myliberty.easy_records.organizations.business.core.accounting_config.api.OrgAccountingConfigService
+import app.myliberty.easy_records.organizations.business.core.accounting_config.api.OrgAccountingConfigUpdateDto
 import app.myliberty.easy_records.platform.business.feature.api.Feature
 import app.myliberty.easy_records.util.annotations.RequiresFeature
 import org.springframework.web.bind.annotation.GetMapping

@@ -1,23 +1,23 @@
-package app.myliberty.easy_records.organizations.business.org_expense.api
+package app.myliberty.easy_records.organizations.business.core.org_expense.api
 
-import app.myliberty.easy_records.cross_tier.expense.model.ExpenseSource
+import app.myliberty.easy_records.cross_tier.core.expense.model.ExpenseSource
 
-import app.myliberty.easy_records.cross_tier.expense.model.NewExpense
+import app.myliberty.easy_records.cross_tier.core.expense.model.NewExpense
 
-import app.myliberty.easy_records.cross_tier.expense.ExpenseSourceType
-import app.myliberty.easy_records.cross_tier.expense.model.ExpenseDto
-import app.myliberty.easy_records.cross_tier.expense.model.ResolvedExpenseRow
+import app.myliberty.easy_records.cross_tier.core.expense.ExpenseSourceType
+import app.myliberty.easy_records.cross_tier.core.expense.model.ExpenseDto
+import app.myliberty.easy_records.cross_tier.core.expense.model.ResolvedExpenseRow
 import app.myliberty.easy_records.util.enums.PaymentStatus
-import app.myliberty.easy_records.organizations.business.contact.api.ContactDto
-import app.myliberty.easy_records.organizations.business.expense_type.api.ExpenseTypeDto
-import app.myliberty.easy_records.organizations.business.org_expense.OrgExpenseBatchRepository
-import app.myliberty.easy_records.organizations.business.org_expense.OrgExpenseEntity
-import app.myliberty.easy_records.organizations.business.org_expense.OrgExpensePaymentRepository
-import app.myliberty.easy_records.organizations.business.org_expense.OrgExpensePaymentStateEntity
-import app.myliberty.easy_records.organizations.business.org_expense.OrgExpensePaymentStateRepository
-import app.myliberty.easy_records.organizations.business.org_expense.OrgExpensePaymentVoidRepository
-import app.myliberty.easy_records.organizations.business.org_expense.OrgExpenseRepository
-import app.myliberty.easy_records.organizations.business.org_expense.OrgExpenseVoidRepository
+import app.myliberty.easy_records.organizations.business.core.contact.api.ContactDto
+import app.myliberty.easy_records.organizations.business.core.expense_type.api.ExpenseTypeDto
+import app.myliberty.easy_records.organizations.business.core.org_expense.OrgExpenseBatchRepository
+import app.myliberty.easy_records.organizations.business.core.org_expense.OrgExpenseEntity
+import app.myliberty.easy_records.organizations.business.core.org_expense.OrgExpensePaymentRepository
+import app.myliberty.easy_records.organizations.business.core.org_expense.OrgExpensePaymentStateEntity
+import app.myliberty.easy_records.organizations.business.core.org_expense.OrgExpensePaymentStateRepository
+import app.myliberty.easy_records.organizations.business.core.org_expense.OrgExpensePaymentVoidRepository
+import app.myliberty.easy_records.organizations.business.core.org_expense.OrgExpenseRepository
+import app.myliberty.easy_records.organizations.business.core.org_expense.OrgExpenseVoidRepository
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.mockito.ArgumentCaptor

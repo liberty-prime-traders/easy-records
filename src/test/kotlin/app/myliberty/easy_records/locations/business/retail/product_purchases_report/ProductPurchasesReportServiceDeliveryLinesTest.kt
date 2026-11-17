@@ -5,9 +5,9 @@ import app.myliberty.easy_records.locations.business.retail.location_product.api
 import app.myliberty.easy_records.locations.business.retail.product_purchases_report.api.ProductPurchasesDeliveryLinesParameters
 import app.myliberty.easy_records.locations.business.retail.product_purchases_report.api.ProductPurchasesReportService
 import app.myliberty.easy_records.locations.business.retail.purchase.api.delivery.PurchaseDeliveryLineStatus
-import app.myliberty.easy_records.organizations.business.contact.api.ContactDto
-import app.myliberty.easy_records.organizations.business.contact.api.ContactIdentity
-import app.myliberty.easy_records.organizations.business.contact.api.ContactService
+import app.myliberty.easy_records.organizations.business.core.contact.api.ContactDto
+import app.myliberty.easy_records.organizations.business.core.contact.api.ContactIdentity
+import app.myliberty.easy_records.organizations.business.core.contact.api.ContactService
 import app.myliberty.easy_records.organizations.business.retail.product_category.api.ProductCategoryService
 import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.QuantityBreakdownFactory
 import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.UnitConversionGraph

@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.organizations.business.feature.api
+package app.myliberty.easy_records.organizations.business.core.feature.api
 
-import app.myliberty.easy_records.organizations.business.feature.OrganizationFeatureStatus
+import app.myliberty.easy_records.organizations.business.core.feature.OrganizationFeatureStatus
 import app.myliberty.easy_records.platform.business.feature.api.Feature
 import java.io.Serializable
 import java.time.OffsetDateTime

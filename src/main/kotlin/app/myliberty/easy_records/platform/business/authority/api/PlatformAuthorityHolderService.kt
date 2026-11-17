@@ -1,7 +1,7 @@
 package app.myliberty.easy_records.platform.business.authority.api
 
-import app.myliberty.easy_records.cross_tier.authority.AuthorityHolderResponse
-import app.myliberty.easy_records.cross_tier.authority.AuthorityType
+import app.myliberty.easy_records.cross_tier.core.authority.AuthorityHolderResponse
+import app.myliberty.easy_records.cross_tier.core.authority.AuthorityType
 import app.myliberty.easy_records.platform.business.authority.PlatformAuthorityLookup
 import app.myliberty.easy_records.platform.business.permission_assignment.api.PlatformPermissionAssignmentService
 import app.myliberty.easy_records.platform.business.role_assignment.api.PlatformRoleAssignmentService

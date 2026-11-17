@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.organizations.business.address
+package app.myliberty.easy_records.organizations.business.core.address
 
 import app.myliberty.easy_records.configuration.cache.CacheNames
-import app.myliberty.easy_records.organizations.business.address.api.AddressInsertDto
+import app.myliberty.easy_records.organizations.business.core.address.api.AddressInsertDto
 import org.springframework.cache.annotation.CacheConfig
 import org.springframework.cache.annotation.CacheEvict
 import org.springframework.cache.annotation.Cacheable

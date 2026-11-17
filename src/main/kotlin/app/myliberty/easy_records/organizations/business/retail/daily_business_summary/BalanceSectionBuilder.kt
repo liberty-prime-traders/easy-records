@@ -1,8 +1,8 @@
 package app.myliberty.easy_records.organizations.business.retail.daily_business_summary
 
-import app.myliberty.easy_records.organizations.business.account.api.AccountCategory
-import app.myliberty.easy_records.organizations.business.account.api.AccountTreeNode
-import app.myliberty.easy_records.organizations.business.account.api.SystemAccount
+import app.myliberty.easy_records.organizations.business.core.account.api.AccountCategory
+import app.myliberty.easy_records.organizations.business.core.account.api.AccountTreeNode
+import app.myliberty.easy_records.organizations.business.core.account.api.SystemAccount
 import app.myliberty.easy_records.organizations.business.retail.daily_business_summary.api.AccountBalanceLine
 import app.myliberty.easy_records.organizations.business.retail.daily_business_summary.api.BalanceSection
 import app.myliberty.easy_records.organizations.business.retail.daily_business_summary.api.BalanceSections

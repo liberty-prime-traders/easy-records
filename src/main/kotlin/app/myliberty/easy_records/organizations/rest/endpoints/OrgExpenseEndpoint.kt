@@ -1,16 +1,16 @@
 package app.myliberty.easy_records.organizations.rest.endpoints
 
-import app.myliberty.easy_records.cross_tier.expense.ExpenseSourceType
-import app.myliberty.easy_records.cross_tier.expense.request.ExpensePaymentCreateRequest
-import app.myliberty.easy_records.cross_tier.expense.request.ExpensePaymentVoidRequest
-import app.myliberty.easy_records.cross_tier.expense.response.ExpenseSummaryResponse
-import app.myliberty.easy_records.cross_tier.expense.request.ExpenseVoidRequest
-import app.myliberty.easy_records.cross_tier.expense.request.StandaloneExpenseBatchRequest
-import app.myliberty.easy_records.cross_tier.expense.request.StockTransferExpenseBatchRequest
-import app.myliberty.easy_records.cross_tier.expense.search.ExpenseSearchParameters
-import app.myliberty.easy_records.cross_tier.expense.search.ExpenseSearchSummaryResponseDto
-import app.myliberty.easy_records.organizations.business.org_expense.api.OrgExpenseSearchService
-import app.myliberty.easy_records.organizations.business.org_expense.api.OrgExpenseService
+import app.myliberty.easy_records.cross_tier.core.expense.ExpenseSourceType
+import app.myliberty.easy_records.cross_tier.core.expense.request.ExpensePaymentCreateRequest
+import app.myliberty.easy_records.cross_tier.core.expense.request.ExpensePaymentVoidRequest
+import app.myliberty.easy_records.cross_tier.core.expense.response.ExpenseSummaryResponse
+import app.myliberty.easy_records.cross_tier.core.expense.request.ExpenseVoidRequest
+import app.myliberty.easy_records.cross_tier.core.expense.request.StandaloneExpenseBatchRequest
+import app.myliberty.easy_records.cross_tier.core.expense.request.StockTransferExpenseBatchRequest
+import app.myliberty.easy_records.cross_tier.core.expense.search.ExpenseSearchParameters
+import app.myliberty.easy_records.cross_tier.core.expense.search.ExpenseSearchSummaryResponseDto
+import app.myliberty.easy_records.organizations.business.core.org_expense.api.OrgExpenseSearchService
+import app.myliberty.easy_records.organizations.business.core.org_expense.api.OrgExpenseService
 import app.myliberty.easy_records.platform.business.feature.api.Feature
 import app.myliberty.easy_records.util.annotations.RequiresFeature
 import app.myliberty.easy_records.util.paging.PageRequest

@@ -1,9 +1,9 @@
 package app.myliberty.easy_records.organizations.rest.endpoints
 
-import app.myliberty.easy_records.organizations.business.fiscal_period.api.FiscalPeriodRenameDto
-import app.myliberty.easy_records.organizations.business.fiscal_period.api.FiscalPeriodResponseDto
-import app.myliberty.easy_records.organizations.business.fiscal_period.api.FiscalPeriodService
-import app.myliberty.easy_records.organizations.business.fiscal_period.api.YearEndCloseService
+import app.myliberty.easy_records.organizations.business.core.fiscal_period.api.FiscalPeriodRenameDto
+import app.myliberty.easy_records.organizations.business.core.fiscal_period.api.FiscalPeriodResponseDto
+import app.myliberty.easy_records.organizations.business.core.fiscal_period.api.FiscalPeriodService
+import app.myliberty.easy_records.organizations.business.core.fiscal_period.api.YearEndCloseService
 import app.myliberty.easy_records.platform.business.feature.api.Feature
 import app.myliberty.easy_records.util.annotations.RequiresFeature
 import org.springframework.http.ResponseEntity

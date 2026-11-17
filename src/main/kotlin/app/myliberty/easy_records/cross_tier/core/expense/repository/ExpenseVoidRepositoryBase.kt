@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.cross_tier.expense.repository
+package app.myliberty.easy_records.cross_tier.core.expense.repository
 
-import app.myliberty.easy_records.cross_tier.expense.entities.ExpenseVoidBase
+import app.myliberty.easy_records.cross_tier.core.expense.entities.ExpenseVoidBase
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.repository.NoRepositoryBean
 import java.util.UUID

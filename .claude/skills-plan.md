@@ -70,7 +70,7 @@ memory: `project_sale_readme`, `feedback_readmes_must_match`, `feedback_verifyin
 
 #### `esrc-fiscal`
 
-**Trigger**: any task in `organizations/business/fiscal_period/`
+**Trigger**: any task in `organizations/business/core/fiscal_period/`
 
 **Covers**
 - Fiscal period lifecycle and constraints

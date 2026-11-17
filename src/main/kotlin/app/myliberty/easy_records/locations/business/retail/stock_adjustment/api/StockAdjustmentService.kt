@@ -5,7 +5,7 @@ import app.myliberty.easy_records.locations.business.retail.location_product.api
 import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductService
 import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductUnitRequestDto
 import app.myliberty.easy_records.locations.business.retail.location_product.api.ProductStockBreakdownProvider
-import app.myliberty.easy_records.locations.business.lock.api.EntityAdvisoryLock
+import app.myliberty.easy_records.locations.business.core.lock.api.EntityAdvisoryLock
 import app.myliberty.easy_records.locations.business.retail.stock.api.StockAdjustmentCategory
 import app.myliberty.easy_records.locations.business.retail.stock.api.updater.StockAdjustmentDecreaseStockRequest
 import app.myliberty.easy_records.locations.business.retail.stock.api.updater.StockAdjustmentIncreaseStockRequest
@@ -18,7 +18,7 @@ import app.myliberty.easy_records.locations.business.retail.stock_adjustment.Sto
 import app.myliberty.easy_records.locations.business.retail.stock_adjustment.StockAdjustmentHandlerForKafka
 import app.myliberty.easy_records.locations.business.retail.stock_adjustment.StockAdjustmentRepository
 import app.myliberty.easy_records.locations.business.retail.stock_adjustment.StockAdjustmentValidator
-import app.myliberty.easy_records.organizations.business.fiscal_period.api.FiscalPeriodService
+import app.myliberty.easy_records.organizations.business.core.fiscal_period.api.FiscalPeriodService
 import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.StockMovementReasonService
 import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.business.Decimals

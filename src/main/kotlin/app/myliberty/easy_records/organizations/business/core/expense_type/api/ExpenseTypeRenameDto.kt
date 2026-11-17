@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.expense_type.api
+package app.myliberty.easy_records.organizations.business.core.expense_type.api
 
 import java.util.UUID
 

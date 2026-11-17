@@ -1,10 +1,10 @@
-package app.myliberty.easy_records.organizations.business.ledger.helpers
+package app.myliberty.easy_records.organizations.business.core.ledger.helpers
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
 import app.myliberty.easy_records.messaging.kafka.common.EventSourceContext
-import app.myliberty.easy_records.organizations.business.ledger.LedgerEntryGroupRepository
-import app.myliberty.easy_records.organizations.business.ledger.api.LedgerSourceType
+import app.myliberty.easy_records.organizations.business.core.ledger.LedgerEntryGroupRepository
+import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerSourceType
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Component
 

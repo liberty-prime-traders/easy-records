@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.business.lock
+package app.myliberty.easy_records.locations.business.core.lock
 
 import app.myliberty.easy_records.util.business.lock.AdvisoryLock
 import org.springframework.data.jpa.repository.JpaRepository

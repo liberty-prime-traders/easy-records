@@ -105,7 +105,7 @@ class ArchitectureTest {
     }
 
     private fun beInExactlyOneProductTag() = object : ArchCondition<JavaClass>(
-        "be in exactly one of the core, retail or billing sets in ProductTags"
+        "be under exactly one product folder: core, retail or billing"
     ) {
         override fun check(javaClass: JavaClass, events: ConditionEvents) {
             val domain = ProductTags.domainOf(javaClass.packageName) ?: return

@@ -1,15 +1,15 @@
-package app.myliberty.easy_records.cross_tier.expense.store
+package app.myliberty.easy_records.cross_tier.core.expense.store
 
-import app.myliberty.easy_records.cross_tier.expense.ExpenseSourceType
-import app.myliberty.easy_records.cross_tier.expense.model.ExpenseAggregate
-import app.myliberty.easy_records.cross_tier.expense.model.ExpenseBatchDto
-import app.myliberty.easy_records.cross_tier.expense.model.ExpensePaymentDraft
-import app.myliberty.easy_records.cross_tier.expense.model.ExpensePaymentDto
-import app.myliberty.easy_records.cross_tier.expense.model.ExpensePaymentVoidDto
-import app.myliberty.easy_records.cross_tier.expense.model.ExpenseDto
-import app.myliberty.easy_records.cross_tier.expense.model.ExpenseVoidDto
-import app.myliberty.easy_records.cross_tier.expense.model.NewExpense
-import app.myliberty.easy_records.cross_tier.expense.model.NewExpenseBatch
+import app.myliberty.easy_records.cross_tier.core.expense.ExpenseSourceType
+import app.myliberty.easy_records.cross_tier.core.expense.model.ExpenseAggregate
+import app.myliberty.easy_records.cross_tier.core.expense.model.ExpenseBatchDto
+import app.myliberty.easy_records.cross_tier.core.expense.model.ExpensePaymentDraft
+import app.myliberty.easy_records.cross_tier.core.expense.model.ExpensePaymentDto
+import app.myliberty.easy_records.cross_tier.core.expense.model.ExpensePaymentVoidDto
+import app.myliberty.easy_records.cross_tier.core.expense.model.ExpenseDto
+import app.myliberty.easy_records.cross_tier.core.expense.model.ExpenseVoidDto
+import app.myliberty.easy_records.cross_tier.core.expense.model.NewExpense
+import app.myliberty.easy_records.cross_tier.core.expense.model.NewExpenseBatch
 import java.math.BigDecimal
 import java.util.UUID
 

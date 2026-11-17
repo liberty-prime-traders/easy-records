@@ -3,7 +3,7 @@
 The admin-managed catalogue of expense categories. A type decides which ledger account an expense
 posts to and which payees and entry points may use it. Endpoint: `secured/expense-types`
 (`GET` with an optional `sourceType`, `POST`, `PUT`; there is no delete), behind the
-`CHART_OF_ACCOUNTS` feature. Expenses themselves are in `cross_tier/expense/README.md`.
+`CHART_OF_ACCOUNTS` feature. Expenses themselves are in `cross_tier/core/expense/README.md`.
 
 ## Model
 

@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.organizations.business.kafka_log.api
+package app.myliberty.easy_records.organizations.business.core.kafka_log.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
-import app.myliberty.easy_records.organizations.business.kafka_log.EventProcessingLogRepository
-import app.myliberty.easy_records.organizations.business.kafka_log.EventProcessingLogStatus
+import app.myliberty.easy_records.organizations.business.core.kafka_log.EventProcessingLogRepository
+import app.myliberty.easy_records.organizations.business.core.kafka_log.EventProcessingLogStatus
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import java.time.OffsetDateTime

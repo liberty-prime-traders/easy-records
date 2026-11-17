@@ -1,7 +1,7 @@
 # expense (location)
 
 Location-schema expenses. The rules, model and ledger behavior are shared with the
-org-level expenses and documented in `cross_tier/expense/README.md`; this package
+org-level expenses and documented in `cross_tier/core/expense/README.md`; this package
 holds only what is location-specific.
 
 - Tables `expense_batch`, `expense`, `expense_payment`, `expense_payment_void`,
@@ -21,7 +21,7 @@ holds only what is location-specific.
 ## Payment state and search
 
 `expense_payment_state` and the search are shared with the org tier and documented in
-`cross_tier/expense/README.md`. Location specifics:
+`cross_tier/core/expense/README.md`. Location specifics:
 
 - `ExpensePaymentStateEntity` / `ExpensePaymentStateRepository` (the JPQL targets
   `ExpensePaymentEntity` / `ExpensePaymentVoidEntity`); `LocationExpenseStore` creates the row in

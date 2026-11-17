@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.org_profile.api
+package app.myliberty.easy_records.organizations.business.core.org_profile.api
 
 import app.myliberty.easy_records.configuration.session.ServiceAccountContext
 import app.myliberty.easy_records.util.async.AsyncExecutor

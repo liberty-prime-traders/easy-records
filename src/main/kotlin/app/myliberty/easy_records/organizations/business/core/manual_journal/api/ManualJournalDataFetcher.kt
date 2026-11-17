@@ -1,10 +1,10 @@
-package app.myliberty.easy_records.organizations.business.manual_journal.api
+package app.myliberty.easy_records.organizations.business.core.manual_journal.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
-import app.myliberty.easy_records.organizations.business.account.api.AccountDataFetcher
-import app.myliberty.easy_records.organizations.business.manual_journal.ManualJournalLineRepository
-import app.myliberty.easy_records.organizations.business.manual_journal.ManualJournalRepository
-import app.myliberty.easy_records.organizations.business.manual_journal.ManualJournalResponseMapper
+import app.myliberty.easy_records.organizations.business.core.account.api.AccountDataFetcher
+import app.myliberty.easy_records.organizations.business.core.manual_journal.ManualJournalLineRepository
+import app.myliberty.easy_records.organizations.business.core.manual_journal.ManualJournalRepository
+import app.myliberty.easy_records.organizations.business.core.manual_journal.ManualJournalResponseMapper
 import org.springframework.stereotype.Service
 
 @Service

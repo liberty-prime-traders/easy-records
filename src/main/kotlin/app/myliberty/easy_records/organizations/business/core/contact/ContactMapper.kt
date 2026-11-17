@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.organizations.business.contact
+package app.myliberty.easy_records.organizations.business.core.contact
 
-import app.myliberty.easy_records.organizations.business.contact.api.ContactDto
-import app.myliberty.easy_records.organizations.business.contact.api.ContactInsertDto
+import app.myliberty.easy_records.organizations.business.core.contact.api.ContactDto
+import app.myliberty.easy_records.organizations.business.core.contact.api.ContactInsertDto
 import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping

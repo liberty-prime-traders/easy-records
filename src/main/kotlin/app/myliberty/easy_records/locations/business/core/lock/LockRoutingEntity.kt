@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.business.lock
+package app.myliberty.easy_records.locations.business.core.lock
 
 import jakarta.persistence.Entity
 import jakarta.persistence.Id

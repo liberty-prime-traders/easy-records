@@ -50,7 +50,7 @@ a void posts `FUND_MOVEMENT_VOID` with the legs swapped on `void_date`. See `led
 
 - Responses are ready to render: account `code` and `label`, the recorded-by name, and `void` (null, or `voidDate`,
   `reason`, `voidedBy`). `FundMovementResponseBuilder` resolves labels in one pass per request.
-- `POST search` follows `cross_tier/expense/README.md`: keyset on `(created_on, id)` descending (`idx_fund_movement_created_on_id`),
+- `POST search` follows `cross_tier/core/expense/README.md`: keyset on `(created_on, id)` descending (`idx_fund_movement_created_on_id`),
   one extra row for `hasMore`. The query selects the full movement and void columns, `FundMovementSearchRowMapper` builds the
   DTOs, and the response builder resolves labels and names for the page.
   `createdFrom` / `createdBefore` are required, the upper bound is exclusive and the span is at most one year.

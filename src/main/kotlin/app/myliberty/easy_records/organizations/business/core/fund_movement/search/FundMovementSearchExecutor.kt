@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.fund_movement.search
+package app.myliberty.easy_records.organizations.business.core.fund_movement.search
 
 import jakarta.persistence.Tuple
 import app.myliberty.easy_records.configuration.datasource.DataSourceBeanNames

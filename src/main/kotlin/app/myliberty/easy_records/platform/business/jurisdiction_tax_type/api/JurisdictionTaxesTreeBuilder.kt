@@ -1,7 +1,7 @@
 package app.myliberty.easy_records.platform.business.jurisdiction_tax_type.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnPlatformSchema
-import app.myliberty.easy_records.organizations.business.org_jurisdiction_tax_type.api.OrgJurisdictionTaxTypeFetcher
+import app.myliberty.easy_records.organizations.business.core.org_jurisdiction_tax_type.api.OrgJurisdictionTaxTypeFetcher
 import app.myliberty.easy_records.platform.business.jurisdiction.api.JurisdictionDto
 import app.myliberty.easy_records.platform.business.jurisdiction.api.JurisdictionFetcher
 import app.myliberty.easy_records.platform.business.jurisdiction_tax_type.JurisdictionTaxTypeCache

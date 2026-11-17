@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.ledger
+package app.myliberty.easy_records.organizations.business.core.ledger
 
 import java.math.BigDecimal
 

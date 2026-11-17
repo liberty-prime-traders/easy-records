@@ -1,9 +1,9 @@
-package app.myliberty.easy_records.cross_tier.expense.search
+package app.myliberty.easy_records.cross_tier.core.expense.search
 
-import app.myliberty.easy_records.cross_tier.expense.response.ExpenseResponseBuilder
-import app.myliberty.easy_records.cross_tier.expense.response.ExpenseSummaryResponse
-import app.myliberty.easy_records.cross_tier.expense.store.ExpenseStore
-import app.myliberty.easy_records.organizations.business.expense_type.api.ExpenseTypeService
+import app.myliberty.easy_records.cross_tier.core.expense.response.ExpenseResponseBuilder
+import app.myliberty.easy_records.cross_tier.core.expense.response.ExpenseSummaryResponse
+import app.myliberty.easy_records.cross_tier.core.expense.store.ExpenseStore
+import app.myliberty.easy_records.organizations.business.core.expense_type.api.ExpenseTypeService
 import app.myliberty.easy_records.util.paging.PageRequest
 import app.myliberty.easy_records.util.paging.PageResponse
 import app.myliberty.easy_records.util.queries.KeysetSearchCursor

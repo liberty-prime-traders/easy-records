@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.organizations.business.fiscal_period
+package app.myliberty.easy_records.organizations.business.core.fiscal_period
 
-import app.myliberty.easy_records.organizations.business.accounting_config.api.OrgAccountingConfigService
+import app.myliberty.easy_records.organizations.business.core.accounting_config.api.OrgAccountingConfigService
 import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Component

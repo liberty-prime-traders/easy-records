@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.cross_tier.expense
+package app.myliberty.easy_records.cross_tier.core.expense
 
-import app.myliberty.easy_records.cross_tier.expense.store.ExpenseStore
+import app.myliberty.easy_records.cross_tier.core.expense.store.ExpenseStore
 import app.myliberty.easy_records.messaging.kafka.common.EventSourceContext
 import java.util.UUID
 

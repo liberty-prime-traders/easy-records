@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.organizations.business.accounting_config
+package app.myliberty.easy_records.organizations.business.core.accounting_config
 
-import app.myliberty.easy_records.organizations.business.accounting_config.api.OrgAccountingConfigDto
-import app.myliberty.easy_records.organizations.business.accounting_config.api.OrgAccountingConfigInsertDto
-import app.myliberty.easy_records.organizations.business.accounting_config.api.OrgAccountingConfigResponseDto
+import app.myliberty.easy_records.organizations.business.core.accounting_config.api.OrgAccountingConfigDto
+import app.myliberty.easy_records.organizations.business.core.accounting_config.api.OrgAccountingConfigInsertDto
+import app.myliberty.easy_records.organizations.business.core.accounting_config.api.OrgAccountingConfigResponseDto
 import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping

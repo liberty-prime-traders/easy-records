@@ -1,10 +1,10 @@
-package app.myliberty.easy_records.organizations.business.loan
+package app.myliberty.easy_records.organizations.business.core.loan
 
-import app.myliberty.easy_records.organizations.business.account.api.AccountDataFetcher
-import app.myliberty.easy_records.organizations.business.account.api.SystemAccount
-import app.myliberty.easy_records.organizations.business.contact.api.ContactDto
-import app.myliberty.easy_records.organizations.business.contact.api.ContactType
-import app.myliberty.easy_records.organizations.business.loan.api.LoanStatus
+import app.myliberty.easy_records.organizations.business.core.account.api.AccountDataFetcher
+import app.myliberty.easy_records.organizations.business.core.account.api.SystemAccount
+import app.myliberty.easy_records.organizations.business.core.contact.api.ContactDto
+import app.myliberty.easy_records.organizations.business.core.contact.api.ContactType
+import app.myliberty.easy_records.organizations.business.core.loan.api.LoanStatus
 import app.myliberty.easy_records.util.business.mappers.StringQualifier
 import app.myliberty.easy_records.util.business.mappers.UserQualifier
 import app.myliberty.easy_records.util.model.HasReferenceEntity

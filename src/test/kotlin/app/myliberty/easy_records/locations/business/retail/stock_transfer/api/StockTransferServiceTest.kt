@@ -3,13 +3,13 @@ package app.myliberty.easy_records.locations.business.retail.stock_transfer.api
 import app.myliberty.easy_records.configuration.session.LocationSession
 import app.myliberty.easy_records.configuration.session.SessionContext
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
-import app.myliberty.easy_records.locations.business.lock.api.EntityAdvisoryLock
+import app.myliberty.easy_records.locations.business.core.lock.api.EntityAdvisoryLock
 import app.myliberty.easy_records.locations.business.retail.stock_transfer.StockTransferCancelledHandlerForKafka
 import app.myliberty.easy_records.locations.business.retail.stock_transfer.StockTransferDispatchRepository
 import app.myliberty.easy_records.locations.business.retail.stock_transfer.StockTransferOrderLocker
 import app.myliberty.easy_records.locations.business.retail.stock_transfer.StockTransferResponseAssembler
 import app.myliberty.easy_records.locations.business.retail.stock_transfer.StockTransferSchemaGateway
-import app.myliberty.easy_records.organizations.business.location.api.LocationService
+import app.myliberty.easy_records.organizations.business.core.location.api.LocationService
 import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferOrderDataFetcher
 import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferOrderDomainDto
 import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferOrderService

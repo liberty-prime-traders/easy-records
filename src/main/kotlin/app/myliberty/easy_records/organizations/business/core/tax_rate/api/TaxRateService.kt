@@ -1,13 +1,13 @@
-package app.myliberty.easy_records.organizations.business.tax_rate.api
+package app.myliberty.easy_records.organizations.business.core.tax_rate.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
-import app.myliberty.easy_records.organizations.business.org_jurisdiction_tax_type.api.OrgJurisdictionTaxTypeFetcher
-import app.myliberty.easy_records.organizations.business.org_jurisdiction_tax_type.api.OrgJurisdictionTaxTypeStatus
-import app.myliberty.easy_records.organizations.business.tax_rate.TaxRateCache
-import app.myliberty.easy_records.organizations.business.tax_rate.TaxRateDto
-import app.myliberty.easy_records.organizations.business.tax_rate.TaxRateMapper
-import app.myliberty.easy_records.organizations.business.tax_rate.TaxRateRepository
-import app.myliberty.easy_records.organizations.business.tax_rate.TaxRateValidator
+import app.myliberty.easy_records.organizations.business.core.org_jurisdiction_tax_type.api.OrgJurisdictionTaxTypeFetcher
+import app.myliberty.easy_records.organizations.business.core.org_jurisdiction_tax_type.api.OrgJurisdictionTaxTypeStatus
+import app.myliberty.easy_records.organizations.business.core.tax_rate.TaxRateCache
+import app.myliberty.easy_records.organizations.business.core.tax_rate.TaxRateDto
+import app.myliberty.easy_records.organizations.business.core.tax_rate.TaxRateMapper
+import app.myliberty.easy_records.organizations.business.core.tax_rate.TaxRateRepository
+import app.myliberty.easy_records.organizations.business.core.tax_rate.TaxRateValidator
 import app.myliberty.easy_records.platform.business.jurisdiction_tax_type.api.JurisdictionTaxTypeFetcher
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException

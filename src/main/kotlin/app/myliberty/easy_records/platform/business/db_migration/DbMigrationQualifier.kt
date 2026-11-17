@@ -1,6 +1,6 @@
 package app.myliberty.easy_records.platform.business.db_migration
 
-import app.myliberty.easy_records.organizations.business.location.api.LocationService
+import app.myliberty.easy_records.organizations.business.core.location.api.LocationService
 import app.myliberty.easy_records.platform.business.organization.api.OrganizationService
 import app.myliberty.easy_records.util.enums.SchemaOwnerType
 import org.mapstruct.Qualifier

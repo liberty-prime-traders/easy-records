@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.cross_tier.expense.entities
+package app.myliberty.easy_records.cross_tier.core.expense.entities
 
 import jakarta.persistence.Column
 import jakarta.persistence.MappedSuperclass

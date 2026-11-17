@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.organizations.business.role_assignment
+package app.myliberty.easy_records.organizations.business.core.role_assignment
 
 import app.myliberty.easy_records.configuration.cache.CacheNames
 import app.myliberty.easy_records.configuration.cache.CacheSchemaLevel
-import app.myliberty.easy_records.cross_tier.authority.GrantedRole
+import app.myliberty.easy_records.cross_tier.core.authority.GrantedRole
 import app.myliberty.easy_records.util.enums.RtsRole
 import app.myliberty.easy_records.util.enums.SchemaLevel
 import org.springframework.cache.annotation.CacheConfig

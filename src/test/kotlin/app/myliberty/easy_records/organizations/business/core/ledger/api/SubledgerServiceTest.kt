@@ -1,14 +1,14 @@
-package app.myliberty.easy_records.organizations.business.ledger.api
+package app.myliberty.easy_records.organizations.business.core.ledger.api
 
-import app.myliberty.easy_records.organizations.business.ledger.LedgerEntryGroupEntity
-import app.myliberty.easy_records.organizations.business.ledger.LedgerEntryGroupRepository
-import app.myliberty.easy_records.organizations.business.ledger.LedgerMapperImpl
-import app.myliberty.easy_records.organizations.business.ledger.SubledgerAmountTotals
-import app.myliberty.easy_records.organizations.business.ledger.SubledgerBalanceEntity
-import app.myliberty.easy_records.organizations.business.ledger.SubledgerBalanceRepository
-import app.myliberty.easy_records.organizations.business.ledger.SubledgerEntryEntity
-import app.myliberty.easy_records.organizations.business.ledger.SubledgerEntryRepository
-import app.myliberty.easy_records.organizations.business.lock.api.OrgEntityAdvisoryLock
+import app.myliberty.easy_records.organizations.business.core.ledger.LedgerEntryGroupEntity
+import app.myliberty.easy_records.organizations.business.core.ledger.LedgerEntryGroupRepository
+import app.myliberty.easy_records.organizations.business.core.ledger.LedgerMapperImpl
+import app.myliberty.easy_records.organizations.business.core.ledger.SubledgerAmountTotals
+import app.myliberty.easy_records.organizations.business.core.ledger.SubledgerBalanceEntity
+import app.myliberty.easy_records.organizations.business.core.ledger.SubledgerBalanceRepository
+import app.myliberty.easy_records.organizations.business.core.ledger.SubledgerEntryEntity
+import app.myliberty.easy_records.organizations.business.core.ledger.SubledgerEntryRepository
+import app.myliberty.easy_records.organizations.business.core.lock.api.OrgEntityAdvisoryLock
 import app.myliberty.easy_records.util.business.MoneyDisplay
 import app.myliberty.easy_records.util.business.lock.LockNamespaces
 import app.myliberty.easy_records.util.business.mappers.StringQualifier

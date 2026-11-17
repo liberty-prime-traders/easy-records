@@ -1,17 +1,17 @@
-package app.myliberty.easy_records.organizations.business.ledger.processors
+package app.myliberty.easy_records.organizations.business.core.ledger.processors
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
 import app.myliberty.easy_records.messaging.kafka.transaction.events.SaleVoidedEvent
 import app.myliberty.easy_records.messaging.kafka.transaction.processors.AccountingEventProcessor
-import app.myliberty.easy_records.organizations.business.account.api.SystemAccount
-import app.myliberty.easy_records.organizations.business.contact.api.ContactService
-import app.myliberty.easy_records.organizations.business.ledger.api.LedgerEntryRequest
-import app.myliberty.easy_records.organizations.business.ledger.api.LedgerPostingRequest
-import app.myliberty.easy_records.organizations.business.ledger.api.LedgerPostingService
-import app.myliberty.easy_records.organizations.business.ledger.api.LedgerSourceType
-import app.myliberty.easy_records.organizations.business.ledger.api.SubledgerEntryRequest
-import app.myliberty.easy_records.organizations.business.ledger.helpers.LedgerPostingGate
-import app.myliberty.easy_records.organizations.business.ledger.helpers.SaleTaxLedgerEntriesBuilder
+import app.myliberty.easy_records.organizations.business.core.account.api.SystemAccount
+import app.myliberty.easy_records.organizations.business.core.contact.api.ContactService
+import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerEntryRequest
+import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerPostingRequest
+import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerPostingService
+import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerSourceType
+import app.myliberty.easy_records.organizations.business.core.ledger.api.SubledgerEntryRequest
+import app.myliberty.easy_records.organizations.business.core.ledger.helpers.LedgerPostingGate
+import app.myliberty.easy_records.organizations.business.core.ledger.helpers.SaleTaxLedgerEntriesBuilder
 import app.myliberty.easy_records.util.business.Money
 import org.springframework.stereotype.Service
 import kotlin.reflect.KClass

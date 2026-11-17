@@ -3,7 +3,7 @@ package app.myliberty.easy_records.organizations.rest.endpoints
 import app.myliberty.easy_records.locations.business.retail.purchase_movement_context_backfill.api.PurchaseMovementContextBackfiller
 import app.myliberty.easy_records.locations.business.retail.sale_cogs_backfill.api.SaleLineCogsBackfiller
 import app.myliberty.easy_records.locations.business.retail.stock_adjustment_backfill.api.StockAdjustmentBackfiller
-import app.myliberty.easy_records.organizations.business.org_profile.api.OrgProfileService
+import app.myliberty.easy_records.organizations.business.core.org_profile.api.OrgProfileService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize

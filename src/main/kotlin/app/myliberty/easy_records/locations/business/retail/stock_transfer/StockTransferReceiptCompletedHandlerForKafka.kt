@@ -6,7 +6,7 @@ import app.myliberty.easy_records.configuration.session.withLocationSchema
 import app.myliberty.easy_records.messaging.kafka.common.EventSourceContext
 import app.myliberty.easy_records.messaging.kafka.transaction.EventReissueHandler
 import app.myliberty.easy_records.messaging.kafka.transaction.events.StockTransferReceiptCompletedEvent
-import app.myliberty.easy_records.organizations.business.location.api.LocationService
+import app.myliberty.easy_records.organizations.business.core.location.api.LocationService
 import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferOrderDataFetcher
 import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.business.Money

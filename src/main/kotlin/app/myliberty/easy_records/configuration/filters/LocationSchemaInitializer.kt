@@ -4,7 +4,7 @@ import jakarta.servlet.http.HttpServletRequest
 import app.myliberty.easy_records.configuration.datasource.DataSourceBeanNames
 import app.myliberty.easy_records.configuration.security.RtsHeaders.LOCATION_ID_HEADER
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
-import app.myliberty.easy_records.organizations.business.location.api.LocationService
+import app.myliberty.easy_records.organizations.business.core.location.api.LocationService
 import app.myliberty.easy_records.util.business.StringUtils
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.orm.jpa.JpaTransactionManager

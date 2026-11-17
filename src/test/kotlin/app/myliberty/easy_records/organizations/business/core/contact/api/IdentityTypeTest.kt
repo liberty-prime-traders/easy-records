@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.contact.api
+package app.myliberty.easy_records.organizations.business.core.contact.api
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test

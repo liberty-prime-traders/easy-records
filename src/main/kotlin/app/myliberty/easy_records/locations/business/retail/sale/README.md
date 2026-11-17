@@ -463,7 +463,7 @@ committed.
    than today is what keeps a sale entered after the fact taxed at the rate
    and posted to the fiscal period that were actually in effect on the day
    it happened, not the day someone got around to confirming it.
-   `TaxAmountCalculator.calculate` (organizations/business/tax_rate/api)
+   `TaxAmountCalculator.calculate` (organizations/business/core/tax_rate/api)
    resolves one `resolvedTaxableBase` for the whole sale, rounded to cents,
    then every excluded tax is a plain multiply against it. The included
    percentage taxes split exactly what is left of `taxableAmount` after the
@@ -508,7 +508,7 @@ committed.
 - `SaleEntity.taxTotal` / `taxBilled` are set by the time `confirm()`
   returns, so `receivableTotal()` already reflects the real amount owed
   from that point on — see §5.
-- The ledger (`organizations/business/ledger/helpers/SaleTaxLedgerEntriesBuilder`)
+- The ledger (`organizations/business/core/ledger/helpers/SaleTaxLedgerEntriesBuilder`)
   reads the persisted `TaxEntryEntity` rows by `sourceReferenceNumber` and
   branches per entry on both flags to produce the right journal (exclusive
   / inclusive / absorbed-as-expense). That read is the one legitimate
@@ -863,7 +863,7 @@ run** — i.e. as soon as the data it needs is in scope.
 | Adjustments (disc + srch) | `sale_adjustment/` package (`SaleAdjustmentEntity`, `SaleAdjustmentRepository`, `SaleAdjustmentSyncer`, `SaleAdjustmentFetcher`, `AdjustmentAmountCalculator`)                      |
 | Adjustment reasons        | `organizations/business/retail/adjustment_reason/` (org schema lookup; seeded via `AdjustmentReasonSeeder`)                                                                                |
 | Payments                  | `sale_payment/` package (`SalePaymentWriter` — shared write primitive; `SalePaymentAppender` — commit-time wrapper)                                                                 |
-| Taxes (synchronous)       | `SaleTaxFinalizer`, `organizations/business/tax_rate/api/TaxAmountCalculator`, `tax_entry/` package                                                                                 |
+| Taxes (synchronous)       | `SaleTaxFinalizer`, `organizations/business/core/tax_rate/api/TaxAmountCalculator`, `tax_entry/` package                                                                                 |
 | Kafka publish/republish   | `SaleConfirmedHandlerForKafka`, `SaleVoidHandlerForKafka`                                                                                                                           |
 | Void                      | `SaleUpdater.voidSale`, `SaleVoidEntity`, `SaleVoidRepository`                                                                                                                      |
 | Read APIs                 | `SaleDataFetcher`, `SaleAssembler`                                                                                                                                                  |

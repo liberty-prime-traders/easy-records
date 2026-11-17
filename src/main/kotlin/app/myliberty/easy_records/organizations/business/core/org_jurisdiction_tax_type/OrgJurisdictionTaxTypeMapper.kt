@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.organizations.business.org_jurisdiction_tax_type
+package app.myliberty.easy_records.organizations.business.core.org_jurisdiction_tax_type
 
-import app.myliberty.easy_records.organizations.business.org_jurisdiction_tax_type.api.OrgJurisdictionTaxTypeDto
-import app.myliberty.easy_records.organizations.business.org_jurisdiction_tax_type.api.OrgJurisdictionTaxTypeInsertDto
+import app.myliberty.easy_records.organizations.business.core.org_jurisdiction_tax_type.api.OrgJurisdictionTaxTypeDto
+import app.myliberty.easy_records.organizations.business.core.org_jurisdiction_tax_type.api.OrgJurisdictionTaxTypeInsertDto
 import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping

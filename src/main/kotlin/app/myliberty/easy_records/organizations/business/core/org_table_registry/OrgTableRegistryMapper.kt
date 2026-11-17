@@ -1,9 +1,9 @@
-package app.myliberty.easy_records.organizations.business.org_table_registry
+package app.myliberty.easy_records.organizations.business.core.org_table_registry
 
-import app.myliberty.easy_records.organizations.business.org_table_registry.api.OrgTableRegistryDto
-import app.myliberty.easy_records.organizations.business.org_table_registry.api.OrgTableRegistryResponseDto
-import app.myliberty.easy_records.organizations.business.org_table_registry.mapping.TableNameQualifier
-import app.myliberty.easy_records.organizations.business.org_table_registry.mapping.TableNameResolver
+import app.myliberty.easy_records.organizations.business.core.org_table_registry.api.OrgTableRegistryDto
+import app.myliberty.easy_records.organizations.business.core.org_table_registry.api.OrgTableRegistryResponseDto
+import app.myliberty.easy_records.organizations.business.core.org_table_registry.mapping.TableNameQualifier
+import app.myliberty.easy_records.organizations.business.core.org_table_registry.mapping.TableNameResolver
 import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping

@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.locations.business.permission_assignment
+package app.myliberty.easy_records.locations.business.core.permission_assignment
 
 import app.myliberty.easy_records.configuration.cache.CacheNames
 import app.myliberty.easy_records.configuration.cache.CacheSchemaLevel
-import app.myliberty.easy_records.cross_tier.authority.GrantedPermission
+import app.myliberty.easy_records.cross_tier.core.authority.GrantedPermission
 import app.myliberty.easy_records.util.enums.RtsPermission
 import app.myliberty.easy_records.util.enums.SchemaLevel
 import org.springframework.cache.annotation.CacheConfig

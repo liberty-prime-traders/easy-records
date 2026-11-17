@@ -1,7 +1,7 @@
 package app.myliberty.easy_records.locations.business.retail.stock
 
 import app.myliberty.easy_records.locations.business.retail.location_product.api.ProductStockBreakdownProvider
-import app.myliberty.easy_records.locations.business.lock.api.EntityAdvisoryLock
+import app.myliberty.easy_records.locations.business.core.lock.api.EntityAdvisoryLock
 import app.myliberty.easy_records.locations.business.retail.stock.api.read.StockBalanceFetcher
 import app.myliberty.easy_records.organizations.business.retail.stock_item_source.api.StockItemSource
 import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.MovementType

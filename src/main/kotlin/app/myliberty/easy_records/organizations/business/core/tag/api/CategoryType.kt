@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.tag.api
+package app.myliberty.easy_records.organizations.business.core.tag.api
 
 import app.myliberty.easy_records.util.enums.HasCode
 

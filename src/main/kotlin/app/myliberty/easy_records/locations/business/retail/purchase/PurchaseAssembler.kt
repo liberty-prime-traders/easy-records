@@ -9,7 +9,7 @@ import app.myliberty.easy_records.locations.business.retail.purchase.api.Purchas
 import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.UnitConversionGraphFacade
 import app.myliberty.easy_records.locations.business.retail.purchase.api.payment.PurchasePaymentCeilingService
 import app.myliberty.easy_records.locations.business.retail.purchase.api.PurchaseResponseDto
-import app.myliberty.easy_records.organizations.business.contact.api.ContactService
+import app.myliberty.easy_records.organizations.business.core.contact.api.ContactService
 import app.myliberty.easy_records.util.business.mappers.UserQualifier
 import app.myliberty.easy_records.util.quantity.BaseUnitDisplay
 import app.myliberty.easy_records.util.quantity.ExactQuantity

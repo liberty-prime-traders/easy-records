@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.cross_tier.expense.store
+package app.myliberty.easy_records.cross_tier.core.expense.store
 
-import app.myliberty.easy_records.cross_tier.expense.entities.ExpensePaymentStateBase
-import app.myliberty.easy_records.cross_tier.expense.model.ExpenseDto
-import app.myliberty.easy_records.cross_tier.expense.repository.ExpensePaymentStateRepositoryBase
+import app.myliberty.easy_records.cross_tier.core.expense.entities.ExpensePaymentStateBase
+import app.myliberty.easy_records.cross_tier.core.expense.model.ExpenseDto
+import app.myliberty.easy_records.cross_tier.core.expense.repository.ExpensePaymentStateRepositoryBase
 import app.myliberty.easy_records.util.business.PaymentStatusResolver
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import java.math.BigDecimal

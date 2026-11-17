@@ -1,9 +1,9 @@
-package app.myliberty.easy_records.organizations.business.tag.api
+package app.myliberty.easy_records.organizations.business.core.tag.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
-import app.myliberty.easy_records.organizations.business.tag.TagCache
-import app.myliberty.easy_records.organizations.business.tag.TagRepository
-import app.myliberty.easy_records.organizations.business.tag.mapping.TagMapper
+import app.myliberty.easy_records.organizations.business.core.tag.TagCache
+import app.myliberty.easy_records.organizations.business.core.tag.TagRepository
+import app.myliberty.easy_records.organizations.business.core.tag.mapping.TagMapper
 import app.myliberty.easy_records.util.business.StringUtils
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException

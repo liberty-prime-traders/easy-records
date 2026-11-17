@@ -5,8 +5,8 @@ import app.myliberty.easy_records.configuration.session.withLocationSession
 import app.myliberty.easy_records.locations.business.retail.stock_adjustment_backfill.LocationStockAdjustmentBackfiller
 import app.myliberty.easy_records.locations.business.retail.stock_adjustment_backfill.StockAdjustmentBackfillLogFormatter
 import app.myliberty.easy_records.locations.business.retail.stock_adjustment_backfill.StockAdjustmentBackfillResult
-import app.myliberty.easy_records.organizations.business.location.api.LocationDto
-import app.myliberty.easy_records.organizations.business.location.api.LocationService
+import app.myliberty.easy_records.organizations.business.core.location.api.LocationDto
+import app.myliberty.easy_records.organizations.business.core.location.api.LocationService
 import app.myliberty.easy_records.util.async.AsyncExecutor
 import app.myliberty.easy_records.util.enums.ServiceAccount
 import app.myliberty.easy_records.util.exceptions.RtsGenericException

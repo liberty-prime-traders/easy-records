@@ -4,14 +4,14 @@ import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocati
 import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductDataFetcher
 import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductService
 import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductUnitRequestDto
-import app.myliberty.easy_records.locations.business.lock.api.EntityAdvisoryLock
+import app.myliberty.easy_records.locations.business.core.lock.api.EntityAdvisoryLock
 import app.myliberty.easy_records.locations.business.retail.opening_stock.OpeningStockEntity
 import app.myliberty.easy_records.locations.business.retail.opening_stock.OpeningStockHandlerForKafka
 import app.myliberty.easy_records.locations.business.retail.opening_stock.OpeningStockRepository
 import app.myliberty.easy_records.locations.business.retail.opening_stock.OpeningStockValidator
 import app.myliberty.easy_records.locations.business.retail.stock.api.updater.OpeningStockLineStockRequest
 import app.myliberty.easy_records.locations.business.retail.stock.api.updater.OpeningStockStockUpdater
-import app.myliberty.easy_records.organizations.business.fiscal_period.api.FiscalPeriodService
+import app.myliberty.easy_records.organizations.business.core.fiscal_period.api.FiscalPeriodService
 import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.business.Decimals
 import app.myliberty.easy_records.util.business.lock.LockNamespaces

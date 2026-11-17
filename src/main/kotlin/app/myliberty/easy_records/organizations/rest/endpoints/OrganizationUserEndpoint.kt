@@ -1,9 +1,9 @@
 package app.myliberty.easy_records.organizations.rest.endpoints
 
-import app.myliberty.easy_records.cross_tier.authority.MembershipUserSummary
-import app.myliberty.easy_records.cross_tier.authority.UserAccessDetail
-import app.myliberty.easy_records.organizations.business.organization_user.api.OrganizationUserResponseDto
-import app.myliberty.easy_records.organizations.business.organization_user.api.OrganizationUserService
+import app.myliberty.easy_records.cross_tier.core.authority.MembershipUserSummary
+import app.myliberty.easy_records.cross_tier.core.authority.UserAccessDetail
+import app.myliberty.easy_records.organizations.business.core.organization_user.api.OrganizationUserResponseDto
+import app.myliberty.easy_records.organizations.business.core.organization_user.api.OrganizationUserService
 import app.myliberty.easy_records.util.enums.RtsPermissionNames
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.GetMapping

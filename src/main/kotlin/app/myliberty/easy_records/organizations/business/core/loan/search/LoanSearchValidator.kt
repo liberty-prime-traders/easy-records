@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.organizations.business.loan.search
+package app.myliberty.easy_records.organizations.business.core.loan.search
 
-import app.myliberty.easy_records.organizations.business.loan.api.LoanSearchParameters
+import app.myliberty.easy_records.organizations.business.core.loan.api.LoanSearchParameters
 import app.myliberty.easy_records.util.queries.SearchGuards
 
 object LoanSearchValidator {

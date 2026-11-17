@@ -1,7 +1,7 @@
 package app.myliberty.easy_records.organizations.business.retail.unitvalue
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
-import app.myliberty.easy_records.organizations.business.org_profile.api.OrgDataSeeder
+import app.myliberty.easy_records.organizations.business.core.org_profile.api.OrgDataSeeder
 import app.myliberty.easy_records.organizations.business.retail.unitgroup.api.UnitGroupService
 import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.SystemUnitValue
 import org.springframework.core.annotation.Order

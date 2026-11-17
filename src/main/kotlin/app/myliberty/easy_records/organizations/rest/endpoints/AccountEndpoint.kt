@@ -1,12 +1,12 @@
 package app.myliberty.easy_records.organizations.rest.endpoints
 
-import app.myliberty.easy_records.organizations.business.account.api.AccountChildCreateRequest
-import app.myliberty.easy_records.organizations.business.account.api.AccountResponseDto
-import app.myliberty.easy_records.organizations.business.account.api.AccountRootCreateRequest
-import app.myliberty.easy_records.organizations.business.account.api.AccountService
-import app.myliberty.easy_records.organizations.business.account.api.AccountUpdateDto
-import app.myliberty.easy_records.organizations.business.account_selection.api.AccountSelectionService
-import app.myliberty.easy_records.organizations.business.account_selection.api.AccountsTreesForSelection
+import app.myliberty.easy_records.organizations.business.core.account.api.AccountChildCreateRequest
+import app.myliberty.easy_records.organizations.business.core.account.api.AccountResponseDto
+import app.myliberty.easy_records.organizations.business.core.account.api.AccountRootCreateRequest
+import app.myliberty.easy_records.organizations.business.core.account.api.AccountService
+import app.myliberty.easy_records.organizations.business.core.account.api.AccountUpdateDto
+import app.myliberty.easy_records.organizations.business.core.account_selection.api.AccountSelectionService
+import app.myliberty.easy_records.organizations.business.core.account_selection.api.AccountsTreesForSelection
 import app.myliberty.easy_records.platform.business.feature.api.Feature
 import app.myliberty.easy_records.util.annotations.RequiresFeature
 import org.springframework.web.bind.annotation.GetMapping

@@ -1,7 +1,7 @@
 package app.myliberty.easy_records.messaging.kafka.common
 
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
-import app.myliberty.easy_records.organizations.business.location.api.LocationService
+import app.myliberty.easy_records.organizations.business.core.location.api.LocationService
 import app.myliberty.easy_records.platform.business.organization.api.OrganizationService
 import org.springframework.stereotype.Component
 

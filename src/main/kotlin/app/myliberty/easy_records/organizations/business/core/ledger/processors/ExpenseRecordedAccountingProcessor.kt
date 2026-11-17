@@ -1,12 +1,12 @@
-package app.myliberty.easy_records.organizations.business.ledger.processors
+package app.myliberty.easy_records.organizations.business.core.ledger.processors
 
 import app.myliberty.easy_records.messaging.kafka.transaction.events.ExpenseRecordedEvent
-import app.myliberty.easy_records.organizations.business.contact.api.ContactService
-import app.myliberty.easy_records.organizations.business.ledger.api.LedgerPostingRequest
-import app.myliberty.easy_records.organizations.business.ledger.api.LedgerPostingService
-import app.myliberty.easy_records.organizations.business.ledger.api.LedgerSourceType
-import app.myliberty.easy_records.organizations.business.ledger.helpers.ExpensePostingRequests
-import app.myliberty.easy_records.organizations.business.ledger.helpers.LedgerPostingGate
+import app.myliberty.easy_records.organizations.business.core.contact.api.ContactService
+import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerPostingRequest
+import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerPostingService
+import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerSourceType
+import app.myliberty.easy_records.organizations.business.core.ledger.helpers.ExpensePostingRequests
+import app.myliberty.easy_records.organizations.business.core.ledger.helpers.LedgerPostingGate
 import org.springframework.stereotype.Service
 import java.util.UUID
 import kotlin.reflect.KClass

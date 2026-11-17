@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.organizations.business.lock.api
+package app.myliberty.easy_records.organizations.business.core.lock.api
 
-import app.myliberty.easy_records.organizations.business.lock.OrgEntityAdvisoryLockRepository
+import app.myliberty.easy_records.organizations.business.core.lock.OrgEntityAdvisoryLockRepository
 import app.myliberty.easy_records.util.business.lock.AdvisoryLock
 import org.springframework.stereotype.Component
 

@@ -1,11 +1,11 @@
 package app.myliberty.easy_records.organizations.rest.endpoints
 
-import app.myliberty.easy_records.cross_tier.expense.ExpenseSourceType
-import app.myliberty.easy_records.organizations.business.expense_type.api.ExpenseTypeInsertDto
-import app.myliberty.easy_records.organizations.business.expense_type.api.ExpenseTypeRenameDto
-import app.myliberty.easy_records.organizations.business.expense_type.api.ExpenseTypeResponseDto
-import app.myliberty.easy_records.organizations.business.expense_type.api.ExpenseTypeService
-import app.myliberty.easy_records.organizations.business.expense_type.api.ExpenseTypeUpdateDto
+import app.myliberty.easy_records.cross_tier.core.expense.ExpenseSourceType
+import app.myliberty.easy_records.organizations.business.core.expense_type.api.ExpenseTypeInsertDto
+import app.myliberty.easy_records.organizations.business.core.expense_type.api.ExpenseTypeRenameDto
+import app.myliberty.easy_records.organizations.business.core.expense_type.api.ExpenseTypeResponseDto
+import app.myliberty.easy_records.organizations.business.core.expense_type.api.ExpenseTypeService
+import app.myliberty.easy_records.organizations.business.core.expense_type.api.ExpenseTypeUpdateDto
 import app.myliberty.easy_records.platform.business.feature.api.Feature
 import app.myliberty.easy_records.util.annotations.RequiresFeature
 import org.springframework.web.bind.annotation.GetMapping

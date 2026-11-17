@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.organizations.business.contact
+package app.myliberty.easy_records.organizations.business.core.contact
 
-import app.myliberty.easy_records.organizations.business.contact.api.ContactDto
-import app.myliberty.easy_records.organizations.business.contact.api.ContactResponseDto
-import app.myliberty.easy_records.organizations.business.ledger.api.SubledgerBalanceDto
+import app.myliberty.easy_records.organizations.business.core.contact.api.ContactDto
+import app.myliberty.easy_records.organizations.business.core.contact.api.ContactResponseDto
+import app.myliberty.easy_records.organizations.business.core.ledger.api.SubledgerBalanceDto
 import app.myliberty.easy_records.platform.business.sysuser.api.CreatorFullName
 import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
 import org.mapstruct.Mapper

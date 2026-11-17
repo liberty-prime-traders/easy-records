@@ -1,11 +1,11 @@
-package app.myliberty.easy_records.organizations.business.contact_opening_balance
+package app.myliberty.easy_records.organizations.business.core.contact_opening_balance
 
-import app.myliberty.easy_records.organizations.business.contact_opening_balance.api.ContactSubledgerDirection
-import app.myliberty.easy_records.organizations.business.account.api.SystemAccount
-import app.myliberty.easy_records.organizations.business.ledger.api.LedgerEntryRequest
-import app.myliberty.easy_records.organizations.business.ledger.api.LedgerPostingRequest
-import app.myliberty.easy_records.organizations.business.ledger.api.LedgerSourceType
-import app.myliberty.easy_records.organizations.business.ledger.api.SubledgerEntryRequest
+import app.myliberty.easy_records.organizations.business.core.contact_opening_balance.api.ContactSubledgerDirection
+import app.myliberty.easy_records.organizations.business.core.account.api.SystemAccount
+import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerEntryRequest
+import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerPostingRequest
+import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerSourceType
+import app.myliberty.easy_records.organizations.business.core.ledger.api.SubledgerEntryRequest
 import app.myliberty.easy_records.util.business.Money
 import app.myliberty.easy_records.util.business.PositiveMoney
 import java.math.BigDecimal

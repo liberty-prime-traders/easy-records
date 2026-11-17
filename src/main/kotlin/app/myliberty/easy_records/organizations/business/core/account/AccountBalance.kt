@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.account
+package app.myliberty.easy_records.organizations.business.core.account
 
 import java.math.BigDecimal
 

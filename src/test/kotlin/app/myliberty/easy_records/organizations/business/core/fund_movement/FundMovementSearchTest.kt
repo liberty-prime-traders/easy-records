@@ -1,11 +1,11 @@
-package app.myliberty.easy_records.organizations.business.fund_movement
+package app.myliberty.easy_records.organizations.business.core.fund_movement
 
-import app.myliberty.easy_records.organizations.business.fund_movement.api.FundMovementSearchParameters
-import app.myliberty.easy_records.organizations.business.fund_movement.api.FundMovementStatus
-import app.myliberty.easy_records.organizations.business.fund_movement.api.FundMovementType
-import app.myliberty.easy_records.organizations.business.fund_movement.search.FundMovementSearchParameterNames
-import app.myliberty.easy_records.organizations.business.fund_movement.search.FundMovementSearchQueryBuilder
-import app.myliberty.easy_records.organizations.business.fund_movement.search.FundMovementSearchValidator
+import app.myliberty.easy_records.organizations.business.core.fund_movement.api.FundMovementSearchParameters
+import app.myliberty.easy_records.organizations.business.core.fund_movement.api.FundMovementStatus
+import app.myliberty.easy_records.organizations.business.core.fund_movement.api.FundMovementType
+import app.myliberty.easy_records.organizations.business.core.fund_movement.search.FundMovementSearchParameterNames
+import app.myliberty.easy_records.organizations.business.core.fund_movement.search.FundMovementSearchQueryBuilder
+import app.myliberty.easy_records.organizations.business.core.fund_movement.search.FundMovementSearchValidator
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import app.myliberty.easy_records.util.queries.KeysetSearchCursor
 import app.myliberty.easy_records.util.queries.QueryParameterNames

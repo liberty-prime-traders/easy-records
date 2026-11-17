@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.cross_tier.expense.request
+package app.myliberty.easy_records.cross_tier.core.expense.request
 
-import app.myliberty.easy_records.cross_tier.expense.model.PaymentInstruction
+import app.myliberty.easy_records.cross_tier.core.expense.model.PaymentInstruction
 import app.myliberty.easy_records.util.business.PositiveMoney
 
 data class ExpensePaymentCreateRequest(

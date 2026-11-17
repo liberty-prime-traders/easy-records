@@ -1,14 +1,14 @@
-package app.myliberty.easy_records.organizations.business.loan.api
+package app.myliberty.easy_records.organizations.business.core.loan.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
-import app.myliberty.easy_records.organizations.business.contact.api.ContactService
-import app.myliberty.easy_records.organizations.business.loan.LoanMapper
-import app.myliberty.easy_records.organizations.business.loan.LoanRepository
-import app.myliberty.easy_records.organizations.business.loan.LoanResponseBuilder
-import app.myliberty.easy_records.organizations.business.loan.search.LoanSearchExecutor
-import app.myliberty.easy_records.organizations.business.loan.search.LoanSearchQueryBuilder
-import app.myliberty.easy_records.organizations.business.loan.search.LoanSearchRowMapper
-import app.myliberty.easy_records.organizations.business.loan.search.LoanSearchValidator
+import app.myliberty.easy_records.organizations.business.core.contact.api.ContactService
+import app.myliberty.easy_records.organizations.business.core.loan.LoanMapper
+import app.myliberty.easy_records.organizations.business.core.loan.LoanRepository
+import app.myliberty.easy_records.organizations.business.core.loan.LoanResponseBuilder
+import app.myliberty.easy_records.organizations.business.core.loan.search.LoanSearchExecutor
+import app.myliberty.easy_records.organizations.business.core.loan.search.LoanSearchQueryBuilder
+import app.myliberty.easy_records.organizations.business.core.loan.search.LoanSearchRowMapper
+import app.myliberty.easy_records.organizations.business.core.loan.search.LoanSearchValidator
 import app.myliberty.easy_records.util.paging.PageRequest
 import app.myliberty.easy_records.util.paging.PageResponse
 import app.myliberty.easy_records.util.queries.KeysetSearchCursor

@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.feature.activators
+package app.myliberty.easy_records.organizations.business.core.feature.activators
 
 import app.myliberty.easy_records.platform.business.feature.api.Feature
 import org.springframework.stereotype.Component

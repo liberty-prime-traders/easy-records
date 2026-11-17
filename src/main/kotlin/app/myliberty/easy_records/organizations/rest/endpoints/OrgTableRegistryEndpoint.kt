@@ -1,8 +1,8 @@
 package app.myliberty.easy_records.organizations.rest.endpoints
 
-import app.myliberty.easy_records.organizations.business.org_table_registry.api.OrgTableRegistryResponseDto
-import app.myliberty.easy_records.organizations.business.org_table_registry.api.OrgTableRegistryService
-import app.myliberty.easy_records.organizations.business.org_table_registry.api.OrgTableRegistryUpdateDto
+import app.myliberty.easy_records.organizations.business.core.org_table_registry.api.OrgTableRegistryResponseDto
+import app.myliberty.easy_records.organizations.business.core.org_table_registry.api.OrgTableRegistryService
+import app.myliberty.easy_records.organizations.business.core.org_table_registry.api.OrgTableRegistryUpdateDto
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PutMapping

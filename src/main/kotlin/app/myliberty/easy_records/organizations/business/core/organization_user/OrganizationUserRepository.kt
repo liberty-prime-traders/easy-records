@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.organizations.business.organization_user
+package app.myliberty.easy_records.organizations.business.core.organization_user
 
-import app.myliberty.easy_records.cross_tier.authority.MembershipSummaryProjection
+import app.myliberty.easy_records.cross_tier.core.authority.MembershipSummaryProjection
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository

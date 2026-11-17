@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.cross_tier.expense.operation
+package app.myliberty.easy_records.cross_tier.core.expense.operation
 
-import app.myliberty.easy_records.cross_tier.expense.ExpenseTier
-import app.myliberty.easy_records.cross_tier.expense.model.ExpensePaymentDto
+import app.myliberty.easy_records.cross_tier.core.expense.ExpenseTier
+import app.myliberty.easy_records.cross_tier.core.expense.model.ExpensePaymentDto
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import java.util.UUID
 

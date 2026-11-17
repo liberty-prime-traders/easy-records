@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.liberty_access.api
+package app.myliberty.easy_records.organizations.business.core.liberty_access.api
 
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
 import app.myliberty.easy_records.util.enums.RtsPermission

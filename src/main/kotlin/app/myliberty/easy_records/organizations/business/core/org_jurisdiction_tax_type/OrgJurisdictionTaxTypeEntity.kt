@@ -1,10 +1,10 @@
-package app.myliberty.easy_records.organizations.business.org_jurisdiction_tax_type
+package app.myliberty.easy_records.organizations.business.core.org_jurisdiction_tax_type
 
 import jakarta.persistence.Column
 import jakarta.persistence.Convert
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
-import app.myliberty.easy_records.organizations.business.org_jurisdiction_tax_type.api.OrgJurisdictionTaxTypeStatus
+import app.myliberty.easy_records.organizations.business.core.org_jurisdiction_tax_type.api.OrgJurisdictionTaxTypeStatus
 import app.myliberty.easy_records.util.annotations.HasReference
 import app.myliberty.easy_records.util.model.HasReferenceEntity
 import app.myliberty.easy_records.util.model.TableName

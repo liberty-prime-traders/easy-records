@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.organizations.business.expense_type
+package app.myliberty.easy_records.organizations.business.core.expense_type
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
-import app.myliberty.easy_records.organizations.business.expense_type.api.SystemExpenseType
-import app.myliberty.easy_records.organizations.business.org_profile.api.OrgDataSeeder
+import app.myliberty.easy_records.organizations.business.core.expense_type.api.SystemExpenseType
+import app.myliberty.easy_records.organizations.business.core.org_profile.api.OrgDataSeeder
 import org.springframework.core.annotation.Order
 import org.springframework.stereotype.Component
 

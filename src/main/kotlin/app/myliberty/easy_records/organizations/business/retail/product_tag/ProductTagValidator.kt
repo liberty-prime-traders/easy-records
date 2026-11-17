@@ -1,6 +1,6 @@
 package app.myliberty.easy_records.organizations.business.retail.product_tag
 
-import app.myliberty.easy_records.organizations.business.tag.api.TagService
+import app.myliberty.easy_records.organizations.business.core.tag.api.TagService
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Component
 import java.util.UUID

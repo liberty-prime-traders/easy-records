@@ -9,7 +9,7 @@ import app.myliberty.easy_records.locations.business.retail.stock.api.fifo.FifoC
 import app.myliberty.easy_records.locations.business.retail.stock.api.fifo.PlannedTake
 import app.myliberty.easy_records.locations.business.retail.stock.api.revision.ConsumerReplayPlan
 import app.myliberty.easy_records.locations.business.retail.stock_revision.api.AdjustmentCostChange
-import app.myliberty.easy_records.organizations.business.account.api.SystemAccount
+import app.myliberty.easy_records.organizations.business.core.account.api.SystemAccount
 import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.MovementType
 import app.myliberty.easy_records.util.business.mappers.NameResolution
 import app.myliberty.easy_records.util.enums.PaymentStatus

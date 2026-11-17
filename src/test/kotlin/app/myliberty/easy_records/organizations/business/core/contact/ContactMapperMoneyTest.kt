@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.organizations.business.contact
+package app.myliberty.easy_records.organizations.business.core.contact
 
 import app.myliberty.easy_records.support.WithDefaultOrganizationSession
-import app.myliberty.easy_records.organizations.business.contact.api.ContactInsertDto
-import app.myliberty.easy_records.organizations.business.contact.api.IdentityType
+import app.myliberty.easy_records.organizations.business.core.contact.api.ContactInsertDto
+import app.myliberty.easy_records.organizations.business.core.contact.api.IdentityType
 import app.myliberty.easy_records.util.business.Money
 import app.myliberty.easy_records.util.business.mappers.MoneyQualifier
 import app.myliberty.easy_records.util.business.mappers.StringQualifier

@@ -16,8 +16,8 @@ import app.myliberty.easy_records.locations.business.retail.purchase.api.Purchas
 import app.myliberty.easy_records.locations.business.retail.supplier_payment.api.PurchasePaymentStatusService
 import app.myliberty.easy_records.locations.business.retail.supplier_payment.api.SupplierPaymentService
 import app.myliberty.easy_records.locations.business.retail.supplier_payment.api.SupplierPaymentVoidCreateDto
-import app.myliberty.easy_records.organizations.business.fiscal_period.api.FiscalPeriodService
-import app.myliberty.easy_records.organizations.business.payment_method.api.PaymentMethodDataFetcher
+import app.myliberty.easy_records.organizations.business.core.fiscal_period.api.FiscalPeriodService
+import app.myliberty.easy_records.organizations.business.core.payment_method.api.PaymentMethodDataFetcher
 import app.myliberty.easy_records.util.enums.PaymentStatus
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach

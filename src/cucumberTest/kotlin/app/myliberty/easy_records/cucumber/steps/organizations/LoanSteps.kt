@@ -8,9 +8,9 @@ import app.myliberty.easy_records.cucumber.support.ApiClient
 import app.myliberty.easy_records.cucumber.support.AuthenticatedRequestFactory
 import app.myliberty.easy_records.cucumber.support.context.ResponseContext
 import app.myliberty.easy_records.cucumber.support.database.LoanTestDatabase
-import app.myliberty.easy_records.organizations.business.contact.api.ContactInsertDto
-import app.myliberty.easy_records.organizations.business.contact.api.ContactType
-import app.myliberty.easy_records.organizations.business.contact.api.IdentityType
+import app.myliberty.easy_records.organizations.business.core.contact.api.ContactInsertDto
+import app.myliberty.easy_records.organizations.business.core.contact.api.ContactType
+import app.myliberty.easy_records.organizations.business.core.contact.api.IdentityType
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.OffsetDateTime

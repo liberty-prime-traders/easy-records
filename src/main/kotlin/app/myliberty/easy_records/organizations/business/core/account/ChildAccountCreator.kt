@@ -1,9 +1,9 @@
-package app.myliberty.easy_records.organizations.business.account
+package app.myliberty.easy_records.organizations.business.core.account
 
-import app.myliberty.easy_records.organizations.business.account.api.AccountChildCreateRequest
-import app.myliberty.easy_records.organizations.business.account.api.AccountInsertDto
-import app.myliberty.easy_records.organizations.business.account.api.AccountUsagesFinder
-import app.myliberty.easy_records.organizations.business.account.api.SystemAccount
+import app.myliberty.easy_records.organizations.business.core.account.api.AccountChildCreateRequest
+import app.myliberty.easy_records.organizations.business.core.account.api.AccountInsertDto
+import app.myliberty.easy_records.organizations.business.core.account.api.AccountUsagesFinder
+import app.myliberty.easy_records.organizations.business.core.account.api.SystemAccount
 import app.myliberty.easy_records.util.business.StringUtils
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Service

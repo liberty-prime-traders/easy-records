@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.cross_tier.expense.kafka_handler
+package app.myliberty.easy_records.cross_tier.core.expense.kafka_handler
 
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
-import app.myliberty.easy_records.cross_tier.expense.operation.ExpenseReissuer
+import app.myliberty.easy_records.cross_tier.core.expense.operation.ExpenseReissuer
 import org.springframework.stereotype.Component
 
 @Component

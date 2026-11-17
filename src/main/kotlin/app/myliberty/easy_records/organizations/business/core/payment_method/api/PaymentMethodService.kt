@@ -1,10 +1,10 @@
-package app.myliberty.easy_records.organizations.business.payment_method.api
+package app.myliberty.easy_records.organizations.business.core.payment_method.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
-import app.myliberty.easy_records.organizations.business.account.api.AccountService
-import app.myliberty.easy_records.organizations.business.payment_method.PaymentAccountValidator
-import app.myliberty.easy_records.organizations.business.payment_method.PaymentMethodCache
-import app.myliberty.easy_records.organizations.business.payment_method.PaymentMethodMapper
+import app.myliberty.easy_records.organizations.business.core.account.api.AccountService
+import app.myliberty.easy_records.organizations.business.core.payment_method.PaymentAccountValidator
+import app.myliberty.easy_records.organizations.business.core.payment_method.PaymentMethodCache
+import app.myliberty.easy_records.organizations.business.core.payment_method.PaymentMethodMapper
 import app.myliberty.easy_records.util.business.StringUtils
 import app.myliberty.easy_records.util.exceptions.QueriedByEmptyIdException
 import app.myliberty.easy_records.util.exceptions.RtsGenericException

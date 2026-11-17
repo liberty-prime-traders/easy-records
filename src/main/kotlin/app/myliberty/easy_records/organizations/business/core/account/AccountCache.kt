@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.organizations.business.account
+package app.myliberty.easy_records.organizations.business.core.account
 
 import app.myliberty.easy_records.configuration.cache.CacheNames
 import app.myliberty.easy_records.configuration.cache.CacheSchemaLevel
-import app.myliberty.easy_records.organizations.business.account.api.AccountInsertDto
+import app.myliberty.easy_records.organizations.business.core.account.api.AccountInsertDto
 import app.myliberty.easy_records.util.enums.SchemaLevel
 import org.springframework.cache.annotation.CacheConfig
 import org.springframework.cache.annotation.CacheEvict

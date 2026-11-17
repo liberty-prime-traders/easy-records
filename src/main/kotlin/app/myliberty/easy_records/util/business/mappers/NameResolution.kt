@@ -1,6 +1,6 @@
 package app.myliberty.easy_records.util.business.mappers
 
-import app.myliberty.easy_records.organizations.business.contact.api.ContactService
+import app.myliberty.easy_records.organizations.business.core.contact.api.ContactService
 import app.myliberty.easy_records.platform.business.sysuser.api.SysUserService
 import org.springframework.stereotype.Component
 import java.util.UUID

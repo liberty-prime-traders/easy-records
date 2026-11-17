@@ -1,10 +1,10 @@
-package app.myliberty.easy_records.organizations.business.ledger
+package app.myliberty.easy_records.organizations.business.core.ledger
 
 import jakarta.persistence.Column
 import jakarta.persistence.Convert
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
-import app.myliberty.easy_records.organizations.business.ledger.api.LedgerSourceType
+import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerSourceType
 import app.myliberty.easy_records.util.annotations.HasReference
 import app.myliberty.easy_records.util.model.HasReferenceEntity
 import app.myliberty.easy_records.util.model.TableName

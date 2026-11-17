@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.org_table_registry.mapping
+package app.myliberty.easy_records.organizations.business.core.org_table_registry.mapping
 
 import app.myliberty.easy_records.platform.business.table_registry.api.TableRegistryService
 import org.springframework.stereotype.Component

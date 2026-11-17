@@ -1,8 +1,8 @@
 package app.myliberty.easy_records.organizations.rest.endpoints
 
-import app.myliberty.easy_records.organizations.business.contact_opening_balance.api.ContactOpeningBalanceRevisionDto
-import app.myliberty.easy_records.organizations.business.contact_opening_balance.api.ContactOpeningBalanceService
-import app.myliberty.easy_records.organizations.business.contact_opening_balance.api.ContactOpeningBalanceSetDto
+import app.myliberty.easy_records.organizations.business.core.contact_opening_balance.api.ContactOpeningBalanceRevisionDto
+import app.myliberty.easy_records.organizations.business.core.contact_opening_balance.api.ContactOpeningBalanceService
+import app.myliberty.easy_records.organizations.business.core.contact_opening_balance.api.ContactOpeningBalanceSetDto
 import app.myliberty.easy_records.platform.business.feature.api.Feature
 import app.myliberty.easy_records.util.annotations.RequiresFeature
 import org.springframework.web.bind.annotation.GetMapping

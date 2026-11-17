@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.organizations.business.fund_movement
+package app.myliberty.easy_records.organizations.business.core.fund_movement
 
-import app.myliberty.easy_records.organizations.business.account.api.AccountUsageType
-import app.myliberty.easy_records.organizations.business.fund_movement.api.FundMovementType
+import app.myliberty.easy_records.organizations.business.core.account.api.AccountUsageType
+import app.myliberty.easy_records.organizations.business.core.fund_movement.api.FundMovementType
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.mock

@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.organizations.business.loan
+package app.myliberty.easy_records.organizations.business.core.loan
 
-import app.myliberty.easy_records.organizations.business.contact.api.ContactDto
-import app.myliberty.easy_records.organizations.business.contact.api.ContactService
-import app.myliberty.easy_records.organizations.business.lock.api.OrgEntityAdvisoryLock
+import app.myliberty.easy_records.organizations.business.core.contact.api.ContactDto
+import app.myliberty.easy_records.organizations.business.core.contact.api.ContactService
+import app.myliberty.easy_records.organizations.business.core.lock.api.OrgEntityAdvisoryLock
 import app.myliberty.easy_records.util.business.lock.LockNamespaces
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Component

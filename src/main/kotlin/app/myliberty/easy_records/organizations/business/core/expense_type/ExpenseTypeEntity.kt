@@ -1,11 +1,11 @@
-package app.myliberty.easy_records.organizations.business.expense_type
+package app.myliberty.easy_records.organizations.business.core.expense_type
 
 import jakarta.persistence.Column
 import jakarta.persistence.Convert
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
-import app.myliberty.easy_records.cross_tier.expense.ExpenseSourceType
-import app.myliberty.easy_records.organizations.business.contact.api.ContactType
+import app.myliberty.easy_records.cross_tier.core.expense.ExpenseSourceType
+import app.myliberty.easy_records.organizations.business.core.contact.api.ContactType
 import app.myliberty.easy_records.util.model.HasCreatorEntity
 import app.myliberty.easy_records.util.model.TableNames
 import org.hibernate.envers.Audited

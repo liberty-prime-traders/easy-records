@@ -7,9 +7,9 @@ import app.myliberty.easy_records.locations.business.retail.purchase.api.Purchas
 import app.myliberty.easy_records.locations.business.retail.stock.api.revision.ConsumerReplayPlan
 import app.myliberty.easy_records.locations.business.retail.stock_revision.api.RevisionPreviewLedgerEntryDto
 import app.myliberty.easy_records.locations.business.retail.stock_revision.api.RevisionPreviewLedgerLineDto
-import app.myliberty.easy_records.organizations.business.account.api.EntryType
-import app.myliberty.easy_records.organizations.business.account.api.SystemAccount
-import app.myliberty.easy_records.organizations.business.ledger.api.LedgerEntryRequest
+import app.myliberty.easy_records.organizations.business.core.account.api.EntryType
+import app.myliberty.easy_records.organizations.business.core.account.api.SystemAccount
+import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerEntryRequest
 import app.myliberty.easy_records.locations.business.retail.stock_revision.api.AdjustmentCostChange
 import app.myliberty.easy_records.locations.business.retail.stock_revision.api.RevisionLedgerEntries
 import app.myliberty.easy_records.util.business.Decimals

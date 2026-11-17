@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.organizations.business.account
+package app.myliberty.easy_records.organizations.business.core.account
 
-import app.myliberty.easy_records.organizations.business.account.api.AccountType
+import app.myliberty.easy_records.organizations.business.core.account.api.AccountType
 import jakarta.persistence.Column
 import jakarta.persistence.Convert
 import jakarta.persistence.Entity

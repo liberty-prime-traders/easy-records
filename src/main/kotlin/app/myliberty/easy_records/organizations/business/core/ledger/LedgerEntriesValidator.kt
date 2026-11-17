@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.organizations.business.ledger
+package app.myliberty.easy_records.organizations.business.core.ledger
 
-import app.myliberty.easy_records.organizations.business.account.api.EntryType
-import app.myliberty.easy_records.organizations.business.ledger.api.LedgerEntryRequest
+import app.myliberty.easy_records.organizations.business.core.account.api.EntryType
+import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerEntryRequest
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import java.math.BigDecimal
 

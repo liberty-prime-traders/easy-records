@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.organizations.business.contact_opening_balance.api
+package app.myliberty.easy_records.organizations.business.core.contact_opening_balance.api
 
-import app.myliberty.easy_records.organizations.business.ledger.api.SubledgerBalanceDto
+import app.myliberty.easy_records.organizations.business.core.ledger.api.SubledgerBalanceDto
 import app.myliberty.easy_records.util.business.Decimals
 import app.myliberty.easy_records.util.business.Money
 import java.math.BigDecimal

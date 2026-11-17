@@ -1,9 +1,9 @@
-package app.myliberty.easy_records.organizations.business.location
+package app.myliberty.easy_records.organizations.business.core.location
 
 import app.myliberty.easy_records.configuration.cache.CacheNames
 import app.myliberty.easy_records.configuration.cache.CacheSchemaLevel
-import app.myliberty.easy_records.organizations.business.location.api.LocationDto
-import app.myliberty.easy_records.organizations.business.location.api.LocationInsertDto
+import app.myliberty.easy_records.organizations.business.core.location.api.LocationDto
+import app.myliberty.easy_records.organizations.business.core.location.api.LocationInsertDto
 import app.myliberty.easy_records.util.enums.SchemaLevel
 import org.springframework.cache.annotation.CacheConfig
 import org.springframework.cache.annotation.CacheEvict

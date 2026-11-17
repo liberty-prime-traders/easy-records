@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.organizations.business.opening_balance
+package app.myliberty.easy_records.organizations.business.core.opening_balance
 
-import app.myliberty.easy_records.organizations.business.account.api.AccountLookupDto
-import app.myliberty.easy_records.organizations.business.account.api.SystemAccount
+import app.myliberty.easy_records.organizations.business.core.account.api.AccountLookupDto
+import app.myliberty.easy_records.organizations.business.core.account.api.SystemAccount
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 
 object OpeningBalanceAccountValidator {

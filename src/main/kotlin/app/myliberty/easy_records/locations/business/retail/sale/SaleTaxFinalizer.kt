@@ -1,15 +1,15 @@
 package app.myliberty.easy_records.locations.business.retail.sale
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
-import app.myliberty.easy_records.locations.business.tax_entry.api.TaxDirection
-import app.myliberty.easy_records.locations.business.tax_entry.api.TaxEntryCreateDto
-import app.myliberty.easy_records.locations.business.tax_entry.api.TaxEntryService
-import app.myliberty.easy_records.locations.business.tax_entry.api.TaxSourceType
-import app.myliberty.easy_records.organizations.business.fiscal_period.api.FiscalPeriodService
-import app.myliberty.easy_records.organizations.business.org_jurisdiction_tax_type.api.OrgJurisdictionTaxTypeFetcher
-import app.myliberty.easy_records.organizations.business.org_jurisdiction_tax_type.api.OrgJurisdictionTaxTypeStatus
-import app.myliberty.easy_records.organizations.business.tax_rate.api.TaxAmountCalculator
-import app.myliberty.easy_records.organizations.business.tax_rate.api.TaxRateService
+import app.myliberty.easy_records.locations.business.core.tax_entry.api.TaxDirection
+import app.myliberty.easy_records.locations.business.core.tax_entry.api.TaxEntryCreateDto
+import app.myliberty.easy_records.locations.business.core.tax_entry.api.TaxEntryService
+import app.myliberty.easy_records.locations.business.core.tax_entry.api.TaxSourceType
+import app.myliberty.easy_records.organizations.business.core.fiscal_period.api.FiscalPeriodService
+import app.myliberty.easy_records.organizations.business.core.org_jurisdiction_tax_type.api.OrgJurisdictionTaxTypeFetcher
+import app.myliberty.easy_records.organizations.business.core.org_jurisdiction_tax_type.api.OrgJurisdictionTaxTypeStatus
+import app.myliberty.easy_records.organizations.business.core.tax_rate.api.TaxAmountCalculator
+import app.myliberty.easy_records.organizations.business.core.tax_rate.api.TaxRateService
 import app.myliberty.easy_records.platform.business.jurisdiction_tax_type.api.JurisdictionTaxTypeFetcher
 import app.myliberty.easy_records.platform.business.tax_type.api.TaxApplicationLevel
 import app.myliberty.easy_records.platform.business.tax_type.api.TaxTrigger

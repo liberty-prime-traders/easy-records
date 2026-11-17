@@ -1,17 +1,17 @@
-package app.myliberty.easy_records.organizations.business.ledger.processors
+package app.myliberty.easy_records.organizations.business.core.ledger.processors
 
 import app.myliberty.easy_records.messaging.kafka.common.EventSourceContext
 import app.myliberty.easy_records.messaging.kafka.transaction.events.StockTransferCancelledEvent
 import app.myliberty.easy_records.messaging.kafka.transaction.events.StockTransferDispatchedEvent
 import app.myliberty.easy_records.messaging.kafka.transaction.events.StockTransferReceiptCompletedEvent
-import app.myliberty.easy_records.organizations.business.account.api.EntryType
-import app.myliberty.easy_records.organizations.business.account.api.SystemAccount
-import app.myliberty.easy_records.organizations.business.ledger.LedgerEntryGroupRepository
-import app.myliberty.easy_records.organizations.business.ledger.api.LedgerEntryRequest
-import app.myliberty.easy_records.organizations.business.ledger.api.LedgerPostingService
-import app.myliberty.easy_records.organizations.business.ledger.api.LedgerSourceType
-import app.myliberty.easy_records.organizations.business.ledger.helpers.LedgerPostingGate
-import app.myliberty.easy_records.organizations.business.ledger.helpers.StockTransferLedgerPostings
+import app.myliberty.easy_records.organizations.business.core.account.api.EntryType
+import app.myliberty.easy_records.organizations.business.core.account.api.SystemAccount
+import app.myliberty.easy_records.organizations.business.core.ledger.LedgerEntryGroupRepository
+import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerEntryRequest
+import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerPostingService
+import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerSourceType
+import app.myliberty.easy_records.organizations.business.core.ledger.helpers.LedgerPostingGate
+import app.myliberty.easy_records.organizations.business.core.ledger.helpers.StockTransferLedgerPostings
 import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferOrderDataFetcher
 import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferOrderDomainDto
 import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferStatus

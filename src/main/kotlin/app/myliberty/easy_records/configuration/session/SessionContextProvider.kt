@@ -1,7 +1,7 @@
 package app.myliberty.easy_records.configuration.session
 
 import app.myliberty.easy_records.configuration.security.RtsHeaders
-import app.myliberty.easy_records.organizations.business.location.api.LocationDto
+import app.myliberty.easy_records.organizations.business.core.location.api.LocationDto
 import app.myliberty.easy_records.platform.business.organization.api.OrganizationDto
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import app.myliberty.easy_records.util.exceptions.RtsMissingHeaderException

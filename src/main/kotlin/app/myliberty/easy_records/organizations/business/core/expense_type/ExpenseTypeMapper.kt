@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.organizations.business.expense_type
+package app.myliberty.easy_records.organizations.business.core.expense_type
 
-import app.myliberty.easy_records.organizations.business.expense_type.api.ExpenseTypeDto
-import app.myliberty.easy_records.organizations.business.expense_type.api.ExpenseTypeInsertDto
-import app.myliberty.easy_records.organizations.business.expense_type.api.ExpenseTypeResponseDto
+import app.myliberty.easy_records.organizations.business.core.expense_type.api.ExpenseTypeDto
+import app.myliberty.easy_records.organizations.business.core.expense_type.api.ExpenseTypeInsertDto
+import app.myliberty.easy_records.organizations.business.core.expense_type.api.ExpenseTypeResponseDto
 import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping

@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.cross_tier.expense.kafka_handler
+package app.myliberty.easy_records.cross_tier.core.expense.kafka_handler
 
 import app.myliberty.easy_records.messaging.kafka.transaction.EventReissueHandler
 import app.myliberty.easy_records.messaging.kafka.transaction.events.ExpensePaymentVoidedEvent

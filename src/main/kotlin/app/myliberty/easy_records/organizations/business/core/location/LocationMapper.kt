@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.organizations.business.location
+package app.myliberty.easy_records.organizations.business.core.location
 
-import app.myliberty.easy_records.organizations.business.location.api.LocationDto
-import app.myliberty.easy_records.organizations.business.location.api.LocationInsertDto
-import app.myliberty.easy_records.organizations.business.location.api.LocationResponseDto
+import app.myliberty.easy_records.organizations.business.core.location.api.LocationDto
+import app.myliberty.easy_records.organizations.business.core.location.api.LocationInsertDto
+import app.myliberty.easy_records.organizations.business.core.location.api.LocationResponseDto
 import app.myliberty.easy_records.platform.business.sysuser.api.CreatorFullName
 import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
 import org.mapstruct.Mapper

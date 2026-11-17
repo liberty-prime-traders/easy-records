@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.organizations.business.account_selection
+package app.myliberty.easy_records.organizations.business.core.account_selection
 
-import app.myliberty.easy_records.organizations.business.account.api.SystemAccount
+import app.myliberty.easy_records.organizations.business.core.account.api.SystemAccount
 
 // Flows post to these directly; a custom expense type pointing at one would mix its entries into them.
 val RESERVED_EXPENSE_ACCOUNTS: Set<SystemAccount> = setOf(

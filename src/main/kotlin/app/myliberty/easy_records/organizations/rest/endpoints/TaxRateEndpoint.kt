@@ -1,9 +1,9 @@
 package app.myliberty.easy_records.organizations.rest.endpoints
 
-import app.myliberty.easy_records.organizations.business.tax_rate.api.TaxRateInsertDto
-import app.myliberty.easy_records.organizations.business.tax_rate.api.TaxRateResponseDto
-import app.myliberty.easy_records.organizations.business.tax_rate.api.TaxRateService
-import app.myliberty.easy_records.organizations.business.tax_rate.api.TaxRateUpdateDto
+import app.myliberty.easy_records.organizations.business.core.tax_rate.api.TaxRateInsertDto
+import app.myliberty.easy_records.organizations.business.core.tax_rate.api.TaxRateResponseDto
+import app.myliberty.easy_records.organizations.business.core.tax_rate.api.TaxRateService
+import app.myliberty.easy_records.organizations.business.core.tax_rate.api.TaxRateUpdateDto
 import app.myliberty.easy_records.platform.business.feature.api.Feature
 import app.myliberty.easy_records.util.annotations.RequiresFeature
 import org.springframework.web.bind.annotation.GetMapping

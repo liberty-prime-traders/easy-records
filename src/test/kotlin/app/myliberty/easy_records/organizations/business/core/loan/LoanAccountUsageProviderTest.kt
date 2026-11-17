@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.organizations.business.loan
+package app.myliberty.easy_records.organizations.business.core.loan
 
-import app.myliberty.easy_records.organizations.business.account.api.AccountUsageType
+import app.myliberty.easy_records.organizations.business.core.account.api.AccountUsageType
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.mock

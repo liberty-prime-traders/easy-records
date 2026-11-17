@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.accounting_config.api
+package app.myliberty.easy_records.organizations.business.core.accounting_config.api
 
 import java.time.DayOfWeek
 import java.time.OffsetDateTime

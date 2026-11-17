@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.opening_balance.api
+package app.myliberty.easy_records.organizations.business.core.opening_balance.api
 
 import app.myliberty.easy_records.util.business.Money
 

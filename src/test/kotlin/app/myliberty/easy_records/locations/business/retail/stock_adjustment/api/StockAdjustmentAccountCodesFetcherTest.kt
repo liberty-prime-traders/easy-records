@@ -3,7 +3,7 @@ package app.myliberty.easy_records.locations.business.retail.stock_adjustment.ap
 import app.myliberty.easy_records.locations.business.retail.stock.api.StockAdjustmentCategory
 import app.myliberty.easy_records.locations.business.retail.stock_adjustment.StockAdjustmentEntity
 import app.myliberty.easy_records.locations.business.retail.stock_adjustment.StockAdjustmentRepository
-import app.myliberty.easy_records.organizations.business.account.api.SystemAccount
+import app.myliberty.easy_records.organizations.business.core.account.api.SystemAccount
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.mock

@@ -1,10 +1,10 @@
-package app.myliberty.easy_records.organizations.business.org_expense.api
+package app.myliberty.easy_records.organizations.business.core.org_expense.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
-import app.myliberty.easy_records.cross_tier.expense.ExpenseTier
+import app.myliberty.easy_records.cross_tier.core.expense.ExpenseTier
 import app.myliberty.easy_records.messaging.kafka.common.EventSourceContext
-import app.myliberty.easy_records.organizations.business.lock.api.OrgEntityAdvisoryLock
+import app.myliberty.easy_records.organizations.business.core.lock.api.OrgEntityAdvisoryLock
 import app.myliberty.easy_records.util.business.lock.LockNamespaces
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Propagation

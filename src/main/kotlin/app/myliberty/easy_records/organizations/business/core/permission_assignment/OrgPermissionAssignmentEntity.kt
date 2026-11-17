@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.permission_assignment
+package app.myliberty.easy_records.organizations.business.core.permission_assignment
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity

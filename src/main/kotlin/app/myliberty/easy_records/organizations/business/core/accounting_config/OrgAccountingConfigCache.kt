@@ -1,9 +1,9 @@
-package app.myliberty.easy_records.organizations.business.accounting_config
+package app.myliberty.easy_records.organizations.business.core.accounting_config
 
 import app.myliberty.easy_records.configuration.cache.CacheNames
 import app.myliberty.easy_records.configuration.cache.CacheSchemaLevel
-import app.myliberty.easy_records.organizations.business.accounting_config.api.OrgAccountingConfigDto
-import app.myliberty.easy_records.organizations.business.accounting_config.api.OrgAccountingConfigInsertDto
+import app.myliberty.easy_records.organizations.business.core.accounting_config.api.OrgAccountingConfigDto
+import app.myliberty.easy_records.organizations.business.core.accounting_config.api.OrgAccountingConfigInsertDto
 import app.myliberty.easy_records.util.enums.SchemaLevel
 import org.springframework.cache.annotation.CacheConfig
 import org.springframework.cache.annotation.CacheEvict

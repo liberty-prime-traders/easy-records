@@ -1,10 +1,10 @@
-package app.myliberty.easy_records.organizations.business.account_selection.api
+package app.myliberty.easy_records.organizations.business.core.account_selection.api
 
-import app.myliberty.easy_records.organizations.business.account.api.AccountDataFetcher
-import app.myliberty.easy_records.organizations.business.account.api.AccountSelectionCandidate
-import app.myliberty.easy_records.organizations.business.account.api.AccountStructureLock
-import app.myliberty.easy_records.organizations.business.account.api.RecordingAccountService
-import app.myliberty.easy_records.organizations.business.account.api.SystemAccount
+import app.myliberty.easy_records.organizations.business.core.account.api.AccountDataFetcher
+import app.myliberty.easy_records.organizations.business.core.account.api.AccountSelectionCandidate
+import app.myliberty.easy_records.organizations.business.core.account.api.AccountStructureLock
+import app.myliberty.easy_records.organizations.business.core.account.api.RecordingAccountService
+import app.myliberty.easy_records.organizations.business.core.account.api.SystemAccount
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test

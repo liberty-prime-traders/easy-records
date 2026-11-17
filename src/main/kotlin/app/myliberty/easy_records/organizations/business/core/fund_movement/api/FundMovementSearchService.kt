@@ -1,11 +1,11 @@
-package app.myliberty.easy_records.organizations.business.fund_movement.api
+package app.myliberty.easy_records.organizations.business.core.fund_movement.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
-import app.myliberty.easy_records.organizations.business.fund_movement.FundMovementResponseBuilder
-import app.myliberty.easy_records.organizations.business.fund_movement.search.FundMovementSearchExecutor
-import app.myliberty.easy_records.organizations.business.fund_movement.search.FundMovementSearchQueryBuilder
-import app.myliberty.easy_records.organizations.business.fund_movement.search.FundMovementSearchRowMapper
-import app.myliberty.easy_records.organizations.business.fund_movement.search.FundMovementSearchValidator
+import app.myliberty.easy_records.organizations.business.core.fund_movement.FundMovementResponseBuilder
+import app.myliberty.easy_records.organizations.business.core.fund_movement.search.FundMovementSearchExecutor
+import app.myliberty.easy_records.organizations.business.core.fund_movement.search.FundMovementSearchQueryBuilder
+import app.myliberty.easy_records.organizations.business.core.fund_movement.search.FundMovementSearchRowMapper
+import app.myliberty.easy_records.organizations.business.core.fund_movement.search.FundMovementSearchValidator
 import app.myliberty.easy_records.util.paging.PageRequest
 import app.myliberty.easy_records.util.paging.PageResponse
 import app.myliberty.easy_records.util.queries.KeysetSearchCursor

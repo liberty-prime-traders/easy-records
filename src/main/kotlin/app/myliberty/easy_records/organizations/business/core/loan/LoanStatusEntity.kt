@@ -1,11 +1,11 @@
-package app.myliberty.easy_records.organizations.business.loan
+package app.myliberty.easy_records.organizations.business.core.loan
 
 import jakarta.persistence.Column
 import jakarta.persistence.Convert
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
 import jakarta.persistence.Table
-import app.myliberty.easy_records.organizations.business.loan.api.LoanStatus
+import app.myliberty.easy_records.organizations.business.core.loan.api.LoanStatus
 import app.myliberty.easy_records.util.model.ViewNames
 import org.hibernate.annotations.Immutable
 import java.math.BigDecimal

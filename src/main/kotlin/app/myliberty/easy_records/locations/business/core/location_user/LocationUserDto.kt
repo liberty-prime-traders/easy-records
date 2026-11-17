@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.business.location_user
+package app.myliberty.easy_records.locations.business.core.location_user
 
 import java.time.OffsetDateTime
 import java.util.UUID

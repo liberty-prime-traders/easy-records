@@ -1,10 +1,10 @@
-package app.myliberty.easy_records.organizations.business.tag
+package app.myliberty.easy_records.organizations.business.core.tag
 
 import app.myliberty.easy_records.configuration.cache.CacheNames
 import app.myliberty.easy_records.configuration.cache.CacheSchemaLevel
-import app.myliberty.easy_records.organizations.business.tag.api.TagDto
-import app.myliberty.easy_records.organizations.business.tag.api.TagInsertDto
-import app.myliberty.easy_records.organizations.business.tag.mapping.TagMapper
+import app.myliberty.easy_records.organizations.business.core.tag.api.TagDto
+import app.myliberty.easy_records.organizations.business.core.tag.api.TagInsertDto
+import app.myliberty.easy_records.organizations.business.core.tag.mapping.TagMapper
 import app.myliberty.easy_records.util.enums.SchemaLevel
 import org.springframework.cache.annotation.CacheConfig
 import org.springframework.cache.annotation.CacheEvict

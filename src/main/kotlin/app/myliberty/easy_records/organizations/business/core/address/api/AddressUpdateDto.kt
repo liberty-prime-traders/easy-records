@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.organizations.business.address.api
+package app.myliberty.easy_records.organizations.business.core.address.api
 
-import app.myliberty.easy_records.organizations.business.address.AddressDto
+import app.myliberty.easy_records.organizations.business.core.address.AddressDto
 import java.io.Serializable
 import java.util.Optional
 import java.util.UUID

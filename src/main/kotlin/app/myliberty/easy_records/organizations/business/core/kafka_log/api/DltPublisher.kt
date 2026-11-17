@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.kafka_log.api
+package app.myliberty.easy_records.organizations.business.core.kafka_log.api
 
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
 import app.myliberty.easy_records.configuration.session.withSession

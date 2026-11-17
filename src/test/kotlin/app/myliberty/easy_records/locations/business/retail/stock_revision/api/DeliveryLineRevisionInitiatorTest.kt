@@ -5,7 +5,7 @@ import app.myliberty.easy_records.locations.business.retail.delivery.api.Purchas
 import app.myliberty.easy_records.locations.business.retail.delivery.api.PurchaseDeliveryLineReplacer
 import app.myliberty.easy_records.locations.business.retail.delivery.api.ReplacementDeliveryLineDto
 import app.myliberty.easy_records.locations.business.retail.location_product.api.ProductStockBreakdownProvider
-import app.myliberty.easy_records.locations.business.lock.api.EntityAdvisoryLock
+import app.myliberty.easy_records.locations.business.core.lock.api.EntityAdvisoryLock
 import app.myliberty.easy_records.locations.business.retail.purchase.api.PurchaseDataFetcher
 import app.myliberty.easy_records.locations.business.retail.purchase.api.delivery.PurchaseDeliveryRevisionApplier
 import app.myliberty.easy_records.locations.business.retail.purchase.api.PurchaseResponseDto

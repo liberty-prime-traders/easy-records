@@ -1,10 +1,10 @@
-package app.myliberty.easy_records.cross_tier.expense.operation
+package app.myliberty.easy_records.cross_tier.core.expense.operation
 
-import app.myliberty.easy_records.cross_tier.expense.ExpenseTier
-import app.myliberty.easy_records.cross_tier.expense.model.ExpenseDto
-import app.myliberty.easy_records.cross_tier.expense.model.ExpensePaymentDto
-import app.myliberty.easy_records.cross_tier.expense.model.ExpensePaymentVoidDto
-import app.myliberty.easy_records.cross_tier.expense.model.ExpenseVoidDto
+import app.myliberty.easy_records.cross_tier.core.expense.ExpenseTier
+import app.myliberty.easy_records.cross_tier.core.expense.model.ExpenseDto
+import app.myliberty.easy_records.cross_tier.core.expense.model.ExpensePaymentDto
+import app.myliberty.easy_records.cross_tier.core.expense.model.ExpensePaymentVoidDto
+import app.myliberty.easy_records.cross_tier.core.expense.model.ExpenseVoidDto
 import app.myliberty.easy_records.messaging.kafka.transaction.events.ExpensePaymentRecordedEvent
 import app.myliberty.easy_records.messaging.kafka.transaction.events.ExpensePaymentVoidedEvent
 import app.myliberty.easy_records.messaging.kafka.transaction.events.ExpenseRecordedEvent

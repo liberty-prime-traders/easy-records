@@ -1,11 +1,11 @@
-package app.myliberty.easy_records.organizations.business.contact_opening_balance
+package app.myliberty.easy_records.organizations.business.core.contact_opening_balance
 
 import jakarta.persistence.Column
 import jakarta.persistence.Convert
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
 import jakarta.persistence.Table
-import app.myliberty.easy_records.organizations.business.contact_opening_balance.api.ContactSubledgerDirection
+import app.myliberty.easy_records.organizations.business.core.contact_opening_balance.api.ContactSubledgerDirection
 import app.myliberty.easy_records.util.model.ViewNames
 import org.hibernate.annotations.Immutable
 import java.math.BigDecimal

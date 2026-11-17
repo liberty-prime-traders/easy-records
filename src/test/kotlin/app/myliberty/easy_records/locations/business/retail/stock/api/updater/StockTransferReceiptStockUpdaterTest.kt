@@ -2,7 +2,7 @@ package app.myliberty.easy_records.locations.business.retail.stock.api.updater
 
 import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductDataFetcher
 import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductIdentityDto
-import app.myliberty.easy_records.locations.business.lock.api.EntityAdvisoryLock
+import app.myliberty.easy_records.locations.business.core.lock.api.EntityAdvisoryLock
 import app.myliberty.easy_records.locations.business.retail.stock.InboundLayerSpec
 import app.myliberty.easy_records.locations.business.retail.stock.StockIncreaseRecorder
 import app.myliberty.easy_records.locations.business.retail.stock.StockMovementRepository

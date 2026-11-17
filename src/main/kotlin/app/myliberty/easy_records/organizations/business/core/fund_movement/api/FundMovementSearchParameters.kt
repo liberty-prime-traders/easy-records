@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.fund_movement.api
+package app.myliberty.easy_records.organizations.business.core.fund_movement.api
 
 import app.myliberty.easy_records.util.business.StringUtils
 import java.time.LocalDate

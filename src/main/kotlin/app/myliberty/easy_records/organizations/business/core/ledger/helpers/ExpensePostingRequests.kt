@@ -1,9 +1,9 @@
-package app.myliberty.easy_records.organizations.business.ledger.helpers
+package app.myliberty.easy_records.organizations.business.core.ledger.helpers
 
-import app.myliberty.easy_records.organizations.business.ledger.api.LedgerEntryRequest
-import app.myliberty.easy_records.organizations.business.ledger.api.LedgerPostingRequest
-import app.myliberty.easy_records.organizations.business.ledger.api.LedgerSourceType
-import app.myliberty.easy_records.organizations.business.ledger.api.SubledgerEntryRequest
+import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerEntryRequest
+import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerPostingRequest
+import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerSourceType
+import app.myliberty.easy_records.organizations.business.core.ledger.api.SubledgerEntryRequest
 import app.myliberty.easy_records.util.business.Money
 import app.myliberty.easy_records.util.business.PositiveMoney
 import java.time.LocalDate

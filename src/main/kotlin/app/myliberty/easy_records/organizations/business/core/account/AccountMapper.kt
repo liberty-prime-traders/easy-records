@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.organizations.business.account
+package app.myliberty.easy_records.organizations.business.core.account
 
-import app.myliberty.easy_records.organizations.business.account.api.AccountInsertDto
+import app.myliberty.easy_records.organizations.business.core.account.api.AccountInsertDto
 import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping

@@ -4,7 +4,7 @@ import app.myliberty.easy_records.locations.business.retail.sale.api.SaleUpdater
 import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionUpdateFinalizer
 import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionStore
 import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionValidator
-import app.myliberty.easy_records.organizations.business.contact.api.ContactService
+import app.myliberty.easy_records.organizations.business.core.contact.api.ContactService
 import app.myliberty.easy_records.util.business.StringUtils
 import app.myliberty.easy_records.util.enums.SystemContact
 import app.myliberty.easy_records.util.exceptions.RtsGenericException

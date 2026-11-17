@@ -1,7 +1,7 @@
 package app.myliberty.easy_records.platform.business.permission_assignment
 
 import app.myliberty.easy_records.configuration.cache.CacheNames
-import app.myliberty.easy_records.cross_tier.authority.AuthorityGrant
+import app.myliberty.easy_records.cross_tier.core.authority.AuthorityGrant
 import app.myliberty.easy_records.util.enums.RtsPermission
 import org.springframework.cache.annotation.CacheConfig
 import org.springframework.cache.annotation.CacheEvict

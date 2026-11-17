@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.organizations.business.organization_admin
+package app.myliberty.easy_records.organizations.business.core.organization_admin
 
 import app.myliberty.easy_records.configuration.cache.CacheNames
 import app.myliberty.easy_records.configuration.cache.CacheSchemaLevel
-import app.myliberty.easy_records.organizations.business.organization_admin.api.OrganizationAdminInsertDto
+import app.myliberty.easy_records.organizations.business.core.organization_admin.api.OrganizationAdminInsertDto
 import app.myliberty.easy_records.util.enums.SchemaLevel
 import org.springframework.cache.annotation.CacheConfig
 import org.springframework.cache.annotation.CacheEvict

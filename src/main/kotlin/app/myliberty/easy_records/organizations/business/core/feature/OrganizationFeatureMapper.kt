@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.organizations.business.feature
+package app.myliberty.easy_records.organizations.business.core.feature
 
-import app.myliberty.easy_records.organizations.business.feature.api.OrganizationFeatureResponseDto
+import app.myliberty.easy_records.organizations.business.core.feature.api.OrganizationFeatureResponseDto
 import app.myliberty.easy_records.platform.business.sysuser.api.NullableFullName
 import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
 import org.mapstruct.Mapper

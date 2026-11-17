@@ -1,12 +1,12 @@
-package app.myliberty.easy_records.organizations.business.feature.api
+package app.myliberty.easy_records.organizations.business.core.feature.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
-import app.myliberty.easy_records.organizations.business.feature.OrganizationFeatureCache
-import app.myliberty.easy_records.organizations.business.feature.OrganizationFeatureDto
-import app.myliberty.easy_records.organizations.business.feature.OrganizationFeatureMapper
-import app.myliberty.easy_records.organizations.business.feature.OrganizationFeatureStatus
-import app.myliberty.easy_records.organizations.business.feature.activators.FeatureActivatorRegistry
+import app.myliberty.easy_records.organizations.business.core.feature.OrganizationFeatureCache
+import app.myliberty.easy_records.organizations.business.core.feature.OrganizationFeatureDto
+import app.myliberty.easy_records.organizations.business.core.feature.OrganizationFeatureMapper
+import app.myliberty.easy_records.organizations.business.core.feature.OrganizationFeatureStatus
+import app.myliberty.easy_records.organizations.business.core.feature.activators.FeatureActivatorRegistry
 import app.myliberty.easy_records.platform.business.feature.api.Feature
 import org.springframework.stereotype.Service
 import java.time.OffsetDateTime

@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.organizations.business.kafka_log
+package app.myliberty.easy_records.organizations.business.core.kafka_log
 
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
-import app.myliberty.easy_records.organizations.business.kafka_log.api.EventProcessingLogSweepService
+import app.myliberty.easy_records.organizations.business.core.kafka_log.api.EventProcessingLogSweepService
 import app.myliberty.easy_records.platform.business.organization.api.OrganizationService
 import org.slf4j.LoggerFactory
 import org.springframework.scheduling.annotation.Scheduled

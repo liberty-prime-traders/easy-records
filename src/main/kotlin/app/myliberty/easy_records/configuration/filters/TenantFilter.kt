@@ -4,7 +4,7 @@ import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
-import app.myliberty.easy_records.cross_tier.authority.EffectiveAuthorizationService
+import app.myliberty.easy_records.cross_tier.core.authority.EffectiveAuthorizationService
 import org.springframework.security.authentication.AbstractAuthenticationToken
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.context.SecurityContextHolder

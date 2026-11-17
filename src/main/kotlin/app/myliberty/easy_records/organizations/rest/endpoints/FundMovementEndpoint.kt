@@ -1,13 +1,13 @@
 package app.myliberty.easy_records.organizations.rest.endpoints
 
-import app.myliberty.easy_records.organizations.business.fund_movement.api.FundMovementCapitalRequest
-import app.myliberty.easy_records.organizations.business.fund_movement.api.FundMovementDrawRequest
-import app.myliberty.easy_records.organizations.business.fund_movement.api.FundMovementResponse
-import app.myliberty.easy_records.organizations.business.fund_movement.api.FundMovementSearchParameters
-import app.myliberty.easy_records.organizations.business.fund_movement.api.FundMovementSearchService
-import app.myliberty.easy_records.organizations.business.fund_movement.api.FundMovementService
-import app.myliberty.easy_records.organizations.business.fund_movement.api.FundMovementTransferRequest
-import app.myliberty.easy_records.organizations.business.fund_movement.api.FundMovementVoidRequest
+import app.myliberty.easy_records.organizations.business.core.fund_movement.api.FundMovementCapitalRequest
+import app.myliberty.easy_records.organizations.business.core.fund_movement.api.FundMovementDrawRequest
+import app.myliberty.easy_records.organizations.business.core.fund_movement.api.FundMovementResponse
+import app.myliberty.easy_records.organizations.business.core.fund_movement.api.FundMovementSearchParameters
+import app.myliberty.easy_records.organizations.business.core.fund_movement.api.FundMovementSearchService
+import app.myliberty.easy_records.organizations.business.core.fund_movement.api.FundMovementService
+import app.myliberty.easy_records.organizations.business.core.fund_movement.api.FundMovementTransferRequest
+import app.myliberty.easy_records.organizations.business.core.fund_movement.api.FundMovementVoidRequest
 import app.myliberty.easy_records.platform.business.feature.api.Feature
 import app.myliberty.easy_records.util.annotations.RequiresFeature
 import app.myliberty.easy_records.util.paging.PageRequest

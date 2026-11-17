@@ -1,9 +1,9 @@
-package app.myliberty.easy_records.organizations.business.ledger.api
+package app.myliberty.easy_records.organizations.business.core.ledger.api
 
 import app.myliberty.easy_records.configuration.session.OrgSession
 import app.myliberty.easy_records.configuration.session.SessionContext
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
-import app.myliberty.easy_records.organizations.business.ledger.LedgerEntryRepository
+import app.myliberty.easy_records.organizations.business.core.ledger.LedgerEntryRepository
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test

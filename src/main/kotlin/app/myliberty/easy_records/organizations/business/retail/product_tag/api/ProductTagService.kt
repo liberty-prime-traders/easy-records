@@ -6,7 +6,7 @@ import app.myliberty.easy_records.organizations.business.retail.product.api.TagS
 import app.myliberty.easy_records.organizations.business.retail.product_tag.ProductTagCache
 import app.myliberty.easy_records.organizations.business.retail.product_tag.ProductTagInsertDto
 import app.myliberty.easy_records.organizations.business.retail.product_tag.ProductTagValidator
-import app.myliberty.easy_records.organizations.business.tag.api.TagService
+import app.myliberty.easy_records.organizations.business.core.tag.api.TagService
 import org.springframework.stereotype.Service
 import java.time.OffsetDateTime
 import java.util.UUID

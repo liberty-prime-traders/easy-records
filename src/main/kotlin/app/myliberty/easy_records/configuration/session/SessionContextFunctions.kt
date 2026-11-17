@@ -1,7 +1,7 @@
 package app.myliberty.easy_records.configuration.session
 
-import app.myliberty.easy_records.organizations.business.location.api.LocationDto
-import app.myliberty.easy_records.organizations.business.location.api.LocationService
+import app.myliberty.easy_records.organizations.business.core.location.api.LocationDto
+import app.myliberty.easy_records.organizations.business.core.location.api.LocationService
 
 fun <T> withSession(session: SessionContext, block: () -> T): T {
   SessionContextProvider.setSession(session)

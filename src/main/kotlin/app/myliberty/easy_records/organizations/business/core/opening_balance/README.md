@@ -21,7 +21,7 @@ exactly as it was posted.
   changes the row the loser locked. `OpeningBalanceService.upsert` instead
   takes `OrgEntityAdvisoryLock.acquire(LockNamespaces.ACCOUNT, accountCode)`
   for the whole transaction, which does block the second reader outright —
-  mirroring `locations/business/lock`'s `EntityAdvisoryLock`, routed through
+  mirroring `locations/business/core/lock`'s `EntityAdvisoryLock`, routed through
   the organization schema's `EntityManagerFactory` instead of the location
   one, since `pg_advisory_xact_lock` is connection-scoped and this domain
   lives on the organization datasource.

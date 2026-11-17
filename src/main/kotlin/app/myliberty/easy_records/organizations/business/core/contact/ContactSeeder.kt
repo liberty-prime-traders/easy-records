@@ -1,11 +1,11 @@
-package app.myliberty.easy_records.organizations.business.contact
+package app.myliberty.easy_records.organizations.business.core.contact
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
-import app.myliberty.easy_records.organizations.business.contact.api.ContactService
-import app.myliberty.easy_records.organizations.business.contact.api.ContactStatus
-import app.myliberty.easy_records.organizations.business.contact.api.ContactType
-import app.myliberty.easy_records.organizations.business.ledger.api.SubledgerService
-import app.myliberty.easy_records.organizations.business.org_profile.api.OrgDataSeeder
+import app.myliberty.easy_records.organizations.business.core.contact.api.ContactService
+import app.myliberty.easy_records.organizations.business.core.contact.api.ContactStatus
+import app.myliberty.easy_records.organizations.business.core.contact.api.ContactType
+import app.myliberty.easy_records.organizations.business.core.ledger.api.SubledgerService
+import app.myliberty.easy_records.organizations.business.core.org_profile.api.OrgDataSeeder
 import app.myliberty.easy_records.util.enums.SystemContact
 import org.springframework.stereotype.Component
 

@@ -4,7 +4,7 @@ import app.myliberty.easy_records.locations.business.retail.location_product.api
 import app.myliberty.easy_records.locations.business.retail.stock.api.read.StockBalanceFetcher
 import app.myliberty.easy_records.support.WithDefaultOrganizationSession
 import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductDataFetcher
-import app.myliberty.easy_records.locations.business.lock.api.EntityAdvisoryLock
+import app.myliberty.easy_records.locations.business.core.lock.api.EntityAdvisoryLock
 import app.myliberty.easy_records.locations.business.retail.stock.StockEntryEntity
 import app.myliberty.easy_records.locations.business.retail.stock.NetStockDrawReader
 import app.myliberty.easy_records.locations.business.retail.stock.StockEntryRepository

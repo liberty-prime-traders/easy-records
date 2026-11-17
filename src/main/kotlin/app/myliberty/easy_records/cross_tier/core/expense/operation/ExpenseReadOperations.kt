@@ -1,9 +1,9 @@
-package app.myliberty.easy_records.cross_tier.expense.operation
+package app.myliberty.easy_records.cross_tier.core.expense.operation
 
-import app.myliberty.easy_records.cross_tier.expense.ExpenseSourceType
-import app.myliberty.easy_records.cross_tier.expense.ExpenseTier
-import app.myliberty.easy_records.cross_tier.expense.response.ExpenseResponseBuilder
-import app.myliberty.easy_records.cross_tier.expense.response.ExpenseSummaryResponse
+import app.myliberty.easy_records.cross_tier.core.expense.ExpenseSourceType
+import app.myliberty.easy_records.cross_tier.core.expense.ExpenseTier
+import app.myliberty.easy_records.cross_tier.core.expense.response.ExpenseResponseBuilder
+import app.myliberty.easy_records.cross_tier.core.expense.response.ExpenseSummaryResponse
 
 class ExpenseReadOperations(
     expenseTier: ExpenseTier,

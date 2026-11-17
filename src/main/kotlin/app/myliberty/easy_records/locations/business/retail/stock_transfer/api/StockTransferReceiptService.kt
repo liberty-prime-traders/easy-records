@@ -15,7 +15,7 @@ import app.myliberty.easy_records.locations.business.retail.stock_transfer.Stock
 import app.myliberty.easy_records.locations.business.retail.stock_transfer.StockTransferReceiptLineRepository
 import app.myliberty.easy_records.locations.business.retail.stock_transfer.StockTransferReceiptRepository
 import app.myliberty.easy_records.locations.business.retail.stock_transfer.StockTransferSchemaGateway
-import app.myliberty.easy_records.organizations.business.location.api.LocationService
+import app.myliberty.easy_records.organizations.business.core.location.api.LocationService
 import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferOrderDomainDto
 import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferOrderDataFetcher
 import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferOrderService

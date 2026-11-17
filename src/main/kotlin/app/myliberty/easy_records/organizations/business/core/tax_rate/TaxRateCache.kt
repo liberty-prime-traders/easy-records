@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.organizations.business.tax_rate
+package app.myliberty.easy_records.organizations.business.core.tax_rate
 
 import app.myliberty.easy_records.configuration.cache.CacheNames
 import app.myliberty.easy_records.configuration.cache.CacheSchemaLevel
-import app.myliberty.easy_records.organizations.business.tax_rate.api.TaxRateInsertDto
+import app.myliberty.easy_records.organizations.business.core.tax_rate.api.TaxRateInsertDto
 import app.myliberty.easy_records.util.enums.SchemaLevel
 import org.springframework.cache.annotation.CacheConfig
 import org.springframework.cache.annotation.CacheEvict

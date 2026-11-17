@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.location.api
+package app.myliberty.easy_records.organizations.business.core.location.api
 
 
 data class LocationInsertDto(

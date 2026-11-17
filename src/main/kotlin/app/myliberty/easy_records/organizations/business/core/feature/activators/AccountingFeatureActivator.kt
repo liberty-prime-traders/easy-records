@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.organizations.business.feature.activators
+package app.myliberty.easy_records.organizations.business.core.feature.activators
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
-import app.myliberty.easy_records.organizations.business.account.api.CoaDefaultsInserter
-import app.myliberty.easy_records.organizations.business.accounting_config.api.OrgAccountingConfigService
+import app.myliberty.easy_records.organizations.business.core.account.api.CoaDefaultsInserter
+import app.myliberty.easy_records.organizations.business.core.accounting_config.api.OrgAccountingConfigService
 import app.myliberty.easy_records.platform.business.feature.api.Feature
 import org.springframework.stereotype.Service
 

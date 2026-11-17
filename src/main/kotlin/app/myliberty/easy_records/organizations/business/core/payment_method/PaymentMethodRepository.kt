@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.payment_method
+package app.myliberty.easy_records.organizations.business.core.payment_method
 
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository

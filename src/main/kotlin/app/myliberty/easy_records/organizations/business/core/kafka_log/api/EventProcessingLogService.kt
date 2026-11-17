@@ -1,11 +1,11 @@
-package app.myliberty.easy_records.organizations.business.kafka_log.api
+package app.myliberty.easy_records.organizations.business.core.kafka_log.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
-import app.myliberty.easy_records.organizations.business.kafka_log.EventProcessingLogEntity
-import app.myliberty.easy_records.organizations.business.kafka_log.EventProcessingLogRepository
-import app.myliberty.easy_records.organizations.business.kafka_log.EventProcessingLogResolutionType
-import app.myliberty.easy_records.organizations.business.kafka_log.EventProcessingLogStatus
-import app.myliberty.easy_records.organizations.business.location.api.LocationService
+import app.myliberty.easy_records.organizations.business.core.kafka_log.EventProcessingLogEntity
+import app.myliberty.easy_records.organizations.business.core.kafka_log.EventProcessingLogRepository
+import app.myliberty.easy_records.organizations.business.core.kafka_log.EventProcessingLogResolutionType
+import app.myliberty.easy_records.organizations.business.core.kafka_log.EventProcessingLogStatus
+import app.myliberty.easy_records.organizations.business.core.location.api.LocationService
 import app.myliberty.easy_records.messaging.kafka.common.EventSourceContext
 import app.myliberty.easy_records.messaging.kafka.transaction.events.TransactionEvent
 import app.myliberty.easy_records.util.exceptions.RtsGenericException

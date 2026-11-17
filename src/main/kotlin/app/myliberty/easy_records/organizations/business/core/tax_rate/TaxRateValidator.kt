@@ -1,9 +1,9 @@
-package app.myliberty.easy_records.organizations.business.tax_rate
+package app.myliberty.easy_records.organizations.business.core.tax_rate
 
-import app.myliberty.easy_records.organizations.business.org_jurisdiction_tax_type.api.OrgJurisdictionTaxTypeFetcher
-import app.myliberty.easy_records.organizations.business.org_jurisdiction_tax_type.api.OrgJurisdictionTaxTypeStatus
-import app.myliberty.easy_records.organizations.business.tax_rate.api.TaxRateInsertDto
-import app.myliberty.easy_records.organizations.business.tax_rate.api.TaxRateUpdateDto
+import app.myliberty.easy_records.organizations.business.core.org_jurisdiction_tax_type.api.OrgJurisdictionTaxTypeFetcher
+import app.myliberty.easy_records.organizations.business.core.org_jurisdiction_tax_type.api.OrgJurisdictionTaxTypeStatus
+import app.myliberty.easy_records.organizations.business.core.tax_rate.api.TaxRateInsertDto
+import app.myliberty.easy_records.organizations.business.core.tax_rate.api.TaxRateUpdateDto
 import app.myliberty.easy_records.platform.business.jurisdiction_tax_type.api.JurisdictionTaxTypeFetcher
 import app.myliberty.easy_records.platform.business.tax_type.api.TaxApplicationLevel
 import app.myliberty.easy_records.platform.business.tax_type.api.TaxCalculationMethod

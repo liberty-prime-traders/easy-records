@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.organizations.business.fiscal_period.strategy
+package app.myliberty.easy_records.organizations.business.core.fiscal_period.strategy
 
-import app.myliberty.easy_records.organizations.business.accounting_config.api.OrgAccountingConfigDto
-import app.myliberty.easy_records.organizations.business.fiscal_period.FiscalPeriodUtils
+import app.myliberty.easy_records.organizations.business.core.accounting_config.api.OrgAccountingConfigDto
+import app.myliberty.easy_records.organizations.business.core.fiscal_period.FiscalPeriodUtils
 import java.time.LocalDate
 
 class SemiAnnualPeriodStrategy : PeriodCycleStrategy {

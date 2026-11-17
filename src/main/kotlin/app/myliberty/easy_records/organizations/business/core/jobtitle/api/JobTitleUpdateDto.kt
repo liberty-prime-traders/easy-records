@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.organizations.business.jobtitle.api
+package app.myliberty.easy_records.organizations.business.core.jobtitle.api
 
-import app.myliberty.easy_records.organizations.business.jobtitle.JobTitleDto
+import app.myliberty.easy_records.organizations.business.core.jobtitle.JobTitleDto
 import java.io.Serializable
 import java.util.Optional
 import java.util.UUID

@@ -2,7 +2,7 @@ package app.myliberty.easy_records.locations.business.retail.purchase.api
 
 import app.myliberty.easy_records.util.enums.PaymentStatus
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
-import app.myliberty.easy_records.locations.business.lock.api.EntityAdvisoryLock
+import app.myliberty.easy_records.locations.business.core.lock.api.EntityAdvisoryLock
 import app.myliberty.easy_records.locations.business.retail.purchase.PurchaseAssembler
 import app.myliberty.easy_records.locations.business.retail.purchase.PurchaseEntity
 import app.myliberty.easy_records.locations.business.retail.purchase.PurchaseLineRepository

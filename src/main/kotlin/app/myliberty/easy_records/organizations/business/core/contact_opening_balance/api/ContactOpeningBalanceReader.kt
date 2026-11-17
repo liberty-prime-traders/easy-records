@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.organizations.business.contact_opening_balance.api
+package app.myliberty.easy_records.organizations.business.core.contact_opening_balance.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
-import app.myliberty.easy_records.organizations.business.contact_opening_balance.ContactOpeningBalanceRepository
-import app.myliberty.easy_records.organizations.business.ledger.api.SubledgerBalanceDto
+import app.myliberty.easy_records.organizations.business.core.contact_opening_balance.ContactOpeningBalanceRepository
+import app.myliberty.easy_records.organizations.business.core.ledger.api.SubledgerBalanceDto
 import org.springframework.stereotype.Component
 import java.math.BigDecimal
 

@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.organization_user
+package app.myliberty.easy_records.organizations.business.core.organization_user
 
 import java.time.OffsetDateTime
 import java.util.UUID

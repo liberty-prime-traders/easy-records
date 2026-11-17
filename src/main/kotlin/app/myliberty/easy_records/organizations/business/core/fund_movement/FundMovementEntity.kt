@@ -1,10 +1,10 @@
-package app.myliberty.easy_records.organizations.business.fund_movement
+package app.myliberty.easy_records.organizations.business.core.fund_movement
 
 import jakarta.persistence.Column
 import jakarta.persistence.Convert
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
-import app.myliberty.easy_records.organizations.business.fund_movement.api.FundMovementType
+import app.myliberty.easy_records.organizations.business.core.fund_movement.api.FundMovementType
 import app.myliberty.easy_records.util.annotations.HasReference
 import app.myliberty.easy_records.util.model.ImmutableEntity
 import app.myliberty.easy_records.util.model.TableName

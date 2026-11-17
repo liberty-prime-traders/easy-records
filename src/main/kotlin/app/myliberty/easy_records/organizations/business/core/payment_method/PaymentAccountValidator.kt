@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.organizations.business.payment_method
+package app.myliberty.easy_records.organizations.business.core.payment_method
 
-import app.myliberty.easy_records.organizations.business.account_selection.api.AccountSelectionRule
-import app.myliberty.easy_records.organizations.business.account_selection.api.AccountSelectionService
+import app.myliberty.easy_records.organizations.business.core.account_selection.api.AccountSelectionRule
+import app.myliberty.easy_records.organizations.business.core.account_selection.api.AccountSelectionService
 import app.myliberty.easy_records.util.business.StringUtils
 import org.springframework.stereotype.Component
 

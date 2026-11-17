@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.organizations.business.account_selection
+package app.myliberty.easy_records.organizations.business.core.account_selection
 
-import app.myliberty.easy_records.organizations.business.account.api.AccountSelectionCandidate
-import app.myliberty.easy_records.organizations.business.account_selection.api.AccountSelectionRule
+import app.myliberty.easy_records.organizations.business.core.account.api.AccountSelectionCandidate
+import app.myliberty.easy_records.organizations.business.core.account_selection.api.AccountSelectionRule
 import app.myliberty.easy_records.util.ui_models.TreeNode
 
 object AccountTreeBuilder {

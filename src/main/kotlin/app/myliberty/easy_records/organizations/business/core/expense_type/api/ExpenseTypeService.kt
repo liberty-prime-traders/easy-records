@@ -1,10 +1,10 @@
-package app.myliberty.easy_records.organizations.business.expense_type.api
+package app.myliberty.easy_records.organizations.business.core.expense_type.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
-import app.myliberty.easy_records.cross_tier.expense.ExpenseSourceType
-import app.myliberty.easy_records.organizations.business.expense_type.ExpenseTypeMapper
-import app.myliberty.easy_records.organizations.business.expense_type.ExpenseTypeRepository
-import app.myliberty.easy_records.organizations.business.expense_type.ExpenseTypeValidator
+import app.myliberty.easy_records.cross_tier.core.expense.ExpenseSourceType
+import app.myliberty.easy_records.organizations.business.core.expense_type.ExpenseTypeMapper
+import app.myliberty.easy_records.organizations.business.core.expense_type.ExpenseTypeRepository
+import app.myliberty.easy_records.organizations.business.core.expense_type.ExpenseTypeValidator
 import app.myliberty.easy_records.util.business.StringUtils
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException

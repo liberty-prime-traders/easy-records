@@ -1,10 +1,10 @@
 package app.myliberty.easy_records.locations.business.retail.stock_revision.api
 
 import app.myliberty.easy_records.messaging.kafka.transaction.events.StockAdjustmentCostRestatementDto
-import app.myliberty.easy_records.organizations.business.account.api.EntryType
-import app.myliberty.easy_records.organizations.business.account.api.SystemAccount
-import app.myliberty.easy_records.organizations.business.ledger.api.LedgerEntryRequest
-import app.myliberty.easy_records.organizations.business.ledger.api.PostedStockAdjustmentAccounts
+import app.myliberty.easy_records.organizations.business.core.account.api.EntryType
+import app.myliberty.easy_records.organizations.business.core.account.api.SystemAccount
+import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerEntryRequest
+import app.myliberty.easy_records.organizations.business.core.ledger.api.PostedStockAdjustmentAccounts
 import app.myliberty.easy_records.util.business.Money
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue

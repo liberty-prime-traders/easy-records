@@ -1,7 +1,7 @@
 package app.myliberty.easy_records.platform.business.role_assignment.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnPlatformSchema
-import app.myliberty.easy_records.cross_tier.authority.AuthorityGrant
+import app.myliberty.easy_records.cross_tier.core.authority.AuthorityGrant
 import app.myliberty.easy_records.platform.business.role_assignment.PlatformRoleAssignmentEntity
 import app.myliberty.easy_records.platform.business.role_assignment.PlatformRoleCache
 import app.myliberty.easy_records.util.business.DateTimes

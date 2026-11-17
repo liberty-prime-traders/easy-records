@@ -6,7 +6,7 @@ import app.myliberty.easy_records.locations.business.retail.reports.payments.Pay
 import app.myliberty.easy_records.locations.business.retail.reports.payments.PaymentSearchFetcher
 import app.myliberty.easy_records.locations.business.retail.reports.payments.PaymentSearchValidator
 import app.myliberty.easy_records.locations.business.retail.reports.payments.PaymentSource
-import app.myliberty.easy_records.organizations.business.payment_method.api.PaymentMethodDataFetcher
+import app.myliberty.easy_records.organizations.business.core.payment_method.api.PaymentMethodDataFetcher
 import app.myliberty.easy_records.util.business.mappers.NameResolution
 import app.myliberty.easy_records.util.paging.PageRequest
 import app.myliberty.easy_records.util.paging.PageResponse

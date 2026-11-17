@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.jobtitle.api
+package app.myliberty.easy_records.organizations.business.core.jobtitle.api
 
 import java.io.Serializable
 

@@ -1,9 +1,9 @@
-package app.myliberty.easy_records.organizations.business.organization_user
+package app.myliberty.easy_records.organizations.business.core.organization_user
 
 import app.myliberty.easy_records.configuration.cache.CacheNames
 import app.myliberty.easy_records.configuration.cache.CacheSchemaLevel
-import app.myliberty.easy_records.cross_tier.authority.MembershipSummaryRow
-import app.myliberty.easy_records.organizations.business.organization_user.api.OrganizationUserInsertDto
+import app.myliberty.easy_records.cross_tier.core.authority.MembershipSummaryRow
+import app.myliberty.easy_records.organizations.business.core.organization_user.api.OrganizationUserInsertDto
 import app.myliberty.easy_records.util.enums.SchemaLevel
 import org.springframework.cache.annotation.CacheConfig
 import org.springframework.cache.annotation.CacheEvict

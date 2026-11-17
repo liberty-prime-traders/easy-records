@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.organizations.business.org_expense
+package app.myliberty.easy_records.organizations.business.core.org_expense
 
-import app.myliberty.easy_records.cross_tier.expense.repository.ExpensePaymentStateRepositoryBase
+import app.myliberty.easy_records.cross_tier.core.expense.repository.ExpensePaymentStateRepositoryBase
 import org.springframework.stereotype.Repository
 
 @Repository

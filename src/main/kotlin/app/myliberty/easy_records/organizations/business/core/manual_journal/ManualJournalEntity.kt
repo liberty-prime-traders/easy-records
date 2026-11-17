@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.manual_journal
+package app.myliberty.easy_records.organizations.business.core.manual_journal
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity

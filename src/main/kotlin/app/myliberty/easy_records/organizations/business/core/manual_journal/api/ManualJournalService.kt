@@ -1,13 +1,13 @@
-package app.myliberty.easy_records.organizations.business.manual_journal.api
+package app.myliberty.easy_records.organizations.business.core.manual_journal.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
-import app.myliberty.easy_records.organizations.business.account.api.AccountDataFetcher
-import app.myliberty.easy_records.organizations.business.account.api.AccountStructureLock
-import app.myliberty.easy_records.organizations.business.fiscal_period.api.FiscalPeriodService
-import app.myliberty.easy_records.organizations.business.lock.api.OrgEntityAdvisoryLock
-import app.myliberty.easy_records.organizations.business.manual_journal.ManualJournalRecorder
-import app.myliberty.easy_records.organizations.business.manual_journal.ManualJournalRepository
-import app.myliberty.easy_records.organizations.business.manual_journal.ManualJournalValidator
+import app.myliberty.easy_records.organizations.business.core.account.api.AccountDataFetcher
+import app.myliberty.easy_records.organizations.business.core.account.api.AccountStructureLock
+import app.myliberty.easy_records.organizations.business.core.fiscal_period.api.FiscalPeriodService
+import app.myliberty.easy_records.organizations.business.core.lock.api.OrgEntityAdvisoryLock
+import app.myliberty.easy_records.organizations.business.core.manual_journal.ManualJournalRecorder
+import app.myliberty.easy_records.organizations.business.core.manual_journal.ManualJournalRepository
+import app.myliberty.easy_records.organizations.business.core.manual_journal.ManualJournalValidator
 import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.business.StringUtils
 import app.myliberty.easy_records.util.business.lock.LockNamespaces

@@ -122,7 +122,7 @@ You never call this class directly — it is called by `InventoryEventConsumer` 
 
 ## EventProcessingLog
 
-**Org-scoped** table (`event_processing_log`, `organizations/business/kafka_log/`) that tracks every `TransactionEvent` delivery per consumer group — regardless of whether the event itself is `OrgLevel` or `LocationLevel`. It lives at org level (not location) because a location-scoped event has no location in session by the time an `OrgLevel` event needs the same log path; putting it under `@TransactionalOnLocationSchema` silently swallowed all `OrgLevel` event logging (`RtsGenericException`/"Location schema not found in session" caught and logged, never surfaced) until `OpeningBalanceUpsertedEvent` exposed it.
+**Org-scoped** table (`event_processing_log`, `organizations/business/core/kafka_log/`) that tracks every `TransactionEvent` delivery per consumer group — regardless of whether the event itself is `OrgLevel` or `LocationLevel`. It lives at org level (not location) because a location-scoped event has no location in session by the time an `OrgLevel` event needs the same log path; putting it under `@TransactionalOnLocationSchema` silently swallowed all `OrgLevel` event logging (`RtsGenericException`/"Location schema not found in session" caught and logged, never surfaced) until `OpeningBalanceUpsertedEvent` exposed it.
 
 Each log entry carries:
 
@@ -159,7 +159,7 @@ Naming convention: `<Domain>HandlerForKafka` (e.g. `SaleConfirmedHandlerForKafka
 
 ## Retry / DLT flow
 
-`EventRetryService.retry(logId)` (`@TransactionalOnOrganizationSchema`, in `organizations/business/kafka_log/api/`):
+`EventRetryService.retry(logId)` (`@TransactionalOnOrganizationSchema`, in `organizations/business/core/kafka_log/api/`):
 1. If `dltPartition`/`dltOffset` are set, fetches the original event from the DLT and re-publishes to `transaction-events` → marks log `RETRYING`.
 2. If no DLT record, finds the `EventReissueHandler` by `eventType` simple name. If `entry.sourceLocationId` is set, resolves that location and calls `SessionContextProvider.initLocation(...)` **before** invoking `reissue` — a location-scoped reissue handler needs location schema in session, and a retry triggered from the endpoint or the sweeper arrives with only org context, not a location already set. Then calls `reissue` → marks log `PROCESSED` with `REISSUED`.
 

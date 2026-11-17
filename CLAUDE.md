@@ -37,11 +37,11 @@ organizations/  — org-scoped data: products, contacts, payment methods, fiscal
 locations/      — location-scoped operations: sales, purchases, inventory, stock
 ```
 
-Each core business domain lives under `*/business/<domain>/`; retail domains live under `*/business/retail/<domain>/` and `cross_tier/retail/<domain>/`. Anything not under `api/` is internal to that domain. **`ArchitectureTest` enforces this** — cross-domain access to non-`api` classes will fail the test suite. When cross-domain communication is needed, import from `<domain>/api/` only.
+Each domain lives under a product folder: `*/business/core/<domain>/` and `cross_tier/core/<domain>/` for core, `*/business/retail/<domain>/` and `cross_tier/retail/<domain>/` for retail. The `platform` tier holds only core domains and has no product folders. Anything not under `api/` is internal to that domain. **`ArchitectureTest` enforces this** — cross-domain access to non-`api` classes will fail the test suite. When cross-domain communication is needed, import from `<domain>/api/` only.
 
 ### Products
 
-The platform hosts products on a shared core. A domain under a `retail` folder (`*/business/retail/<domain>/`, `cross_tier/retail/<domain>/`) is tagged `retail` by its path; a later billing product gets its own folder the same way, and billing may split into more than one product. Every other domain is `core` and is listed in `ProductTags` in the test sources next to `ArchitectureTest`, so a new domain fails the build until it is placed. `core` depends on no product, and products never depend on each other; `ArchitectureTest` enforces the direction. Existing core-to-retail dependencies sit in an explicit allow-list in `ProductTags`; it only shrinks. Billing is planned and is defined outside this repo.
+The platform hosts products on a shared core. A domain is tagged by the product folder it sits in (`core`, `retail`; a later billing product gets its own folder the same way, and billing may split into more than one product). The `platform` tier is core throughout. A domain outside a product folder fails `ArchitectureTest`, so a new domain fails the build until it is placed. `core` depends on no product, and products never depend on each other; `ArchitectureTest` enforces the direction. Existing core-to-retail dependencies sit in an explicit allow-list in `ProductTags`; it only shrinks. Billing is planned and is defined outside this repo.
 
 ### Key locations domains
 

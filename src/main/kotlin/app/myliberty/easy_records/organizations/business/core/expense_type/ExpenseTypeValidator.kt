@@ -1,11 +1,11 @@
-package app.myliberty.easy_records.organizations.business.expense_type
+package app.myliberty.easy_records.organizations.business.core.expense_type
 
-import app.myliberty.easy_records.cross_tier.expense.ExpenseSourceType
-import app.myliberty.easy_records.organizations.business.account_selection.api.AccountSelectionRule
-import app.myliberty.easy_records.organizations.business.account_selection.api.AccountSelectionService
-import app.myliberty.easy_records.organizations.business.contact.api.ContactType
-import app.myliberty.easy_records.organizations.business.expense_type.api.ExpenseTypeInsertDto
-import app.myliberty.easy_records.organizations.business.lock.api.OrgEntityAdvisoryLock
+import app.myliberty.easy_records.cross_tier.core.expense.ExpenseSourceType
+import app.myliberty.easy_records.organizations.business.core.account_selection.api.AccountSelectionRule
+import app.myliberty.easy_records.organizations.business.core.account_selection.api.AccountSelectionService
+import app.myliberty.easy_records.organizations.business.core.contact.api.ContactType
+import app.myliberty.easy_records.organizations.business.core.expense_type.api.ExpenseTypeInsertDto
+import app.myliberty.easy_records.organizations.business.core.lock.api.OrgEntityAdvisoryLock
 import app.myliberty.easy_records.util.business.StringUtils
 import app.myliberty.easy_records.util.business.lock.LockNamespaces
 import app.myliberty.easy_records.util.exceptions.RtsGenericException

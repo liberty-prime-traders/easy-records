@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.org_jurisdiction_tax_type.api
+package app.myliberty.easy_records.organizations.business.core.org_jurisdiction_tax_type.api
 
 import app.myliberty.easy_records.platform.business.tax_type.api.TaxRecoveryType
 import java.io.Serializable

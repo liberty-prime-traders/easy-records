@@ -1,6 +1,6 @@
 package app.myliberty.easy_records.organizations.business.retail.unitgroup.api
 
-import app.myliberty.easy_records.organizations.business.lock.api.OrgEntityAdvisoryLock
+import app.myliberty.easy_records.organizations.business.core.lock.api.OrgEntityAdvisoryLock
 import app.myliberty.easy_records.organizations.business.retail.unitgroup.UnitGroupCache
 import app.myliberty.easy_records.organizations.business.retail.unitgroup.UnitGroupMapper
 import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueService

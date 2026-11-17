@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.organizations.business.tax_rate.api
+package app.myliberty.easy_records.organizations.business.core.tax_rate.api
 
-import app.myliberty.easy_records.organizations.business.tax_rate.TaxRateDto
+import app.myliberty.easy_records.organizations.business.core.tax_rate.TaxRateDto
 import java.io.Serializable
 import java.time.LocalDate
 import java.util.Optional

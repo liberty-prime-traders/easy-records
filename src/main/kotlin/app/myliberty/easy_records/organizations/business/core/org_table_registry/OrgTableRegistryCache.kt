@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.organizations.business.org_table_registry
+package app.myliberty.easy_records.organizations.business.core.org_table_registry
 
 import app.myliberty.easy_records.configuration.cache.CacheNames
-import app.myliberty.easy_records.organizations.business.org_table_registry.api.OrgTableRegistryDto
+import app.myliberty.easy_records.organizations.business.core.org_table_registry.api.OrgTableRegistryDto
 import org.springframework.cache.annotation.CacheConfig
 import org.springframework.cache.annotation.CacheEvict
 import org.springframework.cache.annotation.Cacheable

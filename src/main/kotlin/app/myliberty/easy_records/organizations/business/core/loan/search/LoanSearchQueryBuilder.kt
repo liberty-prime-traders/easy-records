@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.organizations.business.loan.search
+package app.myliberty.easy_records.organizations.business.core.loan.search
 
-import app.myliberty.easy_records.organizations.business.loan.api.LoanSearchParameters
-import app.myliberty.easy_records.organizations.business.loan.api.LoanStatus
+import app.myliberty.easy_records.organizations.business.core.loan.api.LoanSearchParameters
+import app.myliberty.easy_records.organizations.business.core.loan.api.LoanStatus
 import app.myliberty.easy_records.util.model.TableNames
 import app.myliberty.easy_records.util.model.ViewNames
 import app.myliberty.easy_records.util.queries.AnyListFilterStrategy

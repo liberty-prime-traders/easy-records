@@ -5,7 +5,7 @@ import app.myliberty.easy_records.configuration.session.OrgSession
 import app.myliberty.easy_records.configuration.session.SessionContext
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
 import app.myliberty.easy_records.messaging.kafka.transaction.events.StockTransferDispatchedEvent
-import app.myliberty.easy_records.organizations.business.location.api.LocationService
+import app.myliberty.easy_records.organizations.business.core.location.api.LocationService
 import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferOrderDataFetcher
 import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferOrderDomainDto
 import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferStatus

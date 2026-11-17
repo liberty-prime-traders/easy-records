@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.locations.business.tax_entry.search
+package app.myliberty.easy_records.locations.business.core.tax_entry.search
 
-import app.myliberty.easy_records.locations.business.tax_entry.api.TaxEntrySearchResultDto
+import app.myliberty.easy_records.locations.business.core.tax_entry.api.TaxEntrySearchResultDto
 import java.util.UUID
 
 object TaxEntrySearchMapper {

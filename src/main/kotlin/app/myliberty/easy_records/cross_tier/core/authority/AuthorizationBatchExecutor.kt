@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.cross_tier.authority
+package app.myliberty.easy_records.cross_tier.core.authority
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema

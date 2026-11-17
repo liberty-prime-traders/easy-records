@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.business.revision
+package app.myliberty.easy_records.locations.business.core.revision
 
 import jakarta.persistence.Entity
 import jakarta.persistence.Table

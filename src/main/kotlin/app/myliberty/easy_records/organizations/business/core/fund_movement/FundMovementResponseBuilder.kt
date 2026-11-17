@@ -1,9 +1,9 @@
-package app.myliberty.easy_records.organizations.business.fund_movement
+package app.myliberty.easy_records.organizations.business.core.fund_movement
 
-import app.myliberty.easy_records.organizations.business.fund_movement.api.FundMovementAccountResponse
-import app.myliberty.easy_records.organizations.business.fund_movement.api.FundMovementResponse
-import app.myliberty.easy_records.organizations.business.fund_movement.api.FundMovementVoidResponse
-import app.myliberty.easy_records.organizations.business.account.api.AccountDataFetcher
+import app.myliberty.easy_records.organizations.business.core.fund_movement.api.FundMovementAccountResponse
+import app.myliberty.easy_records.organizations.business.core.fund_movement.api.FundMovementResponse
+import app.myliberty.easy_records.organizations.business.core.fund_movement.api.FundMovementVoidResponse
+import app.myliberty.easy_records.organizations.business.core.account.api.AccountDataFetcher
 import app.myliberty.easy_records.util.business.mappers.UserQualifier
 import org.springframework.stereotype.Component
 

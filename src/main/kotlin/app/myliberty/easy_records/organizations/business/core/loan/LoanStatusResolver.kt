@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.organizations.business.loan
+package app.myliberty.easy_records.organizations.business.core.loan
 
-import app.myliberty.easy_records.organizations.business.loan.api.LoanStatus
+import app.myliberty.easy_records.organizations.business.core.loan.api.LoanStatus
 import java.math.BigDecimal
 
 // Mirrors views/loan_status.yml. The view does not see the transaction's pending writes: read it once before writing

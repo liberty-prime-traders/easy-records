@@ -1,10 +1,10 @@
-package app.myliberty.easy_records.organizations.business.loan
+package app.myliberty.easy_records.organizations.business.core.loan
 
-import app.myliberty.easy_records.organizations.business.loan.api.LoanSearchParameters
-import app.myliberty.easy_records.organizations.business.loan.api.LoanStatus
-import app.myliberty.easy_records.organizations.business.loan.search.LoanSearchParameterNames
-import app.myliberty.easy_records.organizations.business.loan.search.LoanSearchQueryBuilder
-import app.myliberty.easy_records.organizations.business.loan.search.LoanSearchValidator
+import app.myliberty.easy_records.organizations.business.core.loan.api.LoanSearchParameters
+import app.myliberty.easy_records.organizations.business.core.loan.api.LoanStatus
+import app.myliberty.easy_records.organizations.business.core.loan.search.LoanSearchParameterNames
+import app.myliberty.easy_records.organizations.business.core.loan.search.LoanSearchQueryBuilder
+import app.myliberty.easy_records.organizations.business.core.loan.search.LoanSearchValidator
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import app.myliberty.easy_records.util.queries.KeysetSearchCursor
 import app.myliberty.easy_records.util.queries.QueryParameterNames

@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.organizations.business.jobtitle.api
+package app.myliberty.easy_records.organizations.business.core.jobtitle.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
-import app.myliberty.easy_records.organizations.business.jobtitle.JobTitleCache
-import app.myliberty.easy_records.organizations.business.jobtitle.JobTitleMapper
+import app.myliberty.easy_records.organizations.business.core.jobtitle.JobTitleCache
+import app.myliberty.easy_records.organizations.business.core.jobtitle.JobTitleMapper
 import app.myliberty.easy_records.util.business.StringUtils
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException

@@ -1,15 +1,15 @@
-package app.myliberty.easy_records.organizations.business.organization_user.api
+package app.myliberty.easy_records.organizations.business.core.organization_user.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
-import app.myliberty.easy_records.cross_tier.authority.MembershipPeriod
-import app.myliberty.easy_records.cross_tier.authority.MembershipUserSummary
-import app.myliberty.easy_records.cross_tier.authority.UserAccessDetail
-import app.myliberty.easy_records.organizations.business.organization_admin.api.OrganizationAdminService
-import app.myliberty.easy_records.organizations.business.organization_user.OrganizationUserCache
-import app.myliberty.easy_records.organizations.business.organization_user.OrganizationUserMapper
-import app.myliberty.easy_records.organizations.business.permission_assignment.api.OrgPermissionAssignmentService
-import app.myliberty.easy_records.organizations.business.role_assignment.api.OrgRoleAssignmentService
+import app.myliberty.easy_records.cross_tier.core.authority.MembershipPeriod
+import app.myliberty.easy_records.cross_tier.core.authority.MembershipUserSummary
+import app.myliberty.easy_records.cross_tier.core.authority.UserAccessDetail
+import app.myliberty.easy_records.organizations.business.core.organization_admin.api.OrganizationAdminService
+import app.myliberty.easy_records.organizations.business.core.organization_user.OrganizationUserCache
+import app.myliberty.easy_records.organizations.business.core.organization_user.OrganizationUserMapper
+import app.myliberty.easy_records.organizations.business.core.permission_assignment.api.OrgPermissionAssignmentService
+import app.myliberty.easy_records.organizations.business.core.role_assignment.api.OrgRoleAssignmentService
 import app.myliberty.easy_records.platform.business.organization_join_request.api.OrganizationAdminJoinRequestResponseDto
 import app.myliberty.easy_records.platform.business.sysuser.api.SysUserService
 import app.myliberty.easy_records.util.enums.RtsPermission

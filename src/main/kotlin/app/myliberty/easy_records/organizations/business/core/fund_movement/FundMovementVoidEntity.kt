@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.fund_movement
+package app.myliberty.easy_records.organizations.business.core.fund_movement
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity

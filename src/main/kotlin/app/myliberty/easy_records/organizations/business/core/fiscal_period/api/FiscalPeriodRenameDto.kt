@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.fiscal_period.api
+package app.myliberty.easy_records.organizations.business.core.fiscal_period.api
 
 import java.util.UUID
 

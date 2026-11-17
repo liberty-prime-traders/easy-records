@@ -1,15 +1,15 @@
-package app.myliberty.easy_records.locations.business.location_user.api
+package app.myliberty.easy_records.locations.business.core.location_user.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
-import app.myliberty.easy_records.cross_tier.authority.MembershipPeriod
-import app.myliberty.easy_records.cross_tier.authority.MembershipSummaryRow
-import app.myliberty.easy_records.cross_tier.authority.MembershipUserSummary
-import app.myliberty.easy_records.cross_tier.authority.UserAccessDetail
-import app.myliberty.easy_records.locations.business.location_user.LocationUserCache
-import app.myliberty.easy_records.locations.business.location_user.LocationUserMapper
-import app.myliberty.easy_records.locations.business.permission_assignment.api.LocationPermissionAssignmentService
-import app.myliberty.easy_records.locations.business.role_assignment.api.LocationRoleAssignmentService
+import app.myliberty.easy_records.cross_tier.core.authority.MembershipPeriod
+import app.myliberty.easy_records.cross_tier.core.authority.MembershipSummaryRow
+import app.myliberty.easy_records.cross_tier.core.authority.MembershipUserSummary
+import app.myliberty.easy_records.cross_tier.core.authority.UserAccessDetail
+import app.myliberty.easy_records.locations.business.core.location_user.LocationUserCache
+import app.myliberty.easy_records.locations.business.core.location_user.LocationUserMapper
+import app.myliberty.easy_records.locations.business.core.permission_assignment.api.LocationPermissionAssignmentService
+import app.myliberty.easy_records.locations.business.core.role_assignment.api.LocationRoleAssignmentService
 import app.myliberty.easy_records.platform.business.sysuser.api.SysUserService
 import app.myliberty.easy_records.platform.business.sysuser.api.SysUserWithProfileDto
 import app.myliberty.easy_records.util.enums.RtsPermission

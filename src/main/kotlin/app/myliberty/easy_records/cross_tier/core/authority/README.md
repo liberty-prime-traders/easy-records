@@ -3,7 +3,7 @@
 This document is the canonical reference for **how role-based
 authorization works** in Easy Records. The design is a single pattern
 duplicated across three tiers, plus four single-responsibility
-orchestrator services (all in this package, `cross_tier/authority/`)
+orchestrator services (all in this package, `cross_tier/core/authority/`)
 that tie them together — `EffectiveAuthorizationService` (read),
 `RoleGrantService` and `PermissionGrantService` (command, one per
 grant type), and `AuthorizationRequestService` (REST-facing tier
@@ -21,9 +21,9 @@ persistence-backed grant service:
 
 ```
 platform/business/role_assignment/       — PLATFORM tier persistence (entity/repository/cache/service)
-organizations/business/role_assignment/  — ORGANIZATION tier persistence
-locations/business/role_assignment/      — LOCATION tier persistence
-cross_tier/authority/                    — this package: tier-agnostic orchestration + shared DTOs
+organizations/business/core/role_assignment/  — ORGANIZATION tier persistence
+locations/business/core/role_assignment/      — LOCATION tier persistence
+cross_tier/core/authority/                    — this package: tier-agnostic orchestration + shared DTOs
 ```
 
 Each tier package has the identical shape: `<Tier>RoleAssignmentEntity`
@@ -254,7 +254,7 @@ elsewhere; every other membership creation path (`admitJoinRequests`,
 with zero roles/permissions, exactly as prompt3 originally specified.
 
 `LocationUserService.registerFounder` mirrors the org side: `LocationService.createLocation`
-(`organizations/business/location/api/`) calls `SessionContextProvider.initLocation` right
+(`organizations/business/core/location/api/`) calls `SessionContextProvider.initLocation` right
 after the new location's schema and row are created — same pattern `OrganizationService.createOrganization`
 uses to switch into the freshly created org schema before calling `organizationUserService.registerFounder`
 — then calls `locationUserService.registerFounder(locationDto.createdById)`. That creates a
@@ -429,7 +429,7 @@ The underlying `getHolders(role|permission)` methods on
 `PlatformRoleAssignmentService`/`PlatformPermissionAssignmentService`
 (distinct from `PlatformAuthorityHolderService.getHolders` above — same
 verb, different layer) return `AuthorityGrant` (`userId`, `grantedAt`),
-a small shared DTO living in this package (`cross_tier/authority/`) —
+a small shared DTO living in this package (`cross_tier/core/authority/`) —
 both platform's `role_assignment/api` and `permission_assignment/api`
 importing it is a normal dependency on tier-agnostic shared code, not
 a violation.

@@ -1,16 +1,16 @@
-package app.myliberty.easy_records.organizations.business.contact_opening_balance.api
+package app.myliberty.easy_records.organizations.business.core.contact_opening_balance.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
-import app.myliberty.easy_records.organizations.business.contact.api.ContactService
-import app.myliberty.easy_records.organizations.business.contact.api.ContactStatus
-import app.myliberty.easy_records.organizations.business.contact_opening_balance.ContactOpeningBalanceEntity
-import app.myliberty.easy_records.organizations.business.contact_opening_balance.ContactOpeningBalancePostingRequests
-import app.myliberty.easy_records.organizations.business.contact_opening_balance.ContactOpeningBalanceRepository
-import app.myliberty.easy_records.organizations.business.contact_opening_balance.ContactOpeningSettlementFinder
-import app.myliberty.easy_records.organizations.business.fiscal_period.api.FiscalPeriodService
-import app.myliberty.easy_records.organizations.business.ledger.api.LedgerPostingService
-import app.myliberty.easy_records.organizations.business.ledger.api.SubledgerBalanceDto
-import app.myliberty.easy_records.organizations.business.lock.api.OrgEntityAdvisoryLock
+import app.myliberty.easy_records.organizations.business.core.contact.api.ContactService
+import app.myliberty.easy_records.organizations.business.core.contact.api.ContactStatus
+import app.myliberty.easy_records.organizations.business.core.contact_opening_balance.ContactOpeningBalanceEntity
+import app.myliberty.easy_records.organizations.business.core.contact_opening_balance.ContactOpeningBalancePostingRequests
+import app.myliberty.easy_records.organizations.business.core.contact_opening_balance.ContactOpeningBalanceRepository
+import app.myliberty.easy_records.organizations.business.core.contact_opening_balance.ContactOpeningSettlementFinder
+import app.myliberty.easy_records.organizations.business.core.fiscal_period.api.FiscalPeriodService
+import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerPostingService
+import app.myliberty.easy_records.organizations.business.core.ledger.api.SubledgerBalanceDto
+import app.myliberty.easy_records.organizations.business.core.lock.api.OrgEntityAdvisoryLock
 import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.business.DisplayFormatters
 import app.myliberty.easy_records.util.business.lock.LockNamespaces

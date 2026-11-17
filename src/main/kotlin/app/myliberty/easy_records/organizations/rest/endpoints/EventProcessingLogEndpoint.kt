@@ -1,8 +1,8 @@
 package app.myliberty.easy_records.organizations.rest.endpoints
 
-import app.myliberty.easy_records.organizations.business.kafka_log.api.EventRetryService
-import app.myliberty.easy_records.organizations.business.kafka_log.api.KafkaEventLogDto
-import app.myliberty.easy_records.organizations.business.kafka_log.api.KafkaEventLogsFetcher
+import app.myliberty.easy_records.organizations.business.core.kafka_log.api.EventRetryService
+import app.myliberty.easy_records.organizations.business.core.kafka_log.api.KafkaEventLogDto
+import app.myliberty.easy_records.organizations.business.core.kafka_log.api.KafkaEventLogsFetcher
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable

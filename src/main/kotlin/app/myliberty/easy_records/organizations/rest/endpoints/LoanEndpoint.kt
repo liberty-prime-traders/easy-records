@@ -1,14 +1,14 @@
 package app.myliberty.easy_records.organizations.rest.endpoints
 
-import app.myliberty.easy_records.organizations.business.loan.api.LoanCreateRequest
-import app.myliberty.easy_records.organizations.business.loan.api.LoanRepaymentCreateRequest
-import app.myliberty.easy_records.organizations.business.loan.api.LoanRepaymentService
-import app.myliberty.easy_records.organizations.business.loan.api.LoanRepaymentVoidRequest
-import app.myliberty.easy_records.organizations.business.loan.api.LoanResponse
-import app.myliberty.easy_records.organizations.business.loan.api.LoanSearchParameters
-import app.myliberty.easy_records.organizations.business.loan.api.LoanSearchService
-import app.myliberty.easy_records.organizations.business.loan.api.LoanService
-import app.myliberty.easy_records.organizations.business.loan.api.LoanVoidRequest
+import app.myliberty.easy_records.organizations.business.core.loan.api.LoanCreateRequest
+import app.myliberty.easy_records.organizations.business.core.loan.api.LoanRepaymentCreateRequest
+import app.myliberty.easy_records.organizations.business.core.loan.api.LoanRepaymentService
+import app.myliberty.easy_records.organizations.business.core.loan.api.LoanRepaymentVoidRequest
+import app.myliberty.easy_records.organizations.business.core.loan.api.LoanResponse
+import app.myliberty.easy_records.organizations.business.core.loan.api.LoanSearchParameters
+import app.myliberty.easy_records.organizations.business.core.loan.api.LoanSearchService
+import app.myliberty.easy_records.organizations.business.core.loan.api.LoanService
+import app.myliberty.easy_records.organizations.business.core.loan.api.LoanVoidRequest
 import app.myliberty.easy_records.platform.business.feature.api.Feature
 import app.myliberty.easy_records.util.annotations.RequiresFeature
 import app.myliberty.easy_records.util.paging.PageRequest

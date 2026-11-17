@@ -1,13 +1,13 @@
-package app.myliberty.easy_records.organizations.business.manual_journal
+package app.myliberty.easy_records.organizations.business.core.manual_journal
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
-import app.myliberty.easy_records.organizations.business.account.api.AccountDataFetcher
-import app.myliberty.easy_records.organizations.business.ledger.api.LedgerEntryRequest
-import app.myliberty.easy_records.organizations.business.ledger.api.LedgerPostingRequest
-import app.myliberty.easy_records.organizations.business.ledger.api.LedgerPostingService
-import app.myliberty.easy_records.organizations.business.ledger.api.LedgerSourceType
-import app.myliberty.easy_records.organizations.business.manual_journal.api.ManualJournalLineCreateDto
-import app.myliberty.easy_records.organizations.business.manual_journal.api.ManualJournalResponseDto
+import app.myliberty.easy_records.organizations.business.core.account.api.AccountDataFetcher
+import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerEntryRequest
+import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerPostingRequest
+import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerPostingService
+import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerSourceType
+import app.myliberty.easy_records.organizations.business.core.manual_journal.api.ManualJournalLineCreateDto
+import app.myliberty.easy_records.organizations.business.core.manual_journal.api.ManualJournalResponseDto
 import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.business.PositiveMoney
 import app.myliberty.easy_records.util.business.reference_number.ReferenceNumberGenerator

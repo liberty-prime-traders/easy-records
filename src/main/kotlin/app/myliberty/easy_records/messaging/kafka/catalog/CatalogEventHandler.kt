@@ -5,7 +5,7 @@ import app.myliberty.easy_records.configuration.session.SessionContextProvider
 import app.myliberty.easy_records.locations.business.retail.catalog_sync.api.SyncServiceRegistry
 import app.myliberty.easy_records.messaging.kafka.common.EventSessionSetup
 import app.myliberty.easy_records.messaging.kafka.common.EventSourceContext
-import app.myliberty.easy_records.organizations.business.location.api.LocationService
+import app.myliberty.easy_records.organizations.business.core.location.api.LocationService
 import app.myliberty.easy_records.util.enums.ServiceAccount
 import app.myliberty.easy_records.util.model.TableName
 import org.springframework.stereotype.Component

@@ -17,8 +17,8 @@ import app.myliberty.easy_records.organizations.business.retail.unitconversion.a
 import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.UnitConversionGraphFacade
 import app.myliberty.easy_records.organizations.business.retail.adjustment_reason.api.AdjustmentReasonService
 import app.myliberty.easy_records.organizations.business.retail.adjustment_reason.api.SystemAdjustmentReason
-import app.myliberty.easy_records.organizations.business.contact.api.ContactService
-import app.myliberty.easy_records.organizations.business.payment_method.api.PaymentMethodDataFetcher
+import app.myliberty.easy_records.organizations.business.core.contact.api.ContactService
+import app.myliberty.easy_records.organizations.business.core.payment_method.api.PaymentMethodDataFetcher
 import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.business.Decimals
 import app.myliberty.easy_records.util.enums.SystemContact

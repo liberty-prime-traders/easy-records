@@ -2,7 +2,7 @@ package app.myliberty.easy_records.util.annotations.interceptors
 
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
-import app.myliberty.easy_records.organizations.business.feature.api.OrganizationFeatureService
+import app.myliberty.easy_records.organizations.business.core.feature.api.OrganizationFeatureService
 import app.myliberty.easy_records.util.annotations.RequiresFeature
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Component

@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.loan.api
+package app.myliberty.easy_records.organizations.business.core.loan.api
 
 import app.myliberty.easy_records.util.business.PositiveMoney
 import java.time.LocalDate

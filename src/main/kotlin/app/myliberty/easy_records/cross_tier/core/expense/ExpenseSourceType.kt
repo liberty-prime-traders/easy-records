@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.cross_tier.expense
+package app.myliberty.easy_records.cross_tier.core.expense
 
 import app.myliberty.easy_records.util.enums.HasCode
 

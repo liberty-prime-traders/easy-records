@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.organizations.business.contact
+package app.myliberty.easy_records.organizations.business.core.contact
 
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
-import app.myliberty.easy_records.organizations.business.contact.api.ContactService
+import app.myliberty.easy_records.organizations.business.core.contact.api.ContactService
 import app.myliberty.easy_records.platform.business.organization.api.OrganizationDto
 import app.myliberty.easy_records.platform.business.organization.api.OrganizationService
 import org.junit.jupiter.api.AfterEach

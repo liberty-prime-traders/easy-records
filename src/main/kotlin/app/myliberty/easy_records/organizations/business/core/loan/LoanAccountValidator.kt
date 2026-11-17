@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.organizations.business.loan
+package app.myliberty.easy_records.organizations.business.core.loan
 
-import app.myliberty.easy_records.organizations.business.account_selection.api.AccountSelectionRule
-import app.myliberty.easy_records.organizations.business.account_selection.api.AccountSelectionService
+import app.myliberty.easy_records.organizations.business.core.account_selection.api.AccountSelectionRule
+import app.myliberty.easy_records.organizations.business.core.account_selection.api.AccountSelectionService
 import org.springframework.stereotype.Component
 
 @Component

@@ -1,9 +1,9 @@
-package app.myliberty.easy_records.organizations.business.organization_admin.api
+package app.myliberty.easy_records.organizations.business.core.organization_admin.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
-import app.myliberty.easy_records.organizations.business.organization_admin.OrganizationAdminCache
-import app.myliberty.easy_records.organizations.business.organization_admin.OrganizationAdminMapper
+import app.myliberty.easy_records.organizations.business.core.organization_admin.OrganizationAdminCache
+import app.myliberty.easy_records.organizations.business.core.organization_admin.OrganizationAdminMapper
 import app.myliberty.easy_records.platform.business.sysuser.api.SysUserService
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Service

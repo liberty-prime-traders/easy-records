@@ -9,7 +9,7 @@ import app.myliberty.easy_records.locations.business.retail.stock_transfer.Stock
 import app.myliberty.easy_records.locations.business.retail.stock_transfer.StockTransferOrderLocker
 import app.myliberty.easy_records.locations.business.retail.stock_transfer.StockTransferResponseAssembler
 import app.myliberty.easy_records.locations.business.retail.stock_transfer.StockTransferSchemaGateway
-import app.myliberty.easy_records.organizations.business.location.api.LocationService
+import app.myliberty.easy_records.organizations.business.core.location.api.LocationService
 import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferOrderDataFetcher
 import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferOrderService
 import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferStatus

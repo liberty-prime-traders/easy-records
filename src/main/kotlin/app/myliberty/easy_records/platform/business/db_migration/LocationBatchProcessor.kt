@@ -1,7 +1,7 @@
 package app.myliberty.easy_records.platform.business.db_migration
 
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
-import app.myliberty.easy_records.organizations.business.location.api.LocationService
+import app.myliberty.easy_records.organizations.business.core.location.api.LocationService
 import app.myliberty.easy_records.platform.business.db_version.api.DbVersionDto
 import app.myliberty.easy_records.platform.business.db_version.api.DbVersionService
 import app.myliberty.easy_records.platform.business.organization.api.OrganizationDto

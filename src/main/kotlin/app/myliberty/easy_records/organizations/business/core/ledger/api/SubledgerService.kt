@@ -1,13 +1,13 @@
-package app.myliberty.easy_records.organizations.business.ledger.api
+package app.myliberty.easy_records.organizations.business.core.ledger.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
-import app.myliberty.easy_records.organizations.business.ledger.LedgerEntryGroupRepository
-import app.myliberty.easy_records.organizations.business.ledger.LedgerMapper
-import app.myliberty.easy_records.organizations.business.ledger.SubledgerBalanceEntity
-import app.myliberty.easy_records.organizations.business.ledger.SubledgerBalanceRepository
-import app.myliberty.easy_records.organizations.business.ledger.SubledgerEntryEntity
-import app.myliberty.easy_records.organizations.business.ledger.SubledgerEntryRepository
-import app.myliberty.easy_records.organizations.business.lock.api.OrgEntityAdvisoryLock
+import app.myliberty.easy_records.organizations.business.core.ledger.LedgerEntryGroupRepository
+import app.myliberty.easy_records.organizations.business.core.ledger.LedgerMapper
+import app.myliberty.easy_records.organizations.business.core.ledger.SubledgerBalanceEntity
+import app.myliberty.easy_records.organizations.business.core.ledger.SubledgerBalanceRepository
+import app.myliberty.easy_records.organizations.business.core.ledger.SubledgerEntryEntity
+import app.myliberty.easy_records.organizations.business.core.ledger.SubledgerEntryRepository
+import app.myliberty.easy_records.organizations.business.core.lock.api.OrgEntityAdvisoryLock
 import app.myliberty.easy_records.util.business.MoneyDisplay
 import app.myliberty.easy_records.util.business.lock.LockNamespaces
 import app.myliberty.easy_records.util.paging.PageResponse

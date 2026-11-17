@@ -3,7 +3,7 @@ package app.myliberty.easy_records.locations.business.retail.sale_payment
 import app.myliberty.easy_records.util.enums.PaymentStatus
 import app.myliberty.easy_records.util.business.PaymentStatusResolver
 import app.myliberty.easy_records.locations.business.retail.sale_payment.api.SalePaymentFetcher
-import app.myliberty.easy_records.organizations.business.payment_method.api.PaymentMethodDataFetcher
+import app.myliberty.easy_records.organizations.business.core.payment_method.api.PaymentMethodDataFetcher
 import app.myliberty.easy_records.util.business.DateTimes
 import org.springframework.stereotype.Service
 import java.math.BigDecimal

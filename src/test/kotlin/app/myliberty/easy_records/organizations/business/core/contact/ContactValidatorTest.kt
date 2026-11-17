@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.organizations.business.contact
+package app.myliberty.easy_records.organizations.business.core.contact
 
-import app.myliberty.easy_records.organizations.business.contact.api.ContactType
+import app.myliberty.easy_records.organizations.business.core.contact.api.ContactType
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test

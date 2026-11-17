@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.payment_method.api
+package app.myliberty.easy_records.organizations.business.core.payment_method.api
 
 import java.io.Serializable
 import java.time.OffsetDateTime

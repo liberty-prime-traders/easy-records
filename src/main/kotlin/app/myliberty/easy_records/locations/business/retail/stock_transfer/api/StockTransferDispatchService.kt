@@ -4,7 +4,7 @@ import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocati
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
 import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductDataFetcher
 import app.myliberty.easy_records.locations.business.retail.location_product.api.ProductStockBreakdownProvider
-import app.myliberty.easy_records.locations.business.lock.api.EntityAdvisoryLock
+import app.myliberty.easy_records.locations.business.core.lock.api.EntityAdvisoryLock
 import app.myliberty.easy_records.util.business.lock.LockNamespaces
 import app.myliberty.easy_records.locations.business.retail.stock.api.availability.StockAvailabilityValidator
 import app.myliberty.easy_records.locations.business.retail.stock.api.read.StockBalanceFetcher
@@ -24,7 +24,7 @@ import app.myliberty.easy_records.locations.business.retail.stock_transfer.Stock
 import app.myliberty.easy_records.locations.business.retail.stock_transfer.StockTransferDraftLineEntity
 import app.myliberty.easy_records.configuration.session.withLocationSchema
 import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductSummaryDto
-import app.myliberty.easy_records.organizations.business.location.api.LocationService
+import app.myliberty.easy_records.organizations.business.core.location.api.LocationService
 import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.UnitConversionGraphFacade
 import app.myliberty.easy_records.util.quantity.BaseUnitDisplay
 import app.myliberty.easy_records.util.quantity.ExactQuantity

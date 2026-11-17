@@ -1,9 +1,9 @@
-package app.myliberty.easy_records.organizations.business.manual_journal
+package app.myliberty.easy_records.organizations.business.core.manual_journal
 
-import app.myliberty.easy_records.organizations.business.account.api.AccountType
-import app.myliberty.easy_records.organizations.business.account.api.AccountNameAndTypeDto
-import app.myliberty.easy_records.organizations.business.manual_journal.api.ManualJournalLineResponseDto
-import app.myliberty.easy_records.organizations.business.manual_journal.api.ManualJournalResponseDto
+import app.myliberty.easy_records.organizations.business.core.account.api.AccountType
+import app.myliberty.easy_records.organizations.business.core.account.api.AccountNameAndTypeDto
+import app.myliberty.easy_records.organizations.business.core.manual_journal.api.ManualJournalLineResponseDto
+import app.myliberty.easy_records.organizations.business.core.manual_journal.api.ManualJournalResponseDto
 import app.myliberty.easy_records.platform.business.sysuser.api.CreatorFullName
 import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
 import org.mapstruct.Context

@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.loan
+package app.myliberty.easy_records.organizations.business.core.loan
 
 import java.math.BigDecimal
 import java.time.LocalDate

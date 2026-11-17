@@ -1,10 +1,10 @@
-package app.myliberty.easy_records.organizations.business.accounting_config
+package app.myliberty.easy_records.organizations.business.core.accounting_config
 
 import jakarta.persistence.Column
 import jakarta.persistence.Convert
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
-import app.myliberty.easy_records.organizations.business.accounting_config.api.FiscalPeriodCycle
+import app.myliberty.easy_records.organizations.business.core.accounting_config.api.FiscalPeriodCycle
 import app.myliberty.easy_records.util.model.HasCreatorEntity
 import app.myliberty.easy_records.util.model.TableNames
 import java.time.DayOfWeek

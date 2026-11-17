@@ -1,7 +1,7 @@
 package app.myliberty.easy_records.organizations.business.retail.stock_item_source
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
-import app.myliberty.easy_records.organizations.business.org_profile.api.OrgDataSeeder
+import app.myliberty.easy_records.organizations.business.core.org_profile.api.OrgDataSeeder
 import app.myliberty.easy_records.organizations.business.retail.stock_item_source.api.StockItemSource
 import org.springframework.stereotype.Component
 

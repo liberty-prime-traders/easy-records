@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.organizations.business.expense_type.api
+package app.myliberty.easy_records.organizations.business.core.expense_type.api
 
-import app.myliberty.easy_records.cross_tier.expense.ExpenseSourceType
-import app.myliberty.easy_records.organizations.business.contact.api.ContactType
+import app.myliberty.easy_records.cross_tier.core.expense.ExpenseSourceType
+import app.myliberty.easy_records.organizations.business.core.contact.api.ContactType
 import java.time.OffsetDateTime
 import java.util.UUID
 

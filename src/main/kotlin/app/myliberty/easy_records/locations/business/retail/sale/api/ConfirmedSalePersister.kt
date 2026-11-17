@@ -19,7 +19,7 @@ import app.myliberty.easy_records.locations.business.retail.sale_adjustment.api.
 import app.myliberty.easy_records.locations.business.retail.stock.api.updater.SaleLineStockRequest
 import app.myliberty.easy_records.locations.business.retail.stock.api.updater.SaleStockUpdater
 import app.myliberty.easy_records.locations.business.retail.stock_reservation.api.StockReserver
-import app.myliberty.easy_records.organizations.business.fiscal_period.api.FiscalPeriodService
+import app.myliberty.easy_records.organizations.business.core.fiscal_period.api.FiscalPeriodService
 import app.myliberty.easy_records.util.business.DateTimes
 import org.springframework.stereotype.Service
 import java.time.OffsetDateTime

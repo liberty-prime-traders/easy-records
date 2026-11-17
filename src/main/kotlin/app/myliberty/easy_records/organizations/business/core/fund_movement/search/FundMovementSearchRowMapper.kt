@@ -1,10 +1,10 @@
-package app.myliberty.easy_records.organizations.business.fund_movement.search
+package app.myliberty.easy_records.organizations.business.core.fund_movement.search
 
 import jakarta.persistence.Tuple
-import app.myliberty.easy_records.organizations.business.fund_movement.FundMovementDto
-import app.myliberty.easy_records.organizations.business.fund_movement.FundMovementTypeConverter
-import app.myliberty.easy_records.organizations.business.fund_movement.FundMovementVoidDto
-import app.myliberty.easy_records.organizations.business.fund_movement.FundMovementWithVoid
+import app.myliberty.easy_records.organizations.business.core.fund_movement.FundMovementDto
+import app.myliberty.easy_records.organizations.business.core.fund_movement.FundMovementTypeConverter
+import app.myliberty.easy_records.organizations.business.core.fund_movement.FundMovementVoidDto
+import app.myliberty.easy_records.organizations.business.core.fund_movement.FundMovementWithVoid
 import app.myliberty.easy_records.util.business.mappers.DateQualifier
 import java.math.BigDecimal
 import java.sql.Date

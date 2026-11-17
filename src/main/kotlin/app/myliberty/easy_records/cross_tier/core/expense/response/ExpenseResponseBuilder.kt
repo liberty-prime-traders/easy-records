@@ -1,11 +1,11 @@
-package app.myliberty.easy_records.cross_tier.expense.response
+package app.myliberty.easy_records.cross_tier.core.expense.response
 
-import app.myliberty.easy_records.cross_tier.expense.model.ExpenseAggregate
-import app.myliberty.easy_records.cross_tier.expense.model.ExpensePaymentDto
-import app.myliberty.easy_records.cross_tier.expense.model.ExpensePaymentVoidDto
-import app.myliberty.easy_records.organizations.business.contact.api.ContactService
-import app.myliberty.easy_records.organizations.business.expense_type.api.ExpenseTypeService
-import app.myliberty.easy_records.organizations.business.payment_method.api.PaymentMethodDataFetcher
+import app.myliberty.easy_records.cross_tier.core.expense.model.ExpenseAggregate
+import app.myliberty.easy_records.cross_tier.core.expense.model.ExpensePaymentDto
+import app.myliberty.easy_records.cross_tier.core.expense.model.ExpensePaymentVoidDto
+import app.myliberty.easy_records.organizations.business.core.contact.api.ContactService
+import app.myliberty.easy_records.organizations.business.core.expense_type.api.ExpenseTypeService
+import app.myliberty.easy_records.organizations.business.core.payment_method.api.PaymentMethodDataFetcher
 import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.business.mappers.UserQualifier
 import app.myliberty.easy_records.util.exceptions.RtsGenericException

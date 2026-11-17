@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.cross_tier.expense.model
+package app.myliberty.easy_records.cross_tier.core.expense.model
 
 import java.time.LocalDate
 import java.util.UUID

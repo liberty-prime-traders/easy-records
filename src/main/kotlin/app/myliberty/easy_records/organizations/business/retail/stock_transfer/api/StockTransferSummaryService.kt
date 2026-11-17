@@ -1,7 +1,7 @@
 package app.myliberty.easy_records.organizations.business.retail.stock_transfer.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
-import app.myliberty.easy_records.organizations.business.location.api.LocationService
+import app.myliberty.easy_records.organizations.business.core.location.api.LocationService
 import org.springframework.stereotype.Service
 
 @Service

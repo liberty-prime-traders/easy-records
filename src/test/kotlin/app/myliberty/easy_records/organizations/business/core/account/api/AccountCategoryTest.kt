@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.account.api
+package app.myliberty.easy_records.organizations.business.core.account.api
 
 import app.myliberty.easy_records.util.ui_models.BalanceEffect
 import org.junit.jupiter.api.Assertions.assertEquals

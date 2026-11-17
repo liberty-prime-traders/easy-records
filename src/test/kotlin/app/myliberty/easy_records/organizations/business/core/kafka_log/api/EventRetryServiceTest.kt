@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.kafka_log.api
+package app.myliberty.easy_records.organizations.business.core.kafka_log.api
 
 import app.myliberty.easy_records.configuration.session.LocationSession
 import app.myliberty.easy_records.configuration.session.OrgSession
@@ -8,11 +8,11 @@ import app.myliberty.easy_records.messaging.kafka.common.DltReader
 import app.myliberty.easy_records.messaging.kafka.transaction.EventReissueHandler
 import app.myliberty.easy_records.messaging.kafka.transaction.events.ExpenseRecordedEvent
 import app.myliberty.easy_records.messaging.kafka.transaction.events.TransactionEvent
-import app.myliberty.easy_records.organizations.business.kafka_log.EventProcessingLogEntity
-import app.myliberty.easy_records.organizations.business.kafka_log.EventProcessingLogRepository
-import app.myliberty.easy_records.organizations.business.kafka_log.EventProcessingLogStatus
-import app.myliberty.easy_records.organizations.business.location.api.LocationDto
-import app.myliberty.easy_records.organizations.business.location.api.LocationService
+import app.myliberty.easy_records.organizations.business.core.kafka_log.EventProcessingLogEntity
+import app.myliberty.easy_records.organizations.business.core.kafka_log.EventProcessingLogRepository
+import app.myliberty.easy_records.organizations.business.core.kafka_log.EventProcessingLogStatus
+import app.myliberty.easy_records.organizations.business.core.location.api.LocationDto
+import app.myliberty.easy_records.organizations.business.core.location.api.LocationService
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals

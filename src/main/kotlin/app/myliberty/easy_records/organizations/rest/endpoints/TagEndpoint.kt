@@ -1,9 +1,9 @@
 package app.myliberty.easy_records.organizations.rest.endpoints
 
-import app.myliberty.easy_records.organizations.business.tag.api.TagInsertDto
-import app.myliberty.easy_records.organizations.business.tag.api.TagResponseDto
-import app.myliberty.easy_records.organizations.business.tag.api.TagService
-import app.myliberty.easy_records.organizations.business.tag.api.TagUpdateDto
+import app.myliberty.easy_records.organizations.business.core.tag.api.TagInsertDto
+import app.myliberty.easy_records.organizations.business.core.tag.api.TagResponseDto
+import app.myliberty.easy_records.organizations.business.core.tag.api.TagService
+import app.myliberty.easy_records.organizations.business.core.tag.api.TagUpdateDto
 import org.springframework.http.HttpStatus
 import org.springframework.http.HttpStatusCode
 import org.springframework.http.ResponseEntity

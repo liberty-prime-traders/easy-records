@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.locations.business.tax_entry.api
+package app.myliberty.easy_records.locations.business.core.tax_entry.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
-import app.myliberty.easy_records.locations.business.tax_entry.TaxEntryEntity
-import app.myliberty.easy_records.locations.business.tax_entry.TaxEntryRepository
+import app.myliberty.easy_records.locations.business.core.tax_entry.TaxEntryEntity
+import app.myliberty.easy_records.locations.business.core.tax_entry.TaxEntryRepository
 import org.springframework.stereotype.Service
 
 @Service

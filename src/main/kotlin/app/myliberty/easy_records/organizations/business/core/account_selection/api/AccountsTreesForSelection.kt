@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.account_selection.api
+package app.myliberty.easy_records.organizations.business.core.account_selection.api
 
 import app.myliberty.easy_records.util.ui_models.TreeNode
 

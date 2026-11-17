@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.feature
+package app.myliberty.easy_records.organizations.business.core.feature
 
 import jakarta.persistence.Column
 import jakarta.persistence.Convert

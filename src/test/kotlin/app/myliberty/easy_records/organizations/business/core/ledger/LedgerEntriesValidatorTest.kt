@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.organizations.business.ledger
+package app.myliberty.easy_records.organizations.business.core.ledger
 
-import app.myliberty.easy_records.organizations.business.account.api.SystemAccount
-import app.myliberty.easy_records.organizations.business.ledger.api.LedgerEntryRequest
+import app.myliberty.easy_records.organizations.business.core.account.api.SystemAccount
+import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerEntryRequest
 import app.myliberty.easy_records.support.WithDefaultOrganizationSession
 import app.myliberty.easy_records.util.business.PositiveMoney
 import app.myliberty.easy_records.util.exceptions.RtsGenericException

@@ -1,6 +1,6 @@
 package app.myliberty.easy_records.platform.business.authority
 
-import app.myliberty.easy_records.cross_tier.authority.AuthorityType
+import app.myliberty.easy_records.cross_tier.core.authority.AuthorityType
 import app.myliberty.easy_records.util.enums.RtsPermission
 import app.myliberty.easy_records.util.enums.RtsRole
 import app.myliberty.easy_records.util.enums.SchemaLevel

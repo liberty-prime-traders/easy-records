@@ -8,9 +8,9 @@ import app.myliberty.easy_records.cucumber.support.context.AuthContext
 import app.myliberty.easy_records.cucumber.support.context.InjectContext
 import app.myliberty.easy_records.cucumber.support.context.PersistentKey
 import app.myliberty.easy_records.cucumber.support.context.ResponseContext
-import app.myliberty.easy_records.organizations.business.location.LocationCache
-import app.myliberty.easy_records.organizations.business.location.api.LocationInsertDto
-import app.myliberty.easy_records.organizations.business.location.api.LocationType
+import app.myliberty.easy_records.organizations.business.core.location.LocationCache
+import app.myliberty.easy_records.organizations.business.core.location.api.LocationInsertDto
+import app.myliberty.easy_records.organizations.business.core.location.api.LocationType
 import app.myliberty.easy_records.platform.business.authorization_pass.api.AuthorizationPassInsertDto
 import app.myliberty.easy_records.platform.business.authorization_pass.api.PassType
 import app.myliberty.easy_records.platform.business.organization.OrganizationCache

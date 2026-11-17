@@ -4,13 +4,13 @@ Money spent that is not the cost of goods: wages, rent, utilities, freight,
 repairs. Pure P&L; nothing here changes FIFO batch cost. Every expense endpoint
 requires the `CHART_OF_ACCOUNTS` feature.
 
-Expenses live in two schemas with identical rules: `locations/business/expense/`
-(per location) and `organizations/business/org_expense/` (stock-transfer
+Expenses live in two schemas with identical rules: `locations/business/core/expense/`
+(per location) and `organizations/business/core/org_expense/` (stock-transfer
 freight and standalone costs that no single location owns). This package holds
 everything those two share, and sits under `cross_tier/` for the same reason
-`cross_tier/authority/` does: `ArchitectureTest`'s isolation rule only covers
+`cross_tier/core/authority/` does: `ArchitectureTest`'s isolation rule only covers
 `<tier>/business/<domain>` packages. Expense types are their own domain,
-`organizations/business/expense_type/`.
+`organizations/business/core/expense_type/`.
 
 ## Layout
 
@@ -123,7 +123,7 @@ pick the tier from the session (a location in session means a location expense);
 `EventRetryService` resets the session location to the log row's `sourceLocationId` for
 every retry so a leftover location never misroutes an org-level reissue. The period check is synchronous, but the ledger group is created at consume time, so a
 period closed in between fails the posting after the expense has committed — the same
-as sale and purchase. See `organizations/business/ledger/README.md`.
+as sale and purchase. See `organizations/business/core/ledger/README.md`.
 
 ## Amounts and dates
 

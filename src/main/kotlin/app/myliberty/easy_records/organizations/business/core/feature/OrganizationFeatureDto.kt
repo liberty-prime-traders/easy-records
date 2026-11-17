@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.feature
+package app.myliberty.easy_records.organizations.business.core.feature
 
 import app.myliberty.easy_records.platform.business.feature.api.Feature
 import java.time.OffsetDateTime

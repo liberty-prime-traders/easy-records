@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.organizations.business.org_jurisdiction_tax_type
+package app.myliberty.easy_records.organizations.business.core.org_jurisdiction_tax_type
 
-import app.myliberty.easy_records.organizations.business.account_selection.api.AccountSelectionRule
-import app.myliberty.easy_records.organizations.business.account_selection.api.AccountSelectionService
+import app.myliberty.easy_records.organizations.business.core.account_selection.api.AccountSelectionRule
+import app.myliberty.easy_records.organizations.business.core.account_selection.api.AccountSelectionService
 import app.myliberty.easy_records.platform.business.tax_type.api.PlatformTaxTypeDto
 import app.myliberty.easy_records.platform.business.tax_type.api.TaxRecoveryType
 import app.myliberty.easy_records.util.business.StringUtils

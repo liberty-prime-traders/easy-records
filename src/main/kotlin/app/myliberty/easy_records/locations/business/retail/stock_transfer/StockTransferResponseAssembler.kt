@@ -5,7 +5,7 @@ import app.myliberty.easy_records.configuration.session.withLocationSchema
 import app.myliberty.easy_records.locations.business.retail.stock_transfer.api.StockTransferDispatchResponseDto
 import app.myliberty.easy_records.locations.business.retail.stock_transfer.api.StockTransferReceiptResponseDto
 import app.myliberty.easy_records.locations.business.retail.stock_transfer.api.StockTransferResponse
-import app.myliberty.easy_records.organizations.business.location.api.LocationService
+import app.myliberty.easy_records.organizations.business.core.location.api.LocationService
 import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferOrderDomainDto
 import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferStatus
 import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.toSummaryDto

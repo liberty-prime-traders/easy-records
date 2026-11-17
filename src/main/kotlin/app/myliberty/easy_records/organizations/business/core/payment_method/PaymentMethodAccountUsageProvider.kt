@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.organizations.business.payment_method
+package app.myliberty.easy_records.organizations.business.core.payment_method
 
-import app.myliberty.easy_records.organizations.business.account.api.AccountUsageProvider
-import app.myliberty.easy_records.organizations.business.account.api.AccountUsageType
+import app.myliberty.easy_records.organizations.business.core.account.api.AccountUsageProvider
+import app.myliberty.easy_records.organizations.business.core.account.api.AccountUsageType
 import org.springframework.stereotype.Component
 
 @Component

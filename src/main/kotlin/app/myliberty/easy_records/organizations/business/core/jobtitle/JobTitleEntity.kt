@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.jobtitle
+package app.myliberty.easy_records.organizations.business.core.jobtitle
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity

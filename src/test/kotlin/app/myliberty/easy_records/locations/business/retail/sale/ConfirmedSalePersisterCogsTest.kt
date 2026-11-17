@@ -15,7 +15,7 @@ import app.myliberty.easy_records.locations.business.retail.sale_adjustment.api.
 import app.myliberty.easy_records.locations.business.retail.stock.api.updater.SaleLineConsumedCost
 import app.myliberty.easy_records.locations.business.retail.stock.api.updater.SaleStockUpdater
 import app.myliberty.easy_records.locations.business.retail.stock_reservation.api.StockReserver
-import app.myliberty.easy_records.organizations.business.fiscal_period.api.FiscalPeriodService
+import app.myliberty.easy_records.organizations.business.core.fiscal_period.api.FiscalPeriodService
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull

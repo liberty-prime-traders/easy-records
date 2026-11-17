@@ -1,9 +1,9 @@
-package app.myliberty.easy_records.organizations.business.role_assignment.api
+package app.myliberty.easy_records.organizations.business.core.role_assignment.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
-import app.myliberty.easy_records.cross_tier.authority.GrantedRole
-import app.myliberty.easy_records.organizations.business.role_assignment.OrgRoleAssignmentEntity
-import app.myliberty.easy_records.organizations.business.role_assignment.OrgRoleCache
+import app.myliberty.easy_records.cross_tier.core.authority.GrantedRole
+import app.myliberty.easy_records.organizations.business.core.role_assignment.OrgRoleAssignmentEntity
+import app.myliberty.easy_records.organizations.business.core.role_assignment.OrgRoleCache
 import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.enums.RtsRole
 import org.springframework.stereotype.Service

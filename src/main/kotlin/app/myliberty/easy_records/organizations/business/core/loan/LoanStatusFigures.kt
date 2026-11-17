@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.organizations.business.loan
+package app.myliberty.easy_records.organizations.business.core.loan
 
-import app.myliberty.easy_records.organizations.business.loan.api.LoanStatus
+import app.myliberty.easy_records.organizations.business.core.loan.api.LoanStatus
 import java.math.BigDecimal
 
 data class LoanStatusFigures(

@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.ledger
+package app.myliberty.easy_records.organizations.business.core.ledger
 
 import app.myliberty.easy_records.configuration.session.LocationSession
 import app.myliberty.easy_records.configuration.session.OrgSession
@@ -10,19 +10,19 @@ import app.myliberty.easy_records.messaging.kafka.transaction.events.SalePayment
 import app.myliberty.easy_records.messaging.kafka.transaction.events.SalePaymentRecordedEvent
 import app.myliberty.easy_records.messaging.kafka.transaction.events.SalePaymentVoidedEvent
 import app.myliberty.easy_records.messaging.kafka.transaction.events.SaleVoidedEvent
-import app.myliberty.easy_records.organizations.business.account.api.RecordingAccountService
-import app.myliberty.easy_records.organizations.business.account.api.SystemAccount
-import app.myliberty.easy_records.organizations.business.contact.api.ContactDto
-import app.myliberty.easy_records.organizations.business.contact.api.ContactService
-import app.myliberty.easy_records.organizations.business.account.api.AccountPosting
-import app.myliberty.easy_records.organizations.business.ledger.api.LedgerPostingRequest
-import app.myliberty.easy_records.organizations.business.ledger.api.LedgerPostingService
-import app.myliberty.easy_records.organizations.business.ledger.helpers.LedgerPostingGate
-import app.myliberty.easy_records.organizations.business.ledger.processors.SaleConfirmedEventProcessor
-import app.myliberty.easy_records.organizations.business.ledger.processors.SalePaymentRecordedEventProcessor
-import app.myliberty.easy_records.organizations.business.ledger.processors.SalePaymentVoidedEventProcessor
-import app.myliberty.easy_records.organizations.business.ledger.helpers.SaleTaxLedgerEntriesBuilder
-import app.myliberty.easy_records.organizations.business.ledger.processors.SaleVoidedEventProcessor
+import app.myliberty.easy_records.organizations.business.core.account.api.RecordingAccountService
+import app.myliberty.easy_records.organizations.business.core.account.api.SystemAccount
+import app.myliberty.easy_records.organizations.business.core.contact.api.ContactDto
+import app.myliberty.easy_records.organizations.business.core.contact.api.ContactService
+import app.myliberty.easy_records.organizations.business.core.account.api.AccountPosting
+import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerPostingRequest
+import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerPostingService
+import app.myliberty.easy_records.organizations.business.core.ledger.helpers.LedgerPostingGate
+import app.myliberty.easy_records.organizations.business.core.ledger.processors.SaleConfirmedEventProcessor
+import app.myliberty.easy_records.organizations.business.core.ledger.processors.SalePaymentRecordedEventProcessor
+import app.myliberty.easy_records.organizations.business.core.ledger.processors.SalePaymentVoidedEventProcessor
+import app.myliberty.easy_records.organizations.business.core.ledger.helpers.SaleTaxLedgerEntriesBuilder
+import app.myliberty.easy_records.organizations.business.core.ledger.processors.SaleVoidedEventProcessor
 import app.myliberty.easy_records.util.business.Money
 import app.myliberty.easy_records.util.business.PositiveMoney
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
@@ -40,7 +40,7 @@ import java.time.Instant
 import java.time.LocalDate
 import java.time.OffsetDateTime
 import java.util.UUID
-import app.myliberty.easy_records.organizations.business.ledger.api.LedgerSourceType
+import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerSourceType
 
 /**
  * Runs real processor output through the real AccountService.patchBalances and asserts each

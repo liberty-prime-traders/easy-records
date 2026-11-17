@@ -1,13 +1,13 @@
-package app.myliberty.easy_records.organizations.business.contact
+package app.myliberty.easy_records.organizations.business.core.contact
 
 import jakarta.persistence.Column
 import jakarta.persistence.Convert
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
 import jakarta.persistence.Transient
-import app.myliberty.easy_records.organizations.business.contact.api.ContactIdentity
-import app.myliberty.easy_records.organizations.business.contact.api.ContactStatus
-import app.myliberty.easy_records.organizations.business.contact.api.ContactType
+import app.myliberty.easy_records.organizations.business.core.contact.api.ContactIdentity
+import app.myliberty.easy_records.organizations.business.core.contact.api.ContactStatus
+import app.myliberty.easy_records.organizations.business.core.contact.api.ContactType
 import app.myliberty.easy_records.util.annotations.HasReference
 import app.myliberty.easy_records.util.model.HasReferenceEntity
 import app.myliberty.easy_records.util.model.TableName

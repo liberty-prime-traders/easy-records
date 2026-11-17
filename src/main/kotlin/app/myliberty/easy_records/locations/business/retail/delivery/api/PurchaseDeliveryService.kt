@@ -14,7 +14,7 @@ import app.myliberty.easy_records.locations.business.retail.purchase.api.deliver
 import app.myliberty.easy_records.locations.business.retail.purchase.api.PurchaseLineDto
 import app.myliberty.easy_records.locations.business.retail.purchase.api.PurchaseResponseDto
 import app.myliberty.easy_records.locations.business.retail.supplier_payment.api.PurchasePaymentStatusService
-import app.myliberty.easy_records.organizations.business.fiscal_period.api.FiscalPeriodService
+import app.myliberty.easy_records.organizations.business.core.fiscal_period.api.FiscalPeriodService
 import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.quantity.ExactQuantity
 import org.springframework.stereotype.Service

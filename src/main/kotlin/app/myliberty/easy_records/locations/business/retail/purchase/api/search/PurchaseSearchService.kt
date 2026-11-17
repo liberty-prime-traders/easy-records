@@ -8,7 +8,7 @@ import app.myliberty.easy_records.locations.business.retail.purchase.search.Purc
 import app.myliberty.easy_records.locations.business.retail.purchase.search.PurchaseSearchFetcher
 import app.myliberty.easy_records.locations.business.retail.purchase.search.PurchaseSearchValidator
 import app.myliberty.easy_records.locations.business.retail.purchase.search.PurchaseSupplierSummaryRawRow
-import app.myliberty.easy_records.organizations.business.contact.api.ContactService
+import app.myliberty.easy_records.organizations.business.core.contact.api.ContactService
 import app.myliberty.easy_records.util.paging.PageRequest
 import app.myliberty.easy_records.util.paging.PageResponse
 import app.myliberty.easy_records.util.queries.KeysetSearchCursor

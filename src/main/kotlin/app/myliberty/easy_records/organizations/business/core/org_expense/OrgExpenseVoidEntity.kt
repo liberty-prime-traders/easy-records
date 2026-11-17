@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.organizations.business.org_expense
+package app.myliberty.easy_records.organizations.business.core.org_expense
 
-import app.myliberty.easy_records.cross_tier.expense.entities.ExpenseVoidBase
+import app.myliberty.easy_records.cross_tier.core.expense.entities.ExpenseVoidBase
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
 import app.myliberty.easy_records.util.annotations.HasReference

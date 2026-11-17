@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.organizations.business.feature.activators
+package app.myliberty.easy_records.organizations.business.core.feature.activators
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
-import app.myliberty.easy_records.organizations.business.feature.OrganizationFeatureCache
-import app.myliberty.easy_records.organizations.business.feature.OrganizationFeatureStatus
+import app.myliberty.easy_records.organizations.business.core.feature.OrganizationFeatureCache
+import app.myliberty.easy_records.organizations.business.core.feature.OrganizationFeatureStatus
 import app.myliberty.easy_records.platform.business.feature.api.Feature
 import org.springframework.stereotype.Service
 

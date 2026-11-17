@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.location
+package app.myliberty.easy_records.organizations.business.core.location
 
 import app.myliberty.easy_records.configuration.datasource.DataSourceBeanNames
 import app.myliberty.easy_records.util.business.SchemaCreator

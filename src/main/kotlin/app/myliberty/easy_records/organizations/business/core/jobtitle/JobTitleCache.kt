@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.organizations.business.jobtitle
+package app.myliberty.easy_records.organizations.business.core.jobtitle
 
 import app.myliberty.easy_records.configuration.cache.CacheNames
 import app.myliberty.easy_records.configuration.cache.CacheSchemaLevel
-import app.myliberty.easy_records.organizations.business.jobtitle.api.JobTitleInsertDto
+import app.myliberty.easy_records.organizations.business.core.jobtitle.api.JobTitleInsertDto
 import app.myliberty.easy_records.util.enums.SchemaLevel
 import org.springframework.cache.annotation.CacheConfig
 import org.springframework.cache.annotation.CacheEvict

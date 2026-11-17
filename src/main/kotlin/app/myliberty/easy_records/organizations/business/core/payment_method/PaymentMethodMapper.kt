@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.organizations.business.payment_method
+package app.myliberty.easy_records.organizations.business.core.payment_method
 
-import app.myliberty.easy_records.organizations.business.payment_method.api.PaymentMethodInsertDto
-import app.myliberty.easy_records.organizations.business.payment_method.api.PaymentMethodResponseDto
+import app.myliberty.easy_records.organizations.business.core.payment_method.api.PaymentMethodInsertDto
+import app.myliberty.easy_records.organizations.business.core.payment_method.api.PaymentMethodResponseDto
 import app.myliberty.easy_records.platform.business.sysuser.api.CreatorFullName
 import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
 import org.mapstruct.Context

@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.organizations.business.location
+package app.myliberty.easy_records.organizations.business.core.location
 
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
-import app.myliberty.easy_records.organizations.business.location.api.LocationInsertDto
-import app.myliberty.easy_records.organizations.business.location.api.LocationUpdateDto
+import app.myliberty.easy_records.organizations.business.core.location.api.LocationInsertDto
+import app.myliberty.easy_records.organizations.business.core.location.api.LocationUpdateDto
 import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.business.StringUtils
 import app.myliberty.easy_records.util.exceptions.RtsGenericException

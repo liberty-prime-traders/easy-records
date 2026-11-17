@@ -1,15 +1,15 @@
-package app.myliberty.easy_records.organizations.business.fiscal_period.api
+package app.myliberty.easy_records.organizations.business.core.fiscal_period.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
-import app.myliberty.easy_records.organizations.business.accounting_config.api.OrgAccountingConfigDto
-import app.myliberty.easy_records.organizations.business.accounting_config.api.OrgAccountingConfigService
-import app.myliberty.easy_records.organizations.business.fiscal_period.FiscalPeriodDto
-import app.myliberty.easy_records.organizations.business.fiscal_period.FiscalPeriodGenerationService
-import app.myliberty.easy_records.organizations.business.fiscal_period.FiscalPeriodMapper
-import app.myliberty.easy_records.organizations.business.fiscal_period.FiscalPeriodRepository
-import app.myliberty.easy_records.organizations.business.fiscal_period.FiscalPeriodUtils
-import app.myliberty.easy_records.organizations.business.fiscal_period.PeriodCloseValidator
+import app.myliberty.easy_records.organizations.business.core.accounting_config.api.OrgAccountingConfigDto
+import app.myliberty.easy_records.organizations.business.core.accounting_config.api.OrgAccountingConfigService
+import app.myliberty.easy_records.organizations.business.core.fiscal_period.FiscalPeriodDto
+import app.myliberty.easy_records.organizations.business.core.fiscal_period.FiscalPeriodGenerationService
+import app.myliberty.easy_records.organizations.business.core.fiscal_period.FiscalPeriodMapper
+import app.myliberty.easy_records.organizations.business.core.fiscal_period.FiscalPeriodRepository
+import app.myliberty.easy_records.organizations.business.core.fiscal_period.FiscalPeriodUtils
+import app.myliberty.easy_records.organizations.business.core.fiscal_period.PeriodCloseValidator
 import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.business.StringUtils
 import app.myliberty.easy_records.util.business.mappers.UserQualifier

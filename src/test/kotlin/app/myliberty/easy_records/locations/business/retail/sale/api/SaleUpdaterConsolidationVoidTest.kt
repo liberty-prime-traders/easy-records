@@ -15,7 +15,7 @@ import app.myliberty.easy_records.locations.business.retail.sale.SaleVoidReposit
 import app.myliberty.easy_records.locations.business.retail.sale.VoidedSale
 import app.myliberty.easy_records.locations.business.retail.stock.api.updater.SaleStockUpdater
 import app.myliberty.easy_records.locations.business.retail.stock_reservation.api.StockReserver
-import app.myliberty.easy_records.organizations.business.fiscal_period.api.FiscalPeriodService
+import app.myliberty.easy_records.organizations.business.core.fiscal_period.api.FiscalPeriodService
 import app.myliberty.easy_records.support.WithDefaultOrganizationSession
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test

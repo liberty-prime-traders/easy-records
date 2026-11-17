@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.organizations.business.tax_rate
+package app.myliberty.easy_records.organizations.business.core.tax_rate
 
 import app.myliberty.easy_records.support.WithDefaultOrganizationSession
-import app.myliberty.easy_records.organizations.business.tax_rate.api.TaxRateInsertDto
+import app.myliberty.easy_records.organizations.business.core.tax_rate.api.TaxRateInsertDto
 import app.myliberty.easy_records.util.business.Money
 import app.myliberty.easy_records.util.business.mappers.MoneyQualifier
 import app.myliberty.easy_records.util.business.mappers.StringQualifier

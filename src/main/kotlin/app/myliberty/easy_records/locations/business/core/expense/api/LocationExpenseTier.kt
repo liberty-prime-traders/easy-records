@@ -1,9 +1,9 @@
-package app.myliberty.easy_records.locations.business.expense.api
+package app.myliberty.easy_records.locations.business.core.expense.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
-import app.myliberty.easy_records.cross_tier.expense.ExpenseTier
-import app.myliberty.easy_records.locations.business.lock.api.EntityAdvisoryLock
+import app.myliberty.easy_records.cross_tier.core.expense.ExpenseTier
+import app.myliberty.easy_records.locations.business.core.lock.api.EntityAdvisoryLock
 import app.myliberty.easy_records.messaging.kafka.common.EventSourceContext
 import app.myliberty.easy_records.util.business.lock.LockNamespaces
 import org.springframework.stereotype.Component

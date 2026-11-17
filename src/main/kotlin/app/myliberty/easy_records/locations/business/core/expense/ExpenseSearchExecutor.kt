@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.business.expense
+package app.myliberty.easy_records.locations.business.core.expense
 
 import jakarta.persistence.Tuple
 import app.myliberty.easy_records.configuration.datasource.DataSourceBeanNames

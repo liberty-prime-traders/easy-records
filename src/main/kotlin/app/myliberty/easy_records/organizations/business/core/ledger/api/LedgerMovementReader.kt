@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.organizations.business.ledger.api
+package app.myliberty.easy_records.organizations.business.core.ledger.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
-import app.myliberty.easy_records.organizations.business.account.api.EntryType
-import app.myliberty.easy_records.organizations.business.ledger.LedgerEntryRepository
+import app.myliberty.easy_records.organizations.business.core.account.api.EntryType
+import app.myliberty.easy_records.organizations.business.core.ledger.LedgerEntryRepository
 import app.myliberty.easy_records.util.business.DateTimes
 import org.springframework.stereotype.Component
 import java.time.Instant

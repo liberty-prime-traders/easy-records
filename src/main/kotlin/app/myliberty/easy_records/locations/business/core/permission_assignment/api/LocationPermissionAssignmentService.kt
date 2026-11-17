@@ -1,9 +1,9 @@
-package app.myliberty.easy_records.locations.business.permission_assignment.api
+package app.myliberty.easy_records.locations.business.core.permission_assignment.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
-import app.myliberty.easy_records.cross_tier.authority.GrantedPermission
-import app.myliberty.easy_records.locations.business.permission_assignment.LocationPermissionAssignmentEntity
-import app.myliberty.easy_records.locations.business.permission_assignment.LocationPermissionCache
+import app.myliberty.easy_records.cross_tier.core.authority.GrantedPermission
+import app.myliberty.easy_records.locations.business.core.permission_assignment.LocationPermissionAssignmentEntity
+import app.myliberty.easy_records.locations.business.core.permission_assignment.LocationPermissionCache
 import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.enums.RtsPermission
 import org.springframework.stereotype.Service

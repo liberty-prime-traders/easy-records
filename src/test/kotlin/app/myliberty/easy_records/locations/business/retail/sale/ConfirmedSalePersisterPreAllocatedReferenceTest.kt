@@ -6,7 +6,7 @@ import app.myliberty.easy_records.locations.business.retail.sale.api.SaleSaveReq
 import app.myliberty.easy_records.locations.business.retail.sale_adjustment.api.SaleAdjustmentSyncer
 import app.myliberty.easy_records.locations.business.retail.stock.api.updater.SaleStockUpdater
 import app.myliberty.easy_records.locations.business.retail.stock_reservation.api.StockReserver
-import app.myliberty.easy_records.organizations.business.fiscal_period.api.FiscalPeriodService
+import app.myliberty.easy_records.organizations.business.core.fiscal_period.api.FiscalPeriodService
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test

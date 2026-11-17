@@ -74,7 +74,7 @@ account configuration. Postings and subledger columns are listed in `ledger/READ
   contact map from the caller (`ContactService.getContactsById` for a page, the one known lender otherwise).
 - Routes: `POST` (loan), `POST repayments`, `POST void`, `POST repayments/void`, `POST search`, `GET {loanReference}`.
   A repayment or void returns the loan.
-- `POST search` follows `cross_tier/expense/README.md`: keyset on `(created_on, id)` descending, one extra row for
+- `POST search` follows `cross_tier/core/expense/README.md`: keyset on `(created_on, id)` descending, one extra row for
   `hasMore`, the query returns only `(id, created_on)` and the page is shaped by the response builder. `createdFrom` /
   `createdBefore` are required, the upper bound is exclusive and the span is at most one year.
 - Filters: `lenderContactReferences`, `statuses` (all or none means no filter), `loanDateFrom` / `loanDateBefore` and

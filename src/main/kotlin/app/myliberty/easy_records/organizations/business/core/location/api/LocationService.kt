@@ -1,12 +1,12 @@
-package app.myliberty.easy_records.organizations.business.location.api
+package app.myliberty.easy_records.organizations.business.core.location.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
-import app.myliberty.easy_records.locations.business.location_user.api.LocationUserService
-import app.myliberty.easy_records.organizations.business.location.LocationCache
-import app.myliberty.easy_records.organizations.business.location.LocationMapper
-import app.myliberty.easy_records.organizations.business.location.LocationSchemaService
-import app.myliberty.easy_records.organizations.business.location.LocationValidator
+import app.myliberty.easy_records.locations.business.core.location_user.api.LocationUserService
+import app.myliberty.easy_records.organizations.business.core.location.LocationCache
+import app.myliberty.easy_records.organizations.business.core.location.LocationMapper
+import app.myliberty.easy_records.organizations.business.core.location.LocationSchemaService
+import app.myliberty.easy_records.organizations.business.core.location.LocationValidator
 import app.myliberty.easy_records.util.business.SchemaNameGenerator
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException

@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.organizations.business.opening_balance
+package app.myliberty.easy_records.organizations.business.core.opening_balance
 
-import app.myliberty.easy_records.organizations.business.account.api.SystemAccount
+import app.myliberty.easy_records.organizations.business.core.account.api.SystemAccount
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertThrows

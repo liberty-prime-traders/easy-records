@@ -1,7 +1,7 @@
 package app.myliberty.easy_records.locations.business.retail.stock.api.revision
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
-import app.myliberty.easy_records.locations.business.lock.api.EntityAdvisoryLock
+import app.myliberty.easy_records.locations.business.core.lock.api.EntityAdvisoryLock
 import app.myliberty.easy_records.locations.business.retail.stock.FifoStockConsumer
 import app.myliberty.easy_records.locations.business.retail.stock.StockEntryEntity
 import app.myliberty.easy_records.locations.business.retail.stock.StockEntryRepository

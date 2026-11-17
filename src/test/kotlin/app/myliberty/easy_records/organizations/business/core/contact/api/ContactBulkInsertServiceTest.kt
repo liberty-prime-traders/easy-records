@@ -1,9 +1,9 @@
-package app.myliberty.easy_records.organizations.business.contact.api
+package app.myliberty.easy_records.organizations.business.core.contact.api
 
-import app.myliberty.easy_records.organizations.business.contact.ContactCache
-import app.myliberty.easy_records.organizations.business.contact.ContactResponseMapper
-import app.myliberty.easy_records.organizations.business.contact.ContactValidator
-import app.myliberty.easy_records.organizations.business.ledger.api.SubledgerService
+import app.myliberty.easy_records.organizations.business.core.contact.ContactCache
+import app.myliberty.easy_records.organizations.business.core.contact.ContactResponseMapper
+import app.myliberty.easy_records.organizations.business.core.contact.ContactValidator
+import app.myliberty.easy_records.organizations.business.core.ledger.api.SubledgerService
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows

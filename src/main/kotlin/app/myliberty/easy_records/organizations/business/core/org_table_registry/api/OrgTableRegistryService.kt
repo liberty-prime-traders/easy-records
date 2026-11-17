@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.organizations.business.org_table_registry.api
+package app.myliberty.easy_records.organizations.business.core.org_table_registry.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
-import app.myliberty.easy_records.organizations.business.org_table_registry.OrgTableRegistryCache
-import app.myliberty.easy_records.organizations.business.org_table_registry.OrgTableRegistryMapper
+import app.myliberty.easy_records.organizations.business.core.org_table_registry.OrgTableRegistryCache
+import app.myliberty.easy_records.organizations.business.core.org_table_registry.OrgTableRegistryMapper
 import app.myliberty.easy_records.platform.business.table_registry.api.TableRegistryService
 import app.myliberty.easy_records.util.business.StringUtils
 import app.myliberty.easy_records.util.exceptions.RtsGenericException

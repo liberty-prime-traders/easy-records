@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.organizations.business.ledger.api
+package app.myliberty.easy_records.organizations.business.core.ledger.api
 
-import app.myliberty.easy_records.organizations.business.account.api.EntryType
+import app.myliberty.easy_records.organizations.business.core.account.api.EntryType
 import app.myliberty.easy_records.util.business.Money
 import app.myliberty.easy_records.util.business.PositiveMoney
 import java.math.BigDecimal

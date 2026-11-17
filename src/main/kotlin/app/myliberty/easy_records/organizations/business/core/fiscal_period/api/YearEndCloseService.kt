@@ -1,13 +1,13 @@
-package app.myliberty.easy_records.organizations.business.fiscal_period.api
+package app.myliberty.easy_records.organizations.business.core.fiscal_period.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
-import app.myliberty.easy_records.organizations.business.account.api.DenormalizedYearEndBalanceTransfer
-import app.myliberty.easy_records.organizations.business.accounting_config.api.OrgAccountingConfigService
-import app.myliberty.easy_records.organizations.business.fiscal_period.FiscalPeriodMapper
-import app.myliberty.easy_records.organizations.business.fiscal_period.FiscalPeriodRepository
-import app.myliberty.easy_records.organizations.business.fiscal_period.FiscalPeriodUtils
-import app.myliberty.easy_records.organizations.business.fiscal_period.PeriodCloseValidator
+import app.myliberty.easy_records.organizations.business.core.account.api.DenormalizedYearEndBalanceTransfer
+import app.myliberty.easy_records.organizations.business.core.accounting_config.api.OrgAccountingConfigService
+import app.myliberty.easy_records.organizations.business.core.fiscal_period.FiscalPeriodMapper
+import app.myliberty.easy_records.organizations.business.core.fiscal_period.FiscalPeriodRepository
+import app.myliberty.easy_records.organizations.business.core.fiscal_period.FiscalPeriodUtils
+import app.myliberty.easy_records.organizations.business.core.fiscal_period.PeriodCloseValidator
 import app.myliberty.easy_records.util.business.mappers.UserQualifier
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Service

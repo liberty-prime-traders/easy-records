@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.organizations.business.manual_journal.api
+package app.myliberty.easy_records.organizations.business.core.manual_journal.api
 
-import app.myliberty.easy_records.organizations.business.account.api.EntryType
+import app.myliberty.easy_records.organizations.business.core.account.api.EntryType
 import app.myliberty.easy_records.util.business.PositiveMoney
 import java.time.LocalDate
 

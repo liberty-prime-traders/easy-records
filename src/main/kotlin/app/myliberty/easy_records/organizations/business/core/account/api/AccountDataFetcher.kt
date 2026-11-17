@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.organizations.business.account.api
+package app.myliberty.easy_records.organizations.business.core.account.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
-import app.myliberty.easy_records.organizations.business.account.AccountCache
-import app.myliberty.easy_records.organizations.business.account.AccountRepository
+import app.myliberty.easy_records.organizations.business.core.account.AccountCache
+import app.myliberty.easy_records.organizations.business.core.account.AccountRepository
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Component
 

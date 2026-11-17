@@ -3,8 +3,8 @@ package app.myliberty.easy_records.locations.business.retail.stock_revision
 import app.myliberty.easy_records.locations.business.retail.stock_adjustment.api.StockAdjustmentAccountCodes
 import app.myliberty.easy_records.locations.business.retail.stock_adjustment.api.StockAdjustmentAccountCodesFetcher
 import app.myliberty.easy_records.locations.business.retail.stock_revision.api.AdjustmentCostChange
-import app.myliberty.easy_records.organizations.business.ledger.api.PostedStockAdjustmentAccounts
-import app.myliberty.easy_records.organizations.business.ledger.api.PostedStockAdjustmentAccountsReader
+import app.myliberty.easy_records.organizations.business.core.ledger.api.PostedStockAdjustmentAccounts
+import app.myliberty.easy_records.organizations.business.core.ledger.api.PostedStockAdjustmentAccountsReader
 import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.MovementType
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue

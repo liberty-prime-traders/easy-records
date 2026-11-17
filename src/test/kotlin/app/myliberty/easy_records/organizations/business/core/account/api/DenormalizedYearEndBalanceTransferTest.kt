@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.organizations.business.account.api
+package app.myliberty.easy_records.organizations.business.core.account.api
 
-import app.myliberty.easy_records.organizations.business.account.AccountBalance
-import app.myliberty.easy_records.organizations.business.account.AccountEntity
-import app.myliberty.easy_records.organizations.business.account.AccountRepository
+import app.myliberty.easy_records.organizations.business.core.account.AccountBalance
+import app.myliberty.easy_records.organizations.business.core.account.AccountEntity
+import app.myliberty.easy_records.organizations.business.core.account.AccountRepository
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.mockito.ArgumentMatchers.anyCollection

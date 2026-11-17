@@ -1,10 +1,10 @@
 package app.myliberty.easy_records.organizations.rest.endpoints
 
-import app.myliberty.easy_records.organizations.business.manual_journal.api.ManualJournalCreateDto
-import app.myliberty.easy_records.organizations.business.manual_journal.api.ManualJournalResponseDto
-import app.myliberty.easy_records.organizations.business.manual_journal.api.ManualJournalReversalCreateDto
-import app.myliberty.easy_records.organizations.business.manual_journal.api.ManualJournalDataFetcher
-import app.myliberty.easy_records.organizations.business.manual_journal.api.ManualJournalService
+import app.myliberty.easy_records.organizations.business.core.manual_journal.api.ManualJournalCreateDto
+import app.myliberty.easy_records.organizations.business.core.manual_journal.api.ManualJournalResponseDto
+import app.myliberty.easy_records.organizations.business.core.manual_journal.api.ManualJournalReversalCreateDto
+import app.myliberty.easy_records.organizations.business.core.manual_journal.api.ManualJournalDataFetcher
+import app.myliberty.easy_records.organizations.business.core.manual_journal.api.ManualJournalService
 import app.myliberty.easy_records.platform.business.feature.api.Feature
 import app.myliberty.easy_records.util.annotations.RequiresFeature
 import app.myliberty.easy_records.util.enums.RtsPermissionNames

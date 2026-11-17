@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.organizations.business.account.api
+package app.myliberty.easy_records.organizations.business.core.account.api
 
-import app.myliberty.easy_records.organizations.business.account.AccountDto
+import app.myliberty.easy_records.organizations.business.core.account.AccountDto
 import java.util.Optional
 import java.util.UUID
 

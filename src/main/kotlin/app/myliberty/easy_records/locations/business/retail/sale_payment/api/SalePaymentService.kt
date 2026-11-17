@@ -10,8 +10,8 @@ import app.myliberty.easy_records.locations.business.retail.sale_payment.SalePay
 import app.myliberty.easy_records.locations.business.retail.sale_payment.SalePaymentVoidRepository
 import app.myliberty.easy_records.locations.business.retail.sale_payment.SalePaymentWriter
 import app.myliberty.easy_records.locations.business.retail.sale_payment.VoidedSalePayment
-import app.myliberty.easy_records.organizations.business.fiscal_period.api.FiscalPeriodService
-import app.myliberty.easy_records.organizations.business.payment_method.api.PaymentMethodDataFetcher
+import app.myliberty.easy_records.organizations.business.core.fiscal_period.api.FiscalPeriodService
+import app.myliberty.easy_records.organizations.business.core.payment_method.api.PaymentMethodDataFetcher
 import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.business.PaymentStatusResolver
 import app.myliberty.easy_records.util.exceptions.RtsGenericException

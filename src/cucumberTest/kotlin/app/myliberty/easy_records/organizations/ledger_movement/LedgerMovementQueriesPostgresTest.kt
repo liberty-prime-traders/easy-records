@@ -3,8 +3,8 @@ package app.myliberty.easy_records.organizations.ledger_movement
 import app.myliberty.easy_records.configuration.session.OrgSession
 import app.myliberty.easy_records.configuration.session.SessionContext
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
-import app.myliberty.easy_records.organizations.business.ledger.LedgerEntryRepository
-import app.myliberty.easy_records.organizations.business.ledger.api.LedgerMovementReader
+import app.myliberty.easy_records.organizations.business.core.ledger.LedgerEntryRepository
+import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerMovementReader
 import app.myliberty.easy_records.util.business.DateTimes
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.AfterEach

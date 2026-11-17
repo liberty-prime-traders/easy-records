@@ -1,7 +1,7 @@
 package app.myliberty.easy_records.platform.rest.endpoints
 
-import app.myliberty.easy_records.cross_tier.authority.AuthorizationAssignmentRequest
-import app.myliberty.easy_records.cross_tier.authority.AuthorizationRequestService
+import app.myliberty.easy_records.cross_tier.core.authority.AuthorizationAssignmentRequest
+import app.myliberty.easy_records.cross_tier.core.authority.AuthorizationRequestService
 import app.myliberty.easy_records.util.enums.RtsPermissionNames
 import app.myliberty.easy_records.util.enums.RtsRoleNames
 import org.springframework.http.HttpStatus

@@ -6,7 +6,7 @@ session-token/security-context pieces it depends on
 (`configuration/security/SessionTokenService`,
 `configuration/filters/TenantFilter`).
 
-Read `cross_tier/authority/README.md` first if you haven't — login's
+Read `cross_tier/core/authority/README.md` first if you haven't — login's
 last step (`verifyRequestedRoles`) and every request after login
 (`TenantFilter.refreshEffectiveRoles`) both go through
 `EffectiveAuthorizationService` from that package.

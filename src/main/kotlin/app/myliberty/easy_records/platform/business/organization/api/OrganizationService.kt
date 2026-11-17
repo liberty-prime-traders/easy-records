@@ -2,11 +2,11 @@ package app.myliberty.easy_records.platform.business.organization.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnPlatformSchema
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
-import app.myliberty.easy_records.organizations.business.location.api.LocationResponseDto
-import app.myliberty.easy_records.organizations.business.location.api.LocationService
-import app.myliberty.easy_records.organizations.business.org_profile.api.OrgProfileService
-import app.myliberty.easy_records.organizations.business.organization_admin.api.OrganizationAdminService
-import app.myliberty.easy_records.organizations.business.organization_user.api.OrganizationUserService
+import app.myliberty.easy_records.organizations.business.core.location.api.LocationResponseDto
+import app.myliberty.easy_records.organizations.business.core.location.api.LocationService
+import app.myliberty.easy_records.organizations.business.core.org_profile.api.OrgProfileService
+import app.myliberty.easy_records.organizations.business.core.organization_admin.api.OrganizationAdminService
+import app.myliberty.easy_records.organizations.business.core.organization_user.api.OrganizationUserService
 import app.myliberty.easy_records.platform.business.authorization_pass.api.AuthorizationPassService
 import app.myliberty.easy_records.platform.business.authorization_pass.api.PassType
 import app.myliberty.easy_records.platform.business.organization.OrganizationCache

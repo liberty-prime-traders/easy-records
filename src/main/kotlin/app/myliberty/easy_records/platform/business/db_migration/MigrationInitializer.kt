@@ -1,6 +1,6 @@
 package app.myliberty.easy_records.platform.business.db_migration
 
-import app.myliberty.easy_records.organizations.business.location.api.LocationDto
+import app.myliberty.easy_records.organizations.business.core.location.api.LocationDto
 import app.myliberty.easy_records.platform.business.db_migration.api.DbMigrationInsertDto
 import app.myliberty.easy_records.platform.business.db_migration.api.MigrationStatus
 import app.myliberty.easy_records.platform.business.db_version.api.DbVersionDto

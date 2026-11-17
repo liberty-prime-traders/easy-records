@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.locations.business.expense
+package app.myliberty.easy_records.locations.business.core.expense
 
-import app.myliberty.easy_records.cross_tier.expense.entities.ExpenseBase
-import app.myliberty.easy_records.cross_tier.expense.ExpenseSourceType
+import app.myliberty.easy_records.cross_tier.core.expense.entities.ExpenseBase
+import app.myliberty.easy_records.cross_tier.core.expense.ExpenseSourceType
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
 import app.myliberty.easy_records.util.annotations.HasReference

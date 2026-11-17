@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.organizations.business.payment_method.api
+package app.myliberty.easy_records.organizations.business.core.payment_method.api
 
-import app.myliberty.easy_records.organizations.business.payment_method.PaymentMethodDto
+import app.myliberty.easy_records.organizations.business.core.payment_method.PaymentMethodDto
 import app.myliberty.easy_records.util.business.StringUtils
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import java.io.Serializable

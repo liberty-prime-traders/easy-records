@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.organizations.business.ledger
+package app.myliberty.easy_records.organizations.business.core.ledger
 
-import app.myliberty.easy_records.organizations.business.ledger.helpers.ExpenseLiabilityAccount
+import app.myliberty.easy_records.organizations.business.core.ledger.helpers.ExpenseLiabilityAccount
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 

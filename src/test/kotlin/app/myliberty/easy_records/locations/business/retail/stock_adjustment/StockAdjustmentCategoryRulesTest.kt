@@ -2,7 +2,7 @@ package app.myliberty.easy_records.locations.business.retail.stock_adjustment
 
 import app.myliberty.easy_records.locations.business.retail.stock.api.StockAdjustmentCategory
 import app.myliberty.easy_records.locations.business.retail.stock_adjustment.api.StockAdjustmentDirection
-import app.myliberty.easy_records.organizations.business.account.api.SystemAccount
+import app.myliberty.easy_records.organizations.business.core.account.api.SystemAccount
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 

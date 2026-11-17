@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.organizations.business.ledger.helpers
+package app.myliberty.easy_records.organizations.business.core.ledger.helpers
 
-import app.myliberty.easy_records.organizations.business.account.api.SystemAccount
+import app.myliberty.easy_records.organizations.business.core.account.api.SystemAccount
 
 object ExpenseLiabilityAccount {
 

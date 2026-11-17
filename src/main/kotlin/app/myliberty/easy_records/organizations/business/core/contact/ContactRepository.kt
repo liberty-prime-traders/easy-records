@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.contact
+package app.myliberty.easy_records.organizations.business.core.contact
 
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository

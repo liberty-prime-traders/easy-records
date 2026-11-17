@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.loan.search
+package app.myliberty.easy_records.organizations.business.core.loan.search
 
 import jakarta.persistence.Tuple
 import app.myliberty.easy_records.configuration.datasource.DataSourceBeanNames

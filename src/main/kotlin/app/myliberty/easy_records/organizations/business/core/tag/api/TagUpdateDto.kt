@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.tag.api
+package app.myliberty.easy_records.organizations.business.core.tag.api
 
 import java.io.Serializable
 import java.util.Optional

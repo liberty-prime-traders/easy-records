@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.organizations.business.contact
+package app.myliberty.easy_records.organizations.business.core.contact
 
-import app.myliberty.easy_records.organizations.business.contact.api.ContactIdentity
-import app.myliberty.easy_records.organizations.business.contact.api.ContactType
-import app.myliberty.easy_records.organizations.business.contact.api.IdentityType
+import app.myliberty.easy_records.organizations.business.core.contact.api.ContactIdentity
+import app.myliberty.easy_records.organizations.business.core.contact.api.ContactType
+import app.myliberty.easy_records.organizations.business.core.contact.api.IdentityType
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Component
 import java.util.UUID

@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.ledger
+package app.myliberty.easy_records.organizations.business.core.ledger
 
 import app.myliberty.easy_records.configuration.session.LocationSession
 import app.myliberty.easy_records.configuration.session.OrgSession
@@ -9,18 +9,18 @@ import app.myliberty.easy_records.messaging.kafka.transaction.events.PurchaseDel
 import app.myliberty.easy_records.messaging.kafka.transaction.events.SaleCostRestatedEvent
 import app.myliberty.easy_records.messaging.kafka.transaction.events.StockAdjustmentCostRestatedEvent
 import app.myliberty.easy_records.messaging.kafka.transaction.events.StockAdjustmentCostRestatementDto
-import app.myliberty.easy_records.organizations.business.account.api.EntryType
-import app.myliberty.easy_records.organizations.business.account.api.SystemAccount
-import app.myliberty.easy_records.organizations.business.contact.api.ContactDto
-import app.myliberty.easy_records.organizations.business.contact.api.ContactService
-import app.myliberty.easy_records.organizations.business.ledger.api.LedgerPostingRequest
-import app.myliberty.easy_records.organizations.business.ledger.api.LedgerPostingService
-import app.myliberty.easy_records.organizations.business.ledger.helpers.LedgerPostingGate
-import app.myliberty.easy_records.organizations.business.ledger.api.PostedStockAdjustmentAccounts
-import app.myliberty.easy_records.organizations.business.ledger.api.PostedStockAdjustmentAccountsReader
-import app.myliberty.easy_records.organizations.business.ledger.processors.PurchaseDeliveryRevisionAccountingProcessor
-import app.myliberty.easy_records.organizations.business.ledger.processors.SaleCogsRestatementAccountingProcessor
-import app.myliberty.easy_records.organizations.business.ledger.processors.StockAdjustmentRestatementAccountingProcessor
+import app.myliberty.easy_records.organizations.business.core.account.api.EntryType
+import app.myliberty.easy_records.organizations.business.core.account.api.SystemAccount
+import app.myliberty.easy_records.organizations.business.core.contact.api.ContactDto
+import app.myliberty.easy_records.organizations.business.core.contact.api.ContactService
+import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerPostingRequest
+import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerPostingService
+import app.myliberty.easy_records.organizations.business.core.ledger.helpers.LedgerPostingGate
+import app.myliberty.easy_records.organizations.business.core.ledger.api.PostedStockAdjustmentAccounts
+import app.myliberty.easy_records.organizations.business.core.ledger.api.PostedStockAdjustmentAccountsReader
+import app.myliberty.easy_records.organizations.business.core.ledger.processors.PurchaseDeliveryRevisionAccountingProcessor
+import app.myliberty.easy_records.organizations.business.core.ledger.processors.SaleCogsRestatementAccountingProcessor
+import app.myliberty.easy_records.organizations.business.core.ledger.processors.StockAdjustmentRestatementAccountingProcessor
 import app.myliberty.easy_records.util.business.Money
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals

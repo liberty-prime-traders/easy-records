@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.cross_tier.expense.search
+package app.myliberty.easy_records.cross_tier.core.expense.search
 
 import java.math.BigDecimal
 import java.util.UUID

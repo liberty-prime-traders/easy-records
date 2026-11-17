@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.organizations.business.fiscal_period.strategy
+package app.myliberty.easy_records.organizations.business.core.fiscal_period.strategy
 
-import app.myliberty.easy_records.organizations.business.accounting_config.api.FiscalPeriodCycle
+import app.myliberty.easy_records.organizations.business.core.accounting_config.api.FiscalPeriodCycle
 import org.springframework.stereotype.Component
 
 @Component

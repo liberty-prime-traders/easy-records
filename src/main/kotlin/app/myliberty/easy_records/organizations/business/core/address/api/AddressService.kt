@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.organizations.business.address.api
+package app.myliberty.easy_records.organizations.business.core.address.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
-import app.myliberty.easy_records.organizations.business.address.AddressCache
-import app.myliberty.easy_records.organizations.business.address.AddressMapper
+import app.myliberty.easy_records.organizations.business.core.address.AddressCache
+import app.myliberty.easy_records.organizations.business.core.address.AddressMapper
 import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException
 import org.springframework.stereotype.Service
 import java.util.Objects

@@ -1,10 +1,10 @@
-package app.myliberty.easy_records.organizations.business.tag
+package app.myliberty.easy_records.organizations.business.core.tag
 
 import jakarta.persistence.Column
 import jakarta.persistence.Convert
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
-import app.myliberty.easy_records.organizations.business.tag.api.CategoryType
+import app.myliberty.easy_records.organizations.business.core.tag.api.CategoryType
 import app.myliberty.easy_records.util.annotations.HasReference
 import app.myliberty.easy_records.util.model.HasReferenceEntity
 import app.myliberty.easy_records.util.model.TableName

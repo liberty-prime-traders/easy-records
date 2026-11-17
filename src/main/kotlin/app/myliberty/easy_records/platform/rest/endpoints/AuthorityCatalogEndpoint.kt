@@ -1,10 +1,10 @@
 package app.myliberty.easy_records.platform.rest.endpoints
 
-import app.myliberty.easy_records.cross_tier.authority.Authority
-import app.myliberty.easy_records.cross_tier.authority.AuthorityHolderResponse
-import app.myliberty.easy_records.cross_tier.authority.AuthorityType
-import app.myliberty.easy_records.cross_tier.authority.AuthorizationCatalogService
-import app.myliberty.easy_records.cross_tier.authority.PermissionResponse
+import app.myliberty.easy_records.cross_tier.core.authority.Authority
+import app.myliberty.easy_records.cross_tier.core.authority.AuthorityHolderResponse
+import app.myliberty.easy_records.cross_tier.core.authority.AuthorityType
+import app.myliberty.easy_records.cross_tier.core.authority.AuthorizationCatalogService
+import app.myliberty.easy_records.cross_tier.core.authority.PermissionResponse
 import app.myliberty.easy_records.platform.business.authority.api.PlatformAuthorityHolderService
 import app.myliberty.easy_records.util.enums.RtsPermissionNames
 import app.myliberty.easy_records.util.enums.RtsRole

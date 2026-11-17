@@ -18,8 +18,8 @@ import app.myliberty.easy_records.locations.business.retail.supplier_payment.Sup
 import app.myliberty.easy_records.locations.business.retail.supplier_payment.SupplierPaymentVoidHandlerForKafka
 import app.myliberty.easy_records.locations.business.retail.supplier_payment.SupplierPaymentVoidMapper
 import app.myliberty.easy_records.locations.business.retail.supplier_payment.SupplierPaymentVoidRepository
-import app.myliberty.easy_records.organizations.business.fiscal_period.api.FiscalPeriodService
-import app.myliberty.easy_records.organizations.business.payment_method.api.PaymentMethodDataFetcher
+import app.myliberty.easy_records.organizations.business.core.fiscal_period.api.FiscalPeriodService
+import app.myliberty.easy_records.organizations.business.core.payment_method.api.PaymentMethodDataFetcher
 import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.business.DisplayFormatters
 import app.myliberty.easy_records.util.exceptions.RtsGenericException

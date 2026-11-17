@@ -1,8 +1,8 @@
 package app.myliberty.easy_records.messaging.kafka.transaction.consumers
 
 import app.myliberty.easy_records.configuration.session.ServiceAccountContext
-import app.myliberty.easy_records.organizations.business.kafka_log.api.DltPublisher
-import app.myliberty.easy_records.organizations.business.kafka_log.api.EventProcessingLogService
+import app.myliberty.easy_records.organizations.business.core.kafka_log.api.DltPublisher
+import app.myliberty.easy_records.organizations.business.core.kafka_log.api.EventProcessingLogService
 import app.myliberty.easy_records.messaging.kafka.common.EventSessionSetup
 import app.myliberty.easy_records.messaging.kafka.notifications.ConsumerFailureEvent
 import app.myliberty.easy_records.messaging.kafka.notifications.NotificationEventProducer

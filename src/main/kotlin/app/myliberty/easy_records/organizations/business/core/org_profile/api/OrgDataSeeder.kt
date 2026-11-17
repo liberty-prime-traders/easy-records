@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.org_profile.api
+package app.myliberty.easy_records.organizations.business.core.org_profile.api
 
 interface OrgDataSeeder {
     fun seed()

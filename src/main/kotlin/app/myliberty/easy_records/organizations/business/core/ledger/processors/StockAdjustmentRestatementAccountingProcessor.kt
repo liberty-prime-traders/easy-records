@@ -1,15 +1,15 @@
-package app.myliberty.easy_records.organizations.business.ledger.processors
+package app.myliberty.easy_records.organizations.business.core.ledger.processors
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
 import app.myliberty.easy_records.messaging.kafka.transaction.events.StockAdjustmentCostRestatedEvent
 import app.myliberty.easy_records.messaging.kafka.transaction.processors.AccountingEventProcessor
-import app.myliberty.easy_records.organizations.business.ledger.api.LedgerEntryRequest
-import app.myliberty.easy_records.organizations.business.ledger.api.LedgerPostingRequest
-import app.myliberty.easy_records.organizations.business.ledger.api.LedgerPostingService
-import app.myliberty.easy_records.organizations.business.ledger.api.LedgerSourceType
+import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerEntryRequest
+import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerPostingRequest
+import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerPostingService
+import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerSourceType
 import app.myliberty.easy_records.locations.business.retail.stock_revision.api.RevisionLedgerEntries
-import app.myliberty.easy_records.organizations.business.ledger.helpers.LedgerPostingGate
-import app.myliberty.easy_records.organizations.business.ledger.api.PostedStockAdjustmentAccountsReader
+import app.myliberty.easy_records.organizations.business.core.ledger.helpers.LedgerPostingGate
+import app.myliberty.easy_records.organizations.business.core.ledger.api.PostedStockAdjustmentAccountsReader
 import org.springframework.stereotype.Service
 import kotlin.reflect.KClass
 

@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.fiscal_period
+package app.myliberty.easy_records.organizations.business.core.fiscal_period
 
 import java.time.DayOfWeek
 import java.time.LocalDate

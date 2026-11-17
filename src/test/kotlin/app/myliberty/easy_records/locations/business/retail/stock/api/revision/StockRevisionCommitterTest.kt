@@ -1,6 +1,6 @@
 package app.myliberty.easy_records.locations.business.retail.stock.api.revision
 
-import app.myliberty.easy_records.locations.business.lock.api.EntityAdvisoryLock
+import app.myliberty.easy_records.locations.business.core.lock.api.EntityAdvisoryLock
 import app.myliberty.easy_records.locations.business.retail.stock.StockEntryEntity
 import app.myliberty.easy_records.locations.business.retail.stock.StockEntryRepository
 import app.myliberty.easy_records.locations.business.retail.stock.StockMovementEntity

@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.organizations.business.ledger.api
+package app.myliberty.easy_records.organizations.business.core.ledger.api
 
-import app.myliberty.easy_records.organizations.business.account.api.AccountStructureLock
-import app.myliberty.easy_records.organizations.business.lock.api.OrgEntityAdvisoryLock
+import app.myliberty.easy_records.organizations.business.core.account.api.AccountStructureLock
+import app.myliberty.easy_records.organizations.business.core.lock.api.OrgEntityAdvisoryLock
 import app.myliberty.easy_records.util.business.lock.LockNamespaces
 import org.springframework.stereotype.Component
 

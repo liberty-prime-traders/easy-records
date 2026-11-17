@@ -1,13 +1,13 @@
-package app.myliberty.easy_records.organizations.business.org_expense.api
+package app.myliberty.easy_records.organizations.business.core.org_expense.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
-import app.myliberty.easy_records.cross_tier.expense.response.ExpenseSummaryResponse
-import app.myliberty.easy_records.cross_tier.expense.search.ExpenseSearchFetcher
-import app.myliberty.easy_records.cross_tier.expense.search.ExpenseSearchOperationsFactory
-import app.myliberty.easy_records.cross_tier.expense.search.ExpenseSearchParameters
-import app.myliberty.easy_records.cross_tier.expense.search.ExpenseSearchSummaryResponseDto
-import app.myliberty.easy_records.cross_tier.expense.search.ExpenseSearchTables
-import app.myliberty.easy_records.organizations.business.org_expense.search.OrgExpenseSearchExecutor
+import app.myliberty.easy_records.cross_tier.core.expense.response.ExpenseSummaryResponse
+import app.myliberty.easy_records.cross_tier.core.expense.search.ExpenseSearchFetcher
+import app.myliberty.easy_records.cross_tier.core.expense.search.ExpenseSearchOperationsFactory
+import app.myliberty.easy_records.cross_tier.core.expense.search.ExpenseSearchParameters
+import app.myliberty.easy_records.cross_tier.core.expense.search.ExpenseSearchSummaryResponseDto
+import app.myliberty.easy_records.cross_tier.core.expense.search.ExpenseSearchTables
+import app.myliberty.easy_records.organizations.business.core.org_expense.search.OrgExpenseSearchExecutor
 import app.myliberty.easy_records.util.paging.PageRequest
 import app.myliberty.easy_records.util.paging.PageResponse
 import org.springframework.stereotype.Service

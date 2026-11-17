@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.business.tax_entry.api
+package app.myliberty.easy_records.locations.business.core.tax_entry.api
 
 import app.myliberty.easy_records.platform.business.tax_type.api.TaxCalculationMethod
 import java.math.BigDecimal

@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.kafka_log
+package app.myliberty.easy_records.organizations.business.core.kafka_log
 
 import jakarta.persistence.Column
 import jakarta.persistence.Convert

@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.organizations.business.organization_admin
+package app.myliberty.easy_records.organizations.business.core.organization_admin
 
-import app.myliberty.easy_records.organizations.business.organization_admin.api.OrganizationAdminInsertDto
-import app.myliberty.easy_records.organizations.business.organization_admin.api.OrganizationAdminResponseDto
+import app.myliberty.easy_records.organizations.business.core.organization_admin.api.OrganizationAdminInsertDto
+import app.myliberty.easy_records.organizations.business.core.organization_admin.api.OrganizationAdminResponseDto
 import app.myliberty.easy_records.platform.business.sysuser.api.NullableFullName
 import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
 import org.mapstruct.Mapper
