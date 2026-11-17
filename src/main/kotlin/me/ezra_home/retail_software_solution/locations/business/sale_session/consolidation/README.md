@@ -191,7 +191,9 @@ cashier reviewed (`ReviewedProductLines`: the lines left in the pending session,
 were all removed, which are dropped rather than recomputed). Both paths then run `generateFromMerged`: refuse if a problem
 remains; combine the order-level adjustments (`OrderLevelAdjustmentsCombiner`); validate; allocate the reference
 (`SaleReferenceAllocator`); void the active payments of the sources with the reason "Consolidated into <ref>"
-(`ConsolidationSourcePayments`); void the sources together (`SaleUpdater.voidSourcesOfConsolidation`); save the draft with
+(`ConsolidationSourcePayments`); take the sources out of use together (`SaleUpdater.voidSourcesOfConsolidation`: a DRAFT source becomes DISCARDED, its reservation
+cleared and `Discarded: Consolidated into <ref>` appended to its notes; a CONFIRMED source is VOIDED, its stock restored, its tax
+reversed and its reason recorded as "Consolidated into <ref>", which needs today's fiscal period open); save the draft with
 `preAllocatedReferenceNumber` and the payments re-recorded with a new identity and no payment date, so each is dated when it is
 saved, not at the source payment's date (the void of the source payment is dated the same day); load the saved draft as the
 new session. A stock shortage fails the save, which rolls the whole transaction back, so the sources and the pending session
@@ -209,7 +211,9 @@ goods total), so the sources' amounts are added as money and turned back into on
 only when that percentage is exact (at most 4 decimal places, and it reproduces the same amount). Two 5% discounts on
 equal sales stay 5%; a 5% discount on one of two equal sales becomes 2.5%. When it is not exact, Generate is refused and
 nothing is voided. One with a different approver stays separate, so an approval is never attributed to an amount its
-approver did not see. Notes are joined with "; " without repeats.
+approver did not see. The notes of those adjustments are joined with "; " without repeats. The sale notes are different:
+`SaleSessionCopier.copyFromSalesWithSourceReferences` writes one line per source that has notes, `<source reference> - <notes>`,
+joined with a newline, and does not merge repeats. Sold-by and date-sold are not copied.
 
 **Sale-wide adjustments in a pending consolidation.** A percentage of the whole sale describes the goods of its own sale, so it
 is carried only when the sales are consolidated at once: with no line problem, and with a combined percentage that is exact,
