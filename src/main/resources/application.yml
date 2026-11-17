@@ -2,7 +2,7 @@ spring:
   config:
     import: optional:file:deployment/env/dev.env[.properties]
   application:
-    name: retail-software-solution
+    name: easy-records
 
   datasource:
     location:
@@ -73,7 +73,7 @@ spring:
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       auto-offset-reset: earliest
       properties:
-        spring.json.trusted.packages: me.ezra_home.retail_software_solution.messaging.kafka.*
+        spring.json.trusted.packages: app.myliberty.easy_records.messaging.kafka.*
 
 rts:
   kafka:

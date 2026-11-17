@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement
 @EnableScheduling
 @EnableTransactionManagement
 @EnableMethodSecurity
-class RetailSoftwareSolutionApplication
+class EasyRecordsApplication
 
 fun main(args: Array<String>) {
-	runApplication<RetailSoftwareSolutionApplication>(*args)
+	runApplication<EasyRecordsApplication>(*args)
 }

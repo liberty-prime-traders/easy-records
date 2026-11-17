@@ -128,14 +128,14 @@ The backend system is organized into the following main components:
 		- locations
 		- organization users
 		- payment methods
-	When making LocalDate related logic, always consider the `me.ezra_home.retail_software_solution.util.business.DateTimes` class
+	When making LocalDate related logic, always consider the `app.myliberty.easy_records.util.business.DateTimes` class
 
 - Locations
 	Focuses on location-specific operations and data, such as
 		- inventory management
 		- sales transactions
 
-Some packages have README like @me/ezra_home/retail_software_solution/locations/business/sale/README.md
+Some packages have README like @app/myliberty/easy_records/locations/business/sale/README.md
 Use them when scanning in their vicinity. When we make changes, the relevant README should be updated 
 to reflect the current state of the code and any important details about the implementation.
 This is not a change log, but a current state document.
