@@ -30,6 +30,7 @@ class SaleSessionLineTest {
     fun `the unit price derived from the total on the pieces line is 55 point 5556`() {
         val lineTotal = lineTotal(pricePerBale, BigDecimal("18"), 1L, 18L)
         val line = object : ProductLineWithPrice {
+            override val lineKey = UUID.randomUUID()
             override val locationProductId = UUID.randomUUID()
             override val userProvidedQuantity = BigDecimal("18")
             override val lineTotal = lineTotal

@@ -11,7 +11,7 @@ REST: `ProductSalesReportEndpoint` under `secured/sales/product-report`.
 - Nothing is stored. Native SQL in this package; `ProductSalesReportCalculator` derives
   everything (net, profit, margins, per-base-unit figures) in Kotlin from the summed totals.
 - Sources: `sale_line.line_total` (gross, never modified by adjustments), the `ACTIVE`
-  `sale_line_cogs.cogs_total` rows of each line (no row counts as zero, as in `SaleDataFetcher.getSaleCogsTotal`) and line-level `sale_adjustment` rows
+  `sale_line_cogs.cogs_total` rows of each line (no row counts as zero, as in `SaleDataFetcher.getSaleCogsTotals`) and line-level `sale_adjustment` rows
   (`sale_line_id` not null; order-level adjustments are ignored). Status is fixed to `CONFIRMED`.
 - `from` is inclusive and `before` exclusive on `sale.date_sold`, both `OffsetDateTime`, required, at most
   one year apart (`SearchGuards.guardBoundedRange`). Lines page by `(date_sold, sale_line.id)` descending;

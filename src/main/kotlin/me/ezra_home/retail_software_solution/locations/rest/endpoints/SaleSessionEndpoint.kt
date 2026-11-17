@@ -1,5 +1,7 @@
 package me.ezra_home.retail_software_solution.locations.rest.endpoints
 
+import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleConsolidationHandler
+import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleConsolidationRequestDto
 import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionAdjustmentAddDto
 import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionAdjustmentHandler
 import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionHandler
@@ -37,11 +39,21 @@ class SaleSessionEndpoint(
     private val saleSessionAdjustmentHandler: SaleSessionAdjustmentHandler,
     private val saleSessionPaymentHandler: SaleSessionPaymentHandler,
     private val saleSessionPersister: SaleSessionPersister,
+    private val saleConsolidationHandler: SaleConsolidationHandler,
 ) {
 
     @PostMapping
     fun start(@RequestBody sessionStartDto: SaleSessionStartDto): SaleSessionResponseDto =
         saleSessionHandler.start(sessionStartDto)
+
+    @PostMapping("consolidate")
+    fun consolidateSales(
+        @RequestBody saleConsolidationRequestDto: SaleConsolidationRequestDto
+    ): SaleSessionResponseDto = saleConsolidationHandler.consolidate(saleConsolidationRequestDto)
+
+    @PostMapping("{sessionId}/generate-consolidated-sale")
+    fun generateConsolidatedSale(@PathVariable sessionId: UUID): SaleSessionResponseDto =
+        saleConsolidationHandler.generate(sessionId)
 
     @GetMapping("unsaved")
     fun listOpenSessions(
@@ -69,6 +81,12 @@ class SaleSessionEndpoint(
         @PathVariable sessionId: UUID,
         @RequestBody rowIdentityDto: SaleSessionRowIdentityDto,
     ): SaleSessionResponseDto = saleSessionLineHandler.removeLine(sessionId, rowIdentityDto)
+
+    @PostMapping("{sessionId}/lines/restore")
+    fun restoreLine(
+        @PathVariable sessionId: UUID,
+        @RequestBody rowIdentityDto: SaleSessionRowIdentityDto,
+    ): SaleSessionResponseDto = saleSessionLineHandler.restoreLine(sessionId, rowIdentityDto)
 
     @PostMapping("{sessionId}/adjustments")
     fun addAdjustment(

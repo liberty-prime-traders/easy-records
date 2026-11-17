@@ -23,13 +23,8 @@ object SaleSessionTotalsCalculator {
         paymentTotal: BigDecimal,
     ): SaleSessionTotals {
         val subtotal = saleSessionLines.sumOf { it.lineTotal }
-        val locationProductIdBySaleSessionLineKey = saleSessionLines.associate { it.identity.key() to it.locationProductId }
         val calculatedAmountByAdjustmentKey = saleSessionAdjustments.associate { saleSessionAdjustment ->
-            saleSessionAdjustment.identity.key() to calculateAdjustmentAmount(
-                saleSessionAdjustment,
-                locationProductIdBySaleSessionLineKey,
-                saleSessionLines,
-            )
+            saleSessionAdjustment.identity.key() to calculateAdjustmentAmount(saleSessionAdjustment, saleSessionLines)
         }
         val lineLevelDiscount = sumAdjustmentAmounts(
             saleSessionAdjustments, AdjustmentDirection.DISCOUNT, lineLevel = true, calculatedAmountByAdjustmentKey
@@ -60,20 +55,8 @@ object SaleSessionTotalsCalculator {
         saleSessionAdjustment: SaleSessionAdjustment,
         saleSessionLines: List<SaleSessionLine>,
     ): BigDecimal {
-        val locationProductIdBySaleSessionLineKey = saleSessionLines.associate { it.identity.key() to it.locationProductId }
-        return calculateAdjustmentAmount(saleSessionAdjustment, locationProductIdBySaleSessionLineKey, saleSessionLines)
-    }
-
-    private fun calculateAdjustmentAmount(
-        saleSessionAdjustment: SaleSessionAdjustment,
-        locationProductIdBySaleSessionLineKey: Map<UUID, UUID>,
-        saleSessionLines: List<SaleSessionLine>,
-    ): BigDecimal {
-        val locationProductId = saleSessionAdjustment.relatedSaleLineIdentity?.let {
-            locationProductIdBySaleSessionLineKey[it.key()]
-        }
         val adjustmentCreateDto = SaleAdjustmentCreateDto(
-            locationProductId = locationProductId,
+            saleLineKey = saleSessionAdjustment.relatedSaleLineIdentity?.key(),
             direction = saleSessionAdjustment.direction,
             calculationMethod = saleSessionAdjustment.calculationMethod,
             value = saleSessionAdjustment.value,

@@ -1,5 +1,6 @@
 package me.ezra_home.retail_software_solution.locations.business.sale.search
 
+import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleConsolidationEligibility
 import me.ezra_home.retail_software_solution.locations.business.sale.SaleArrears
 import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleSummary
 import java.math.BigDecimal
@@ -21,6 +22,7 @@ object SaleSearchMapper {
     status = row.status,
     paymentStatus = row.paymentStatus,
     arrearsTotal = SaleArrears.arrearsTotal(row.status, row.receivableTotal, totalPaid),
-    totalPaid = totalPaid
+    totalPaid = totalPaid,
+    canConsolidate = SaleConsolidationEligibility.canConsolidate(row.status, row.contactId),
   )
 }

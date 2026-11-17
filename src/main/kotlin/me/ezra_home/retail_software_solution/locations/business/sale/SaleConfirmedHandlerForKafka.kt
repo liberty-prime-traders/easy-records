@@ -28,6 +28,7 @@ class SaleConfirmedHandlerForKafka(
     }
 
     fun publish(sale: SaleEntity) {
+        val cogsTotal = saleDataFetcher.getSaleCogsTotals(listOf(sale.id!!)).getValue(sale.id!!)
         eventPublisher.publishEvent(
             SaleConfirmedEvent(
                 eventId = UUID.randomUUID(),
@@ -44,7 +45,7 @@ class SaleConfirmedHandlerForKafka(
                 taxBilled = Money.of(sale.taxBilled),
                 discountTotal = Money.of(sale.discountTotal()),
                 dateSold = DateTimes.Local.atOrganizationZone(sale.dateSold!!),
-                cogsTotal = Money.of(saleDataFetcher.getSaleCogsTotal(sale.id!!))
+                cogsTotal = Money.of(cogsTotal)
             )
         )
     }

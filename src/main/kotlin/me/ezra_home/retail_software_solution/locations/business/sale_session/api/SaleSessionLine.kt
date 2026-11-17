@@ -19,8 +19,11 @@ data class SaleSessionLine(
     val storageQuantityOnHand: BigDecimal = BigDecimal.ZERO,
     val storageQuantityReserved: BigDecimal = BigDecimal.ZERO,
     val storageQuantityAvailable: BigDecimal = BigDecimal.ZERO,
+    val rank: BigDecimal = BigDecimal.ZERO,
 
 ) : ProductLineWithPrice {
+
+    override val lineKey: UUID = identity.key()
 
     companion object {
         // Multiplies first and divides last: multiply is exact, so the single division is the only rounding.

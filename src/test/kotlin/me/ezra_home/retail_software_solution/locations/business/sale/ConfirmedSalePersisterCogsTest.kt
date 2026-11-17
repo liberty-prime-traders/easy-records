@@ -6,7 +6,6 @@ import me.ezra_home.retail_software_solution.configuration.session.SessionContex
 import me.ezra_home.retail_software_solution.configuration.session.SessionContextProvider
 import me.ezra_home.retail_software_solution.locations.business.location_product.api.LocationProductDataFetcher
 import me.ezra_home.retail_software_solution.locations.business.sale.api.ConfirmedSalePersister
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleDataFetcher
 import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleLineSaveRequest
 import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleLineCogsStatus
 import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleSaveRequest
@@ -41,7 +40,7 @@ class ConfirmedSalePersisterCogsTest {
     private val saleLineRepository = mock(SaleLineRepository::class.java)
     private val saleLineCogsRepository = mock(SaleLineCogsRepository::class.java)
     private val saleStockUpdater = mock(SaleStockUpdater::class.java)
-    private val saleDataFetcher = mock(SaleDataFetcher::class.java)
+    private val saleLocker = mock(SaleLocker::class.java)
     private val saleSaveFinalizer = mock(SaleSaveFinalizer::class.java)
     private val saleAdjustmentSyncer = mock(SaleAdjustmentSyncer::class.java)
     private val retainedSaleAdjustments = RetainedSaleAdjustments(emptyList())
@@ -53,7 +52,7 @@ class ConfirmedSalePersisterCogsTest {
         stockReserver = mock(StockReserver::class.java),
         saleStockUpdater = saleStockUpdater,
         saleConfirmedHandlerForKafka = mock(SaleConfirmedHandlerForKafka::class.java),
-        saleDataFetcher = saleDataFetcher,
+        saleLocker = saleLocker,
         fiscalPeriodService = mock(FiscalPeriodService::class.java),
         saleSaveFinalizer = saleSaveFinalizer,
         saleAdjustmentSyncer = saleAdjustmentSyncer,
@@ -88,7 +87,7 @@ class ConfirmedSalePersisterCogsTest {
                 it.id = saleId
                 it.referenceNumber = "SALE-1"
             }
-        `when`(saleDataFetcher.loadDraftAtVersion(saleId, 0L)).thenReturn(draftSale)
+        `when`(saleLocker.loadDraftAtVersion(saleId, 0L)).thenReturn(draftSale)
         `when`(saleAdjustmentSyncer.deleteRemoved(saleId, saleSaveRequest)).thenReturn(retainedSaleAdjustments)
         `when`(saleLineRepository.findBySaleId(saleId)).thenReturn(listOf(saleLineEntity))
         `when`(saleLineRepository.saveAll(anyList<SaleLineEntity>())).thenReturn(listOf(saleLineEntity))

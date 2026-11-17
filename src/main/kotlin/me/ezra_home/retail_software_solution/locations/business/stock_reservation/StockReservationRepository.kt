@@ -7,7 +7,7 @@ import java.util.UUID
 
 @Repository
 interface StockReservationRepository : JpaRepository<StockReservationEntity, UUID> {
-    fun deleteBySaleId(saleId: UUID)
+    fun deleteBySaleIdIn(saleIds: List<UUID>)
     fun deleteBySaleLineIdIn(saleLineIds: List<UUID>)
 
     @Query(

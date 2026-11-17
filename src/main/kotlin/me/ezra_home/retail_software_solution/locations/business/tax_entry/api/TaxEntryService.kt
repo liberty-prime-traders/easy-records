@@ -12,7 +12,14 @@ class TaxEntryService(
 
     @TransactionalOnLocationSchema(readOnly = true)
     fun findBySourceReference(sourceReferenceNumber: String, sourceType: TaxSourceType): List<TaxEntryDto> =
-        taxEntryRepository.findBySourceReferenceNumberAndSourceType(sourceReferenceNumber, sourceType)
+        findBySourceReferences(listOf(sourceReferenceNumber), sourceType)
+
+    @TransactionalOnLocationSchema(readOnly = true)
+    fun findBySourceReferences(
+        sourceReferenceNumbers: Collection<String>,
+        sourceType: TaxSourceType
+    ): List<TaxEntryDto> =
+        taxEntryRepository.findBySourceReferenceNumberInAndSourceType(sourceReferenceNumbers, sourceType)
             .map { it.toDto() }
 
     @TransactionalOnLocationSchema

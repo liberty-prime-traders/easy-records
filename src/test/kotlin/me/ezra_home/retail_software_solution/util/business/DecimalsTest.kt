@@ -2,6 +2,7 @@ package me.ezra_home.retail_software_solution.util.business
 
 import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
@@ -80,5 +81,13 @@ class DecimalsTest {
     fun `the label names the field in the positivity error`() {
         val exception = assertThrows(RtsGenericException::class.java) { Decimals.requirePositive(BigDecimal.ZERO, "Payment amount") }
         assertEquals("Payment amount must be greater than zero", exception.message)
+    }
+
+    @Test
+    fun `an exact quotient is returned and a non-terminating one is refused`() {
+        assertEquals(0, BigDecimal("2.2").compareTo(Decimals.exactQuotientOrNull(BigDecimal("44"), BigDecimal("20"))))
+        assertEquals(0, BigDecimal("17").compareTo(Decimals.exactQuotientOrNull(BigDecimal("204"), BigDecimal("12"))))
+        assertNull(Decimals.exactQuotientOrNull(BigDecimal("1750"), BigDecimal("750")))
+        assertNull(Decimals.exactQuotientOrNull(BigDecimal("1"), BigDecimal("3")))
     }
 }

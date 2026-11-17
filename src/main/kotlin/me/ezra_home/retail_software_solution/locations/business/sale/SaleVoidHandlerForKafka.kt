@@ -29,29 +29,33 @@ class SaleVoidHandlerForKafka(
         val sale = saleRepository.getReferenceById(sourceDocumentId)
         val voidEntity = saleVoidRepository.findBySaleId(sourceDocumentId)
             ?: throw RtsGenericException("No sale_void record for sale $sourceDocumentId — cannot reissue SaleVoidedEvent")
-        publishVoid(sale, voidEntity)
+        publishVoids(listOf(VoidedSale(sale, voidEntity)))
     }
 
-    fun publishVoid(sale: SaleEntity, voidEntity: SaleVoidEntity) {
-        eventPublisher.publishEvent(
-            SaleVoidedEvent(
-                eventId = UUID.randomUUID(),
-                sourceContext = EventSourceContext.LocationLevel(
-                    orgSchema = SessionContextProvider.getOrganizationSchema(),
-                    locationSchema = SessionContextProvider.getLocationSchema()
-                ),
-                timestamp = Instant.now(),
-                correlationId = null,
-                sourceDocumentId = sale.id!!,
-                contactId = sale.contactId,
-                saleReferenceNumber = sale.requiredReference(),
-                taxableAmount = Money.of(sale.taxableAmount()),
-                taxBilled = Money.of(sale.taxBilled),
-                discountTotal = Money.of(sale.discountTotal()),
-                dateSold = DateTimes.Local.atOrganizationZone(sale.dateSold!!),
-                dateVoided = DateTimes.Local.atOrganizationZone(voidEntity.requiredCreatedOn()),
-                cogsTotal = Money.of(saleDataFetcher.getSaleCogsTotal(sale.id!!))
+    fun publishVoids(voidedSales: List<VoidedSale>) {
+        val cogsTotalBySaleId = saleDataFetcher.getSaleCogsTotals(voidedSales.map { it.sale.id!! })
+        voidedSales.forEach { voidedSale ->
+            val sale = voidedSale.sale
+            eventPublisher.publishEvent(
+                SaleVoidedEvent(
+                    eventId = UUID.randomUUID(),
+                    sourceContext = EventSourceContext.LocationLevel(
+                        orgSchema = SessionContextProvider.getOrganizationSchema(),
+                        locationSchema = SessionContextProvider.getLocationSchema()
+                    ),
+                    timestamp = Instant.now(),
+                    correlationId = null,
+                    sourceDocumentId = sale.id!!,
+                    contactId = sale.contactId,
+                    saleReferenceNumber = sale.requiredReference(),
+                    taxableAmount = Money.of(sale.taxableAmount()),
+                    taxBilled = Money.of(sale.taxBilled),
+                    discountTotal = Money.of(sale.discountTotal()),
+                    dateSold = DateTimes.Local.atOrganizationZone(sale.dateSold!!),
+                    dateVoided = voidedSale.voidDate,
+                    cogsTotal = Money.of(cogsTotalBySaleId.getValue(sale.id!!))
+                )
             )
-        )
+        }
     }
 }

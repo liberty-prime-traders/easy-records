@@ -6,8 +6,8 @@ import java.util.UUID
 
 interface TaxEntryRepository : JpaRepository<TaxEntryEntity, UUID> {
 
-    fun findBySourceReferenceNumberAndSourceType(
-        sourceReferenceNumber: String,
+    fun findBySourceReferenceNumberInAndSourceType(
+        sourceReferenceNumbers: Collection<String>,
         sourceType: TaxSourceType
     ): List<TaxEntryEntity>
 }

@@ -2,12 +2,11 @@ package me.ezra_home.retail_software_solution.locations.business.sale.api
 
 import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
 import me.ezra_home.retail_software_solution.locations.business.location_product.api.LocationProductDataFetcher
-import me.ezra_home.retail_software_solution.locations.business.lock.api.EntityAdvisoryLock
-import me.ezra_home.retail_software_solution.util.business.lock.LockNamespaces
 import me.ezra_home.retail_software_solution.locations.business.sale.SaleAssembler
 import me.ezra_home.retail_software_solution.locations.business.sale.SaleEntity
 import me.ezra_home.retail_software_solution.locations.business.sale.SaleLineCogsRepository
 import me.ezra_home.retail_software_solution.locations.business.sale.SaleLineRepository
+import me.ezra_home.retail_software_solution.locations.business.sale.SaleLocker
 import me.ezra_home.retail_software_solution.locations.business.sale.SaleRepository
 import me.ezra_home.retail_software_solution.locations.business.sale.SaleVoidRepository
 import me.ezra_home.retail_software_solution.util.business.mappers.UserQualifier
@@ -29,7 +28,7 @@ class SaleDataFetcher(
     private val saleLineCogsRepository: SaleLineCogsRepository,
     private val saleAssembler: SaleAssembler,
     private val locationProductDataFetcher: LocationProductDataFetcher,
-    private val entityAdvisoryLock: EntityAdvisoryLock,
+    private val saleLocker: SaleLocker,
     private val saleVoidRepository: SaleVoidRepository,
     private val userQualifier: UserQualifier
 ) {
@@ -45,50 +44,36 @@ class SaleDataFetcher(
     }
 
     @TransactionalOnLocationSchema(propagation = Propagation.MANDATORY)
-    fun lockAndGetSaleContext(saleId: UUID): SaleContext {
-        val sale = lockAndGetSale(saleId)
-        return SaleContext(sale.contactId, sale.receivableTotal(), sale.status)
-    }
+    fun lockAndGetSaleContext(saleId: UUID): SaleContext = lockAndGetSaleContexts(listOf(saleId)).getValue(saleId)
 
     @TransactionalOnLocationSchema(propagation = Propagation.MANDATORY)
-    fun lockAndGetSale(saleId: UUID): SaleEntity {
-        entityAdvisoryLock.acquire(LockNamespaces.SALE, saleId)
-        return saleRepository.findById(saleId).orElseThrow {
-            RtsGenericException("Sale $saleId no longer exists")
+    fun lockAndGetSaleContexts(saleIds: List<UUID>): Map<UUID, SaleContext> =
+        saleLocker.lockAndGetSales(saleIds).associate { sale ->
+            sale.id!! to SaleContext(sale.contactId, sale.receivableTotal(), sale.status)
         }
-    }
 
     fun getSaleContactId(saleId: UUID): UUID {
         return saleRepository.getReferenceById(saleId).contactId
     }
 
-    fun getSaleCogsTotal(saleId: UUID): BigDecimal {
-        return saleLineCogsRepository.sumCogsTotalBySaleIdAndStatus(saleId, SaleLineCogsStatus.ACTIVE)
-    }
-
-    @TransactionalOnLocationSchema(propagation = Propagation.MANDATORY)
-    fun loadDraftAtVersion(saleId: UUID, expectedVersion: Long?): SaleEntity {
-        val sale = lockAndGetSale(saleId)
-        if (sale.status != SaleStatus.DRAFT) {
-            throw RtsGenericException("Sale ${sale.requiredReference()} is not a draft")
-        }
-        val expected = expectedVersion
-            ?: throw RtsGenericException("Expected version must be supplied when committing an existing sale")
-        if (sale.version != expected) {
-            throw RtsGenericException("Sale ${sale.requiredReference()} has been modified since you opened it — please reload and try again")
-        }
-        return sale
+    fun getSaleCogsTotals(saleIds: Collection<UUID>): Map<UUID, BigDecimal> {
+        val cogsTotalBySaleId = saleLineCogsRepository
+            .sumCogsTotalsBySaleIdsAndStatus(saleIds, SaleLineCogsStatus.ACTIVE)
+            .associate { it.saleId to it.cogsTotal }
+        return saleIds.associateWith { cogsTotalBySaleId[it] ?: BigDecimal.ZERO }
     }
 
     fun getReferenceNumbersById(saleIds: Collection<UUID>): Map<UUID, String> =
         saleRepository.findAllById(saleIds).associate { it.id!! to it.requiredReference() }
 
-    fun getSaleHeader(saleId: UUID): SaleHeaderDto {
-        val saleEntity = saleRepository.findById(saleId).orElseThrow {
-            RtsGenericException("Sale $saleId not found")
-        }
-        return extractHeader(saleEntity)
-    }
+    fun getSaleHeader(saleId: UUID): SaleHeaderDto = getSaleHeaders(listOf(saleId)).single()
+
+    fun getSaleHeaders(saleIds: List<UUID>): List<SaleHeaderDto> = loadHeaders(saleIds)
+
+    // Every lock is taken, in id order, before any sale is read, so what is read cannot change underneath the caller.
+    @TransactionalOnLocationSchema(propagation = Propagation.MANDATORY)
+    fun lockAndGetSaleHeaders(saleIds: List<UUID>): List<SaleHeaderDto> =
+        saleLocker.lockAndGetSales(saleIds).map(::extractHeader)
 
     fun getSaleHeaderByReferenceNumber(referenceNumber: String): SaleHeaderDto {
         val saleEntity = saleRepository.findByReferenceNumber(referenceNumber)
@@ -105,11 +90,13 @@ class SaleDataFetcher(
         )
     }
 
-    fun getSaleLines(saleId: UUID): List<SaleLineDto> {
-        val lines = saleLineRepository.findBySaleId(saleId)
-        if (lines.isEmpty()) return emptyList()
+    fun getSaleLines(saleId: UUID): List<SaleLineDto> =
+        getSaleLinesBySaleId(listOf(saleId)).getValue(saleId)
+
+    fun getSaleLinesBySaleId(saleIds: List<UUID>): Map<UUID, List<SaleLineDto>> {
+        val lines = saleLineRepository.findBySaleIdInOrderByCreatedOnAscIdAsc(saleIds)
         val productSummaries = locationProductDataFetcher.findSummaryByIds(lines.map { it.locationProductId })
-        return lines.map { line ->
+        val saleLineDtosBySaleId = lines.groupBy({ it.saleId }, { line ->
             val productSummary = productSummaries.getValue(line.locationProductId)
             SaleLineDto(
                 id = line.id!!,
@@ -118,11 +105,20 @@ class SaleDataFetcher(
                 productPrintLabel = productSummary.printLabel,
                 userProvidedQuantity = line.userProvidedQuantity,
                 unitId = line.unitId,
+                baseUnitId = productSummary.baseUnitId,
                 storageUnitsPerUserProvidedUnit = line.storageUnitsPerUserProvidedUnit,
                 lineTotal = line.lineTotal,
                 defaultSalePrice = line.defaultSalePrice,
             )
-        }
+        })
+        return saleIds.associateWith { saleId -> saleLineDtosBySaleId[saleId].orEmpty() }
+    }
+
+    private fun loadHeaders(saleIds: List<UUID>): List<SaleHeaderDto> {
+        val saleEntities = saleRepository.findAllById(saleIds)
+        val missingSaleId = saleIds.firstOrNull { saleId -> saleEntities.none { it.id == saleId } }
+        if (missingSaleId != null) throw RtsGenericException("Sale $missingSaleId not found")
+        return saleEntities.map(::extractHeader)
     }
 
     private fun extractHeader(saleEntity: SaleEntity): SaleHeaderDto = SaleHeaderDto(

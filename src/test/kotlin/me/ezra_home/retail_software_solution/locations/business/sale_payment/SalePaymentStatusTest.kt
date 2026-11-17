@@ -27,6 +27,7 @@ import org.mockito.ArgumentMatchers.anyList
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.inOrder
 import org.mockito.Mockito.mock
+import org.mockito.Mockito.mockingDetails
 import org.mockito.Mockito.verify
 
 class SalePaymentStatusTest {
@@ -113,14 +114,15 @@ class SalePaymentStatusTest {
     fun `voidPayment resolves UNPAID by subtracting the voided amount from the pre-void paid total`() {
         val salePaymentRepository = mock(SalePaymentRepository::class.java)
         val saleDataFetcher = mock(SaleDataFetcher::class.java)
-        val saleUpdater = mock(SaleUpdater::class.java)
+        val saleUpdater = versionStampingSaleUpdater()
         val payment = salePaymentEntity("100")
-        `when`(salePaymentRepository.getReferenceById(payment.id!!)).thenReturn(payment)
-        `when`(saleDataFetcher.lockAndGetSaleContext(saleId)).thenReturn(SaleContext(contactId, BigDecimal("100"), SaleStatus.CONFIRMED))
-        `when`(salePaymentFetcher.calculatePaidAmount(saleId)).thenReturn(BigDecimal("100"))
+        `when`(salePaymentRepository.findAllById(setOf(payment.id!!))).thenReturn(listOf(payment))
+        `when`(saleDataFetcher.lockAndGetSaleContexts(listOf(saleId)))
+            .thenReturn(mapOf(saleId to SaleContext(contactId, BigDecimal("100"), SaleStatus.CONFIRMED)))
+        `when`(salePaymentFetcher.calculatePaidAmounts(listOf(saleId))).thenReturn(mapOf(saleId to BigDecimal("100")))
         val salePaymentService = SalePaymentService(
             salePaymentRepository,
-            mock(SalePaymentVoidRepository::class.java),
+            savingVoidRepository(),
             saleDataFetcher,
             saleUpdater,
             salePaymentFetcher,
@@ -132,7 +134,7 @@ class SalePaymentStatusTest {
 
         salePaymentService.voidPayment(SalePaymentVoidCreateDto(payment.id!!, "entered twice"))
 
-        verify(saleUpdater).updatePaymentStatus(saleId, PaymentStatus.UNPAID)
+        verify(saleUpdater).updatePaymentStatuses(mapOf(saleId to PaymentStatus.UNPAID))
     }
 
     @Test
@@ -141,9 +143,11 @@ class SalePaymentStatusTest {
         val salePaymentVoidRepository = mock(SalePaymentVoidRepository::class.java)
         val saleDataFetcher = mock(SaleDataFetcher::class.java)
         val payment = salePaymentEntity("100")
-        `when`(salePaymentRepository.getReferenceById(payment.id!!)).thenReturn(payment)
-        `when`(saleDataFetcher.lockAndGetSaleContext(saleId)).thenReturn(SaleContext(contactId, BigDecimal("100"), SaleStatus.CONFIRMED))
-        `when`(salePaymentVoidRepository.existsBySalePaymentId(payment.id!!)).thenReturn(true)
+        `when`(salePaymentRepository.findAllById(setOf(payment.id!!))).thenReturn(listOf(payment))
+        `when`(saleDataFetcher.lockAndGetSaleContexts(listOf(saleId)))
+            .thenReturn(mapOf(saleId to SaleContext(contactId, BigDecimal("100"), SaleStatus.CONFIRMED)))
+        `when`(salePaymentVoidRepository.findBySalePaymentIdIn(listOf(payment.id!!)))
+            .thenReturn(listOf(SalePaymentVoidEntity(payment.id!!, "earlier void")))
         val salePaymentService = SalePaymentService(
             salePaymentRepository,
             salePaymentVoidRepository,
@@ -161,22 +165,23 @@ class SalePaymentStatusTest {
         }
 
         val lockBeforeCheck = inOrder(saleDataFetcher, salePaymentVoidRepository)
-        lockBeforeCheck.verify(saleDataFetcher).lockAndGetSaleContext(saleId)
-        lockBeforeCheck.verify(salePaymentVoidRepository).existsBySalePaymentId(payment.id!!)
+        lockBeforeCheck.verify(saleDataFetcher).lockAndGetSaleContexts(listOf(saleId))
+        lockBeforeCheck.verify(salePaymentVoidRepository).findBySalePaymentIdIn(listOf(payment.id!!))
     }
 
     @Test
     fun `voidPayment keeps PARTIALLY_SETTLED when other active payments remain`() {
         val salePaymentRepository = mock(SalePaymentRepository::class.java)
         val saleDataFetcher = mock(SaleDataFetcher::class.java)
-        val saleUpdater = mock(SaleUpdater::class.java)
+        val saleUpdater = versionStampingSaleUpdater()
         val payment = salePaymentEntity("40")
-        `when`(salePaymentRepository.getReferenceById(payment.id!!)).thenReturn(payment)
-        `when`(saleDataFetcher.lockAndGetSaleContext(saleId)).thenReturn(SaleContext(contactId, BigDecimal("100"), SaleStatus.CONFIRMED))
-        `when`(salePaymentFetcher.calculatePaidAmount(saleId)).thenReturn(BigDecimal("100"))
+        `when`(salePaymentRepository.findAllById(setOf(payment.id!!))).thenReturn(listOf(payment))
+        `when`(saleDataFetcher.lockAndGetSaleContexts(listOf(saleId)))
+            .thenReturn(mapOf(saleId to SaleContext(contactId, BigDecimal("100"), SaleStatus.CONFIRMED)))
+        `when`(salePaymentFetcher.calculatePaidAmounts(listOf(saleId))).thenReturn(mapOf(saleId to BigDecimal("100")))
         val salePaymentService = SalePaymentService(
             salePaymentRepository,
-            mock(SalePaymentVoidRepository::class.java),
+            savingVoidRepository(),
             saleDataFetcher,
             saleUpdater,
             salePaymentFetcher,
@@ -188,6 +193,57 @@ class SalePaymentStatusTest {
 
         salePaymentService.voidPayment(SalePaymentVoidCreateDto(payment.id!!, "wrong method"))
 
-        verify(saleUpdater).updatePaymentStatus(saleId, PaymentStatus.PARTIALLY_SETTLED)
+        verify(saleUpdater).updatePaymentStatuses(mapOf(saleId to PaymentStatus.PARTIALLY_SETTLED))
+    }
+
+    @Test
+    fun `voidPayments updates each sale's status once and hands each sale's payments to the publisher once`() {
+        val salePaymentRepository = mock(SalePaymentRepository::class.java)
+        val saleDataFetcher = mock(SaleDataFetcher::class.java)
+        val saleUpdater = versionStampingSaleUpdater()
+        val salePaymentVoidHandlerForKafka = mock(SalePaymentVoidHandlerForKafka::class.java)
+        val otherSaleId = UUID.randomUUID()
+        val firstPayment = salePaymentEntity("30")
+        val secondPayment = salePaymentEntity("20")
+        val otherSalePayment = salePaymentEntity("50").also { it.saleId = otherSaleId }
+        `when`(salePaymentRepository.findAllById(setOf(firstPayment.id!!, secondPayment.id!!, otherSalePayment.id!!)))
+            .thenReturn(listOf(firstPayment, secondPayment, otherSalePayment))
+        `when`(saleDataFetcher.lockAndGetSaleContexts(anyList<UUID>())).thenReturn(
+            listOf(saleId, otherSaleId)
+                .associateWith { SaleContext(contactId, BigDecimal("100"), SaleStatus.CONFIRMED) }
+        )
+        `when`(salePaymentFetcher.calculatePaidAmounts(anyList<UUID>()))
+            .thenReturn(mapOf(saleId to BigDecimal("50"), otherSaleId to BigDecimal("50")))
+        val salePaymentService = SalePaymentService(
+            salePaymentRepository, savingVoidRepository(), saleDataFetcher, saleUpdater, salePaymentFetcher,
+            salePaymentWriter(), salePaymentVoidHandlerForKafka, paymentMethodDataFetcherNamingTheMethod(),
+            mock(FiscalPeriodService::class.java)
+        )
+
+        val responses = salePaymentService.voidPayments(
+            listOf(firstPayment, secondPayment, otherSalePayment).map { SalePaymentVoidCreateDto(it.id!!, "batch") }
+        )
+
+        assertEquals(3, responses.size)
+        verify(saleUpdater).updatePaymentStatuses(
+            mapOf(saleId to PaymentStatus.UNPAID, otherSaleId to PaymentStatus.UNPAID)
+        )
+        val publishedPaymentCounts = mockingDetails(salePaymentVoidHandlerForKafka).invocations
+            .filter { it.method.name == "publish" }
+            .map { (it.arguments[1] as List<*>).size }
+        assertEquals(listOf(2, 1), publishedPaymentCounts)
+    }
+
+    private fun savingVoidRepository(): SalePaymentVoidRepository {
+        val salePaymentVoidRepository = mock(SalePaymentVoidRepository::class.java)
+        `when`(salePaymentVoidRepository.saveAll(anyList<SalePaymentVoidEntity>()))
+            .thenAnswer { it.getArgument<List<SalePaymentVoidEntity>>(0) }
+        return salePaymentVoidRepository
+    }
+
+    private fun versionStampingSaleUpdater(): SaleUpdater = mock(SaleUpdater::class.java) { invocation ->
+        if (invocation.method.name == "updatePaymentStatuses") {
+            invocation.getArgument<Map<UUID, PaymentStatus>>(0).mapValues { 1L }
+        } else null
     }
 }

@@ -14,7 +14,10 @@ data class PersistedSaleLine(
     override val locationProductId: UUID,
     override val userProvidedQuantity: BigDecimal,
     override val lineTotal: BigDecimal,
-) : ProductLineWithPrice
+) : ProductLineWithPrice {
+
+    override val lineKey: UUID = id
+}
 
 class RetainedSaleAdjustments internal constructor(internal val entities: List<SaleAdjustmentEntity>)
 
@@ -43,18 +46,15 @@ class SaleAdjustmentSyncer(
     ): Map<UUID, UUID> {
         val existingSaleAdjustmentsById = retainedSaleAdjustments.entities.associateBy { it.id!! }
 
-        val persistedSaleLineByLocationProductId = persistedSaleLines.associateBy { it.locationProductId }
         val saleAdjustmentIdsByClientKey = mutableMapOf<UUID, UUID>()
         val saleAdjustmentsToUpdate = mutableListOf<SaleAdjustmentEntity>()
         val saleAdjustmentsToCreate = mutableListOf<Pair<UUID, SaleAdjustmentEntity>>()
 
         saleSaveRequest.saleAdjustments.forEach { saleAdjustmentSaveRequest ->
-            val locationProductId = saleAdjustmentSaveRequest.relatedSaleLineClientKey?.let { relatedSaleLineClientKey ->
-                val saleLineId = saleLineIdsByClientKey.getValue(relatedSaleLineClientKey)
-                persistedSaleLines.firstOrNull { it.id == saleLineId }?.locationProductId
+            val saleLineId = saleAdjustmentSaveRequest.relatedSaleLineClientKey?.let { relatedSaleLineClientKey ->
+                saleLineIdsByClientKey.getValue(relatedSaleLineClientKey)
             }
-            val saleLineId = locationProductId?.let { persistedSaleLineByLocationProductId[it]?.id }
-            val saleAdjustmentCreateDto = toCreatableAdjustment(saleAdjustmentSaveRequest, locationProductId)
+            val saleAdjustmentCreateDto = toCreatableAdjustment(saleAdjustmentSaveRequest, saleLineId)
             val calculatedAmount = AdjustmentAmountCalculator.calculateAmount(saleAdjustmentCreateDto, persistedSaleLines)
             if (saleAdjustmentSaveRequest.existingId != null) {
                 val keptSaleAdjustmentEntity = existingSaleAdjustmentsById[saleAdjustmentSaveRequest.existingId]
@@ -92,10 +92,10 @@ class SaleAdjustmentSyncer(
 
     private fun toCreatableAdjustment(
         saleAdjustmentSaveRequest: SaleAdjustmentSaveRequest,
-        locationProductId: UUID?,
+        saleLineId: UUID?,
     ): SaleAdjustmentCreateDto {
         return SaleAdjustmentCreateDto(
-            locationProductId = locationProductId,
+            saleLineKey = saleLineId,
             direction = saleAdjustmentSaveRequest.direction,
             calculationMethod = saleAdjustmentSaveRequest.calculationMethod,
             value = saleAdjustmentSaveRequest.value,

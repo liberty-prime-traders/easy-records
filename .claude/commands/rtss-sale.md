@@ -4,6 +4,7 @@ Read this before touching anything in `sale/`, `sale_session/`, `sale_adjustment
 Then read the relevant README before editing and update it after.
 
 - `sale/README.md` — sale lifecycle, stock, taxes, payments, pitfalls
+- `sale_session/consolidation/README.md` — consolidating sales: line merge, the pending session, select and generate
 - `sale_session/README.md` — session lifecycle, storage, validation split, price override
 
 ---

@@ -1,9 +1,11 @@
 package me.ezra_home.retail_software_solution.locations.business.sale_session.api
 
 import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
+import me.ezra_home.retail_software_solution.locations.business.sale_session.SaleLineRanker
 import me.ezra_home.retail_software_solution.locations.business.sale_session.SaleSessionLineAdjustmentReconciler
 import me.ezra_home.retail_software_solution.locations.business.sale_session.SaleSessionLineChangeContext
 import me.ezra_home.retail_software_solution.locations.business.sale_session.SaleSessionLineChangeContextBuilder
+import me.ezra_home.retail_software_solution.locations.business.sale_session.consolidation.PendingConsolidationRemovedLines
 import me.ezra_home.retail_software_solution.locations.business.sale_session.SaleSessionStockOverlay
 import me.ezra_home.retail_software_solution.locations.business.sale_session.SaleSessionStore
 import me.ezra_home.retail_software_solution.locations.business.sale_session.SaleSessionUpdateFinalizer
@@ -11,6 +13,7 @@ import me.ezra_home.retail_software_solution.locations.business.sale_session.Sal
 import me.ezra_home.retail_software_solution.locations.business.stock_reservation.api.StockReserver
 import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Service
+import java.math.BigDecimal
 import java.util.UUID
 
 @Service
@@ -27,7 +30,10 @@ class SaleSessionLineHandler(
     @TransactionalOnLocationSchema(readOnly = true)
     fun applyLineChanges(sessionId: UUID, lineRequestDto: SaleSessionLineRequestDto): SaleSessionResponseDto {
         val saleSession = saleSessionStore.load(sessionId)
-        saleSessionValidator.guardMutable(saleSession)
+        saleSessionValidator.guardAllowed(saleSession, SaleSessionAction.EDIT_LINES)
+        if (lineRequestDto.additions.isNotEmpty()) {
+            saleSessionValidator.guardAllowed(saleSession, SaleSessionAction.ADD_LINE)
+        }
 
         val saleSessionLinesByKey = saleSession.saleLines.associateBy { it.identity.key() }
         guardUpdatesTargetExistingLines(lineRequestDto.updates, saleSessionLinesByKey)
@@ -38,7 +44,11 @@ class SaleSessionLineHandler(
             saleSessionLinesByKey = saleSessionLinesByKey,
         )
 
-        val newSaleSessionLines = buildNewSaleSessionLines(lineRequestDto.additions, saleSessionLineChangeContext)
+        val newSaleSessionLines = buildNewSaleSessionLines(
+            lineRequestDto.additions,
+            saleSessionLineChangeContext,
+            SaleLineRanker.ranksAboveAll(saleSession.saleLines, lineRequestDto.additions.size),
+        )
         val mutatedExistingLines = applyUpdatesToExistingLines(
             existingSaleLines = saleSession.saleLines,
             updates = lineRequestDto.updates,
@@ -79,9 +89,10 @@ class SaleSessionLineHandler(
     private fun buildNewSaleSessionLines(
         additions: List<SaleSessionLineAddDto>,
         saleSessionLineChangeContext: SaleSessionLineChangeContext,
+        ranks: List<BigDecimal>,
     ): List<SaleSessionLine> {
 
-        return additions.map { lineAddDto ->
+        return additions.mapIndexed { additionIndex, lineAddDto ->
             val productSummary = saleSessionLineChangeContext.locationProductSummariesById.getValue(lineAddDto.locationProductId)
             val defaultSalePrice = saleSessionLineChangeContext.defaultSalePricesByLocationProductId[lineAddDto.locationProductId]
                 ?: throw RtsGenericException("Product ${productSummary.label} has no default sale price")
@@ -104,6 +115,7 @@ class SaleSessionLineHandler(
                     ),
                 ),
                 defaultSalePrice = defaultSalePrice,
+                rank = ranks[additionIndex],
             )
         }
     }
@@ -137,24 +149,26 @@ class SaleSessionLineHandler(
     @TransactionalOnLocationSchema
     fun removeLine(sessionId: UUID, rowIdentityDto: SaleSessionRowIdentityDto): SaleSessionResponseDto {
         val saleSession = saleSessionStore.load(sessionId)
-        saleSessionValidator.guardMutable(saleSession)
+        saleSessionValidator.guardAllowed(saleSession, SaleSessionAction.EDIT_LINES)
         val targetLineKey = rowIdentityDto.identity.key()
-        val removedSaleSessionLine = saleSession.saleLines.firstOrNull { it.identity.key() == targetLineKey }
-            ?: throw RtsGenericException("Line not found on session")
-        val persistedSaleLineId = removedSaleSessionLine.identity.id
+        val persistedSaleLineId = saleSession.saleLines.firstOrNull { it.identity.key() == targetLineKey }
+            ?.identity?.id
         if (persistedSaleLineId != null) {
             stockReserver.clearBySaleLineIds(listOf(persistedSaleLineId))
         }
-        val survivingSaleLines = saleSession.saleLines.filter { it.identity.key() != targetLineKey }
-        val survivingSaleAdjustments = saleSession.saleAdjustments.filter { saleSessionAdjustment ->
-            saleSessionAdjustment.relatedSaleLineIdentity == null ||
-                    saleSessionAdjustment.relatedSaleLineIdentity.key() != targetLineKey
+        val sessionWithoutLine = if (SaleSessionRules.keepsRemovedLines(saleSession.kind)) {
+            PendingConsolidationRemovedLines.remove(saleSession, targetLineKey)
+        } else {
+            saleSession.withoutLine(targetLineKey)
         }
-        val updatedSaleSession = saleSession.copy(
-            saleLines = survivingSaleLines,
-            saleAdjustments = survivingSaleAdjustments,
-            productsVersion = saleSession.productsVersion + 1,
-        )
+        val updatedSaleSession = sessionWithoutLine.copy(productsVersion = sessionWithoutLine.productsVersion + 1)
+        return saleSessionUpdateFinalizer.finalize(saleSessionStockOverlay.populate(updatedSaleSession))
+    }
+
+    fun restoreLine(sessionId: UUID, rowIdentityDto: SaleSessionRowIdentityDto): SaleSessionResponseDto {
+        val saleSession = saleSessionStore.load(sessionId)
+        saleSessionValidator.guardAllowed(saleSession, SaleSessionAction.RESTORE_REMOVED_LINE)
+        val updatedSaleSession = PendingConsolidationRemovedLines.restore(saleSession, rowIdentityDto.identity.key())
         return saleSessionUpdateFinalizer.finalize(saleSessionStockOverlay.populate(updatedSaleSession))
     }
 }

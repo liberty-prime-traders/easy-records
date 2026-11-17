@@ -32,13 +32,25 @@ data class SaleSessionResponseDto(
     val salePayments: List<SaleSessionPaymentResponse>,
     val totals: SaleSessionTotals,
     val uiOptions: SaleSessionUiOptions,
+    val kind: SaleSessionKind,
+    val consolidationIssues: List<ConsolidationIssueResponse>,
+    val removedSaleLines: List<RemovedSaleLineResponse>,
 )
 
 data class SaleSessionUiOptions(
-    val canMakeChangesToTheSale: Boolean,
+    val canAddLines: Boolean,
+    val canEditLines: Boolean,
+    val canChangeContact: Boolean,
+    val canSaveDraft: Boolean,
+    val canConfirm: Boolean,
+    val saveDraftBlockers: List<String>,
+    val confirmBlockers: List<String>,
+    val allowedDiscardAction: SaleDiscardAction?,
+    val canCopySale: Boolean,
     val canAddPaymentsToSale: Boolean,
     val showUnreservedChangesWarning: Boolean,
-    val showActiveUserWarning: Boolean
+    val showActiveUserWarning: Boolean,
+    val canGenerateConsolidatedSale: Boolean,
 )
 
 data class SaleSessionLineResponse(
@@ -69,6 +81,7 @@ data class SaleSessionLineResponse(
     val quantityOnHandBreakdown: String,
     val quantityAvailableBreakdown: String,
     val productActive: Boolean,
+    val rank: BigDecimal,
 )
 
 data class SaleSessionAdjustmentResponse(
@@ -90,4 +103,16 @@ data class SaleSessionPaymentResponse(
     val reference: String?,
     val paymentDate: OffsetDateTime?,
     val voidedReason: String?,
+)
+
+data class RemovedSaleLineResponse(
+    val identity: SessionIdentity,
+    val locationProductId: UUID,
+    val productLabel: String,
+    @get:JsonProperty("quantity")
+    val userProvidedQuantity: BigDecimal,
+    val unitId: UUID,
+    val unitPrice: BigDecimal,
+    val lineTotal: BigDecimal,
+    val sourceSaleReference: String,
 )

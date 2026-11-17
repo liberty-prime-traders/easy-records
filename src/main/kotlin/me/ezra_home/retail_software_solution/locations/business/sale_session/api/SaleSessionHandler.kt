@@ -1,9 +1,11 @@
 package me.ezra_home.retail_software_solution.locations.business.sale_session.api
 
+import me.ezra_home.retail_software_solution.locations.business.sale_session.consolidation.PendingConsolidationPromoter
 import com.google.common.base.Predicate
 import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
 import me.ezra_home.retail_software_solution.configuration.session.SessionContextProvider
 import me.ezra_home.retail_software_solution.locations.business.sale_session.SaleSessionAssembler
+import me.ezra_home.retail_software_solution.locations.business.sale_session.SaleSessionCopier
 import me.ezra_home.retail_software_solution.locations.business.sale_session.SaleSessionLoader
 import me.ezra_home.retail_software_solution.locations.business.sale_session.SaleSessionStore
 import me.ezra_home.retail_software_solution.locations.business.sale_session.SaleSessionUpdateFinalizer
@@ -14,14 +16,16 @@ import java.util.UUID
 class SaleSessionHandler(
     private val saleSessionStore: SaleSessionStore,
     private val saleSessionLoader: SaleSessionLoader,
+    private val saleSessionCopier: SaleSessionCopier,
     private val saleSessionAssembler: SaleSessionAssembler,
     private val saleSessionUpdateFinalizer: SaleSessionUpdateFinalizer,
+    private val pendingConsolidationPromoter: PendingConsolidationPromoter,
 ) {
 
     @TransactionalOnLocationSchema(readOnly = true)
     fun start(sessionStartDto: SaleSessionStartDto): SaleSessionResponseDto {
         sessionStartDto.copyFromSaleId?.let { sourceSaleId ->
-            val copiedSession = saleSessionLoader.copyFromSale(UUID.randomUUID(), sourceSaleId)
+            val copiedSession = saleSessionCopier.copyFromSale(UUID.randomUUID(), sourceSaleId)
             return saleSessionUpdateFinalizer.finalize(copiedSession)
         }
         sessionStartDto.saleId?.let { saleId ->
@@ -51,8 +55,9 @@ class SaleSessionHandler(
             .let { saleSessionAssembler.buildSummaries(it) }
     }
 
+    @TransactionalOnLocationSchema(readOnly = true)
     fun acquireSession(sessionId: UUID): SaleSessionResponseDto {
-        val session = saleSessionStore.load(sessionId)
+        val session = pendingConsolidationPromoter.promote(saleSessionStore.load(sessionId))
         val visitedSession = session.markVisited(SessionContextProvider.getUserId())
         saleSessionStore.save(visitedSession)
         return saleSessionAssembler.buildResponse(visitedSession)

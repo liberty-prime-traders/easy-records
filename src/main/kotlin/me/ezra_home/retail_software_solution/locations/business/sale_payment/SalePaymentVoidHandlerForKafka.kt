@@ -25,18 +25,22 @@ class SalePaymentVoidHandlerForKafka(
     override val eventType = SalePaymentVoidedEvent::class
 
     override fun reissue(sourceDocumentId: UUID) {
-        val contactId = saleDataFetcher.getSaleContactId(sourceDocumentId)
         val payments = salePaymentRepository.findBySaleId(sourceDocumentId)
         if (payments.isEmpty()) return
         val voidsByPaymentId = salePaymentVoidRepository.findBySalePaymentIdIn(payments.map { it.id!! })
             .associateBy { it.salePaymentId }
-        payments.forEach { payment ->
-            val voidEntity = voidsByPaymentId[payment.id!!] ?: return@forEach
-            publish(payment, voidEntity, contactId)
+        val voidedSalePayments = payments.mapNotNull { payment ->
+            voidsByPaymentId[payment.id!!]?.let { VoidedSalePayment(payment, it) }
         }
+        publish(saleDataFetcher.getSaleContactId(sourceDocumentId), voidedSalePayments)
     }
 
-    fun publish(payment: SalePaymentEntity, voidEntity: SalePaymentVoidEntity, contactId: UUID) {
+    fun publish(contactId: UUID, voidedSalePayments: List<VoidedSalePayment>) {
+        voidedSalePayments.forEach { publishEvent(contactId, it) }
+    }
+
+    private fun publishEvent(contactId: UUID, voidedSalePayment: VoidedSalePayment) {
+        val payment = voidedSalePayment.payment
         eventPublisher.publishEvent(
             SalePaymentVoidedEvent(
                 eventId = UUID.randomUUID(),
@@ -51,7 +55,7 @@ class SalePaymentVoidHandlerForKafka(
                 paymentReferenceNumber = payment.requiredReference(),
                 paymentMethodAccountCode = payment.paymentMethodAccountCode,
                 amount = PositiveMoney.of(payment.amount),
-                voidedOn = voidEntity.createdOn?.let { DateTimes.Local.atOrganizationZone(it) }
+                voidedOn = voidedSalePayment.voidEntity.createdOn?.let { DateTimes.Local.atOrganizationZone(it) }
                     ?: DateTimes.Local.Now.organization()
             )
         )

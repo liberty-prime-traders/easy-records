@@ -36,7 +36,12 @@ class StockReserver(
     }
 
     fun clearBySale(saleId: UUID) {
-        stockReservationRepository.deleteBySaleId(saleId)
+        clearBySales(listOf(saleId))
+    }
+
+    fun clearBySales(saleIds: List<UUID>) {
+        if (saleIds.isEmpty()) return
+        stockReservationRepository.deleteBySaleIdIn(saleIds)
     }
 
     fun clearBySaleLineIds(saleLineIds: List<UUID>) {

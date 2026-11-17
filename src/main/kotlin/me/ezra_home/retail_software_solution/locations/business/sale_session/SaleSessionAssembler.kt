@@ -7,9 +7,13 @@ import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleDat
 import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleStatus
 import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleVoidInfoDto
 import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSession
+import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionKind
 import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionResponseDto
 import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionSummaryDto
+import me.ezra_home.retail_software_solution.locations.business.sale_session.consolidation.PendingConsolidationAssessment
+import me.ezra_home.retail_software_solution.locations.business.sale_session.consolidation.PendingConsolidationAssessor
 import me.ezra_home.retail_software_solution.organizations.business.adjustment_reason.api.AdjustmentDirection
+import me.ezra_home.retail_software_solution.organizations.business.unitconversion.api.UnitConversionGraph
 import me.ezra_home.retail_software_solution.organizations.business.unitconversion.api.UnitConversionGraphFacade
 import me.ezra_home.retail_software_solution.organizations.business.adjustment_reason.api.AdjustmentReasonService
 import me.ezra_home.retail_software_solution.organizations.business.adjustment_reason.api.SystemAdjustmentReason
@@ -39,18 +43,28 @@ class SaleSessionAssembler(
 
     fun buildResponse(saleSession: SaleSession): SaleSessionResponseDto {
         val saleVoidInfo: SaleVoidInfoDto? = requireSaleVoidInfoIfVoided(saleSession)
+        val unitConversionGraph = unitConversionGraphFacade.getOrLoad()
+        val inactiveLocationProductIds = locationProductDataFetcher.findInactiveIds(
+            saleSession.saleLines.map { it.locationProductId }.toSet()
+        )
+        val pendingConsolidationAssessment =
+            assessIfPending(saleSession, inactiveLocationProductIds, unitConversionGraph)
         val sessionMappingContext = SaleSessionMappingContext(
             contactLabel = contactNameFor(saleSession.header.contactId),
             walkInCustomer = saleSession.header.contactId == SystemContact.WALK_IN.id,
             showActiveUserWarning = showActiveUserWarning(saleSession),
             showUnreservedChangesWarning = saleSession.showUnreservedChangesWarning,
-            saleVoidInfo = saleVoidInfo
+            saleVoidInfo = saleVoidInfo,
+            consolidationIssues = pendingConsolidationAssessment?.consolidationIssues ?: emptyList(),
+            canGenerateConsolidatedSale = pendingConsolidationAssessment?.canGenerateConsolidatedSale ?: false,
+            inactiveLocationProductIds = inactiveLocationProductIds,
+            removedSaleLines = saleSession.pendingConsolidation?.removedSaleLineResponses() ?: emptyList(),
         )
         val adjustmentMappingContext = AdjustmentMappingContext(
             adjustmentReasonNamesById = adjustmentReasonService.getReasonNamesById(),
             saleSessionLines = saleSession.saleLines,
         )
-        val lineMappingContext = buildLineMappingContext(saleSession)
+        val lineMappingContext = buildLineMappingContext(saleSession, inactiveLocationProductIds, unitConversionGraph)
         return sessionToResponseMapper.toResponseDto(
             saleSession,
             sessionMappingContext,
@@ -60,6 +74,17 @@ class SaleSessionAssembler(
         )
     }
 
+    private fun assessIfPending(
+        saleSession: SaleSession,
+        inactiveLocationProductIds: Set<UUID>,
+        unitConversionGraph: UnitConversionGraph,
+    ): PendingConsolidationAssessment? =
+        if (saleSession.kind == SaleSessionKind.PENDING_CONSOLIDATION) {
+            PendingConsolidationAssessor.assess(saleSession, inactiveLocationProductIds, unitConversionGraph)
+        } else {
+            null
+        }
+
     private fun requireSaleVoidInfoIfVoided(saleSession: SaleSession): SaleVoidInfoDto? {
         if (saleSession.originalStatus != SaleStatus.VOIDED) return null
         val saleId = saleSession.requiredSaleId()
@@ -67,7 +92,11 @@ class SaleSessionAssembler(
             ?: throw RtsGenericException("Voided sale $saleId is missing its sale void record")
     }
 
-    private fun buildLineMappingContext(saleSession: SaleSession): LineMappingContext {
+    private fun buildLineMappingContext(
+        saleSession: SaleSession,
+        inactiveLocationProductIds: Set<UUID>,
+        unitConversionGraph: UnitConversionGraph,
+    ): LineMappingContext {
         val priceOverrideReasonId = adjustmentReasonService.getSystemReasonId(SystemAdjustmentReason.PRICE_OVERRIDE)
         val saleSessionLinesByKey = saleSession.saleLines.associateBy { it.identity.key() }
 
@@ -100,9 +129,10 @@ class SaleSessionAssembler(
             Decimals.Scale4.divide(netLineTotal, saleSessionLinesByKey.getValue(lineKey).userProvidedQuantity)
         }
 
-        val storageUnitsPerBaseUnitByBaseUnitId = unitConversionGraphFacade.getOrLoad().let { unitConversionGraph ->
-            saleSession.saleLines.map { it.baseUnitId }.distinct().associateWith { unitConversionGraph.getSizeInRoot(it) }
-        }
+        val storageUnitsPerBaseUnitByBaseUnitId = saleSession.saleLines
+            .map { it.baseUnitId }
+            .distinct()
+            .associateWith { unitConversionGraph.getSizeInRoot(it) }
         return LineMappingContext(
             unitPriceOverrideByLineKey = unitPriceOverrideByLineKey,
             netUnitPriceByLineKey = netUnitPriceByLineKey,
@@ -111,9 +141,7 @@ class SaleSessionAssembler(
             breakdownByLocationProductId = productStockBreakdownProvider.forLocationProducts(
                 saleSession.saleLines.map { it.locationProductId }.distinct()
             ),
-            inactiveLocationProductIds = locationProductDataFetcher.findInactiveIds(
-                saleSession.saleLines.map { it.locationProductId }.toSet()
-            ),
+            inactiveLocationProductIds = inactiveLocationProductIds,
         )
     }
 

@@ -44,6 +44,8 @@
 6. **Rounding goes through `Decimals`.** `Decimals.MoneyScale` (the `MONEY_SCALE` constant), `Scale4`,
    `Scale10` and `PercentDisplayScale` own `round`, `multiply` and `divide`. `ArchitectureTest` rejects a direct
    `BigDecimal.setScale` or `divide` with a `RoundingMode` outside `util.business` and `util.quantity`.
+   `Decimals.exactQuotientOrNull` is the one division that never rounds: it returns the quotient only when it terminates
+   and null otherwise, so a caller can tell an exact result from a rounded one.
 7. **Ceilings are independent.** `MAXIMUM_TRANSACTION_AMOUNT` (money) and `QuantityLimits.MAX_USER_QUANTITY` (quantity)
    happen to be equal; each states its own headroom against its column.
 8. **Money columns are `numeric(19,4)`, code rounds to 2.** The two spare decimal places are headroom, never stored

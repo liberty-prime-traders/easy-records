@@ -2,9 +2,11 @@ package me.ezra_home.retail_software_solution.locations.business.sale_session
 
 import me.ezra_home.retail_software_solution.configuration.session.SessionContextProvider
 import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleStatus
+import me.ezra_home.retail_software_solution.locations.business.sale_session.api.PendingConsolidation
 import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSession
 import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionAdjustment
 import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionHeader
+import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionKind
 import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionLine
 import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionPayment
 import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionTotals
@@ -25,12 +27,16 @@ class SaleSessionBuilder(private val sessionId: UUID) {
     private var saleLines: List<SaleSessionLine> = emptyList()
     private var saleAdjustments: List<SaleSessionAdjustment> = emptyList()
     private var salePayments: List<SaleSessionPayment> = emptyList()
+    private var pendingConsolidation: PendingConsolidation? = null
 
     fun linkedToPersistedSale(saleId: UUID, saleVersion: Long?, originalStatus: SaleStatus): SaleSessionBuilder = apply {
         this.saleId = saleId
         this.saleVersion = saleVersion
         this.originalStatus = originalStatus
     }
+
+    fun asPendingConsolidation(pendingConsolidation: PendingConsolidation): SaleSessionBuilder =
+        apply { this.pendingConsolidation = pendingConsolidation }
 
     fun withHeader(header: SaleSessionHeader): SaleSessionBuilder = apply { this.header = header }
 
@@ -62,5 +68,7 @@ class SaleSessionBuilder(private val sessionId: UUID) {
         saleAdjustments = saleAdjustments,
         salePayments = salePayments,
         totals = SaleSessionTotals.ZERO,
+        kind = if (pendingConsolidation == null) SaleSessionKind.SALE else SaleSessionKind.PENDING_CONSOLIDATION,
+        pendingConsolidation = pendingConsolidation,
     )
 }

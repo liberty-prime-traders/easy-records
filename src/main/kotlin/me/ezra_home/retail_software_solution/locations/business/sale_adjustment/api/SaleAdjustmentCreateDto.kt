@@ -5,7 +5,7 @@ import java.math.BigDecimal
 import java.util.UUID
 
 data class SaleAdjustmentCreateDto(
-    val locationProductId: UUID? = null,
+    val saleLineKey: UUID? = null,
     val direction: AdjustmentDirection,
     val calculationMethod: PriceAdjustmentMethod,
     val value: BigDecimal,

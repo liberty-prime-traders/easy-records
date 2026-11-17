@@ -34,6 +34,8 @@ interface SessionToResponseMapper {
     @Mapping(source = "originalStatus", target = "saleStatus")
     @Mapping(source = ".", target = "paymentStatus", qualifiedBy = [SaleSessionPaymentStatus::class])
     @Mapping(source = ".", target = "uiOptions", qualifiedBy = [SaleSessionUiOptionsBuild::class])
+    @Mapping(target = "consolidationIssues", expression = "java(sessionMappingContext.getConsolidationIssues())")
+    @Mapping(target = "removedSaleLines", expression = "java(sessionMappingContext.getRemovedSaleLines())")
     fun toResponseDto(
         saleSession: SaleSession,
         @Context sessionMappingContext: SaleSessionMappingContext,

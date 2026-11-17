@@ -68,6 +68,7 @@ class SaleSessionPaymentHandler(
 
     fun remove(sessionId: UUID, paymentRemoveDto: SaleSessionPaymentRemoveDto): SaleSessionResponseDto {
         val saleSession = saleSessionStore.load(sessionId)
+        saleSessionValidator.guardAllowed(saleSession, SaleSessionAction.REMOVE_PAYMENT)
         val targetPaymentKey = paymentRemoveDto.identity.key()
         val targetSaleSessionPayment = saleSession.salePayments.firstOrNull { it.identity.key() == targetPaymentKey }
             ?: throw RtsGenericException("Payment not found on session")

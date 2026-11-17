@@ -20,7 +20,7 @@ class SaleSessionAdjustmentHandler(
     @TransactionalOnLocationSchema(readOnly = true)
     fun add(sessionId: UUID, adjustmentAddDto: SaleSessionAdjustmentAddDto): SaleSessionResponseDto {
         val saleSession = saleSessionStore.load(sessionId)
-        saleSessionValidator.guardMutable(saleSession)
+        saleSessionValidator.guardAllowed(saleSession, addAction(adjustmentAddDto))
         saleSessionValidator.guardReasonIsNotPriceOverride(adjustmentAddDto.adjustmentReasonId)
         if (adjustmentAddDto.relatedSaleLineIdentity != null) {
             val targetLineKey = adjustmentAddDto.relatedSaleLineIdentity.key()
@@ -42,9 +42,16 @@ class SaleSessionAdjustmentHandler(
         return saleSessionUpdateFinalizer.finalize(updatedSaleSession)
     }
 
+    private fun addAction(adjustmentAddDto: SaleSessionAdjustmentAddDto): SaleSessionAction =
+        if (adjustmentAddDto.relatedSaleLineIdentity != null) {
+            SaleSessionAction.ADD_LINE_ADJUSTMENT
+        } else {
+            SaleSessionAction.ADD_ORDER_LEVEL_ADJUSTMENT
+        }
+
     fun remove(sessionId: UUID, rowIdentityDto: SaleSessionRowIdentityDto): SaleSessionResponseDto {
         val saleSession = saleSessionStore.load(sessionId)
-        saleSessionValidator.guardMutable(saleSession)
+        saleSessionValidator.guardAllowed(saleSession, SaleSessionAction.REMOVE_ADJUSTMENT)
         val targetAdjustmentKey = rowIdentityDto.identity.key()
         val survivingSaleAdjustments = saleSession.saleAdjustments.filter { it.identity.key() != targetAdjustmentKey }
         if (survivingSaleAdjustments.size == saleSession.saleAdjustments.size) {

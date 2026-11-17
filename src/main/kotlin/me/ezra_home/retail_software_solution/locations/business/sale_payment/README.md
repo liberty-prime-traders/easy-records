@@ -12,13 +12,13 @@ sale and sale-session flows call into this package; this document covers the pay
   view (`ViewNames.ACTIVE_SALE_PAYMENT`, `views/active_sale_payment.yml`), exposed as the read-only `ActiveSalePaymentEntity`
   through `ActiveSalePaymentRepository`.
 - Everything that needs "paid so far" reads that view: `SalePaymentFetcher.calculatePaidAmount` / `calculatePaidAmounts` /
-  `hasActivePayments`, and the paid sum in `SaleSearchQueryBuilder`. None of them filters voids in memory.
+  `saleIdsWithActivePayments`, and the paid sum in `SaleSearchQueryBuilder`. None of them filters voids in memory.
 - The view selects only the columns those readers need (`id`, `reference_number`, `sale_id`, `amount`, `created_on`). A
   reader that needs another column adds it to the view's changeset.
 
 ## Where voided rows are still read directly
 
-`SalePaymentFetcher.getPaymentSnapshots` lists voided payments with their reason, and the Payments screen search
+`SalePaymentFetcher.getPaymentSnapshotsBySaleId` lists voided payments with their reason, and the Payments screen search
 (`reports/payments`, see its README) lists them and splits active and voided totals the same way, so they read
 `sale_payment` and join `sale_payment_void`. A change to what counts as voided therefore touches the view and these joins.
 
@@ -28,8 +28,10 @@ sale and sale-session flows call into this package; this document covers the pay
   `SaleDataFetcher.lockAndGetSaleContext`, checks the sale accepts payments and that the amount does not exceed the
   remaining balance, then hands the row to `SalePaymentWriter.write`. The writer saves it, publishes the Kafka event and
   returns the new status from `PaymentStatusResolver.resolve`; the service stores that status on the sale.
-- `SalePaymentService.voidPayment` requires an open fiscal period for today, rejects an already-voided payment and a voided
-  sale, takes the same sale lock, saves the void row, recomputes the paid amount and status, stores the status and
-  publishes the void event through `SalePaymentVoidHandlerForKafka`.
+- `SalePaymentService.voidPayments` (`voidPayment` is its one-payment form) requires an open fiscal period for today,
+  takes the sale locks in id order, rejects an already-voided payment and a voided sale, saves all void rows at once,
+  recomputes the paid amount and status once per sale, stores the statuses in one update and publishes one
+  `SalePaymentVoidedEvent` per voided payment through `SalePaymentVoidHandlerForKafka`. Each event carries the sale id as its
+  `sourceDocumentId`, so a reissue republishes the sale's voided payments and the ledger processor skips the ones already posted.
 - Balance rules live in `SalePaymentValidator`; the session flow reuses them. The amount is a `PositiveMoney`, so positivity is checked when the request binds.
 - Ledger postings are produced by the Kafka consumers of the recorded and voided events, not here.

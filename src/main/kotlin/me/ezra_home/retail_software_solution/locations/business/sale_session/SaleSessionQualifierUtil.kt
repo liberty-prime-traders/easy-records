@@ -38,11 +38,11 @@ object SaleSessionQualifierUtil {
     fun toSaleSessionUiOptions(
         saleSession: SaleSession,
         @Context sessionMappingContext: SaleSessionMappingContext
-    ): SaleSessionUiOptions = SaleSessionUiOptions(
-        canMakeChangesToTheSale = saleSession.mutable(),
-        canAddPaymentsToSale = saleSession.canAddPayments(),
-        showUnreservedChangesWarning = saleSession.showUnreservedChangesWarning,
-        showActiveUserWarning = sessionMappingContext.showActiveUserWarning
+    ): SaleSessionUiOptions = SaleSessionUiOptionsBuilder.build(
+        saleSession = saleSession,
+        inactiveLocationProductIds = sessionMappingContext.inactiveLocationProductIds,
+        showActiveUserWarning = sessionMappingContext.showActiveUserWarning,
+        canGenerateConsolidatedSale = sessionMappingContext.canGenerateConsolidatedSale,
     )
 
     @SaleSessionPaymentStatus
@@ -134,12 +134,6 @@ object SaleSessionQualifierUtil {
         saleSessionLine: SaleSessionLine,
         @Context lineMappingContext: LineMappingContext,
     ): BigDecimal = lineMappingContext.netLineTotalFor(saleSessionLine)
-
-    @SaleLineBaseUnitId
-    fun resolveBaseUnitId(
-        locationProductId: UUID,
-        @Context baseUnitIdsByLocationProductId: Map<UUID, UUID>,
-    ): UUID = baseUnitIdsByLocationProductId.getValue(locationProductId)
 
     @LineUnitPriceOverride
     fun toLineUnitPriceOverride(

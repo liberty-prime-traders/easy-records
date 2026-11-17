@@ -38,6 +38,11 @@ Internal collaborators (do not call from outside `sale_session`):
 - `SaleSessionLoader` — `loadFromSale` rehydrates an existing `SaleEntity` into
   the session shape via `DomainToSessionMapper`; `newSession` mints a fresh
   empty session
+- `SaleSessionCopier` — `copyFromSale` mints a new unsaved session from one source sale;
+  `copyFromSalesWithSourceReferences` copies the lines and adjustments of 2 to 20 distinct sales of one contact
+  (`guardConsolidationSelectionSize`, `guardSingleContactAcrossSales`) under fresh identities, each adjustment pointed at
+  the copy of its own sale's line, with `<reference> - <notes>` lines for sources that have notes. The copy keeps every
+  line as it was, so a product can appear on several lines; `consolidation/line_merge` (see `consolidation/README.md`) is what folds them together
 - `SaleSessionAssembler` — orchestrates response/summary DTO assembly;
   delegates per-bean translation to `SessionToResponseMapper` (MapStruct)
 - `SaleSessionValidator` — runs structural validation on every mutation
@@ -127,7 +132,7 @@ for the supplied `saleId` — returns the existing one (one-session-per-sale
 guarantee).
 
 `start({copyFromSaleId})` mints a new unsaved DRAFT session from a DRAFT, VOIDED or DISCARDED sale
-(`SaleSessionLoader.copyFromSale`); a CONFIRMED source is rejected by `guardSourceSaleCopyable`, because copying
+(`SaleSessionCopier.copyFromSale`); a CONFIRMED source is rejected by `guardSourceSaleCopyable`, because copying
 a sale that really happened makes an accidental duplicate easy. It never short-circuits, and may be called
 repeatedly for the same source. It reads the persisted sale, so unsaved edits in the source's open session are not copied. The copy
 has `saleId = null`, fresh transient identities on every line and adjustment (adjustments re-keyed to the new
@@ -149,9 +154,9 @@ handlers allow:
 | `VOIDED`         | ❌ rejected                   | ❌ rejected                       | transient: n/a (unreachable); persisted: rejected (`guardSaleNotVoided`)    | none (view-only)       |
 | `DISCARDED`      | ❌ rejected                   | ❌ rejected                       | transient: n/a (unreachable); persisted: ⚠️ leaks through (see prose below) | none (view-only)       |
 
-`SaleSessionValidator.guardMutable` enforces the line/adjustment/header rules
-and `SaleSessionValidator.canAddPayments` gates add-payment. The commit
-handler calls `guardMutable` before either commit path. There is no status
+`SaleSessionValidator.guardAllowed` (the kind table, then the DRAFT-only status rule) enforces the
+line/adjustment/header rules and `SaleSessionValidator.canAddPayments` gates add-payment. The commit
+handler calls `guardAllowed` before either commit path. There is no status
 guard on the transient-discard branch: transient payments only exist on
 DRAFT sessions by construction (CONFIRMED-session adds short-circuit to
 `persisted` identities, and VOIDED/DISCARDED sessions reject `add` outright),
@@ -160,7 +165,7 @@ so the transient drop branch is only reachable on DRAFT.
 The single `DELETE /payments` endpoint handles both removal cases: when the
 payment's `SessionIdentity` is `transient` the handler drops it from the
 session in-place; when it's `persisted` the handler forwards to
-`SalePaymentService.voidPayment` (a `voidReason` is required in that case),
+`SalePaymentService.voidPayments` (a `voidReason` is required in that case),
 which in turn calls `SalePaymentValidator.guardSaleNotVoided`. That keeps the
 frontend wire-protocol uniform — server decides which side to take based on
 the payment's identity. Note `guardSaleNotVoided` only checks the VOIDED
@@ -175,7 +180,7 @@ payment back into the session so the cashier's view stays in sync. There is no
 separate commit step — every CONFIRMED-session payment exists in the DB the
 moment the handler returns. DRAFT sessions still buffer payments (the sale may
 not yet exist) and flush them at `saveDraft` / `confirm`. Removing a persisted
-payment from a CONFIRMED session routes through `SalePaymentService.voidPayment`
+payment from a CONFIRMED session routes through `SalePaymentService.voidPayments`
 with a `voidReason`.
 
 ---
@@ -216,7 +221,7 @@ SessionIdentity
     inserts new (`existingId == null`) payments; persisted payments are
     neither updated nor deleted at commit. The supported way to reverse a
     posted payment is `DELETE /payments` with a `voidReason`, which goes
-    through `SalePaymentService.voidPayment` and marks the row voided
+    through `SalePaymentService.voidPayments` and marks the row voided
     in-place — the session keeps the payment with `voidedReason` set rather
     than removing it from its list.
 
@@ -272,7 +277,7 @@ product gets deactivated).
 ### Save Draft (`POST /secured/sale-sessions/{sessionId}/draft`)
 ```
 1. SaleSessionPersister.saveDraft
-2. `guardMutable`, recompute totals, run full structural `validate`
+2. `guardAllowed` (`SAVE_DRAFT` / `CONFIRM`), recompute totals, run full structural `validate`
    (`loadAndValidate`, which also runs `guardNoInactiveProducts`)
 3. transform SaleSession → SaleSaveRequest (`SessionToSaveRequestMapper`)
 4. DraftSalePersister.saveDraft:
@@ -302,7 +307,7 @@ product gets deactivated).
 ### Confirm (`POST /secured/sale-sessions/{sessionId}/confirm`)
 ```
 1. SaleSessionPersister.confirm
-2. `guardMutable`, recompute totals, run full structural `validate`
+2. `guardAllowed` (`SAVE_DRAFT` / `CONFIRM`), recompute totals, run full structural `validate`
    (`loadAndValidate`, which also runs `guardNoInactiveProducts`)
 3. `guardNonEmptyLines`, `guardWalkInFullyCovered`, `guardPaymentsWithinTotal`
 4. transform SaleSession → SaleSaveRequest (`SessionToSaveRequestMapper`)
@@ -312,7 +317,7 @@ product gets deactivated).
      - load-or-create SaleEntity (`loadDraftAtVersion` for existing —
        rejects non-DRAFT or version mismatch; new sales start at CONFIRMED)
      - assign header, save sale
-     - clear reservations for this sale (`clearBySale`) — before sync, same
+     - clear reservations for this sale (`clearBySales`) — before sync, same
        FK-ordering reason as the draft path
      - sync lines (`SaleLineSync.sync`)
      - guard stock availability (`SaleValidator.guardSufficientStockForSale`
@@ -370,7 +375,7 @@ SaleSaveRequest` happens through `SessionToSaveRequestMapper`, called from
 
 `SaleEntity.version` is a `@Version`-managed `Long`. When a session was loaded
 from an existing draft, the session captures the version at load time
-(`SaleSession.saleVersion`). On commit, `SaleDataFetcher.loadDraftAtVersion`
+(`SaleSession.saleVersion`). On commit, `SaleLocker.loadDraftAtVersion`
 reloads the entity, asserts status is still DRAFT, and throws
 `ObjectOptimisticLockingFailureException` upfront when the captured version
 doesn't match — fail-fast at load time, rather than waiting for Hibernate's
@@ -381,7 +386,7 @@ Mid-session operations that hit the sale row out-of-band must refresh
 that means `SaleSessionPaymentHandler.add` (when `originalStatus == CONFIRMED`
 and `SalePaymentService.recordPayment` runs) and `SaleSessionPaymentHandler.remove`
 (when the payment was already persisted and routes through
-`SalePaymentService.voidPayment`). Both bump `SaleEntity.version` via
+`SalePaymentService.voidPayments`). Both bump `SaleEntity.version` via
 `SaleUpdater.updatePaymentStatus`; the new version rides back on
 `SalePaymentResponseDto.updatedSaleVersion` and the handlers copy it onto the
 session before finalize.
@@ -395,7 +400,7 @@ session before finalize.
   it does not update, delete, or validate the persisted payments already on
   the sale. The supported way to reverse a posted payment is `DELETE /payments`
   with a `voidReason`, which routes through `SaleSessionPaymentHandler.remove`
-  → `SalePaymentService.voidPayment` and marks the payment row voided in
+  → `SalePaymentService.voidPayments` and marks the payment row voided in
   place. The session keeps the payment with `voidedReason` set, so it stays
   visible to the cashier rather than disappearing from the list.
 - **One session per sale.** `SaleSessionHandler.start({saleId})` returns the
@@ -486,7 +491,8 @@ decimals (`QuantityLimits`), and a typed price is rejected beyond the money scal
 | Validation                      | `SaleSessionValidator`                                                                                                                                                                                                             |
 | Price override reconciliation   | `PriceOverrideReconciler`                                                                                                                                                                                                          |
 | Totals                          | `SaleSessionTotalsCalculator`                                                                                                                                                                                                      |
-| Load / mint                     | `SaleSessionLoader`, `DomainToSessionMapper`                                                                                                                                                                                       |
+| Load / mint / copy              | `SaleSessionLoader`, `SaleSessionCopier`, `DomainToSessionMapper`                                                                                                                                                                                       |
+| Line merge (consolidation)      | `consolidation/`: `SaleLineMerger`, `PerProductLinesMerger`, `MergedQuantityCalculator`, `MergedAdjustmentsBuilder`, `MergedPriceOverrideBuilder`, `EffectiveLineTotal` (package `line_merge`)                                                          |
 | Build response/summary          | `SaleSessionAssembler`, `SessionToResponseMapper`                                                                                                                                                                                  |
 | Post-mutation pipeline          | `SaleSessionUpdateFinalizer`                                                                                                                                                                                                       |
 | Session orchestration           | `SaleSessionHandler`, `SaleSession{Header,Line,Adjustment,Payment}Handler`, `SaleSessionPersister`                                                                                                                                 |
@@ -494,3 +500,9 @@ decimals (`QuantityLimits`), and a typed price is rejected beyond the money scal
 | Save sub-pieces                 | `SaleLineSync` (sale internal), `SaleSaveFinalizer` (sale internal), `SaleAdjustmentSyncer` (sale_adjustment/api), `SalePaymentAppender` (sale_payment/api, delegates to `SalePaymentWriter`), `SaleTotalsApplier` (sale internal) |
 | Session→SaleSaveRequest mapping | `SessionToSaveRequestMapper`                                                                                                                                                                                                       |
 | REST entry point                | `SaleSessionEndpoint` at `/secured/sale-sessions`                                                                                                                                                                                  |
+
+## 11. Consolidation
+
+Consolidating sales has its own package and README: `consolidation/README.md` covers the line merge, the pending
+consolidation session and how sales are selected and generated into one draft. This package supplies what it builds on
+(`SaleSessionCopier.copyFromSalesWithSourceReferences`, `SaleSessionValidator`, the session store and the update finalizer).

@@ -56,7 +56,8 @@ class SalePaymentHandlersForKafkaTest {
 
     @Test
     fun `a payment void is posted to the account copied when the payment was recorded`() {
-        salePaymentVoidHandlerForKafka.publish(payment("001.099"), voidOf(), contactId)
+        val voidedSalePayment = VoidedSalePayment(payment("001.099"), voidOf())
+        salePaymentVoidHandlerForKafka.publish(contactId, listOf(voidedSalePayment))
 
         val publishedEvent = mockingDetails(eventPublisher).invocations.single().arguments[0] as SalePaymentVoidedEvent
         assertEquals("001.099", publishedEvent.paymentMethodAccountCode)

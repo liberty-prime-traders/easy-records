@@ -214,6 +214,8 @@ persistence model, lifecycle, and reconciliation logic.
   - `UNIT_PRICE_OVERRIDE`: `value` is the unit price the cashier typed, and the amount is `|lineTotal − value × quantity|`
     (`AdjustmentAmountCalculator`, rounded once to cents), recomputed on every save. Only a price override creates one;
     a client cannot add it.
+  - A line adjustment's amount is calculated against its own line, found by `ProductLineWithPrice.lineKey` (a saved
+    line's id, a session line's identity), never by product; an adjustment whose line is not in the list is refused.
 - Every adjustment references an `adjustment_reason_id` (org-schema lookup).
   The session validator validates the reason exists and that
   `AdjustmentReasonService.requireCanApply(reasonId, direction)` succeeds.
@@ -297,9 +299,9 @@ confirm, `taxBilled` is zero, so `receivableTotal()` is exactly
 `taxableAmount()` — the formula does not need two branches.
 
 `subtotal`, the four discount and surcharge buckets and `taxBilled` are
-non-null, default zero. `taxTotal` is the exception: it stays null until tax
-finalization has run, and `SaleValidator.guardCanVoid` treats null as
-"finalization still pending".
+non-null, default zero. `taxTotal` is the exception: it is null on a draft and set by
+`SaleTaxFinalizer` in the same transaction as confirm, and `SaleValidator.guardCanVoid` treats null on a
+non-draft sale as a stop.
 
 `taxableAmount()` is the pre-tax base — it is what tax is computed from
 (§7) and nothing else; a caller that means "amount owed" must never use it.
@@ -337,7 +339,7 @@ Two distinct mechanisms protect inventory:
   line (always written as `line.storageQuantity()`). Changing a line's unit recaptures its ratio and the next save
   rewrites its reservation from the new figure.
 - Every `DraftSalePersister.saveDraft` invocation clears all reservations
-  for the sale (`clearBySale`) **before** running `SaleLineSync.sync`, then
+  for the sale (`clearBySales`) **before** running `SaleLineSync.sync`, then
   re-issues fresh reservations for the surviving line set. This avoids
   hand-rolled diffing, and the clear-before-sync order is required because
   the FK constraint from `stock_reservation` to the sale line
@@ -401,7 +403,7 @@ Two distinct mechanisms protect inventory:
 - A layer stores its totals (`batch_cost`, `cost_remaining`); `StockEntryEntity.unitCost` is a rate per storage unit at
   scale 10 for display and grouping only, and a total is never recovered by multiplying it by a quantity.
 - `SaleConfirmedEvent` and `SaleVoidedEvent` carry `cogsTotal`, summed from the persisted lines by
-  `SaleDataFetcher.getSaleCogsTotal`, which sums the `ACTIVE` `sale_line_cogs` rows of the sale (no rows counts as zero), so `reissue` reproduces it. Both events hold every
+  `SaleDataFetcher.getSaleCogsTotals`, which sums the `ACTIVE` `sale_line_cogs` rows of the sale (no rows counts as zero), so `reissue` reproduces it. Both events hold every
   amount as `Money` and derive `amountOwed` (taxable + tax) and `grossRevenue` (taxable + discount) at construction, so
   a sale whose receivable plus tax exceeds `Decimals.MAXIMUM_TRANSACTION_AMOUNT` fails when the event is published, not
   in the ledger consumer.
@@ -424,10 +426,10 @@ Two distinct mechanisms protect inventory:
   "Locking") after transfer dispatch/cancel once shipped with no lock at all
   while sale confirm had its own.
 - `EntityAdvisoryLock.acquire(LockNamespaces.SALE, saleId)` is acquired by
-  `SaleDataFetcher.lockAndGetSale` / `lockAndGetSaleContext`, which every
+  `SaleLocker.lockAndGetSale` / `SaleDataFetcher.lockAndGetSaleContext`, which every
   flow that touches an *existing* sale (`voidSale`, `updateNotes`,
   `updatePaymentStatus`, and the CONFIRMED-session payment-record /
-  payment-void paths) calls first. `SaleDataFetcher.loadDraftAtVersion`
+  payment-void paths) calls first. `SaleLocker.loadDraftAtVersion`
   (used by `DraftSalePersister` / `ConfirmedSalePersister` when an existing
   draft is being re-persisted) delegates to `lockAndGetSale` under the hood,
   so the commit paths share the same SALE-lock invariant. The optimistic
@@ -471,7 +473,7 @@ committed.
    included tax out of `taxableAmount` independently. It persists one
    `TaxEntryEntity` per type (`sourceType = SALE`) and sets `sale.taxTotal`
    / `sale.taxBilled` in the same transaction.
-2. **Void** (`SaleTaxFinalizer.finalizeTaxForVoid`): copies the persisted
+2. **Void** (`SaleTaxFinalizer.finalizeTaxForVoids`): copies the persisted
    `SALE` rows, negates `taxableAmount` / `resolvedTaxableBase` / `taxAmount`,
    and writes them back as `sourceType = SALE_VOID` — it never recomputes.
    Unlike confirm, this resolves the fiscal period from the void date (when
@@ -545,7 +547,7 @@ sale commit:
   control reaches the appender — see `SaleSessionValidator.guardPaymentsWithinTotal` (delegates to
   `SalePaymentValidator.guardNotExceedingSaleTotal`).
 - Status is computed by `PaymentStatusResolver.resolve` (single source of truth
-  used by `SalePaymentWriter`, `SalePaymentService.voidPayment`, and the session
+  used by `SalePaymentWriter`, `SalePaymentService.voidPayments`, and the session
   response mapper):
   - `0` → `UNPAID`
   - `paid > total` → `OVERPAID`
@@ -604,8 +606,8 @@ calls `saleUpdater.updatePaymentStatus` itself with the returned status.
   search path is correctly set per location. Read-only flows
   (`SaleDataFetcher.fetchRecent` / `getSaleContactId`, the Kafka handlers'
   `reissue` path) declare `readOnly = true`. The lock-acquiring lookups
-  `SaleDataFetcher.lockAndGetSale` / `lockAndGetSaleContext` and the
-  commit-time `SaleDataFetcher.loadDraftAtVersion` are annotated
+  `SaleLocker.lockAndGetSale` / `SaleDataFetcher.lockAndGetSaleContext` and the
+  commit-time `SaleLocker.loadDraftAtVersion` are annotated
   `Propagation.MANDATORY` — they must join an already-open writable
   transaction from the caller.
 - Sale lines, reservations, discounts, and payments are persisted **in the
@@ -654,7 +656,7 @@ Events produced by this package:
 | `SaleConfirmedEvent`        | `ConfirmedSalePersister.confirm` (tax already written synchronously beforehand) | `SaleConfirmedEventProcessor` (ledger, async) |
 | `SaleVoidedEvent`           | `voidSale` (only when CONFIRMED→VOIDED; tax reversal already written synchronously beforehand) | `SaleVoidedEventProcessor` (ledger, async) |
 | `SalePaymentRecordedEvent`  | Any payment recorded with the commit or stand-alone    | accounting/external systems    |
-| `SalePaymentVoidedEvent`    | `SalePaymentService.voidPayment`                       | accounting/external systems    |
+| `SalePaymentVoidedEvent`    | `SalePaymentService.voidPayments` (one event per voided payment)  | accounting/external systems    |
 
 A payment method always carries an `accountCode`: it is required when the method is created
 or updated. `SalePaymentWriter` copies it onto the payment as the non-null
@@ -709,6 +711,13 @@ run** — i.e. as soon as the data it needs is in scope.
 - Persists `SaleEntity` at `DRAFT`, syncs lines, clears + re-issues
   reservations (with `guardSufficientStockForSale` in between), syncs
   adjustments, applies totals, then appends new payments.
+- A new sale may arrive with `SaleSaveRequest.preAllocatedReferenceNumber`
+  (from `SaleReferenceAllocator.allocate()`, the next `seq_sale_reference_number`
+  value). It is set on the entity so the reference listener leaves it alone;
+  it is refused for an existing sale. A sequence value is never handed back,
+  so a rolled-back transaction leaves a gap. The session mapper ignores the
+  field; the caller sets it with `copy`. `ConfirmedSalePersister` refuses it, since only a draft is saved
+  under a reserved reference.
 
 ### `ConfirmedSalePersister.confirm(SaleSaveRequest): SaleSaveResult`
 - Walk-in is allowed (and required to be fully paid).
@@ -727,8 +736,7 @@ run** — i.e. as soon as the data it needs is in scope.
 - CONFIRMED → VOIDED (restores stock, writes `SaleVoidEntity`, publishes
   `SaleVoidedEvent`).
 - Rejected if already voided/discarded, if active payments exist, or (for a
-  CONFIRMED sale) if tax finalization for it hasn't completed yet
-  (`sale.taxTotal == null`).
+  CONFIRMED sale) if `sale.taxTotal == null`, which confirm never leaves behind.
 - Confirmed-sale void requires the fiscal period **of today** to be open
   (the void itself is the bookable event).
 - DB defense-in-depth: `sale_void.sale_id` is `unique = true`, so a second
@@ -739,13 +747,30 @@ run** — i.e. as soon as the data it needs is in scope.
   `saleId`, calls this primitive, and then deletes the session
   (`POST /secured/sale-sessions/{sessionId}/void`).
 
+### `SaleUpdater.voidSourcesOfConsolidation(sourceSaleIds, consolidatedSaleReferenceNumber)`
+- Locks every source in id order (`SaleLocker.lockAndGetSales`), then:
+  DRAFT → DISCARDED; CONFIRMED → VOIDED. Both go through the same batched path as
+  `voidSale` with the reason `"Consolidated into <reference>"`
+  (`SaleUpdater.consolidationVoidReason`), so every `voidSale` rule applies,
+  including "no active payments" and "tax finalization pending". Payments are
+  voided by the caller first.
+- Batched: one active-payments query for all sources (`SaleValidator.guardCanVoid`), one reservation delete, one
+  `saveAll` of the void rows, one fiscal check per distinct void date, one tax-entry lookup and one `createAll`
+  (`SaleTaxFinalizer.finalizeTaxForVoids`) and one `saveAll` of the sales. The stock restore stays per sale
+  (`SaleStockUpdater.restoreStock`: the FIFO balance carries from one product to the next), and each confirmed sale
+  still publishes its own `SaleVoidedEvent`, with the cost totals of all of them read in one grouped query
+  (`SaleDataFetcher.getSaleCogsTotals`; a sale with no active cost rows reads as zero). The event stays one per sale
+  because the retry log and `SaleVoidHandlerForKafka.reissue` are keyed by a single sale id.
+
 ### `SaleUpdater.updateNotes(id, notes)` / `updatePaymentStatus(id, status)`
 - Both take the SALE advisory lock via `lockAndGetSale` and then assign
-  the field directly; no extra validation.
+  the field directly; no extra validation, so notes can be written in any
+  status, including VOIDED and DISCARDED.
 - `updateNotes` is **REST-exposed** (`PUT /secured/sales/{saleId}/notes`
-  in `SaleEndpoint`).
+  in `SaleEndpoint`) and is also called by `SaleSessionHeaderHandler` for a
+  sale that is not a draft. It returns the post-flush `SaleEntity.version`.
 - `updatePaymentStatus` is **intra-domain only** — driven by
-  `SalePaymentService` (`recordPayment`, `voidPayment`); not wired to any
+  `SalePaymentService` (`recordPayment`, `voidPayments`); not wired to any
   REST endpoint. Returns the post-flush `SaleEntity.version` so callers
   (and the session, via `SalePaymentResponseDto.updatedSaleVersion`) can
   keep their captured version in lockstep with the row.
@@ -754,8 +779,13 @@ run** — i.e. as soon as the data it needs is in scope.
 - Defaults to 10; rejects `n <= 0` and `n > 1000`.
 - Sorted by `createdOn DESC`.
 
-### `SaleDataFetcher.getSaleHeader(saleId)` / `getSaleLines(saleId)`
-- Used by `SaleSessionLoader` to map an existing draft into a session.
+### `SaleDataFetcher.getSaleHeader(saleId)` / `getSaleLines(saleId)` / `getSaleLinesBySaleId(saleIds)`
+- Used by `SaleSessionLoader` to map an existing draft into a session, and by `SaleSessionCopier` to copy sales.
+- `getSaleLinesBySaleId` loads the lines and the product summaries of many sales in one pass and returns a list for
+  every requested id (empty when a sale has no lines); `getSaleLines` is the single-id case of it. `SaleLineDto`
+  carries the product's `baseUnitId` from that same summary lookup, so callers never query base units separately.
+  `SaleAdjustmentFetcher.getAdjustmentsBySaleId` is the matching batch for adjustments. Both batches read their rows
+  ordered by creation time, then id, so the order of a sale's lines and adjustments is the same on every read.
 - Snapshots are plain data classes in `sale/api/` (`SaleHeaderDto`,
   `SaleLineDto`) — they do not leak `SaleEntity` / `SaleLineEntity` across
   the package boundary.
@@ -809,13 +839,13 @@ run** — i.e. as soon as the data it needs is in scope.
   must go through a session — there is no REST surface to mutate a draft
   directly anymore.
 - **Forgetting to clear reservations before re-issuing them at commit.**
-  `DraftSalePersister` always `clearBySale` first; relying on diff-based
+  `DraftSalePersister` always `clearBySales` first; relying on diff-based
   reservation logic is the leading source of oversell bugs.
 - **Publishing Kafka events outside the sale transaction.** Always go
   through `ApplicationEventPublisher` so the event is bound to commit.
 - **Kafka publishers bang (`!!`) on `sale.id` and `sale.dateSold`** in
   both `SaleConfirmedHandlerForKafka.publish` and
-  `SaleVoidHandlerForKafka.publishVoid`. Confirmation/void paths always
+  `SaleVoidHandlerForKafka.publishVoids`. Confirmation/void paths always
   set `dateSold` before publish, so the assert holds in normal flow.
   Stay aware of the contract when introducing new mutation paths.
 
