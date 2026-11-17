@@ -1,5 +1,6 @@
 package app.myliberty.easy_records.organizations.rest.endpoints.retail
 
+import app.myliberty.easy_records.locations.business.retail.last_purchase_cost_backfill.api.LastPurchaseCostBackfiller
 import app.myliberty.easy_records.locations.business.retail.purchase_movement_context_backfill.api.PurchaseMovementContextBackfiller
 import app.myliberty.easy_records.locations.business.retail.sale_cogs_backfill.api.SaleLineCogsBackfiller
 import app.myliberty.easy_records.locations.business.retail.stock_adjustment_backfill.api.StockAdjustmentBackfiller
@@ -22,6 +23,7 @@ class AdminDataEndpoint(
     private val saleLineCogsBackfiller: SaleLineCogsBackfiller,
     private val stockAdjustmentBackfiller: StockAdjustmentBackfiller,
     private val purchaseMovementContextBackfiller: PurchaseMovementContextBackfiller,
+    private val lastPurchaseCostBackfiller: LastPurchaseCostBackfiller,
 ) {
 
     @PostMapping("seed-defaults")
@@ -41,4 +43,8 @@ class AdminDataEndpoint(
     @PostMapping("purchase-movement-context/backfill")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun backfillPurchaseMovementContext() = purchaseMovementContextBackfiller.startBackfillAllLocations()
+
+    @PostMapping("last-purchase-cost/backfill")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    fun backfillLastPurchaseCost() = lastPurchaseCostBackfiller.startBackfillAllLocations()
 }
