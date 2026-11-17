@@ -869,7 +869,7 @@ run** — i.e. as soon as the data it needs is in scope.
 | Read APIs                 | `SaleDataFetcher`, `SaleAssembler`                                                                                                                                                  |
 | Arrears rule              | `SaleArrears` — shared by `SaleAssembler.buildSummary` and `sale/search`                                                                                                            |
 | Search (list + summary)   | `sale/search/` package (`SaleSearchQueryBuilder`, `SaleSearchFetcher`, `SaleSearchExecutor`, `SaleSearchRowMapper`, `SaleSearchMapper`, `SaleSearchValidator`), `SaleSearchService` |
-| Per-product sales reports | `product_sales_report/` package (own README); reads sale tables by SQL, owns no sale state                                                                                          |
+| Per-product sales reports | `reports/product_sales/` package (own README); reads sale tables by SQL, owns no sale state                                                                                          |
 | Session orchestration     | `sale_session/` package (see `sale_session/README.md`)                                                                                                                              |
 
 Keep this table accurate as the package evolves — it is the entry point

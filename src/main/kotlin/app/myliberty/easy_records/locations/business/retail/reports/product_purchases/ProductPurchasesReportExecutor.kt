@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.business.retail.product_purchases_report
+package app.myliberty.easy_records.locations.business.retail.reports.product_purchases
 
 import jakarta.persistence.Tuple
 import app.myliberty.easy_records.configuration.datasource.DataSourceBeanNames

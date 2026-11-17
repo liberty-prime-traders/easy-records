@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.locations.business.retail.product_sales_report
+package app.myliberty.easy_records.locations.business.retail.reports.product_sales
 
 import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductSummaryDto
-import app.myliberty.easy_records.locations.business.retail.product_sales_report.api.ProductSalesSummaryDto
+import app.myliberty.easy_records.locations.business.retail.reports.product_sales.api.ProductSalesSummaryDto
 import app.myliberty.easy_records.util.quantity.BreakdownUnit
 import app.myliberty.easy_records.util.quantity.QuantityBreakdown
 import java.math.BigDecimal

@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.locations.business.retail.product_sales_report
+package app.myliberty.easy_records.locations.business.retail.reports.product_sales
 
-import app.myliberty.easy_records.locations.business.retail.product_sales_report.api.ProductSalesSortDirection
-import app.myliberty.easy_records.locations.business.retail.product_sales_report.api.ProductSalesSortField
+import app.myliberty.easy_records.locations.business.retail.reports.product_sales.api.ProductSalesSortDirection
+import app.myliberty.easy_records.locations.business.retail.reports.product_sales.api.ProductSalesSortField
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import app.myliberty.easy_records.util.queries.SearchGuards
 import java.time.OffsetDateTime

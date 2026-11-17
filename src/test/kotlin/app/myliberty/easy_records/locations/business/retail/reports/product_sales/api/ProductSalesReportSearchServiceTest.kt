@@ -1,17 +1,17 @@
-package app.myliberty.easy_records.locations.business.retail.product_sales_report.api
+package app.myliberty.easy_records.locations.business.retail.reports.product_sales.api
 
 import com.github.benmanes.caffeine.cache.Ticker
 import app.myliberty.easy_records.configuration.session.LocationSession
 import app.myliberty.easy_records.configuration.session.OrgSession
 import app.myliberty.easy_records.configuration.session.SessionContext
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
-import app.myliberty.easy_records.locations.business.retail.product_sales_report.ProductSalesDayBucketCache
-import app.myliberty.easy_records.locations.business.retail.product_sales_report.ProductSalesReportFetcher
-import app.myliberty.easy_records.locations.business.retail.product_sales_report.ProductSalesReportSnapshotBuilder
-import app.myliberty.easy_records.locations.business.retail.product_sales_report.ProductSalesReportSnapshotCache
-import app.myliberty.easy_records.locations.business.retail.product_sales_report.ProductSalesReportTestSummaries
-import app.myliberty.easy_records.locations.business.retail.product_sales_report.ProductSalesReportWindow
-import app.myliberty.easy_records.locations.business.retail.product_sales_report.ProductSalesSummaryAssembler
+import app.myliberty.easy_records.locations.business.retail.reports.product_sales.ProductSalesDayBucketCache
+import app.myliberty.easy_records.locations.business.retail.reports.product_sales.ProductSalesReportFetcher
+import app.myliberty.easy_records.locations.business.retail.reports.product_sales.ProductSalesReportSnapshotBuilder
+import app.myliberty.easy_records.locations.business.retail.reports.product_sales.ProductSalesReportSnapshotCache
+import app.myliberty.easy_records.locations.business.retail.reports.product_sales.ProductSalesReportTestSummaries
+import app.myliberty.easy_records.locations.business.retail.reports.product_sales.ProductSalesReportWindow
+import app.myliberty.easy_records.locations.business.retail.reports.product_sales.ProductSalesSummaryAssembler
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import app.myliberty.easy_records.util.paging.PageRequest
 import app.myliberty.easy_records.util.paging.PageResponseWithMetadata

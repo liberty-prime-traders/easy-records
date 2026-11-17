@@ -1,10 +1,10 @@
 package app.myliberty.easy_records.locations.rest.endpoints
 
-import app.myliberty.easy_records.locations.business.retail.product_purchases_report.api.ProductPurchasesDeliveryLineDto
-import app.myliberty.easy_records.locations.business.retail.product_purchases_report.api.ProductPurchasesDeliveryLinesParameters
-import app.myliberty.easy_records.locations.business.retail.product_purchases_report.api.ProductPurchasesReportParameters
-import app.myliberty.easy_records.locations.business.retail.product_purchases_report.api.ProductPurchasesReportRowDto
-import app.myliberty.easy_records.locations.business.retail.product_purchases_report.api.ProductPurchasesReportService
+import app.myliberty.easy_records.locations.business.retail.reports.product_purchases.api.ProductPurchasesDeliveryLineDto
+import app.myliberty.easy_records.locations.business.retail.reports.product_purchases.api.ProductPurchasesDeliveryLinesParameters
+import app.myliberty.easy_records.locations.business.retail.reports.product_purchases.api.ProductPurchasesReportParameters
+import app.myliberty.easy_records.locations.business.retail.reports.product_purchases.api.ProductPurchasesReportRowDto
+import app.myliberty.easy_records.locations.business.retail.reports.product_purchases.api.ProductPurchasesReportService
 import app.myliberty.easy_records.util.paging.PageRequest
 import app.myliberty.easy_records.util.paging.PageResponse
 import org.springframework.web.bind.annotation.PathVariable

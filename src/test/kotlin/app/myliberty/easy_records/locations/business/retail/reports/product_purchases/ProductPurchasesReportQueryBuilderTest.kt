@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.locations.business.retail.product_purchases_report
+package app.myliberty.easy_records.locations.business.retail.reports.product_purchases
 
-import app.myliberty.easy_records.locations.business.retail.product_purchases_report.api.ProductPurchasesDeliveryLinesParameters
-import app.myliberty.easy_records.locations.business.retail.product_purchases_report.api.ProductPurchasesReportParameters
+import app.myliberty.easy_records.locations.business.retail.reports.product_purchases.api.ProductPurchasesDeliveryLinesParameters
+import app.myliberty.easy_records.locations.business.retail.reports.product_purchases.api.ProductPurchasesReportParameters
 import app.myliberty.easy_records.util.queries.KeysetSearchCursor
 import app.myliberty.easy_records.util.queries.QueryParameterNames
 import org.junit.jupiter.api.Assertions.assertEquals

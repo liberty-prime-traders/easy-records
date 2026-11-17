@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.business.retail.product_sales_report
+package app.myliberty.easy_records.locations.business.retail.reports.product_sales
 
 import com.github.benmanes.caffeine.cache.Cache
 import com.github.benmanes.caffeine.cache.Caffeine

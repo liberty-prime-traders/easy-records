@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.locations.business.retail.product_purchases_report
+package app.myliberty.easy_records.locations.business.retail.reports.product_purchases
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
-import app.myliberty.easy_records.locations.business.retail.product_purchases_report.api.ProductPurchasesDeliveryLinesParameters
-import app.myliberty.easy_records.locations.business.retail.product_purchases_report.api.ProductPurchasesReportParameters
+import app.myliberty.easy_records.locations.business.retail.reports.product_purchases.api.ProductPurchasesDeliveryLinesParameters
+import app.myliberty.easy_records.locations.business.retail.reports.product_purchases.api.ProductPurchasesReportParameters
 import app.myliberty.easy_records.util.queries.KeysetSearchCursor
 import org.springframework.stereotype.Component
 import java.util.UUID

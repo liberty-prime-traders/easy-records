@@ -1,11 +1,11 @@
-package app.myliberty.easy_records.locations.business.retail.product_sales_report.api
+package app.myliberty.easy_records.locations.business.retail.reports.product_sales.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
 import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductDataFetcher
-import app.myliberty.easy_records.locations.business.retail.product_sales_report.ProductSalesReportCalculator
-import app.myliberty.easy_records.locations.business.retail.product_sales_report.ProductSalesReportFetcher
-import app.myliberty.easy_records.locations.business.retail.product_sales_report.ProductSalesReportValidator
-import app.myliberty.easy_records.locations.business.retail.product_sales_report.ProductSalesSummaryAssembler
+import app.myliberty.easy_records.locations.business.retail.reports.product_sales.ProductSalesReportCalculator
+import app.myliberty.easy_records.locations.business.retail.reports.product_sales.ProductSalesReportFetcher
+import app.myliberty.easy_records.locations.business.retail.reports.product_sales.ProductSalesReportValidator
+import app.myliberty.easy_records.locations.business.retail.reports.product_sales.ProductSalesSummaryAssembler
 import app.myliberty.easy_records.organizations.business.retail.adjustment_reason.api.AdjustmentReasonService
 import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.QuantityBreakdownFactory
 import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.UnitConversionGraphFacade

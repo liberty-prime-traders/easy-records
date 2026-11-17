@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.business.retail.product_purchases_report
+package app.myliberty.easy_records.locations.business.retail.reports.product_purchases
 
 import app.myliberty.easy_records.locations.business.retail.purchase.api.delivery.PurchaseDeliveryLineStatus
 import java.math.BigDecimal

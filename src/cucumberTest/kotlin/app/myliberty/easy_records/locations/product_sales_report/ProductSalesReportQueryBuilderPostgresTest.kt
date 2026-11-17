@@ -4,9 +4,9 @@ import app.myliberty.easy_records.configuration.session.LocationSession
 import app.myliberty.easy_records.configuration.session.OrgSession
 import app.myliberty.easy_records.configuration.session.SessionContext
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
-import app.myliberty.easy_records.locations.business.retail.product_sales_report.DateSoldRange
-import app.myliberty.easy_records.locations.business.retail.product_sales_report.ProductSalesReportQueryBuilder
-import app.myliberty.easy_records.locations.business.retail.product_sales_report.ProductSalesReportWindow
+import app.myliberty.easy_records.locations.business.retail.reports.product_sales.DateSoldRange
+import app.myliberty.easy_records.locations.business.retail.reports.product_sales.ProductSalesReportQueryBuilder
+import app.myliberty.easy_records.locations.business.retail.reports.product_sales.ProductSalesReportWindow
 import app.myliberty.easy_records.util.queries.KeysetSearchCursor
 import app.myliberty.easy_records.util.queries.QueryParameterNames
 import app.myliberty.easy_records.util.queries.SqlQuery

@@ -1,13 +1,13 @@
 package app.myliberty.easy_records.locations.rest.endpoints
 
-import app.myliberty.easy_records.locations.business.retail.product_sales_report.api.ProductSalesLineDto
-import app.myliberty.easy_records.locations.business.retail.product_sales_report.api.ProductSalesLinesParameters
-import app.myliberty.easy_records.locations.business.retail.product_sales_report.api.ProductSalesReportSearchMetadata
-import app.myliberty.easy_records.locations.business.retail.product_sales_report.api.ProductSalesReportSearchParameters
-import app.myliberty.easy_records.locations.business.retail.product_sales_report.api.ProductSalesReportSearchService
-import app.myliberty.easy_records.locations.business.retail.product_sales_report.api.ProductSalesReportService
-import app.myliberty.easy_records.locations.business.retail.product_sales_report.api.ProductSalesSummaryDto
-import app.myliberty.easy_records.locations.business.retail.product_sales_report.api.ProductSalesSummaryParameters
+import app.myliberty.easy_records.locations.business.retail.reports.product_sales.api.ProductSalesLineDto
+import app.myliberty.easy_records.locations.business.retail.reports.product_sales.api.ProductSalesLinesParameters
+import app.myliberty.easy_records.locations.business.retail.reports.product_sales.api.ProductSalesReportSearchMetadata
+import app.myliberty.easy_records.locations.business.retail.reports.product_sales.api.ProductSalesReportSearchParameters
+import app.myliberty.easy_records.locations.business.retail.reports.product_sales.api.ProductSalesReportSearchService
+import app.myliberty.easy_records.locations.business.retail.reports.product_sales.api.ProductSalesReportService
+import app.myliberty.easy_records.locations.business.retail.reports.product_sales.api.ProductSalesSummaryDto
+import app.myliberty.easy_records.locations.business.retail.reports.product_sales.api.ProductSalesSummaryParameters
 import app.myliberty.easy_records.util.paging.PageRequest
 import app.myliberty.easy_records.util.paging.PageResponse
 import app.myliberty.easy_records.util.paging.PageResponseWithMetadata

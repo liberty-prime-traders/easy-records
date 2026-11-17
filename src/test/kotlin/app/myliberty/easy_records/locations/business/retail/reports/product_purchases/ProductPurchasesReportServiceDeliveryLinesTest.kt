@@ -1,9 +1,9 @@
-package app.myliberty.easy_records.locations.business.retail.product_purchases_report
+package app.myliberty.easy_records.locations.business.retail.reports.product_purchases
 
 import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductDataFetcher
 import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductSummaryDto
-import app.myliberty.easy_records.locations.business.retail.product_purchases_report.api.ProductPurchasesDeliveryLinesParameters
-import app.myliberty.easy_records.locations.business.retail.product_purchases_report.api.ProductPurchasesReportService
+import app.myliberty.easy_records.locations.business.retail.reports.product_purchases.api.ProductPurchasesDeliveryLinesParameters
+import app.myliberty.easy_records.locations.business.retail.reports.product_purchases.api.ProductPurchasesReportService
 import app.myliberty.easy_records.locations.business.retail.purchase.api.delivery.PurchaseDeliveryLineStatus
 import app.myliberty.easy_records.organizations.business.core.contact.api.ContactDto
 import app.myliberty.easy_records.organizations.business.core.contact.api.ContactIdentity

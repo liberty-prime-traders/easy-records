@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.business.retail.product_sales_report.api
+package app.myliberty.easy_records.locations.business.retail.reports.product_sales.api
 
 import app.myliberty.easy_records.organizations.business.retail.adjustment_reason.api.AdjustmentDirection
 import java.math.BigDecimal

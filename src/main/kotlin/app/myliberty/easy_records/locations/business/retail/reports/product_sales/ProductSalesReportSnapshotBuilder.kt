@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.locations.business.retail.product_sales_report
+package app.myliberty.easy_records.locations.business.retail.reports.product_sales
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
-import app.myliberty.easy_records.locations.business.retail.product_sales_report.api.ProductSalesSortDirection
-import app.myliberty.easy_records.locations.business.retail.product_sales_report.api.ProductSalesSortField
+import app.myliberty.easy_records.locations.business.retail.reports.product_sales.api.ProductSalesSortDirection
+import app.myliberty.easy_records.locations.business.retail.reports.product_sales.api.ProductSalesSortField
 import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.business.StringUtils
 import org.springframework.stereotype.Component
