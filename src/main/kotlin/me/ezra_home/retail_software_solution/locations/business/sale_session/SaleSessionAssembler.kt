@@ -10,6 +10,8 @@ import me.ezra_home.retail_software_solution.locations.business.sale_session.api
 import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionKind
 import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionResponseDto
 import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionSummaryDto
+import me.ezra_home.retail_software_solution.locations.business.sale_session.consolidation.PendingConsolidationAssessment
+import me.ezra_home.retail_software_solution.locations.business.sale_session.consolidation.PendingConsolidationAssessor
 import me.ezra_home.retail_software_solution.organizations.business.adjustment_reason.api.AdjustmentDirection
 import me.ezra_home.retail_software_solution.organizations.business.unitconversion.api.UnitConversionGraph
 import me.ezra_home.retail_software_solution.organizations.business.unitconversion.api.UnitConversionGraphFacade
@@ -42,10 +44,8 @@ class SaleSessionAssembler(
     fun buildResponse(saleSession: SaleSession): SaleSessionResponseDto {
         val saleVoidInfo: SaleVoidInfoDto? = requireSaleVoidInfoIfVoided(saleSession)
         val unitConversionGraph = unitConversionGraphFacade.getOrLoad()
-        val cleanLocationProductIds = saleSession.pendingConsolidation?.cleanProducts.orEmpty()
-            .map { it.locationProductId }
         val inactiveLocationProductIds = locationProductDataFetcher.findInactiveIds(
-            (saleSession.saleLines.map { it.locationProductId } + cleanLocationProductIds).toSet()
+            saleSession.saleLines.map { it.locationProductId }.toSet()
         )
         val pendingConsolidationAssessment =
             assessIfPending(saleSession, inactiveLocationProductIds, unitConversionGraph)

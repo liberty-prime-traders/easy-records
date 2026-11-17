@@ -107,16 +107,11 @@ class SaleSessionValidator(
         }
     }
 
-    fun guardConsolidationSelectionSize(sourceSaleHeaders: List<SaleHeaderDto>) {
-        val sourceSaleIds = sourceSaleHeaders.map { it.id }
-        val sizeWithinLimits = sourceSaleIds.size in MINIMUM_SALES_TO_CONSOLIDATE..MAXIMUM_SALES_TO_CONSOLIDATE
-        if (!sizeWithinLimits) {
+    fun guardConsolidationSelectionSize(selectedSaleCount: Int) {
+        if (selectedSaleCount !in MINIMUM_SALES_TO_CONSOLIDATE..MAXIMUM_SALES_TO_CONSOLIDATE) {
             throw RtsGenericException(
                 "Select between $MINIMUM_SALES_TO_CONSOLIDATE and $MAXIMUM_SALES_TO_CONSOLIDATE sales to consolidate"
             )
-        }
-        if (sourceSaleIds.toSet().size != sourceSaleIds.size) {
-            throw RtsGenericException("The same sale was selected more than once")
         }
     }
 

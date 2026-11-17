@@ -30,34 +30,33 @@ class SaleSessionHeaderHandler(
         ).ifEmpty { listOf(SaleSessionAction.UPDATE_NOTES) }
 
     fun update(sessionId: UUID, headerUpdateDto: SaleSessionHeaderUpdateDto): SaleSessionResponseDto {
-        val session = saleSessionStore.load(sessionId)
-        headerActions(headerUpdateDto).forEach { saleSessionValidator.guardAllowed(session, it) }
-        val updatedHeader = session.header.copy(
+        val saleSession = saleSessionStore.load(sessionId)
+        headerActions(headerUpdateDto).forEach { saleSessionValidator.guardAllowed(saleSession, it) }
+        val updatedHeader = saleSession.header.copy(
             contactId = headerUpdateDto.contactId?.let {
                 it.orElseThrow { RtsGenericException("contactId cannot be cleared") }
-            } ?: session.header.contactId,
-            soldById = headerUpdateDto.soldById?.orElse(null) ?: session.header.soldById,
-            dateSold = headerUpdateDto.dateSold?.orElse(null) ?: session.header.dateSold,
-            notes = StringUtils.useIfProvided(headerUpdateDto.notes, session.header.notes),
+            } ?: saleSession.header.contactId,
+            soldById = headerUpdateDto.soldById?.orElse(null) ?: saleSession.header.soldById,
+            dateSold = headerUpdateDto.dateSold?.orElse(null) ?: saleSession.header.dateSold,
+            notes = StringUtils.useIfProvided(headerUpdateDto.notes, saleSession.header.notes),
         )
         if (updatedHeader.contactId != SystemContact.WALK_IN.id) {
             contactService.guardExists(updatedHeader.contactId)
         }
-        val updatedSaleVersion = persistNotesOfSavedSale(session, headerUpdateDto, updatedHeader.notes)
+        val updatedSaleVersion = persistNotesOfSavedSale(saleSession, headerUpdateDto, updatedHeader.notes)
         return saleSessionUpdateFinalizer.finalize(
-            session.copy(header = updatedHeader, saleVersion = updatedSaleVersion ?: session.saleVersion)
+            saleSession.copy(header = updatedHeader, saleVersion = updatedSaleVersion ?: saleSession.saleVersion)
         )
     }
 
-    // A draft keeps its notes in the session until it is saved; any other sale is not saved again, so they are
-    // written to the sale at once.
+    // A cart with no sale yet keeps its notes in the session; a sale that exists gets them written at once.
     private fun persistNotesOfSavedSale(
-        session: SaleSession,
+        saleSession: SaleSession,
         headerUpdateDto: SaleSessionHeaderUpdateDto,
         notes: String?,
     ): Long? {
-        val saleId = session.saleId ?: return null
-        if (headerUpdateDto.notes == null || session.mutable()) return null
-        return saleUpdater.updateNotes(saleId, notes)
+        val saleId = saleSession.saleId ?: return null
+        if (headerUpdateDto.notes == null) return null
+        return saleUpdater.updateNotesAtVersion(saleId, notes, saleSession.saleVersion)
     }
 }

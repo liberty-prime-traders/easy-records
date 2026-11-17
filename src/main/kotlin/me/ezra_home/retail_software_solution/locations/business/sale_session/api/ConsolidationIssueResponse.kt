@@ -4,4 +4,5 @@ data class ConsolidationIssueResponse(
     val saleReferences: String,
     val description: String,
     val fix: String,
+    val blocking: Boolean = true,
 )

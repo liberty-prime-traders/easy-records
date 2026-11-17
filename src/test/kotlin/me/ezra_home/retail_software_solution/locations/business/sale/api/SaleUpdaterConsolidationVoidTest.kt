@@ -1,5 +1,8 @@
 package me.ezra_home.retail_software_solution.locations.business.sale.api
 
+import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import org.junit.jupiter.api.Assertions.assertThrows
+import org.junit.jupiter.api.Assertions.assertNull
 import me.ezra_home.retail_software_solution.locations.business.sale.SaleAssembler
 import me.ezra_home.retail_software_solution.locations.business.sale.SaleEntity
 import me.ezra_home.retail_software_solution.locations.business.sale.SaleLocker
@@ -86,6 +89,40 @@ class SaleUpdaterConsolidationVoidTest {
         assertEquals(SaleStatus.DISCARDED, draftSale.status)
         verify(stockReserver).clearBySales(listOf(sourceSaleId))
         verifyNoInteractions(saleVoidRepository)
+    }
+
+    @Test
+    fun `a discarded draft keeps its reason after its own notes, and a blank reason adds nothing`() {
+        val draftWithNotes = sourceSale(SaleStatus.DRAFT)
+        draftWithNotes.notes = "deliver Monday"
+        val draftWithoutNotes = sourceSale(SaleStatus.DRAFT, UUID.randomUUID(), "SALE0002")
+        lockReturns(draftWithNotes, draftWithoutNotes)
+
+        saleUpdater.voidSourcesOfConsolidation(listOf(sourceSaleId, draftWithoutNotes.id!!), "SALE0009")
+        val discardedBlank = sourceSale(SaleStatus.DRAFT, UUID.randomUUID(), "SALE0003")
+        `when`(saleLocker.lockAndGetSale(discardedBlank.id!!)).thenReturn(discardedBlank)
+        saleUpdater.voidSale(SaleVoidCreateDto(discardedBlank.id!!, "  "))
+
+        assertEquals("deliver Monday\nDiscarded: Consolidated into SALE0009", draftWithNotes.notes)
+        assertEquals("Discarded: Consolidated into SALE0009", draftWithoutNotes.notes)
+        assertNull(discardedBlank.notes)
+    }
+
+    @Test
+    fun `notes are written only at the version the caller opened`() {
+        val sale = sourceSale(SaleStatus.DRAFT)
+        sale.notes = "first"
+        `when`(saleLocker.lockAndGetSale(sourceSaleId)).thenReturn(sale)
+
+        assertThrows(RtsGenericException::class.java) {
+            saleUpdater.updateNotesAtVersion(sourceSaleId, "from a stale tab", sale.version + 1)
+        }
+        assertThrows(RtsGenericException::class.java) {
+            saleUpdater.updateNotesAtVersion(sourceSaleId, "from a tab with no version", null)
+        }
+
+        assertEquals("first", sale.notes)
+        verify(saleRepository, never()).saveAndFlush(sale)
     }
 
     @Test

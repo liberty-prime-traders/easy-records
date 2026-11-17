@@ -1,5 +1,6 @@
 package me.ezra_home.retail_software_solution.locations.business.sale_session.api
 
+import me.ezra_home.retail_software_solution.locations.business.sale_session.consolidation.PendingConsolidationPromoter
 import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleStatus
 import me.ezra_home.retail_software_solution.locations.business.sale_session.SaleSessionAssembler
 import me.ezra_home.retail_software_solution.locations.business.sale_session.SaleSessionCopier
@@ -26,6 +27,7 @@ class SaleSessionHandlerUnsavedListTest {
         saleSessionCopier = mock(SaleSessionCopier::class.java),
         saleSessionAssembler = saleSessionAssembler,
         saleSessionUpdateFinalizer = mock(SaleSessionUpdateFinalizer::class.java),
+        pendingConsolidationPromoter = mock(PendingConsolidationPromoter::class.java),
     )
 
     private fun session(saleId: UUID?, kind: SaleSessionKind): SaleSession = SaleSession(

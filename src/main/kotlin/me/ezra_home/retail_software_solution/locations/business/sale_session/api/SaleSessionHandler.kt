@@ -1,5 +1,6 @@
 package me.ezra_home.retail_software_solution.locations.business.sale_session.api
 
+import me.ezra_home.retail_software_solution.locations.business.sale_session.consolidation.PendingConsolidationPromoter
 import com.google.common.base.Predicate
 import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
 import me.ezra_home.retail_software_solution.configuration.session.SessionContextProvider
@@ -18,6 +19,7 @@ class SaleSessionHandler(
     private val saleSessionCopier: SaleSessionCopier,
     private val saleSessionAssembler: SaleSessionAssembler,
     private val saleSessionUpdateFinalizer: SaleSessionUpdateFinalizer,
+    private val pendingConsolidationPromoter: PendingConsolidationPromoter,
 ) {
 
     @TransactionalOnLocationSchema(readOnly = true)
@@ -53,8 +55,9 @@ class SaleSessionHandler(
             .let { saleSessionAssembler.buildSummaries(it) }
     }
 
+    @TransactionalOnLocationSchema(readOnly = true)
     fun acquireSession(sessionId: UUID): SaleSessionResponseDto {
-        val session = saleSessionStore.load(sessionId)
+        val session = pendingConsolidationPromoter.promote(saleSessionStore.load(sessionId))
         val visitedSession = session.markVisited(SessionContextProvider.getUserId())
         saleSessionStore.save(visitedSession)
         return saleSessionAssembler.buildResponse(visitedSession)

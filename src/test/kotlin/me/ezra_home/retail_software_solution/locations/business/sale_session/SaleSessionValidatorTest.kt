@@ -172,19 +172,13 @@ class SaleSessionValidatorTest {
     }
 
     @Test
-    fun `a consolidation needs between two and twenty distinct sales`() {
-        val contactId = UUID.randomUUID()
-
-        saleSessionValidator.guardConsolidationSelectionSize(List(2) { saleHeader(contactId) })
-        saleSessionValidator.guardConsolidationSelectionSize(List(20) { saleHeader(contactId) })
+    fun `a consolidation needs between two and twenty sales`() {
+        saleSessionValidator.guardConsolidationSelectionSize(2)
+        saleSessionValidator.guardConsolidationSelectionSize(20)
         listOf(0, 1, 21).forEach { refusedSize ->
             assertThrows(RtsGenericException::class.java) {
-                saleSessionValidator.guardConsolidationSelectionSize(List(refusedSize) { saleHeader(contactId) })
+                saleSessionValidator.guardConsolidationSelectionSize(refusedSize)
             }
-        }
-        val selectedTwice = saleHeader(contactId)
-        assertThrows(RtsGenericException::class.java) {
-            saleSessionValidator.guardConsolidationSelectionSize(listOf(selectedTwice, selectedTwice))
         }
     }
 

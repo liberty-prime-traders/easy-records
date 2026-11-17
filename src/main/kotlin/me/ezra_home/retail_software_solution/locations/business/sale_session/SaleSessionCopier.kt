@@ -10,6 +10,7 @@ import me.ezra_home.retail_software_solution.locations.business.sale_session.api
 import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionHeader
 import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionLine
 import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SessionIdentity
+import me.ezra_home.retail_software_solution.locations.business.sale_session.consolidation.ConsolidationCopy
 import me.ezra_home.retail_software_solution.util.business.StringUtils
 import org.springframework.stereotype.Component
 import java.util.UUID
@@ -46,7 +47,7 @@ class SaleSessionCopier(
         sessionId: UUID,
         sourceSaleHeaders: List<SaleHeaderDto>,
     ): ConsolidationCopy {
-        saleSessionValidator.guardConsolidationSelectionSize(sourceSaleHeaders)
+        saleSessionValidator.guardConsolidationSelectionSize(sourceSaleHeaders.size)
         saleSessionValidator.guardSingleContactAcrossSales(sourceSaleHeaders)
         val sourceSaleIds = sourceSaleHeaders.map { it.id }
         val sourceSaleLinesBySaleId = saleDataFetcher.getSaleLinesBySaleId(sourceSaleIds)
@@ -85,10 +86,23 @@ class SaleSessionCopier(
         val orderLevelAmountByAdjustmentKey = copiedContents.flatMap { copiedContent ->
             copiedContent.saleAdjustments
                 .filter { it.relatedSaleLineIdentity == null }
-                .map { it.identity.key() to SaleSessionTotalsCalculator.calculateAdjustmentAmount(it, copiedContent.saleLines) }
+                .map { orderLevelAdjustment ->
+                    orderLevelAdjustment.identity.key() to SaleSessionTotalsCalculator
+                        .calculateAdjustmentAmount(orderLevelAdjustment, copiedContent.saleLines)
+                }
         }.toMap()
+        val saleReferencesWithOrderLevelAdjustments = sourceSaleHeaders.indices
+            .filter { sourceIndex ->
+                copiedContents[sourceIndex].saleAdjustments.any { it.relatedSaleLineIdentity == null }
+            }
+            .map { sourceSaleHeaders[it].referenceNumber }
+            .toSet()
         return ConsolidationCopy(
-            consolidationSession, sourceSaleReferenceByLineKey, sourceSaleLinesBySaleId, orderLevelAmountByAdjustmentKey
+            consolidationSession,
+            sourceSaleReferenceByLineKey,
+            sourceSaleLinesBySaleId,
+            orderLevelAmountByAdjustmentKey,
+            saleReferencesWithOrderLevelAdjustments,
         )
     }
 

@@ -1,5 +1,7 @@
 package me.ezra_home.retail_software_solution.locations.business.sale.api
 
+import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import me.ezra_home.retail_software_solution.util.business.StringUtils
 import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
 import me.ezra_home.retail_software_solution.util.enums.PaymentStatus
 import me.ezra_home.retail_software_solution.locations.business.sale.SaleAssembler
@@ -48,6 +50,17 @@ class SaleUpdater(
         return saleRepository.saveAndFlush(sale).version
     }
 
+    fun updateNotesAtVersion(id: UUID, notes: String?, expectedVersion: Long?): Long {
+        val sale = saleLocker.lockAndGetSale(id)
+        if (expectedVersion == null || sale.version != expectedVersion) {
+            throw RtsGenericException(
+                "Sale ${sale.requiredReference()} has been modified since you opened it — please reload and try again"
+            )
+        }
+        sale.notes = notes
+        return saleRepository.saveAndFlush(sale).version
+    }
+
     fun voidSourcesOfConsolidation(sourceSaleIds: List<UUID>, consolidatedSaleReferenceNumber: String) {
         val sourceSales = saleLocker.lockAndGetSales(sourceSaleIds)
         voidLockedSales(sourceSales, consolidationVoidReason(consolidatedSaleReferenceNumber))
@@ -64,9 +77,18 @@ class SaleUpdater(
         saleValidator.guardCanVoid(sales)
         val (draftSales, confirmedSales) = sales.partition { it.status == SaleStatus.DRAFT }
         stockReserver.clearBySales(draftSales.map { it.id!! })
-        draftSales.forEach { it.status = SaleStatus.DISCARDED }
+        draftSales.forEach { draftSale ->
+            draftSale.status = SaleStatus.DISCARDED
+            draftSale.notes = notesWithDiscardReason(draftSale.notes, reason)
+        }
         if (confirmedSales.isNotEmpty()) voidConfirmedSales(confirmedSales, reason)
         saleRepository.saveAll(sales)
+    }
+
+    // A discarded draft has no void record, so the reason is kept where the sale's other notes are.
+    private fun notesWithDiscardReason(existingNotes: String?, reason: String): String? {
+        val discardNote = StringUtils.getValueOrNull(reason)?.let { "Discarded: $it" } ?: return existingNotes
+        return listOfNotNull(StringUtils.getValueOrNull(existingNotes), discardNote).joinToString("\n")
     }
 
     private fun voidConfirmedSales(confirmedSales: List<SaleEntity>, reason: String) {

@@ -37,6 +37,7 @@ class SaleSessionHeaderHandlerTest {
     )
 
     private val savedSaleId = UUID.randomUUID()
+    private val savedSaleVersion = 3L
 
     private fun session(
         kind: SaleSessionKind,
@@ -47,7 +48,7 @@ class SaleSessionHeaderHandlerTest {
             sessionId = sessionId,
             locationId = UUID.randomUUID(),
             saleId = saleId,
-            saleVersion = null,
+            saleVersion = savedSaleVersion.takeIf { saleId != null },
             productsVersion = 0L,
             productsReservedAtVersion = 0L,
             originalStatus = originalStatus,
@@ -107,8 +108,8 @@ class SaleSessionHeaderHandlerTest {
     }
 
     @Test
-    fun `notes on a draft stay in the session until it is saved`() {
-        session(SaleSessionKind.SALE, SaleStatus.DRAFT, savedSaleId)
+    fun `notes on a cart with no sale yet stay in the session until it is saved`() {
+        session(SaleSessionKind.SALE, SaleStatus.DRAFT, saleId = null)
 
         saleSessionHeaderHandler.update(sessionId, SaleSessionHeaderUpdateDto(notes = Optional.of("gate")))
 
@@ -116,13 +117,13 @@ class SaleSessionHeaderHandlerTest {
     }
 
     @Test
-    fun `notes on a confirmed, voided or discarded sale are written to the sale at once`() {
-        listOf(SaleStatus.CONFIRMED, SaleStatus.VOIDED, SaleStatus.DISCARDED).forEach { status ->
+    fun `notes on a sale that exists are written to it at once, whatever its status`() {
+        listOf(SaleStatus.DRAFT, SaleStatus.CONFIRMED, SaleStatus.VOIDED, SaleStatus.DISCARDED).forEach { status ->
             session(SaleSessionKind.SALE, status, savedSaleId)
 
             saleSessionHeaderHandler.update(sessionId, SaleSessionHeaderUpdateDto(notes = Optional.of("gate")))
 
-            verify(saleUpdater).updateNotes(savedSaleId, "gate")
+            verify(saleUpdater).updateNotesAtVersion(savedSaleId, "gate", savedSaleVersion)
             clearInvocations(saleUpdater)
         }
     }

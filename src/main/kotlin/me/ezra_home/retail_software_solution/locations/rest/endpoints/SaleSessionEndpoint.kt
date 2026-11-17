@@ -1,7 +1,7 @@
 package me.ezra_home.retail_software_solution.locations.rest.endpoints
 
 import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleConsolidationHandler
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleConsolidationSelectDto
+import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleConsolidationRequestDto
 import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionAdjustmentAddDto
 import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionAdjustmentHandler
 import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionHandler
@@ -47,9 +47,9 @@ class SaleSessionEndpoint(
         saleSessionHandler.start(sessionStartDto)
 
     @PostMapping("consolidate")
-    fun selectSalesToConsolidate(
-        @RequestBody saleConsolidationSelectDto: SaleConsolidationSelectDto
-    ): SaleSessionResponseDto = saleConsolidationHandler.select(saleConsolidationSelectDto)
+    fun consolidateSales(
+        @RequestBody saleConsolidationRequestDto: SaleConsolidationRequestDto
+    ): SaleSessionResponseDto = saleConsolidationHandler.consolidate(saleConsolidationRequestDto)
 
     @PostMapping("{sessionId}/generate-consolidated-sale")
     fun generateConsolidatedSale(@PathVariable sessionId: UUID): SaleSessionResponseDto =
