@@ -1,7 +1,7 @@
 # Authority — Rules & Expectations
 
 This document is the canonical reference for **how role-based
-authorization works** in RTSS. The design is a single pattern
+authorization works** in Easy Records. The design is a single pattern
 duplicated across three tiers, plus four single-responsibility
 orchestrator services (all in this package, `cross_tier/authority/`)
 that tie them together — `EffectiveAuthorizationService` (read),

@@ -1,4 +1,4 @@
-# RTSS — Kafka Messaging Patterns
+# Easy Records — Kafka Messaging Patterns
 
 Read this before adding a new event, producer, processor, consumer group, or any retry/DLT logic. See also `messaging/kafka/README.md` for why `transaction/` and `catalog/` are two separate pipelines and when to use each.
 

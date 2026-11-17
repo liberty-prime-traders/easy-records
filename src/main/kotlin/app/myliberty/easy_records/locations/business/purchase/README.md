@@ -1,7 +1,7 @@
 # Purchase Package — Rules & Expectations
 
 This document is the canonical reference for **how a purchase behaves** in
-RTSS. It is intended to be consumed by humans browsing the codebase **and**
+Easy Records. It is intended to be consumed by humans browsing the codebase **and**
 by RAG agents that need to answer questions like *"can a fully delivered
 purchase be canceled?"* without re-reading every class.
 

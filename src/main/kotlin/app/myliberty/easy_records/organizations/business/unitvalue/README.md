@@ -1,6 +1,6 @@
 # Unit Value Package — Rules & Expectations
 
-This document is the canonical reference for **how a unit of measure behaves** in RTSS. It is intended to be
+This document is the canonical reference for **how a unit of measure behaves** in Easy Records. It is intended to be
 consumed by humans browsing the codebase **and** by RAG agents that need to answer questions like *"which unit is
 stock counted in?"* without re-reading every class.
 

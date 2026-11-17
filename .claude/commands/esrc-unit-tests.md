@@ -1,4 +1,4 @@
-# RTSS — Unit Tests
+# Easy Records — Unit Tests
 
 Apply these rules to every test written or edited in this session. Read it before adding a test file, changing a
 constructor or data class that tests build, or fixing a failing test.
@@ -30,7 +30,7 @@ touched. Fix the type or the call, never suppress the warning.
 - Test names are backticked sentences that state the behavior, not the method:
   `` `a sale that holds two lines of the product is named once` ``.
 - One behavior per test. Build objects in small private helpers (`saleLine("2")`), not in every test.
-- Verbose names and no star imports, as in `/rtss-conventions`: `consolidationCopy`, not `copy`.
+- Verbose names and no star imports, as in `/esrc-conventions`: `consolidationCopy`, not `copy`.
 
 ## Assertions
 

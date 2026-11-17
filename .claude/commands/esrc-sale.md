@@ -1,4 +1,4 @@
-# RTSS — Sale & Sale Session Domain
+# Easy Records — Sale & Sale Session Domain
 
 Read this before touching anything in `sale/`, `sale_session/`, `sale_adjustment/`, or `sale_payment/`.
 Then read the relevant README before editing and update it after.

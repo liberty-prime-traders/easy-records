@@ -1,7 +1,7 @@
 # Sale Session Package — Rules & Expectations
 
 This document is the canonical reference for **how a sale session behaves** in
-RTSS. A sale session is the **only** path to creating or confirming a sale.
+Easy Records. A sale session is the **only** path to creating or confirming a sale.
 
 If you are about to change behavior inside this package, scan this file first
 and update it when the rule changes.

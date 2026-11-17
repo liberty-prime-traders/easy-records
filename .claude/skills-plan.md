@@ -1,11 +1,11 @@
-# RTSS Skills Plan
+# Easy Records Skills Plan
 
 Skills to load project context fast on future tasks. Each is a focused prompt file
 under `.claude/commands/` that you invoke as a slash command.
 
 ---
 
-## Skill 1 — `rtss-conventions`
+## Skill 1 — `esrc-conventions`
 
 **Trigger**: any task touching naming, comments, imports, formatting, or code style.
 
@@ -37,7 +37,7 @@ Build a skill for a package when **any two** of these are true:
 
 ### Current domain skills
 
-#### `rtss-sale`
+#### `esrc-sale`
 
 **Trigger**: any task in `locations/business/sale/` or `locations/business/sale_session/`
 
@@ -54,7 +54,7 @@ memory: `project_sale_readme`, `feedback_readmes_must_match`, `feedback_verifyin
 
 ---
 
-#### `rtss-purchase`
+#### `esrc-purchase`
 
 **Trigger**: any task in `locations/business/purchase/`
 
@@ -68,7 +68,7 @@ memory: `project_sale_readme`, `feedback_readmes_must_match`, `feedback_verifyin
 
 ---
 
-#### `rtss-fiscal`
+#### `esrc-fiscal`
 
 **Trigger**: any task in `organizations/business/fiscal_period/`
 
@@ -83,14 +83,14 @@ memory: `project_sale_readme`, `feedback_readmes_must_match`, `feedback_verifyin
 ### Convention for future domains
 
 When adding a new skill for a domain:
-1. Name it `rtss-<package-name>` (snake-case package name, drop the path prefix)
+1. Name it `esrc-<package-name>` (snake-case package name, drop the path prefix)
 2. Trigger on the package path
 3. Source from that package's `README.md` first, then memory
 4. Add an entry here under "Current domain skills"
 
 ---
 
-## Skill 3 — `rtss-db`
+## Skill 3 — `esrc-db`
 
 **Trigger**: any task touching Liquibase changesets, entities, repositories, constraints, or audit tables.
 
@@ -109,7 +109,7 @@ memory files: `feedback_liquibase_changeset_reuse`, `feedback_constraint_naming`
 
 ---
 
-## Skill 4 — `rtss-architecture`
+## Skill 4 — `esrc-architecture`
 
 **Trigger**: any task adding a new flow, cross-layer call, Kafka processor, or architectural seam.
 
@@ -130,20 +130,20 @@ memory files: `feedback_datetimes`, `feedback_checkpoint_discipline`, `feedback_
 
 ## Build order
 
-1. `rtss-conventions` — highest reuse, every task touches naming/style
-2. `rtss-db` — second most frequent; DB work is common
-3. `rtss-sale` — most active domain right now
-4. `rtss-purchase` — next most active
-5. `rtss-architecture` — needed when adding new flows or cross-layer wiring
-6. `rtss-fiscal` — build once `fiscal_period/README.md` has enough rules to warrant it
+1. `esrc-conventions` — highest reuse, every task touches naming/style
+2. `esrc-db` — second most frequent; DB work is common
+3. `esrc-sale` — most active domain right now
+4. `esrc-purchase` — next most active
+5. `esrc-architecture` — needed when adding new flows or cross-layer wiring
+6. `esrc-fiscal` — build once `fiscal_period/README.md` has enough rules to warrant it
 
-Each skill file is a Markdown prompt under `.claude/commands/rtss-<name>.md`.
+Each skill file is a Markdown prompt under `.claude/commands/esrc-<name>.md`.
 When invoked, it prints the relevant rules as a reminder and identifies which
 project files to read next.
 
 ---
 
-## Skill — `rtss-unit-tests`
+## Skill — `esrc-unit-tests`
 
 **Trigger**: any task that writes or edits a test.
 

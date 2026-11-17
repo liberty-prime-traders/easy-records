@@ -1,4 +1,4 @@
-# RTSS — Architecture Patterns
+# Easy Records — Architecture Patterns
 
 Read this when adding a new flow, cross-layer call, Kafka processor, or any new domain scaffolding.
 
@@ -20,6 +20,18 @@ Three independent datasources — `platform`, `organization`, `location` — eac
 - `ArchitectureTest.domainsShouldBeSelfContained` enforces this — it will fail if non-`api` classes are imported from outside the domain.
 - Never import from another domain's internal classes directly, even "just for a read".
 - Shared utilities (`util/`, `exceptions/`, etc.) are exempt from the boundary rule.
+
+## Product tags
+
+The platform hosts products on a shared core. Every domain package (`<tier>/business/<domain>` and `cross_tier/<domain>`)
+carries exactly one tag, `core`, `retail` or `billing`, listed in `ProductTags` in the test sources next to
+`ArchitectureTest`.
+
+- `core` depends on neither `retail` nor `billing`; `retail` and `billing` never depend on each other; `billing` may depend on `core`.
+- A new domain package fails `ArchitectureTest` until it is added to `ProductTags`.
+- `configuration/`, `messaging/`, `util/` and the `rest/` packages are infrastructure and carry no tag.
+- `ProductTags.allowedCoreToRetailDependencies` holds the existing core-to-retail dependencies. Never add an entry for new code; remove
+  an entry when its dependency goes.
 
 ## Insert flow
 

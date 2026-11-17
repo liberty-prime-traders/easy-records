@@ -1,4 +1,4 @@
-# RTSS — Purchase Domain
+# Easy Records — Purchase Domain
 
 Read this before touching anything in `purchase/`, `delivery/`, `supplier_payment/`, or `supplier_return/`.
 Then read `purchase/README.md` before editing and update it after.

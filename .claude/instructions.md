@@ -4,7 +4,7 @@ This file contains instructions for Claude, an AI language model developed by An
 
 Project Requirements:
 ----------------------
-- Retail Software Solution (RTSS) is a comprehensive retail management software designed to streamline operations for small to medium-sized retail businesses.
+- Easy Records is a platform that hosts products on a shared core. The retail product is a comprehensive retail management software designed to streamline operations for small to medium-sized retail businesses.
 - The overall goal is to create a user-friendly, efficient, and scalable solution that integrates various retail functions into a single platform.
 - The software should be modular, allowing organizations to customize features based on their specific needs.
 - The solution must support multi-location management, inventory tracking, sales reporting, customer relationship management, etc.
@@ -48,6 +48,9 @@ The order of execution is
 - For example, if prefix is "OR-" and next number is 42, reference number is "OR000042"
 - Create sequences, triggers, extensions, FKs, indexes in separate folders
 - Add entity, repository, service, controller classes as needed
+
+### Dense Tables
+- No mostly-null columns. Optional or subtype data goes in its own table keyed by the parent ID.
 
 ### Mapping
 - Use MapStruct for mapping between entities and DTOs
@@ -187,7 +190,7 @@ Update Flow
 ----------------
 - When responding to queries about the project, ensure that answers are tailored to the context of retail management software.
 - Provide explanations that are clear and concise, avoiding unnecessary technical jargon unless specifically requested.
-- Emphasize the modularity and scalability of the RTSS solution in responses.
+- Emphasize the modularity and scalability of the Easy Records platform in responses.
 - Use utils when available like StringUtils, DateTimes, etc
 - Avoid inline FQNs by using imports and constants everywhere. Do ask me if you ever want to use a FQDN inline
 - Avoid `map[key] ?: default` and similar patterns when the map is expected to contain the key. Use `map.getValue(key)` instead, which throws a clear exception if the key is missing.

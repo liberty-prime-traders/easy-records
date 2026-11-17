@@ -1,6 +1,6 @@
 # Sale Package — Rules & Expectations
 
-This document is the canonical reference for **how a sale behaves** in RTSS.
+This document is the canonical reference for **how a sale behaves** in Easy Records.
 It is intended to be consumed by humans browsing the codebase **and** by RAG
 agents that need to answer questions like *"can a draft be reassigned to a
 walk‑in customer?"* without re‑reading every class.

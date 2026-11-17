@@ -1,4 +1,4 @@
-# RTSS — Coding Conventions
+# Easy Records — Coding Conventions
 
 Apply these rules to every file touched in this session.
 
@@ -49,8 +49,12 @@ constants vs. `registry-entries/` seed files), add a test that diffs them in bot
 (missing + orphaned) instead of trusting the next person to remember to update both. If a missing
 entry is silent at runtime (no exception on the code path that would use it), also add a
 `StartupCheck` (see `startup_checks/api/`) so a real deployment fails fast instead of shipping a
-gap that's only found by accident. See `rtss-db`'s "Registry completeness" section for the
+gap that's only found by accident. See `esrc-db`'s "Registry completeness" section for the
 concrete instance of this pattern.
+
+## Product tags
+
+- Tag every new domain package in `ProductTags`, and keep dependencies pointing at `core`: see `esrc-architecture`'s "Product tags" section.
 
 ## Source of truth
 

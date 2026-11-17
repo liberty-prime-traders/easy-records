@@ -1,7 +1,7 @@
 # Identity Package — Rules & Expectations
 
 This document is the canonical reference for **how login and identity
-linking work** in RTSS. It covers `platform/business/identity` and the
+linking work** in Easy Records. It covers `platform/business/identity` and the
 session-token/security-context pieces it depends on
 (`configuration/security/SessionTokenService`,
 `configuration/filters/TenantFilter`).

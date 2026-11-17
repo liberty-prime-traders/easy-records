@@ -1,4 +1,4 @@
-# RTSS — Database Patterns
+# Easy Records — Database Patterns
 
 Apply these rules to every Liquibase, entity, or repository change.
 
@@ -39,6 +39,11 @@ Apply these rules to every Liquibase, entity, or repository change.
 - "Base" names only the product's base unit; never use it for a storage quantity.
 - Reference columns spell out "reference", never `ref`: `document_reference` (the document that
   created or moved the stock) and `detail_reference` (its line, nullable).
+
+## Dense tables
+
+- No mostly-null columns. Optional or subtype data goes in its own table keyed by the parent ID.
+- Entities and repositories follow the product dependency direction in `esrc-architecture`'s "Product tags" section.
 
 ## Changelog load order (within each layer)
 

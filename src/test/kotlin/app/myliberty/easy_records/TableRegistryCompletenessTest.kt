@@ -18,7 +18,7 @@ class TableRegistryCompletenessTest {
         assertTrue(
             missing.isEmpty(),
             "These tables are declared in TableNames but have no seed entry under registry_entries/: " +
-                "${missing.sorted()}. Add a table_registry insert changeset for each (see rtss-db)."
+                "${missing.sorted()}. Add a table_registry insert changeset for each (see esrc-db)."
         )
     }
 
@@ -38,7 +38,7 @@ class TableRegistryCompletenessTest {
         assertTrue(
             missing.isEmpty(),
             "These tables are declared in TableNames but have no TableName enum entry: " +
-                "${missing.sorted()}. Add an entry with the correct SchemaLevel (see rtss-db)."
+                "${missing.sorted()}. Add an entry with the correct SchemaLevel (see esrc-db)."
         )
     }
 

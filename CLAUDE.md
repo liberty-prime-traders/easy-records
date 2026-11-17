@@ -39,6 +39,10 @@ locations/      — location-scoped operations: sales, purchases, inventory, sto
 
 Each business domain lives under `*/business/<domain>/`. Anything not under `api/` is internal to that domain. **`ArchitectureTest` enforces this** — cross-domain access to non-`api` classes will fail the test suite. When cross-domain communication is needed, import from `<domain>/api/` only.
 
+### Products
+
+The platform hosts products on a shared core. Every domain package is tagged `core`, `retail` or, later, a billing tag (billing may split into more than one product, each tagged on its own); `core` depends on no product, and products never depend on each other. `ArchitectureTest` enforces the direction, and the tag list lives in `ProductTags` in the test sources next to it. A new domain package fails the build until it is tagged. Existing core-to-retail dependencies sit in an explicit allow-list in `ProductTags`; it only shrinks. Billing is planned and is defined outside this repo.
+
 ### Key locations domains
 
 | Domain                                          | What it owns                                                           |
