@@ -20,6 +20,28 @@ class ArchitectureTest {
         .that(areNonServiceDomainClasses())
         .should(onlyBeAccessedFromOwnDomainOrOutsideBusiness())
 
+    @ArchTest
+    val everyDomainShouldBeInExactlyOneProductTag: ArchRule = classes()
+        .that(areInsideADomain())
+        .should(beInExactlyOneProductTag())
+
+    @ArchTest
+    val coreShouldNotDependOnRetail: ArchRule = classes()
+        .that(areTaggedAs(ProductTag.CORE))
+        .should(notDependOnDomainsTaggedAs(ProductTag.RETAIL))
+
+    @ArchTest
+    val retailShouldNotDependOnBilling: ArchRule = classes()
+        .that(areTaggedAs(ProductTag.RETAIL))
+        .should(notDependOnDomainsTaggedAs(ProductTag.BILLING))
+
+    // Passes with no billing domains; the empty-should allowance keeps ArchUnit from failing on zero matched classes.
+    @ArchTest
+    val billingShouldNotDependOnRetail: ArchRule = classes()
+        .that(areTaggedAs(ProductTag.BILLING))
+        .should(notDependOnDomainsTaggedAs(ProductTag.RETAIL))
+        .allowEmptyShould(true)
+
     /** A quantity is converted only by multiplying with a captured ratio inside the quantity module. */
     @ArchTest
     val noQuantityMathOnConversionRatioOutsideUtil: ArchRule = classes()
@@ -63,6 +85,49 @@ class ArchitectureTest {
                 .forEach { call ->
                     events.add(SimpleConditionEvent.violated(call, "${call.description} reads a ConversionRatio part outside the quantity module"))
                 }
+        }
+    }
+
+    private fun areInsideADomain() = object : DescribedPredicate<JavaClass>("are inside a domain package") {
+        override fun test(javaClass: JavaClass) = ProductTags.domainOf(javaClass.packageName) != null
+    }
+
+    private fun areTaggedAs(productTag: ProductTag) = object : DescribedPredicate<JavaClass>("are tagged $productTag") {
+        override fun test(javaClass: JavaClass): Boolean {
+            val domain = ProductTags.domainOf(javaClass.packageName) ?: return false
+            return ProductTags.tagOf(domain) == productTag
+        }
+    }
+
+    private fun beInExactlyOneProductTag() = object : ArchCondition<JavaClass>(
+        "be in exactly one of the core, retail or billing sets in ProductTags"
+    ) {
+        override fun check(javaClass: JavaClass, events: ConditionEvents) {
+            val domain = ProductTags.domainOf(javaClass.packageName) ?: return
+            if (ProductTags.tagsOf(domain).size != 1) {
+                events.add(SimpleConditionEvent.violated(
+                    javaClass,
+                    "${javaClass.name} is in domain $domain, which has ${ProductTags.tagsOf(domain).size} product tags"
+                ))
+            }
+        }
+    }
+
+    private fun notDependOnDomainsTaggedAs(forbiddenTag: ProductTag) = object : ArchCondition<JavaClass>(
+        "not depend on $forbiddenTag domains"
+    ) {
+        override fun check(javaClass: JavaClass, events: ConditionEvents) {
+            val dependentDomain = ProductTags.domainOf(javaClass.packageName) ?: return
+            javaClass.directDependenciesFromSelf.forEach { dependency ->
+                val dependedOnDomain = ProductTags.domainOf(dependency.targetClass.packageName)
+                    ?: return@forEach
+                val reachesForbiddenTag = dependedOnDomain != dependentDomain &&
+                    ProductTags.tagOf(dependedOnDomain) == forbiddenTag
+                val isAllowListed = (dependentDomain to dependedOnDomain) in ProductTags.allowedCoreToRetailDependencies
+                if (reachesForbiddenTag && !isAllowListed) {
+                    events.add(SimpleConditionEvent.violated(javaClass, dependency.description))
+                }
+            }
         }
     }
 
