@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.organizations.business.daily_business_summary
+package app.myliberty.easy_records.organizations.business.retail.daily_business_summary
 
-import app.myliberty.easy_records.organizations.business.daily_business_summary.api.PeriodStatus
+import app.myliberty.easy_records.organizations.business.retail.daily_business_summary.api.PeriodStatus
 import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import java.time.LocalDate

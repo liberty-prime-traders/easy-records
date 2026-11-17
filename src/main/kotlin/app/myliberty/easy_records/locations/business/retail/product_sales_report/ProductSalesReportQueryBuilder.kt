@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.locations.business.product_sales_report
+package app.myliberty.easy_records.locations.business.retail.product_sales_report
 
-import app.myliberty.easy_records.locations.business.sale.api.SaleLineCogsStatus
-import app.myliberty.easy_records.locations.business.sale.api.SaleStatus
-import app.myliberty.easy_records.organizations.business.adjustment_reason.api.AdjustmentDirection
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleLineCogsStatus
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleStatus
+import app.myliberty.easy_records.organizations.business.retail.adjustment_reason.api.AdjustmentDirection
 import app.myliberty.easy_records.util.model.TableNames
 import app.myliberty.easy_records.util.queries.AnyListFilterStrategy
 import app.myliberty.easy_records.util.queries.DateRangeFilterStrategy

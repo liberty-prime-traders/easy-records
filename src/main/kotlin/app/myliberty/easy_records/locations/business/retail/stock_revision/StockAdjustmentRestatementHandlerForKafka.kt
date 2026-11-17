@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.locations.business.stock_revision
+package app.myliberty.easy_records.locations.business.retail.stock_revision
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
-import app.myliberty.easy_records.locations.business.stock.api.read.StockMovementFetcher
+import app.myliberty.easy_records.locations.business.retail.stock.api.read.StockMovementFetcher
 import app.myliberty.easy_records.messaging.kafka.transaction.events.StockAdjustmentCostRestatedEvent
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Component

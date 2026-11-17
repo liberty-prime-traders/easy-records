@@ -5,7 +5,7 @@ import app.myliberty.easy_records.cucumber.support.ApiClient
 import app.myliberty.easy_records.cucumber.support.DtoConverter
 import app.myliberty.easy_records.cucumber.support.context.InjectContext
 import app.myliberty.easy_records.cucumber.support.context.TransientKey
-import app.myliberty.easy_records.organizations.business.product.api.OrganizationProductInsertDto
+import app.myliberty.easy_records.organizations.business.retail.product.api.OrganizationProductInsertDto
 import org.springframework.stereotype.Component
 
 @Component

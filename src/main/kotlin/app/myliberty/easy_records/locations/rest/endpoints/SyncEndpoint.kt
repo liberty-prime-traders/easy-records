@@ -1,11 +1,11 @@
 package app.myliberty.easy_records.locations.rest.endpoints
 
-import app.myliberty.easy_records.locations.business.catalog_sync.api.SyncLogUpdater
-import app.myliberty.easy_records.locations.business.catalog_sync.api.SyncInitiateType
-import app.myliberty.easy_records.locations.business.catalog_sync.api.SyncInitiator
-import app.myliberty.easy_records.locations.business.catalog_sync.api.SyncLogFetcher
-import app.myliberty.easy_records.locations.business.catalog_sync.api.SyncLogResponseDto
-import app.myliberty.easy_records.locations.business.catalog_sync.api.SyncRequestDto
+import app.myliberty.easy_records.locations.business.retail.catalog_sync.api.SyncLogUpdater
+import app.myliberty.easy_records.locations.business.retail.catalog_sync.api.SyncInitiateType
+import app.myliberty.easy_records.locations.business.retail.catalog_sync.api.SyncInitiator
+import app.myliberty.easy_records.locations.business.retail.catalog_sync.api.SyncLogFetcher
+import app.myliberty.easy_records.locations.business.retail.catalog_sync.api.SyncLogResponseDto
+import app.myliberty.easy_records.locations.business.retail.catalog_sync.api.SyncRequestDto
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable

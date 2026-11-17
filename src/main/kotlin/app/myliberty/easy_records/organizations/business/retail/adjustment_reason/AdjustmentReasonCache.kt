@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.organizations.business.adjustment_reason
+package app.myliberty.easy_records.organizations.business.retail.adjustment_reason
 
 import app.myliberty.easy_records.configuration.cache.CacheNames
 import app.myliberty.easy_records.configuration.cache.CacheSchemaLevel
-import app.myliberty.easy_records.organizations.business.adjustment_reason.api.AdjustmentReasonInsertDto
+import app.myliberty.easy_records.organizations.business.retail.adjustment_reason.api.AdjustmentReasonInsertDto
 import app.myliberty.easy_records.util.enums.SchemaLevel
 import org.springframework.cache.annotation.CacheConfig
 import org.springframework.cache.annotation.CacheEvict

@@ -1,13 +1,13 @@
-package app.myliberty.easy_records.organizations.business.product_bulk_import
+package app.myliberty.easy_records.organizations.business.retail.product_bulk_import
 
-import app.myliberty.easy_records.organizations.business.product.api.OrganizationProductService
-import app.myliberty.easy_records.organizations.business.product_bulk_import.api.BulkProductImportRequestDto
-import app.myliberty.easy_records.organizations.business.product_bulk_import.api.ProductBulkInsertDto
-import app.myliberty.easy_records.organizations.business.product_bulk_import.api.ProductCategoryBulkInsertDto
-import app.myliberty.easy_records.organizations.business.product_bulk_import.api.ProductGroupBulkInsertDto
-import app.myliberty.easy_records.organizations.business.product_category.api.ProductCategoryService
-import app.myliberty.easy_records.organizations.business.product_group.api.ProductGroupService
-import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueFetcher
+import app.myliberty.easy_records.organizations.business.retail.product.api.OrganizationProductService
+import app.myliberty.easy_records.organizations.business.retail.product_bulk_import.api.BulkProductImportRequestDto
+import app.myliberty.easy_records.organizations.business.retail.product_bulk_import.api.ProductBulkInsertDto
+import app.myliberty.easy_records.organizations.business.retail.product_bulk_import.api.ProductCategoryBulkInsertDto
+import app.myliberty.easy_records.organizations.business.retail.product_bulk_import.api.ProductGroupBulkInsertDto
+import app.myliberty.easy_records.organizations.business.retail.product_category.api.ProductCategoryService
+import app.myliberty.easy_records.organizations.business.retail.product_group.api.ProductGroupService
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueFetcher
 import app.myliberty.easy_records.util.business.StringUtils
 import org.springframework.stereotype.Component
 

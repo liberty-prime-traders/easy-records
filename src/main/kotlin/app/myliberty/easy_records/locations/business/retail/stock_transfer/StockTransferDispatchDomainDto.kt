@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.locations.business.stock_transfer
+package app.myliberty.easy_records.locations.business.retail.stock_transfer
 
-import app.myliberty.easy_records.organizations.business.stock_transfer.api.StockTransferStatus
+import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferStatus
 import java.time.OffsetDateTime
 import java.util.UUID
 

@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.business.delivery.api
+package app.myliberty.easy_records.locations.business.retail.delivery.api
 
 import app.myliberty.easy_records.util.exceptions.BlockingProblem
 import app.myliberty.easy_records.util.quantity.ExactQuantity

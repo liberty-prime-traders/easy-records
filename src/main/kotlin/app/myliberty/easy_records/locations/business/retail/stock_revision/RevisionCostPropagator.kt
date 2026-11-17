@@ -1,11 +1,11 @@
-package app.myliberty.easy_records.locations.business.stock_revision
+package app.myliberty.easy_records.locations.business.retail.stock_revision
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
-import app.myliberty.easy_records.locations.business.delivery.api.ReplacementDeliveryLineDto
-import app.myliberty.easy_records.locations.business.sale.api.SaleCostRestater
-import app.myliberty.easy_records.locations.business.sale.api.SaleLineCostChange
-import app.myliberty.easy_records.locations.business.stock_adjustment.api.StockAdjustmentCostChange
-import app.myliberty.easy_records.locations.business.stock_adjustment.api.StockAdjustmentCostRestater
+import app.myliberty.easy_records.locations.business.retail.delivery.api.ReplacementDeliveryLineDto
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleCostRestater
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleLineCostChange
+import app.myliberty.easy_records.locations.business.retail.stock_adjustment.api.StockAdjustmentCostChange
+import app.myliberty.easy_records.locations.business.retail.stock_adjustment.api.StockAdjustmentCostRestater
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Propagation
 import java.util.UUID

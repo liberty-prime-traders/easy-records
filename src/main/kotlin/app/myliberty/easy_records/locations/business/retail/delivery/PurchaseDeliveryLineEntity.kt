@@ -1,11 +1,11 @@
-package app.myliberty.easy_records.locations.business.delivery
+package app.myliberty.easy_records.locations.business.retail.delivery
 
 import jakarta.persistence.Column
 import jakarta.persistence.Convert
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
-import app.myliberty.easy_records.locations.business.purchase.api.delivery.PurchaseDeliveryLineStatus
-import app.myliberty.easy_records.locations.business.purchase.api.delivery.PurchaseDeliveryLineStatusConverter
+import app.myliberty.easy_records.locations.business.retail.purchase.api.delivery.PurchaseDeliveryLineStatus
+import app.myliberty.easy_records.locations.business.retail.purchase.api.delivery.PurchaseDeliveryLineStatusConverter
 import app.myliberty.easy_records.util.annotations.HasReference
 import app.myliberty.easy_records.util.business.Decimals
 import app.myliberty.easy_records.util.model.HasReferenceEntity

@@ -1,12 +1,12 @@
 package app.myliberty.easy_records.locations.rest.endpoints
 
-import app.myliberty.easy_records.locations.business.delivery.api.PurchaseDeliveryCreateDto
-import app.myliberty.easy_records.locations.business.delivery.api.PurchaseDeliveryService
-import app.myliberty.easy_records.locations.business.purchase.api.PurchaseResponseDto
-import app.myliberty.easy_records.locations.business.stock_revision.api.DeliveryLineRevisionInitiator
-import app.myliberty.easy_records.locations.business.stock_revision.api.DeliveryLineRevisionPreviewDto
-import app.myliberty.easy_records.locations.business.stock_revision.api.DeliveryLineRevisionPreviewer
-import app.myliberty.easy_records.locations.business.stock_revision.api.DeliveryLineRevisionRequest
+import app.myliberty.easy_records.locations.business.retail.delivery.api.PurchaseDeliveryCreateDto
+import app.myliberty.easy_records.locations.business.retail.delivery.api.PurchaseDeliveryService
+import app.myliberty.easy_records.locations.business.retail.purchase.api.PurchaseResponseDto
+import app.myliberty.easy_records.locations.business.retail.stock_revision.api.DeliveryLineRevisionInitiator
+import app.myliberty.easy_records.locations.business.retail.stock_revision.api.DeliveryLineRevisionPreviewDto
+import app.myliberty.easy_records.locations.business.retail.stock_revision.api.DeliveryLineRevisionPreviewer
+import app.myliberty.easy_records.locations.business.retail.stock_revision.api.DeliveryLineRevisionRequest
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping

@@ -1,9 +1,9 @@
 package app.myliberty.easy_records.organizations.rest.endpoints
 
-import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.StockMovementReasonInsertDto
-import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.StockMovementReasonResponseDto
-import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.StockMovementReasonService
-import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.StockMovementReasonUpdateDto
+import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.StockMovementReasonInsertDto
+import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.StockMovementReasonResponseDto
+import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.StockMovementReasonService
+import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.StockMovementReasonUpdateDto
 import org.springframework.http.HttpStatus
 import org.springframework.http.HttpStatusCode
 import org.springframework.http.ResponseEntity

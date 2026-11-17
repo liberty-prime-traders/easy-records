@@ -1,16 +1,16 @@
-package app.myliberty.easy_records.locations.business.sale_session
+package app.myliberty.easy_records.locations.business.retail.sale_session
 
 import app.myliberty.easy_records.configuration.session.LocationSession
 import app.myliberty.easy_records.configuration.session.OrgSession
 import app.myliberty.easy_records.configuration.session.SessionContext
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
-import app.myliberty.easy_records.locations.business.location_product.api.LocationProductService
-import app.myliberty.easy_records.locations.business.sale.api.SaleDataFetcher
-import app.myliberty.easy_records.locations.business.sale.api.SaleHeaderDto
-import app.myliberty.easy_records.locations.business.sale.api.SaleStatus
-import app.myliberty.easy_records.locations.business.sale_adjustment.api.SaleAdjustmentFetcher
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSession
-import app.myliberty.easy_records.organizations.business.adjustment_reason.api.AdjustmentReasonService
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductService
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleDataFetcher
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleHeaderDto
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleStatus
+import app.myliberty.easy_records.locations.business.retail.sale_adjustment.api.SaleAdjustmentFetcher
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSession
+import app.myliberty.easy_records.organizations.business.retail.adjustment_reason.api.AdjustmentReasonService
 import app.myliberty.easy_records.support.WithDefaultOrganizationSession
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.junit.jupiter.api.Assertions.assertEquals

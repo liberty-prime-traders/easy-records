@@ -1,13 +1,13 @@
-package app.myliberty.easy_records.organizations.business.unitconversion
+package app.myliberty.easy_records.organizations.business.retail.unitconversion
 
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
-import app.myliberty.easy_records.organizations.business.unitconversion.api.ConversionTargetDto
-import app.myliberty.easy_records.organizations.business.unitconversion.api.UnitConversionGraph
-import app.myliberty.easy_records.organizations.business.unitgroup.api.UnitGroupDataFetcher
-import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitChainNode
-import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitChainResolver
-import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueFetcher
-import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueResponseDto
+import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.ConversionTargetDto
+import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.UnitConversionGraph
+import app.myliberty.easy_records.organizations.business.retail.unitgroup.api.UnitGroupDataFetcher
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitChainNode
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitChainResolver
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueFetcher
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueResponseDto
 import app.myliberty.easy_records.util.business.ConversionRatio
 import app.myliberty.easy_records.util.quantity.BreakdownUnit
 import org.springframework.stereotype.Component

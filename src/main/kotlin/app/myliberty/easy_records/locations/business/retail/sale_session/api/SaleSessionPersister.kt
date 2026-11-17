@@ -1,16 +1,16 @@
-package app.myliberty.easy_records.locations.business.sale_session.api
+package app.myliberty.easy_records.locations.business.retail.sale_session.api
 
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
-import app.myliberty.easy_records.locations.business.sale.api.SaleSaveResult
-import app.myliberty.easy_records.locations.business.sale.api.ConfirmedSalePersister
-import app.myliberty.easy_records.locations.business.sale.api.DraftSalePersister
-import app.myliberty.easy_records.locations.business.sale.api.SaleUpdater
-import app.myliberty.easy_records.locations.business.sale.api.SaleVoidCreateDto
-import app.myliberty.easy_records.locations.business.sale_session.SaleSessionAssembler
-import app.myliberty.easy_records.locations.business.sale_session.SessionToSaveRequestMapper
-import app.myliberty.easy_records.locations.business.sale_session.SaleSessionStore
-import app.myliberty.easy_records.locations.business.sale_session.SaleSessionTotalsCalculator
-import app.myliberty.easy_records.locations.business.sale_session.SaleSessionValidator
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleSaveResult
+import app.myliberty.easy_records.locations.business.retail.sale.api.ConfirmedSalePersister
+import app.myliberty.easy_records.locations.business.retail.sale.api.DraftSalePersister
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleUpdater
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleVoidCreateDto
+import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionAssembler
+import app.myliberty.easy_records.locations.business.retail.sale_session.SessionToSaveRequestMapper
+import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionStore
+import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionTotalsCalculator
+import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionValidator
 import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.business.StringUtils
 import org.springframework.stereotype.Service

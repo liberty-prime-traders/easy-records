@@ -1,13 +1,13 @@
-package app.myliberty.easy_records.locations.business.sale_session.api
+package app.myliberty.easy_records.locations.business.retail.sale_session.api
 
-import app.myliberty.easy_records.locations.business.sale.api.SaleStatus
-import app.myliberty.easy_records.locations.business.sale.api.SaleUpdater
-import app.myliberty.easy_records.locations.business.sale_session.SaleSessionStore
-import app.myliberty.easy_records.locations.business.sale_session.SaleSessionUpdateFinalizer
-import app.myliberty.easy_records.locations.business.sale_session.SaleSessionValidator
-import app.myliberty.easy_records.organizations.business.adjustment_reason.api.AdjustmentReasonService
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleStatus
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleUpdater
+import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionStore
+import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionUpdateFinalizer
+import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionValidator
+import app.myliberty.easy_records.organizations.business.retail.adjustment_reason.api.AdjustmentReasonService
 import app.myliberty.easy_records.organizations.business.contact.api.ContactService
-import app.myliberty.easy_records.locations.business.location_product.api.LocationProductService
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductService
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test

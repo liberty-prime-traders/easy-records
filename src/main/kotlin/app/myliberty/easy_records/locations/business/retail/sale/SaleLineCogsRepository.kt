@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.locations.business.sale
+package app.myliberty.easy_records.locations.business.retail.sale
 
-import app.myliberty.easy_records.locations.business.sale.api.SaleLineCogsStatus
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleLineCogsStatus
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param

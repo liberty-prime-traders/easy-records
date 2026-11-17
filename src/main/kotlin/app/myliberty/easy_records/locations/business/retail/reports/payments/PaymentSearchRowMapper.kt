@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.locations.business.reports.payments
+package app.myliberty.easy_records.locations.business.retail.reports.payments
 
 import jakarta.persistence.Tuple
-import app.myliberty.easy_records.locations.business.reports.payments.api.PaymentType
+import app.myliberty.easy_records.locations.business.retail.reports.payments.api.PaymentType
 import app.myliberty.easy_records.util.business.mappers.DateQualifier
 import java.math.BigDecimal
 import java.time.Instant

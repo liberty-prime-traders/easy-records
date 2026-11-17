@@ -1,9 +1,9 @@
 package app.myliberty.easy_records.organizations.rest.endpoints
 
-import app.myliberty.easy_records.organizations.business.product_group.api.ProductGroupInsertDto
-import app.myliberty.easy_records.organizations.business.product_group.api.ProductGroupResponseDto
-import app.myliberty.easy_records.organizations.business.product_group.api.ProductGroupService
-import app.myliberty.easy_records.organizations.business.product_group.api.ProductGroupUpdateDto
+import app.myliberty.easy_records.organizations.business.retail.product_group.api.ProductGroupInsertDto
+import app.myliberty.easy_records.organizations.business.retail.product_group.api.ProductGroupResponseDto
+import app.myliberty.easy_records.organizations.business.retail.product_group.api.ProductGroupService
+import app.myliberty.easy_records.organizations.business.retail.product_group.api.ProductGroupUpdateDto
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping

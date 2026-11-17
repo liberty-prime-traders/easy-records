@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.locations.business.stock_transfer
+package app.myliberty.easy_records.locations.business.retail.stock_transfer
 
 import app.myliberty.easy_records.support.WithDefaultOrganizationSession
-import app.myliberty.easy_records.locations.business.stock.api.fifo.FifoLayer
-import app.myliberty.easy_records.locations.business.stock.api.fifo.StockEntryFifoDto
+import app.myliberty.easy_records.locations.business.retail.stock.api.fifo.FifoLayer
+import app.myliberty.easy_records.locations.business.retail.stock.api.fifo.StockEntryFifoDto
 import app.myliberty.easy_records.util.business.Decimals
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import app.myliberty.easy_records.util.quantity.BreakdownUnit

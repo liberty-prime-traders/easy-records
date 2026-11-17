@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.locations.business.purchase.search
+package app.myliberty.easy_records.locations.business.retail.purchase.search
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
-import app.myliberty.easy_records.locations.business.purchase.PurchaseEntity
-import app.myliberty.easy_records.locations.business.purchase.api.search.PurchaseSearchParameters
+import app.myliberty.easy_records.locations.business.retail.purchase.PurchaseEntity
+import app.myliberty.easy_records.locations.business.retail.purchase.api.search.PurchaseSearchParameters
 import app.myliberty.easy_records.util.queries.KeysetSearchCursor
 import org.springframework.stereotype.Component
 

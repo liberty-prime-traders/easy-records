@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.cross_tier.product.search.common.filters
+package app.myliberty.easy_records.cross_tier.retail.product.search.common.filters
 
-import app.myliberty.easy_records.cross_tier.product.search.common.Aliases.ColumnNames.CrossTierProduct
-import app.myliberty.easy_records.cross_tier.product.search.common.ParameterNames.EXCLUDE_IDS
+import app.myliberty.easy_records.cross_tier.retail.product.search.common.Aliases.ColumnNames.CrossTierProduct
+import app.myliberty.easy_records.cross_tier.retail.product.search.common.ParameterNames.EXCLUDE_IDS
 import app.myliberty.easy_records.util.queries.FilterStrategy
 import app.myliberty.easy_records.util.queries.QueryBuilderContext
 import java.util.UUID

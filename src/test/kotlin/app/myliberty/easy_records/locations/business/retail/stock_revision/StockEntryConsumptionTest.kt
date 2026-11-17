@@ -1,9 +1,9 @@
-package app.myliberty.easy_records.locations.business.stock_revision
+package app.myliberty.easy_records.locations.business.retail.stock_revision
 
 import java.math.BigDecimal
 import java.time.OffsetDateTime
 import java.util.UUID
-import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.MovementType
+import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.MovementType
 import app.myliberty.easy_records.util.quantity.ExactQuantity
 import app.myliberty.easy_records.util.quantity.QuantityAsEntered
 import org.junit.jupiter.api.Assertions.assertEquals

@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.locations.business.stock_adjustment.api
+package app.myliberty.easy_records.locations.business.retail.stock_adjustment.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
-import app.myliberty.easy_records.locations.business.stock_adjustment.StockAdjustmentCategoryRules
-import app.myliberty.easy_records.locations.business.stock_adjustment.StockAdjustmentRepository
+import app.myliberty.easy_records.locations.business.retail.stock_adjustment.StockAdjustmentCategoryRules
+import app.myliberty.easy_records.locations.business.retail.stock_adjustment.StockAdjustmentRepository
 import org.springframework.stereotype.Service
 
 @Service

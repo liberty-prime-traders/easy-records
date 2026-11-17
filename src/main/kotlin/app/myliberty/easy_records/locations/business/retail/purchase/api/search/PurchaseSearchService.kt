@@ -1,13 +1,13 @@
-package app.myliberty.easy_records.locations.business.purchase.api.search
+package app.myliberty.easy_records.locations.business.retail.purchase.api.search
 
-import app.myliberty.easy_records.locations.business.purchase.api.PurchaseResponseDto
+import app.myliberty.easy_records.locations.business.retail.purchase.api.PurchaseResponseDto
 import app.myliberty.easy_records.util.enums.PaymentStatus
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
-import app.myliberty.easy_records.locations.business.purchase.PurchaseAssembler
-import app.myliberty.easy_records.locations.business.purchase.search.PurchasePaymentStatusSummaryRawRow
-import app.myliberty.easy_records.locations.business.purchase.search.PurchaseSearchFetcher
-import app.myliberty.easy_records.locations.business.purchase.search.PurchaseSearchValidator
-import app.myliberty.easy_records.locations.business.purchase.search.PurchaseSupplierSummaryRawRow
+import app.myliberty.easy_records.locations.business.retail.purchase.PurchaseAssembler
+import app.myliberty.easy_records.locations.business.retail.purchase.search.PurchasePaymentStatusSummaryRawRow
+import app.myliberty.easy_records.locations.business.retail.purchase.search.PurchaseSearchFetcher
+import app.myliberty.easy_records.locations.business.retail.purchase.search.PurchaseSearchValidator
+import app.myliberty.easy_records.locations.business.retail.purchase.search.PurchaseSupplierSummaryRawRow
 import app.myliberty.easy_records.organizations.business.contact.api.ContactService
 import app.myliberty.easy_records.util.paging.PageRequest
 import app.myliberty.easy_records.util.paging.PageResponse

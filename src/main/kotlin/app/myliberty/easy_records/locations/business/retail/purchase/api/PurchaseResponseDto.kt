@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.locations.business.purchase.api
+package app.myliberty.easy_records.locations.business.retail.purchase.api
 
 import app.myliberty.easy_records.util.enums.PaymentStatus
-import app.myliberty.easy_records.locations.business.delivery.api.PurchaseDeliveryResponseDto
+import app.myliberty.easy_records.locations.business.retail.delivery.api.PurchaseDeliveryResponseDto
 import java.math.BigDecimal
 import java.time.OffsetDateTime
 import java.util.UUID

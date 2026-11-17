@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.product_group.api
+package app.myliberty.easy_records.organizations.business.retail.product_group.api
 
 import java.time.OffsetDateTime
 import java.util.UUID

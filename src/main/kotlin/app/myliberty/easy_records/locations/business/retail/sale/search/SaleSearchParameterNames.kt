@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.business.sale.search
+package app.myliberty.easy_records.locations.business.retail.sale.search
 
 object SaleSearchParameterNames {
   const val CREATED_FROM = "createdFrom"

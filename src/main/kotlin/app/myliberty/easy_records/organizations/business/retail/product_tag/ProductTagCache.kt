@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.product_tag
+package app.myliberty.easy_records.organizations.business.retail.product_tag
 
 import app.myliberty.easy_records.configuration.cache.CacheNames
 import app.myliberty.easy_records.configuration.cache.CacheSchemaLevel

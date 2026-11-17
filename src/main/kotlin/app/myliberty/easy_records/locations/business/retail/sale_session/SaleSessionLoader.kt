@@ -1,10 +1,10 @@
-package app.myliberty.easy_records.locations.business.sale_session
+package app.myliberty.easy_records.locations.business.retail.sale_session
 
-import app.myliberty.easy_records.locations.business.sale.api.SaleDataFetcher
-import app.myliberty.easy_records.locations.business.sale_adjustment.api.SaleAdjustmentFetcher
-import app.myliberty.easy_records.locations.business.sale_payment.api.SalePaymentFetcher
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSession
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionHeader
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleDataFetcher
+import app.myliberty.easy_records.locations.business.retail.sale_adjustment.api.SaleAdjustmentFetcher
+import app.myliberty.easy_records.locations.business.retail.sale_payment.api.SalePaymentFetcher
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSession
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionHeader
 import org.springframework.stereotype.Component
 import java.util.UUID
 

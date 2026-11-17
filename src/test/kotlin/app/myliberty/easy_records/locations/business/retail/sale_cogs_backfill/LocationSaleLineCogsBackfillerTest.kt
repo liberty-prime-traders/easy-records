@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.locations.business.sale_cogs_backfill
+package app.myliberty.easy_records.locations.business.retail.sale_cogs_backfill
 
-import app.myliberty.easy_records.locations.business.sale.api.SaleLineCogsBackfillCandidate
-import app.myliberty.easy_records.locations.business.sale.api.SaleLineCogsBackfillStore
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleLineCogsBackfillCandidate
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleLineCogsBackfillStore
 import app.myliberty.easy_records.util.business.reference_number.ReferenceNumberGenerator
 import app.myliberty.easy_records.util.model.TableName
 import org.junit.jupiter.api.Assertions.assertEquals

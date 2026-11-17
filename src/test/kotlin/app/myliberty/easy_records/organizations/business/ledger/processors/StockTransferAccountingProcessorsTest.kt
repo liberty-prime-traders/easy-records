@@ -12,9 +12,9 @@ import app.myliberty.easy_records.organizations.business.ledger.api.LedgerPostin
 import app.myliberty.easy_records.organizations.business.ledger.api.LedgerSourceType
 import app.myliberty.easy_records.organizations.business.ledger.helpers.LedgerPostingGate
 import app.myliberty.easy_records.organizations.business.ledger.helpers.StockTransferLedgerPostings
-import app.myliberty.easy_records.organizations.business.stock_transfer.api.StockTransferOrderDataFetcher
-import app.myliberty.easy_records.organizations.business.stock_transfer.api.StockTransferOrderDomainDto
-import app.myliberty.easy_records.organizations.business.stock_transfer.api.StockTransferStatus
+import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferOrderDataFetcher
+import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferOrderDomainDto
+import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferStatus
 import app.myliberty.easy_records.util.business.Money
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.junit.jupiter.api.Assertions.assertEquals

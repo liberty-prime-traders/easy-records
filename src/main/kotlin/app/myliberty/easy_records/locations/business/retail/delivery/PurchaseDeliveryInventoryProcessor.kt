@@ -1,10 +1,10 @@
-package app.myliberty.easy_records.locations.business.delivery
+package app.myliberty.easy_records.locations.business.retail.delivery
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
-import app.myliberty.easy_records.locations.business.location_product.api.LastPurchaseCostUpdateDto
-import app.myliberty.easy_records.locations.business.location_product.api.LocationProductService
-import app.myliberty.easy_records.locations.business.purchase.api.delivery.PurchaseDeliveryStatus
-import app.myliberty.easy_records.locations.business.stock.api.updater.PurchaseDeliveryStockUpdater
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LastPurchaseCostUpdateDto
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductService
+import app.myliberty.easy_records.locations.business.retail.purchase.api.delivery.PurchaseDeliveryStatus
+import app.myliberty.easy_records.locations.business.retail.stock.api.updater.PurchaseDeliveryStockUpdater
 import app.myliberty.easy_records.messaging.kafka.transaction.events.PurchaseDeliveredEvent
 import app.myliberty.easy_records.messaging.kafka.transaction.processors.InventoryEventProcessor
 import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException

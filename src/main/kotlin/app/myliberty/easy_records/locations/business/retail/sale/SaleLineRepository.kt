@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.locations.business.sale
+package app.myliberty.easy_records.locations.business.retail.sale
 
-import app.myliberty.easy_records.locations.business.sale.api.SaleLineCogsBackfillCandidate
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleLineCogsBackfillCandidate
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
@@ -20,7 +20,7 @@ interface SaleLineRepository : JpaRepository<SaleLineEntity, UUID> {
 
     @Query(
         """
-        SELECT NEW app.myliberty.easy_records.locations.business.sale.api.SaleLineCogsBackfillCandidate(
+        SELECT NEW app.myliberty.easy_records.locations.business.retail.sale.api.SaleLineCogsBackfillCandidate(
             saleLine.id, saleLine.cogsTotal, sale.dateSold)
         FROM SaleLineEntity saleLine
         JOIN SaleEntity sale ON sale.id = saleLine.saleId

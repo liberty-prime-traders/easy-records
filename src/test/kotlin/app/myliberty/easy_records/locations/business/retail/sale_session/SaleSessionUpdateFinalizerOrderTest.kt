@@ -1,15 +1,15 @@
-package app.myliberty.easy_records.locations.business.sale_session
+package app.myliberty.easy_records.locations.business.retail.sale_session
 
 import app.myliberty.easy_records.configuration.session.LocationSession
 import app.myliberty.easy_records.configuration.session.OrgSession
 import app.myliberty.easy_records.configuration.session.SessionContext
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
-import app.myliberty.easy_records.locations.business.sale.api.SaleStatus
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSession
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionHeader
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionLine
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionTotals
-import app.myliberty.easy_records.locations.business.sale_session.api.SessionIdentity
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleStatus
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSession
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionHeader
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionLine
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionTotals
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SessionIdentity
 import app.myliberty.easy_records.support.WithDefaultOrganizationSession
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach

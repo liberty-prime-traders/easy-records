@@ -1,14 +1,14 @@
-package app.myliberty.easy_records.locations.business.purchase.api.bulk_payment
+package app.myliberty.easy_records.locations.business.retail.purchase.api.bulk_payment
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
-import app.myliberty.easy_records.locations.business.purchase.PayablePurchaseFinder
-import app.myliberty.easy_records.locations.business.purchase.PurchaseBulkPaymentAssembler
-import app.myliberty.easy_records.locations.business.purchase.PurchaseBulkPaymentPlanner
-import app.myliberty.easy_records.locations.business.purchase.api.PurchaseDataFetcher
-import app.myliberty.easy_records.locations.business.purchase.api.payment.PurchasePaymentCeilingService
-import app.myliberty.easy_records.locations.business.supplier_payment.api.SupplierPaymentCreateDto
-import app.myliberty.easy_records.locations.business.supplier_payment.api.SupplierPaymentDataFetcher
-import app.myliberty.easy_records.locations.business.supplier_payment.api.SupplierPaymentService
+import app.myliberty.easy_records.locations.business.retail.purchase.PayablePurchaseFinder
+import app.myliberty.easy_records.locations.business.retail.purchase.PurchaseBulkPaymentAssembler
+import app.myliberty.easy_records.locations.business.retail.purchase.PurchaseBulkPaymentPlanner
+import app.myliberty.easy_records.locations.business.retail.purchase.api.PurchaseDataFetcher
+import app.myliberty.easy_records.locations.business.retail.purchase.api.payment.PurchasePaymentCeilingService
+import app.myliberty.easy_records.locations.business.retail.supplier_payment.api.SupplierPaymentCreateDto
+import app.myliberty.easy_records.locations.business.retail.supplier_payment.api.SupplierPaymentDataFetcher
+import app.myliberty.easy_records.locations.business.retail.supplier_payment.api.SupplierPaymentService
 import app.myliberty.easy_records.util.business.PositiveMoney
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Service

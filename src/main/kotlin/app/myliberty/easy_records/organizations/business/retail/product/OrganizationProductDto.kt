@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.organizations.business.product
+package app.myliberty.easy_records.organizations.business.retail.product
 
-import app.myliberty.easy_records.organizations.business.product.api.ProductStatus
+import app.myliberty.easy_records.organizations.business.retail.product.api.ProductStatus
 import java.time.OffsetDateTime
 import java.util.UUID
 

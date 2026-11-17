@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.organizations.business.unitvalue.api
+package app.myliberty.easy_records.organizations.business.retail.unitvalue.api
 
-import app.myliberty.easy_records.organizations.business.unitvalue.UnitValueCache
-import app.myliberty.easy_records.organizations.business.unitvalue.UnitValueMapper
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.UnitValueCache
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.UnitValueMapper
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Component
 import java.util.UUID

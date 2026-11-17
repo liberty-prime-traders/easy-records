@@ -1,9 +1,9 @@
-package app.myliberty.easy_records.organizations.business.stock_transfer.api
+package app.myliberty.easy_records.organizations.business.retail.stock_transfer.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
-import app.myliberty.easy_records.organizations.business.stock_transfer.StockTransferOrderEntity
-import app.myliberty.easy_records.organizations.business.stock_transfer.StockTransferOrderRepository
+import app.myliberty.easy_records.organizations.business.retail.stock_transfer.StockTransferOrderEntity
+import app.myliberty.easy_records.organizations.business.retail.stock_transfer.StockTransferOrderRepository
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Component

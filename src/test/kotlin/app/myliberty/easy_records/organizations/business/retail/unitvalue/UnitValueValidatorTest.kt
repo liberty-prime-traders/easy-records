@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.organizations.business.unitvalue
+package app.myliberty.easy_records.organizations.business.retail.unitvalue
 
-import app.myliberty.easy_records.organizations.business.unitgroup.api.UnitGroupDataFetcher
-import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueInsertDto
-import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueUpdateDto
+import app.myliberty.easy_records.organizations.business.retail.unitgroup.api.UnitGroupDataFetcher
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueInsertDto
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueUpdateDto
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.BeforeEach

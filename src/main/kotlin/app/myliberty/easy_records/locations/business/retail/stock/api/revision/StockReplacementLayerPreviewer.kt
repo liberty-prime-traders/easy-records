@@ -1,13 +1,13 @@
-package app.myliberty.easy_records.locations.business.stock.api.revision
+package app.myliberty.easy_records.locations.business.retail.stock.api.revision
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
-import app.myliberty.easy_records.locations.business.stock.StockEntryEntity
-import app.myliberty.easy_records.locations.business.stock.StockEntryRepository
-import app.myliberty.easy_records.locations.business.stock.StockInboundLayers
-import app.myliberty.easy_records.locations.business.stock.StockReplacementLayerSpecs
-import app.myliberty.easy_records.locations.business.stock.api.fifo.FifoLayer
-import app.myliberty.easy_records.locations.business.stock.api.fifo.StockEntryFifoDto
-import app.myliberty.easy_records.locations.business.stock.stockEntryFifoComparator
+import app.myliberty.easy_records.locations.business.retail.stock.StockEntryEntity
+import app.myliberty.easy_records.locations.business.retail.stock.StockEntryRepository
+import app.myliberty.easy_records.locations.business.retail.stock.StockInboundLayers
+import app.myliberty.easy_records.locations.business.retail.stock.StockReplacementLayerSpecs
+import app.myliberty.easy_records.locations.business.retail.stock.api.fifo.FifoLayer
+import app.myliberty.easy_records.locations.business.retail.stock.api.fifo.StockEntryFifoDto
+import app.myliberty.easy_records.locations.business.retail.stock.stockEntryFifoComparator
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Service
 import java.util.UUID

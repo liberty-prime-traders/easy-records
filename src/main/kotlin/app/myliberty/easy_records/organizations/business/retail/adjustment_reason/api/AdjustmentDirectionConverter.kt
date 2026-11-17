@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.adjustment_reason.api
+package app.myliberty.easy_records.organizations.business.retail.adjustment_reason.api
 
 import jakarta.persistence.Converter
 import app.myliberty.easy_records.util.enums.EnumConverter

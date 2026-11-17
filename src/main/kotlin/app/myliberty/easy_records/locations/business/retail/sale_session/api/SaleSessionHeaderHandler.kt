@@ -1,9 +1,9 @@
-package app.myliberty.easy_records.locations.business.sale_session.api
+package app.myliberty.easy_records.locations.business.retail.sale_session.api
 
-import app.myliberty.easy_records.locations.business.sale.api.SaleUpdater
-import app.myliberty.easy_records.locations.business.sale_session.SaleSessionUpdateFinalizer
-import app.myliberty.easy_records.locations.business.sale_session.SaleSessionStore
-import app.myliberty.easy_records.locations.business.sale_session.SaleSessionValidator
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleUpdater
+import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionUpdateFinalizer
+import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionStore
+import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionValidator
 import app.myliberty.easy_records.organizations.business.contact.api.ContactService
 import app.myliberty.easy_records.util.business.StringUtils
 import app.myliberty.easy_records.util.enums.SystemContact

@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.locations.business.location_product.api
+package app.myliberty.easy_records.locations.business.retail.location_product.api
 
-import app.myliberty.easy_records.locations.business.location_product.LocationProductDto
+import app.myliberty.easy_records.locations.business.retail.location_product.LocationProductDto
 import app.myliberty.easy_records.util.business.Money
 import java.io.Serializable
 import java.util.Optional

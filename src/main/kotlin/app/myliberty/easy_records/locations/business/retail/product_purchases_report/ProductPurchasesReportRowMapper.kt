@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.locations.business.product_purchases_report
+package app.myliberty.easy_records.locations.business.retail.product_purchases_report
 
 import jakarta.persistence.Tuple
-import app.myliberty.easy_records.locations.business.purchase.api.delivery.PurchaseDeliveryLineStatus
+import app.myliberty.easy_records.locations.business.retail.purchase.api.delivery.PurchaseDeliveryLineStatus
 import app.myliberty.easy_records.util.business.mappers.DateQualifier
 import java.math.BigDecimal
 import java.time.Instant

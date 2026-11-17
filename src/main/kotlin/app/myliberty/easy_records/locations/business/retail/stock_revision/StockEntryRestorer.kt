@@ -1,9 +1,9 @@
-package app.myliberty.easy_records.locations.business.stock_revision
+package app.myliberty.easy_records.locations.business.retail.stock_revision
 
-import app.myliberty.easy_records.locations.business.stock.api.read.StockEntryDto
-import app.myliberty.easy_records.locations.business.stock.api.StockMovementContexts
-import app.myliberty.easy_records.locations.business.stock.api.revision.StockMovementDraft
-import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.MovementType
+import app.myliberty.easy_records.locations.business.retail.stock.api.read.StockEntryDto
+import app.myliberty.easy_records.locations.business.retail.stock.api.StockMovementContexts
+import app.myliberty.easy_records.locations.business.retail.stock.api.revision.StockMovementDraft
+import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.MovementType
 import app.myliberty.easy_records.util.exceptions.BlockedChangeException
 import app.myliberty.easy_records.util.exceptions.BlockingProblem
 import app.myliberty.easy_records.util.quantity.ExactQuantity

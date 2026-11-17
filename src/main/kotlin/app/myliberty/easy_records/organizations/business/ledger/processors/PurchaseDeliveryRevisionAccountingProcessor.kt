@@ -7,7 +7,7 @@ import app.myliberty.easy_records.organizations.business.contact.api.ContactServ
 import app.myliberty.easy_records.organizations.business.ledger.api.LedgerPostingRequest
 import app.myliberty.easy_records.organizations.business.ledger.api.LedgerPostingService
 import app.myliberty.easy_records.organizations.business.ledger.api.LedgerSourceType
-import app.myliberty.easy_records.locations.business.stock_revision.api.RevisionLedgerEntries
+import app.myliberty.easy_records.locations.business.retail.stock_revision.api.RevisionLedgerEntries
 import app.myliberty.easy_records.organizations.business.ledger.api.SubledgerEntryRequest
 import app.myliberty.easy_records.organizations.business.ledger.helpers.LedgerPostingGate
 import app.myliberty.easy_records.util.business.Money

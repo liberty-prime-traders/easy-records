@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.locations.business.stock_revision
+package app.myliberty.easy_records.locations.business.retail.stock_revision
 
-import app.myliberty.easy_records.locations.business.delivery.api.ValidatedDeliveryLineRevisionDto
+import app.myliberty.easy_records.locations.business.retail.delivery.api.ValidatedDeliveryLineRevisionDto
 import app.myliberty.easy_records.util.exceptions.BlockingProblem
 import app.myliberty.easy_records.util.quantity.QuantityBreakdown
 import java.util.UUID

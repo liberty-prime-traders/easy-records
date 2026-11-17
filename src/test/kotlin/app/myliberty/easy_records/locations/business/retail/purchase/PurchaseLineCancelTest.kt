@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.business.purchase
+package app.myliberty.easy_records.locations.business.retail.purchase
 
 import app.myliberty.easy_records.support.WithDefaultOrganizationSession
 import app.myliberty.easy_records.util.exceptions.RtsGenericException

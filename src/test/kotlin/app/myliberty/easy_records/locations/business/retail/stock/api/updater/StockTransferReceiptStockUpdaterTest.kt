@@ -1,15 +1,15 @@
-package app.myliberty.easy_records.locations.business.stock.api.updater
+package app.myliberty.easy_records.locations.business.retail.stock.api.updater
 
-import app.myliberty.easy_records.locations.business.location_product.api.LocationProductDataFetcher
-import app.myliberty.easy_records.locations.business.location_product.api.LocationProductIdentityDto
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductDataFetcher
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductIdentityDto
 import app.myliberty.easy_records.locations.business.lock.api.EntityAdvisoryLock
-import app.myliberty.easy_records.locations.business.stock.InboundLayerSpec
-import app.myliberty.easy_records.locations.business.stock.StockIncreaseRecorder
-import app.myliberty.easy_records.locations.business.stock.StockMovementRepository
-import app.myliberty.easy_records.organizations.business.stock_item_source.api.StockItemSource
-import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.MovementType
-import app.myliberty.easy_records.organizations.business.unitconversion.api.UnitConversionGraph
-import app.myliberty.easy_records.organizations.business.unitconversion.api.UnitConversionGraphFacade
+import app.myliberty.easy_records.locations.business.retail.stock.InboundLayerSpec
+import app.myliberty.easy_records.locations.business.retail.stock.StockIncreaseRecorder
+import app.myliberty.easy_records.locations.business.retail.stock.StockMovementRepository
+import app.myliberty.easy_records.organizations.business.retail.stock_item_source.api.StockItemSource
+import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.MovementType
+import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.UnitConversionGraph
+import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.UnitConversionGraphFacade
 import app.myliberty.easy_records.util.business.lock.LockNamespaces
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import app.myliberty.easy_records.util.quantity.ExactQuantity

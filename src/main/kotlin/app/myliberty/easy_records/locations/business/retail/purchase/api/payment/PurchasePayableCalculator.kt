@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.business.purchase.api.payment
+package app.myliberty.easy_records.locations.business.retail.purchase.api.payment
 
 import app.myliberty.easy_records.util.business.Decimals
 import java.math.BigDecimal

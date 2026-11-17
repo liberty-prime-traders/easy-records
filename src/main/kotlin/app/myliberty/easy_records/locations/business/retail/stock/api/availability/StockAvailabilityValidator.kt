@@ -1,9 +1,9 @@
-package app.myliberty.easy_records.locations.business.stock.api.availability
+package app.myliberty.easy_records.locations.business.retail.stock.api.availability
 
-import app.myliberty.easy_records.locations.business.location_product.api.ProductStockBreakdownProvider
+import app.myliberty.easy_records.locations.business.retail.location_product.api.ProductStockBreakdownProvider
 import app.myliberty.easy_records.locations.business.lock.api.EntityAdvisoryLock
-import app.myliberty.easy_records.locations.business.stock.api.read.StockBalanceFetcher
-import app.myliberty.easy_records.locations.business.stock_reservation.api.StockReserver
+import app.myliberty.easy_records.locations.business.retail.stock.api.read.StockBalanceFetcher
+import app.myliberty.easy_records.locations.business.retail.stock_reservation.api.StockReserver
 import app.myliberty.easy_records.util.business.lock.LockNamespaces
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import app.myliberty.easy_records.util.quantity.ExactQuantity

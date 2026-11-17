@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.unitvalue.api
+package app.myliberty.easy_records.organizations.business.retail.unitvalue.api
 
 import java.util.UUID
 

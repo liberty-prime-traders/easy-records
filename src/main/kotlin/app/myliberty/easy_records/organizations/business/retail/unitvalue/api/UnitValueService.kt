@@ -1,13 +1,13 @@
-package app.myliberty.easy_records.organizations.business.unitvalue.api
+package app.myliberty.easy_records.organizations.business.retail.unitvalue.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
 import app.myliberty.easy_records.organizations.business.lock.api.OrgEntityAdvisoryLock
-import app.myliberty.easy_records.organizations.business.unitconversion.api.UnitConversionGraphFacade
-import app.myliberty.easy_records.organizations.business.unitgroup.api.SystemUnitGroup
-import app.myliberty.easy_records.organizations.business.unitvalue.UnitValueCache
-import app.myliberty.easy_records.organizations.business.unitvalue.UnitValueEntity
-import app.myliberty.easy_records.organizations.business.unitvalue.UnitValueMapper
-import app.myliberty.easy_records.organizations.business.unitvalue.UnitValueValidator
+import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.UnitConversionGraphFacade
+import app.myliberty.easy_records.organizations.business.retail.unitgroup.api.SystemUnitGroup
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.UnitValueCache
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.UnitValueEntity
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.UnitValueMapper
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.UnitValueValidator
 import app.myliberty.easy_records.util.business.lock.LockNamespaces
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException

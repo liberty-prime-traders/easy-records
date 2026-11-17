@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.locations.business.sale_session
+package app.myliberty.easy_records.locations.business.retail.sale_session
 
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSession
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSession
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component

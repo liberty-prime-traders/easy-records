@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.cross_tier.product.search.common
+package app.myliberty.easy_records.cross_tier.retail.product.search.common
 
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 

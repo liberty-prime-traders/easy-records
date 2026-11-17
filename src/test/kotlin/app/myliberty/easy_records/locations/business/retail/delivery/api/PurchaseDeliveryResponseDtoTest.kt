@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.locations.business.delivery.api
+package app.myliberty.easy_records.locations.business.retail.delivery.api
 
-import app.myliberty.easy_records.locations.business.location_product.api.LocationProductSummaryDto
-import app.myliberty.easy_records.locations.business.purchase.api.delivery.PurchaseDeliveryLineStatus
-import app.myliberty.easy_records.locations.business.purchase.api.delivery.PurchaseDeliveryStatus
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductSummaryDto
+import app.myliberty.easy_records.locations.business.retail.purchase.api.delivery.PurchaseDeliveryLineStatus
+import app.myliberty.easy_records.locations.business.retail.purchase.api.delivery.PurchaseDeliveryStatus
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import java.math.BigDecimal

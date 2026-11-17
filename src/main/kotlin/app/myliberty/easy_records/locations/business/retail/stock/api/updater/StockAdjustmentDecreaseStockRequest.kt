@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.locations.business.stock.api.updater
+package app.myliberty.easy_records.locations.business.retail.stock.api.updater
 
-import app.myliberty.easy_records.locations.business.stock.api.StockAdjustmentMovementDetails
+import app.myliberty.easy_records.locations.business.retail.stock.api.StockAdjustmentMovementDetails
 import app.myliberty.easy_records.util.quantity.ExactQuantity
 import java.math.BigDecimal
 import java.util.UUID

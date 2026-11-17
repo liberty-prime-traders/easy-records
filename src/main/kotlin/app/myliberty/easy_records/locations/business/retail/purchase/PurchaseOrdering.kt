@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.business.purchase
+package app.myliberty.easy_records.locations.business.retail.purchase
 
 object PurchaseOrdering {
 

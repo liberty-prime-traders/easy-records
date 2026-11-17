@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.daily_business_summary
+package app.myliberty.easy_records.organizations.business.retail.daily_business_summary
 
 import app.myliberty.easy_records.configuration.session.LocationSession
 import app.myliberty.easy_records.configuration.session.OrgSession
@@ -8,11 +8,11 @@ import app.myliberty.easy_records.organizations.business.account.api.AccountServ
 import app.myliberty.easy_records.organizations.business.account.api.EntryType
 import app.myliberty.easy_records.organizations.business.account.api.RecordingAccountService
 import app.myliberty.easy_records.organizations.business.account.api.SystemAccount
-import app.myliberty.easy_records.organizations.business.daily_business_summary.api.DailyBusinessSummaryRequest
-import app.myliberty.easy_records.organizations.business.daily_business_summary.api.DailyPerformanceFigures
-import app.myliberty.easy_records.organizations.business.daily_business_summary.api.DailyPerformanceResponse
-import app.myliberty.easy_records.organizations.business.daily_business_summary.api.DailyPerformanceService
-import app.myliberty.easy_records.organizations.business.daily_business_summary.api.PeriodStatus
+import app.myliberty.easy_records.organizations.business.retail.daily_business_summary.api.DailyBusinessSummaryRequest
+import app.myliberty.easy_records.organizations.business.retail.daily_business_summary.api.DailyPerformanceFigures
+import app.myliberty.easy_records.organizations.business.retail.daily_business_summary.api.DailyPerformanceResponse
+import app.myliberty.easy_records.organizations.business.retail.daily_business_summary.api.DailyPerformanceService
+import app.myliberty.easy_records.organizations.business.retail.daily_business_summary.api.PeriodStatus
 import app.myliberty.easy_records.organizations.business.ledger.api.LedgerMovement
 import app.myliberty.easy_records.organizations.business.ledger.api.LedgerMovementReader
 import app.myliberty.easy_records.organizations.business.ledger.api.LedgerSourceType

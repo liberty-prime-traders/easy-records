@@ -1,16 +1,16 @@
-package app.myliberty.easy_records.locations.business.stock_revision
+package app.myliberty.easy_records.locations.business.retail.stock_revision
 
-import app.myliberty.easy_records.locations.business.delivery.api.DeliveryLineOwnersDto
-import app.myliberty.easy_records.locations.business.delivery.api.PurchaseDeliveryDataFetcher
-import app.myliberty.easy_records.locations.business.delivery.api.ValidatedDeliveryLineRevisionDto
-import app.myliberty.easy_records.locations.business.purchase.api.PurchaseDataFetcher
-import app.myliberty.easy_records.locations.business.purchase.api.PurchaseStatus
-import app.myliberty.easy_records.locations.business.stock.api.fifo.FifoConsumptionRequest
-import app.myliberty.easy_records.locations.business.stock.api.fifo.PlannedTake
-import app.myliberty.easy_records.locations.business.stock.api.revision.ConsumerReplayPlan
-import app.myliberty.easy_records.locations.business.stock_revision.api.AdjustmentCostChange
+import app.myliberty.easy_records.locations.business.retail.delivery.api.DeliveryLineOwnersDto
+import app.myliberty.easy_records.locations.business.retail.delivery.api.PurchaseDeliveryDataFetcher
+import app.myliberty.easy_records.locations.business.retail.delivery.api.ValidatedDeliveryLineRevisionDto
+import app.myliberty.easy_records.locations.business.retail.purchase.api.PurchaseDataFetcher
+import app.myliberty.easy_records.locations.business.retail.purchase.api.PurchaseStatus
+import app.myliberty.easy_records.locations.business.retail.stock.api.fifo.FifoConsumptionRequest
+import app.myliberty.easy_records.locations.business.retail.stock.api.fifo.PlannedTake
+import app.myliberty.easy_records.locations.business.retail.stock.api.revision.ConsumerReplayPlan
+import app.myliberty.easy_records.locations.business.retail.stock_revision.api.AdjustmentCostChange
 import app.myliberty.easy_records.organizations.business.account.api.SystemAccount
-import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.MovementType
+import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.MovementType
 import app.myliberty.easy_records.util.business.mappers.NameResolution
 import app.myliberty.easy_records.util.enums.PaymentStatus
 import app.myliberty.easy_records.util.quantity.ExactQuantity

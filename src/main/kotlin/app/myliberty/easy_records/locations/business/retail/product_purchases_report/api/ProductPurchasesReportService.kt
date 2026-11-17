@@ -1,14 +1,14 @@
-package app.myliberty.easy_records.locations.business.product_purchases_report.api
+package app.myliberty.easy_records.locations.business.retail.product_purchases_report.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
-import app.myliberty.easy_records.locations.business.location_product.api.LocationProductDataFetcher
-import app.myliberty.easy_records.locations.business.product_purchases_report.ProductPurchasesReportCalculator
-import app.myliberty.easy_records.locations.business.product_purchases_report.ProductPurchasesReportFetcher
-import app.myliberty.easy_records.locations.business.product_purchases_report.ProductPurchasesReportValidator
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductDataFetcher
+import app.myliberty.easy_records.locations.business.retail.product_purchases_report.ProductPurchasesReportCalculator
+import app.myliberty.easy_records.locations.business.retail.product_purchases_report.ProductPurchasesReportFetcher
+import app.myliberty.easy_records.locations.business.retail.product_purchases_report.ProductPurchasesReportValidator
 import app.myliberty.easy_records.organizations.business.contact.api.ContactService
-import app.myliberty.easy_records.organizations.business.product_category.api.ProductCategoryService
-import app.myliberty.easy_records.organizations.business.unitconversion.api.QuantityBreakdownFactory
-import app.myliberty.easy_records.organizations.business.unitconversion.api.UnitConversionGraphFacade
+import app.myliberty.easy_records.organizations.business.retail.product_category.api.ProductCategoryService
+import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.QuantityBreakdownFactory
+import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.UnitConversionGraphFacade
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import app.myliberty.easy_records.util.paging.PageRequest
 import app.myliberty.easy_records.util.paging.PageResponse

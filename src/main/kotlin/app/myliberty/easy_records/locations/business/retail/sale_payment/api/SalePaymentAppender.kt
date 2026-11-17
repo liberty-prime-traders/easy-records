@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.locations.business.sale_payment.api
+package app.myliberty.easy_records.locations.business.retail.sale_payment.api
 
 import app.myliberty.easy_records.util.enums.PaymentStatus
-import app.myliberty.easy_records.locations.business.sale.api.SaleSaveRequest
-import app.myliberty.easy_records.locations.business.sale_payment.SalePaymentWriter
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleSaveRequest
+import app.myliberty.easy_records.locations.business.retail.sale_payment.SalePaymentWriter
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 import java.util.UUID

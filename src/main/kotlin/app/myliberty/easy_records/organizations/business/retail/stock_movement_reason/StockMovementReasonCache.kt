@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.organizations.business.stock_movement_reason
+package app.myliberty.easy_records.organizations.business.retail.stock_movement_reason
 
 import app.myliberty.easy_records.configuration.cache.CacheNames
 import app.myliberty.easy_records.configuration.cache.CacheSchemaLevel
-import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.StockMovementReasonInsertDto
+import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.StockMovementReasonInsertDto
 import app.myliberty.easy_records.util.enums.SchemaLevel
 import org.springframework.cache.annotation.CacheConfig
 import org.springframework.cache.annotation.CacheEvict

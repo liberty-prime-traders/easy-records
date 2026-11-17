@@ -1,15 +1,15 @@
 package app.myliberty.easy_records.locations.rest.endpoints
 
-import app.myliberty.easy_records.cross_tier.product.search.common.ProductSearchParameters
-import app.myliberty.easy_records.locations.business.location_product.api.LocationProductDataFetcher
-import app.myliberty.easy_records.locations.business.location_product.api.LocationProductForPurchaseDto
-import app.myliberty.easy_records.locations.business.location_product.api.LocationProductResponseDto
-import app.myliberty.easy_records.locations.business.location_product.api.LocationProductService
-import app.myliberty.easy_records.locations.business.location_product.api.LocationProductUpdateDto
-import app.myliberty.easy_records.locations.business.location_product.api.LocationProductSearchParameters
-import app.myliberty.easy_records.locations.business.location_product.api.LocationProductWithAvailability
-import app.myliberty.easy_records.locations.business.stock.api.read.StockMovementHistoryBuilder
-import app.myliberty.easy_records.locations.business.stock.api.read.StockMovementResponse
+import app.myliberty.easy_records.cross_tier.retail.product.search.common.ProductSearchParameters
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductDataFetcher
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductForPurchaseDto
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductResponseDto
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductService
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductUpdateDto
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductSearchParameters
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductWithAvailability
+import app.myliberty.easy_records.locations.business.retail.stock.api.read.StockMovementHistoryBuilder
+import app.myliberty.easy_records.locations.business.retail.stock.api.read.StockMovementResponse
 import app.myliberty.easy_records.util.paging.PageRequest
 import app.myliberty.easy_records.util.paging.PageResponse
 import org.springframework.web.bind.annotation.GetMapping

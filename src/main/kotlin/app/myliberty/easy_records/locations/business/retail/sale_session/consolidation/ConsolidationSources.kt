@@ -1,9 +1,9 @@
-package app.myliberty.easy_records.locations.business.sale_session.consolidation
+package app.myliberty.easy_records.locations.business.retail.sale_session.consolidation
 
-import app.myliberty.easy_records.locations.business.sale.api.SaleDataFetcher
-import app.myliberty.easy_records.locations.business.sale.api.SaleHeaderDto
-import app.myliberty.easy_records.locations.business.sale_session.SaleSessionValidator
-import app.myliberty.easy_records.locations.business.sale_session.api.ConsolidationSourceSale
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleDataFetcher
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleHeaderDto
+import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionValidator
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.ConsolidationSourceSale
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Component
 import java.util.UUID

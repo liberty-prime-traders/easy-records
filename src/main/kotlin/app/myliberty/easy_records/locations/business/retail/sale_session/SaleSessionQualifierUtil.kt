@@ -1,12 +1,12 @@
-package app.myliberty.easy_records.locations.business.sale_session
+package app.myliberty.easy_records.locations.business.retail.sale_session
 
 import app.myliberty.easy_records.util.enums.PaymentStatus
 import app.myliberty.easy_records.util.business.PaymentStatusResolver
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSession
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionAdjustment
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionLine
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionUiOptions
-import app.myliberty.easy_records.locations.business.sale_session.api.SessionIdentity
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSession
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionAdjustment
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionLine
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionUiOptions
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SessionIdentity
 import app.myliberty.easy_records.util.quantity.BaseUnitDisplay
 import app.myliberty.easy_records.util.quantity.ExactQuantity
 import org.mapstruct.Context

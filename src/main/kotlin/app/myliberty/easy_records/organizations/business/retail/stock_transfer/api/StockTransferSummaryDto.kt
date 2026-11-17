@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.stock_transfer.api
+package app.myliberty.easy_records.organizations.business.retail.stock_transfer.api
 
 import java.math.BigDecimal
 import java.time.OffsetDateTime

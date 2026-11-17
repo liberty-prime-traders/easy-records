@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.locations.business.sale_session.consolidation
+package app.myliberty.easy_records.locations.business.retail.sale_session.consolidation
 
-import app.myliberty.easy_records.locations.business.sale.api.SaleLineDto
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSession
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleLineDto
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSession
 import java.math.BigDecimal
 import java.util.UUID
 

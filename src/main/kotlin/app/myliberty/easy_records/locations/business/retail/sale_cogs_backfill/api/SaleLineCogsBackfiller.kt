@@ -1,10 +1,10 @@
-package app.myliberty.easy_records.locations.business.sale_cogs_backfill.api
+package app.myliberty.easy_records.locations.business.retail.sale_cogs_backfill.api
 
 import app.myliberty.easy_records.configuration.session.ServiceAccountContext
 import app.myliberty.easy_records.configuration.session.withLocationSession
-import app.myliberty.easy_records.locations.business.sale_cogs_backfill.LocationSaleLineCogsBackfiller
-import app.myliberty.easy_records.locations.business.sale_cogs_backfill.SaleLineCogsBackfillLogFormatter
-import app.myliberty.easy_records.locations.business.sale_cogs_backfill.SaleLineCogsBackfillResult
+import app.myliberty.easy_records.locations.business.retail.sale_cogs_backfill.LocationSaleLineCogsBackfiller
+import app.myliberty.easy_records.locations.business.retail.sale_cogs_backfill.SaleLineCogsBackfillLogFormatter
+import app.myliberty.easy_records.locations.business.retail.sale_cogs_backfill.SaleLineCogsBackfillResult
 import app.myliberty.easy_records.organizations.business.location.api.LocationDto
 import app.myliberty.easy_records.organizations.business.location.api.LocationService
 import app.myliberty.easy_records.util.async.AsyncExecutor

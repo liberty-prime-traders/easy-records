@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.locations.business.sale_session
+package app.myliberty.easy_records.locations.business.retail.sale_session
 
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionLine
-import app.myliberty.easy_records.locations.business.sale_session.api.SessionIdentity
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionLine
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SessionIdentity
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import java.math.BigDecimal

@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.product_tag
+package app.myliberty.easy_records.organizations.business.retail.product_tag
 
 import app.myliberty.easy_records.organizations.business.tag.api.TagService
 import app.myliberty.easy_records.util.exceptions.RtsGenericException

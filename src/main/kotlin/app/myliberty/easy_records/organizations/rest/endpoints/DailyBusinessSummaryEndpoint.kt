@@ -1,10 +1,10 @@
 package app.myliberty.easy_records.organizations.rest.endpoints
 
-import app.myliberty.easy_records.organizations.business.daily_business_summary.api.DailyBalancesResponse
-import app.myliberty.easy_records.organizations.business.daily_business_summary.api.DailyBalancesService
-import app.myliberty.easy_records.organizations.business.daily_business_summary.api.DailyBusinessSummaryRequest
-import app.myliberty.easy_records.organizations.business.daily_business_summary.api.DailyPerformanceResponse
-import app.myliberty.easy_records.organizations.business.daily_business_summary.api.DailyPerformanceService
+import app.myliberty.easy_records.organizations.business.retail.daily_business_summary.api.DailyBalancesResponse
+import app.myliberty.easy_records.organizations.business.retail.daily_business_summary.api.DailyBalancesService
+import app.myliberty.easy_records.organizations.business.retail.daily_business_summary.api.DailyBusinessSummaryRequest
+import app.myliberty.easy_records.organizations.business.retail.daily_business_summary.api.DailyPerformanceResponse
+import app.myliberty.easy_records.organizations.business.retail.daily_business_summary.api.DailyPerformanceService
 import app.myliberty.easy_records.platform.business.feature.api.Feature
 import app.myliberty.easy_records.util.annotations.RequiresFeature
 import org.springframework.web.bind.annotation.PostMapping

@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.locations.business.catalog_sync
+package app.myliberty.easy_records.locations.business.retail.catalog_sync
 
-import app.myliberty.easy_records.locations.business.catalog_sync.api.SyncLogFetcher
-import app.myliberty.easy_records.locations.business.catalog_sync.api.SyncService
+import app.myliberty.easy_records.locations.business.retail.catalog_sync.api.SyncLogFetcher
+import app.myliberty.easy_records.locations.business.retail.catalog_sync.api.SyncService
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 import java.util.UUID

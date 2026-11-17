@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.organizations.business.product
+package app.myliberty.easy_records.organizations.business.retail.product
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
-import app.myliberty.easy_records.organizations.business.product_category.api.ProductCategoryService
-import app.myliberty.easy_records.organizations.business.product_group.api.ProductGroupService
+import app.myliberty.easy_records.organizations.business.retail.product_category.api.ProductCategoryService
+import app.myliberty.easy_records.organizations.business.retail.product_group.api.ProductGroupService
 import org.mapstruct.Qualifier
 import org.springframework.stereotype.Component
 import java.util.UUID

@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.locations.business.location_product
+package app.myliberty.easy_records.locations.business.retail.location_product
 
-import app.myliberty.easy_records.cross_tier.product.search.common.Aliases.ColumnNames.CrossTierProduct
+import app.myliberty.easy_records.cross_tier.retail.product.search.common.Aliases.ColumnNames.CrossTierProduct
 import app.myliberty.easy_records.util.queries.FilterStrategy
 import app.myliberty.easy_records.util.queries.QueryBuilderContext
 

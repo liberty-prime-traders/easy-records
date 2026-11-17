@@ -1,11 +1,11 @@
-package app.myliberty.easy_records.locations.business.sale
+package app.myliberty.easy_records.locations.business.retail.sale
 
-import app.myliberty.easy_records.locations.business.location_product.api.LocationProductDataFetcher
-import app.myliberty.easy_records.locations.business.sale.api.ConfirmedSalePersister
-import app.myliberty.easy_records.locations.business.sale.api.SaleSaveRequest
-import app.myliberty.easy_records.locations.business.sale_adjustment.api.SaleAdjustmentSyncer
-import app.myliberty.easy_records.locations.business.stock.api.updater.SaleStockUpdater
-import app.myliberty.easy_records.locations.business.stock_reservation.api.StockReserver
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductDataFetcher
+import app.myliberty.easy_records.locations.business.retail.sale.api.ConfirmedSalePersister
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleSaveRequest
+import app.myliberty.easy_records.locations.business.retail.sale_adjustment.api.SaleAdjustmentSyncer
+import app.myliberty.easy_records.locations.business.retail.stock.api.updater.SaleStockUpdater
+import app.myliberty.easy_records.locations.business.retail.stock_reservation.api.StockReserver
 import app.myliberty.easy_records.organizations.business.fiscal_period.api.FiscalPeriodService
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.junit.jupiter.api.Assertions.assertThrows

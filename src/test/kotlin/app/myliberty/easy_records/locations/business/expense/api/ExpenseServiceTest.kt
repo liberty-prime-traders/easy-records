@@ -15,11 +15,11 @@ import app.myliberty.easy_records.cross_tier.expense.request.PurchaseExpenseBatc
 import app.myliberty.easy_records.cross_tier.expense.request.PurchaseExpenseRowRequest
 import app.myliberty.easy_records.cross_tier.expense.request.RequiredPayeeExpenseRowRequest
 import app.myliberty.easy_records.cross_tier.expense.request.SaleExpenseBatchRequest
-import app.myliberty.easy_records.locations.business.purchase.api.PurchaseDataFetcher
-import app.myliberty.easy_records.locations.business.purchase.api.PurchaseStatus
-import app.myliberty.easy_records.locations.business.sale.api.SaleDataFetcher
-import app.myliberty.easy_records.locations.business.sale.api.SaleHeaderDto
-import app.myliberty.easy_records.locations.business.sale.api.SaleStatus
+import app.myliberty.easy_records.locations.business.retail.purchase.api.PurchaseDataFetcher
+import app.myliberty.easy_records.locations.business.retail.purchase.api.PurchaseStatus
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleDataFetcher
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleHeaderDto
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleStatus
 import app.myliberty.easy_records.organizations.business.expense_type.api.ExpenseTypeService
 import app.myliberty.easy_records.util.business.PositiveMoney
 import app.myliberty.easy_records.util.enums.PaymentStatus

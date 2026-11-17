@@ -1,16 +1,16 @@
-package app.myliberty.easy_records.locations.business.sale_session.api
+package app.myliberty.easy_records.locations.business.retail.sale_session.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
-import app.myliberty.easy_records.locations.business.sale_session.SaleLineRanker
-import app.myliberty.easy_records.locations.business.sale_session.SaleSessionLineAdjustmentReconciler
-import app.myliberty.easy_records.locations.business.sale_session.SaleSessionLineChangeContext
-import app.myliberty.easy_records.locations.business.sale_session.SaleSessionLineChangeContextBuilder
-import app.myliberty.easy_records.locations.business.sale_session.consolidation.PendingConsolidationRemovedLines
-import app.myliberty.easy_records.locations.business.sale_session.SaleSessionStockOverlay
-import app.myliberty.easy_records.locations.business.sale_session.SaleSessionStore
-import app.myliberty.easy_records.locations.business.sale_session.SaleSessionUpdateFinalizer
-import app.myliberty.easy_records.locations.business.sale_session.SaleSessionValidator
-import app.myliberty.easy_records.locations.business.stock_reservation.api.StockReserver
+import app.myliberty.easy_records.locations.business.retail.sale_session.SaleLineRanker
+import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionLineAdjustmentReconciler
+import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionLineChangeContext
+import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionLineChangeContextBuilder
+import app.myliberty.easy_records.locations.business.retail.sale_session.consolidation.PendingConsolidationRemovedLines
+import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionStockOverlay
+import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionStore
+import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionUpdateFinalizer
+import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionValidator
+import app.myliberty.easy_records.locations.business.retail.stock_reservation.api.StockReserver
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Service
 import java.math.BigDecimal

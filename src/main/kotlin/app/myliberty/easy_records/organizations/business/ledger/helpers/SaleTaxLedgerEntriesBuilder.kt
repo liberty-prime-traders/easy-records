@@ -1,8 +1,8 @@
 package app.myliberty.easy_records.organizations.business.ledger.helpers
 
-import app.myliberty.easy_records.locations.business.tax_entry.api.TaxEntryDto
-import app.myliberty.easy_records.locations.business.tax_entry.api.TaxEntryService
-import app.myliberty.easy_records.locations.business.tax_entry.api.TaxSourceType
+import app.myliberty.easy_records.locations.business.retail.tax_entry.api.TaxEntryDto
+import app.myliberty.easy_records.locations.business.retail.tax_entry.api.TaxEntryService
+import app.myliberty.easy_records.locations.business.retail.tax_entry.api.TaxSourceType
 import app.myliberty.easy_records.organizations.business.account.api.EntryType
 import app.myliberty.easy_records.organizations.business.account.api.SystemAccount
 import app.myliberty.easy_records.organizations.business.ledger.api.LedgerEntryRequest

@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.business.sale
+package app.myliberty.easy_records.locations.business.retail.sale
 
 import app.myliberty.easy_records.util.business.DateTimes
 import java.time.LocalDate

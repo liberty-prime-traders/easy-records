@@ -1,9 +1,9 @@
-package app.myliberty.easy_records.locations.business.sale_session.consolidation
+package app.myliberty.easy_records.locations.business.retail.sale_session.consolidation
 
-import app.myliberty.easy_records.locations.business.location_product.api.LocationProductService
-import app.myliberty.easy_records.locations.business.sale.api.SaleDataFetcher
-import app.myliberty.easy_records.locations.business.sale_session.SaleSessionValidator
-import app.myliberty.easy_records.organizations.business.adjustment_reason.api.AdjustmentReasonService
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductService
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleDataFetcher
+import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionValidator
+import app.myliberty.easy_records.organizations.business.retail.adjustment_reason.api.AdjustmentReasonService
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test

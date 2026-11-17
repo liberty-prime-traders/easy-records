@@ -1,17 +1,17 @@
-package app.myliberty.easy_records.locations.business.stock_revision
+package app.myliberty.easy_records.locations.business.retail.stock_revision
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
-import app.myliberty.easy_records.locations.business.delivery.api.PurchaseDeliveryDataFetcher
-import app.myliberty.easy_records.locations.business.delivery.api.ValidatedDeliveryLineRevisionDto
-import app.myliberty.easy_records.locations.business.purchase.api.PurchaseDataFetcher
-import app.myliberty.easy_records.locations.business.stock.api.revision.ConsumerReplayPlan
-import app.myliberty.easy_records.locations.business.stock_revision.api.RevisionPreviewLedgerEntryDto
-import app.myliberty.easy_records.locations.business.stock_revision.api.RevisionPreviewLedgerLineDto
+import app.myliberty.easy_records.locations.business.retail.delivery.api.PurchaseDeliveryDataFetcher
+import app.myliberty.easy_records.locations.business.retail.delivery.api.ValidatedDeliveryLineRevisionDto
+import app.myliberty.easy_records.locations.business.retail.purchase.api.PurchaseDataFetcher
+import app.myliberty.easy_records.locations.business.retail.stock.api.revision.ConsumerReplayPlan
+import app.myliberty.easy_records.locations.business.retail.stock_revision.api.RevisionPreviewLedgerEntryDto
+import app.myliberty.easy_records.locations.business.retail.stock_revision.api.RevisionPreviewLedgerLineDto
 import app.myliberty.easy_records.organizations.business.account.api.EntryType
 import app.myliberty.easy_records.organizations.business.account.api.SystemAccount
 import app.myliberty.easy_records.organizations.business.ledger.api.LedgerEntryRequest
-import app.myliberty.easy_records.locations.business.stock_revision.api.AdjustmentCostChange
-import app.myliberty.easy_records.locations.business.stock_revision.api.RevisionLedgerEntries
+import app.myliberty.easy_records.locations.business.retail.stock_revision.api.AdjustmentCostChange
+import app.myliberty.easy_records.locations.business.retail.stock_revision.api.RevisionLedgerEntries
 import app.myliberty.easy_records.util.business.Decimals
 import app.myliberty.easy_records.util.business.DisplayFormatters
 import app.myliberty.easy_records.util.business.mappers.NameResolution

@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.business.sale_cogs_backfill
+package app.myliberty.easy_records.locations.business.retail.sale_cogs_backfill
 
 data class SaleLineCogsBackfillCounts(
     val insertedCostRecordCount: Long,

@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.business.supplier_payment
+package app.myliberty.easy_records.locations.business.retail.supplier_payment
 
 import java.math.BigDecimal
 import java.time.OffsetDateTime
@@ -8,14 +8,14 @@ import app.myliberty.easy_records.configuration.session.LocationSession
 import app.myliberty.easy_records.configuration.session.OrgSession
 import app.myliberty.easy_records.configuration.session.SessionContext
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
-import app.myliberty.easy_records.locations.business.delivery.api.PurchaseDeliveryDataFetcher
-import app.myliberty.easy_records.locations.business.purchase.api.PurchaseDataFetcher
-import app.myliberty.easy_records.locations.business.purchase.api.payment.PurchasePaymentCeilingService
-import app.myliberty.easy_records.locations.business.purchase.api.payment.PurchasePaymentCeilingService.PaymentCeiling
-import app.myliberty.easy_records.locations.business.purchase.api.PurchaseUpdater
-import app.myliberty.easy_records.locations.business.supplier_payment.api.PurchasePaymentStatusService
-import app.myliberty.easy_records.locations.business.supplier_payment.api.SupplierPaymentService
-import app.myliberty.easy_records.locations.business.supplier_payment.api.SupplierPaymentVoidCreateDto
+import app.myliberty.easy_records.locations.business.retail.delivery.api.PurchaseDeliveryDataFetcher
+import app.myliberty.easy_records.locations.business.retail.purchase.api.PurchaseDataFetcher
+import app.myliberty.easy_records.locations.business.retail.purchase.api.payment.PurchasePaymentCeilingService
+import app.myliberty.easy_records.locations.business.retail.purchase.api.payment.PurchasePaymentCeilingService.PaymentCeiling
+import app.myliberty.easy_records.locations.business.retail.purchase.api.PurchaseUpdater
+import app.myliberty.easy_records.locations.business.retail.supplier_payment.api.PurchasePaymentStatusService
+import app.myliberty.easy_records.locations.business.retail.supplier_payment.api.SupplierPaymentService
+import app.myliberty.easy_records.locations.business.retail.supplier_payment.api.SupplierPaymentVoidCreateDto
 import app.myliberty.easy_records.organizations.business.fiscal_period.api.FiscalPeriodService
 import app.myliberty.easy_records.organizations.business.payment_method.api.PaymentMethodDataFetcher
 import app.myliberty.easy_records.util.enums.PaymentStatus

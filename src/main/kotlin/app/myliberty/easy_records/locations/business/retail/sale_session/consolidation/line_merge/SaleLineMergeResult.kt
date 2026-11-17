@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.locations.business.sale_session.consolidation.line_merge
+package app.myliberty.easy_records.locations.business.retail.sale_session.consolidation.line_merge
 
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionAdjustment
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionLine
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionAdjustment
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionLine
 
 data class SaleLineMergeResult(
     val mergedSaleLines: List<SaleSessionLine>,

@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.organizations.business.unitgroup
+package app.myliberty.easy_records.organizations.business.retail.unitgroup
 
-import app.myliberty.easy_records.organizations.business.unitgroup.api.UnitGroupDto
+import app.myliberty.easy_records.organizations.business.retail.unitgroup.api.UnitGroupDto
 import app.myliberty.easy_records.util.business.StringUtils
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import java.util.UUID

@@ -3,7 +3,7 @@ package app.myliberty.easy_records.cucumber.steps.organizations
 import io.cucumber.datatable.DataTable
 import io.cucumber.java.en.Given
 import io.cucumber.java.en.When
-import app.myliberty.easy_records.cross_tier.product.search.common.ProductSearchParameters
+import app.myliberty.easy_records.cross_tier.retail.product.search.common.ProductSearchParameters
 import app.myliberty.easy_records.cucumber.fixtures.organizations.ProductFixtureBuilder
 import app.myliberty.easy_records.cucumber.support.ApiClient
 import app.myliberty.easy_records.cucumber.support.context.InjectContext

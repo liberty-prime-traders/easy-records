@@ -1,15 +1,15 @@
-package app.myliberty.easy_records.locations.business.stock
+package app.myliberty.easy_records.locations.business.retail.stock
 
 import jakarta.persistence.Column
 import jakarta.persistence.Convert
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
-import app.myliberty.easy_records.locations.business.stock.api.fifo.FifoLayer
-import app.myliberty.easy_records.locations.business.stock.api.fifo.StockEntryFifoDto
-import app.myliberty.easy_records.locations.business.stock.api.StockEntryStatus
-import app.myliberty.easy_records.locations.business.stock.api.StockEntryStatusConverter
-import app.myliberty.easy_records.organizations.business.stock_item_source.api.StockItemSourceConverter
-import app.myliberty.easy_records.organizations.business.stock_item_source.api.StockItemSource
+import app.myliberty.easy_records.locations.business.retail.stock.api.fifo.FifoLayer
+import app.myliberty.easy_records.locations.business.retail.stock.api.fifo.StockEntryFifoDto
+import app.myliberty.easy_records.locations.business.retail.stock.api.StockEntryStatus
+import app.myliberty.easy_records.locations.business.retail.stock.api.StockEntryStatusConverter
+import app.myliberty.easy_records.organizations.business.retail.stock_item_source.api.StockItemSourceConverter
+import app.myliberty.easy_records.organizations.business.retail.stock_item_source.api.StockItemSource
 import app.myliberty.easy_records.util.annotations.HasReference
 import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.exceptions.RtsGenericException

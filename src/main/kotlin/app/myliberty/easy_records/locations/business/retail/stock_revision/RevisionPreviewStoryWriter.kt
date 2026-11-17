@@ -1,11 +1,11 @@
-package app.myliberty.easy_records.locations.business.stock_revision
+package app.myliberty.easy_records.locations.business.retail.stock_revision
 
-import app.myliberty.easy_records.locations.business.delivery.api.ValidatedDeliveryLineRevisionDto
-import app.myliberty.easy_records.locations.business.stock.api.revision.ConsumerReplayPlan
-import app.myliberty.easy_records.locations.business.stock_revision.api.AdjustmentCostChange
-import app.myliberty.easy_records.locations.business.stock_revision.api.RevisionPreviewItemDto
-import app.myliberty.easy_records.locations.business.stock_revision.api.RevisionPreviewSeverity
-import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.MovementType
+import app.myliberty.easy_records.locations.business.retail.delivery.api.ValidatedDeliveryLineRevisionDto
+import app.myliberty.easy_records.locations.business.retail.stock.api.revision.ConsumerReplayPlan
+import app.myliberty.easy_records.locations.business.retail.stock_revision.api.AdjustmentCostChange
+import app.myliberty.easy_records.locations.business.retail.stock_revision.api.RevisionPreviewItemDto
+import app.myliberty.easy_records.locations.business.retail.stock_revision.api.RevisionPreviewSeverity
+import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.MovementType
 import app.myliberty.easy_records.util.business.DisplayFormatters
 import app.myliberty.easy_records.util.exceptions.BlockingProblem
 import app.myliberty.easy_records.util.quantity.ExactQuantity

@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.business.purchase.search
+package app.myliberty.easy_records.locations.business.retail.purchase.search
 
 import jakarta.persistence.Tuple
 import java.math.BigDecimal

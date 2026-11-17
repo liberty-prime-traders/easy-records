@@ -1,16 +1,16 @@
-package app.myliberty.easy_records.locations.business.stock_transfer.api
+package app.myliberty.easy_records.locations.business.retail.stock_transfer.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
-import app.myliberty.easy_records.locations.business.location_product.api.LocationProductDataFetcher
-import app.myliberty.easy_records.locations.business.location_product.api.LocationProductSummaryDto
-import app.myliberty.easy_records.locations.business.location_product.api.LocationProductUnitRequestDto
-import app.myliberty.easy_records.locations.business.stock_transfer.ReconciledTransferLineFetcher
-import app.myliberty.easy_records.locations.business.stock_transfer.StockTransferDispatchEntity
-import app.myliberty.easy_records.locations.business.stock_transfer.StockTransferDraftDispatchFetcher
-import app.myliberty.easy_records.locations.business.stock_transfer.StockTransferDraftLineEntity
-import app.myliberty.easy_records.locations.business.stock_transfer.StockTransferDraftLineRepository
-import app.myliberty.easy_records.locations.business.stock_transfer.StockTransferResponseAssembler
-import app.myliberty.easy_records.organizations.business.stock_transfer.api.StockTransferOrderDataFetcher
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductDataFetcher
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductSummaryDto
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductUnitRequestDto
+import app.myliberty.easy_records.locations.business.retail.stock_transfer.ReconciledTransferLineFetcher
+import app.myliberty.easy_records.locations.business.retail.stock_transfer.StockTransferDispatchEntity
+import app.myliberty.easy_records.locations.business.retail.stock_transfer.StockTransferDraftDispatchFetcher
+import app.myliberty.easy_records.locations.business.retail.stock_transfer.StockTransferDraftLineEntity
+import app.myliberty.easy_records.locations.business.retail.stock_transfer.StockTransferDraftLineRepository
+import app.myliberty.easy_records.locations.business.retail.stock_transfer.StockTransferResponseAssembler
+import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferOrderDataFetcher
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Service
 import java.util.UUID

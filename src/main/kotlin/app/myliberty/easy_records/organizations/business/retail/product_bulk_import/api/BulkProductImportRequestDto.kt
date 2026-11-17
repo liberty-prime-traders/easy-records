@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.product_bulk_import.api
+package app.myliberty.easy_records.organizations.business.retail.product_bulk_import.api
 
 data class BulkProductImportRequestDto(
     val categories: List<ProductCategoryBulkInsertDto> = emptyList(),

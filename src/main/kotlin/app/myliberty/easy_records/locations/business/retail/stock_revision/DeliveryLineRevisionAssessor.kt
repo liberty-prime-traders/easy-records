@@ -1,13 +1,13 @@
-package app.myliberty.easy_records.locations.business.stock_revision
+package app.myliberty.easy_records.locations.business.retail.stock_revision
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
-import app.myliberty.easy_records.locations.business.delivery.api.PurchaseDeliveryLineReplaceRequest
-import app.myliberty.easy_records.locations.business.delivery.api.PurchaseDeliveryLineReplacer
-import app.myliberty.easy_records.locations.business.delivery.api.ValidatedDeliveryLineRevisionDto
-import app.myliberty.easy_records.locations.business.location_product.api.ProductStockBreakdownProvider
-import app.myliberty.easy_records.locations.business.stock.api.read.DeliveryLineStockInspector
-import app.myliberty.easy_records.locations.business.stock.api.revision.StockReplacementLayerPreviewer
-import app.myliberty.easy_records.locations.business.stock_revision.api.DeliveryLineRevisionRequest
+import app.myliberty.easy_records.locations.business.retail.delivery.api.PurchaseDeliveryLineReplaceRequest
+import app.myliberty.easy_records.locations.business.retail.delivery.api.PurchaseDeliveryLineReplacer
+import app.myliberty.easy_records.locations.business.retail.delivery.api.ValidatedDeliveryLineRevisionDto
+import app.myliberty.easy_records.locations.business.retail.location_product.api.ProductStockBreakdownProvider
+import app.myliberty.easy_records.locations.business.retail.stock.api.read.DeliveryLineStockInspector
+import app.myliberty.easy_records.locations.business.retail.stock.api.revision.StockReplacementLayerPreviewer
+import app.myliberty.easy_records.locations.business.retail.stock_revision.api.DeliveryLineRevisionRequest
 import app.myliberty.easy_records.util.quantity.QuantityBreakdown
 import org.springframework.stereotype.Component
 import java.util.UUID

@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.locations.business.sale.search
+package app.myliberty.easy_records.locations.business.retail.sale.search
 
-import app.myliberty.easy_records.locations.business.sale.api.SaleConsolidationEligibility
-import app.myliberty.easy_records.locations.business.sale.SaleArrears
-import app.myliberty.easy_records.locations.business.sale.api.SaleSummary
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleConsolidationEligibility
+import app.myliberty.easy_records.locations.business.retail.sale.SaleArrears
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleSummary
 import java.math.BigDecimal
 import java.util.UUID
 

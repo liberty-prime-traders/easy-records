@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.organizations.business.product.api
+package app.myliberty.easy_records.organizations.business.retail.product.api
 
-import app.myliberty.easy_records.cross_tier.product.search.common.ProductSearchParameters
-import app.myliberty.easy_records.cross_tier.product.search.common.ProductSearchService
-import app.myliberty.easy_records.organizations.business.product.OrganizationProductQueryBuilder
+import app.myliberty.easy_records.cross_tier.retail.product.search.common.ProductSearchParameters
+import app.myliberty.easy_records.cross_tier.retail.product.search.common.ProductSearchService
+import app.myliberty.easy_records.organizations.business.retail.product.OrganizationProductQueryBuilder
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 

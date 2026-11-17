@@ -1,11 +1,11 @@
-package app.myliberty.easy_records.organizations.business.daily_business_summary
+package app.myliberty.easy_records.organizations.business.retail.daily_business_summary
 
 import app.myliberty.easy_records.organizations.business.account.api.AccountCategory
 import app.myliberty.easy_records.organizations.business.account.api.AccountTreeNode
 import app.myliberty.easy_records.organizations.business.account.api.SystemAccount
-import app.myliberty.easy_records.organizations.business.daily_business_summary.api.AccountBalanceLine
-import app.myliberty.easy_records.organizations.business.daily_business_summary.api.BalanceSection
-import app.myliberty.easy_records.organizations.business.daily_business_summary.api.BalanceSections
+import app.myliberty.easy_records.organizations.business.retail.daily_business_summary.api.AccountBalanceLine
+import app.myliberty.easy_records.organizations.business.retail.daily_business_summary.api.BalanceSection
+import app.myliberty.easy_records.organizations.business.retail.daily_business_summary.api.BalanceSections
 import app.myliberty.easy_records.util.business.Decimals
 import app.myliberty.easy_records.util.ui_models.BalanceEffect
 import java.math.BigDecimal

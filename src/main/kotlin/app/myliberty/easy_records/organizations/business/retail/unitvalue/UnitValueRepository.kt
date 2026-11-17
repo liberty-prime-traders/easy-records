@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.unitvalue
+package app.myliberty.easy_records.organizations.business.retail.unitvalue
 
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository

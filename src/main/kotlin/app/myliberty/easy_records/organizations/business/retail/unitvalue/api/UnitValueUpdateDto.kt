@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.organizations.business.unitvalue.api
+package app.myliberty.easy_records.organizations.business.retail.unitvalue.api
 
-import app.myliberty.easy_records.organizations.business.unitvalue.UnitValueDto
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.UnitValueDto
 import java.io.Serializable
 import java.util.Optional
 import java.util.UUID

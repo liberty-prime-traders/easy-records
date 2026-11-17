@@ -1,13 +1,13 @@
-package app.myliberty.easy_records.organizations.business.product.api
+package app.myliberty.easy_records.organizations.business.retail.product.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
-import app.myliberty.easy_records.cross_tier.product.search.common.ProductSearchParameters
-import app.myliberty.easy_records.organizations.business.product.OrganizationProductCache
-import app.myliberty.easy_records.organizations.business.product.OrganizationProductMapper
-import app.myliberty.easy_records.organizations.business.product.OrganizationProductQueryBuilder
-import app.myliberty.easy_records.organizations.business.product.OrganizationProductSearchExecutor
-import app.myliberty.easy_records.organizations.business.product_tag.api.ProductTagService
-import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueFetcher
+import app.myliberty.easy_records.cross_tier.retail.product.search.common.ProductSearchParameters
+import app.myliberty.easy_records.organizations.business.retail.product.OrganizationProductCache
+import app.myliberty.easy_records.organizations.business.retail.product.OrganizationProductMapper
+import app.myliberty.easy_records.organizations.business.retail.product.OrganizationProductQueryBuilder
+import app.myliberty.easy_records.organizations.business.retail.product.OrganizationProductSearchExecutor
+import app.myliberty.easy_records.organizations.business.retail.product_tag.api.ProductTagService
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueFetcher
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import app.myliberty.easy_records.util.paging.PageRequest
 import app.myliberty.easy_records.util.paging.PageResponse

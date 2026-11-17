@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.locations.business.stock_transfer
+package app.myliberty.easy_records.locations.business.retail.stock_transfer
 
 import app.myliberty.easy_records.locations.business.lock.api.EntityAdvisoryLock
-import app.myliberty.easy_records.organizations.business.stock_transfer.api.StockTransferOrderDataFetcher
-import app.myliberty.easy_records.organizations.business.stock_transfer.api.StockTransferOrderDomainDto
+import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferOrderDataFetcher
+import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferOrderDomainDto
 import app.myliberty.easy_records.util.business.lock.LockNamespaces
 import org.springframework.stereotype.Component
 

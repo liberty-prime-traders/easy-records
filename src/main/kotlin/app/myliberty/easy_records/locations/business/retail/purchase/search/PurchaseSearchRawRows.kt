@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.business.purchase.search
+package app.myliberty.easy_records.locations.business.retail.purchase.search
 
 import java.math.BigDecimal
 import java.util.UUID

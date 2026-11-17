@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.locations.business.sale_session.consolidation.line_merge
+package app.myliberty.easy_records.locations.business.retail.sale_session.consolidation.line_merge
 
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionAdjustment
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionLine
-import app.myliberty.easy_records.locations.business.sale_adjustment.api.PriceAdjustmentMethod
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionAdjustment
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionLine
+import app.myliberty.easy_records.locations.business.retail.sale_adjustment.api.PriceAdjustmentMethod
 import app.myliberty.easy_records.util.business.DisplayFormatters
 import app.myliberty.easy_records.util.exceptions.BlockingProblem
 import app.myliberty.easy_records.util.quantity.QuantityLimits

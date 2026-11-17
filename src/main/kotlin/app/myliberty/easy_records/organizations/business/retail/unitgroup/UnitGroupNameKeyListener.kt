@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.unitgroup
+package app.myliberty.easy_records.organizations.business.retail.unitgroup
 
 import jakarta.persistence.PrePersist
 import jakarta.persistence.PreUpdate

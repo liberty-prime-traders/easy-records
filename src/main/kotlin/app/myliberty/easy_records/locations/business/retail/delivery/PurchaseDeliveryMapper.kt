@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.locations.business.delivery
+package app.myliberty.easy_records.locations.business.retail.delivery
 
-import app.myliberty.easy_records.locations.business.delivery.api.PurchaseDeliveryCreateDto
-import app.myliberty.easy_records.locations.business.purchase.api.PurchaseLineDto
+import app.myliberty.easy_records.locations.business.retail.delivery.api.PurchaseDeliveryCreateDto
+import app.myliberty.easy_records.locations.business.retail.purchase.api.PurchaseLineDto
 import app.myliberty.easy_records.messaging.kafka.common.EventSourceContext
 import app.myliberty.easy_records.messaging.kafka.transaction.events.PurchaseDeliveredEvent
 import app.myliberty.easy_records.messaging.kafka.transaction.events.PurchaseDeliveredLineDto

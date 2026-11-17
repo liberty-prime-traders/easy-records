@@ -1,11 +1,11 @@
-package app.myliberty.easy_records.locations.business.purchase
+package app.myliberty.easy_records.locations.business.retail.purchase
 
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
-import app.myliberty.easy_records.locations.business.purchase.api.PurchaseCreateDto
-import app.myliberty.easy_records.locations.business.purchase.api.PurchaseLineCreateDto
-import app.myliberty.easy_records.locations.business.purchase.api.PurchaseLineDto
-import app.myliberty.easy_records.locations.business.purchase.api.PurchaseStatus
-import app.myliberty.easy_records.locations.business.purchase.api.PurchaseUpdateDto
+import app.myliberty.easy_records.locations.business.retail.purchase.api.PurchaseCreateDto
+import app.myliberty.easy_records.locations.business.retail.purchase.api.PurchaseLineCreateDto
+import app.myliberty.easy_records.locations.business.retail.purchase.api.PurchaseLineDto
+import app.myliberty.easy_records.locations.business.retail.purchase.api.PurchaseStatus
+import app.myliberty.easy_records.locations.business.retail.purchase.api.PurchaseUpdateDto
 import app.myliberty.easy_records.util.business.DateTimes
 import java.util.UUID
 

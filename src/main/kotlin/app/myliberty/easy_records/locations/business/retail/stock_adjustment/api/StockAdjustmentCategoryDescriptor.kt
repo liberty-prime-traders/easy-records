@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.locations.business.stock_adjustment.api
+package app.myliberty.easy_records.locations.business.retail.stock_adjustment.api
 
-import app.myliberty.easy_records.locations.business.stock.api.StockAdjustmentCategory
+import app.myliberty.easy_records.locations.business.retail.stock.api.StockAdjustmentCategory
 import java.util.UUID
 
 data class StockAdjustmentCategoryDescriptor(

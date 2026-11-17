@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.locations.business.product_purchases_report
+package app.myliberty.easy_records.locations.business.retail.product_purchases_report
 
-import app.myliberty.easy_records.locations.business.purchase.api.delivery.PurchaseDeliveryLineStatus
+import app.myliberty.easy_records.locations.business.retail.purchase.api.delivery.PurchaseDeliveryLineStatus
 import java.math.BigDecimal
 import java.time.OffsetDateTime
 import java.util.UUID

@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.locations.business.stock.api.read
+package app.myliberty.easy_records.locations.business.retail.stock.api.read
 
-import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.MovementType
+import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.MovementType
 import java.time.Instant
 import java.util.UUID
 

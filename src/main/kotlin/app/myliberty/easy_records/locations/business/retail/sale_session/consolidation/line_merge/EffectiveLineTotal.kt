@@ -1,9 +1,9 @@
-package app.myliberty.easy_records.locations.business.sale_session.consolidation.line_merge
+package app.myliberty.easy_records.locations.business.retail.sale_session.consolidation.line_merge
 
-import app.myliberty.easy_records.locations.business.sale_session.SaleSessionTotalsCalculator
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionAdjustment
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionLine
-import app.myliberty.easy_records.organizations.business.adjustment_reason.api.AdjustmentDirection
+import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionTotalsCalculator
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionAdjustment
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionLine
+import app.myliberty.easy_records.organizations.business.retail.adjustment_reason.api.AdjustmentDirection
 import java.math.BigDecimal
 
 object EffectiveLineTotal {

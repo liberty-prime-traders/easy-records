@@ -1,13 +1,13 @@
-package app.myliberty.easy_records.locations.business.stock_adjustment
+package app.myliberty.easy_records.locations.business.retail.stock_adjustment
 
 import jakarta.persistence.Column
 import jakarta.persistence.Convert
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
-import app.myliberty.easy_records.locations.business.stock.api.StockAdjustmentCategory
-import app.myliberty.easy_records.locations.business.stock.api.StockAdjustmentCategoryConverter
-import app.myliberty.easy_records.locations.business.stock_adjustment.api.StockAdjustmentDirection
-import app.myliberty.easy_records.locations.business.stock_adjustment.api.StockAdjustmentDirectionConverter
+import app.myliberty.easy_records.locations.business.retail.stock.api.StockAdjustmentCategory
+import app.myliberty.easy_records.locations.business.retail.stock.api.StockAdjustmentCategoryConverter
+import app.myliberty.easy_records.locations.business.retail.stock_adjustment.api.StockAdjustmentDirection
+import app.myliberty.easy_records.locations.business.retail.stock_adjustment.api.StockAdjustmentDirectionConverter
 import app.myliberty.easy_records.util.annotations.HasReference
 import app.myliberty.easy_records.util.model.ImmutableEntity
 import app.myliberty.easy_records.util.model.TableName

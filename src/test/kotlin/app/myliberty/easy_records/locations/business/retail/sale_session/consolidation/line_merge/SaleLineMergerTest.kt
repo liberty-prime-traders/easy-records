@@ -1,17 +1,17 @@
-package app.myliberty.easy_records.locations.business.sale_session.consolidation.line_merge
+package app.myliberty.easy_records.locations.business.retail.sale_session.consolidation.line_merge
 
-import app.myliberty.easy_records.locations.business.sale_adjustment.api.PriceAdjustmentMethod
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionAdjustment
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionLine
-import app.myliberty.easy_records.locations.business.sale_session.api.SessionIdentity
-import app.myliberty.easy_records.organizations.business.adjustment_reason.api.AdjustmentDirection
+import app.myliberty.easy_records.locations.business.retail.sale_adjustment.api.PriceAdjustmentMethod
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionAdjustment
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionLine
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SessionIdentity
+import app.myliberty.easy_records.organizations.business.retail.adjustment_reason.api.AdjustmentDirection
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
-import app.myliberty.easy_records.organizations.business.unitconversion.api.UnitConversionGraph
-import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitPlacement
+import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.UnitConversionGraph
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitPlacement
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import app.myliberty.easy_records.util.quantity.BreakdownUnit
 import java.math.BigDecimal

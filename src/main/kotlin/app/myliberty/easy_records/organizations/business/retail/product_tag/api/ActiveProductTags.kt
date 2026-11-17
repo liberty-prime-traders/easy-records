@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.product_tag.api
+package app.myliberty.easy_records.organizations.business.retail.product_tag.api
 
 import org.mapstruct.Qualifier
 

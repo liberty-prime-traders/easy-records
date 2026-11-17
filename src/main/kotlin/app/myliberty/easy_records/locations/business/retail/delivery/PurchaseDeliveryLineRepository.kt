@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.locations.business.delivery
+package app.myliberty.easy_records.locations.business.retail.delivery
 
-import app.myliberty.easy_records.locations.business.purchase.api.delivery.PurchaseDeliveryLineStatus
+import app.myliberty.easy_records.locations.business.retail.purchase.api.delivery.PurchaseDeliveryLineStatus
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository

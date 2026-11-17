@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.locations.business.sale.search
+package app.myliberty.easy_records.locations.business.retail.sale.search
 
 import app.myliberty.easy_records.util.enums.PaymentStatus
-import app.myliberty.easy_records.locations.business.sale.SaleEntity
-import app.myliberty.easy_records.locations.business.sale.api.SaleStatus
+import app.myliberty.easy_records.locations.business.retail.sale.SaleEntity
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleStatus
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import java.math.BigDecimal

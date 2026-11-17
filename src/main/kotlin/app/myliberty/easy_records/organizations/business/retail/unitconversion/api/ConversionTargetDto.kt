@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.organizations.business.unitconversion.api
+package app.myliberty.easy_records.organizations.business.retail.unitconversion.api
 
-import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitPlacement
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitPlacement
 import app.myliberty.easy_records.util.business.ConversionRatio
 import app.myliberty.easy_records.util.business.Decimals
 import app.myliberty.easy_records.util.exceptions.RtsGenericException

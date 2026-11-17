@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.locations.business.purchase_movement_context_backfill
+package app.myliberty.easy_records.locations.business.retail.purchase_movement_context_backfill
 
-import app.myliberty.easy_records.locations.business.stock.api.read.PurchaseMovementContextBackfillStore
-import app.myliberty.easy_records.locations.business.stock.api.read.PurchaseMovementContextCandidate
+import app.myliberty.easy_records.locations.business.retail.stock.api.read.PurchaseMovementContextBackfillStore
+import app.myliberty.easy_records.locations.business.retail.stock.api.read.PurchaseMovementContextCandidate
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Assertions.assertTrue

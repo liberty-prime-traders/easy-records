@@ -1,11 +1,11 @@
-package app.myliberty.easy_records.organizations.business.stock_item_source
+package app.myliberty.easy_records.organizations.business.retail.stock_item_source
 
 import jakarta.persistence.Column
 import jakarta.persistence.Convert
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
-import app.myliberty.easy_records.organizations.business.stock_item_source.api.StockItemSource
-import app.myliberty.easy_records.organizations.business.stock_item_source.api.StockItemSourceConverter
+import app.myliberty.easy_records.organizations.business.retail.stock_item_source.api.StockItemSource
+import app.myliberty.easy_records.organizations.business.retail.stock_item_source.api.StockItemSourceConverter
 import app.myliberty.easy_records.util.annotations.HasReference
 import app.myliberty.easy_records.util.model.HasReferenceEntity
 import app.myliberty.easy_records.util.model.TableName

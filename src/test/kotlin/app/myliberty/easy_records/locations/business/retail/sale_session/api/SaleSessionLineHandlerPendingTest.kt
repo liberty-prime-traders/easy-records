@@ -1,15 +1,15 @@
-package app.myliberty.easy_records.locations.business.sale_session.api
+package app.myliberty.easy_records.locations.business.retail.sale_session.api
 
-import app.myliberty.easy_records.locations.business.sale.api.SaleStatus
-import app.myliberty.easy_records.locations.business.sale_session.SaleSessionInMemoryStore
-import app.myliberty.easy_records.locations.business.sale_session.SaleSessionLineAdjustmentReconciler
-import app.myliberty.easy_records.locations.business.sale_session.SaleSessionLineChangeContextBuilder
-import app.myliberty.easy_records.locations.business.sale_session.SaleSessionStockOverlay
-import app.myliberty.easy_records.locations.business.sale_session.SaleSessionUpdateFinalizer
-import app.myliberty.easy_records.locations.business.sale_session.SaleSessionValidator
-import app.myliberty.easy_records.locations.business.location_product.api.LocationProductService
-import app.myliberty.easy_records.locations.business.stock_reservation.api.StockReserver
-import app.myliberty.easy_records.organizations.business.adjustment_reason.api.AdjustmentReasonService
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleStatus
+import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionInMemoryStore
+import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionLineAdjustmentReconciler
+import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionLineChangeContextBuilder
+import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionStockOverlay
+import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionUpdateFinalizer
+import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionValidator
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductService
+import app.myliberty.easy_records.locations.business.retail.stock_reservation.api.StockReserver
+import app.myliberty.easy_records.organizations.business.retail.adjustment_reason.api.AdjustmentReasonService
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import app.myliberty.easy_records.util.quantity.PositiveUserProvidedQuantity
 import org.junit.jupiter.api.Assertions.assertEquals

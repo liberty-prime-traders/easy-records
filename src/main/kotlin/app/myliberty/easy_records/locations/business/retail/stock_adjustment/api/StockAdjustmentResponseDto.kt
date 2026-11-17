@@ -1,9 +1,9 @@
-package app.myliberty.easy_records.locations.business.stock_adjustment.api
+package app.myliberty.easy_records.locations.business.retail.stock_adjustment.api
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import app.myliberty.easy_records.configuration.serializer.StripZeroesAndRound
-import app.myliberty.easy_records.locations.business.stock.api.StockAdjustmentCategory
+import app.myliberty.easy_records.locations.business.retail.stock.api.StockAdjustmentCategory
 import java.math.BigDecimal
 import java.time.OffsetDateTime
 import java.util.UUID

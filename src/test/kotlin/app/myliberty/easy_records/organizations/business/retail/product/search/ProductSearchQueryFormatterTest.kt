@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.organizations.business.product.search
+package app.myliberty.easy_records.organizations.business.retail.product.search
 
-import app.myliberty.easy_records.organizations.business.product.search.TestDataFactory.TestUUIDs
+import app.myliberty.easy_records.organizations.business.retail.product.search.TestDataFactory.TestUUIDs
 import app.myliberty.easy_records.util.queries.QueryFormatter
 import app.myliberty.easy_records.util.queries.QueryParameterNames
 import app.myliberty.easy_records.util.queries.ProductQueryMetadata

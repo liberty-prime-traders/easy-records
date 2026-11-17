@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.business.sale_payment
+package app.myliberty.easy_records.locations.business.retail.sale_payment
 
 import java.math.BigDecimal
 import java.time.OffsetDateTime
@@ -7,13 +7,13 @@ import app.myliberty.easy_records.configuration.session.LocationSession
 import app.myliberty.easy_records.configuration.session.OrgSession
 import app.myliberty.easy_records.configuration.session.SessionContext
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
-import app.myliberty.easy_records.locations.business.sale.api.SaleContext
-import app.myliberty.easy_records.locations.business.sale.api.SaleDataFetcher
-import app.myliberty.easy_records.locations.business.sale.api.SaleStatus
-import app.myliberty.easy_records.locations.business.sale.api.SaleUpdater
-import app.myliberty.easy_records.locations.business.sale_payment.api.SalePaymentFetcher
-import app.myliberty.easy_records.locations.business.sale_payment.api.SalePaymentService
-import app.myliberty.easy_records.locations.business.sale_payment.api.SalePaymentVoidCreateDto
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleContext
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleDataFetcher
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleStatus
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleUpdater
+import app.myliberty.easy_records.locations.business.retail.sale_payment.api.SalePaymentFetcher
+import app.myliberty.easy_records.locations.business.retail.sale_payment.api.SalePaymentService
+import app.myliberty.easy_records.locations.business.retail.sale_payment.api.SalePaymentVoidCreateDto
 import app.myliberty.easy_records.organizations.business.fiscal_period.api.FiscalPeriodService
 import app.myliberty.easy_records.organizations.business.payment_method.api.PaymentMethodDataFetcher
 import app.myliberty.easy_records.util.enums.PaymentStatus

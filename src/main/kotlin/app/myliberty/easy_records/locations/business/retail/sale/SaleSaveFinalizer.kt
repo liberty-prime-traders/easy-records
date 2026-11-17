@@ -1,11 +1,11 @@
-package app.myliberty.easy_records.locations.business.sale
+package app.myliberty.easy_records.locations.business.retail.sale
 
-import app.myliberty.easy_records.locations.business.sale.api.SaleSaveRequest
-import app.myliberty.easy_records.locations.business.sale_adjustment.api.RetainedSaleAdjustments
-import app.myliberty.easy_records.locations.business.sale_adjustment.api.SaleAdjustmentSyncer
-import app.myliberty.easy_records.locations.business.sale_adjustment.api.SaleAdjustmentFetcher
-import app.myliberty.easy_records.locations.business.sale_payment.api.PersistedSalePayment
-import app.myliberty.easy_records.locations.business.sale_payment.api.SalePaymentAppender
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleSaveRequest
+import app.myliberty.easy_records.locations.business.retail.sale_adjustment.api.RetainedSaleAdjustments
+import app.myliberty.easy_records.locations.business.retail.sale_adjustment.api.SaleAdjustmentSyncer
+import app.myliberty.easy_records.locations.business.retail.sale_adjustment.api.SaleAdjustmentFetcher
+import app.myliberty.easy_records.locations.business.retail.sale_payment.api.PersistedSalePayment
+import app.myliberty.easy_records.locations.business.retail.sale_payment.api.SalePaymentAppender
 import org.springframework.stereotype.Component
 import java.util.UUID
 

@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.organizations.business.product
+package app.myliberty.easy_records.organizations.business.retail.product
 
 import app.myliberty.easy_records.configuration.datasource.DataSourceBeanNames
-import app.myliberty.easy_records.organizations.business.product.api.OrganizationProductResponseDto
-import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueFetcher
+import app.myliberty.easy_records.organizations.business.retail.product.api.OrganizationProductResponseDto
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueFetcher
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import app.myliberty.easy_records.util.queries.SqlSearchExecutor
 import org.springframework.beans.factory.annotation.Qualifier

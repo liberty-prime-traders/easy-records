@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.organizations.business.unitgroup.api
+package app.myliberty.easy_records.organizations.business.retail.unitgroup.api
 
-import app.myliberty.easy_records.organizations.business.unitgroup.UnitGroupCache
+import app.myliberty.easy_records.organizations.business.retail.unitgroup.UnitGroupCache
 import org.springframework.stereotype.Component
 import java.util.UUID
 

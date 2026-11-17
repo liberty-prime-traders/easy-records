@@ -1,9 +1,9 @@
-package app.myliberty.easy_records.organizations.business.product.search
+package app.myliberty.easy_records.organizations.business.retail.product.search
 
-import app.myliberty.easy_records.cross_tier.product.search.common.ProductSearchParameters
-import app.myliberty.easy_records.organizations.business.product.OrganizationProductQueryBuilder
-import app.myliberty.easy_records.organizations.business.product.api.ProductStatus
-import app.myliberty.easy_records.organizations.business.product.search.TestDataFactory.TestUUIDs
+import app.myliberty.easy_records.cross_tier.retail.product.search.common.ProductSearchParameters
+import app.myliberty.easy_records.organizations.business.retail.product.OrganizationProductQueryBuilder
+import app.myliberty.easy_records.organizations.business.retail.product.api.ProductStatus
+import app.myliberty.easy_records.organizations.business.retail.product.search.TestDataFactory.TestUUIDs
 import app.myliberty.easy_records.util.queries.ProductQueryMetadata
 import app.myliberty.easy_records.util.queries.SearchStrategy
 import org.junit.jupiter.api.Test

@@ -1,11 +1,11 @@
-package app.myliberty.easy_records.locations.business.catalog_sync.sync_services.product
+package app.myliberty.easy_records.locations.business.retail.catalog_sync.sync_services.product
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
-import app.myliberty.easy_records.locations.business.catalog_sync.SyncCursor
-import app.myliberty.easy_records.locations.business.catalog_sync.api.SyncService
-import app.myliberty.easy_records.locations.business.location_product.api.LocationProductSyncService
-import app.myliberty.easy_records.organizations.business.product.api.OrganizationProductFetcher
+import app.myliberty.easy_records.locations.business.retail.catalog_sync.SyncCursor
+import app.myliberty.easy_records.locations.business.retail.catalog_sync.api.SyncService
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductSyncService
+import app.myliberty.easy_records.organizations.business.retail.product.api.OrganizationProductFetcher
 import app.myliberty.easy_records.util.model.TableName
 import org.springframework.stereotype.Service
 import java.util.UUID

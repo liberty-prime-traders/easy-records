@@ -1,9 +1,9 @@
-package app.myliberty.easy_records.locations.business.sale.api
+package app.myliberty.easy_records.locations.business.retail.sale.api
 
-import app.myliberty.easy_records.locations.business.sale.SaleLineCogsEntity
-import app.myliberty.easy_records.locations.business.sale.SaleLineCogsRepository
-import app.myliberty.easy_records.locations.business.sale.SaleLineEntity
-import app.myliberty.easy_records.locations.business.sale.SaleLineRepository
+import app.myliberty.easy_records.locations.business.retail.sale.SaleLineCogsEntity
+import app.myliberty.easy_records.locations.business.retail.sale.SaleLineCogsRepository
+import app.myliberty.easy_records.locations.business.retail.sale.SaleLineEntity
+import app.myliberty.easy_records.locations.business.retail.sale.SaleLineRepository
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows

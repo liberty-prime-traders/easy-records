@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.business.sale_session.api
+package app.myliberty.easy_records.locations.business.retail.sale_session.api
 
 enum class SaleSessionAction {
     UPDATE_CONTACT,

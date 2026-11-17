@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.locations.business.sale.search
+package app.myliberty.easy_records.locations.business.retail.sale.search
 
-import app.myliberty.easy_records.locations.business.sale.api.SaleSearchParameters
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleSearchParameters
 import app.myliberty.easy_records.util.queries.SearchGuards
 
 object SaleSearchValidator {

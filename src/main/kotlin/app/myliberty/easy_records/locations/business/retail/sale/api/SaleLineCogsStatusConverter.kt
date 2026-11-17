@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.business.sale.api
+package app.myliberty.easy_records.locations.business.retail.sale.api
 
 import jakarta.persistence.Converter
 import app.myliberty.easy_records.util.enums.EnumConverter

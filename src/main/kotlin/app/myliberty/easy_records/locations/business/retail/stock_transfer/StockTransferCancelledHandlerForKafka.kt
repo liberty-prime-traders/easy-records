@@ -1,11 +1,11 @@
-package app.myliberty.easy_records.locations.business.stock_transfer
+package app.myliberty.easy_records.locations.business.retail.stock_transfer
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
 import app.myliberty.easy_records.messaging.kafka.common.EventSourceContext
 import app.myliberty.easy_records.messaging.kafka.transaction.EventReissueHandler
 import app.myliberty.easy_records.messaging.kafka.transaction.events.StockTransferCancelledEvent
-import app.myliberty.easy_records.organizations.business.stock_transfer.api.StockTransferOrderDataFetcher
+import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferOrderDataFetcher
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.business.Money

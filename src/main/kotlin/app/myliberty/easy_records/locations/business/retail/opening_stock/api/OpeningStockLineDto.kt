@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.business.opening_stock.api
+package app.myliberty.easy_records.locations.business.retail.opening_stock.api
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import app.myliberty.easy_records.util.business.PositiveMoney

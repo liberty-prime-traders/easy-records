@@ -1,9 +1,9 @@
 package app.myliberty.easy_records.locations.rest.endpoints
 
-import app.myliberty.easy_records.locations.business.stock_adjustment.api.StockAdjustmentCategoryDescriptor
-import app.myliberty.easy_records.locations.business.stock_adjustment.api.StockAdjustmentCreateDto
-import app.myliberty.easy_records.locations.business.stock_adjustment.api.StockAdjustmentResponseDto
-import app.myliberty.easy_records.locations.business.stock_adjustment.api.StockAdjustmentService
+import app.myliberty.easy_records.locations.business.retail.stock_adjustment.api.StockAdjustmentCategoryDescriptor
+import app.myliberty.easy_records.locations.business.retail.stock_adjustment.api.StockAdjustmentCreateDto
+import app.myliberty.easy_records.locations.business.retail.stock_adjustment.api.StockAdjustmentResponseDto
+import app.myliberty.easy_records.locations.business.retail.stock_adjustment.api.StockAdjustmentService
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody

@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.business.stock_reservation
+package app.myliberty.easy_records.locations.business.retail.stock_reservation
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity

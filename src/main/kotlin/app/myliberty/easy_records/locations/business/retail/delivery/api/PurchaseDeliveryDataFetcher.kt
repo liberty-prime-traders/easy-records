@@ -1,12 +1,12 @@
-package app.myliberty.easy_records.locations.business.delivery.api
+package app.myliberty.easy_records.locations.business.retail.delivery.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
-import app.myliberty.easy_records.locations.business.delivery.PurchaseDeliveryAssembler
-import app.myliberty.easy_records.locations.business.delivery.PurchaseDeliveryLineRepository
-import app.myliberty.easy_records.locations.business.delivery.PurchaseDeliveryRepository
-import app.myliberty.easy_records.locations.business.location_product.api.LocationProductSummaryDto
-import app.myliberty.easy_records.locations.business.purchase.api.delivery.PurchaseDeliveryLineStatus
-import app.myliberty.easy_records.locations.business.purchase.api.PurchaseLineDto
+import app.myliberty.easy_records.locations.business.retail.delivery.PurchaseDeliveryAssembler
+import app.myliberty.easy_records.locations.business.retail.delivery.PurchaseDeliveryLineRepository
+import app.myliberty.easy_records.locations.business.retail.delivery.PurchaseDeliveryRepository
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductSummaryDto
+import app.myliberty.easy_records.locations.business.retail.purchase.api.delivery.PurchaseDeliveryLineStatus
+import app.myliberty.easy_records.locations.business.retail.purchase.api.PurchaseLineDto
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import app.myliberty.easy_records.util.quantity.ExactQuantity
 import org.springframework.stereotype.Service

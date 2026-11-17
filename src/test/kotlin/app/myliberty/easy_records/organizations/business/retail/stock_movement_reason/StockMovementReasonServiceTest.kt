@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.organizations.business.stock_movement_reason
+package app.myliberty.easy_records.organizations.business.retail.stock_movement_reason
 
-import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.MovementType
-import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.StockMovementReasonService
-import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.StockMovementReasonUpdateDto
+import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.MovementType
+import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.StockMovementReasonService
+import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.StockMovementReasonUpdateDto
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Assertions.assertTrue

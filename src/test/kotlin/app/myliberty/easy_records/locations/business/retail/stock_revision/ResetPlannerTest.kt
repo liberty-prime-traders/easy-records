@@ -1,15 +1,15 @@
-package app.myliberty.easy_records.locations.business.stock_revision
+package app.myliberty.easy_records.locations.business.retail.stock_revision
 
-import app.myliberty.easy_records.locations.business.stock.api.read.StockBalanceFetcher
-import app.myliberty.easy_records.locations.business.stock.api.read.StockEntryDto
-import app.myliberty.easy_records.locations.business.stock.api.read.StockEntryFetcher
-import app.myliberty.easy_records.locations.business.stock.api.StockEntryStatus
-import app.myliberty.easy_records.locations.business.stock.api.StockMovementContexts
-import app.myliberty.easy_records.locations.business.stock.api.read.StockMovementDto
-import app.myliberty.easy_records.locations.business.stock.api.read.StockMovementFetcher
-import app.myliberty.easy_records.locations.business.stock.api.revision.StockEntryResetPlan
-import app.myliberty.easy_records.organizations.business.stock_item_source.api.StockItemSource
-import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.MovementType
+import app.myliberty.easy_records.locations.business.retail.stock.api.read.StockBalanceFetcher
+import app.myliberty.easy_records.locations.business.retail.stock.api.read.StockEntryDto
+import app.myliberty.easy_records.locations.business.retail.stock.api.read.StockEntryFetcher
+import app.myliberty.easy_records.locations.business.retail.stock.api.StockEntryStatus
+import app.myliberty.easy_records.locations.business.retail.stock.api.StockMovementContexts
+import app.myliberty.easy_records.locations.business.retail.stock.api.read.StockMovementDto
+import app.myliberty.easy_records.locations.business.retail.stock.api.read.StockMovementFetcher
+import app.myliberty.easy_records.locations.business.retail.stock.api.revision.StockEntryResetPlan
+import app.myliberty.easy_records.organizations.business.retail.stock_item_source.api.StockItemSource
+import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.MovementType
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import app.myliberty.easy_records.util.quantity.BreakdownUnit
 import app.myliberty.easy_records.util.quantity.ExactQuantity

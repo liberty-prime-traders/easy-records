@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.locations.business.stock.api.revision
+package app.myliberty.easy_records.locations.business.retail.stock.api.revision
 
-import app.myliberty.easy_records.locations.business.stock.api.fifo.FifoConsumptionRequest
-import app.myliberty.easy_records.locations.business.stock.api.fifo.PlannedTake
+import app.myliberty.easy_records.locations.business.retail.stock.api.fifo.FifoConsumptionRequest
+import app.myliberty.easy_records.locations.business.retail.stock.api.fifo.PlannedTake
 import java.math.BigDecimal
 
 

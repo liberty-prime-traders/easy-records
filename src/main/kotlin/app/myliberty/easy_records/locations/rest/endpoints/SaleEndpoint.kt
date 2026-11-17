@@ -1,12 +1,12 @@
 package app.myliberty.easy_records.locations.rest.endpoints
 
-import app.myliberty.easy_records.locations.business.sale.api.SaleDataFetcher
-import app.myliberty.easy_records.locations.business.sale.api.SaleNotesUpdateDto
-import app.myliberty.easy_records.locations.business.sale.api.SaleSearchParameters
-import app.myliberty.easy_records.locations.business.sale.api.SaleSearchService
-import app.myliberty.easy_records.locations.business.sale.api.SaleSearchSummaryResponseDto
-import app.myliberty.easy_records.locations.business.sale.api.SaleSummary
-import app.myliberty.easy_records.locations.business.sale.api.SaleUpdater
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleDataFetcher
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleNotesUpdateDto
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleSearchParameters
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleSearchService
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleSearchSummaryResponseDto
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleSummary
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleUpdater
 import app.myliberty.easy_records.util.paging.PageRequest
 import app.myliberty.easy_records.util.paging.PageResponse
 import org.springframework.http.ResponseEntity

@@ -1,10 +1,10 @@
-package app.myliberty.easy_records.locations.business.stock_revision
+package app.myliberty.easy_records.locations.business.retail.stock_revision
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
-import app.myliberty.easy_records.locations.business.delivery.api.PurchaseDeliveryLineReplacer
-import app.myliberty.easy_records.locations.business.purchase.api.delivery.PurchaseDeliveryRevisionApplier
-import app.myliberty.easy_records.locations.business.stock.api.revision.StockReplacementLayerRecorder
-import app.myliberty.easy_records.locations.business.stock.api.revision.StockRevisionCommitter
+import app.myliberty.easy_records.locations.business.retail.delivery.api.PurchaseDeliveryLineReplacer
+import app.myliberty.easy_records.locations.business.retail.purchase.api.delivery.PurchaseDeliveryRevisionApplier
+import app.myliberty.easy_records.locations.business.retail.stock.api.revision.StockReplacementLayerRecorder
+import app.myliberty.easy_records.locations.business.retail.stock.api.revision.StockRevisionCommitter
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.springframework.transaction.annotation.Propagation

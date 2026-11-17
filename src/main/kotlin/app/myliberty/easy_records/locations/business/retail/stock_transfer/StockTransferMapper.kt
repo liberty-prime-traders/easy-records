@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.locations.business.stock_transfer
+package app.myliberty.easy_records.locations.business.retail.stock_transfer
 
-import app.myliberty.easy_records.locations.business.stock.api.updater.StockTransferReceiptLineStockRequest
+import app.myliberty.easy_records.locations.business.retail.stock.api.updater.StockTransferReceiptLineStockRequest
 
 
 fun StockTransferDispatchEntity.toDomainDto() = StockTransferDispatchDomainDto(

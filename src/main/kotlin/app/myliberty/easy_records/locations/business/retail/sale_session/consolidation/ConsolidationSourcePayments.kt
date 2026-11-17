@@ -1,14 +1,14 @@
-package app.myliberty.easy_records.locations.business.sale_session.consolidation
+package app.myliberty.easy_records.locations.business.retail.sale_session.consolidation
 
-import app.myliberty.easy_records.locations.business.sale.api.SaleHeaderDto
-import app.myliberty.easy_records.locations.business.sale.api.SaleUpdater
-import app.myliberty.easy_records.locations.business.sale_payment.api.SalePaymentFetcher
-import app.myliberty.easy_records.locations.business.sale_payment.api.SalePaymentService
-import app.myliberty.easy_records.locations.business.sale_payment.api.SalePaymentSnapshot
-import app.myliberty.easy_records.locations.business.sale_payment.api.SalePaymentVoidCreateDto
-import app.myliberty.easy_records.locations.business.sale_session.DomainToSessionMapper
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionPayment
-import app.myliberty.easy_records.locations.business.sale_session.api.SessionIdentity
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleHeaderDto
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleUpdater
+import app.myliberty.easy_records.locations.business.retail.sale_payment.api.SalePaymentFetcher
+import app.myliberty.easy_records.locations.business.retail.sale_payment.api.SalePaymentService
+import app.myliberty.easy_records.locations.business.retail.sale_payment.api.SalePaymentSnapshot
+import app.myliberty.easy_records.locations.business.retail.sale_payment.api.SalePaymentVoidCreateDto
+import app.myliberty.easy_records.locations.business.retail.sale_session.DomainToSessionMapper
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionPayment
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SessionIdentity
 import org.springframework.stereotype.Component
 
 @Component

@@ -1,13 +1,13 @@
-package app.myliberty.easy_records.locations.business.stock.api.read
+package app.myliberty.easy_records.locations.business.retail.stock.api.read
 
-import app.myliberty.easy_records.locations.business.stock.StockMovementEntity
-import app.myliberty.easy_records.locations.business.stock.StockMovementRepository
-import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.MovementType
-import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.StockMovementReasonFetcher
-import app.myliberty.easy_records.organizations.business.unitconversion.api.UnitConversionGraph
-import app.myliberty.easy_records.organizations.business.unitconversion.api.UnitConversionGraphFacade
-import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitPlacement
-import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueFetcher
+import app.myliberty.easy_records.locations.business.retail.stock.StockMovementEntity
+import app.myliberty.easy_records.locations.business.retail.stock.StockMovementRepository
+import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.MovementType
+import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.StockMovementReasonFetcher
+import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.UnitConversionGraph
+import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.UnitConversionGraphFacade
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitPlacement
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueFetcher
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test

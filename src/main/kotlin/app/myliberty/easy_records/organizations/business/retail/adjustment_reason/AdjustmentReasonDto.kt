@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.organizations.business.adjustment_reason
+package app.myliberty.easy_records.organizations.business.retail.adjustment_reason
 
-import app.myliberty.easy_records.organizations.business.adjustment_reason.api.AdjustmentDirection
+import app.myliberty.easy_records.organizations.business.retail.adjustment_reason.api.AdjustmentDirection
 import java.time.OffsetDateTime
 import java.util.UUID
 

@@ -1,9 +1,9 @@
-package app.myliberty.easy_records.organizations.business.stock_movement_reason.api
+package app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
-import app.myliberty.easy_records.organizations.business.stock_movement_reason.StockMovementReasonCache
-import app.myliberty.easy_records.organizations.business.stock_movement_reason.StockMovementReasonMapper
-import app.myliberty.easy_records.organizations.business.stock_movement_reason.StockMovementReasonValidator
+import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.StockMovementReasonCache
+import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.StockMovementReasonMapper
+import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.StockMovementReasonValidator
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException
 import org.springframework.stereotype.Service

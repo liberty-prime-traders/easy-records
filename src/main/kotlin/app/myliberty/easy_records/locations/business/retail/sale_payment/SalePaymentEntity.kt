@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.business.sale_payment
+package app.myliberty.easy_records.locations.business.retail.sale_payment
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity

@@ -1,10 +1,10 @@
-package app.myliberty.easy_records.locations.business.stock_transfer.api
+package app.myliberty.easy_records.locations.business.retail.stock_transfer.api
 
-import app.myliberty.easy_records.locations.business.stock_transfer.ReconciledTransferLine
-import app.myliberty.easy_records.locations.business.stock_transfer.StockTransferPerspective
-import app.myliberty.easy_records.locations.business.stock_transfer.StockTransferReceiptStatus
-import app.myliberty.easy_records.organizations.business.stock_transfer.api.StockTransferStatus
-import app.myliberty.easy_records.organizations.business.stock_transfer.api.StockTransferSummaryDto
+import app.myliberty.easy_records.locations.business.retail.stock_transfer.ReconciledTransferLine
+import app.myliberty.easy_records.locations.business.retail.stock_transfer.StockTransferPerspective
+import app.myliberty.easy_records.locations.business.retail.stock_transfer.StockTransferReceiptStatus
+import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferStatus
+import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferSummaryDto
 import java.time.OffsetDateTime
 import java.util.UUID
 

@@ -1,14 +1,14 @@
 package app.myliberty.easy_records.locations.rest.endpoints
 
-import app.myliberty.easy_records.locations.business.stock_transfer.api.StockTransferCreateDto
-import app.myliberty.easy_records.locations.business.stock_transfer.api.StockTransferDispatchService
-import app.myliberty.easy_records.locations.business.stock_transfer.api.StockTransferDraftService
-import app.myliberty.easy_records.locations.business.stock_transfer.api.StockTransferLineRequestDto
-import app.myliberty.easy_records.locations.business.stock_transfer.api.StockTransferReceiptService
-import app.myliberty.easy_records.locations.business.stock_transfer.api.StockTransferResponse
-import app.myliberty.easy_records.locations.business.stock_transfer.api.StockTransferService
-import app.myliberty.easy_records.organizations.business.stock_transfer.api.StockTransferSummaryDto
-import app.myliberty.easy_records.organizations.business.stock_transfer.api.StockTransferSummaryService
+import app.myliberty.easy_records.locations.business.retail.stock_transfer.api.StockTransferCreateDto
+import app.myliberty.easy_records.locations.business.retail.stock_transfer.api.StockTransferDispatchService
+import app.myliberty.easy_records.locations.business.retail.stock_transfer.api.StockTransferDraftService
+import app.myliberty.easy_records.locations.business.retail.stock_transfer.api.StockTransferLineRequestDto
+import app.myliberty.easy_records.locations.business.retail.stock_transfer.api.StockTransferReceiptService
+import app.myliberty.easy_records.locations.business.retail.stock_transfer.api.StockTransferResponse
+import app.myliberty.easy_records.locations.business.retail.stock_transfer.api.StockTransferService
+import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferSummaryDto
+import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferSummaryService
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable

@@ -1,13 +1,13 @@
-package app.myliberty.easy_records.locations.business.sale_session
+package app.myliberty.easy_records.locations.business.retail.sale_session
 
-import app.myliberty.easy_records.locations.business.sale.api.SaleAdjustmentSaveRequest
-import app.myliberty.easy_records.locations.business.sale.api.SaleLineSaveRequest
-import app.myliberty.easy_records.locations.business.sale.api.SalePaymentSaveRequest
-import app.myliberty.easy_records.locations.business.sale.api.SaleSaveRequest
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSession
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionAdjustment
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionLine
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionPayment
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleAdjustmentSaveRequest
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleLineSaveRequest
+import app.myliberty.easy_records.locations.business.retail.sale.api.SalePaymentSaveRequest
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleSaveRequest
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSession
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionAdjustment
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionLine
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionPayment
 import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping

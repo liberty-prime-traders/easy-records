@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.locations.business.stock
+package app.myliberty.easy_records.locations.business.retail.stock
 
-import app.myliberty.easy_records.locations.business.stock.api.StockMovementContexts
-import app.myliberty.easy_records.locations.business.stock.api.revision.StockReplacementLayerRequest
+import app.myliberty.easy_records.locations.business.retail.stock.api.StockMovementContexts
+import app.myliberty.easy_records.locations.business.retail.stock.api.revision.StockReplacementLayerRequest
 import app.myliberty.easy_records.util.quantity.ExactQuantity
 
 object StockReplacementLayerSpecs {

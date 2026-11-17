@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.business.location_product
+package app.myliberty.easy_records.locations.business.retail.location_product
 
 import app.myliberty.easy_records.configuration.datasource.DataSourceBeanNames
 import app.myliberty.easy_records.util.queries.SqlSearchExecutor

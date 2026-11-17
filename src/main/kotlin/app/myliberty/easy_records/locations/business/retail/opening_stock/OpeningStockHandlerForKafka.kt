@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.business.opening_stock
+package app.myliberty.easy_records.locations.business.retail.opening_stock
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
 import app.myliberty.easy_records.configuration.session.SessionContextProvider

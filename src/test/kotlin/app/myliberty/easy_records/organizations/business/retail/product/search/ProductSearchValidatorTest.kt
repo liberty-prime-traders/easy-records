@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.organizations.business.product.search
+package app.myliberty.easy_records.organizations.business.retail.product.search
 
-import app.myliberty.easy_records.cross_tier.product.search.common.ProductSearchParameters
-import app.myliberty.easy_records.cross_tier.product.search.common.ProductSearchValidator
-import app.myliberty.easy_records.organizations.business.product.api.ProductStatus
+import app.myliberty.easy_records.cross_tier.retail.product.search.common.ProductSearchParameters
+import app.myliberty.easy_records.cross_tier.retail.product.search.common.ProductSearchValidator
+import app.myliberty.easy_records.organizations.business.retail.product.api.ProductStatus
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow

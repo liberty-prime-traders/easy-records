@@ -1,16 +1,16 @@
-package app.myliberty.easy_records.organizations.business.unit_bulk_import
+package app.myliberty.easy_records.organizations.business.retail.unit_bulk_import
 
-import app.myliberty.easy_records.organizations.business.unit_bulk_import.api.BulkUnitImportRequestDto
-import app.myliberty.easy_records.organizations.business.unit_bulk_import.api.UnitGroupBulkInsertDto
-import app.myliberty.easy_records.organizations.business.unit_bulk_import.api.UnitValueBulkInsertDto
-import app.myliberty.easy_records.organizations.business.unitgroup.api.SystemUnitGroup
-import app.myliberty.easy_records.organizations.business.unitgroup.api.UnitGroupDto
-import app.myliberty.easy_records.organizations.business.unitgroup.api.UnitGroupService
-import app.myliberty.easy_records.organizations.business.unitvalue.api.RootUnitDefinition
-import app.myliberty.easy_records.organizations.business.unitvalue.api.SystemUnitValue
-import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitChainResolver
-import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueFetcher
-import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueResponseDto
+import app.myliberty.easy_records.organizations.business.retail.unit_bulk_import.api.BulkUnitImportRequestDto
+import app.myliberty.easy_records.organizations.business.retail.unit_bulk_import.api.UnitGroupBulkInsertDto
+import app.myliberty.easy_records.organizations.business.retail.unit_bulk_import.api.UnitValueBulkInsertDto
+import app.myliberty.easy_records.organizations.business.retail.unitgroup.api.SystemUnitGroup
+import app.myliberty.easy_records.organizations.business.retail.unitgroup.api.UnitGroupDto
+import app.myliberty.easy_records.organizations.business.retail.unitgroup.api.UnitGroupService
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.RootUnitDefinition
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.SystemUnitValue
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitChainResolver
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueFetcher
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueResponseDto
 import app.myliberty.easy_records.util.business.StringUtils
 import org.springframework.stereotype.Component
 

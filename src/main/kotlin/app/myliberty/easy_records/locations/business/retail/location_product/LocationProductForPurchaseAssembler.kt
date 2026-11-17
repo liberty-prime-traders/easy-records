@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.locations.business.location_product
+package app.myliberty.easy_records.locations.business.retail.location_product
 
-import app.myliberty.easy_records.locations.business.location_product.api.LocationProductForPurchaseDto
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductForPurchaseDto
 import java.math.BigDecimal
 
 object LocationProductForPurchaseAssembler {

@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.locations.business.stock
+package app.myliberty.easy_records.locations.business.retail.stock
 
-import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.MovementType
+import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.MovementType
 import app.myliberty.easy_records.util.exceptions.BlockedChangeException
 import app.myliberty.easy_records.util.exceptions.BlockingProblem
 import java.math.BigDecimal

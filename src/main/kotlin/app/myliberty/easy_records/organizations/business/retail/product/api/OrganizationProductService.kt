@@ -1,14 +1,14 @@
-package app.myliberty.easy_records.organizations.business.product.api
+package app.myliberty.easy_records.organizations.business.retail.product.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
 import app.myliberty.easy_records.messaging.kafka.catalog.CatalogEventHandler
-import app.myliberty.easy_records.organizations.business.product.OrganizationProductCache
-import app.myliberty.easy_records.organizations.business.product.OrganizationProductDto
-import app.myliberty.easy_records.organizations.business.product.OrganizationProductMapper
-import app.myliberty.easy_records.organizations.business.product.OrganizationProductRepository
-import app.myliberty.easy_records.organizations.business.product.OrganizationProductValidator
-import app.myliberty.easy_records.organizations.business.product_tag.api.ProductTagService
-import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueFetcher
+import app.myliberty.easy_records.organizations.business.retail.product.OrganizationProductCache
+import app.myliberty.easy_records.organizations.business.retail.product.OrganizationProductDto
+import app.myliberty.easy_records.organizations.business.retail.product.OrganizationProductMapper
+import app.myliberty.easy_records.organizations.business.retail.product.OrganizationProductRepository
+import app.myliberty.easy_records.organizations.business.retail.product.OrganizationProductValidator
+import app.myliberty.easy_records.organizations.business.retail.product_tag.api.ProductTagService
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueFetcher
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException
 import app.myliberty.easy_records.util.model.TableName

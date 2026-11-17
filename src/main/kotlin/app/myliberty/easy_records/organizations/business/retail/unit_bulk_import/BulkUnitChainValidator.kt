@@ -1,11 +1,11 @@
-package app.myliberty.easy_records.organizations.business.unit_bulk_import
+package app.myliberty.easy_records.organizations.business.retail.unit_bulk_import
 
-import app.myliberty.easy_records.organizations.business.unit_bulk_import.api.UnitGroupBulkInsertDto
-import app.myliberty.easy_records.organizations.business.unitgroup.api.SystemUnitGroup
-import app.myliberty.easy_records.organizations.business.unitvalue.api.RootUnitDefinition
-import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitChainNode
-import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitChainResolver
-import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueResponseDto
+import app.myliberty.easy_records.organizations.business.retail.unit_bulk_import.api.UnitGroupBulkInsertDto
+import app.myliberty.easy_records.organizations.business.retail.unitgroup.api.SystemUnitGroup
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.RootUnitDefinition
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitChainNode
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitChainResolver
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueResponseDto
 import app.myliberty.easy_records.util.business.StringUtils
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import java.util.UUID

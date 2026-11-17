@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.locations.business.location_product.api
+package app.myliberty.easy_records.locations.business.retail.location_product.api
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import app.myliberty.easy_records.configuration.serializer.StripZeroesAndRound
-import app.myliberty.easy_records.organizations.business.product.api.ProductStatus
+import app.myliberty.easy_records.organizations.business.retail.product.api.ProductStatus
 import java.math.BigDecimal
 import java.time.OffsetDateTime
 import java.util.UUID

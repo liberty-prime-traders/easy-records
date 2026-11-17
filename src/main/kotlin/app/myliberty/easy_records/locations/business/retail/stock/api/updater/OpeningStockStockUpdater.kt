@@ -1,10 +1,10 @@
-package app.myliberty.easy_records.locations.business.stock.api.updater
+package app.myliberty.easy_records.locations.business.retail.stock.api.updater
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
-import app.myliberty.easy_records.locations.business.stock.InboundLayerSpec
-import app.myliberty.easy_records.locations.business.stock.StockIncreaseRecorder
-import app.myliberty.easy_records.organizations.business.stock_item_source.api.StockItemSource
-import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.MovementType
+import app.myliberty.easy_records.locations.business.retail.stock.InboundLayerSpec
+import app.myliberty.easy_records.locations.business.retail.stock.StockIncreaseRecorder
+import app.myliberty.easy_records.organizations.business.retail.stock_item_source.api.StockItemSource
+import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.MovementType
 import app.myliberty.easy_records.util.quantity.ExactQuantity
 import org.springframework.stereotype.Service
 

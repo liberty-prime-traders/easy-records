@@ -1,10 +1,10 @@
 package app.myliberty.easy_records.organizations.rest.endpoints
 
-import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueFetcher
-import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueInsertDto
-import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueResponseDto
-import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueService
-import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueUpdateDto
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueFetcher
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueInsertDto
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueResponseDto
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueService
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueUpdateDto
 import org.springframework.http.HttpStatus
 import org.springframework.http.HttpStatusCode
 import org.springframework.http.ResponseEntity

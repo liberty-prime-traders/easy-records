@@ -1,9 +1,9 @@
-package app.myliberty.easy_records.locations.business.stock_adjustment.api
+package app.myliberty.easy_records.locations.business.retail.stock_adjustment.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
-import app.myliberty.easy_records.locations.business.stock_adjustment.StockAdjustmentCostEntity
-import app.myliberty.easy_records.locations.business.stock_adjustment.StockAdjustmentCostRepository
-import app.myliberty.easy_records.locations.business.stock_adjustment.StockAdjustmentRepository
+import app.myliberty.easy_records.locations.business.retail.stock_adjustment.StockAdjustmentCostEntity
+import app.myliberty.easy_records.locations.business.retail.stock_adjustment.StockAdjustmentCostRepository
+import app.myliberty.easy_records.locations.business.retail.stock_adjustment.StockAdjustmentRepository
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Propagation

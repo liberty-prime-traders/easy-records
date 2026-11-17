@@ -1,10 +1,10 @@
-package app.myliberty.easy_records.locations.business.sale_payment
+package app.myliberty.easy_records.locations.business.retail.sale_payment
 
 import app.myliberty.easy_records.configuration.session.LocationSession
 import app.myliberty.easy_records.configuration.session.OrgSession
 import app.myliberty.easy_records.configuration.session.SessionContext
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
-import app.myliberty.easy_records.locations.business.sale.api.SaleDataFetcher
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleDataFetcher
 import app.myliberty.easy_records.messaging.kafka.transaction.events.SalePaymentRecordedEvent
 import app.myliberty.easy_records.messaging.kafka.transaction.events.SalePaymentVoidedEvent
 import org.junit.jupiter.api.AfterEach

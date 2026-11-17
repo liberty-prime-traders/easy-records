@@ -1,14 +1,14 @@
-package app.myliberty.easy_records.locations.business.sale_session.api
+package app.myliberty.easy_records.locations.business.retail.sale_session.api
 
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
-import app.myliberty.easy_records.locations.business.sale_session.consolidation.PendingConsolidationPromoter
+import app.myliberty.easy_records.locations.business.retail.sale_session.consolidation.PendingConsolidationPromoter
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
-import app.myliberty.easy_records.locations.business.sale_session.consolidation.ConsolidationGenerateInput
-import app.myliberty.easy_records.locations.business.sale_session.consolidation.ReviewedProductLines
-import app.myliberty.easy_records.locations.business.sale_session.consolidation.SaleConsolidationGenerator
-import app.myliberty.easy_records.locations.business.sale_session.consolidation.SaleConsolidationStarter
-import app.myliberty.easy_records.locations.business.sale_session.SaleSessionStore
-import app.myliberty.easy_records.locations.business.sale_session.SaleSessionValidator
+import app.myliberty.easy_records.locations.business.retail.sale_session.consolidation.ConsolidationGenerateInput
+import app.myliberty.easy_records.locations.business.retail.sale_session.consolidation.ReviewedProductLines
+import app.myliberty.easy_records.locations.business.retail.sale_session.consolidation.SaleConsolidationGenerator
+import app.myliberty.easy_records.locations.business.retail.sale_session.consolidation.SaleConsolidationStarter
+import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionStore
+import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionValidator
 import org.springframework.stereotype.Service
 import java.util.UUID
 

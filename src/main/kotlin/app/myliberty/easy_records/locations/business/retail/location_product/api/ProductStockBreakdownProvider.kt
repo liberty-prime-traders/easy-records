@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.locations.business.location_product.api
+package app.myliberty.easy_records.locations.business.retail.location_product.api
 
-import app.myliberty.easy_records.organizations.business.unitconversion.api.QuantityBreakdownFactory
+import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.QuantityBreakdownFactory
 import app.myliberty.easy_records.util.quantity.QuantityBreakdown
 import org.springframework.stereotype.Component
 import java.util.UUID

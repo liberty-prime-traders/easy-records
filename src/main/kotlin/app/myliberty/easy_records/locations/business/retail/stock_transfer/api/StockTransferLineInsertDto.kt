@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.business.stock_transfer.api
+package app.myliberty.easy_records.locations.business.retail.stock_transfer.api
 
 import app.myliberty.easy_records.util.quantity.PositiveUserProvidedQuantity
 import java.util.UUID

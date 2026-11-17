@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.locations.business.purchase.api
+package app.myliberty.easy_records.locations.business.retail.purchase.api
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import app.myliberty.easy_records.locations.business.purchase.HasLocationProduct
+import app.myliberty.easy_records.locations.business.retail.purchase.HasLocationProduct
 import app.myliberty.easy_records.util.business.Money
 import app.myliberty.easy_records.util.quantity.PositiveUserProvidedQuantity
 import java.util.UUID

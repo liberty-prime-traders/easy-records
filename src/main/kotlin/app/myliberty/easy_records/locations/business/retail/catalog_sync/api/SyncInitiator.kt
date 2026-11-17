@@ -1,10 +1,10 @@
-package app.myliberty.easy_records.locations.business.catalog_sync.api
+package app.myliberty.easy_records.locations.business.retail.catalog_sync.api
 
-import app.myliberty.easy_records.locations.business.catalog_sync.SyncLogEntity
-import app.myliberty.easy_records.locations.business.catalog_sync.SyncLogMapper
-import app.myliberty.easy_records.locations.business.catalog_sync.SyncOrchestrator
-import app.myliberty.easy_records.locations.business.catalog_sync.SyncValidator
-import app.myliberty.easy_records.locations.business.catalog_sync.strategy.SyncStrategyRegistry
+import app.myliberty.easy_records.locations.business.retail.catalog_sync.SyncLogEntity
+import app.myliberty.easy_records.locations.business.retail.catalog_sync.SyncLogMapper
+import app.myliberty.easy_records.locations.business.retail.catalog_sync.SyncOrchestrator
+import app.myliberty.easy_records.locations.business.retail.catalog_sync.SyncValidator
+import app.myliberty.easy_records.locations.business.retail.catalog_sync.strategy.SyncStrategyRegistry
 import app.myliberty.easy_records.util.async.AsyncExecutor
 import app.myliberty.easy_records.util.model.TableName
 import org.springframework.stereotype.Service

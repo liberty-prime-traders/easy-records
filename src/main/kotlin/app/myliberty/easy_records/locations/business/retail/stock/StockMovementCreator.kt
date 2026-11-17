@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.locations.business.stock
+package app.myliberty.easy_records.locations.business.retail.stock
 
-import app.myliberty.easy_records.locations.business.stock.api.StockAdjustmentMovementDetails
-import app.myliberty.easy_records.locations.business.stock.api.revision.StockMovementDraft
-import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.MovementType
+import app.myliberty.easy_records.locations.business.retail.stock.api.StockAdjustmentMovementDetails
+import app.myliberty.easy_records.locations.business.retail.stock.api.revision.StockMovementDraft
+import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.MovementType
 import app.myliberty.easy_records.util.quantity.ExactQuantity
 import app.myliberty.easy_records.util.quantity.QuantityBreakdown
 import java.math.BigDecimal

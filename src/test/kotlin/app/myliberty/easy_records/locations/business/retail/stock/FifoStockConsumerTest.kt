@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.locations.business.stock
+package app.myliberty.easy_records.locations.business.retail.stock
 
-import app.myliberty.easy_records.locations.business.stock.api.fifo.FifoConsumptionRequest
+import app.myliberty.easy_records.locations.business.retail.stock.api.fifo.FifoConsumptionRequest
 import app.myliberty.easy_records.support.WithDefaultOrganizationSession
-import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.MovementType
+import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.MovementType
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import app.myliberty.easy_records.util.quantity.BreakdownUnit
 import app.myliberty.easy_records.util.quantity.ExactQuantity

@@ -1,9 +1,9 @@
 package app.myliberty.easy_records.organizations.rest.endpoints
 
-import app.myliberty.easy_records.organizations.business.product_category.api.ProductCategoryInsertDto
-import app.myliberty.easy_records.organizations.business.product_category.api.ProductCategoryResponseDto
-import app.myliberty.easy_records.organizations.business.product_category.api.ProductCategoryService
-import app.myliberty.easy_records.organizations.business.product_category.api.ProductCategoryUpdateDto
+import app.myliberty.easy_records.organizations.business.retail.product_category.api.ProductCategoryInsertDto
+import app.myliberty.easy_records.organizations.business.retail.product_category.api.ProductCategoryResponseDto
+import app.myliberty.easy_records.organizations.business.retail.product_category.api.ProductCategoryService
+import app.myliberty.easy_records.organizations.business.retail.product_category.api.ProductCategoryUpdateDto
 import org.springframework.http.HttpStatus
 import org.springframework.http.HttpStatusCode
 import org.springframework.http.ResponseEntity

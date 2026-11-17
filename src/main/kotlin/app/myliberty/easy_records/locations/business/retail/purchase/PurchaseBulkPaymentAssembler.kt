@@ -1,9 +1,9 @@
-package app.myliberty.easy_records.locations.business.purchase
+package app.myliberty.easy_records.locations.business.retail.purchase
 
-import app.myliberty.easy_records.locations.business.purchase.api.payment.PurchasePayableCalculator
-import app.myliberty.easy_records.locations.business.purchase.api.bulk_payment.PurchaseBulkPaymentResponseDto
-import app.myliberty.easy_records.locations.business.purchase.api.payment.PurchasePaymentCeilingService.PaymentCeiling
-import app.myliberty.easy_records.locations.business.supplier_payment.api.SupplierPaymentResponseDto
+import app.myliberty.easy_records.locations.business.retail.purchase.api.payment.PurchasePayableCalculator
+import app.myliberty.easy_records.locations.business.retail.purchase.api.bulk_payment.PurchaseBulkPaymentResponseDto
+import app.myliberty.easy_records.locations.business.retail.purchase.api.payment.PurchasePaymentCeilingService.PaymentCeiling
+import app.myliberty.easy_records.locations.business.retail.supplier_payment.api.SupplierPaymentResponseDto
 import java.math.BigDecimal
 import java.util.UUID
 

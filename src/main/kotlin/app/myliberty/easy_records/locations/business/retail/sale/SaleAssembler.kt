@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.locations.business.sale
+package app.myliberty.easy_records.locations.business.retail.sale
 
-import app.myliberty.easy_records.locations.business.sale.api.SaleConsolidationEligibility
-import app.myliberty.easy_records.locations.business.sale.api.SaleSummary
-import app.myliberty.easy_records.locations.business.sale_payment.api.SalePaymentFetcher
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleConsolidationEligibility
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleSummary
+import app.myliberty.easy_records.locations.business.retail.sale_payment.api.SalePaymentFetcher
 import app.myliberty.easy_records.util.business.mappers.NameResolution
 import app.myliberty.easy_records.util.business.mappers.UserQualifier
 import org.springframework.stereotype.Service

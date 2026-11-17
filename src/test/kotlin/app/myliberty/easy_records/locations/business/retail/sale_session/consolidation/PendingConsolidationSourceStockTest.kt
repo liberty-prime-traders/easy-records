@@ -1,9 +1,9 @@
-package app.myliberty.easy_records.locations.business.sale_session.consolidation
+package app.myliberty.easy_records.locations.business.retail.sale_session.consolidation
 
-import app.myliberty.easy_records.locations.business.sale.api.SaleHeaderDto
-import app.myliberty.easy_records.locations.business.sale.api.SaleLineDto
-import app.myliberty.easy_records.locations.business.sale.api.SaleStatus
-import app.myliberty.easy_records.locations.business.sale_session.api.StockHeldBySales
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleHeaderDto
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleLineDto
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleStatus
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.StockHeldBySales
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test

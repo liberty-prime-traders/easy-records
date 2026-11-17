@@ -1,14 +1,14 @@
-package app.myliberty.easy_records.locations.business.product_sales_report.api
+package app.myliberty.easy_records.locations.business.retail.product_sales_report.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
-import app.myliberty.easy_records.locations.business.location_product.api.LocationProductDataFetcher
-import app.myliberty.easy_records.locations.business.product_sales_report.ProductSalesReportCalculator
-import app.myliberty.easy_records.locations.business.product_sales_report.ProductSalesReportFetcher
-import app.myliberty.easy_records.locations.business.product_sales_report.ProductSalesReportValidator
-import app.myliberty.easy_records.locations.business.product_sales_report.ProductSalesSummaryAssembler
-import app.myliberty.easy_records.organizations.business.adjustment_reason.api.AdjustmentReasonService
-import app.myliberty.easy_records.organizations.business.unitconversion.api.QuantityBreakdownFactory
-import app.myliberty.easy_records.organizations.business.unitconversion.api.UnitConversionGraphFacade
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductDataFetcher
+import app.myliberty.easy_records.locations.business.retail.product_sales_report.ProductSalesReportCalculator
+import app.myliberty.easy_records.locations.business.retail.product_sales_report.ProductSalesReportFetcher
+import app.myliberty.easy_records.locations.business.retail.product_sales_report.ProductSalesReportValidator
+import app.myliberty.easy_records.locations.business.retail.product_sales_report.ProductSalesSummaryAssembler
+import app.myliberty.easy_records.organizations.business.retail.adjustment_reason.api.AdjustmentReasonService
+import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.QuantityBreakdownFactory
+import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.UnitConversionGraphFacade
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import app.myliberty.easy_records.util.paging.PageRequest
 import app.myliberty.easy_records.util.paging.PageResponse

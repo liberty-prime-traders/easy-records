@@ -1,12 +1,12 @@
-package app.myliberty.easy_records.organizations.business.unitvalue.api
+package app.myliberty.easy_records.organizations.business.retail.unitvalue.api
 
 import app.myliberty.easy_records.organizations.business.lock.api.OrgEntityAdvisoryLock
-import app.myliberty.easy_records.organizations.business.unitconversion.api.UnitConversionGraphFacade
-import app.myliberty.easy_records.organizations.business.unitvalue.UnitValueCache
-import app.myliberty.easy_records.organizations.business.unitvalue.UnitValueDto
-import app.myliberty.easy_records.organizations.business.unitvalue.UnitValueEntity
-import app.myliberty.easy_records.organizations.business.unitvalue.UnitValueMapper
-import app.myliberty.easy_records.organizations.business.unitvalue.UnitValueValidator
+import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.UnitConversionGraphFacade
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.UnitValueCache
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.UnitValueDto
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.UnitValueEntity
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.UnitValueMapper
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.UnitValueValidator
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test

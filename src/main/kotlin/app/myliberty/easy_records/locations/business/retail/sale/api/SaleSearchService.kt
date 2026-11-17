@@ -1,10 +1,10 @@
-package app.myliberty.easy_records.locations.business.sale.api
+package app.myliberty.easy_records.locations.business.retail.sale.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
-import app.myliberty.easy_records.locations.business.sale.search.SaleSearchFetcher
-import app.myliberty.easy_records.locations.business.sale.search.SaleSearchMapper
-import app.myliberty.easy_records.locations.business.sale.search.SaleSearchValidator
-import app.myliberty.easy_records.locations.business.sale_payment.api.SalePaymentFetcher
+import app.myliberty.easy_records.locations.business.retail.sale.search.SaleSearchFetcher
+import app.myliberty.easy_records.locations.business.retail.sale.search.SaleSearchMapper
+import app.myliberty.easy_records.locations.business.retail.sale.search.SaleSearchValidator
+import app.myliberty.easy_records.locations.business.retail.sale_payment.api.SalePaymentFetcher
 import app.myliberty.easy_records.util.business.mappers.NameResolution
 import app.myliberty.easy_records.util.paging.PageRequest
 import app.myliberty.easy_records.util.paging.PageResponse

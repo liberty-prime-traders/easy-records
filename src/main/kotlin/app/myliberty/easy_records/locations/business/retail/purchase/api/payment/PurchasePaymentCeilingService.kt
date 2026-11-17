@@ -1,9 +1,9 @@
-package app.myliberty.easy_records.locations.business.purchase.api.payment
+package app.myliberty.easy_records.locations.business.retail.purchase.api.payment
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
-import app.myliberty.easy_records.locations.business.delivery.api.PurchaseDeliveryDataFetcher
-import app.myliberty.easy_records.locations.business.purchase.PurchaseLineEntity
-import app.myliberty.easy_records.locations.business.purchase.PurchaseLineRepository
+import app.myliberty.easy_records.locations.business.retail.delivery.api.PurchaseDeliveryDataFetcher
+import app.myliberty.easy_records.locations.business.retail.purchase.PurchaseLineEntity
+import app.myliberty.easy_records.locations.business.retail.purchase.PurchaseLineRepository
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 import java.util.UUID

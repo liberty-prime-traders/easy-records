@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.stock_item_source.api
+package app.myliberty.easy_records.organizations.business.retail.stock_item_source.api
 
 import app.myliberty.easy_records.util.enums.HasCode
 

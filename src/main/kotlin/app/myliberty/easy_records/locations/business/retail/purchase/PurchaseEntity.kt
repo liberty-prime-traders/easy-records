@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.business.purchase
+package app.myliberty.easy_records.locations.business.retail.purchase
 
 import jakarta.persistence.Column
 import jakarta.persistence.Convert
@@ -6,7 +6,7 @@ import jakarta.persistence.Entity
 import jakarta.persistence.Table
 import app.myliberty.easy_records.util.enums.PaymentStatus
 import app.myliberty.easy_records.util.enums.PaymentStatusConverter
-import app.myliberty.easy_records.locations.business.purchase.api.PurchaseStatus
+import app.myliberty.easy_records.locations.business.retail.purchase.api.PurchaseStatus
 import app.myliberty.easy_records.util.annotations.HasReference
 import app.myliberty.easy_records.util.model.ColumnNames
 import app.myliberty.easy_records.util.model.HasReferenceEntity

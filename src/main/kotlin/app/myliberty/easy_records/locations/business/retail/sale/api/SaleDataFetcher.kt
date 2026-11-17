@@ -1,14 +1,14 @@
-package app.myliberty.easy_records.locations.business.sale.api
+package app.myliberty.easy_records.locations.business.retail.sale.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
-import app.myliberty.easy_records.locations.business.location_product.api.LocationProductDataFetcher
-import app.myliberty.easy_records.locations.business.sale.SaleAssembler
-import app.myliberty.easy_records.locations.business.sale.SaleEntity
-import app.myliberty.easy_records.locations.business.sale.SaleLineCogsRepository
-import app.myliberty.easy_records.locations.business.sale.SaleLineRepository
-import app.myliberty.easy_records.locations.business.sale.SaleLocker
-import app.myliberty.easy_records.locations.business.sale.SaleRepository
-import app.myliberty.easy_records.locations.business.sale.SaleVoidRepository
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductDataFetcher
+import app.myliberty.easy_records.locations.business.retail.sale.SaleAssembler
+import app.myliberty.easy_records.locations.business.retail.sale.SaleEntity
+import app.myliberty.easy_records.locations.business.retail.sale.SaleLineCogsRepository
+import app.myliberty.easy_records.locations.business.retail.sale.SaleLineRepository
+import app.myliberty.easy_records.locations.business.retail.sale.SaleLocker
+import app.myliberty.easy_records.locations.business.retail.sale.SaleRepository
+import app.myliberty.easy_records.locations.business.retail.sale.SaleVoidRepository
 import app.myliberty.easy_records.util.business.mappers.UserQualifier
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.data.domain.PageRequest

@@ -1,9 +1,9 @@
-package app.myliberty.easy_records.organizations.business.unitgroup
+package app.myliberty.easy_records.organizations.business.retail.unitgroup
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
 import app.myliberty.easy_records.organizations.business.lock.api.OrgEntityAdvisoryLock
 import app.myliberty.easy_records.organizations.business.org_profile.api.OrgDataSeeder
-import app.myliberty.easy_records.organizations.business.unitgroup.api.SystemUnitGroup
+import app.myliberty.easy_records.organizations.business.retail.unitgroup.api.SystemUnitGroup
 import app.myliberty.easy_records.util.business.lock.LockNamespaces
 import org.springframework.core.annotation.Order
 import org.springframework.stereotype.Component

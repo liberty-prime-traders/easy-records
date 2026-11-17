@@ -1,11 +1,11 @@
-package app.myliberty.easy_records.locations.business.supplier_payment
+package app.myliberty.easy_records.locations.business.retail.supplier_payment
 
 import app.myliberty.easy_records.configuration.session.LocationSession
 import app.myliberty.easy_records.configuration.session.OrgSession
 import app.myliberty.easy_records.configuration.session.SessionContext
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
-import app.myliberty.easy_records.locations.business.purchase.api.delivery.DeliveryHandlerForPurchase
-import app.myliberty.easy_records.locations.business.purchase.api.PurchaseDataFetcher
+import app.myliberty.easy_records.locations.business.retail.purchase.api.delivery.DeliveryHandlerForPurchase
+import app.myliberty.easy_records.locations.business.retail.purchase.api.PurchaseDataFetcher
 import app.myliberty.easy_records.messaging.kafka.transaction.events.SupplierPaymentRecordedEvent
 import app.myliberty.easy_records.messaging.kafka.transaction.events.SupplierPaymentVoidedEvent
 import org.junit.jupiter.api.AfterEach

@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.business.stock.api.fifo
+package app.myliberty.easy_records.locations.business.retail.stock.api.fifo
 
 import app.myliberty.easy_records.util.quantity.ExactQuantity
 import org.junit.jupiter.api.Assertions.assertEquals

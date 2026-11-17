@@ -1,14 +1,14 @@
-package app.myliberty.easy_records.locations.business.purchase
+package app.myliberty.easy_records.locations.business.retail.purchase
 
-import app.myliberty.easy_records.locations.business.delivery.api.PurchaseDeliveryDataFetcher
-import app.myliberty.easy_records.locations.business.delivery.api.PurchaseDeliveryResponseDto
-import app.myliberty.easy_records.locations.business.location_product.api.LocationProductDataFetcher
-import app.myliberty.easy_records.locations.business.location_product.api.LocationProductSummaryDto
-import app.myliberty.easy_records.locations.business.location_product.api.ProductStockBreakdownProvider
-import app.myliberty.easy_records.locations.business.purchase.api.PurchaseLineResponseDto
-import app.myliberty.easy_records.organizations.business.unitconversion.api.UnitConversionGraphFacade
-import app.myliberty.easy_records.locations.business.purchase.api.payment.PurchasePaymentCeilingService
-import app.myliberty.easy_records.locations.business.purchase.api.PurchaseResponseDto
+import app.myliberty.easy_records.locations.business.retail.delivery.api.PurchaseDeliveryDataFetcher
+import app.myliberty.easy_records.locations.business.retail.delivery.api.PurchaseDeliveryResponseDto
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductDataFetcher
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductSummaryDto
+import app.myliberty.easy_records.locations.business.retail.location_product.api.ProductStockBreakdownProvider
+import app.myliberty.easy_records.locations.business.retail.purchase.api.PurchaseLineResponseDto
+import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.UnitConversionGraphFacade
+import app.myliberty.easy_records.locations.business.retail.purchase.api.payment.PurchasePaymentCeilingService
+import app.myliberty.easy_records.locations.business.retail.purchase.api.PurchaseResponseDto
 import app.myliberty.easy_records.organizations.business.contact.api.ContactService
 import app.myliberty.easy_records.util.business.mappers.UserQualifier
 import app.myliberty.easy_records.util.quantity.BaseUnitDisplay

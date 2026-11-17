@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.locations.business.sale
+package app.myliberty.easy_records.locations.business.retail.sale
 
-import app.myliberty.easy_records.locations.business.sale.api.SaleSaveRequest
-import app.myliberty.easy_records.locations.business.sale.api.SaleLineSaveRequest
-import app.myliberty.easy_records.locations.business.sale_adjustment.api.PersistedSaleLine
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleSaveRequest
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleLineSaveRequest
+import app.myliberty.easy_records.locations.business.retail.sale_adjustment.api.PersistedSaleLine
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import java.util.UUID
 

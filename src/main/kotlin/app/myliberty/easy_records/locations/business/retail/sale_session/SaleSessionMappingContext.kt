@@ -1,10 +1,10 @@
-package app.myliberty.easy_records.locations.business.sale_session
+package app.myliberty.easy_records.locations.business.retail.sale_session
 
-import app.myliberty.easy_records.locations.business.sale.api.SaleVoidInfoDto
-import app.myliberty.easy_records.locations.business.sale_session.api.ConsolidationIssueResponse
-import app.myliberty.easy_records.locations.business.sale_session.api.RemovedSaleLineResponse
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionAdjustment
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionLine
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleVoidInfoDto
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.ConsolidationIssueResponse
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.RemovedSaleLineResponse
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionAdjustment
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionLine
 import app.myliberty.easy_records.util.quantity.QuantityBreakdown
 import java.math.BigDecimal
 import java.util.UUID

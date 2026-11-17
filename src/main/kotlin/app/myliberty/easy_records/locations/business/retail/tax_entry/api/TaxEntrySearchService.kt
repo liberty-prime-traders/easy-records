@@ -1,10 +1,10 @@
-package app.myliberty.easy_records.locations.business.tax_entry.api
+package app.myliberty.easy_records.locations.business.retail.tax_entry.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
-import app.myliberty.easy_records.locations.business.tax_entry.search.TaxEntrySearchFetcher
-import app.myliberty.easy_records.locations.business.tax_entry.search.TaxEntrySearchMapper
-import app.myliberty.easy_records.locations.business.tax_entry.search.TaxEntrySearchValidator
-import app.myliberty.easy_records.locations.business.tax_entry.search.TaxEntrySourceTypeSummaryRawRow
+import app.myliberty.easy_records.locations.business.retail.tax_entry.search.TaxEntrySearchFetcher
+import app.myliberty.easy_records.locations.business.retail.tax_entry.search.TaxEntrySearchMapper
+import app.myliberty.easy_records.locations.business.retail.tax_entry.search.TaxEntrySearchValidator
+import app.myliberty.easy_records.locations.business.retail.tax_entry.search.TaxEntrySourceTypeSummaryRawRow
 import app.myliberty.easy_records.organizations.business.fiscal_period.api.FiscalPeriodService
 import app.myliberty.easy_records.util.paging.PageRequest
 import app.myliberty.easy_records.util.paging.PageResponse

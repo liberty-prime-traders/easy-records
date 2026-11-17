@@ -1,15 +1,15 @@
-package app.myliberty.easy_records.locations.business.sale_session
+package app.myliberty.easy_records.locations.business.retail.sale_session
 
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
-import app.myliberty.easy_records.locations.business.sale.api.SaleStatus
-import app.myliberty.easy_records.locations.business.sale_session.api.PendingConsolidation
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSession
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionAdjustment
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionHeader
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionKind
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionLine
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionPayment
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionTotals
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleStatus
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.PendingConsolidation
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSession
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionAdjustment
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionHeader
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionKind
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionLine
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionPayment
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionTotals
 import app.myliberty.easy_records.util.business.DateTimes
 import java.util.UUID
 

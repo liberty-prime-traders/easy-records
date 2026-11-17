@@ -1,11 +1,11 @@
-package app.myliberty.easy_records.locations.business.sale
+package app.myliberty.easy_records.locations.business.retail.sale
 
 import jakarta.persistence.Column
 import jakarta.persistence.Convert
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
-import app.myliberty.easy_records.locations.business.sale.api.SaleLineCogsStatus
-import app.myliberty.easy_records.locations.business.sale.api.SaleLineCogsStatusConverter
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleLineCogsStatus
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleLineCogsStatusConverter
 import app.myliberty.easy_records.util.annotations.HasReference
 import app.myliberty.easy_records.util.model.HasReferenceEntity
 import app.myliberty.easy_records.util.model.TableName

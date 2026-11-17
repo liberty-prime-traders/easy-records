@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.business.stock
+package app.myliberty.easy_records.locations.business.retail.stock
 
 import java.math.BigDecimal
 

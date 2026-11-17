@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.organizations.business.product
+package app.myliberty.easy_records.organizations.business.retail.product
 
-import app.myliberty.easy_records.cross_tier.product.search.common.Aliases
-import app.myliberty.easy_records.cross_tier.product.search.common.ParameterNames
+import app.myliberty.easy_records.cross_tier.retail.product.search.common.Aliases
+import app.myliberty.easy_records.cross_tier.retail.product.search.common.ParameterNames
 import app.myliberty.easy_records.util.queries.FilterStrategy
 import app.myliberty.easy_records.util.queries.QueryBuilderContext
 import java.util.UUID

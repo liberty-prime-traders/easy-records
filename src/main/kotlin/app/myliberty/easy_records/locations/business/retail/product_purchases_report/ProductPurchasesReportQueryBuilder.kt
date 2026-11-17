@@ -1,9 +1,9 @@
-package app.myliberty.easy_records.locations.business.product_purchases_report
+package app.myliberty.easy_records.locations.business.retail.product_purchases_report
 
-import app.myliberty.easy_records.locations.business.purchase.api.delivery.PurchaseDeliveryLineStatus
-import app.myliberty.easy_records.locations.business.purchase.api.delivery.PurchaseDeliveryStatus
-import app.myliberty.easy_records.locations.business.product_purchases_report.api.ProductPurchasesDeliveryLinesParameters
-import app.myliberty.easy_records.locations.business.product_purchases_report.api.ProductPurchasesReportParameters
+import app.myliberty.easy_records.locations.business.retail.purchase.api.delivery.PurchaseDeliveryLineStatus
+import app.myliberty.easy_records.locations.business.retail.purchase.api.delivery.PurchaseDeliveryStatus
+import app.myliberty.easy_records.locations.business.retail.product_purchases_report.api.ProductPurchasesDeliveryLinesParameters
+import app.myliberty.easy_records.locations.business.retail.product_purchases_report.api.ProductPurchasesReportParameters
 import app.myliberty.easy_records.util.business.Decimals
 import app.myliberty.easy_records.util.model.TableNames
 import app.myliberty.easy_records.util.queries.AnyListFilterStrategy

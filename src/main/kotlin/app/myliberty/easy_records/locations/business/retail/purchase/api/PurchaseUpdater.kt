@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.locations.business.purchase.api
+package app.myliberty.easy_records.locations.business.retail.purchase.api
 
 import app.myliberty.easy_records.util.enums.PaymentStatus
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
-import app.myliberty.easy_records.locations.business.purchase.PurchaseRepository
+import app.myliberty.easy_records.locations.business.retail.purchase.PurchaseRepository
 import app.myliberty.easy_records.util.business.StringUtils
 import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException
 import org.springframework.stereotype.Service

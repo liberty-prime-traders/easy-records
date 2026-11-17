@@ -1,14 +1,14 @@
-package app.myliberty.easy_records.locations.business.opening_stock
+package app.myliberty.easy_records.locations.business.retail.opening_stock
 
-import app.myliberty.easy_records.locations.business.location_product.api.LocationProductDataFetcher
-import app.myliberty.easy_records.locations.business.location_product.api.LocationProductService
-import app.myliberty.easy_records.locations.business.opening_stock.api.OpeningStockBulkLineDto
-import app.myliberty.easy_records.locations.business.opening_stock.api.OpeningStockBulkService
-import app.myliberty.easy_records.locations.business.opening_stock.api.OpeningStockLineDto
-import app.myliberty.easy_records.locations.business.opening_stock.api.OpeningStockResponseDto
-import app.myliberty.easy_records.locations.business.opening_stock.api.OpeningStockService
-import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueFetcher
-import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueResponseDto
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductDataFetcher
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductService
+import app.myliberty.easy_records.locations.business.retail.opening_stock.api.OpeningStockBulkLineDto
+import app.myliberty.easy_records.locations.business.retail.opening_stock.api.OpeningStockBulkService
+import app.myliberty.easy_records.locations.business.retail.opening_stock.api.OpeningStockLineDto
+import app.myliberty.easy_records.locations.business.retail.opening_stock.api.OpeningStockResponseDto
+import app.myliberty.easy_records.locations.business.retail.opening_stock.api.OpeningStockService
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueFetcher
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueResponseDto
 import app.myliberty.easy_records.util.business.Money
 import app.myliberty.easy_records.util.business.PositiveMoney
 import app.myliberty.easy_records.util.exceptions.RtsGenericException

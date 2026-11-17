@@ -1,9 +1,9 @@
-package app.myliberty.easy_records.locations.business.sale.api
+package app.myliberty.easy_records.locations.business.retail.sale.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
-import app.myliberty.easy_records.locations.business.sale.SaleLineCogsEntity
-import app.myliberty.easy_records.locations.business.sale.SaleLineCogsRepository
-import app.myliberty.easy_records.locations.business.sale.SaleLineRepository
+import app.myliberty.easy_records.locations.business.retail.sale.SaleLineCogsEntity
+import app.myliberty.easy_records.locations.business.retail.sale.SaleLineCogsRepository
+import app.myliberty.easy_records.locations.business.retail.sale.SaleLineRepository
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Propagation

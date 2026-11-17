@@ -6,7 +6,7 @@ import app.myliberty.easy_records.messaging.kafka.transaction.processors.Account
 import app.myliberty.easy_records.organizations.business.ledger.api.LedgerPostingRequest
 import app.myliberty.easy_records.organizations.business.ledger.api.LedgerPostingService
 import app.myliberty.easy_records.organizations.business.ledger.api.LedgerSourceType
-import app.myliberty.easy_records.locations.business.stock_revision.api.RevisionLedgerEntries
+import app.myliberty.easy_records.locations.business.retail.stock_revision.api.RevisionLedgerEntries
 import app.myliberty.easy_records.organizations.business.ledger.helpers.LedgerPostingGate
 import org.springframework.stereotype.Service
 import kotlin.reflect.KClass

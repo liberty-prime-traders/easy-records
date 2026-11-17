@@ -1,11 +1,11 @@
-package app.myliberty.easy_records.locations.business.stock.api.revision
+package app.myliberty.easy_records.locations.business.retail.stock.api.revision
 
-import app.myliberty.easy_records.locations.business.stock.InboundLayerSpec
-import app.myliberty.easy_records.locations.business.stock.StockEntryEntity
-import app.myliberty.easy_records.locations.business.stock.StockEntryRepository
-import app.myliberty.easy_records.locations.business.stock.StockIncreaseRecorder
-import app.myliberty.easy_records.organizations.business.stock_item_source.api.StockItemSource
-import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.MovementType
+import app.myliberty.easy_records.locations.business.retail.stock.InboundLayerSpec
+import app.myliberty.easy_records.locations.business.retail.stock.StockEntryEntity
+import app.myliberty.easy_records.locations.business.retail.stock.StockEntryRepository
+import app.myliberty.easy_records.locations.business.retail.stock.StockIncreaseRecorder
+import app.myliberty.easy_records.organizations.business.retail.stock_item_source.api.StockItemSource
+import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.MovementType
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.mock

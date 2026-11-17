@@ -1,14 +1,14 @@
-package app.myliberty.easy_records.locations.business.location_product.api
+package app.myliberty.easy_records.locations.business.retail.location_product.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
-import app.myliberty.easy_records.cross_tier.product.search.common.ProductSearchParameters
-import app.myliberty.easy_records.locations.business.location_product.LocationProductEnricher
-import app.myliberty.easy_records.locations.business.location_product.LocationProductForPurchaseAssembler
-import app.myliberty.easy_records.locations.business.location_product.LocationProductForSaleAssembler
-import app.myliberty.easy_records.locations.business.location_product.LocationProductPagedSearch
-import app.myliberty.easy_records.locations.business.location_product.LocationProductRepository
-import app.myliberty.easy_records.organizations.business.product.api.ProductStatus
-import app.myliberty.easy_records.organizations.business.unitconversion.api.UnitConversionGraphFacade
+import app.myliberty.easy_records.cross_tier.retail.product.search.common.ProductSearchParameters
+import app.myliberty.easy_records.locations.business.retail.location_product.LocationProductEnricher
+import app.myliberty.easy_records.locations.business.retail.location_product.LocationProductForPurchaseAssembler
+import app.myliberty.easy_records.locations.business.retail.location_product.LocationProductForSaleAssembler
+import app.myliberty.easy_records.locations.business.retail.location_product.LocationProductPagedSearch
+import app.myliberty.easy_records.locations.business.retail.location_product.LocationProductRepository
+import app.myliberty.easy_records.organizations.business.retail.product.api.ProductStatus
+import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.UnitConversionGraphFacade
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import app.myliberty.easy_records.util.paging.PageRequest
 import app.myliberty.easy_records.util.paging.PageResponse

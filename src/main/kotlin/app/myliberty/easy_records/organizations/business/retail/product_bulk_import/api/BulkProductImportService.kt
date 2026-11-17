@@ -1,14 +1,14 @@
-package app.myliberty.easy_records.organizations.business.product_bulk_import.api
+package app.myliberty.easy_records.organizations.business.retail.product_bulk_import.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
-import app.myliberty.easy_records.organizations.business.product.api.OrganizationProductInsertDto
-import app.myliberty.easy_records.organizations.business.product.api.OrganizationProductService
-import app.myliberty.easy_records.organizations.business.product_bulk_import.BulkProductImportValidator
-import app.myliberty.easy_records.organizations.business.product_category.api.ProductCategoryInsertDto
-import app.myliberty.easy_records.organizations.business.product_category.api.ProductCategoryService
-import app.myliberty.easy_records.organizations.business.product_group.api.ProductGroupInsertDto
-import app.myliberty.easy_records.organizations.business.product_group.api.ProductGroupService
-import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueFetcher
+import app.myliberty.easy_records.organizations.business.retail.product.api.OrganizationProductInsertDto
+import app.myliberty.easy_records.organizations.business.retail.product.api.OrganizationProductService
+import app.myliberty.easy_records.organizations.business.retail.product_bulk_import.BulkProductImportValidator
+import app.myliberty.easy_records.organizations.business.retail.product_category.api.ProductCategoryInsertDto
+import app.myliberty.easy_records.organizations.business.retail.product_category.api.ProductCategoryService
+import app.myliberty.easy_records.organizations.business.retail.product_group.api.ProductGroupInsertDto
+import app.myliberty.easy_records.organizations.business.retail.product_group.api.ProductGroupService
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueFetcher
 import app.myliberty.easy_records.util.business.StringUtils
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Service

@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.locations.business.location_product
+package app.myliberty.easy_records.locations.business.retail.location_product
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
-import app.myliberty.easy_records.cross_tier.product.search.common.ProductSearchParameters
-import app.myliberty.easy_records.cross_tier.product.search.common.ProductSearchService
+import app.myliberty.easy_records.cross_tier.retail.product.search.common.ProductSearchParameters
+import app.myliberty.easy_records.cross_tier.retail.product.search.common.ProductSearchService
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 

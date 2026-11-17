@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.business.sale_session
+package app.myliberty.easy_records.locations.business.retail.sale_session
 
 import org.mapstruct.Qualifier
 

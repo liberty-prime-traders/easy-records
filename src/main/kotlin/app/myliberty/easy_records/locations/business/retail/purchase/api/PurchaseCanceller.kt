@@ -1,16 +1,16 @@
-package app.myliberty.easy_records.locations.business.purchase.api
+package app.myliberty.easy_records.locations.business.retail.purchase.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
-import app.myliberty.easy_records.locations.business.location_product.api.LocationProductDataFetcher
-import app.myliberty.easy_records.locations.business.location_product.api.LocationProductUnitRequestDto
-import app.myliberty.easy_records.locations.business.location_product.api.ProductStockBreakdownProvider
-import app.myliberty.easy_records.locations.business.purchase.PurchaseAssembler
-import app.myliberty.easy_records.locations.business.purchase.PurchaseLineEntity
-import app.myliberty.easy_records.locations.business.purchase.PurchaseLineRepository
-import app.myliberty.easy_records.locations.business.purchase.PurchaseRepository
-import app.myliberty.easy_records.locations.business.purchase.PurchaseStatusResolver
-import app.myliberty.easy_records.locations.business.purchase.PurchaseValidator
-import app.myliberty.easy_records.locations.business.supplier_payment.api.PurchasePaymentStatusService
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductDataFetcher
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductUnitRequestDto
+import app.myliberty.easy_records.locations.business.retail.location_product.api.ProductStockBreakdownProvider
+import app.myliberty.easy_records.locations.business.retail.purchase.PurchaseAssembler
+import app.myliberty.easy_records.locations.business.retail.purchase.PurchaseLineEntity
+import app.myliberty.easy_records.locations.business.retail.purchase.PurchaseLineRepository
+import app.myliberty.easy_records.locations.business.retail.purchase.PurchaseRepository
+import app.myliberty.easy_records.locations.business.retail.purchase.PurchaseStatusResolver
+import app.myliberty.easy_records.locations.business.retail.purchase.PurchaseValidator
+import app.myliberty.easy_records.locations.business.retail.supplier_payment.api.PurchasePaymentStatusService
 import app.myliberty.easy_records.util.quantity.ExactQuantity
 import org.springframework.stereotype.Service
 import java.util.UUID

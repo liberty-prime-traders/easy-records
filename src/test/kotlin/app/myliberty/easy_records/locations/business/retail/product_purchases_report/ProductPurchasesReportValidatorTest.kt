@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.business.product_purchases_report
+package app.myliberty.easy_records.locations.business.retail.product_purchases_report
 
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.junit.jupiter.api.Assertions.assertEquals

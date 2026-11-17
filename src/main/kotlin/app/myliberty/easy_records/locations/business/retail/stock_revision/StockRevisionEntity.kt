@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.business.stock_revision
+package app.myliberty.easy_records.locations.business.retail.stock_revision
 
 import jakarta.persistence.Column
 import jakarta.persistence.Convert

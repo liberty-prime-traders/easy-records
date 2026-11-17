@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.locations.business.stock_adjustment
+package app.myliberty.easy_records.locations.business.retail.stock_adjustment
 
-import app.myliberty.easy_records.locations.business.stock.api.StockAdjustmentCategory
-import app.myliberty.easy_records.locations.business.stock_adjustment.api.StockAdjustmentDirection
+import app.myliberty.easy_records.locations.business.retail.stock.api.StockAdjustmentCategory
+import app.myliberty.easy_records.locations.business.retail.stock_adjustment.api.StockAdjustmentDirection
 import app.myliberty.easy_records.organizations.business.account.api.SystemAccount
 
 data class StockAdjustmentLedgerAccounts(val debit: SystemAccount, val credit: SystemAccount)

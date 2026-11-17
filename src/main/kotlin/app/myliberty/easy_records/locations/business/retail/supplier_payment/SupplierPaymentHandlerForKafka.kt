@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.locations.business.supplier_payment
+package app.myliberty.easy_records.locations.business.retail.supplier_payment
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
-import app.myliberty.easy_records.locations.business.purchase.api.delivery.DeliveryHandlerForPurchase
+import app.myliberty.easy_records.locations.business.retail.purchase.api.delivery.DeliveryHandlerForPurchase
 import app.myliberty.easy_records.messaging.kafka.common.EventSourceContext
 import app.myliberty.easy_records.messaging.kafka.transaction.EventReissueHandler
 import app.myliberty.easy_records.messaging.kafka.transaction.events.SupplierPaymentRecordedEvent

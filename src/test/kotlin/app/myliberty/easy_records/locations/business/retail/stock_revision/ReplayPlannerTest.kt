@@ -1,11 +1,11 @@
-package app.myliberty.easy_records.locations.business.stock_revision
+package app.myliberty.easy_records.locations.business.retail.stock_revision
 
-import app.myliberty.easy_records.locations.business.location_product.api.LocationProductDataFetcher
-import app.myliberty.easy_records.locations.business.location_product.api.LocationProductSummaryDto
-import app.myliberty.easy_records.locations.business.stock.api.fifo.FifoLayer
-import app.myliberty.easy_records.locations.business.stock.api.read.StockEntryFetcher
-import app.myliberty.easy_records.locations.business.stock.api.fifo.StockEntryFifoDto
-import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.MovementType
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductDataFetcher
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductSummaryDto
+import app.myliberty.easy_records.locations.business.retail.stock.api.fifo.FifoLayer
+import app.myliberty.easy_records.locations.business.retail.stock.api.read.StockEntryFetcher
+import app.myliberty.easy_records.locations.business.retail.stock.api.fifo.StockEntryFifoDto
+import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.MovementType
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import app.myliberty.easy_records.util.quantity.BreakdownUnit
 import app.myliberty.easy_records.util.quantity.ExactQuantity

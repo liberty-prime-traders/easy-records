@@ -1,13 +1,13 @@
-package app.myliberty.easy_records.locations.business.stock_revision
+package app.myliberty.easy_records.locations.business.retail.stock_revision
 
 import java.math.BigDecimal
-import app.myliberty.easy_records.locations.business.stock.api.revision.ConsumerReplayPlan
-import app.myliberty.easy_records.locations.business.stock.api.fifo.FifoConsumptionRequest
-import app.myliberty.easy_records.locations.business.stock.api.fifo.FifoTakePlanner
-import app.myliberty.easy_records.locations.business.stock.api.fifo.PlannedTake
-import app.myliberty.easy_records.locations.business.stock.api.fifo.StockEntryFifoDto
-import app.myliberty.easy_records.locations.business.stock.api.StockMovementContexts
-import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.MovementType
+import app.myliberty.easy_records.locations.business.retail.stock.api.revision.ConsumerReplayPlan
+import app.myliberty.easy_records.locations.business.retail.stock.api.fifo.FifoConsumptionRequest
+import app.myliberty.easy_records.locations.business.retail.stock.api.fifo.FifoTakePlanner
+import app.myliberty.easy_records.locations.business.retail.stock.api.fifo.PlannedTake
+import app.myliberty.easy_records.locations.business.retail.stock.api.fifo.StockEntryFifoDto
+import app.myliberty.easy_records.locations.business.retail.stock.api.StockMovementContexts
+import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.MovementType
 import app.myliberty.easy_records.util.business.Decimals
 import app.myliberty.easy_records.util.exceptions.BlockingProblem
 import app.myliberty.easy_records.util.quantity.ExactQuantity

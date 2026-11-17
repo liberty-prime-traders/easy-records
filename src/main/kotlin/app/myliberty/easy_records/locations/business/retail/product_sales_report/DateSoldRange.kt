@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.business.product_sales_report
+package app.myliberty.easy_records.locations.business.retail.product_sales_report
 
 import java.time.OffsetDateTime
 

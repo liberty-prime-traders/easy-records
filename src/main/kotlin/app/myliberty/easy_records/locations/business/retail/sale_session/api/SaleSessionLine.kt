@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.locations.business.sale_session.api
+package app.myliberty.easy_records.locations.business.retail.sale_session.api
 
-import app.myliberty.easy_records.locations.business.location_product.api.ProductLineWithPrice
+import app.myliberty.easy_records.locations.business.retail.location_product.api.ProductLineWithPrice
 import app.myliberty.easy_records.util.business.Decimals
 import java.math.BigDecimal
 import java.util.UUID

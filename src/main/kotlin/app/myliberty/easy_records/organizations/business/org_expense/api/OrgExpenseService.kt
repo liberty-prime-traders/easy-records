@@ -12,8 +12,8 @@ import app.myliberty.easy_records.cross_tier.expense.operation.ExpenseOperations
 import app.myliberty.easy_records.cross_tier.expense.operation.ExpenseReissuer
 import app.myliberty.easy_records.cross_tier.expense.model.ExpenseSubmission
 import app.myliberty.easy_records.cross_tier.expense.model.SourceDocument
-import app.myliberty.easy_records.organizations.business.stock_transfer.api.StockTransferOrderDataFetcher
-import app.myliberty.easy_records.organizations.business.stock_transfer.api.StockTransferStatus
+import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferOrderDataFetcher
+import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferStatus
 import app.myliberty.easy_records.util.business.StringUtils
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Service

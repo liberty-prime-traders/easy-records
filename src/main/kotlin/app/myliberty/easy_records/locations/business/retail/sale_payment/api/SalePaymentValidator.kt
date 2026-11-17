@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.locations.business.sale_payment.api
+package app.myliberty.easy_records.locations.business.retail.sale_payment.api
 
-import app.myliberty.easy_records.locations.business.sale.api.SaleStatus
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleStatus
 import app.myliberty.easy_records.util.business.DisplayFormatters
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import java.math.BigDecimal

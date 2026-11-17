@@ -1,9 +1,9 @@
-package app.myliberty.easy_records.locations.business.delivery
+package app.myliberty.easy_records.locations.business.retail.delivery
 
-import app.myliberty.easy_records.locations.business.delivery.api.PurchaseDeliveryCreateDto
-import app.myliberty.easy_records.locations.business.location_product.api.LocationProductDataFetcher
-import app.myliberty.easy_records.locations.business.location_product.api.ProductStockBreakdownProvider
-import app.myliberty.easy_records.locations.business.purchase.api.PurchaseLineDto
+import app.myliberty.easy_records.locations.business.retail.delivery.api.PurchaseDeliveryCreateDto
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductDataFetcher
+import app.myliberty.easy_records.locations.business.retail.location_product.api.ProductStockBreakdownProvider
+import app.myliberty.easy_records.locations.business.retail.purchase.api.PurchaseLineDto
 import app.myliberty.easy_records.util.exceptions.BlockingProblem
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import app.myliberty.easy_records.util.quantity.ExactQuantity

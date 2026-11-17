@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.locations.business.location_product
+package app.myliberty.easy_records.locations.business.retail.location_product
 
-import app.myliberty.easy_records.cross_tier.product.search.common.ProductSearchParameters
-import app.myliberty.easy_records.organizations.business.product.api.ProductStatus
+import app.myliberty.easy_records.cross_tier.retail.product.search.common.ProductSearchParameters
+import app.myliberty.easy_records.organizations.business.retail.product.api.ProductStatus
 import app.myliberty.easy_records.util.paging.PageRequest
 import app.myliberty.easy_records.util.queries.QueryBuilderContext
 import org.junit.jupiter.api.Assertions.assertEquals

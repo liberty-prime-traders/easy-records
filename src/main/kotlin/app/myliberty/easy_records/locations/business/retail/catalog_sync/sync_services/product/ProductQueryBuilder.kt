@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.locations.business.catalog_sync.sync_services.product
+package app.myliberty.easy_records.locations.business.retail.catalog_sync.sync_services.product
 
-import app.myliberty.easy_records.locations.business.catalog_sync.sync_services.SyncQueryConstants
+import app.myliberty.easy_records.locations.business.retail.catalog_sync.sync_services.SyncQueryConstants
 
 object ProductQueryBuilder {
 

@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.locations.business.catalog_sync
+package app.myliberty.easy_records.locations.business.retail.catalog_sync
 
-import app.myliberty.easy_records.locations.business.catalog_sync.api.SyncLogFetcher
+import app.myliberty.easy_records.locations.business.retail.catalog_sync.api.SyncLogFetcher
 import app.myliberty.easy_records.util.enums.SchemaLevel
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import app.myliberty.easy_records.util.model.TableName

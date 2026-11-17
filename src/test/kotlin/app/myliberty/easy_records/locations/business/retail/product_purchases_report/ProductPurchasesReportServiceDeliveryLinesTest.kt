@@ -1,17 +1,17 @@
-package app.myliberty.easy_records.locations.business.product_purchases_report
+package app.myliberty.easy_records.locations.business.retail.product_purchases_report
 
-import app.myliberty.easy_records.locations.business.location_product.api.LocationProductDataFetcher
-import app.myliberty.easy_records.locations.business.location_product.api.LocationProductSummaryDto
-import app.myliberty.easy_records.locations.business.product_purchases_report.api.ProductPurchasesDeliveryLinesParameters
-import app.myliberty.easy_records.locations.business.product_purchases_report.api.ProductPurchasesReportService
-import app.myliberty.easy_records.locations.business.purchase.api.delivery.PurchaseDeliveryLineStatus
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductDataFetcher
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductSummaryDto
+import app.myliberty.easy_records.locations.business.retail.product_purchases_report.api.ProductPurchasesDeliveryLinesParameters
+import app.myliberty.easy_records.locations.business.retail.product_purchases_report.api.ProductPurchasesReportService
+import app.myliberty.easy_records.locations.business.retail.purchase.api.delivery.PurchaseDeliveryLineStatus
 import app.myliberty.easy_records.organizations.business.contact.api.ContactDto
 import app.myliberty.easy_records.organizations.business.contact.api.ContactIdentity
 import app.myliberty.easy_records.organizations.business.contact.api.ContactService
-import app.myliberty.easy_records.organizations.business.product_category.api.ProductCategoryService
-import app.myliberty.easy_records.organizations.business.unitconversion.api.QuantityBreakdownFactory
-import app.myliberty.easy_records.organizations.business.unitconversion.api.UnitConversionGraph
-import app.myliberty.easy_records.organizations.business.unitconversion.api.UnitConversionGraphFacade
+import app.myliberty.easy_records.organizations.business.retail.product_category.api.ProductCategoryService
+import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.QuantityBreakdownFactory
+import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.UnitConversionGraph
+import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.UnitConversionGraphFacade
 import app.myliberty.easy_records.util.paging.PageRequest
 import app.myliberty.easy_records.util.quantity.BreakdownUnit
 import app.myliberty.easy_records.util.quantity.QuantityBreakdown

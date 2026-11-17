@@ -1,11 +1,11 @@
-package app.myliberty.easy_records.locations.business.delivery.api
+package app.myliberty.easy_records.locations.business.retail.delivery.api
 
-import app.myliberty.easy_records.locations.business.delivery.PurchaseDeliveryAssembler
-import app.myliberty.easy_records.locations.business.delivery.PurchaseDeliveryEntity
-import app.myliberty.easy_records.locations.business.delivery.PurchaseDeliveryLineEntity
-import app.myliberty.easy_records.locations.business.delivery.PurchaseDeliveryLineRepository
-import app.myliberty.easy_records.locations.business.delivery.PurchaseDeliveryRepository
-import app.myliberty.easy_records.locations.business.purchase.api.delivery.PurchaseDeliveryLineStatus
+import app.myliberty.easy_records.locations.business.retail.delivery.PurchaseDeliveryAssembler
+import app.myliberty.easy_records.locations.business.retail.delivery.PurchaseDeliveryEntity
+import app.myliberty.easy_records.locations.business.retail.delivery.PurchaseDeliveryLineEntity
+import app.myliberty.easy_records.locations.business.retail.delivery.PurchaseDeliveryLineRepository
+import app.myliberty.easy_records.locations.business.retail.delivery.PurchaseDeliveryRepository
+import app.myliberty.easy_records.locations.business.retail.purchase.api.delivery.PurchaseDeliveryLineStatus
 import app.myliberty.easy_records.util.quantity.ExactQuantity
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test

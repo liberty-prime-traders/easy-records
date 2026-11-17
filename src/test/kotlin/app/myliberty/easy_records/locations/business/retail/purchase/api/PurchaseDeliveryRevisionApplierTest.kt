@@ -1,12 +1,12 @@
-package app.myliberty.easy_records.locations.business.purchase.api
+package app.myliberty.easy_records.locations.business.retail.purchase.api
 
-import app.myliberty.easy_records.locations.business.purchase.PurchaseAssembler
-import app.myliberty.easy_records.locations.business.purchase.PurchaseEntity
-import app.myliberty.easy_records.locations.business.purchase.PurchaseLineEntity
-import app.myliberty.easy_records.locations.business.purchase.PurchaseLineRepository
-import app.myliberty.easy_records.locations.business.purchase.PurchaseRepository
-import app.myliberty.easy_records.locations.business.purchase.api.delivery.PurchaseDeliveryRevisionApplier
-import app.myliberty.easy_records.locations.business.supplier_payment.api.PurchasePaymentStatusService
+import app.myliberty.easy_records.locations.business.retail.purchase.PurchaseAssembler
+import app.myliberty.easy_records.locations.business.retail.purchase.PurchaseEntity
+import app.myliberty.easy_records.locations.business.retail.purchase.PurchaseLineEntity
+import app.myliberty.easy_records.locations.business.retail.purchase.PurchaseLineRepository
+import app.myliberty.easy_records.locations.business.retail.purchase.PurchaseRepository
+import app.myliberty.easy_records.locations.business.retail.purchase.api.delivery.PurchaseDeliveryRevisionApplier
+import app.myliberty.easy_records.locations.business.retail.supplier_payment.api.PurchasePaymentStatusService
 import app.myliberty.easy_records.util.enums.PaymentStatus
 import app.myliberty.easy_records.util.quantity.ExactQuantity
 import org.junit.jupiter.api.Assertions.assertEquals

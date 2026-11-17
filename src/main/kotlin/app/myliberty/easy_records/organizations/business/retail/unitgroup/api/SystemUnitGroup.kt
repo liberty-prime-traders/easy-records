@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.unitgroup.api
+package app.myliberty.easy_records.organizations.business.retail.unitgroup.api
 
 import app.myliberty.easy_records.util.business.StringUtils
 import app.myliberty.easy_records.util.enums.HasCode

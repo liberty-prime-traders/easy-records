@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.product_tag
+package app.myliberty.easy_records.organizations.business.retail.product_tag
 
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query

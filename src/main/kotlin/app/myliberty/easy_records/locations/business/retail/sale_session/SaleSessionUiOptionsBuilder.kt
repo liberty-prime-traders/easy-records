@@ -1,12 +1,12 @@
-package app.myliberty.easy_records.locations.business.sale_session
+package app.myliberty.easy_records.locations.business.retail.sale_session
 
-import app.myliberty.easy_records.locations.business.sale.api.SaleStatus
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleDiscardAction
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSession
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionAction
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionKind
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionRules
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionUiOptions
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleStatus
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleDiscardAction
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSession
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionAction
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionKind
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionRules
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionUiOptions
 import java.util.UUID
 
 object SaleSessionUiOptionsBuilder {

@@ -1,9 +1,9 @@
-package app.myliberty.easy_records.organizations.business.unitgroup
+package app.myliberty.easy_records.organizations.business.retail.unitgroup
 
 import app.myliberty.easy_records.configuration.cache.CacheNames
 import app.myliberty.easy_records.configuration.cache.CacheSchemaLevel
-import app.myliberty.easy_records.organizations.business.unitgroup.api.UnitGroupDto
-import app.myliberty.easy_records.organizations.business.unitgroup.api.UnitGroupInsertDto
+import app.myliberty.easy_records.organizations.business.retail.unitgroup.api.UnitGroupDto
+import app.myliberty.easy_records.organizations.business.retail.unitgroup.api.UnitGroupInsertDto
 import app.myliberty.easy_records.util.enums.SchemaLevel
 import org.springframework.cache.annotation.CacheConfig
 import org.springframework.cache.annotation.CacheEvict

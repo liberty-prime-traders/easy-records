@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.product_category
+package app.myliberty.easy_records.organizations.business.retail.product_category
 
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository

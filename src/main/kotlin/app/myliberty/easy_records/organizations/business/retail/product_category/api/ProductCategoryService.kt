@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.organizations.business.product_category.api
+package app.myliberty.easy_records.organizations.business.retail.product_category.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
-import app.myliberty.easy_records.organizations.business.product_category.ProductCategoryCache
-import app.myliberty.easy_records.organizations.business.product_category.ProductCategoryMapper
+import app.myliberty.easy_records.organizations.business.retail.product_category.ProductCategoryCache
+import app.myliberty.easy_records.organizations.business.retail.product_category.ProductCategoryMapper
 import app.myliberty.easy_records.util.business.StringUtils
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException

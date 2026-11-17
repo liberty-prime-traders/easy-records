@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.locations.business.opening_stock
+package app.myliberty.easy_records.locations.business.retail.opening_stock
 
-import app.myliberty.easy_records.locations.business.opening_stock.api.OpeningStockLineDto
+import app.myliberty.easy_records.locations.business.retail.opening_stock.api.OpeningStockLineDto
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import java.util.UUID
 

@@ -1,15 +1,15 @@
-package app.myliberty.easy_records.locations.business.location_product.api
+package app.myliberty.easy_records.locations.business.retail.location_product.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
-import app.myliberty.easy_records.locations.business.location_product.LocationProductCache
-import app.myliberty.easy_records.locations.business.location_product.LocationProductDto
-import app.myliberty.easy_records.locations.business.location_product.LocationProductEnricher
-import app.myliberty.easy_records.locations.business.location_product.LocationProductMapper
-import app.myliberty.easy_records.locations.business.location_product.LocationProductRepository
-import app.myliberty.easy_records.locations.business.location_product.LocationProductValidator
-import app.myliberty.easy_records.organizations.business.product.api.OrganizationProductService
-import app.myliberty.easy_records.organizations.business.product.api.ProductStatus
-import app.myliberty.easy_records.organizations.business.unitconversion.api.UnitConversionGraphFacade
+import app.myliberty.easy_records.locations.business.retail.location_product.LocationProductCache
+import app.myliberty.easy_records.locations.business.retail.location_product.LocationProductDto
+import app.myliberty.easy_records.locations.business.retail.location_product.LocationProductEnricher
+import app.myliberty.easy_records.locations.business.retail.location_product.LocationProductMapper
+import app.myliberty.easy_records.locations.business.retail.location_product.LocationProductRepository
+import app.myliberty.easy_records.locations.business.retail.location_product.LocationProductValidator
+import app.myliberty.easy_records.organizations.business.retail.product.api.OrganizationProductService
+import app.myliberty.easy_records.organizations.business.retail.product.api.ProductStatus
+import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.UnitConversionGraphFacade
 import app.myliberty.easy_records.util.business.Money
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException

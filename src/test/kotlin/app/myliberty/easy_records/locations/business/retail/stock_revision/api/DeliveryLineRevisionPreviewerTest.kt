@@ -1,12 +1,12 @@
-package app.myliberty.easy_records.locations.business.stock_revision.api
+package app.myliberty.easy_records.locations.business.retail.stock_revision.api
 
-import app.myliberty.easy_records.locations.business.delivery.api.ValidatedDeliveryLineRevisionDto
-import app.myliberty.easy_records.locations.business.stock_revision.DeliveryLineRevisionAssessment
-import app.myliberty.easy_records.locations.business.stock_revision.DeliveryLineRevisionAssessor
-import app.myliberty.easy_records.locations.business.stock_revision.AdjustmentCostChangeResolver
-import app.myliberty.easy_records.locations.business.stock_revision.ReplayResult
-import app.myliberty.easy_records.locations.business.stock_revision.ReservationShortfall
-import app.myliberty.easy_records.locations.business.stock_revision.RevisionLedgerPreviewWriter
+import app.myliberty.easy_records.locations.business.retail.delivery.api.ValidatedDeliveryLineRevisionDto
+import app.myliberty.easy_records.locations.business.retail.stock_revision.DeliveryLineRevisionAssessment
+import app.myliberty.easy_records.locations.business.retail.stock_revision.DeliveryLineRevisionAssessor
+import app.myliberty.easy_records.locations.business.retail.stock_revision.AdjustmentCostChangeResolver
+import app.myliberty.easy_records.locations.business.retail.stock_revision.ReplayResult
+import app.myliberty.easy_records.locations.business.retail.stock_revision.ReservationShortfall
+import app.myliberty.easy_records.locations.business.retail.stock_revision.RevisionLedgerPreviewWriter
 import app.myliberty.easy_records.util.business.Money
 import app.myliberty.easy_records.util.exceptions.BlockingProblem
 import app.myliberty.easy_records.util.quantity.BreakdownUnit

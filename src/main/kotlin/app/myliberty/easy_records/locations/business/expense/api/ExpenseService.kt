@@ -15,10 +15,10 @@ import app.myliberty.easy_records.cross_tier.expense.request.SaleExpenseBatchReq
 import app.myliberty.easy_records.cross_tier.expense.request.StandaloneExpenseBatchRequest
 import app.myliberty.easy_records.cross_tier.expense.request.WageExpenseBatchRequest
 import app.myliberty.easy_records.cross_tier.expense.response.ExpenseSummaryResponse
-import app.myliberty.easy_records.locations.business.purchase.api.PurchaseDataFetcher
-import app.myliberty.easy_records.locations.business.purchase.api.PurchaseStatus
-import app.myliberty.easy_records.locations.business.sale.api.SaleDataFetcher
-import app.myliberty.easy_records.locations.business.sale.api.SaleStatus
+import app.myliberty.easy_records.locations.business.retail.purchase.api.PurchaseDataFetcher
+import app.myliberty.easy_records.locations.business.retail.purchase.api.PurchaseStatus
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleDataFetcher
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleStatus
 import app.myliberty.easy_records.organizations.business.expense_type.api.ExpenseTypeService
 import app.myliberty.easy_records.organizations.business.expense_type.api.SystemExpenseType
 import app.myliberty.easy_records.util.business.StringUtils

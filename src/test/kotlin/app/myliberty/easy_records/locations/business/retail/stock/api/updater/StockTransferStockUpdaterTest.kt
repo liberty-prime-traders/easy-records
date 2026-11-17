@@ -1,15 +1,15 @@
-package app.myliberty.easy_records.locations.business.stock.api.updater
+package app.myliberty.easy_records.locations.business.retail.stock.api.updater
 
-import app.myliberty.easy_records.locations.business.location_product.api.ProductStockBreakdownProvider
-import app.myliberty.easy_records.locations.business.stock.api.read.StockBalanceFetcher
+import app.myliberty.easy_records.locations.business.retail.location_product.api.ProductStockBreakdownProvider
+import app.myliberty.easy_records.locations.business.retail.stock.api.read.StockBalanceFetcher
 import app.myliberty.easy_records.support.WithDefaultOrganizationSession
-import app.myliberty.easy_records.locations.business.location_product.api.LocationProductDataFetcher
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductDataFetcher
 import app.myliberty.easy_records.locations.business.lock.api.EntityAdvisoryLock
-import app.myliberty.easy_records.locations.business.stock.StockEntryEntity
-import app.myliberty.easy_records.locations.business.stock.NetStockDrawReader
-import app.myliberty.easy_records.locations.business.stock.StockEntryRepository
-import app.myliberty.easy_records.locations.business.stock.StockMovementEntity
-import app.myliberty.easy_records.locations.business.stock.StockMovementRepository
+import app.myliberty.easy_records.locations.business.retail.stock.StockEntryEntity
+import app.myliberty.easy_records.locations.business.retail.stock.NetStockDrawReader
+import app.myliberty.easy_records.locations.business.retail.stock.StockEntryRepository
+import app.myliberty.easy_records.locations.business.retail.stock.StockMovementEntity
+import app.myliberty.easy_records.locations.business.retail.stock.StockMovementRepository
 import app.myliberty.easy_records.util.quantity.BreakdownUnit
 import app.myliberty.easy_records.util.quantity.ExactQuantity
 import app.myliberty.easy_records.util.quantity.QuantityBreakdown

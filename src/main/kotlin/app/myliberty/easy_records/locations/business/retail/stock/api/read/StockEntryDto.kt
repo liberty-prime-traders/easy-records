@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.locations.business.stock.api.read
+package app.myliberty.easy_records.locations.business.retail.stock.api.read
 
-import app.myliberty.easy_records.locations.business.stock.StockEntryEntity
-import app.myliberty.easy_records.locations.business.stock.api.StockEntryStatus
-import app.myliberty.easy_records.organizations.business.stock_item_source.api.StockItemSource
+import app.myliberty.easy_records.locations.business.retail.stock.StockEntryEntity
+import app.myliberty.easy_records.locations.business.retail.stock.api.StockEntryStatus
+import app.myliberty.easy_records.organizations.business.retail.stock_item_source.api.StockItemSource
 import java.math.BigDecimal
 import java.util.UUID
 

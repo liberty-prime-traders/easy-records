@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.locations.business.purchase.search
+package app.myliberty.easy_records.locations.business.retail.purchase.search
 
-import app.myliberty.easy_records.locations.business.purchase.api.search.PurchaseSearchParameters
+import app.myliberty.easy_records.locations.business.retail.purchase.api.search.PurchaseSearchParameters
 import app.myliberty.easy_records.util.queries.SearchGuards
 import java.time.OffsetDateTime
 

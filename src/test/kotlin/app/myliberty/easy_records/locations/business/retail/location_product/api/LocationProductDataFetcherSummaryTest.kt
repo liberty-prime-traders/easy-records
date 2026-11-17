@@ -1,11 +1,11 @@
-package app.myliberty.easy_records.locations.business.location_product.api
+package app.myliberty.easy_records.locations.business.retail.location_product.api
 
-import app.myliberty.easy_records.locations.business.location_product.LocationProductEnricher
-import app.myliberty.easy_records.locations.business.location_product.LocationProductForSaleAssembler
-import app.myliberty.easy_records.locations.business.location_product.LocationProductPagedSearch
-import app.myliberty.easy_records.locations.business.location_product.LocationProductSummaryView
-import app.myliberty.easy_records.locations.business.location_product.LocationProductRepository
-import app.myliberty.easy_records.organizations.business.unitconversion.api.UnitConversionGraphFacade
+import app.myliberty.easy_records.locations.business.retail.location_product.LocationProductEnricher
+import app.myliberty.easy_records.locations.business.retail.location_product.LocationProductForSaleAssembler
+import app.myliberty.easy_records.locations.business.retail.location_product.LocationProductPagedSearch
+import app.myliberty.easy_records.locations.business.retail.location_product.LocationProductSummaryView
+import app.myliberty.easy_records.locations.business.retail.location_product.LocationProductRepository
+import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.UnitConversionGraphFacade
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.mockito.ArgumentMatchers.anyCollection

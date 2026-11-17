@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.stock_transfer.api
+package app.myliberty.easy_records.organizations.business.retail.stock_transfer.api
 
 import jakarta.persistence.Converter
 import app.myliberty.easy_records.util.enums.EnumConverter

@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.locations.business.stock.api.read
+package app.myliberty.easy_records.locations.business.retail.stock.api.read
 
-import app.myliberty.easy_records.locations.business.stock.StockEntryEntity
-import app.myliberty.easy_records.locations.business.stock.StockEntryRepository
+import app.myliberty.easy_records.locations.business.retail.stock.StockEntryEntity
+import app.myliberty.easy_records.locations.business.retail.stock.StockEntryRepository
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows

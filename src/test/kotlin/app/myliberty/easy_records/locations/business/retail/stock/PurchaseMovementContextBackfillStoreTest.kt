@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.locations.business.stock
+package app.myliberty.easy_records.locations.business.retail.stock
 
-import app.myliberty.easy_records.locations.business.stock.api.read.PurchaseMovementContextBackfillStore
-import app.myliberty.easy_records.locations.business.stock.api.read.PurchaseMovementContextCandidate
-import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.MovementType
+import app.myliberty.easy_records.locations.business.retail.stock.api.read.PurchaseMovementContextBackfillStore
+import app.myliberty.easy_records.locations.business.retail.stock.api.read.PurchaseMovementContextCandidate
+import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.MovementType
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.mockito.ArgumentMatchers.anyIterable

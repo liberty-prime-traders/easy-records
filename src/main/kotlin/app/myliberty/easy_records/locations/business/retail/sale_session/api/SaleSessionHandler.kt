@@ -1,14 +1,14 @@
-package app.myliberty.easy_records.locations.business.sale_session.api
+package app.myliberty.easy_records.locations.business.retail.sale_session.api
 
-import app.myliberty.easy_records.locations.business.sale_session.consolidation.PendingConsolidationPromoter
+import app.myliberty.easy_records.locations.business.retail.sale_session.consolidation.PendingConsolidationPromoter
 import com.google.common.base.Predicate
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
-import app.myliberty.easy_records.locations.business.sale_session.SaleSessionAssembler
-import app.myliberty.easy_records.locations.business.sale_session.SaleSessionCopier
-import app.myliberty.easy_records.locations.business.sale_session.SaleSessionLoader
-import app.myliberty.easy_records.locations.business.sale_session.SaleSessionStore
-import app.myliberty.easy_records.locations.business.sale_session.SaleSessionUpdateFinalizer
+import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionAssembler
+import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionCopier
+import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionLoader
+import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionStore
+import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionUpdateFinalizer
 import org.springframework.stereotype.Service
 import java.util.UUID
 

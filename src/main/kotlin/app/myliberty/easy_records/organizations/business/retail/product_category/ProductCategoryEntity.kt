@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.product_category
+package app.myliberty.easy_records.organizations.business.retail.product_category
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity

@@ -1,12 +1,12 @@
-package app.myliberty.easy_records.locations.business.purchase.api
+package app.myliberty.easy_records.locations.business.retail.purchase.api
 
 import app.myliberty.easy_records.util.enums.PaymentStatus
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
 import app.myliberty.easy_records.locations.business.lock.api.EntityAdvisoryLock
-import app.myliberty.easy_records.locations.business.purchase.PurchaseAssembler
-import app.myliberty.easy_records.locations.business.purchase.PurchaseEntity
-import app.myliberty.easy_records.locations.business.purchase.PurchaseLineRepository
-import app.myliberty.easy_records.locations.business.purchase.PurchaseRepository
+import app.myliberty.easy_records.locations.business.retail.purchase.PurchaseAssembler
+import app.myliberty.easy_records.locations.business.retail.purchase.PurchaseEntity
+import app.myliberty.easy_records.locations.business.retail.purchase.PurchaseLineRepository
+import app.myliberty.easy_records.locations.business.retail.purchase.PurchaseRepository
 import app.myliberty.easy_records.util.business.lock.LockNamespaces
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.data.domain.PageRequest

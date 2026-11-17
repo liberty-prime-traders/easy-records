@@ -1,15 +1,15 @@
-package app.myliberty.easy_records.locations.business.sale_payment.api
+package app.myliberty.easy_records.locations.business.retail.sale_payment.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
-import app.myliberty.easy_records.locations.business.sale.api.SaleDataFetcher
-import app.myliberty.easy_records.locations.business.sale.api.SaleUpdater
-import app.myliberty.easy_records.locations.business.sale_payment.SalePaymentMapper
-import app.myliberty.easy_records.locations.business.sale_payment.SalePaymentRepository
-import app.myliberty.easy_records.locations.business.sale_payment.SalePaymentVoidEntity
-import app.myliberty.easy_records.locations.business.sale_payment.SalePaymentVoidHandlerForKafka
-import app.myliberty.easy_records.locations.business.sale_payment.SalePaymentVoidRepository
-import app.myliberty.easy_records.locations.business.sale_payment.SalePaymentWriter
-import app.myliberty.easy_records.locations.business.sale_payment.VoidedSalePayment
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleDataFetcher
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleUpdater
+import app.myliberty.easy_records.locations.business.retail.sale_payment.SalePaymentMapper
+import app.myliberty.easy_records.locations.business.retail.sale_payment.SalePaymentRepository
+import app.myliberty.easy_records.locations.business.retail.sale_payment.SalePaymentVoidEntity
+import app.myliberty.easy_records.locations.business.retail.sale_payment.SalePaymentVoidHandlerForKafka
+import app.myliberty.easy_records.locations.business.retail.sale_payment.SalePaymentVoidRepository
+import app.myliberty.easy_records.locations.business.retail.sale_payment.SalePaymentWriter
+import app.myliberty.easy_records.locations.business.retail.sale_payment.VoidedSalePayment
 import app.myliberty.easy_records.organizations.business.fiscal_period.api.FiscalPeriodService
 import app.myliberty.easy_records.organizations.business.payment_method.api.PaymentMethodDataFetcher
 import app.myliberty.easy_records.util.business.DateTimes

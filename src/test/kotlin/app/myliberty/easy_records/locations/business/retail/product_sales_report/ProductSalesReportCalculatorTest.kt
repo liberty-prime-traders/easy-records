@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.locations.business.product_sales_report
+package app.myliberty.easy_records.locations.business.retail.product_sales_report
 
-import app.myliberty.easy_records.locations.business.location_product.api.LocationProductSummaryDto
-import app.myliberty.easy_records.locations.business.product_sales_report.api.ProductSalesLineAdjustmentDto
-import app.myliberty.easy_records.organizations.business.adjustment_reason.api.AdjustmentDirection
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductSummaryDto
+import app.myliberty.easy_records.locations.business.retail.product_sales_report.api.ProductSalesLineAdjustmentDto
+import app.myliberty.easy_records.organizations.business.retail.adjustment_reason.api.AdjustmentDirection
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test

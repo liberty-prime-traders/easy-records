@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.organizations.business.stock_movement_reason.api
+package app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api
 
-import app.myliberty.easy_records.organizations.business.stock_movement_reason.StockMovementReasonCache
-import app.myliberty.easy_records.organizations.business.stock_movement_reason.StockMovementReasonMapper
+import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.StockMovementReasonCache
+import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.StockMovementReasonMapper
 import org.springframework.stereotype.Component
 import java.util.UUID
 

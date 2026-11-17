@@ -1,12 +1,12 @@
-package app.myliberty.easy_records.locations.business.sale_session.api
+package app.myliberty.easy_records.locations.business.retail.sale_session.api
 
-import app.myliberty.easy_records.locations.business.sale.api.SaleStatus
-import app.myliberty.easy_records.locations.business.sale_payment.api.SalePaymentCreateDto
-import app.myliberty.easy_records.locations.business.sale_payment.api.SalePaymentService
-import app.myliberty.easy_records.locations.business.sale_payment.api.SalePaymentVoidCreateDto
-import app.myliberty.easy_records.locations.business.sale_session.SaleSessionStore
-import app.myliberty.easy_records.locations.business.sale_session.SaleSessionUpdateFinalizer
-import app.myliberty.easy_records.locations.business.sale_session.SaleSessionValidator
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleStatus
+import app.myliberty.easy_records.locations.business.retail.sale_payment.api.SalePaymentCreateDto
+import app.myliberty.easy_records.locations.business.retail.sale_payment.api.SalePaymentService
+import app.myliberty.easy_records.locations.business.retail.sale_payment.api.SalePaymentVoidCreateDto
+import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionStore
+import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionUpdateFinalizer
+import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionValidator
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Service
 import java.time.OffsetDateTime

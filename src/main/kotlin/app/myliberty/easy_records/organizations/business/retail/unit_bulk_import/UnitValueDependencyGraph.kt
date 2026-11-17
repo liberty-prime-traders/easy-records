@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.unit_bulk_import
+package app.myliberty.easy_records.organizations.business.retail.unit_bulk_import
 
 /**
  * Directed graph over arbitrary string node identifiers (unit value codes, or "groupId:code"

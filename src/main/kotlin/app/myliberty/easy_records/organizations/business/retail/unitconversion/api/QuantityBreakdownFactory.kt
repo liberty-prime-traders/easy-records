@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.unitconversion.api
+package app.myliberty.easy_records.organizations.business.retail.unitconversion.api
 
 import app.myliberty.easy_records.util.quantity.QuantityBreakdown
 import org.springframework.stereotype.Component

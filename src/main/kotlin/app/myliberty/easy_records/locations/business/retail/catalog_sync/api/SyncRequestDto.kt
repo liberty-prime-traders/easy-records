@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.business.catalog_sync.api
+package app.myliberty.easy_records.locations.business.retail.catalog_sync.api
 
 import app.myliberty.easy_records.util.model.TableName
 import java.io.Serializable

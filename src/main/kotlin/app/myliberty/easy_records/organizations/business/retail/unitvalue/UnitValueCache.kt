@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.organizations.business.unitvalue
+package app.myliberty.easy_records.organizations.business.retail.unitvalue
 
 import app.myliberty.easy_records.configuration.cache.CacheNames
 import app.myliberty.easy_records.configuration.cache.CacheSchemaLevel
-import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueInsertDto
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueInsertDto
 import app.myliberty.easy_records.util.enums.SchemaLevel
 import app.myliberty.easy_records.util.exceptions.QueriedByEmptyIdException
 import org.springframework.cache.annotation.CacheConfig

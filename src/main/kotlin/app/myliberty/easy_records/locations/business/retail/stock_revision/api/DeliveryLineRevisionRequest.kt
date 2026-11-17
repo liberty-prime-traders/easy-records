@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.business.stock_revision.api
+package app.myliberty.easy_records.locations.business.retail.stock_revision.api
 
 import app.myliberty.easy_records.util.business.Money
 import app.myliberty.easy_records.util.quantity.UserProvidedQuantity

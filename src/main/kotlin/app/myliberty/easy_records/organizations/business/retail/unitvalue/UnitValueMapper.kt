@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.organizations.business.unitvalue
+package app.myliberty.easy_records.organizations.business.retail.unitvalue
 
-import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueInsertDto
-import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueResponseDto
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueInsertDto
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueResponseDto
 import app.myliberty.easy_records.platform.business.sysuser.api.CreatorFullName
 import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
 import org.mapstruct.Context

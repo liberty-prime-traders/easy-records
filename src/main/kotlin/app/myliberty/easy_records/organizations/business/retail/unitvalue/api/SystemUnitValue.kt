@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.organizations.business.unitvalue.api
+package app.myliberty.easy_records.organizations.business.retail.unitvalue.api
 
-import app.myliberty.easy_records.organizations.business.unitgroup.api.SystemUnitGroup
+import app.myliberty.easy_records.organizations.business.retail.unitgroup.api.SystemUnitGroup
 import app.myliberty.easy_records.util.enums.HasCode
 
 enum class SystemUnitValue(

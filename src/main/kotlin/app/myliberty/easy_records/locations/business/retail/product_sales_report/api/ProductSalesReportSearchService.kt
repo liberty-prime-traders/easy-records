@@ -1,12 +1,12 @@
-package app.myliberty.easy_records.locations.business.product_sales_report.api
+package app.myliberty.easy_records.locations.business.retail.product_sales_report.api
 
-import app.myliberty.easy_records.locations.business.product_sales_report.ProductSalesReportCursor
-import app.myliberty.easy_records.locations.business.product_sales_report.ProductSalesReportKeyedRow
-import app.myliberty.easy_records.locations.business.product_sales_report.ProductSalesReportSnapshot
-import app.myliberty.easy_records.locations.business.product_sales_report.ProductSalesReportSnapshotBuilder
-import app.myliberty.easy_records.locations.business.product_sales_report.ProductSalesReportSnapshotCache
-import app.myliberty.easy_records.locations.business.product_sales_report.ProductSalesReportValidator
-import app.myliberty.easy_records.locations.business.product_sales_report.ProductSalesReportWindow
+import app.myliberty.easy_records.locations.business.retail.product_sales_report.ProductSalesReportCursor
+import app.myliberty.easy_records.locations.business.retail.product_sales_report.ProductSalesReportKeyedRow
+import app.myliberty.easy_records.locations.business.retail.product_sales_report.ProductSalesReportSnapshot
+import app.myliberty.easy_records.locations.business.retail.product_sales_report.ProductSalesReportSnapshotBuilder
+import app.myliberty.easy_records.locations.business.retail.product_sales_report.ProductSalesReportSnapshotCache
+import app.myliberty.easy_records.locations.business.retail.product_sales_report.ProductSalesReportValidator
+import app.myliberty.easy_records.locations.business.retail.product_sales_report.ProductSalesReportWindow
 import app.myliberty.easy_records.util.business.StringUtils
 import app.myliberty.easy_records.util.paging.PageRequest
 import app.myliberty.easy_records.util.paging.PageResponseWithMetadata

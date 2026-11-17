@@ -1,15 +1,15 @@
-package app.myliberty.easy_records.locations.business.stock.api.revision
+package app.myliberty.easy_records.locations.business.retail.stock.api.revision
 
 import app.myliberty.easy_records.locations.business.lock.api.EntityAdvisoryLock
-import app.myliberty.easy_records.locations.business.stock.StockEntryEntity
-import app.myliberty.easy_records.locations.business.stock.StockEntryRepository
-import app.myliberty.easy_records.locations.business.stock.StockMovementEntity
-import app.myliberty.easy_records.locations.business.stock.StockMovementRepository
-import app.myliberty.easy_records.locations.business.stock.api.StockEntryStatus
-import app.myliberty.easy_records.locations.business.stock.api.fifo.FifoConsumptionRequest
-import app.myliberty.easy_records.locations.business.stock.api.fifo.PlannedTake
-import app.myliberty.easy_records.locations.business.stock.api.read.StockBalanceFetcher
-import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.MovementType
+import app.myliberty.easy_records.locations.business.retail.stock.StockEntryEntity
+import app.myliberty.easy_records.locations.business.retail.stock.StockEntryRepository
+import app.myliberty.easy_records.locations.business.retail.stock.StockMovementEntity
+import app.myliberty.easy_records.locations.business.retail.stock.StockMovementRepository
+import app.myliberty.easy_records.locations.business.retail.stock.api.StockEntryStatus
+import app.myliberty.easy_records.locations.business.retail.stock.api.fifo.FifoConsumptionRequest
+import app.myliberty.easy_records.locations.business.retail.stock.api.fifo.PlannedTake
+import app.myliberty.easy_records.locations.business.retail.stock.api.read.StockBalanceFetcher
+import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.MovementType
 import app.myliberty.easy_records.util.business.lock.LockNamespaces
 import app.myliberty.easy_records.util.quantity.BreakdownUnit
 import app.myliberty.easy_records.util.quantity.ExactQuantity

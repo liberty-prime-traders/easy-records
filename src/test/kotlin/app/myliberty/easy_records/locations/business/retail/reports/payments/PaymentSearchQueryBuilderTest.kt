@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.locations.business.reports.payments
+package app.myliberty.easy_records.locations.business.retail.reports.payments
 
-import app.myliberty.easy_records.locations.business.reports.payments.api.PaymentSearchParameters
-import app.myliberty.easy_records.locations.business.reports.payments.api.PaymentVoidStatusFilter
-import app.myliberty.easy_records.locations.business.reports.payments.api.PaymentType
+import app.myliberty.easy_records.locations.business.retail.reports.payments.api.PaymentSearchParameters
+import app.myliberty.easy_records.locations.business.retail.reports.payments.api.PaymentVoidStatusFilter
+import app.myliberty.easy_records.locations.business.retail.reports.payments.api.PaymentType
 import app.myliberty.easy_records.util.queries.KeysetSearchCursor
 import app.myliberty.easy_records.util.queries.SqlQuery
 import org.junit.jupiter.api.Assertions.assertEquals

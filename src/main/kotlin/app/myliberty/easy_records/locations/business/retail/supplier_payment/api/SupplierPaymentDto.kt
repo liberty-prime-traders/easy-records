@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.business.supplier_payment.api
+package app.myliberty.easy_records.locations.business.retail.supplier_payment.api
 
 import java.math.BigDecimal
 import java.time.OffsetDateTime

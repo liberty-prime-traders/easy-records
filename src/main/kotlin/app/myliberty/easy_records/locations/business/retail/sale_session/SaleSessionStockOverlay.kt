@@ -1,12 +1,12 @@
-package app.myliberty.easy_records.locations.business.sale_session
+package app.myliberty.easy_records.locations.business.retail.sale_session
 
-import app.myliberty.easy_records.locations.business.sale.api.SaleStatus
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSession
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionLine
-import app.myliberty.easy_records.locations.business.sale_session.api.StockHeldBySales
-import app.myliberty.easy_records.locations.business.stock.api.availability.StockAvailabilityFetcher
-import app.myliberty.easy_records.locations.business.stock_reservation.api.ProductReservations
-import app.myliberty.easy_records.locations.business.stock_reservation.api.StockReserver
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleStatus
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSession
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionLine
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.StockHeldBySales
+import app.myliberty.easy_records.locations.business.retail.stock.api.availability.StockAvailabilityFetcher
+import app.myliberty.easy_records.locations.business.retail.stock_reservation.api.ProductReservations
+import app.myliberty.easy_records.locations.business.retail.stock_reservation.api.StockReserver
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 import java.util.UUID

@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.locations.business.product_sales_report
+package app.myliberty.easy_records.locations.business.retail.product_sales_report
 
-import app.myliberty.easy_records.locations.business.product_sales_report.api.ProductSalesSortDirection
-import app.myliberty.easy_records.locations.business.product_sales_report.api.ProductSalesSortField
-import app.myliberty.easy_records.locations.business.product_sales_report.api.ProductSalesSummaryDto
+import app.myliberty.easy_records.locations.business.retail.product_sales_report.api.ProductSalesSortDirection
+import app.myliberty.easy_records.locations.business.retail.product_sales_report.api.ProductSalesSortField
+import app.myliberty.easy_records.locations.business.retail.product_sales_report.api.ProductSalesSummaryDto
 import java.math.BigDecimal
 import java.util.Locale
 import java.util.UUID

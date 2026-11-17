@@ -1,11 +1,11 @@
 package app.myliberty.easy_records.cucumber.steps.locations
 
 import io.cucumber.java.en.Then
-import app.myliberty.easy_records.cross_tier.product.search.common.ProductSearchParameters
+import app.myliberty.easy_records.cross_tier.retail.product.search.common.ProductSearchParameters
 import app.myliberty.easy_records.cucumber.support.ApiClient
 import app.myliberty.easy_records.cucumber.support.context.InjectContext
 import app.myliberty.easy_records.cucumber.support.context.TransientKey
-import app.myliberty.easy_records.locations.business.location_product.api.LocationProductResponseDto
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductResponseDto
 import app.myliberty.easy_records.support.TestConstants
 import app.myliberty.easy_records.util.paging.PageRequest
 import org.awaitility.Awaitility.await

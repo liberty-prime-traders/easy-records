@@ -1,9 +1,9 @@
-package app.myliberty.easy_records.locations.business.catalog_sync.api
+package app.myliberty.easy_records.locations.business.retail.catalog_sync.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
-import app.myliberty.easy_records.locations.business.catalog_sync.SyncLogEntity
-import app.myliberty.easy_records.locations.business.catalog_sync.SyncLogRepository
-import app.myliberty.easy_records.locations.business.catalog_sync.SyncProgressUpdate
+import app.myliberty.easy_records.locations.business.retail.catalog_sync.SyncLogEntity
+import app.myliberty.easy_records.locations.business.retail.catalog_sync.SyncLogRepository
+import app.myliberty.easy_records.locations.business.retail.catalog_sync.SyncProgressUpdate
 import org.springframework.stereotype.Service
 import java.time.OffsetDateTime
 import java.util.UUID

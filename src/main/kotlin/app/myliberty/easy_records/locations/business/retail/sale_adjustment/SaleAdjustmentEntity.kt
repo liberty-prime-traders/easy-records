@@ -1,13 +1,13 @@
-package app.myliberty.easy_records.locations.business.sale_adjustment
+package app.myliberty.easy_records.locations.business.retail.sale_adjustment
 
 import jakarta.persistence.Column
 import jakarta.persistence.Convert
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
-import app.myliberty.easy_records.organizations.business.adjustment_reason.api.AdjustmentDirection
-import app.myliberty.easy_records.organizations.business.adjustment_reason.api.AdjustmentDirectionConverter
-import app.myliberty.easy_records.locations.business.sale_adjustment.api.PriceAdjustmentMethod
-import app.myliberty.easy_records.locations.business.sale_adjustment.api.PriceAdjustmentMethodConverter
+import app.myliberty.easy_records.organizations.business.retail.adjustment_reason.api.AdjustmentDirection
+import app.myliberty.easy_records.organizations.business.retail.adjustment_reason.api.AdjustmentDirectionConverter
+import app.myliberty.easy_records.locations.business.retail.sale_adjustment.api.PriceAdjustmentMethod
+import app.myliberty.easy_records.locations.business.retail.sale_adjustment.api.PriceAdjustmentMethodConverter
 import app.myliberty.easy_records.util.annotations.HasReference
 import app.myliberty.easy_records.util.model.HasReferenceEntity
 import app.myliberty.easy_records.util.model.TableName

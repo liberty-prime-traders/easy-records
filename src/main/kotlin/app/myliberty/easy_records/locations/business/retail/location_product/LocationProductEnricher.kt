@@ -1,11 +1,11 @@
-package app.myliberty.easy_records.locations.business.location_product
+package app.myliberty.easy_records.locations.business.retail.location_product
 
-import app.myliberty.easy_records.locations.business.location_product.api.LocationProductResponseDto
-import app.myliberty.easy_records.locations.business.opening_stock.api.OpeningStockAmountsFetcher
-import app.myliberty.easy_records.locations.business.stock.api.read.StockBalanceFetcher
-import app.myliberty.easy_records.organizations.business.unitconversion.api.QuantityBreakdownFactory
-import app.myliberty.easy_records.organizations.business.unitconversion.api.UnitConversionGraphFacade
-import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueFetcher
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductResponseDto
+import app.myliberty.easy_records.locations.business.retail.opening_stock.api.OpeningStockAmountsFetcher
+import app.myliberty.easy_records.locations.business.retail.stock.api.read.StockBalanceFetcher
+import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.QuantityBreakdownFactory
+import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.UnitConversionGraphFacade
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueFetcher
 import app.myliberty.easy_records.util.quantity.BaseUnitDisplay
 import app.myliberty.easy_records.util.quantity.ExactQuantity
 import org.springframework.stereotype.Component

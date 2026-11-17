@@ -1,11 +1,11 @@
 package app.myliberty.easy_records.organizations.rest.endpoints
 
-import app.myliberty.easy_records.organizations.business.unit_bulk_import.api.BulkUnitImportRequestDto
-import app.myliberty.easy_records.organizations.business.unit_bulk_import.api.BulkUnitImportService
-import app.myliberty.easy_records.organizations.business.unitgroup.api.UnitGroupInsertDto
-import app.myliberty.easy_records.organizations.business.unitgroup.api.UnitGroupResponseDto
-import app.myliberty.easy_records.organizations.business.unitgroup.api.UnitGroupService
-import app.myliberty.easy_records.organizations.business.unitgroup.api.UnitGroupUpdateDto
+import app.myliberty.easy_records.organizations.business.retail.unit_bulk_import.api.BulkUnitImportRequestDto
+import app.myliberty.easy_records.organizations.business.retail.unit_bulk_import.api.BulkUnitImportService
+import app.myliberty.easy_records.organizations.business.retail.unitgroup.api.UnitGroupInsertDto
+import app.myliberty.easy_records.organizations.business.retail.unitgroup.api.UnitGroupResponseDto
+import app.myliberty.easy_records.organizations.business.retail.unitgroup.api.UnitGroupService
+import app.myliberty.easy_records.organizations.business.retail.unitgroup.api.UnitGroupUpdateDto
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.CrossOrigin

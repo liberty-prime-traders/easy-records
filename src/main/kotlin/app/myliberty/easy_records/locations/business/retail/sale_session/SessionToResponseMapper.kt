@@ -1,14 +1,14 @@
-package app.myliberty.easy_records.locations.business.sale_session
+package app.myliberty.easy_records.locations.business.retail.sale_session
 
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSession
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionAdjustment
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionAdjustmentResponse
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionLine
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionLineResponse
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionPayment
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionPaymentResponse
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionResponseDto
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionSummaryDto
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSession
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionAdjustment
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionAdjustmentResponse
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionLine
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionLineResponse
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionPayment
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionPaymentResponse
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionResponseDto
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionSummaryDto
 import app.myliberty.easy_records.platform.business.sysuser.api.CreatorFullName
 import app.myliberty.easy_records.platform.business.sysuser.api.NullableFullName
 import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig

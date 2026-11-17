@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.locations.business.stock.api.read
+package app.myliberty.easy_records.locations.business.retail.stock.api.read
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
-import app.myliberty.easy_records.locations.business.stock.StockMovementRepository
+import app.myliberty.easy_records.locations.business.retail.stock.StockMovementRepository
 import org.springframework.stereotype.Service
 import java.util.UUID
 

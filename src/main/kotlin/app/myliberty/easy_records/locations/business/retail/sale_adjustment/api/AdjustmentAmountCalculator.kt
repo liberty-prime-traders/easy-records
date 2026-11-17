@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.locations.business.sale_adjustment.api
+package app.myliberty.easy_records.locations.business.retail.sale_adjustment.api
 
-import app.myliberty.easy_records.locations.business.location_product.api.LinePricing
-import app.myliberty.easy_records.locations.business.location_product.api.ProductLineWithPrice
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LinePricing
+import app.myliberty.easy_records.locations.business.retail.location_product.api.ProductLineWithPrice
 import app.myliberty.easy_records.util.business.Decimals
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import java.math.BigDecimal

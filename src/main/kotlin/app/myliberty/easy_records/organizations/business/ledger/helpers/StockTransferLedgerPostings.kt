@@ -5,7 +5,7 @@ import app.myliberty.easy_records.organizations.business.account.api.SystemAccou
 import app.myliberty.easy_records.organizations.business.ledger.LedgerEntryGroupRepository
 import app.myliberty.easy_records.organizations.business.ledger.api.LedgerEntryRequest
 import app.myliberty.easy_records.organizations.business.ledger.api.LedgerSourceType
-import app.myliberty.easy_records.organizations.business.stock_transfer.api.StockTransferOrderDataFetcher
+import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferOrderDataFetcher
 import app.myliberty.easy_records.util.business.Money
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Component

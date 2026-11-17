@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.locations.business.catalog_sync.strategy
+package app.myliberty.easy_records.locations.business.retail.catalog_sync.strategy
 
-import app.myliberty.easy_records.locations.business.catalog_sync.SyncCursor
-import app.myliberty.easy_records.locations.business.catalog_sync.api.SyncMode
+import app.myliberty.easy_records.locations.business.retail.catalog_sync.SyncCursor
+import app.myliberty.easy_records.locations.business.retail.catalog_sync.api.SyncMode
 
 interface SyncStrategy {
 

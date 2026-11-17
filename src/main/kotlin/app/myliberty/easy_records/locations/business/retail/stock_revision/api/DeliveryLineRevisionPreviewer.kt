@@ -1,12 +1,12 @@
-package app.myliberty.easy_records.locations.business.stock_revision.api
+package app.myliberty.easy_records.locations.business.retail.stock_revision.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
-import app.myliberty.easy_records.locations.business.stock_revision.AdjustmentCostChangeResolver
-import app.myliberty.easy_records.locations.business.stock_revision.ConsumerCostChange
-import app.myliberty.easy_records.locations.business.stock_revision.DeliveryLineRevisionAssessor
-import app.myliberty.easy_records.locations.business.stock_revision.RevisionGuidanceWriter
-import app.myliberty.easy_records.locations.business.stock_revision.RevisionLedgerPreviewWriter
-import app.myliberty.easy_records.locations.business.stock_revision.RevisionPreviewStoryWriter
+import app.myliberty.easy_records.locations.business.retail.stock_revision.AdjustmentCostChangeResolver
+import app.myliberty.easy_records.locations.business.retail.stock_revision.ConsumerCostChange
+import app.myliberty.easy_records.locations.business.retail.stock_revision.DeliveryLineRevisionAssessor
+import app.myliberty.easy_records.locations.business.retail.stock_revision.RevisionGuidanceWriter
+import app.myliberty.easy_records.locations.business.retail.stock_revision.RevisionLedgerPreviewWriter
+import app.myliberty.easy_records.locations.business.retail.stock_revision.RevisionPreviewStoryWriter
 import org.springframework.stereotype.Service
 
 // Takes no lock, so a preview can differ from the save, which assesses again under the product lock.

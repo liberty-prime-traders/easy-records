@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.locations.business.reports.payments
+package app.myliberty.easy_records.locations.business.retail.reports.payments
 
-import app.myliberty.easy_records.locations.business.reports.payments.api.PaymentSearchParameters
+import app.myliberty.easy_records.locations.business.retail.reports.payments.api.PaymentSearchParameters
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
 import app.myliberty.easy_records.util.queries.KeysetSearchCursor
 import org.springframework.stereotype.Component

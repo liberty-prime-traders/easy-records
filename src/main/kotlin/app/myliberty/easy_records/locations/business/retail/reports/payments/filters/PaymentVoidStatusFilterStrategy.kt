@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.locations.business.reports.payments.filters
+package app.myliberty.easy_records.locations.business.retail.reports.payments.filters
 
-import app.myliberty.easy_records.locations.business.reports.payments.api.PaymentVoidStatusFilter
+import app.myliberty.easy_records.locations.business.retail.reports.payments.api.PaymentVoidStatusFilter
 import app.myliberty.easy_records.util.queries.FilterStrategy
 import app.myliberty.easy_records.util.queries.QueryBuilderContext
 

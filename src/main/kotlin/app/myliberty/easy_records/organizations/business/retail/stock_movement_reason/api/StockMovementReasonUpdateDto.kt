@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.organizations.business.stock_movement_reason.api
+package app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api
 
-import app.myliberty.easy_records.organizations.business.stock_movement_reason.StockMovementReasonDto
+import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.StockMovementReasonDto
 import app.myliberty.easy_records.util.business.StringUtils
 import java.util.Optional
 import java.util.UUID

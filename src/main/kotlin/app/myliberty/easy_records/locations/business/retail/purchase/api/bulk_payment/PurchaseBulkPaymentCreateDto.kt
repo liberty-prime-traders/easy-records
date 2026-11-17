@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.business.purchase.api.bulk_payment
+package app.myliberty.easy_records.locations.business.retail.purchase.api.bulk_payment
 
 import app.myliberty.easy_records.util.business.PositiveMoney
 import java.time.OffsetDateTime

@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.locations.business.sale_session.api
+package app.myliberty.easy_records.locations.business.retail.sale_session.api
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import app.myliberty.easy_records.organizations.business.adjustment_reason.api.AdjustmentDirection
+import app.myliberty.easy_records.organizations.business.retail.adjustment_reason.api.AdjustmentDirection
 import app.myliberty.easy_records.util.business.Money
 import app.myliberty.easy_records.util.business.Percentage
 import app.myliberty.easy_records.util.business.PositiveMoney

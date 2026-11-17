@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.stock_movement_reason.api
+package app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api
 
 import java.time.OffsetDateTime
 import java.util.UUID

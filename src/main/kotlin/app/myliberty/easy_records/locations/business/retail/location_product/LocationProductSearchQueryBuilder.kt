@@ -1,13 +1,13 @@
-package app.myliberty.easy_records.locations.business.location_product
+package app.myliberty.easy_records.locations.business.retail.location_product
 
-import app.myliberty.easy_records.cross_tier.product.search.common.Aliases
-import app.myliberty.easy_records.cross_tier.product.search.common.ProductSearchParameters
-import app.myliberty.easy_records.cross_tier.product.search.common.filters.CategoryFilterStrategy
-import app.myliberty.easy_records.cross_tier.product.search.common.filters.ExcludeIdsFilterStrategy
-import app.myliberty.easy_records.cross_tier.product.search.common.filters.NameFilterStrategy
-import app.myliberty.easy_records.cross_tier.product.search.common.filters.ReferenceNumberFilterStrategy
-import app.myliberty.easy_records.cross_tier.product.search.common.filters.StatusFilterStrategy
-import app.myliberty.easy_records.cross_tier.product.search.common.filters.TextSearchFilterStrategy
+import app.myliberty.easy_records.cross_tier.retail.product.search.common.Aliases
+import app.myliberty.easy_records.cross_tier.retail.product.search.common.ProductSearchParameters
+import app.myliberty.easy_records.cross_tier.retail.product.search.common.filters.CategoryFilterStrategy
+import app.myliberty.easy_records.cross_tier.retail.product.search.common.filters.ExcludeIdsFilterStrategy
+import app.myliberty.easy_records.cross_tier.retail.product.search.common.filters.NameFilterStrategy
+import app.myliberty.easy_records.cross_tier.retail.product.search.common.filters.ReferenceNumberFilterStrategy
+import app.myliberty.easy_records.cross_tier.retail.product.search.common.filters.StatusFilterStrategy
+import app.myliberty.easy_records.cross_tier.retail.product.search.common.filters.TextSearchFilterStrategy
 import app.myliberty.easy_records.util.model.TableNames
 import app.myliberty.easy_records.util.queries.QueryBuilderContext
 import app.myliberty.easy_records.util.queries.ProductQueryMetadata

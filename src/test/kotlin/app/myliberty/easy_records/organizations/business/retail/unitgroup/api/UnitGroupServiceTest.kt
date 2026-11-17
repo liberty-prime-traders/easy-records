@@ -1,9 +1,9 @@
-package app.myliberty.easy_records.organizations.business.unitgroup.api
+package app.myliberty.easy_records.organizations.business.retail.unitgroup.api
 
 import app.myliberty.easy_records.organizations.business.lock.api.OrgEntityAdvisoryLock
-import app.myliberty.easy_records.organizations.business.unitgroup.UnitGroupCache
-import app.myliberty.easy_records.organizations.business.unitgroup.UnitGroupMapper
-import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueService
+import app.myliberty.easy_records.organizations.business.retail.unitgroup.UnitGroupCache
+import app.myliberty.easy_records.organizations.business.retail.unitgroup.UnitGroupMapper
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueService
 import app.myliberty.easy_records.util.business.lock.LockNamespaces
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.junit.jupiter.api.Assertions.assertEquals

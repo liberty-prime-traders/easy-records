@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.locations.business.stock_adjustment_backfill
+package app.myliberty.easy_records.locations.business.retail.stock_adjustment_backfill
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
-import app.myliberty.easy_records.locations.business.stock_adjustment.api.StockAdjustmentBackfillStore
+import app.myliberty.easy_records.locations.business.retail.stock_adjustment.api.StockAdjustmentBackfillStore
 import app.myliberty.easy_records.util.business.reference_number.ReferenceNumberGenerator
 import app.myliberty.easy_records.util.model.TableName
 import org.springframework.stereotype.Service

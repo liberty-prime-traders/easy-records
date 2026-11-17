@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.business.sale_payment.api
+package app.myliberty.easy_records.locations.business.retail.sale_payment.api
 
 import java.time.OffsetDateTime
 import java.util.UUID

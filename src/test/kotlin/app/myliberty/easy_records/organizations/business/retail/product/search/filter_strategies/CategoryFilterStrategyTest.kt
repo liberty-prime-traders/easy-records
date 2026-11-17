@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.organizations.business.product.search.filter_strategies
+package app.myliberty.easy_records.organizations.business.retail.product.search.filter_strategies
 
-import app.myliberty.easy_records.cross_tier.product.search.common.filters.CategoryFilterStrategy
-import app.myliberty.easy_records.organizations.business.product.search.TestDataFactory.TestUUIDs
+import app.myliberty.easy_records.cross_tier.retail.product.search.common.filters.CategoryFilterStrategy
+import app.myliberty.easy_records.organizations.business.retail.product.search.TestDataFactory.TestUUIDs
 import app.myliberty.easy_records.util.queries.QueryBuilderContext
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals

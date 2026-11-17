@@ -4,7 +4,7 @@ import app.myliberty.easy_records.cucumber.fixtures.FixtureBuilder
 import app.myliberty.easy_records.cucumber.support.ApiClient
 import app.myliberty.easy_records.cucumber.support.context.InjectContext
 import app.myliberty.easy_records.cucumber.support.context.TransientKey
-import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueInsertDto
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueInsertDto
 import org.springframework.stereotype.Component
 
 @Component

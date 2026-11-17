@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.cross_tier.product.search.common
+package app.myliberty.easy_records.cross_tier.retail.product.search.common
 
 object ParameterNames {
   const val PREVIOUS_NAME = "previousName"

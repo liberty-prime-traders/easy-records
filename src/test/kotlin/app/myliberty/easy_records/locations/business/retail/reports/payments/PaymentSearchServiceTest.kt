@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.locations.business.reports.payments
+package app.myliberty.easy_records.locations.business.retail.reports.payments
 
-import app.myliberty.easy_records.locations.business.reports.payments.api.PaymentSearchParameters
-import app.myliberty.easy_records.locations.business.reports.payments.api.PaymentSearchService
-import app.myliberty.easy_records.locations.business.reports.payments.api.PaymentType
+import app.myliberty.easy_records.locations.business.retail.reports.payments.api.PaymentSearchParameters
+import app.myliberty.easy_records.locations.business.retail.reports.payments.api.PaymentSearchService
+import app.myliberty.easy_records.locations.business.retail.reports.payments.api.PaymentType
 import app.myliberty.easy_records.organizations.business.payment_method.api.PaymentMethodDataFetcher
 import app.myliberty.easy_records.util.business.mappers.NameResolution
 import app.myliberty.easy_records.util.paging.PageRequest

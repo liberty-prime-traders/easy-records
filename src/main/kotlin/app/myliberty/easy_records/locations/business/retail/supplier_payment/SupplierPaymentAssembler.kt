@@ -1,10 +1,10 @@
-package app.myliberty.easy_records.locations.business.supplier_payment
+package app.myliberty.easy_records.locations.business.retail.supplier_payment
 
-import app.myliberty.easy_records.locations.business.delivery.api.PurchaseDeliveryDataFetcher
+import app.myliberty.easy_records.locations.business.retail.delivery.api.PurchaseDeliveryDataFetcher
 import app.myliberty.easy_records.util.enums.PaymentStatus
-import app.myliberty.easy_records.locations.business.purchase.api.PurchaseDataFetcher
-import app.myliberty.easy_records.locations.business.purchase.api.PurchaseDataFetcher.PurchaseInfo
-import app.myliberty.easy_records.locations.business.supplier_payment.api.SupplierPaymentResponseDto
+import app.myliberty.easy_records.locations.business.retail.purchase.api.PurchaseDataFetcher
+import app.myliberty.easy_records.locations.business.retail.purchase.api.PurchaseDataFetcher.PurchaseInfo
+import app.myliberty.easy_records.locations.business.retail.supplier_payment.api.SupplierPaymentResponseDto
 import app.myliberty.easy_records.organizations.business.contact.api.ContactService
 import app.myliberty.easy_records.organizations.business.payment_method.api.PaymentMethodDataFetcher
 import app.myliberty.easy_records.util.business.mappers.UserQualifier

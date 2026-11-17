@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.locations.business.purchase.api.search
+package app.myliberty.easy_records.locations.business.retail.purchase.api.search
 
-import app.myliberty.easy_records.locations.business.purchase.api.PurchaseStatus
+import app.myliberty.easy_records.locations.business.retail.purchase.api.PurchaseStatus
 import app.myliberty.easy_records.util.business.StringUtils
 import app.myliberty.easy_records.util.enums.PaymentStatus
 import java.math.BigDecimal

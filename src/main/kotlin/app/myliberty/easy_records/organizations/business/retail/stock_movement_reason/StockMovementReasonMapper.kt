@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.organizations.business.stock_movement_reason
+package app.myliberty.easy_records.organizations.business.retail.stock_movement_reason
 
-import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.StockMovementReasonInsertDto
-import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.StockMovementReasonResponseDto
+import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.StockMovementReasonInsertDto
+import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.StockMovementReasonResponseDto
 import app.myliberty.easy_records.platform.business.sysuser.api.CreatorFullName
 import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
 import org.mapstruct.Mapper

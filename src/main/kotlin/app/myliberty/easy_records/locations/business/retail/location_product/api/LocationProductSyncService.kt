@@ -1,12 +1,12 @@
-package app.myliberty.easy_records.locations.business.location_product.api
+package app.myliberty.easy_records.locations.business.retail.location_product.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
-import app.myliberty.easy_records.locations.business.location_product.LocationProductCache
-import app.myliberty.easy_records.locations.business.location_product.LocationProductEntity
-import app.myliberty.easy_records.locations.business.location_product.LocationProductInsertDto
-import app.myliberty.easy_records.locations.business.location_product.LocationProductMapper
-import app.myliberty.easy_records.locations.business.location_product.LocationProductRepository
-import app.myliberty.easy_records.organizations.business.product.api.ProductStatus
+import app.myliberty.easy_records.locations.business.retail.location_product.LocationProductCache
+import app.myliberty.easy_records.locations.business.retail.location_product.LocationProductEntity
+import app.myliberty.easy_records.locations.business.retail.location_product.LocationProductInsertDto
+import app.myliberty.easy_records.locations.business.retail.location_product.LocationProductMapper
+import app.myliberty.easy_records.locations.business.retail.location_product.LocationProductRepository
+import app.myliberty.easy_records.organizations.business.retail.product.api.ProductStatus
 import app.myliberty.easy_records.util.business.StringUtils
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Service

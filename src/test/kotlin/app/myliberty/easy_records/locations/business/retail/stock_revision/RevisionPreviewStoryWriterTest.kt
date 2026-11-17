@@ -1,13 +1,13 @@
-package app.myliberty.easy_records.locations.business.stock_revision
+package app.myliberty.easy_records.locations.business.retail.stock_revision
 
-import app.myliberty.easy_records.locations.business.delivery.api.ValidatedDeliveryLineRevisionDto
-import app.myliberty.easy_records.locations.business.stock.api.fifo.FifoLayer
-import app.myliberty.easy_records.locations.business.stock.api.fifo.StockEntryFifoDto
-import app.myliberty.easy_records.locations.business.stock.api.read.StockMovementDto
-import app.myliberty.easy_records.locations.business.stock_revision.api.AdjustmentCostChange
-import app.myliberty.easy_records.locations.business.stock_revision.api.RevisionPreviewSeverity
+import app.myliberty.easy_records.locations.business.retail.delivery.api.ValidatedDeliveryLineRevisionDto
+import app.myliberty.easy_records.locations.business.retail.stock.api.fifo.FifoLayer
+import app.myliberty.easy_records.locations.business.retail.stock.api.fifo.StockEntryFifoDto
+import app.myliberty.easy_records.locations.business.retail.stock.api.read.StockMovementDto
+import app.myliberty.easy_records.locations.business.retail.stock_revision.api.AdjustmentCostChange
+import app.myliberty.easy_records.locations.business.retail.stock_revision.api.RevisionPreviewSeverity
 import app.myliberty.easy_records.organizations.business.account.api.SystemAccount
-import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.MovementType
+import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.MovementType
 import app.myliberty.easy_records.util.exceptions.BlockingProblem
 import app.myliberty.easy_records.util.quantity.BreakdownUnit
 import app.myliberty.easy_records.util.quantity.ExactQuantity

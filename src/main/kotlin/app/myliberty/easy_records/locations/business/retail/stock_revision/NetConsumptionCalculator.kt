@@ -1,11 +1,11 @@
-package app.myliberty.easy_records.locations.business.stock_revision
+package app.myliberty.easy_records.locations.business.retail.stock_revision
 
 import java.math.BigDecimal
 import java.util.UUID
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
-import app.myliberty.easy_records.locations.business.stock.api.read.StockMovementDto
-import app.myliberty.easy_records.locations.business.stock.api.read.StockMovementFetcher
-import app.myliberty.easy_records.locations.business.stock.api.read.StockEntryFetcher
+import app.myliberty.easy_records.locations.business.retail.stock.api.read.StockMovementDto
+import app.myliberty.easy_records.locations.business.retail.stock.api.read.StockMovementFetcher
+import app.myliberty.easy_records.locations.business.retail.stock.api.read.StockEntryFetcher
 import app.myliberty.easy_records.util.exceptions.BlockedChangeException
 import app.myliberty.easy_records.util.exceptions.BlockingProblem
 import app.myliberty.easy_records.util.quantity.ExactQuantity

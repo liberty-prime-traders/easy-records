@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.locations.business.sale.search
+package app.myliberty.easy_records.locations.business.retail.sale.search
 
-import app.myliberty.easy_records.locations.business.sale.api.SaleSearchParameters
-import app.myliberty.easy_records.locations.business.sale.api.SaleStatus
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleSearchParameters
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleStatus
 import app.myliberty.easy_records.util.model.TableNames
 import app.myliberty.easy_records.util.model.ViewNames
 import app.myliberty.easy_records.util.queries.AnyListFilterStrategy

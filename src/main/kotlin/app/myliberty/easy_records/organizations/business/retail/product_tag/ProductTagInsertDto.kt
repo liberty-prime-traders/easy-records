@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.product_tag
+package app.myliberty.easy_records.organizations.business.retail.product_tag
 
 import java.io.Serializable
 import java.util.UUID

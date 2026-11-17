@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.unitvalue.api
+package app.myliberty.easy_records.organizations.business.retail.unitvalue.api
 
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import java.util.UUID

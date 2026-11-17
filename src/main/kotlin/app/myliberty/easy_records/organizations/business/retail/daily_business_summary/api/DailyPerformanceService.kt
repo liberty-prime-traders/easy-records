@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.daily_business_summary.api
+package app.myliberty.easy_records.organizations.business.retail.daily_business_summary.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
@@ -6,7 +6,7 @@ import app.myliberty.easy_records.organizations.business.account.api.AccountCate
 import app.myliberty.easy_records.organizations.business.account.api.AccountService
 import app.myliberty.easy_records.organizations.business.account.api.AccountTreeNode
 import app.myliberty.easy_records.organizations.business.account.api.SystemAccount
-import app.myliberty.easy_records.organizations.business.daily_business_summary.SummaryRange
+import app.myliberty.easy_records.organizations.business.retail.daily_business_summary.SummaryRange
 import app.myliberty.easy_records.organizations.business.ledger.api.LedgerMovement
 import app.myliberty.easy_records.organizations.business.ledger.api.LedgerMovementReader
 import app.myliberty.easy_records.organizations.business.ledger.api.LedgerSourceType

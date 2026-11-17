@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.locations.business.stock.api.read
+package app.myliberty.easy_records.locations.business.retail.stock.api.read
 
-import app.myliberty.easy_records.locations.business.stock.StockMovementEntity
-import app.myliberty.easy_records.locations.business.stock.api.StockAdjustmentMovementDetails
-import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.MovementType
+import app.myliberty.easy_records.locations.business.retail.stock.StockMovementEntity
+import app.myliberty.easy_records.locations.business.retail.stock.api.StockAdjustmentMovementDetails
+import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.MovementType
 import app.myliberty.easy_records.util.quantity.QuantityAsEntered
 import java.math.BigDecimal
 import java.time.OffsetDateTime

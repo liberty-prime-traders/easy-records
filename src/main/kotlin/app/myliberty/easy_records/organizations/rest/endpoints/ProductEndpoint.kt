@@ -1,13 +1,13 @@
 package app.myliberty.easy_records.organizations.rest.endpoints
 
-import app.myliberty.easy_records.cross_tier.product.search.common.ProductSearchParameters
-import app.myliberty.easy_records.organizations.business.product.api.OrganizationProductInsertDto
-import app.myliberty.easy_records.organizations.business.product.api.OrganizationProductResponseDto
-import app.myliberty.easy_records.organizations.business.product.api.OrganizationProductSearchService
-import app.myliberty.easy_records.organizations.business.product.api.OrganizationProductService
-import app.myliberty.easy_records.organizations.business.product.api.OrganizationProductUpdateDto
-import app.myliberty.easy_records.organizations.business.product_bulk_import.api.BulkProductImportRequestDto
-import app.myliberty.easy_records.organizations.business.product_bulk_import.api.BulkProductImportService
+import app.myliberty.easy_records.cross_tier.retail.product.search.common.ProductSearchParameters
+import app.myliberty.easy_records.organizations.business.retail.product.api.OrganizationProductInsertDto
+import app.myliberty.easy_records.organizations.business.retail.product.api.OrganizationProductResponseDto
+import app.myliberty.easy_records.organizations.business.retail.product.api.OrganizationProductSearchService
+import app.myliberty.easy_records.organizations.business.retail.product.api.OrganizationProductService
+import app.myliberty.easy_records.organizations.business.retail.product.api.OrganizationProductUpdateDto
+import app.myliberty.easy_records.organizations.business.retail.product_bulk_import.api.BulkProductImportRequestDto
+import app.myliberty.easy_records.organizations.business.retail.product_bulk_import.api.BulkProductImportService
 import app.myliberty.easy_records.util.paging.PageRequest
 import app.myliberty.easy_records.util.paging.PageResponse
 import org.springframework.http.HttpStatus

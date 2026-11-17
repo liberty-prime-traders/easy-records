@@ -1,14 +1,14 @@
-package app.myliberty.easy_records.locations.business.sale_session
+package app.myliberty.easy_records.locations.business.retail.sale_session
 
-import app.myliberty.easy_records.locations.business.sale.api.SaleHeaderDto
-import app.myliberty.easy_records.locations.business.sale.api.SaleLineDto
-import app.myliberty.easy_records.locations.business.sale_adjustment.api.SaleAdjustmentDto
-import app.myliberty.easy_records.locations.business.sale_payment.api.SalePaymentSnapshot
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionAdjustment
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionHeader
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionLine
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionPayment
-import app.myliberty.easy_records.locations.business.sale_session.api.SessionIdentity
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleHeaderDto
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleLineDto
+import app.myliberty.easy_records.locations.business.retail.sale_adjustment.api.SaleAdjustmentDto
+import app.myliberty.easy_records.locations.business.retail.sale_payment.api.SalePaymentSnapshot
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionAdjustment
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionHeader
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionLine
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionPayment
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SessionIdentity
 import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
 import org.mapstruct.Context
 import org.mapstruct.Mapper

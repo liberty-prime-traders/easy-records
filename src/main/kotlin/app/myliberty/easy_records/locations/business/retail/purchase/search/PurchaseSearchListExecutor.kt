@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.locations.business.purchase.search
+package app.myliberty.easy_records.locations.business.retail.purchase.search
 
 import app.myliberty.easy_records.configuration.datasource.DataSourceBeanNames
-import app.myliberty.easy_records.locations.business.purchase.PurchaseEntity
+import app.myliberty.easy_records.locations.business.retail.purchase.PurchaseEntity
 import app.myliberty.easy_records.util.queries.SqlSearchExecutor
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean

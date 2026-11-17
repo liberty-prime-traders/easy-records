@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.locations.business.stock_adjustment
+package app.myliberty.easy_records.locations.business.retail.stock_adjustment
 
-import app.myliberty.easy_records.locations.business.stock_adjustment.api.StockAdjustmentCreateDto
-import app.myliberty.easy_records.locations.business.stock_adjustment.api.StockAdjustmentDirection
+import app.myliberty.easy_records.locations.business.retail.stock_adjustment.api.StockAdjustmentCreateDto
+import app.myliberty.easy_records.locations.business.retail.stock_adjustment.api.StockAdjustmentDirection
 import app.myliberty.easy_records.util.business.StringUtils
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 

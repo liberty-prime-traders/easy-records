@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.locations.business.catalog_sync.sync_services.product
+package app.myliberty.easy_records.locations.business.retail.catalog_sync.sync_services.product
 
-import app.myliberty.easy_records.organizations.business.product.api.ProductStatus
+import app.myliberty.easy_records.organizations.business.retail.product.api.ProductStatus
 import java.util.UUID
 
 data class ProductSyncData(

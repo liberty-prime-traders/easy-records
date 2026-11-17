@@ -2,7 +2,7 @@ package app.myliberty.easy_records.messaging.kafka.catalog
 
 import app.myliberty.easy_records.configuration.session.ServiceAccountContext
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
-import app.myliberty.easy_records.locations.business.catalog_sync.api.SyncServiceRegistry
+import app.myliberty.easy_records.locations.business.retail.catalog_sync.api.SyncServiceRegistry
 import app.myliberty.easy_records.messaging.kafka.common.EventSessionSetup
 import app.myliberty.easy_records.messaging.kafka.common.EventSourceContext
 import app.myliberty.easy_records.organizations.business.location.api.LocationService

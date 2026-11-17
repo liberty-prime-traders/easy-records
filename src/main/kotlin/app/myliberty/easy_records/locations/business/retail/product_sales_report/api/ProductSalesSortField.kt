@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.business.product_sales_report.api
+package app.myliberty.easy_records.locations.business.retail.product_sales_report.api
 
 enum class ProductSalesSortField {
   NEEDS_ATTENTION,

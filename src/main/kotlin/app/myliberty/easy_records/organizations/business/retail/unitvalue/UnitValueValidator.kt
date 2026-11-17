@@ -1,12 +1,12 @@
-package app.myliberty.easy_records.organizations.business.unitvalue
+package app.myliberty.easy_records.organizations.business.retail.unitvalue
 
-import app.myliberty.easy_records.organizations.business.unitgroup.api.UnitGroupDataFetcher
-import app.myliberty.easy_records.organizations.business.unitvalue.api.RootUnitDefinition
-import app.myliberty.easy_records.organizations.business.unitvalue.api.SystemUnitValue
-import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitChainNode
-import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitChainResolver
-import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueInsertDto
-import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueUpdateDto
+import app.myliberty.easy_records.organizations.business.retail.unitgroup.api.UnitGroupDataFetcher
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.RootUnitDefinition
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.SystemUnitValue
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitChainNode
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitChainResolver
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueInsertDto
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueUpdateDto
 import app.myliberty.easy_records.util.business.StringUtils
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException

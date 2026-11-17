@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.locations.business.reports.payments
+package app.myliberty.easy_records.locations.business.retail.reports.payments
 
-import app.myliberty.easy_records.locations.business.reports.payments.api.PaymentSearchParameters
-import app.myliberty.easy_records.locations.business.reports.payments.filters.PaymentVoidStatusFilterStrategy
+import app.myliberty.easy_records.locations.business.retail.reports.payments.api.PaymentSearchParameters
+import app.myliberty.easy_records.locations.business.retail.reports.payments.filters.PaymentVoidStatusFilterStrategy
 import app.myliberty.easy_records.util.model.ColumnNames
 import app.myliberty.easy_records.util.queries.AnyListFilterStrategy
 import app.myliberty.easy_records.util.queries.DateRangeFilterStrategy

@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.business.stock_revision.api
+package app.myliberty.easy_records.locations.business.retail.stock_revision.api
 
 import app.myliberty.easy_records.messaging.kafka.transaction.events.StockAdjustmentCostRestatementDto
 import app.myliberty.easy_records.organizations.business.account.api.EntryType

@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.business.sale_session.consolidation.line_merge
+package app.myliberty.easy_records.locations.business.retail.sale_session.consolidation.line_merge
 
 enum class ConsolidationProblemKind(val failedAtStep: MergeStep) {
     INACTIVE_PRODUCT(MergeStep.PRODUCT_CHECKS),

@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.locations.business.stock_adjustment
+package app.myliberty.easy_records.locations.business.retail.stock_adjustment
 
-import app.myliberty.easy_records.locations.business.stock_adjustment.api.StockAdjustmentCostBackfillCandidate
+import app.myliberty.easy_records.locations.business.retail.stock_adjustment.api.StockAdjustmentCostBackfillCandidate
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
@@ -14,7 +14,7 @@ interface StockAdjustmentRepository : JpaRepository<StockAdjustmentEntity, UUID>
 
     @Query(
         """
-        SELECT NEW app.myliberty.easy_records.locations.business.stock_adjustment.api.StockAdjustmentCostBackfillCandidate(
+        SELECT NEW app.myliberty.easy_records.locations.business.retail.stock_adjustment.api.StockAdjustmentCostBackfillCandidate(
             stockAdjustment.id, stockAdjustment.totalCost, stockAdjustment.createdOn)
         FROM StockAdjustmentEntity stockAdjustment
         WHERE NOT EXISTS (

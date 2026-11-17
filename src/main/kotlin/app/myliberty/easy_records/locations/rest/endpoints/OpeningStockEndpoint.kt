@@ -1,10 +1,10 @@
 package app.myliberty.easy_records.locations.rest.endpoints
 
-import app.myliberty.easy_records.locations.business.opening_stock.api.OpeningStockBulkLineDto
-import app.myliberty.easy_records.locations.business.opening_stock.api.OpeningStockBulkService
-import app.myliberty.easy_records.locations.business.opening_stock.api.OpeningStockLineDto
-import app.myliberty.easy_records.locations.business.opening_stock.api.OpeningStockResponseDto
-import app.myliberty.easy_records.locations.business.opening_stock.api.OpeningStockService
+import app.myliberty.easy_records.locations.business.retail.opening_stock.api.OpeningStockBulkLineDto
+import app.myliberty.easy_records.locations.business.retail.opening_stock.api.OpeningStockBulkService
+import app.myliberty.easy_records.locations.business.retail.opening_stock.api.OpeningStockLineDto
+import app.myliberty.easy_records.locations.business.retail.opening_stock.api.OpeningStockResponseDto
+import app.myliberty.easy_records.locations.business.retail.opening_stock.api.OpeningStockService
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody

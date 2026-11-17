@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.organizations.business.product_group
+package app.myliberty.easy_records.organizations.business.retail.product_group
 
-import app.myliberty.easy_records.organizations.business.product_category.api.ProductCategoryService
-import app.myliberty.easy_records.organizations.business.product_group.api.ProductGroupInsertDto
-import app.myliberty.easy_records.organizations.business.product_group.api.ProductGroupUpdateDto
+import app.myliberty.easy_records.organizations.business.retail.product_category.api.ProductCategoryService
+import app.myliberty.easy_records.organizations.business.retail.product_group.api.ProductGroupInsertDto
+import app.myliberty.easy_records.organizations.business.retail.product_group.api.ProductGroupUpdateDto
 import app.myliberty.easy_records.util.business.StringUtils
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Component

@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.locations.business.sale
+package app.myliberty.easy_records.locations.business.retail.sale
 
-import app.myliberty.easy_records.locations.business.sale_adjustment.api.SaleAdjustmentSummaryDto
-import app.myliberty.easy_records.organizations.business.adjustment_reason.api.AdjustmentDirection
+import app.myliberty.easy_records.locations.business.retail.sale_adjustment.api.SaleAdjustmentSummaryDto
+import app.myliberty.easy_records.organizations.business.retail.adjustment_reason.api.AdjustmentDirection
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 

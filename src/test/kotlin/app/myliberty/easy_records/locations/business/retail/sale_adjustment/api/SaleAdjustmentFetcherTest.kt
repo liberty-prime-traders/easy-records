@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.locations.business.sale_adjustment.api
+package app.myliberty.easy_records.locations.business.retail.sale_adjustment.api
 
-import app.myliberty.easy_records.locations.business.sale_adjustment.SaleAdjustmentEntity
-import app.myliberty.easy_records.locations.business.sale_adjustment.SaleAdjustmentRepository
-import app.myliberty.easy_records.organizations.business.adjustment_reason.api.AdjustmentDirection
+import app.myliberty.easy_records.locations.business.retail.sale_adjustment.SaleAdjustmentEntity
+import app.myliberty.easy_records.locations.business.retail.sale_adjustment.SaleAdjustmentRepository
+import app.myliberty.easy_records.organizations.business.retail.adjustment_reason.api.AdjustmentDirection
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.mock

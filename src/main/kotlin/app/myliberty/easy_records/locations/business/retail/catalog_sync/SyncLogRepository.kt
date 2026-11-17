@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.business.catalog_sync
+package app.myliberty.easy_records.locations.business.retail.catalog_sync
 
 import app.myliberty.easy_records.util.model.TableName
 import org.springframework.data.jpa.repository.JpaRepository
@@ -13,7 +13,7 @@ interface SyncLogRepository : JpaRepository<SyncLogEntity, UUID> {
     SELECT s.lastProcessedRevision
     FROM SyncLogEntity s
     WHERE s.tableName = :tableName
-    AND s.status = app.myliberty.easy_records.locations.business.catalog_sync.api.SyncStatus.COMPLETED
+    AND s.status = app.myliberty.easy_records.locations.business.retail.catalog_sync.api.SyncStatus.COMPLETED
     AND s.lastProcessedRevision IS NOT NULL
     ORDER BY s.completedAt DESC
     LIMIT 1
@@ -25,8 +25,8 @@ interface SyncLogRepository : JpaRepository<SyncLogEntity, UUID> {
     FROM SyncLogEntity s
     WHERE s.tableName = :tableName
     AND s.status IN (
-      app.myliberty.easy_records.locations.business.catalog_sync.api.SyncStatus.IN_PROGRESS,
-      app.myliberty.easy_records.locations.business.catalog_sync.api.SyncStatus.CANCELLATION_REQUESTED
+      app.myliberty.easy_records.locations.business.retail.catalog_sync.api.SyncStatus.IN_PROGRESS,
+      app.myliberty.easy_records.locations.business.retail.catalog_sync.api.SyncStatus.CANCELLATION_REQUESTED
     )
     ORDER BY s.createdOn DESC
     LIMIT 1
@@ -38,8 +38,8 @@ interface SyncLogRepository : JpaRepository<SyncLogEntity, UUID> {
     FROM SyncLogEntity s
     WHERE s.tableName = :tableName
     AND s.status IN (
-      app.myliberty.easy_records.locations.business.catalog_sync.api.SyncStatus.IN_PROGRESS,
-      app.myliberty.easy_records.locations.business.catalog_sync.api.SyncStatus.CANCELLATION_REQUESTED
+      app.myliberty.easy_records.locations.business.retail.catalog_sync.api.SyncStatus.IN_PROGRESS,
+      app.myliberty.easy_records.locations.business.retail.catalog_sync.api.SyncStatus.CANCELLATION_REQUESTED
     )
   """)
   fun existsInProgressSync(tableName: TableName): Boolean
@@ -48,7 +48,7 @@ interface SyncLogRepository : JpaRepository<SyncLogEntity, UUID> {
     SELECT s.lastProcessedRevision
     FROM SyncLogEntity s
     WHERE s.tableName = :tableName
-    AND s.status = app.myliberty.easy_records.locations.business.catalog_sync.api.SyncStatus.FAILED
+    AND s.status = app.myliberty.easy_records.locations.business.retail.catalog_sync.api.SyncStatus.FAILED
     AND s.lastProcessedRevision IS NOT NULL
     ORDER BY s.completedAt DESC
     LIMIT 1
@@ -59,7 +59,7 @@ interface SyncLogRepository : JpaRepository<SyncLogEntity, UUID> {
     SELECT s.lastProcessedRevision
     FROM SyncLogEntity s
     WHERE s.tableName = :tableName
-    AND s.status = app.myliberty.easy_records.locations.business.catalog_sync.api.SyncStatus.CANCELLED
+    AND s.status = app.myliberty.easy_records.locations.business.retail.catalog_sync.api.SyncStatus.CANCELLED
     AND s.lastProcessedRevision IS NOT NULL
     ORDER BY s.canceledAt DESC
     LIMIT 1

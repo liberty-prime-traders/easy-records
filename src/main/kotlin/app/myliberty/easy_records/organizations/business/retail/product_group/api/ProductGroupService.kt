@@ -1,11 +1,11 @@
-package app.myliberty.easy_records.organizations.business.product_group.api
+package app.myliberty.easy_records.organizations.business.retail.product_group.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
-import app.myliberty.easy_records.organizations.business.product_category.api.ProductCategoryService
-import app.myliberty.easy_records.organizations.business.product_group.ProductGroupCache
-import app.myliberty.easy_records.organizations.business.product_group.ProductGroupMapper
-import app.myliberty.easy_records.organizations.business.product_group.ProductGroupRepository
-import app.myliberty.easy_records.organizations.business.product_group.ProductGroupValidator
+import app.myliberty.easy_records.organizations.business.retail.product_category.api.ProductCategoryService
+import app.myliberty.easy_records.organizations.business.retail.product_group.ProductGroupCache
+import app.myliberty.easy_records.organizations.business.retail.product_group.ProductGroupMapper
+import app.myliberty.easy_records.organizations.business.retail.product_group.ProductGroupRepository
+import app.myliberty.easy_records.organizations.business.retail.product_group.ProductGroupValidator
 import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException
 import org.springframework.stereotype.Service
 import java.util.UUID

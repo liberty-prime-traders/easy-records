@@ -3,7 +3,7 @@ package app.myliberty.easy_records.cucumber.fixtures.organizations
 import app.myliberty.easy_records.cucumber.fixtures.FixtureBuilder
 import app.myliberty.easy_records.cucumber.support.ApiClient
 import app.myliberty.easy_records.cucumber.support.context.InjectContext
-import app.myliberty.easy_records.organizations.business.unitgroup.api.UnitGroupInsertDto
+import app.myliberty.easy_records.organizations.business.retail.unitgroup.api.UnitGroupInsertDto
 import org.springframework.stereotype.Component
 
 @Component

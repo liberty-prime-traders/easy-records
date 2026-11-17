@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.business.catalog_sync.sync_services.product
+package app.myliberty.easy_records.locations.business.retail.catalog_sync.sync_services.product
 
 object ProductQueryConstants {
   object Tables {

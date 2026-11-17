@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.organizations.business.adjustment_reason
+package app.myliberty.easy_records.organizations.business.retail.adjustment_reason
 
-import app.myliberty.easy_records.organizations.business.adjustment_reason.api.AdjustmentReasonInsertDto
+import app.myliberty.easy_records.organizations.business.retail.adjustment_reason.api.AdjustmentReasonInsertDto
 import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping

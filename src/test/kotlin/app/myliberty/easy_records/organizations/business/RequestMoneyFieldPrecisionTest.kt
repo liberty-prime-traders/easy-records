@@ -2,12 +2,12 @@ package app.myliberty.easy_records.organizations.business
 
 import app.myliberty.easy_records.support.WithDefaultOrganizationSession
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import app.myliberty.easy_records.locations.business.location_product.api.LocationProductUpdateDto
-import app.myliberty.easy_records.locations.business.sale_payment.api.SalePaymentCreateDto
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionAdjustmentAddDto
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionLineUpdateDto
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionPaymentAddDto
-import app.myliberty.easy_records.locations.business.supplier_payment.api.SupplierPaymentCreateDto
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductUpdateDto
+import app.myliberty.easy_records.locations.business.retail.sale_payment.api.SalePaymentCreateDto
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionAdjustmentAddDto
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionLineUpdateDto
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionPaymentAddDto
+import app.myliberty.easy_records.locations.business.retail.supplier_payment.api.SupplierPaymentCreateDto
 import app.myliberty.easy_records.organizations.business.contact.api.ContactInsertDto
 import app.myliberty.easy_records.organizations.business.contact.api.ContactUpdateDto
 import app.myliberty.easy_records.organizations.business.fund_movement.api.FundMovementCapitalRequest

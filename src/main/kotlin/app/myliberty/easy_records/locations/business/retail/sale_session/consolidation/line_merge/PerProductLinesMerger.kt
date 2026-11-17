@@ -1,9 +1,9 @@
-package app.myliberty.easy_records.locations.business.sale_session.consolidation.line_merge
+package app.myliberty.easy_records.locations.business.retail.sale_session.consolidation.line_merge
 
-import app.myliberty.easy_records.locations.business.sale_session.api.LineQuantities
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionLine
-import app.myliberty.easy_records.locations.business.sale_session.api.SessionIdentity
-import app.myliberty.easy_records.organizations.business.unitconversion.api.UnitConversionGraph
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.LineQuantities
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionLine
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SessionIdentity
+import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.UnitConversionGraph
 import java.math.BigDecimal
 
 /** Merges the lines of one product; accepted only when the effective total equals the sources' sum exactly. */

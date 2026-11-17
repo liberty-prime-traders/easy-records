@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.organizations.business.unitgroup
+package app.myliberty.easy_records.organizations.business.retail.unitgroup
 
-import app.myliberty.easy_records.organizations.business.unitgroup.api.UnitGroupDto
-import app.myliberty.easy_records.organizations.business.unitgroup.api.UnitGroupInsertDto
-import app.myliberty.easy_records.organizations.business.unitgroup.api.UnitGroupResponseDto
+import app.myliberty.easy_records.organizations.business.retail.unitgroup.api.UnitGroupDto
+import app.myliberty.easy_records.organizations.business.retail.unitgroup.api.UnitGroupInsertDto
+import app.myliberty.easy_records.organizations.business.retail.unitgroup.api.UnitGroupResponseDto
 import app.myliberty.easy_records.platform.business.sysuser.api.CreatorFullName
 import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
 import org.mapstruct.Mapper

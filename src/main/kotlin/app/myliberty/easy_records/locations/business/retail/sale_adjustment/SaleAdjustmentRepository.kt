@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.business.sale_adjustment
+package app.myliberty.easy_records.locations.business.retail.sale_adjustment
 
 import org.springframework.data.jpa.repository.JpaRepository
 import java.util.UUID

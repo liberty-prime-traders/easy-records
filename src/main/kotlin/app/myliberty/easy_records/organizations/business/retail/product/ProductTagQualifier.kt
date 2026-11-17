@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.organizations.business.product
+package app.myliberty.easy_records.organizations.business.retail.product
 
-import app.myliberty.easy_records.organizations.business.product.api.TagSummaryDto
-import app.myliberty.easy_records.organizations.business.product_tag.api.ProductTagService
-import app.myliberty.easy_records.organizations.business.product_tag.api.ActiveProductTags
+import app.myliberty.easy_records.organizations.business.retail.product.api.TagSummaryDto
+import app.myliberty.easy_records.organizations.business.retail.product_tag.api.ProductTagService
+import app.myliberty.easy_records.organizations.business.retail.product_tag.api.ActiveProductTags
 import app.myliberty.easy_records.organizations.business.tag.api.TagService
 import org.springframework.stereotype.Component
 import java.util.UUID

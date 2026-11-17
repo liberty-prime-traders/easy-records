@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.product.search
+package app.myliberty.easy_records.organizations.business.retail.product.search
 
 import java.util.UUID
 

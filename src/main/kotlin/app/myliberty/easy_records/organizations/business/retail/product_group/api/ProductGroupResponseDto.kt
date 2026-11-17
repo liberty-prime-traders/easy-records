@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.product_group.api
+package app.myliberty.easy_records.organizations.business.retail.product_group.api
 
 import java.io.Serializable
 import java.time.OffsetDateTime

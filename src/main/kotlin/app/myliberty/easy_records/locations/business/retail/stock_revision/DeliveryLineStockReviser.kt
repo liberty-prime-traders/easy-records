@@ -1,11 +1,11 @@
-package app.myliberty.easy_records.locations.business.stock_revision
+package app.myliberty.easy_records.locations.business.retail.stock_revision
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
-import app.myliberty.easy_records.locations.business.delivery.api.ReplacementDeliveryLineDto
-import app.myliberty.easy_records.locations.business.location_product.api.ProductStockBreakdownProvider
-import app.myliberty.easy_records.locations.business.stock.api.read.DeliveryLineStockInspector
-import app.myliberty.easy_records.locations.business.stock.api.revision.StockReplacementLayerRecorder
-import app.myliberty.easy_records.locations.business.stock.api.revision.StockRevisionCommitter
+import app.myliberty.easy_records.locations.business.retail.delivery.api.ReplacementDeliveryLineDto
+import app.myliberty.easy_records.locations.business.retail.location_product.api.ProductStockBreakdownProvider
+import app.myliberty.easy_records.locations.business.retail.stock.api.read.DeliveryLineStockInspector
+import app.myliberty.easy_records.locations.business.retail.stock.api.revision.StockReplacementLayerRecorder
+import app.myliberty.easy_records.locations.business.retail.stock.api.revision.StockRevisionCommitter
 import app.myliberty.easy_records.util.business.reference_number.ReferenceNumberGenerator
 import app.myliberty.easy_records.util.model.TableName
 import org.springframework.stereotype.Component

@@ -1,11 +1,11 @@
-package app.myliberty.easy_records.locations.business.purchase
+package app.myliberty.easy_records.locations.business.retail.purchase
 
-import app.myliberty.easy_records.locations.business.location_product.api.LocationProductDataFetcher
-import app.myliberty.easy_records.locations.business.location_product.api.LocationProductService
-import app.myliberty.easy_records.locations.business.location_product.api.LocationProductUnitRequestDto
-import app.myliberty.easy_records.locations.business.purchase.api.PurchaseLineCreateDto
-import app.myliberty.easy_records.locations.business.purchase.api.PurchaseLineUpdateDto
-import app.myliberty.easy_records.locations.business.purchase.api.PurchaseUpdateDto
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductDataFetcher
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductService
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductUnitRequestDto
+import app.myliberty.easy_records.locations.business.retail.purchase.api.PurchaseLineCreateDto
+import app.myliberty.easy_records.locations.business.retail.purchase.api.PurchaseLineUpdateDto
+import app.myliberty.easy_records.locations.business.retail.purchase.api.PurchaseUpdateDto
 import org.springframework.stereotype.Service
 import java.util.UUID
 

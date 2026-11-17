@@ -1,10 +1,10 @@
-package app.myliberty.easy_records.locations.business.sale_session
+package app.myliberty.easy_records.locations.business.retail.sale_session
 
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionAdjustment
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionLine
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionLineUpdateDto
-import app.myliberty.easy_records.organizations.business.adjustment_reason.api.AdjustmentReasonService
-import app.myliberty.easy_records.organizations.business.adjustment_reason.api.SystemAdjustmentReason
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionAdjustment
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionLine
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionLineUpdateDto
+import app.myliberty.easy_records.organizations.business.retail.adjustment_reason.api.AdjustmentReasonService
+import app.myliberty.easy_records.organizations.business.retail.adjustment_reason.api.SystemAdjustmentReason
 import org.springframework.stereotype.Service
 import java.util.UUID
 

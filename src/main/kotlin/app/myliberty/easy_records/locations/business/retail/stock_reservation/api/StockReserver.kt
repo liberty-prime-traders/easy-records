@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.locations.business.stock_reservation.api
+package app.myliberty.easy_records.locations.business.retail.stock_reservation.api
 
-import app.myliberty.easy_records.locations.business.stock_reservation.StockReservationEntity
-import app.myliberty.easy_records.locations.business.stock_reservation.StockReservationRepository
+import app.myliberty.easy_records.locations.business.retail.stock_reservation.StockReservationEntity
+import app.myliberty.easy_records.locations.business.retail.stock_reservation.StockReservationRepository
 import org.springframework.stereotype.Component
 import java.util.UUID
 

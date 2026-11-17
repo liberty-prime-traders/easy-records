@@ -2,16 +2,16 @@ package app.myliberty.easy_records.locations.business
 
 import app.myliberty.easy_records.support.WithDefaultOrganizationSession
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import app.myliberty.easy_records.locations.business.delivery.api.PurchaseDeliveryLineCreateDto
-import app.myliberty.easy_records.locations.business.opening_stock.api.OpeningStockLineDto
-import app.myliberty.easy_records.locations.business.purchase.api.PurchaseCancelLinesDto
-import app.myliberty.easy_records.locations.business.purchase.api.PurchaseLineCreateDto
-import app.myliberty.easy_records.locations.business.purchase.api.PurchaseLineUpdateDto
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionLineAddDto
-import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionLineUpdateDto
-import app.myliberty.easy_records.locations.business.stock_adjustment.api.StockAdjustmentCreateDto
-import app.myliberty.easy_records.locations.business.stock_transfer.api.StockTransferLineInsertDto
-import app.myliberty.easy_records.locations.business.stock_transfer.api.StockTransferLineUpdateDto
+import app.myliberty.easy_records.locations.business.retail.delivery.api.PurchaseDeliveryLineCreateDto
+import app.myliberty.easy_records.locations.business.retail.opening_stock.api.OpeningStockLineDto
+import app.myliberty.easy_records.locations.business.retail.purchase.api.PurchaseCancelLinesDto
+import app.myliberty.easy_records.locations.business.retail.purchase.api.PurchaseLineCreateDto
+import app.myliberty.easy_records.locations.business.retail.purchase.api.PurchaseLineUpdateDto
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionLineAddDto
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionLineUpdateDto
+import app.myliberty.easy_records.locations.business.retail.stock_adjustment.api.StockAdjustmentCreateDto
+import app.myliberty.easy_records.locations.business.retail.stock_transfer.api.StockTransferLineInsertDto
+import app.myliberty.easy_records.locations.business.retail.stock_transfer.api.StockTransferLineUpdateDto
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Assertions.assertTrue

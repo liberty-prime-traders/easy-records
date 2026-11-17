@@ -1,8 +1,8 @@
 package app.myliberty.easy_records.locations.purchase_search
 
-import app.myliberty.easy_records.locations.business.purchase.PurchaseLineEntity
-import app.myliberty.easy_records.locations.business.purchase.api.search.PurchaseSearchParameters
-import app.myliberty.easy_records.locations.business.purchase.search.PurchaseSearchQueryBuilder
+import app.myliberty.easy_records.locations.business.retail.purchase.PurchaseLineEntity
+import app.myliberty.easy_records.locations.business.retail.purchase.api.search.PurchaseSearchParameters
+import app.myliberty.easy_records.locations.business.retail.purchase.search.PurchaseSearchQueryBuilder
 import app.myliberty.easy_records.util.queries.SqlQuery
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.AfterEach

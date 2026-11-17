@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.locations.business.sale_payment
+package app.myliberty.easy_records.locations.business.retail.sale_payment
 
 import app.myliberty.easy_records.util.enums.PaymentStatus
-import app.myliberty.easy_records.locations.business.sale_payment.api.SalePaymentResponseDto
+import app.myliberty.easy_records.locations.business.retail.sale_payment.api.SalePaymentResponseDto
 import java.util.UUID
 
 object SalePaymentMapper {

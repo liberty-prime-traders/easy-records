@@ -1,11 +1,11 @@
-package app.myliberty.easy_records.locations.business.purchase.search
+package app.myliberty.easy_records.locations.business.retail.purchase.search
 
 import java.time.OffsetDateTime
 import app.myliberty.easy_records.util.queries.KeysetSearchCursor
 import app.myliberty.easy_records.configuration.session.OrgSession
 import app.myliberty.easy_records.configuration.session.SessionContext
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
-import app.myliberty.easy_records.locations.business.purchase.PurchaseLineEntity
+import app.myliberty.easy_records.locations.business.retail.purchase.PurchaseLineEntity
 import app.myliberty.easy_records.util.business.Decimals
 import app.myliberty.easy_records.util.queries.QueryBuilderContext
 import org.junit.jupiter.api.AfterEach

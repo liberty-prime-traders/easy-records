@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.organizations.business.stock_movement_reason
+package app.myliberty.easy_records.organizations.business.retail.stock_movement_reason
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
 import app.myliberty.easy_records.organizations.business.org_profile.api.OrgDataSeeder

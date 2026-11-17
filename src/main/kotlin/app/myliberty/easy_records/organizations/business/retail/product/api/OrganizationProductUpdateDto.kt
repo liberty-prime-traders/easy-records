@@ -1,6 +1,6 @@
-package app.myliberty.easy_records.organizations.business.product.api
+package app.myliberty.easy_records.organizations.business.retail.product.api
 
-import app.myliberty.easy_records.organizations.business.product.OrganizationProductDto
+import app.myliberty.easy_records.organizations.business.retail.product.OrganizationProductDto
 import java.io.Serializable
 import java.util.Optional
 import java.util.UUID

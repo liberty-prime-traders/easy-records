@@ -1,14 +1,14 @@
-package app.myliberty.easy_records.locations.business.stock_transfer
+package app.myliberty.easy_records.locations.business.retail.stock_transfer
 
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
 import app.myliberty.easy_records.configuration.session.withLocationSchema
-import app.myliberty.easy_records.locations.business.stock_transfer.api.StockTransferDispatchResponseDto
-import app.myliberty.easy_records.locations.business.stock_transfer.api.StockTransferReceiptResponseDto
-import app.myliberty.easy_records.locations.business.stock_transfer.api.StockTransferResponse
+import app.myliberty.easy_records.locations.business.retail.stock_transfer.api.StockTransferDispatchResponseDto
+import app.myliberty.easy_records.locations.business.retail.stock_transfer.api.StockTransferReceiptResponseDto
+import app.myliberty.easy_records.locations.business.retail.stock_transfer.api.StockTransferResponse
 import app.myliberty.easy_records.organizations.business.location.api.LocationService
-import app.myliberty.easy_records.organizations.business.stock_transfer.api.StockTransferOrderDomainDto
-import app.myliberty.easy_records.organizations.business.stock_transfer.api.StockTransferStatus
-import app.myliberty.easy_records.organizations.business.stock_transfer.api.toSummaryDto
+import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferOrderDomainDto
+import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferStatus
+import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.toSummaryDto
 import org.springframework.stereotype.Component
 import java.util.UUID
 

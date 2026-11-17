@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.organizations.business.product_category
+package app.myliberty.easy_records.organizations.business.retail.product_category
 
-import app.myliberty.easy_records.organizations.business.product_category.api.ProductCategoryDto
-import app.myliberty.easy_records.organizations.business.product_category.api.ProductCategoryInsertDto
-import app.myliberty.easy_records.organizations.business.product_category.api.ProductCategoryResponseDto
+import app.myliberty.easy_records.organizations.business.retail.product_category.api.ProductCategoryDto
+import app.myliberty.easy_records.organizations.business.retail.product_category.api.ProductCategoryInsertDto
+import app.myliberty.easy_records.organizations.business.retail.product_category.api.ProductCategoryResponseDto
 import app.myliberty.easy_records.platform.business.sysuser.api.CreatorFullName
 import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
 import org.mapstruct.Mapper

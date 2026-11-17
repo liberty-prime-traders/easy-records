@@ -1,9 +1,9 @@
-package app.myliberty.easy_records.locations.business.sale_session.consolidation
+package app.myliberty.easy_records.locations.business.retail.sale_session.consolidation
 
-import app.myliberty.easy_records.locations.business.location_product.api.LocationProductDataFetcher
-import app.myliberty.easy_records.locations.business.sale_session.consolidation.line_merge.SaleLineMerger
-import app.myliberty.easy_records.locations.business.sale_session.consolidation.line_merge.SaleLineMergeResult
-import app.myliberty.easy_records.organizations.business.unitconversion.api.UnitConversionGraphFacade
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductDataFetcher
+import app.myliberty.easy_records.locations.business.retail.sale_session.consolidation.line_merge.SaleLineMerger
+import app.myliberty.easy_records.locations.business.retail.sale_session.consolidation.line_merge.SaleLineMergeResult
+import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.UnitConversionGraphFacade
 import org.springframework.stereotype.Component
 
 @Component

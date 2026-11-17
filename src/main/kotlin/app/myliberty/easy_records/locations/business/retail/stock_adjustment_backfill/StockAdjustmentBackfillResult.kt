@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.business.stock_adjustment_backfill
+package app.myliberty.easy_records.locations.business.retail.stock_adjustment_backfill
 
 import java.util.UUID
 

@@ -1,10 +1,10 @@
-package app.myliberty.easy_records.locations.business.purchase
+package app.myliberty.easy_records.locations.business.retail.purchase
 
-import app.myliberty.easy_records.locations.business.purchase.api.PurchaseStatus
-import app.myliberty.easy_records.locations.business.purchase.api.bulk_payment.PurchaseBulkPaymentSearchDto
-import app.myliberty.easy_records.locations.business.purchase.api.search.PurchaseSearchParameters
-import app.myliberty.easy_records.locations.business.purchase.search.PurchaseSearchFetcher
-import app.myliberty.easy_records.locations.business.purchase.search.PurchaseSearchValidator
+import app.myliberty.easy_records.locations.business.retail.purchase.api.PurchaseStatus
+import app.myliberty.easy_records.locations.business.retail.purchase.api.bulk_payment.PurchaseBulkPaymentSearchDto
+import app.myliberty.easy_records.locations.business.retail.purchase.api.search.PurchaseSearchParameters
+import app.myliberty.easy_records.locations.business.retail.purchase.search.PurchaseSearchFetcher
+import app.myliberty.easy_records.locations.business.retail.purchase.search.PurchaseSearchValidator
 import app.myliberty.easy_records.util.enums.PaymentStatus
 import org.springframework.stereotype.Component
 

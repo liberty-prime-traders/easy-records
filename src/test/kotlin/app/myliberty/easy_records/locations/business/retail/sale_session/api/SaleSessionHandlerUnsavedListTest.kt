@@ -1,12 +1,12 @@
-package app.myliberty.easy_records.locations.business.sale_session.api
+package app.myliberty.easy_records.locations.business.retail.sale_session.api
 
-import app.myliberty.easy_records.locations.business.sale_session.consolidation.PendingConsolidationPromoter
-import app.myliberty.easy_records.locations.business.sale.api.SaleStatus
-import app.myliberty.easy_records.locations.business.sale_session.SaleSessionAssembler
-import app.myliberty.easy_records.locations.business.sale_session.SaleSessionCopier
-import app.myliberty.easy_records.locations.business.sale_session.SaleSessionInMemoryStore
-import app.myliberty.easy_records.locations.business.sale_session.SaleSessionLoader
-import app.myliberty.easy_records.locations.business.sale_session.SaleSessionUpdateFinalizer
+import app.myliberty.easy_records.locations.business.retail.sale_session.consolidation.PendingConsolidationPromoter
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleStatus
+import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionAssembler
+import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionCopier
+import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionInMemoryStore
+import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionLoader
+import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionUpdateFinalizer
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.mock

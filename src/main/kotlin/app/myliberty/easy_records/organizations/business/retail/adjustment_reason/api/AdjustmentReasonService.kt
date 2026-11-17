@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.organizations.business.adjustment_reason.api
+package app.myliberty.easy_records.organizations.business.retail.adjustment_reason.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
-import app.myliberty.easy_records.organizations.business.adjustment_reason.AdjustmentReasonCache
-import app.myliberty.easy_records.organizations.business.adjustment_reason.AdjustmentReasonDto
+import app.myliberty.easy_records.organizations.business.retail.adjustment_reason.AdjustmentReasonCache
+import app.myliberty.easy_records.organizations.business.retail.adjustment_reason.AdjustmentReasonDto
 import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Service
 import java.util.UUID
