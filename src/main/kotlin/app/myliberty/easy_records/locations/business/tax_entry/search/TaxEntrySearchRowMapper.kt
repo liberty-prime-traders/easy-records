@@ -1,8 +1,8 @@
-package app.myliberty.easy_records.locations.business.retail.tax_entry.search
+package app.myliberty.easy_records.locations.business.tax_entry.search
 
 import jakarta.persistence.Tuple
-import app.myliberty.easy_records.locations.business.retail.tax_entry.api.TaxDirection
-import app.myliberty.easy_records.locations.business.retail.tax_entry.api.TaxSourceType
+import app.myliberty.easy_records.locations.business.tax_entry.api.TaxDirection
+import app.myliberty.easy_records.locations.business.tax_entry.api.TaxSourceType
 import app.myliberty.easy_records.platform.business.tax_type.api.TaxCalculationMethod
 import app.myliberty.easy_records.util.business.mappers.DateQualifier
 import java.math.BigDecimal

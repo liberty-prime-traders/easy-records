@@ -1,11 +1,11 @@
-package app.myliberty.easy_records.locations.business.retail.tax_entry
+package app.myliberty.easy_records.locations.business.tax_entry
 
 import jakarta.persistence.Column
 import jakarta.persistence.Convert
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
-import app.myliberty.easy_records.locations.business.retail.tax_entry.api.TaxDirection
-import app.myliberty.easy_records.locations.business.retail.tax_entry.api.TaxSourceType
+import app.myliberty.easy_records.locations.business.tax_entry.api.TaxDirection
+import app.myliberty.easy_records.locations.business.tax_entry.api.TaxSourceType
 import app.myliberty.easy_records.platform.business.tax_type.api.TaxCalculationMethod
 import app.myliberty.easy_records.platform.business.tax_type.api.TaxCalculationMethodConverter
 import app.myliberty.easy_records.util.annotations.HasReference

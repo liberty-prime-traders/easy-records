@@ -77,7 +77,8 @@ object ProductTags {
         "locations.business.lock",
         "locations.business.permission_assignment",
         "locations.business.revision",
-        "locations.business.role_assignment"
+        "locations.business.role_assignment",
+        "locations.business.tax_entry"
     )
 
     /**
@@ -89,7 +90,6 @@ object ProductTags {
         "locations.business.expense" to "locations.business.retail.purchase",
         "locations.business.expense" to "locations.business.retail.sale",
         "organizations.business.ledger" to "locations.business.retail.stock_revision",
-        "organizations.business.ledger" to "locations.business.retail.tax_entry",
         "organizations.business.ledger" to "organizations.business.retail.stock_transfer",
         "organizations.business.org_expense" to "organizations.business.retail.stock_transfer"
     )

@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.locations.business.retail.tax_entry.search
+package app.myliberty.easy_records.locations.business.tax_entry.search
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
-import app.myliberty.easy_records.locations.business.retail.tax_entry.api.TaxEntrySearchParameters
+import app.myliberty.easy_records.locations.business.tax_entry.api.TaxEntrySearchParameters
 import app.myliberty.easy_records.util.queries.KeysetSearchCursor
 import org.springframework.stereotype.Component
 

@@ -1,9 +1,9 @@
 package app.myliberty.easy_records.locations.rest.endpoints
 
-import app.myliberty.easy_records.locations.business.retail.tax_entry.api.TaxEntrySearchParameters
-import app.myliberty.easy_records.locations.business.retail.tax_entry.api.TaxEntrySearchResultDto
-import app.myliberty.easy_records.locations.business.retail.tax_entry.api.TaxEntrySearchService
-import app.myliberty.easy_records.locations.business.retail.tax_entry.api.TaxEntrySearchSummaryResponseDto
+import app.myliberty.easy_records.locations.business.tax_entry.api.TaxEntrySearchParameters
+import app.myliberty.easy_records.locations.business.tax_entry.api.TaxEntrySearchResultDto
+import app.myliberty.easy_records.locations.business.tax_entry.api.TaxEntrySearchService
+import app.myliberty.easy_records.locations.business.tax_entry.api.TaxEntrySearchSummaryResponseDto
 import app.myliberty.easy_records.util.paging.PageRequest
 import app.myliberty.easy_records.util.paging.PageResponse
 import org.springframework.web.bind.annotation.PostMapping

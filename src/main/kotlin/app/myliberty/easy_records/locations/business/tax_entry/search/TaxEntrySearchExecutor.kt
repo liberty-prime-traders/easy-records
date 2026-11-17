@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.locations.business.retail.tax_entry.search
+package app.myliberty.easy_records.locations.business.tax_entry.search
 
 import jakarta.persistence.Tuple
 import app.myliberty.easy_records.configuration.datasource.DataSourceBeanNames
