@@ -19,7 +19,7 @@ class ProductSalesReportSearchService(
   private val productSalesReportSnapshotCache: ProductSalesReportSnapshotCache,
   // Shared with product search. It is compared against the number of products with sales in the range, which can
   // never exceed the number of products, so the threshold still caps the rows returned in one response.
-  @param:Value($$"${rts.product-search.client-side-filter-threshold}")
+  @param:Value($$"${esr.product-search.client-side-filter-threshold}")
   private val clientSideFilterThreshold: Long
 ) {
 

@@ -12,11 +12,11 @@ import javax.crypto.spec.SecretKeySpec
 
 @Configuration
 class JwtConfiguration(
-    @param:Value($$"${rts.jwt.secret}")
+    @param:Value($$"${esr.jwt.secret}")
     private val jwtSecret: String
 ) {
 
-    // HS256 needs a 256-bit (32 byte) key at minimum; rts.jwt.secret must be at least that long.
+    // HS256 needs a 256-bit (32 byte) key at minimum; esr.jwt.secret must be at least that long.
     private fun sessionTokenSecretKey() = SecretKeySpec(jwtSecret.toByteArray(), "HmacSHA256")
 
     @Bean

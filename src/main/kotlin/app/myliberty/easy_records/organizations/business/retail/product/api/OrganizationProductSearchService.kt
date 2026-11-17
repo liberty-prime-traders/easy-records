@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service
 @Service
 class OrganizationProductSearchService(
   private val organizationProductFetcher: OrganizationProductFetcher,
-  @Value("\${rts.product-search.client-side-filter-threshold}") clientSideFilterThreshold: Int
+  @Value("\${esr.product-search.client-side-filter-threshold}") clientSideFilterThreshold: Int
 )
   :
   ProductSearchService<OrganizationProductResponseDto>(

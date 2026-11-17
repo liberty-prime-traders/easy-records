@@ -26,7 +26,7 @@ import java.util.concurrent.Future
  * spring.kafka.listener.auto-startup=false, which stops @KafkaListener containers the same way.
  */
 @Configuration
-@ConditionalOnProperty(name = ["rts.kafka.enabled"], havingValue = "false")
+@ConditionalOnProperty(name = ["esr.kafka.enabled"], havingValue = "false")
 class NoOpKafkaConfig {
 
     @Bean

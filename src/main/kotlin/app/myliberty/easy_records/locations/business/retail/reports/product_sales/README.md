@@ -79,7 +79,7 @@ REST: `ProductSalesReportEndpoint` under `secured/sales/product-report`.
 - `ProductSalesSummaryDto.rank` is the 1-based `NEEDS_ATTENTION` position across the whole range, assigned when the
   snapshot is built. A sort, a search or a later page never renumbers it. It is null on the summary endpoint. A rebuilt
   snapshot can rank the same product differently.
-- Threshold mode: `rts.product-search.client-side-filter-threshold` (shared with product search, inclusive) is compared
+- Threshold mode: `esr.product-search.client-side-filter-threshold` (shared with product search, inclusive) is compared
   against the number of products with sales in the range. At or below it, and on a request with no cursor, every row
   comes back in the requested order with `requireClientSideFilter = true`, an empty cursor, and `searchText` and
   `requestedSize` ignored. Above it, the service filters `searchText` (contains on product name or group, ignoring case

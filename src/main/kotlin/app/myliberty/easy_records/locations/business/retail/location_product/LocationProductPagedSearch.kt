@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service
 class LocationProductPagedSearch(
     private val locationProductCache: LocationProductCache,
     locationProductDtoFetcher: LocationProductDtoFetcher,
-    @Value("\${rts.product-search.client-side-filter-threshold}") clientSideFilterThreshold: Int,
+    @Value("\${esr.product-search.client-side-filter-threshold}") clientSideFilterThreshold: Int,
 ) : ProductSearchService<LocationProductDto>(
     locationProductDtoFetcher,
     LocationProductSearchQueryBuilder::buildSearchQuery,
