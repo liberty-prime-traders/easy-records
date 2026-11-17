@@ -1,13 +1,13 @@
-package me.ezra_home.retail_software_solution.platform.business.identity
+package app.myliberty.easy_records.platform.business.identity
 
 import jakarta.persistence.Column
 import jakarta.persistence.Convert
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
-import me.ezra_home.retail_software_solution.configuration.security.IdentityProviderConverter
-import me.ezra_home.retail_software_solution.platform.business.identity.api.IdentityProvider
-import me.ezra_home.retail_software_solution.util.model.BaseEntity
-import me.ezra_home.retail_software_solution.util.model.TableNames
+import app.myliberty.easy_records.configuration.security.IdentityProviderConverter
+import app.myliberty.easy_records.platform.business.identity.api.IdentityProvider
+import app.myliberty.easy_records.util.model.BaseEntity
+import app.myliberty.easy_records.util.model.TableNames
 import java.time.OffsetDateTime
 import java.util.UUID
 

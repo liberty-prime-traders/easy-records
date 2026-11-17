@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.locations.business.location_product.api
+package app.myliberty.easy_records.locations.business.location_product.api
 
-import me.ezra_home.retail_software_solution.locations.business.location_product.LocationProductDto
-import me.ezra_home.retail_software_solution.util.business.Money
+import app.myliberty.easy_records.locations.business.location_product.LocationProductDto
+import app.myliberty.easy_records.util.business.Money
 import java.io.Serializable
 import java.util.Optional
 import java.util.UUID

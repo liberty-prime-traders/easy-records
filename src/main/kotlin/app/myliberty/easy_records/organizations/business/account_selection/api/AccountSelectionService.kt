@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.organizations.business.account_selection.api
+package app.myliberty.easy_records.organizations.business.account_selection.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnOrganizationSchema
-import me.ezra_home.retail_software_solution.organizations.business.account.api.AccountDataFetcher
-import me.ezra_home.retail_software_solution.organizations.business.account.api.AccountStructureLock
-import me.ezra_home.retail_software_solution.organizations.business.account_selection.AccountTreeBuilder
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.organizations.business.account.api.AccountDataFetcher
+import app.myliberty.easy_records.organizations.business.account.api.AccountStructureLock
+import app.myliberty.easy_records.organizations.business.account_selection.AccountTreeBuilder
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Service
 
 @Service

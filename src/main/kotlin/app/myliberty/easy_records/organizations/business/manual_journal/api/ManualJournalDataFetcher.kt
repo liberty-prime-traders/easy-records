@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.organizations.business.manual_journal.api
+package app.myliberty.easy_records.organizations.business.manual_journal.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnOrganizationSchema
-import me.ezra_home.retail_software_solution.organizations.business.account.api.AccountDataFetcher
-import me.ezra_home.retail_software_solution.organizations.business.manual_journal.ManualJournalLineRepository
-import me.ezra_home.retail_software_solution.organizations.business.manual_journal.ManualJournalRepository
-import me.ezra_home.retail_software_solution.organizations.business.manual_journal.ManualJournalResponseMapper
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.organizations.business.account.api.AccountDataFetcher
+import app.myliberty.easy_records.organizations.business.manual_journal.ManualJournalLineRepository
+import app.myliberty.easy_records.organizations.business.manual_journal.ManualJournalRepository
+import app.myliberty.easy_records.organizations.business.manual_journal.ManualJournalResponseMapper
 import org.springframework.stereotype.Service
 
 @Service

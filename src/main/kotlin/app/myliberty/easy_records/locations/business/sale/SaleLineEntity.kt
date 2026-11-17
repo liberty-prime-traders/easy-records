@@ -1,14 +1,14 @@
-package me.ezra_home.retail_software_solution.locations.business.sale
+package app.myliberty.easy_records.locations.business.sale
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
-import me.ezra_home.retail_software_solution.locations.business.location_product.api.ProductLineWithPrice
-import me.ezra_home.retail_software_solution.util.annotations.HasReference
-import me.ezra_home.retail_software_solution.util.model.HasReferenceEntity
-import me.ezra_home.retail_software_solution.util.model.TableName
-import me.ezra_home.retail_software_solution.util.model.TableNames
-import me.ezra_home.retail_software_solution.util.quantity.ExactQuantity
+import app.myliberty.easy_records.locations.business.location_product.api.ProductLineWithPrice
+import app.myliberty.easy_records.util.annotations.HasReference
+import app.myliberty.easy_records.util.model.HasReferenceEntity
+import app.myliberty.easy_records.util.model.TableName
+import app.myliberty.easy_records.util.model.TableNames
+import app.myliberty.easy_records.util.quantity.ExactQuantity
 import org.hibernate.envers.Audited
 import java.math.BigDecimal
 import java.util.UUID

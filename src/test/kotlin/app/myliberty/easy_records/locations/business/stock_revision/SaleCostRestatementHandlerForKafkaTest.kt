@@ -1,12 +1,12 @@
-package me.ezra_home.retail_software_solution.locations.business.stock_revision
+package app.myliberty.easy_records.locations.business.stock_revision
 
-import me.ezra_home.retail_software_solution.configuration.session.LocationSession
-import me.ezra_home.retail_software_solution.configuration.session.OrgSession
-import me.ezra_home.retail_software_solution.configuration.session.SessionContext
-import me.ezra_home.retail_software_solution.configuration.session.SessionContextProvider
-import me.ezra_home.retail_software_solution.locations.business.stock.api.read.StockMovementFetcher
-import me.ezra_home.retail_software_solution.messaging.kafka.transaction.events.SaleCostRestatedEvent
-import me.ezra_home.retail_software_solution.organizations.business.stock_movement_reason.api.MovementType
+import app.myliberty.easy_records.configuration.session.LocationSession
+import app.myliberty.easy_records.configuration.session.OrgSession
+import app.myliberty.easy_records.configuration.session.SessionContext
+import app.myliberty.easy_records.configuration.session.SessionContextProvider
+import app.myliberty.easy_records.locations.business.stock.api.read.StockMovementFetcher
+import app.myliberty.easy_records.messaging.kafka.transaction.events.SaleCostRestatedEvent
+import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.MovementType
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach

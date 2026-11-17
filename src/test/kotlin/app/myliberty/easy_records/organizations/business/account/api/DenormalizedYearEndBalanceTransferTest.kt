@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.organizations.business.account.api
+package app.myliberty.easy_records.organizations.business.account.api
 
-import me.ezra_home.retail_software_solution.organizations.business.account.AccountBalance
-import me.ezra_home.retail_software_solution.organizations.business.account.AccountEntity
-import me.ezra_home.retail_software_solution.organizations.business.account.AccountRepository
+import app.myliberty.easy_records.organizations.business.account.AccountBalance
+import app.myliberty.easy_records.organizations.business.account.AccountEntity
+import app.myliberty.easy_records.organizations.business.account.AccountRepository
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.mockito.ArgumentMatchers.anyCollection

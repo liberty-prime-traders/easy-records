@@ -1,9 +1,9 @@
-package me.ezra_home.retail_software_solution.cross_tier.expense.operation
+package app.myliberty.easy_records.cross_tier.expense.operation
 
-import me.ezra_home.retail_software_solution.cross_tier.expense.model.ExpenseAggregate
-import me.ezra_home.retail_software_solution.cross_tier.expense.model.ExpenseDto
-import me.ezra_home.retail_software_solution.cross_tier.expense.store.ExpenseStore
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.cross_tier.expense.model.ExpenseAggregate
+import app.myliberty.easy_records.cross_tier.expense.model.ExpenseDto
+import app.myliberty.easy_records.cross_tier.expense.store.ExpenseStore
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import java.util.UUID
 
 class ExpenseLookup(

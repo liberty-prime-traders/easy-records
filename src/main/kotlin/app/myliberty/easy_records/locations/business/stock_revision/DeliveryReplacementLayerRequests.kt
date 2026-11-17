@@ -1,9 +1,9 @@
-package me.ezra_home.retail_software_solution.locations.business.stock_revision
+package app.myliberty.easy_records.locations.business.stock_revision
 
-import me.ezra_home.retail_software_solution.locations.business.stock.api.revision.StockReplacementLayerRequest
-import me.ezra_home.retail_software_solution.organizations.business.stock_item_source.api.StockItemSource
-import me.ezra_home.retail_software_solution.organizations.business.stock_movement_reason.api.MovementType
-import me.ezra_home.retail_software_solution.util.business.Decimals
+import app.myliberty.easy_records.locations.business.stock.api.revision.StockReplacementLayerRequest
+import app.myliberty.easy_records.organizations.business.stock_item_source.api.StockItemSource
+import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.MovementType
+import app.myliberty.easy_records.util.business.Decimals
 import java.math.BigDecimal
 import java.util.UUID
 

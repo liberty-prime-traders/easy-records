@@ -1,9 +1,9 @@
-package me.ezra_home.retail_software_solution.locations.business.stock_revision
+package app.myliberty.easy_records.locations.business.stock_revision
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
-import me.ezra_home.retail_software_solution.locations.business.stock_adjustment.api.StockAdjustmentAccountCodesFetcher
-import me.ezra_home.retail_software_solution.messaging.kafka.transaction.events.StockAdjustmentCostRestatementDto
-import me.ezra_home.retail_software_solution.util.business.Money
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.locations.business.stock_adjustment.api.StockAdjustmentAccountCodesFetcher
+import app.myliberty.easy_records.messaging.kafka.transaction.events.StockAdjustmentCostRestatementDto
+import app.myliberty.easy_records.util.business.Money
 import org.springframework.stereotype.Component
 
 // The restated adjustments of a revision, shared by the event the save publishes and the ledger preview.

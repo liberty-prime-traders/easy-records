@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.organizations.business.unitgroup.api
+package app.myliberty.easy_records.organizations.business.unitgroup.api
 
-import me.ezra_home.retail_software_solution.util.business.StringUtils
-import me.ezra_home.retail_software_solution.util.enums.HasCode
+import app.myliberty.easy_records.util.business.StringUtils
+import app.myliberty.easy_records.util.enums.HasCode
 
 enum class SystemUnitGroup(override val code: String, val groupName: String, val description: String) : HasCode {
     MISC("MSC", "Miscellaneous", "General purpose units that do not fit other categories"),

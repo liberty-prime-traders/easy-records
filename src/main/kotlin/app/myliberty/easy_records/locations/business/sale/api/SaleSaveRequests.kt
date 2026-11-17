@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.locations.business.sale.api
+package app.myliberty.easy_records.locations.business.sale.api
 
-import me.ezra_home.retail_software_solution.organizations.business.adjustment_reason.api.AdjustmentDirection
-import me.ezra_home.retail_software_solution.locations.business.sale_adjustment.api.PriceAdjustmentMethod
+import app.myliberty.easy_records.organizations.business.adjustment_reason.api.AdjustmentDirection
+import app.myliberty.easy_records.locations.business.sale_adjustment.api.PriceAdjustmentMethod
 import java.math.BigDecimal
 import java.time.OffsetDateTime
 import java.util.UUID

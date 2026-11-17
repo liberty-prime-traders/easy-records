@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.locations.rest.endpoints
+package app.myliberty.easy_records.locations.rest.endpoints
 
-import me.ezra_home.retail_software_solution.locations.business.opening_stock.api.OpeningStockBulkLineDto
-import me.ezra_home.retail_software_solution.locations.business.opening_stock.api.OpeningStockBulkService
-import me.ezra_home.retail_software_solution.locations.business.opening_stock.api.OpeningStockLineDto
-import me.ezra_home.retail_software_solution.locations.business.opening_stock.api.OpeningStockResponseDto
-import me.ezra_home.retail_software_solution.locations.business.opening_stock.api.OpeningStockService
+import app.myliberty.easy_records.locations.business.opening_stock.api.OpeningStockBulkLineDto
+import app.myliberty.easy_records.locations.business.opening_stock.api.OpeningStockBulkService
+import app.myliberty.easy_records.locations.business.opening_stock.api.OpeningStockLineDto
+import app.myliberty.easy_records.locations.business.opening_stock.api.OpeningStockResponseDto
+import app.myliberty.easy_records.locations.business.opening_stock.api.OpeningStockService
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody

@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.organizations.business.account_selection
+package app.myliberty.easy_records.organizations.business.account_selection
 
-import me.ezra_home.retail_software_solution.organizations.business.account.api.AccountSelectionCandidate
-import me.ezra_home.retail_software_solution.organizations.business.account_selection.api.AccountSelectionRule
-import me.ezra_home.retail_software_solution.util.ui_models.TreeNode
+import app.myliberty.easy_records.organizations.business.account.api.AccountSelectionCandidate
+import app.myliberty.easy_records.organizations.business.account_selection.api.AccountSelectionRule
+import app.myliberty.easy_records.util.ui_models.TreeNode
 
 object AccountTreeBuilder {
 

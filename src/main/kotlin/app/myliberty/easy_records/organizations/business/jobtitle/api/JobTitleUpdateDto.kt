@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.organizations.business.jobtitle.api
+package app.myliberty.easy_records.organizations.business.jobtitle.api
 
-import me.ezra_home.retail_software_solution.organizations.business.jobtitle.JobTitleDto
+import app.myliberty.easy_records.organizations.business.jobtitle.JobTitleDto
 import java.io.Serializable
 import java.util.Optional
 import java.util.UUID

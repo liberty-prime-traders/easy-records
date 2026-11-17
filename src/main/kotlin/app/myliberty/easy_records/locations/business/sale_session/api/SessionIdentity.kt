@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.locations.business.sale_session.api
+package app.myliberty.easy_records.locations.business.sale_session.api
 
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import java.util.UUID
 
 data class SessionIdentity(

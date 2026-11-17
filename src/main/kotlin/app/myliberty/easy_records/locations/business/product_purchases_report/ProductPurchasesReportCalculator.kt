@@ -1,13 +1,13 @@
-package me.ezra_home.retail_software_solution.locations.business.product_purchases_report
+package app.myliberty.easy_records.locations.business.product_purchases_report
 
-import me.ezra_home.retail_software_solution.locations.business.location_product.api.LocationProductSummaryDto
-import me.ezra_home.retail_software_solution.locations.business.product_purchases_report.api.ProductPurchasesDeliveryLineDto
-import me.ezra_home.retail_software_solution.locations.business.product_purchases_report.api.ProductPurchasesReportRowDto
-import me.ezra_home.retail_software_solution.util.business.Decimals
-import me.ezra_home.retail_software_solution.util.business.DisplayFormatters
-import me.ezra_home.retail_software_solution.util.quantity.BaseUnitDisplay
-import me.ezra_home.retail_software_solution.util.quantity.ExactQuantity
-import me.ezra_home.retail_software_solution.util.quantity.QuantityBreakdown
+import app.myliberty.easy_records.locations.business.location_product.api.LocationProductSummaryDto
+import app.myliberty.easy_records.locations.business.product_purchases_report.api.ProductPurchasesDeliveryLineDto
+import app.myliberty.easy_records.locations.business.product_purchases_report.api.ProductPurchasesReportRowDto
+import app.myliberty.easy_records.util.business.Decimals
+import app.myliberty.easy_records.util.business.DisplayFormatters
+import app.myliberty.easy_records.util.quantity.BaseUnitDisplay
+import app.myliberty.easy_records.util.quantity.ExactQuantity
+import app.myliberty.easy_records.util.quantity.QuantityBreakdown
 import java.math.RoundingMode
 
 object ProductPurchasesReportCalculator {

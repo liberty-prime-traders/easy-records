@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.locations.business.product_sales_report
+package app.myliberty.easy_records.locations.business.product_sales_report
 
 import java.time.OffsetDateTime
 

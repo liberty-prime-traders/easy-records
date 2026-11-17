@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.platform.business
+package app.myliberty.easy_records.platform.business
 
-import me.ezra_home.retail_software_solution.platform.business.sysuser.api.ServiceAccountInserter
+import app.myliberty.easy_records.platform.business.sysuser.api.ServiceAccountInserter
 import org.springframework.boot.ApplicationArguments
 import org.springframework.boot.ApplicationRunner
 import org.springframework.stereotype.Component

@@ -1,12 +1,12 @@
-package me.ezra_home.retail_software_solution.platform.business.organization_join_request.api
+package app.myliberty.easy_records.platform.business.organization_join_request.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnPlatformSchema
-import me.ezra_home.retail_software_solution.configuration.session.SessionContextProvider
-import me.ezra_home.retail_software_solution.organizations.business.organization_user.api.OrganizationUserService
-import me.ezra_home.retail_software_solution.platform.business.organization.api.OrganizationDto
-import me.ezra_home.retail_software_solution.platform.business.organization.api.OrganizationResponseDto
-import me.ezra_home.retail_software_solution.platform.business.organization_join_request.OrganizationJoinRequestCache
-import me.ezra_home.retail_software_solution.platform.business.organization_join_request.OrganizationJoinRequestMapper
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnPlatformSchema
+import app.myliberty.easy_records.configuration.session.SessionContextProvider
+import app.myliberty.easy_records.organizations.business.organization_user.api.OrganizationUserService
+import app.myliberty.easy_records.platform.business.organization.api.OrganizationDto
+import app.myliberty.easy_records.platform.business.organization.api.OrganizationResponseDto
+import app.myliberty.easy_records.platform.business.organization_join_request.OrganizationJoinRequestCache
+import app.myliberty.easy_records.platform.business.organization_join_request.OrganizationJoinRequestMapper
 import org.springframework.stereotype.Service
 import java.util.Collections
 import java.util.UUID

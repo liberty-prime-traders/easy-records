@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution
+package app.myliberty.easy_records
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

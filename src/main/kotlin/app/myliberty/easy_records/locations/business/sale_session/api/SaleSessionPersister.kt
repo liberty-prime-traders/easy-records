@@ -1,18 +1,18 @@
-package me.ezra_home.retail_software_solution.locations.business.sale_session.api
+package app.myliberty.easy_records.locations.business.sale_session.api
 
-import me.ezra_home.retail_software_solution.configuration.session.SessionContextProvider
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleSaveResult
-import me.ezra_home.retail_software_solution.locations.business.sale.api.ConfirmedSalePersister
-import me.ezra_home.retail_software_solution.locations.business.sale.api.DraftSalePersister
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleUpdater
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleVoidCreateDto
-import me.ezra_home.retail_software_solution.locations.business.sale_session.SaleSessionAssembler
-import me.ezra_home.retail_software_solution.locations.business.sale_session.SessionToSaveRequestMapper
-import me.ezra_home.retail_software_solution.locations.business.sale_session.SaleSessionStore
-import me.ezra_home.retail_software_solution.locations.business.sale_session.SaleSessionTotalsCalculator
-import me.ezra_home.retail_software_solution.locations.business.sale_session.SaleSessionValidator
-import me.ezra_home.retail_software_solution.util.business.DateTimes
-import me.ezra_home.retail_software_solution.util.business.StringUtils
+import app.myliberty.easy_records.configuration.session.SessionContextProvider
+import app.myliberty.easy_records.locations.business.sale.api.SaleSaveResult
+import app.myliberty.easy_records.locations.business.sale.api.ConfirmedSalePersister
+import app.myliberty.easy_records.locations.business.sale.api.DraftSalePersister
+import app.myliberty.easy_records.locations.business.sale.api.SaleUpdater
+import app.myliberty.easy_records.locations.business.sale.api.SaleVoidCreateDto
+import app.myliberty.easy_records.locations.business.sale_session.SaleSessionAssembler
+import app.myliberty.easy_records.locations.business.sale_session.SessionToSaveRequestMapper
+import app.myliberty.easy_records.locations.business.sale_session.SaleSessionStore
+import app.myliberty.easy_records.locations.business.sale_session.SaleSessionTotalsCalculator
+import app.myliberty.easy_records.locations.business.sale_session.SaleSessionValidator
+import app.myliberty.easy_records.util.business.DateTimes
+import app.myliberty.easy_records.util.business.StringUtils
 import org.springframework.stereotype.Service
 import java.util.UUID
 

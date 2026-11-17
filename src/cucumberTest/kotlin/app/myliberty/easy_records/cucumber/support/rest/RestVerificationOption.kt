@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.cucumber.support.rest
+package app.myliberty.easy_records.cucumber.support.rest
 
 enum class RestVerificationOption {
   DEFAULT,

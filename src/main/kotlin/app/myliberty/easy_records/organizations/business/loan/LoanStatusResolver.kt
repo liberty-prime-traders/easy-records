@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.organizations.business.loan
+package app.myliberty.easy_records.organizations.business.loan
 
-import me.ezra_home.retail_software_solution.organizations.business.loan.api.LoanStatus
+import app.myliberty.easy_records.organizations.business.loan.api.LoanStatus
 import java.math.BigDecimal
 
 // Mirrors views/loan_status.yml. The view does not see the transaction's pending writes: read it once before writing

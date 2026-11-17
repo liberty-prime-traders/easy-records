@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.organizations.business.lock
+package app.myliberty.easy_records.organizations.business.lock
 
-import me.ezra_home.retail_software_solution.util.business.lock.AdvisoryLock
+import app.myliberty.easy_records.util.business.lock.AdvisoryLock
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository

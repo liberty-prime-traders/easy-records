@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.organizations.business.unitgroup
+package app.myliberty.easy_records.organizations.business.unitgroup
 
 import jakarta.persistence.PrePersist
 import jakarta.persistence.PreUpdate
-import me.ezra_home.retail_software_solution.util.business.StringUtils
+import app.myliberty.easy_records.util.business.StringUtils
 
 // A listener rather than a callback on the entity: BaseEntity and ImmutableEntity already declare @PrePersist and @PreUpdate.
 class UnitGroupNameKeyListener {

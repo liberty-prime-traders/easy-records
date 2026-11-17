@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.util.quantity
+package app.myliberty.easy_records.util.quantity
 
-import me.ezra_home.retail_software_solution.util.business.DisplayFormatters
+import app.myliberty.easy_records.util.business.DisplayFormatters
 import java.math.BigDecimal
 import java.time.OffsetDateTime
 import java.util.UUID

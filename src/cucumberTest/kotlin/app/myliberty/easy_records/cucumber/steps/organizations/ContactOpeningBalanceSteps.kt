@@ -1,12 +1,12 @@
-package me.ezra_home.retail_software_solution.cucumber.steps.organizations
+package app.myliberty.easy_records.cucumber.steps.organizations
 
 import io.cucumber.java.en.Given
 import io.cucumber.java.en.Then
 import io.cucumber.java.en.When
-import me.ezra_home.retail_software_solution.cucumber.fixtures.organizations.ContactFixtureBuilder
-import me.ezra_home.retail_software_solution.cucumber.support.ApiClient
-import me.ezra_home.retail_software_solution.cucumber.support.context.InjectContext
-import me.ezra_home.retail_software_solution.cucumber.support.context.TransientKey
+import app.myliberty.easy_records.cucumber.fixtures.organizations.ContactFixtureBuilder
+import app.myliberty.easy_records.cucumber.support.ApiClient
+import app.myliberty.easy_records.cucumber.support.context.InjectContext
+import app.myliberty.easy_records.cucumber.support.context.TransientKey
 import java.math.BigDecimal
 import kotlin.test.assertEquals
 

@@ -1,17 +1,17 @@
-package me.ezra_home.retail_software_solution.organizations.business.contact.api
+package app.myliberty.easy_records.organizations.business.contact.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnOrganizationSchema
-import me.ezra_home.retail_software_solution.organizations.business.contact.ContactCache
-import me.ezra_home.retail_software_solution.organizations.business.contact.ContactResponseMapper
-import me.ezra_home.retail_software_solution.organizations.business.contact.ContactValidator
-import me.ezra_home.retail_software_solution.organizations.business.contact_opening_balance.api.ContactOpeningBalanceReader
-import me.ezra_home.retail_software_solution.organizations.business.ledger.api.SubledgerBalanceDto
-import me.ezra_home.retail_software_solution.organizations.business.ledger.api.SubledgerEntryResponse
-import me.ezra_home.retail_software_solution.organizations.business.ledger.api.SubledgerService
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
-import me.ezra_home.retail_software_solution.util.exceptions.UpdatingNonExistingRecordException
-import me.ezra_home.retail_software_solution.util.paging.PageRequest
-import me.ezra_home.retail_software_solution.util.paging.PageResponse
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.organizations.business.contact.ContactCache
+import app.myliberty.easy_records.organizations.business.contact.ContactResponseMapper
+import app.myliberty.easy_records.organizations.business.contact.ContactValidator
+import app.myliberty.easy_records.organizations.business.contact_opening_balance.api.ContactOpeningBalanceReader
+import app.myliberty.easy_records.organizations.business.ledger.api.SubledgerBalanceDto
+import app.myliberty.easy_records.organizations.business.ledger.api.SubledgerEntryResponse
+import app.myliberty.easy_records.organizations.business.ledger.api.SubledgerService
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException
+import app.myliberty.easy_records.util.paging.PageRequest
+import app.myliberty.easy_records.util.paging.PageResponse
 import org.springframework.stereotype.Service
 import java.util.UUID
 

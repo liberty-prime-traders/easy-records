@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.locations.business.catalog_sync.api
+package app.myliberty.easy_records.locations.business.catalog_sync.api
 
-import me.ezra_home.retail_software_solution.locations.business.catalog_sync.SyncCursor
-import me.ezra_home.retail_software_solution.util.model.TableName
+import app.myliberty.easy_records.locations.business.catalog_sync.SyncCursor
+import app.myliberty.easy_records.util.model.TableName
 import java.util.UUID
 
 interface SyncService<T> {

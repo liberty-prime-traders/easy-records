@@ -1,11 +1,11 @@
-package me.ezra_home.retail_software_solution.organizations.business.permission_assignment
+package app.myliberty.easy_records.organizations.business.permission_assignment
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
-import me.ezra_home.retail_software_solution.util.enums.RtsPermission
-import me.ezra_home.retail_software_solution.util.model.PermissionAssignmentEntity
-import me.ezra_home.retail_software_solution.util.model.TableNames
+import app.myliberty.easy_records.util.enums.RtsPermission
+import app.myliberty.easy_records.util.model.PermissionAssignmentEntity
+import app.myliberty.easy_records.util.model.TableNames
 import org.hibernate.envers.Audited
 import java.time.OffsetDateTime
 import java.util.UUID

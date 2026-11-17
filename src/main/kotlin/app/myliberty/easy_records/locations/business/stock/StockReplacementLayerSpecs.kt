@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.locations.business.stock
+package app.myliberty.easy_records.locations.business.stock
 
-import me.ezra_home.retail_software_solution.locations.business.stock.api.StockMovementContexts
-import me.ezra_home.retail_software_solution.locations.business.stock.api.revision.StockReplacementLayerRequest
-import me.ezra_home.retail_software_solution.util.quantity.ExactQuantity
+import app.myliberty.easy_records.locations.business.stock.api.StockMovementContexts
+import app.myliberty.easy_records.locations.business.stock.api.revision.StockReplacementLayerRequest
+import app.myliberty.easy_records.util.quantity.ExactQuantity
 
 object StockReplacementLayerSpecs {
 

@@ -1,19 +1,19 @@
-package me.ezra_home.retail_software_solution.locations.business.stock_revision.api
+package app.myliberty.easy_records.locations.business.stock_revision.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
-import me.ezra_home.retail_software_solution.locations.business.delivery.api.PurchaseDeliveryDataFetcher
-import me.ezra_home.retail_software_solution.locations.business.delivery.api.PurchaseDeliveryLineReplacer
-import me.ezra_home.retail_software_solution.locations.business.delivery.api.ReplacementDeliveryLineDto
-import me.ezra_home.retail_software_solution.locations.business.lock.api.EntityAdvisoryLock
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.PurchaseDataFetcher
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.delivery.PurchaseDeliveryRevisionApplier
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.PurchaseResponseDto
-import me.ezra_home.retail_software_solution.locations.business.stock_revision.DeliveryLineRevisionAssessor
-import me.ezra_home.retail_software_solution.locations.business.stock_revision.DeliveryLineStockReviser
-import me.ezra_home.retail_software_solution.locations.business.stock_revision.RevisionCostPropagator
-import me.ezra_home.retail_software_solution.util.business.StringUtils
-import me.ezra_home.retail_software_solution.util.exceptions.BlockedChangeException
-import me.ezra_home.retail_software_solution.util.business.lock.LockNamespaces
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.locations.business.delivery.api.PurchaseDeliveryDataFetcher
+import app.myliberty.easy_records.locations.business.delivery.api.PurchaseDeliveryLineReplacer
+import app.myliberty.easy_records.locations.business.delivery.api.ReplacementDeliveryLineDto
+import app.myliberty.easy_records.locations.business.lock.api.EntityAdvisoryLock
+import app.myliberty.easy_records.locations.business.purchase.api.PurchaseDataFetcher
+import app.myliberty.easy_records.locations.business.purchase.api.delivery.PurchaseDeliveryRevisionApplier
+import app.myliberty.easy_records.locations.business.purchase.api.PurchaseResponseDto
+import app.myliberty.easy_records.locations.business.stock_revision.DeliveryLineRevisionAssessor
+import app.myliberty.easy_records.locations.business.stock_revision.DeliveryLineStockReviser
+import app.myliberty.easy_records.locations.business.stock_revision.RevisionCostPropagator
+import app.myliberty.easy_records.util.business.StringUtils
+import app.myliberty.easy_records.util.exceptions.BlockedChangeException
+import app.myliberty.easy_records.util.business.lock.LockNamespaces
 import org.springframework.stereotype.Service
 import java.util.UUID
 

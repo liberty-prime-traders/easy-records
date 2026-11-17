@@ -1,9 +1,9 @@
-package me.ezra_home.retail_software_solution.organizations.rest.endpoints
+package app.myliberty.easy_records.organizations.rest.endpoints
 
-import me.ezra_home.retail_software_solution.locations.business.purchase_movement_context_backfill.api.PurchaseMovementContextBackfiller
-import me.ezra_home.retail_software_solution.locations.business.sale_cogs_backfill.api.SaleLineCogsBackfiller
-import me.ezra_home.retail_software_solution.locations.business.stock_adjustment_backfill.api.StockAdjustmentBackfiller
-import me.ezra_home.retail_software_solution.organizations.business.org_profile.api.OrgProfileService
+import app.myliberty.easy_records.locations.business.purchase_movement_context_backfill.api.PurchaseMovementContextBackfiller
+import app.myliberty.easy_records.locations.business.sale_cogs_backfill.api.SaleLineCogsBackfiller
+import app.myliberty.easy_records.locations.business.stock_adjustment_backfill.api.StockAdjustmentBackfiller
+import app.myliberty.easy_records.organizations.business.org_profile.api.OrgProfileService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize

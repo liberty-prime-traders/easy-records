@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.organizations.business.product.search
+package app.myliberty.easy_records.organizations.business.product.search
 
-import me.ezra_home.retail_software_solution.organizations.business.product.search.TestDataFactory.TestUUIDs
-import me.ezra_home.retail_software_solution.util.queries.QueryFormatter
-import me.ezra_home.retail_software_solution.util.queries.QueryParameterNames
-import me.ezra_home.retail_software_solution.util.queries.ProductQueryMetadata
-import me.ezra_home.retail_software_solution.util.queries.SqlQuery
+import app.myliberty.easy_records.organizations.business.product.search.TestDataFactory.TestUUIDs
+import app.myliberty.easy_records.util.queries.QueryFormatter
+import app.myliberty.easy_records.util.queries.QueryParameterNames
+import app.myliberty.easy_records.util.queries.ProductQueryMetadata
+import app.myliberty.easy_records.util.queries.SqlQuery
 import org.junit.jupiter.api.Test
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue

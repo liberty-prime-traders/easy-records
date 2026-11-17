@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.cucumber.support
+package app.myliberty.easy_records.cucumber.support
 
-import me.ezra_home.retail_software_solution.messaging.kafka.common.KafkaConstants
+import app.myliberty.easy_records.messaging.kafka.common.KafkaConstants
 import org.apache.kafka.clients.admin.AdminClient
 import org.apache.kafka.clients.admin.AdminClientConfig
 import org.apache.kafka.clients.admin.OffsetSpec

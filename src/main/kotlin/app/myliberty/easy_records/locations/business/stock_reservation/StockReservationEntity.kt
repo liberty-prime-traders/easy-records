@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.locations.business.stock_reservation
+package app.myliberty.easy_records.locations.business.stock_reservation
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
-import me.ezra_home.retail_software_solution.util.model.HasCreatorEntity
-import me.ezra_home.retail_software_solution.util.model.TableNames
+import app.myliberty.easy_records.util.model.HasCreatorEntity
+import app.myliberty.easy_records.util.model.TableNames
 import java.math.BigDecimal
 import java.util.UUID
 

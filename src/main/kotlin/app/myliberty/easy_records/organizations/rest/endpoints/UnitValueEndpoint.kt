@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.organizations.rest.endpoints
+package app.myliberty.easy_records.organizations.rest.endpoints
 
-import me.ezra_home.retail_software_solution.organizations.business.unitvalue.api.UnitValueFetcher
-import me.ezra_home.retail_software_solution.organizations.business.unitvalue.api.UnitValueInsertDto
-import me.ezra_home.retail_software_solution.organizations.business.unitvalue.api.UnitValueResponseDto
-import me.ezra_home.retail_software_solution.organizations.business.unitvalue.api.UnitValueService
-import me.ezra_home.retail_software_solution.organizations.business.unitvalue.api.UnitValueUpdateDto
+import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueFetcher
+import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueInsertDto
+import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueResponseDto
+import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueService
+import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueUpdateDto
 import org.springframework.http.HttpStatus
 import org.springframework.http.HttpStatusCode
 import org.springframework.http.ResponseEntity

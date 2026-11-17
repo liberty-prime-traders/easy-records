@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.cross_tier.authority
+package app.myliberty.easy_records.cross_tier.authority
 
-import me.ezra_home.retail_software_solution.platform.business.permission_assignment.api.PlatformPermissionAssignmentService
-import me.ezra_home.retail_software_solution.platform.business.role_assignment.api.PlatformRoleAssignmentService
-import me.ezra_home.retail_software_solution.util.enums.RtsPermission
-import me.ezra_home.retail_software_solution.util.enums.RtsRole
-import me.ezra_home.retail_software_solution.util.enums.SchemaLevel
+import app.myliberty.easy_records.platform.business.permission_assignment.api.PlatformPermissionAssignmentService
+import app.myliberty.easy_records.platform.business.role_assignment.api.PlatformRoleAssignmentService
+import app.myliberty.easy_records.util.enums.RtsPermission
+import app.myliberty.easy_records.util.enums.RtsRole
+import app.myliberty.easy_records.util.enums.SchemaLevel
 import org.springframework.stereotype.Service
 
 @Service

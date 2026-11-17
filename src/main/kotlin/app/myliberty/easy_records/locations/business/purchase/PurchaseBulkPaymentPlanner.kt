@@ -1,13 +1,13 @@
-package me.ezra_home.retail_software_solution.locations.business.purchase
+package app.myliberty.easy_records.locations.business.purchase
 
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.payment.PurchasePayableCalculator
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.PurchaseDataFetcher.PurchaseInfo
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.bulk_payment.PurchaseBulkPaymentCreateDto
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.payment.PurchasePaymentCeilingService
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.payment.PurchasePaymentCeilingService.PaymentCeiling
-import me.ezra_home.retail_software_solution.locations.business.supplier_payment.api.SupplierPaymentDataFetcher
-import me.ezra_home.retail_software_solution.util.business.DisplayFormatters
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.locations.business.purchase.api.payment.PurchasePayableCalculator
+import app.myliberty.easy_records.locations.business.purchase.api.PurchaseDataFetcher.PurchaseInfo
+import app.myliberty.easy_records.locations.business.purchase.api.bulk_payment.PurchaseBulkPaymentCreateDto
+import app.myliberty.easy_records.locations.business.purchase.api.payment.PurchasePaymentCeilingService
+import app.myliberty.easy_records.locations.business.purchase.api.payment.PurchasePaymentCeilingService.PaymentCeiling
+import app.myliberty.easy_records.locations.business.supplier_payment.api.SupplierPaymentDataFetcher
+import app.myliberty.easy_records.util.business.DisplayFormatters
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Component
 import java.math.BigDecimal
 import java.util.UUID

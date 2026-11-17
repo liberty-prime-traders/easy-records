@@ -1,12 +1,12 @@
-package me.ezra_home.retail_software_solution.organizations.business.tag.api
+package app.myliberty.easy_records.organizations.business.tag.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnOrganizationSchema
-import me.ezra_home.retail_software_solution.organizations.business.tag.TagCache
-import me.ezra_home.retail_software_solution.organizations.business.tag.TagRepository
-import me.ezra_home.retail_software_solution.organizations.business.tag.mapping.TagMapper
-import me.ezra_home.retail_software_solution.util.business.StringUtils
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
-import me.ezra_home.retail_software_solution.util.exceptions.UpdatingNonExistingRecordException
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.organizations.business.tag.TagCache
+import app.myliberty.easy_records.organizations.business.tag.TagRepository
+import app.myliberty.easy_records.organizations.business.tag.mapping.TagMapper
+import app.myliberty.easy_records.util.business.StringUtils
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException
 import org.springframework.stereotype.Service
 import java.util.Objects
 import java.util.UUID

@@ -1,15 +1,15 @@
-package me.ezra_home.retail_software_solution.organizations.business.loan.search
+package app.myliberty.easy_records.organizations.business.loan.search
 
-import me.ezra_home.retail_software_solution.organizations.business.loan.api.LoanSearchParameters
-import me.ezra_home.retail_software_solution.organizations.business.loan.api.LoanStatus
-import me.ezra_home.retail_software_solution.util.model.TableNames
-import me.ezra_home.retail_software_solution.util.model.ViewNames
-import me.ezra_home.retail_software_solution.util.queries.AnyListFilterStrategy
-import me.ezra_home.retail_software_solution.util.queries.DateRangeFilterStrategy
-import me.ezra_home.retail_software_solution.util.queries.KeysetSearchCursor
-import me.ezra_home.retail_software_solution.util.queries.QueryBuilderContext
-import me.ezra_home.retail_software_solution.util.queries.QueryParameterNames
-import me.ezra_home.retail_software_solution.util.queries.SqlQuery
+import app.myliberty.easy_records.organizations.business.loan.api.LoanSearchParameters
+import app.myliberty.easy_records.organizations.business.loan.api.LoanStatus
+import app.myliberty.easy_records.util.model.TableNames
+import app.myliberty.easy_records.util.model.ViewNames
+import app.myliberty.easy_records.util.queries.AnyListFilterStrategy
+import app.myliberty.easy_records.util.queries.DateRangeFilterStrategy
+import app.myliberty.easy_records.util.queries.KeysetSearchCursor
+import app.myliberty.easy_records.util.queries.QueryBuilderContext
+import app.myliberty.easy_records.util.queries.QueryParameterNames
+import app.myliberty.easy_records.util.queries.SqlQuery
 
 object LoanSearchQueryBuilder {
 

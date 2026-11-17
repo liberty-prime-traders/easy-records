@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.cross_tier.expense.request
+package app.myliberty.easy_records.cross_tier.expense.request
 
-import me.ezra_home.retail_software_solution.cross_tier.expense.model.PaymentInstruction
-import me.ezra_home.retail_software_solution.util.business.PositiveMoney
+import app.myliberty.easy_records.cross_tier.expense.model.PaymentInstruction
+import app.myliberty.easy_records.util.business.PositiveMoney
 
 data class ExpensePaymentCreateRequest(
     val expenseReference: String,

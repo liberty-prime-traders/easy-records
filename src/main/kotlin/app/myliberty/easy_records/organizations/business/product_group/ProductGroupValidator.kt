@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.organizations.business.product_group
+package app.myliberty.easy_records.organizations.business.product_group
 
-import me.ezra_home.retail_software_solution.organizations.business.product_category.api.ProductCategoryService
-import me.ezra_home.retail_software_solution.organizations.business.product_group.api.ProductGroupInsertDto
-import me.ezra_home.retail_software_solution.organizations.business.product_group.api.ProductGroupUpdateDto
-import me.ezra_home.retail_software_solution.util.business.StringUtils
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.organizations.business.product_category.api.ProductCategoryService
+import app.myliberty.easy_records.organizations.business.product_group.api.ProductGroupInsertDto
+import app.myliberty.easy_records.organizations.business.product_group.api.ProductGroupUpdateDto
+import app.myliberty.easy_records.util.business.StringUtils
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Component
 import java.util.UUID
 

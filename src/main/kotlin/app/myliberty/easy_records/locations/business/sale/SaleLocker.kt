@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.locations.business.sale
+package app.myliberty.easy_records.locations.business.sale
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
-import me.ezra_home.retail_software_solution.locations.business.lock.api.EntityAdvisoryLock
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleStatus
-import me.ezra_home.retail_software_solution.util.business.lock.LockNamespaces
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.locations.business.lock.api.EntityAdvisoryLock
+import app.myliberty.easy_records.locations.business.sale.api.SaleStatus
+import app.myliberty.easy_records.util.business.lock.LockNamespaces
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Propagation
 import java.util.UUID

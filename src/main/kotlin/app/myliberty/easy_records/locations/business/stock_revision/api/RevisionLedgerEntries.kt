@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.locations.business.stock_revision.api
+package app.myliberty.easy_records.locations.business.stock_revision.api
 
-import me.ezra_home.retail_software_solution.messaging.kafka.transaction.events.StockAdjustmentCostRestatementDto
-import me.ezra_home.retail_software_solution.organizations.business.account.api.EntryType
-import me.ezra_home.retail_software_solution.organizations.business.account.api.SystemAccount
-import me.ezra_home.retail_software_solution.organizations.business.ledger.api.LedgerEntryRequest
-import me.ezra_home.retail_software_solution.organizations.business.ledger.api.PostedStockAdjustmentAccounts
+import app.myliberty.easy_records.messaging.kafka.transaction.events.StockAdjustmentCostRestatementDto
+import app.myliberty.easy_records.organizations.business.account.api.EntryType
+import app.myliberty.easy_records.organizations.business.account.api.SystemAccount
+import app.myliberty.easy_records.organizations.business.ledger.api.LedgerEntryRequest
+import app.myliberty.easy_records.organizations.business.ledger.api.PostedStockAdjustmentAccounts
 import java.math.BigDecimal
 
 data class AdjustmentCostChange(

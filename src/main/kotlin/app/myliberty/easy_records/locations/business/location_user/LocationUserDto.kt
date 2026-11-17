@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.locations.business.location_user
+package app.myliberty.easy_records.locations.business.location_user
 
 import java.time.OffsetDateTime
 import java.util.UUID

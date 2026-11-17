@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.organizations.business.expense_type.api
+package app.myliberty.easy_records.organizations.business.expense_type.api
 
 import java.util.UUID
 

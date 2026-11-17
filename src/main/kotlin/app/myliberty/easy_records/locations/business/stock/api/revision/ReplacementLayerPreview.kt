@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.locations.business.stock.api.revision
+package app.myliberty.easy_records.locations.business.stock.api.revision
 
-import me.ezra_home.retail_software_solution.locations.business.stock.api.fifo.StockEntryFifoDto
+import app.myliberty.easy_records.locations.business.stock.api.fifo.StockEntryFifoDto
 import java.util.UUID
 
 data class ReplacementLayerPreview(

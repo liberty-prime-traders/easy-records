@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.organizations.business.account_selection.api
+package app.myliberty.easy_records.organizations.business.account_selection.api
 
-import me.ezra_home.retail_software_solution.organizations.business.account.api.AccountSelectionCandidate
-import me.ezra_home.retail_software_solution.organizations.business.account.api.RecordingAccountService
-import me.ezra_home.retail_software_solution.organizations.business.account.api.SystemAccount
+import app.myliberty.easy_records.organizations.business.account.api.AccountSelectionCandidate
+import app.myliberty.easy_records.organizations.business.account.api.RecordingAccountService
+import app.myliberty.easy_records.organizations.business.account.api.SystemAccount
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue

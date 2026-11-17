@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.platform.business.jurisdiction_type
+package app.myliberty.easy_records.platform.business.jurisdiction_type
 
-import me.ezra_home.retail_software_solution.AbstractIntegrationTest
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnPlatformSchema
+import app.myliberty.easy_records.AbstractIntegrationTest
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnPlatformSchema
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired

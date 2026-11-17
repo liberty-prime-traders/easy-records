@@ -1,16 +1,16 @@
-package me.ezra_home.retail_software_solution.organizations.business.opening_balance.api
+package app.myliberty.easy_records.organizations.business.opening_balance.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnOrganizationSchema
-import me.ezra_home.retail_software_solution.organizations.business.account.api.AccountDataFetcher
-import me.ezra_home.retail_software_solution.organizations.business.account.api.AccountStructureLock
-import me.ezra_home.retail_software_solution.organizations.business.fiscal_period.api.FiscalPeriodService
-import me.ezra_home.retail_software_solution.organizations.business.ledger.api.LedgerPostingService
-import me.ezra_home.retail_software_solution.organizations.business.opening_balance.OpeningBalanceAccountValidator
-import me.ezra_home.retail_software_solution.organizations.business.opening_balance.OpeningBalanceEntity
-import me.ezra_home.retail_software_solution.organizations.business.opening_balance.OpeningBalancePostingRequests
-import me.ezra_home.retail_software_solution.organizations.business.opening_balance.OpeningBalanceRepository
-import me.ezra_home.retail_software_solution.util.business.DateTimes
-import me.ezra_home.retail_software_solution.util.business.mappers.UserQualifier
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.organizations.business.account.api.AccountDataFetcher
+import app.myliberty.easy_records.organizations.business.account.api.AccountStructureLock
+import app.myliberty.easy_records.organizations.business.fiscal_period.api.FiscalPeriodService
+import app.myliberty.easy_records.organizations.business.ledger.api.LedgerPostingService
+import app.myliberty.easy_records.organizations.business.opening_balance.OpeningBalanceAccountValidator
+import app.myliberty.easy_records.organizations.business.opening_balance.OpeningBalanceEntity
+import app.myliberty.easy_records.organizations.business.opening_balance.OpeningBalancePostingRequests
+import app.myliberty.easy_records.organizations.business.opening_balance.OpeningBalanceRepository
+import app.myliberty.easy_records.util.business.DateTimes
+import app.myliberty.easy_records.util.business.mappers.UserQualifier
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 

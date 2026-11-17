@@ -1,9 +1,9 @@
-package me.ezra_home.retail_software_solution.locations.business.sale_adjustment.api
+package app.myliberty.easy_records.locations.business.sale_adjustment.api
 
-import me.ezra_home.retail_software_solution.locations.business.location_product.api.LinePricing
-import me.ezra_home.retail_software_solution.locations.business.location_product.api.ProductLineWithPrice
-import me.ezra_home.retail_software_solution.util.business.Decimals
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.locations.business.location_product.api.LinePricing
+import app.myliberty.easy_records.locations.business.location_product.api.ProductLineWithPrice
+import app.myliberty.easy_records.util.business.Decimals
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import java.math.BigDecimal
 
 object AdjustmentAmountCalculator {

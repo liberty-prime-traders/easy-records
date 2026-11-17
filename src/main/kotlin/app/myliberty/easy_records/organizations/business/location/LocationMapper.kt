@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.organizations.business.location
+package app.myliberty.easy_records.organizations.business.location
 
-import me.ezra_home.retail_software_solution.organizations.business.location.api.LocationDto
-import me.ezra_home.retail_software_solution.organizations.business.location.api.LocationInsertDto
-import me.ezra_home.retail_software_solution.organizations.business.location.api.LocationResponseDto
-import me.ezra_home.retail_software_solution.platform.business.sysuser.api.CreatorFullName
-import me.ezra_home.retail_software_solution.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.organizations.business.location.api.LocationDto
+import app.myliberty.easy_records.organizations.business.location.api.LocationInsertDto
+import app.myliberty.easy_records.organizations.business.location.api.LocationResponseDto
+import app.myliberty.easy_records.platform.business.sysuser.api.CreatorFullName
+import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 

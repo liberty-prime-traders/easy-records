@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution
+package app.myliberty.easy_records
 
-import me.ezra_home.retail_software_solution.util.model.TableName
-import me.ezra_home.retail_software_solution.util.model.TableNames
+import app.myliberty.easy_records.util.model.TableName
+import app.myliberty.easy_records.util.model.TableNames
 import org.junit.jupiter.api.Test
 import org.yaml.snakeyaml.Yaml
 import java.io.File

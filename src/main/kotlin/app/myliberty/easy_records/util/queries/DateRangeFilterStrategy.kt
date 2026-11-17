@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.util.queries
+package app.myliberty.easy_records.util.queries
 
 // T is the Java type bound to the column: OffsetDateTime for timestamptz, LocalDate for date.
 class DateRangeFilterStrategy<T : Any>(

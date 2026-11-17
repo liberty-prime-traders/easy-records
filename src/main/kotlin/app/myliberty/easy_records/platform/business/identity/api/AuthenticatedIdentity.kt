@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.platform.business.identity.api
+package app.myliberty.easy_records.platform.business.identity.api
 
 data class AuthenticatedIdentity(
     val provider: IdentityProvider,

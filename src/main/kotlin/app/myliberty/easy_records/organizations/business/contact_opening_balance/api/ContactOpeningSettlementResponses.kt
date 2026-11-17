@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.organizations.business.contact_opening_balance.api
+package app.myliberty.easy_records.organizations.business.contact_opening_balance.api
 
-import me.ezra_home.retail_software_solution.util.business.MoneyDisplay
+import app.myliberty.easy_records.util.business.MoneyDisplay
 import java.time.LocalDate
 import java.time.OffsetDateTime
 import java.util.UUID

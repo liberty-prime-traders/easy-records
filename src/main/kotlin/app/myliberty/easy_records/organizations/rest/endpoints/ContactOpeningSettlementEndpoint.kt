@@ -1,11 +1,11 @@
-package me.ezra_home.retail_software_solution.organizations.rest.endpoints
+package app.myliberty.easy_records.organizations.rest.endpoints
 
-import me.ezra_home.retail_software_solution.organizations.business.contact_opening_balance.api.ContactOpeningSettlementCreateRequest
-import me.ezra_home.retail_software_solution.organizations.business.contact_opening_balance.api.ContactOpeningSettlementService
-import me.ezra_home.retail_software_solution.organizations.business.contact_opening_balance.api.ContactOpeningSettlementSummaryResponse
-import me.ezra_home.retail_software_solution.organizations.business.contact_opening_balance.api.ContactOpeningSettlementVoidRequest
-import me.ezra_home.retail_software_solution.platform.business.feature.api.Feature
-import me.ezra_home.retail_software_solution.util.annotations.RequiresFeature
+import app.myliberty.easy_records.organizations.business.contact_opening_balance.api.ContactOpeningSettlementCreateRequest
+import app.myliberty.easy_records.organizations.business.contact_opening_balance.api.ContactOpeningSettlementService
+import app.myliberty.easy_records.organizations.business.contact_opening_balance.api.ContactOpeningSettlementSummaryResponse
+import app.myliberty.easy_records.organizations.business.contact_opening_balance.api.ContactOpeningSettlementVoidRequest
+import app.myliberty.easy_records.platform.business.feature.api.Feature
+import app.myliberty.easy_records.util.annotations.RequiresFeature
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody

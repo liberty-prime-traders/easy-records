@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.organizations.business.location
+package app.myliberty.easy_records.organizations.business.location
 
 import jakarta.persistence.Converter
-import me.ezra_home.retail_software_solution.organizations.business.location.api.LocationType
-import me.ezra_home.retail_software_solution.util.enums.EnumConverter
+import app.myliberty.easy_records.organizations.business.location.api.LocationType
+import app.myliberty.easy_records.util.enums.EnumConverter
 
 @Converter(autoApply = true)
 class LocationTypeConverter : EnumConverter<LocationType>(LocationType::class.java)

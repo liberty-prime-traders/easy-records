@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.organizations.business.stock_movement_reason.api
+package app.myliberty.easy_records.organizations.business.stock_movement_reason.api
 
-import me.ezra_home.retail_software_solution.organizations.business.stock_movement_reason.StockMovementReasonDto
-import me.ezra_home.retail_software_solution.util.business.StringUtils
+import app.myliberty.easy_records.organizations.business.stock_movement_reason.StockMovementReasonDto
+import app.myliberty.easy_records.util.business.StringUtils
 import java.util.Optional
 import java.util.UUID
 

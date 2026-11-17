@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.cucumber.support.context
+package app.myliberty.easy_records.cucumber.support.context
 
 import io.restassured.response.Response
 import org.springframework.stereotype.Component

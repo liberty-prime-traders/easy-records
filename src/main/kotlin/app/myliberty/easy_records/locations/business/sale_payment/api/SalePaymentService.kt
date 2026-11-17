@@ -1,20 +1,20 @@
-package me.ezra_home.retail_software_solution.locations.business.sale_payment.api
+package app.myliberty.easy_records.locations.business.sale_payment.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleDataFetcher
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleUpdater
-import me.ezra_home.retail_software_solution.locations.business.sale_payment.SalePaymentMapper
-import me.ezra_home.retail_software_solution.locations.business.sale_payment.SalePaymentRepository
-import me.ezra_home.retail_software_solution.locations.business.sale_payment.SalePaymentVoidEntity
-import me.ezra_home.retail_software_solution.locations.business.sale_payment.SalePaymentVoidHandlerForKafka
-import me.ezra_home.retail_software_solution.locations.business.sale_payment.SalePaymentVoidRepository
-import me.ezra_home.retail_software_solution.locations.business.sale_payment.SalePaymentWriter
-import me.ezra_home.retail_software_solution.locations.business.sale_payment.VoidedSalePayment
-import me.ezra_home.retail_software_solution.organizations.business.fiscal_period.api.FiscalPeriodService
-import me.ezra_home.retail_software_solution.organizations.business.payment_method.api.PaymentMethodDataFetcher
-import me.ezra_home.retail_software_solution.util.business.DateTimes
-import me.ezra_home.retail_software_solution.util.business.PaymentStatusResolver
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.locations.business.sale.api.SaleDataFetcher
+import app.myliberty.easy_records.locations.business.sale.api.SaleUpdater
+import app.myliberty.easy_records.locations.business.sale_payment.SalePaymentMapper
+import app.myliberty.easy_records.locations.business.sale_payment.SalePaymentRepository
+import app.myliberty.easy_records.locations.business.sale_payment.SalePaymentVoidEntity
+import app.myliberty.easy_records.locations.business.sale_payment.SalePaymentVoidHandlerForKafka
+import app.myliberty.easy_records.locations.business.sale_payment.SalePaymentVoidRepository
+import app.myliberty.easy_records.locations.business.sale_payment.SalePaymentWriter
+import app.myliberty.easy_records.locations.business.sale_payment.VoidedSalePayment
+import app.myliberty.easy_records.organizations.business.fiscal_period.api.FiscalPeriodService
+import app.myliberty.easy_records.organizations.business.payment_method.api.PaymentMethodDataFetcher
+import app.myliberty.easy_records.util.business.DateTimes
+import app.myliberty.easy_records.util.business.PaymentStatusResolver
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 

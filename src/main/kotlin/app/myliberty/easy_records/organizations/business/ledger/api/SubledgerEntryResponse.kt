@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.organizations.business.ledger.api
+package app.myliberty.easy_records.organizations.business.ledger.api
 
-import me.ezra_home.retail_software_solution.util.business.MoneyDisplay
-import me.ezra_home.retail_software_solution.util.ui_models.BalanceEffect
+import app.myliberty.easy_records.util.business.MoneyDisplay
+import app.myliberty.easy_records.util.ui_models.BalanceEffect
 import java.time.OffsetDateTime
 import java.util.UUID
 

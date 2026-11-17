@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.locations.business.stock.api.revision
+package app.myliberty.easy_records.locations.business.stock.api.revision
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
-import me.ezra_home.retail_software_solution.locations.business.stock.StockEntryRepository
-import me.ezra_home.retail_software_solution.locations.business.stock.StockIncreaseRecorder
-import me.ezra_home.retail_software_solution.locations.business.stock.StockReplacementLayerSpecs
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.locations.business.stock.StockEntryRepository
+import app.myliberty.easy_records.locations.business.stock.StockIncreaseRecorder
+import app.myliberty.easy_records.locations.business.stock.StockReplacementLayerSpecs
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Service
 import java.util.UUID
 import org.springframework.transaction.annotation.Propagation

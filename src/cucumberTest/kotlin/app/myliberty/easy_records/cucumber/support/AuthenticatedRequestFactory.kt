@@ -1,13 +1,13 @@
-package me.ezra_home.retail_software_solution.cucumber.support
+package app.myliberty.easy_records.cucumber.support
 
 import io.restassured.RestAssured.given
 import io.restassured.http.ContentType
 import io.restassured.specification.RequestSpecification
-import me.ezra_home.retail_software_solution.configuration.security.RtsHeaders
-import me.ezra_home.retail_software_solution.cucumber.support.context.AuthContext
-import me.ezra_home.retail_software_solution.cucumber.support.context.InjectContext
-import me.ezra_home.retail_software_solution.cucumber.support.context.PersistentKey
-import me.ezra_home.retail_software_solution.support.TestConstants
+import app.myliberty.easy_records.configuration.security.RtsHeaders
+import app.myliberty.easy_records.cucumber.support.context.AuthContext
+import app.myliberty.easy_records.cucumber.support.context.InjectContext
+import app.myliberty.easy_records.cucumber.support.context.PersistentKey
+import app.myliberty.easy_records.support.TestConstants
 import org.springframework.core.env.Environment
 import org.springframework.core.env.getRequiredProperty
 import org.springframework.stereotype.Component

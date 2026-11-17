@@ -1,15 +1,15 @@
-package me.ezra_home.retail_software_solution.platform.business.jurisdiction.api
+package app.myliberty.easy_records.platform.business.jurisdiction.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnPlatformSchema
-import me.ezra_home.retail_software_solution.platform.business.jurisdiction.JurisdictionCache
-import me.ezra_home.retail_software_solution.platform.business.jurisdiction.JurisdictionMapper
-import me.ezra_home.retail_software_solution.platform.business.jurisdiction.JurisdictionMappingContext
-import me.ezra_home.retail_software_solution.platform.business.jurisdiction.JurisdictionValidator
-import me.ezra_home.retail_software_solution.platform.business.jurisdiction_tax_type.api.JurisdictionTaxTypeFetcher
-import me.ezra_home.retail_software_solution.platform.business.jurisdiction_tax_type.api.JurisdictionTaxTypeInsertDto
-import me.ezra_home.retail_software_solution.platform.business.jurisdiction_tax_type.api.JurisdictionTaxTypeService
-import me.ezra_home.retail_software_solution.platform.business.jurisdiction_type.api.JurisdictionTypeService
-import me.ezra_home.retail_software_solution.util.exceptions.UpdatingNonExistingRecordException
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnPlatformSchema
+import app.myliberty.easy_records.platform.business.jurisdiction.JurisdictionCache
+import app.myliberty.easy_records.platform.business.jurisdiction.JurisdictionMapper
+import app.myliberty.easy_records.platform.business.jurisdiction.JurisdictionMappingContext
+import app.myliberty.easy_records.platform.business.jurisdiction.JurisdictionValidator
+import app.myliberty.easy_records.platform.business.jurisdiction_tax_type.api.JurisdictionTaxTypeFetcher
+import app.myliberty.easy_records.platform.business.jurisdiction_tax_type.api.JurisdictionTaxTypeInsertDto
+import app.myliberty.easy_records.platform.business.jurisdiction_tax_type.api.JurisdictionTaxTypeService
+import app.myliberty.easy_records.platform.business.jurisdiction_type.api.JurisdictionTypeService
+import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException
 import org.springframework.stereotype.Service
 import java.util.UUID
 

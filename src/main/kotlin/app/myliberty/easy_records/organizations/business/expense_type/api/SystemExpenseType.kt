@@ -1,9 +1,9 @@
-package me.ezra_home.retail_software_solution.organizations.business.expense_type.api
+package app.myliberty.easy_records.organizations.business.expense_type.api
 
-import me.ezra_home.retail_software_solution.cross_tier.expense.ExpenseSourceType
-import me.ezra_home.retail_software_solution.organizations.business.account.api.SystemAccount
-import me.ezra_home.retail_software_solution.organizations.business.contact.api.ContactType
-import me.ezra_home.retail_software_solution.util.enums.HasCode
+import app.myliberty.easy_records.cross_tier.expense.ExpenseSourceType
+import app.myliberty.easy_records.organizations.business.account.api.SystemAccount
+import app.myliberty.easy_records.organizations.business.contact.api.ContactType
+import app.myliberty.easy_records.util.enums.HasCode
 
 enum class SystemExpenseType(
     override val code: String,

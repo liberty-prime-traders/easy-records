@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.organizations.rest.endpoints
+package app.myliberty.easy_records.organizations.rest.endpoints
 
-import me.ezra_home.retail_software_solution.organizations.business.feature.api.OrganizationFeatureResponseDto
-import me.ezra_home.retail_software_solution.organizations.business.feature.api.OrganizationFeatureService
-import me.ezra_home.retail_software_solution.platform.business.feature.api.Feature
+import app.myliberty.easy_records.organizations.business.feature.api.OrganizationFeatureResponseDto
+import app.myliberty.easy_records.organizations.business.feature.api.OrganizationFeatureService
+import app.myliberty.easy_records.platform.business.feature.api.Feature
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody

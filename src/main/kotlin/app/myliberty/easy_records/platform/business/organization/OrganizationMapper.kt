@@ -1,12 +1,12 @@
-package me.ezra_home.retail_software_solution.platform.business.organization
+package app.myliberty.easy_records.platform.business.organization
 
-import me.ezra_home.retail_software_solution.platform.business.db_version.api.DbVersionNumber
-import me.ezra_home.retail_software_solution.platform.business.db_version.api.DbVersionService
-import me.ezra_home.retail_software_solution.platform.business.organization.api.OrganizationDto
-import me.ezra_home.retail_software_solution.platform.business.organization.api.OrganizationInsertDto
-import me.ezra_home.retail_software_solution.platform.business.organization.api.OrganizationResponseDto
-import me.ezra_home.retail_software_solution.platform.business.sysuser.api.CreatorFullName
-import me.ezra_home.retail_software_solution.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.platform.business.db_version.api.DbVersionNumber
+import app.myliberty.easy_records.platform.business.db_version.api.DbVersionService
+import app.myliberty.easy_records.platform.business.organization.api.OrganizationDto
+import app.myliberty.easy_records.platform.business.organization.api.OrganizationInsertDto
+import app.myliberty.easy_records.platform.business.organization.api.OrganizationResponseDto
+import app.myliberty.easy_records.platform.business.sysuser.api.CreatorFullName
+import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 

@@ -1,13 +1,13 @@
-package me.ezra_home.retail_software_solution.organizations.business.daily_business_summary
+package app.myliberty.easy_records.organizations.business.daily_business_summary
 
-import me.ezra_home.retail_software_solution.organizations.business.account.api.AccountCategory
-import me.ezra_home.retail_software_solution.organizations.business.account.api.AccountTreeNode
-import me.ezra_home.retail_software_solution.organizations.business.account.api.SystemAccount
-import me.ezra_home.retail_software_solution.organizations.business.daily_business_summary.api.AccountBalanceLine
-import me.ezra_home.retail_software_solution.organizations.business.daily_business_summary.api.BalanceSection
-import me.ezra_home.retail_software_solution.organizations.business.daily_business_summary.api.BalanceSections
-import me.ezra_home.retail_software_solution.util.business.Decimals
-import me.ezra_home.retail_software_solution.util.ui_models.BalanceEffect
+import app.myliberty.easy_records.organizations.business.account.api.AccountCategory
+import app.myliberty.easy_records.organizations.business.account.api.AccountTreeNode
+import app.myliberty.easy_records.organizations.business.account.api.SystemAccount
+import app.myliberty.easy_records.organizations.business.daily_business_summary.api.AccountBalanceLine
+import app.myliberty.easy_records.organizations.business.daily_business_summary.api.BalanceSection
+import app.myliberty.easy_records.organizations.business.daily_business_summary.api.BalanceSections
+import app.myliberty.easy_records.util.business.Decimals
+import app.myliberty.easy_records.util.ui_models.BalanceEffect
 import java.math.BigDecimal
 
 internal class BalanceSectionBuilder(accountNodes: List<AccountTreeNode>, private val trackedLeaves: List<AccountTreeNode>) {

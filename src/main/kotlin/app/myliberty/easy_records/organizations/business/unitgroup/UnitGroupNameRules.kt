@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.organizations.business.unitgroup
+package app.myliberty.easy_records.organizations.business.unitgroup
 
-import me.ezra_home.retail_software_solution.organizations.business.unitgroup.api.UnitGroupDto
-import me.ezra_home.retail_software_solution.util.business.StringUtils
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.organizations.business.unitgroup.api.UnitGroupDto
+import app.myliberty.easy_records.util.business.StringUtils
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import java.util.UUID
 
 object UnitGroupNameRules {

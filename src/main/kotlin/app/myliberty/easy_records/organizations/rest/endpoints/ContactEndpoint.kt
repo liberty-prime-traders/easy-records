@@ -1,15 +1,15 @@
-package me.ezra_home.retail_software_solution.organizations.rest.endpoints
+package app.myliberty.easy_records.organizations.rest.endpoints
 
-import me.ezra_home.retail_software_solution.organizations.business.contact.api.ContactBulkInsertDto
-import me.ezra_home.retail_software_solution.organizations.business.contact.api.ContactBulkInsertService
-import me.ezra_home.retail_software_solution.organizations.business.contact.api.ContactInsertDto
-import me.ezra_home.retail_software_solution.organizations.business.contact.api.ContactLedgerSearchParameters
-import me.ezra_home.retail_software_solution.organizations.business.contact.api.ContactResponseDto
-import me.ezra_home.retail_software_solution.organizations.business.contact.api.ContactService
-import me.ezra_home.retail_software_solution.organizations.business.contact.api.ContactUpdateDto
-import me.ezra_home.retail_software_solution.organizations.business.ledger.api.SubledgerEntryResponse
-import me.ezra_home.retail_software_solution.util.paging.PageRequest
-import me.ezra_home.retail_software_solution.util.paging.PageResponse
+import app.myliberty.easy_records.organizations.business.contact.api.ContactBulkInsertDto
+import app.myliberty.easy_records.organizations.business.contact.api.ContactBulkInsertService
+import app.myliberty.easy_records.organizations.business.contact.api.ContactInsertDto
+import app.myliberty.easy_records.organizations.business.contact.api.ContactLedgerSearchParameters
+import app.myliberty.easy_records.organizations.business.contact.api.ContactResponseDto
+import app.myliberty.easy_records.organizations.business.contact.api.ContactService
+import app.myliberty.easy_records.organizations.business.contact.api.ContactUpdateDto
+import app.myliberty.easy_records.organizations.business.ledger.api.SubledgerEntryResponse
+import app.myliberty.easy_records.util.paging.PageRequest
+import app.myliberty.easy_records.util.paging.PageResponse
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping

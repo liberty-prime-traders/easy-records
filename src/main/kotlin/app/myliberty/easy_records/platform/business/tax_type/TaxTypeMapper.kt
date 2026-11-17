@@ -1,9 +1,9 @@
-package me.ezra_home.retail_software_solution.platform.business.tax_type
+package app.myliberty.easy_records.platform.business.tax_type
 
-import me.ezra_home.retail_software_solution.platform.business.tax_type.api.TaxTypeDto
-import me.ezra_home.retail_software_solution.platform.business.tax_type.api.TaxTypeInsertDto
-import me.ezra_home.retail_software_solution.platform.business.tax_type.api.TaxTypeResponseDto
-import me.ezra_home.retail_software_solution.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.platform.business.tax_type.api.TaxTypeDto
+import app.myliberty.easy_records.platform.business.tax_type.api.TaxTypeInsertDto
+import app.myliberty.easy_records.platform.business.tax_type.api.TaxTypeResponseDto
+import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 

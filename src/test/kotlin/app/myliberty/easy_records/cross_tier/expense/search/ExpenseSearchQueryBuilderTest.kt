@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.cross_tier.expense.search
+package app.myliberty.easy_records.cross_tier.expense.search
 
-import me.ezra_home.retail_software_solution.util.enums.PaymentStatus
-import me.ezra_home.retail_software_solution.util.queries.KeysetSearchCursor
-import me.ezra_home.retail_software_solution.util.queries.QueryParameterNames
-import me.ezra_home.retail_software_solution.util.queries.SqlQuery
-import me.ezra_home.retail_software_solution.util.model.TableNames
+import app.myliberty.easy_records.util.enums.PaymentStatus
+import app.myliberty.easy_records.util.queries.KeysetSearchCursor
+import app.myliberty.easy_records.util.queries.QueryParameterNames
+import app.myliberty.easy_records.util.queries.SqlQuery
+import app.myliberty.easy_records.util.model.TableNames
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse

@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.organizations.business.adjustment_reason.api
+package app.myliberty.easy_records.organizations.business.adjustment_reason.api
 
-import me.ezra_home.retail_software_solution.util.enums.HasCode
+import app.myliberty.easy_records.util.enums.HasCode
 
 enum class AdjustmentDirection(override val code: String) : HasCode {
     DISCOUNT("DISC"),

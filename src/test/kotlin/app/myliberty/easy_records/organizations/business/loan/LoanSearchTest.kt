@@ -1,13 +1,13 @@
-package me.ezra_home.retail_software_solution.organizations.business.loan
+package app.myliberty.easy_records.organizations.business.loan
 
-import me.ezra_home.retail_software_solution.organizations.business.loan.api.LoanSearchParameters
-import me.ezra_home.retail_software_solution.organizations.business.loan.api.LoanStatus
-import me.ezra_home.retail_software_solution.organizations.business.loan.search.LoanSearchParameterNames
-import me.ezra_home.retail_software_solution.organizations.business.loan.search.LoanSearchQueryBuilder
-import me.ezra_home.retail_software_solution.organizations.business.loan.search.LoanSearchValidator
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
-import me.ezra_home.retail_software_solution.util.queries.KeysetSearchCursor
-import me.ezra_home.retail_software_solution.util.queries.QueryParameterNames
+import app.myliberty.easy_records.organizations.business.loan.api.LoanSearchParameters
+import app.myliberty.easy_records.organizations.business.loan.api.LoanStatus
+import app.myliberty.easy_records.organizations.business.loan.search.LoanSearchParameterNames
+import app.myliberty.easy_records.organizations.business.loan.search.LoanSearchQueryBuilder
+import app.myliberty.easy_records.organizations.business.loan.search.LoanSearchValidator
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.queries.KeysetSearchCursor
+import app.myliberty.easy_records.util.queries.QueryParameterNames
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertThrows

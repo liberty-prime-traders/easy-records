@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.cucumber.support.database
+package app.myliberty.easy_records.cucumber.support.database
 
 import org.springframework.data.jpa.repository.JpaRepository
 

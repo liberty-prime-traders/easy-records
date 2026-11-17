@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.organizations.business.unitgroup
+package app.myliberty.easy_records.organizations.business.unitgroup
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotEquals

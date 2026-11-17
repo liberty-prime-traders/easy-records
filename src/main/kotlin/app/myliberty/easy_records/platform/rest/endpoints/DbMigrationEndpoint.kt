@@ -1,12 +1,12 @@
-package me.ezra_home.retail_software_solution.platform.rest.endpoints
+package app.myliberty.easy_records.platform.rest.endpoints
 
-import me.ezra_home.retail_software_solution.platform.business.db_migration.api.DbMigrationHistoryService
-import me.ezra_home.retail_software_solution.platform.business.db_migration.api.DbMigrationRequestDto
-import me.ezra_home.retail_software_solution.platform.business.db_migration.api.DbMigrationRetryRequestDto
-import me.ezra_home.retail_software_solution.platform.business.db_migration.api.DbMigrationService
-import me.ezra_home.retail_software_solution.platform.business.db_migration.api.OrganizationMigrationResponseDto
+import app.myliberty.easy_records.platform.business.db_migration.api.DbMigrationHistoryService
+import app.myliberty.easy_records.platform.business.db_migration.api.DbMigrationRequestDto
+import app.myliberty.easy_records.platform.business.db_migration.api.DbMigrationRetryRequestDto
+import app.myliberty.easy_records.platform.business.db_migration.api.DbMigrationService
+import app.myliberty.easy_records.platform.business.db_migration.api.OrganizationMigrationResponseDto
 import org.springframework.format.annotation.DateTimeFormat
-import me.ezra_home.retail_software_solution.util.enums.RtsRoleNames
+import app.myliberty.easy_records.util.enums.RtsRoleNames
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping

@@ -1,13 +1,13 @@
-package me.ezra_home.retail_software_solution.messaging.kafka.catalog
+package app.myliberty.easy_records.messaging.kafka.catalog
 
-import me.ezra_home.retail_software_solution.configuration.session.ServiceAccountContext
-import me.ezra_home.retail_software_solution.configuration.session.SessionContextProvider
-import me.ezra_home.retail_software_solution.locations.business.catalog_sync.api.SyncServiceRegistry
-import me.ezra_home.retail_software_solution.messaging.kafka.common.EventSessionSetup
-import me.ezra_home.retail_software_solution.messaging.kafka.common.EventSourceContext
-import me.ezra_home.retail_software_solution.organizations.business.location.api.LocationService
-import me.ezra_home.retail_software_solution.util.enums.ServiceAccount
-import me.ezra_home.retail_software_solution.util.model.TableName
+import app.myliberty.easy_records.configuration.session.ServiceAccountContext
+import app.myliberty.easy_records.configuration.session.SessionContextProvider
+import app.myliberty.easy_records.locations.business.catalog_sync.api.SyncServiceRegistry
+import app.myliberty.easy_records.messaging.kafka.common.EventSessionSetup
+import app.myliberty.easy_records.messaging.kafka.common.EventSourceContext
+import app.myliberty.easy_records.organizations.business.location.api.LocationService
+import app.myliberty.easy_records.util.enums.ServiceAccount
+import app.myliberty.easy_records.util.model.TableName
 import org.springframework.stereotype.Component
 import java.time.Instant
 import java.util.UUID

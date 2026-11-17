@@ -1,14 +1,14 @@
-package me.ezra_home.retail_software_solution.locations.business.sale_session.api
+package app.myliberty.easy_records.locations.business.sale_session.api
 
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
-import me.ezra_home.retail_software_solution.locations.business.sale_session.consolidation.PendingConsolidationPromoter
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
-import me.ezra_home.retail_software_solution.locations.business.sale_session.consolidation.ConsolidationGenerateInput
-import me.ezra_home.retail_software_solution.locations.business.sale_session.consolidation.ReviewedProductLines
-import me.ezra_home.retail_software_solution.locations.business.sale_session.consolidation.SaleConsolidationGenerator
-import me.ezra_home.retail_software_solution.locations.business.sale_session.consolidation.SaleConsolidationStarter
-import me.ezra_home.retail_software_solution.locations.business.sale_session.SaleSessionStore
-import me.ezra_home.retail_software_solution.locations.business.sale_session.SaleSessionValidator
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.locations.business.sale_session.consolidation.PendingConsolidationPromoter
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.locations.business.sale_session.consolidation.ConsolidationGenerateInput
+import app.myliberty.easy_records.locations.business.sale_session.consolidation.ReviewedProductLines
+import app.myliberty.easy_records.locations.business.sale_session.consolidation.SaleConsolidationGenerator
+import app.myliberty.easy_records.locations.business.sale_session.consolidation.SaleConsolidationStarter
+import app.myliberty.easy_records.locations.business.sale_session.SaleSessionStore
+import app.myliberty.easy_records.locations.business.sale_session.SaleSessionValidator
 import org.springframework.stereotype.Service
 import java.util.UUID
 

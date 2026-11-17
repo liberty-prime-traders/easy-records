@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.organizations.business.contact.api
+package app.myliberty.easy_records.organizations.business.contact.api
 
-import me.ezra_home.retail_software_solution.util.business.Money
+import app.myliberty.easy_records.util.business.Money
 
 /** One row of a bulk contact import. `contactTypes` is a comma-separated list of [ContactType.code]s;
  * the identity type is inferred from [companyName] the same way [ContactInsertDto.identity] does. */

@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.organizations.business.accounting_config.api
+package app.myliberty.easy_records.organizations.business.accounting_config.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnOrganizationSchema
-import me.ezra_home.retail_software_solution.organizations.business.accounting_config.OrgAccountingConfigCache
-import me.ezra_home.retail_software_solution.organizations.business.accounting_config.OrgAccountingConfigMapper
-import me.ezra_home.retail_software_solution.util.business.DateTimes
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.organizations.business.accounting_config.OrgAccountingConfigCache
+import app.myliberty.easy_records.organizations.business.accounting_config.OrgAccountingConfigMapper
+import app.myliberty.easy_records.util.business.DateTimes
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Service
 import java.time.DayOfWeek
 

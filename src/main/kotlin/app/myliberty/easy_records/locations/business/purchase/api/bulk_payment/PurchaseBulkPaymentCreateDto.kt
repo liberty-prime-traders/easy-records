@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.locations.business.purchase.api.bulk_payment
+package app.myliberty.easy_records.locations.business.purchase.api.bulk_payment
 
-import me.ezra_home.retail_software_solution.util.business.PositiveMoney
+import app.myliberty.easy_records.util.business.PositiveMoney
 import java.time.OffsetDateTime
 import java.util.UUID
 

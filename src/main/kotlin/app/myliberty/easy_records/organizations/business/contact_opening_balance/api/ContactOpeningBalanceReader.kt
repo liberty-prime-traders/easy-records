@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.organizations.business.contact_opening_balance.api
+package app.myliberty.easy_records.organizations.business.contact_opening_balance.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnOrganizationSchema
-import me.ezra_home.retail_software_solution.organizations.business.contact_opening_balance.ContactOpeningBalanceRepository
-import me.ezra_home.retail_software_solution.organizations.business.ledger.api.SubledgerBalanceDto
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.organizations.business.contact_opening_balance.ContactOpeningBalanceRepository
+import app.myliberty.easy_records.organizations.business.ledger.api.SubledgerBalanceDto
 import org.springframework.stereotype.Component
 import java.math.BigDecimal
 

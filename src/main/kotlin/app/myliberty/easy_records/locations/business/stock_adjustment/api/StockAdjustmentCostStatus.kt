@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.locations.business.stock_adjustment.api
+package app.myliberty.easy_records.locations.business.stock_adjustment.api
 
-import me.ezra_home.retail_software_solution.util.enums.HasCode
+import app.myliberty.easy_records.util.enums.HasCode
 
 enum class StockAdjustmentCostStatus(override val code: String) : HasCode {
     ACTIVE("ACT"),

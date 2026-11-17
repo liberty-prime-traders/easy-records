@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.locations.business.location_product.api
+package app.myliberty.easy_records.locations.business.location_product.api
 
-import me.ezra_home.retail_software_solution.util.business.Decimals
+import app.myliberty.easy_records.util.business.Decimals
 import java.math.BigDecimal
 
 object LinePricing {

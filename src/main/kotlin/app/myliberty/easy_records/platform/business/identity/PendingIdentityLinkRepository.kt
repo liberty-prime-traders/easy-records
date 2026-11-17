@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.platform.business.identity
+package app.myliberty.easy_records.platform.business.identity
 
-import me.ezra_home.retail_software_solution.platform.business.identity.api.IdentityProvider
+import app.myliberty.easy_records.platform.business.identity.api.IdentityProvider
 import org.springframework.data.jpa.repository.JpaRepository
 import java.util.UUID
 

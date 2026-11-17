@@ -1,14 +1,14 @@
-package me.ezra_home.retail_software_solution.cross_tier.expense.response
+package app.myliberty.easy_records.cross_tier.expense.response
 
-import me.ezra_home.retail_software_solution.cross_tier.expense.model.ExpenseAggregate
-import me.ezra_home.retail_software_solution.cross_tier.expense.model.ExpensePaymentDto
-import me.ezra_home.retail_software_solution.cross_tier.expense.model.ExpensePaymentVoidDto
-import me.ezra_home.retail_software_solution.organizations.business.contact.api.ContactService
-import me.ezra_home.retail_software_solution.organizations.business.expense_type.api.ExpenseTypeService
-import me.ezra_home.retail_software_solution.organizations.business.payment_method.api.PaymentMethodDataFetcher
-import me.ezra_home.retail_software_solution.util.business.DateTimes
-import me.ezra_home.retail_software_solution.util.business.mappers.UserQualifier
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.cross_tier.expense.model.ExpenseAggregate
+import app.myliberty.easy_records.cross_tier.expense.model.ExpensePaymentDto
+import app.myliberty.easy_records.cross_tier.expense.model.ExpensePaymentVoidDto
+import app.myliberty.easy_records.organizations.business.contact.api.ContactService
+import app.myliberty.easy_records.organizations.business.expense_type.api.ExpenseTypeService
+import app.myliberty.easy_records.organizations.business.payment_method.api.PaymentMethodDataFetcher
+import app.myliberty.easy_records.util.business.DateTimes
+import app.myliberty.easy_records.util.business.mappers.UserQualifier
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Component
 import java.util.UUID
 

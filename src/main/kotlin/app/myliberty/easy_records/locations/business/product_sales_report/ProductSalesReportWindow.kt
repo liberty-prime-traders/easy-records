@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.locations.business.product_sales_report
+package app.myliberty.easy_records.locations.business.product_sales_report
 
-import me.ezra_home.retail_software_solution.util.business.DateTimes
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.business.DateTimes
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import java.time.LocalDate
 
 // Whole organization-zone days, so the day buckets combine into any range. before is the day after the last day.

@@ -1,12 +1,12 @@
-package me.ezra_home.retail_software_solution.organizations.business.contact
+package app.myliberty.easy_records.organizations.business.contact
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnOrganizationSchema
-import me.ezra_home.retail_software_solution.organizations.business.contact.api.ContactService
-import me.ezra_home.retail_software_solution.organizations.business.contact.api.ContactStatus
-import me.ezra_home.retail_software_solution.organizations.business.contact.api.ContactType
-import me.ezra_home.retail_software_solution.organizations.business.ledger.api.SubledgerService
-import me.ezra_home.retail_software_solution.organizations.business.org_profile.api.OrgDataSeeder
-import me.ezra_home.retail_software_solution.util.enums.SystemContact
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.organizations.business.contact.api.ContactService
+import app.myliberty.easy_records.organizations.business.contact.api.ContactStatus
+import app.myliberty.easy_records.organizations.business.contact.api.ContactType
+import app.myliberty.easy_records.organizations.business.ledger.api.SubledgerService
+import app.myliberty.easy_records.organizations.business.org_profile.api.OrgDataSeeder
+import app.myliberty.easy_records.util.enums.SystemContact
 import org.springframework.stereotype.Component
 
 @Component

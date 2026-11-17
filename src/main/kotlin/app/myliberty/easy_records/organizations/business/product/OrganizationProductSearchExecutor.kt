@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.organizations.business.product
+package app.myliberty.easy_records.organizations.business.product
 
-import me.ezra_home.retail_software_solution.configuration.datasource.DataSourceBeanNames
-import me.ezra_home.retail_software_solution.organizations.business.product.api.OrganizationProductResponseDto
-import me.ezra_home.retail_software_solution.organizations.business.unitvalue.api.UnitValueFetcher
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
-import me.ezra_home.retail_software_solution.util.queries.SqlSearchExecutor
+import app.myliberty.easy_records.configuration.datasource.DataSourceBeanNames
+import app.myliberty.easy_records.organizations.business.product.api.OrganizationProductResponseDto
+import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueFetcher
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.queries.SqlSearchExecutor
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean
 import org.springframework.stereotype.Component

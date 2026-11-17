@@ -1,11 +1,11 @@
-package me.ezra_home.retail_software_solution.locations.business.stock.api.revision
+package app.myliberty.easy_records.locations.business.stock.api.revision
 
-import me.ezra_home.retail_software_solution.locations.business.stock.InboundLayerSpec
-import me.ezra_home.retail_software_solution.locations.business.stock.StockEntryEntity
-import me.ezra_home.retail_software_solution.locations.business.stock.StockEntryRepository
-import me.ezra_home.retail_software_solution.locations.business.stock.StockIncreaseRecorder
-import me.ezra_home.retail_software_solution.organizations.business.stock_item_source.api.StockItemSource
-import me.ezra_home.retail_software_solution.organizations.business.stock_movement_reason.api.MovementType
+import app.myliberty.easy_records.locations.business.stock.InboundLayerSpec
+import app.myliberty.easy_records.locations.business.stock.StockEntryEntity
+import app.myliberty.easy_records.locations.business.stock.StockEntryRepository
+import app.myliberty.easy_records.locations.business.stock.StockIncreaseRecorder
+import app.myliberty.easy_records.organizations.business.stock_item_source.api.StockItemSource
+import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.MovementType
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.mock

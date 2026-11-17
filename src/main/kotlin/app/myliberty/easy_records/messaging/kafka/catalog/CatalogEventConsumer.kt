@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.messaging.kafka.catalog
+package app.myliberty.easy_records.messaging.kafka.catalog
 
-import me.ezra_home.retail_software_solution.messaging.kafka.common.KafkaConstants
+import app.myliberty.easy_records.messaging.kafka.common.KafkaConstants
 import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.stereotype.Service
 

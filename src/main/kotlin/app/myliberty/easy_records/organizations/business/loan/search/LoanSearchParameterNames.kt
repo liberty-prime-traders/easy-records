@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.organizations.business.loan.search
+package app.myliberty.easy_records.organizations.business.loan.search
 
 object LoanSearchParameterNames {
     const val CREATED_FROM = "createdFrom"

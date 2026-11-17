@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.locations.business.sale_session.api
+package app.myliberty.easy_records.locations.business.sale_session.api
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue

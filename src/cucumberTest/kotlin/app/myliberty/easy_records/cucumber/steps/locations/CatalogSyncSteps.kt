@@ -1,13 +1,13 @@
-package me.ezra_home.retail_software_solution.cucumber.steps.locations
+package app.myliberty.easy_records.cucumber.steps.locations
 
 import io.cucumber.java.en.Then
-import me.ezra_home.retail_software_solution.cross_tier.product.search.common.ProductSearchParameters
-import me.ezra_home.retail_software_solution.cucumber.support.ApiClient
-import me.ezra_home.retail_software_solution.cucumber.support.context.InjectContext
-import me.ezra_home.retail_software_solution.cucumber.support.context.TransientKey
-import me.ezra_home.retail_software_solution.locations.business.location_product.api.LocationProductResponseDto
-import me.ezra_home.retail_software_solution.support.TestConstants
-import me.ezra_home.retail_software_solution.util.paging.PageRequest
+import app.myliberty.easy_records.cross_tier.product.search.common.ProductSearchParameters
+import app.myliberty.easy_records.cucumber.support.ApiClient
+import app.myliberty.easy_records.cucumber.support.context.InjectContext
+import app.myliberty.easy_records.cucumber.support.context.TransientKey
+import app.myliberty.easy_records.locations.business.location_product.api.LocationProductResponseDto
+import app.myliberty.easy_records.support.TestConstants
+import app.myliberty.easy_records.util.paging.PageRequest
 import org.awaitility.Awaitility.await
 import java.time.Duration
 

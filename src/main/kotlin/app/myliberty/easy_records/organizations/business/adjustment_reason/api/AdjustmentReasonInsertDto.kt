@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.organizations.business.adjustment_reason.api
+package app.myliberty.easy_records.organizations.business.adjustment_reason.api
 
 data class AdjustmentReasonInsertDto(
     val name: String,

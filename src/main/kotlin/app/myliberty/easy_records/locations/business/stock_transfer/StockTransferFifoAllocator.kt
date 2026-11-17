@@ -1,12 +1,12 @@
-package me.ezra_home.retail_software_solution.locations.business.stock_transfer
+package app.myliberty.easy_records.locations.business.stock_transfer
 
-import me.ezra_home.retail_software_solution.locations.business.stock.api.fifo.FifoTakePlanner
-import me.ezra_home.retail_software_solution.locations.business.stock.api.fifo.PlannedTake
-import me.ezra_home.retail_software_solution.locations.business.stock.api.fifo.StockEntryFifoDto
-import me.ezra_home.retail_software_solution.util.business.Decimals
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
-import me.ezra_home.retail_software_solution.util.quantity.ExactQuantity
-import me.ezra_home.retail_software_solution.util.quantity.QuantityBreakdown
+import app.myliberty.easy_records.locations.business.stock.api.fifo.FifoTakePlanner
+import app.myliberty.easy_records.locations.business.stock.api.fifo.PlannedTake
+import app.myliberty.easy_records.locations.business.stock.api.fifo.StockEntryFifoDto
+import app.myliberty.easy_records.util.business.Decimals
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.quantity.ExactQuantity
+import app.myliberty.easy_records.util.quantity.QuantityBreakdown
 import java.math.BigDecimal
 import java.util.UUID
 

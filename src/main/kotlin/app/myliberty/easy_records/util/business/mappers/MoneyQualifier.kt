@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.util.business.mappers
+package app.myliberty.easy_records.util.business.mappers
 
-import me.ezra_home.retail_software_solution.util.business.Money
-import me.ezra_home.retail_software_solution.util.business.MoneyDisplay
-import me.ezra_home.retail_software_solution.util.business.PositiveMoney
+import app.myliberty.easy_records.util.business.Money
+import app.myliberty.easy_records.util.business.MoneyDisplay
+import app.myliberty.easy_records.util.business.PositiveMoney
 import org.springframework.stereotype.Component
 import java.math.BigDecimal
 

@@ -1,14 +1,14 @@
-package me.ezra_home.retail_software_solution.locations.business.stock_revision
+package app.myliberty.easy_records.locations.business.stock_revision
 
-import me.ezra_home.retail_software_solution.locations.business.location_product.api.LocationProductDataFetcher
-import me.ezra_home.retail_software_solution.locations.business.location_product.api.LocationProductSummaryDto
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleDataFetcher
-import me.ezra_home.retail_software_solution.locations.business.stock.api.read.StockBalanceFetcher
-import me.ezra_home.retail_software_solution.locations.business.stock_reservation.api.ProductReservations
-import me.ezra_home.retail_software_solution.locations.business.stock_reservation.api.StockReserver
-import me.ezra_home.retail_software_solution.util.quantity.BreakdownUnit
-import me.ezra_home.retail_software_solution.util.quantity.ExactQuantity
-import me.ezra_home.retail_software_solution.util.quantity.QuantityBreakdown
+import app.myliberty.easy_records.locations.business.location_product.api.LocationProductDataFetcher
+import app.myliberty.easy_records.locations.business.location_product.api.LocationProductSummaryDto
+import app.myliberty.easy_records.locations.business.sale.api.SaleDataFetcher
+import app.myliberty.easy_records.locations.business.stock.api.read.StockBalanceFetcher
+import app.myliberty.easy_records.locations.business.stock_reservation.api.ProductReservations
+import app.myliberty.easy_records.locations.business.stock_reservation.api.StockReserver
+import app.myliberty.easy_records.util.quantity.BreakdownUnit
+import app.myliberty.easy_records.util.quantity.ExactQuantity
+import app.myliberty.easy_records.util.quantity.QuantityBreakdown
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Assertions.assertTrue

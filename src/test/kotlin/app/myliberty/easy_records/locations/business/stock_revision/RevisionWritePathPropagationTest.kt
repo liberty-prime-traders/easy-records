@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.locations.business.stock_revision
+package app.myliberty.easy_records.locations.business.stock_revision
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
-import me.ezra_home.retail_software_solution.locations.business.delivery.api.PurchaseDeliveryLineReplacer
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.delivery.PurchaseDeliveryRevisionApplier
-import me.ezra_home.retail_software_solution.locations.business.stock.api.revision.StockReplacementLayerRecorder
-import me.ezra_home.retail_software_solution.locations.business.stock.api.revision.StockRevisionCommitter
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.locations.business.delivery.api.PurchaseDeliveryLineReplacer
+import app.myliberty.easy_records.locations.business.purchase.api.delivery.PurchaseDeliveryRevisionApplier
+import app.myliberty.easy_records.locations.business.stock.api.revision.StockReplacementLayerRecorder
+import app.myliberty.easy_records.locations.business.stock.api.revision.StockRevisionCommitter
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.springframework.transaction.annotation.Propagation

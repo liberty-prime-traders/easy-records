@@ -1,9 +1,9 @@
-package me.ezra_home.retail_software_solution.locations.business.stock_adjustment.api
+package app.myliberty.easy_records.locations.business.stock_adjustment.api
 
-import me.ezra_home.retail_software_solution.locations.business.stock.api.StockAdjustmentCategory
-import me.ezra_home.retail_software_solution.locations.business.stock_adjustment.StockAdjustmentEntity
-import me.ezra_home.retail_software_solution.locations.business.stock_adjustment.StockAdjustmentRepository
-import me.ezra_home.retail_software_solution.organizations.business.account.api.SystemAccount
+import app.myliberty.easy_records.locations.business.stock.api.StockAdjustmentCategory
+import app.myliberty.easy_records.locations.business.stock_adjustment.StockAdjustmentEntity
+import app.myliberty.easy_records.locations.business.stock_adjustment.StockAdjustmentRepository
+import app.myliberty.easy_records.organizations.business.account.api.SystemAccount
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.mock

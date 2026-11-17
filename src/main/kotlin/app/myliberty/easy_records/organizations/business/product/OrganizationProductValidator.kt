@@ -1,9 +1,9 @@
-package me.ezra_home.retail_software_solution.organizations.business.product
+package app.myliberty.easy_records.organizations.business.product
 
-import me.ezra_home.retail_software_solution.organizations.business.product.api.OrganizationProductInsertDto
-import me.ezra_home.retail_software_solution.organizations.business.product.api.OrganizationProductUpdateDto
-import me.ezra_home.retail_software_solution.util.business.StringUtils
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.organizations.business.product.api.OrganizationProductInsertDto
+import app.myliberty.easy_records.organizations.business.product.api.OrganizationProductUpdateDto
+import app.myliberty.easy_records.util.business.StringUtils
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Component
 
 @Component

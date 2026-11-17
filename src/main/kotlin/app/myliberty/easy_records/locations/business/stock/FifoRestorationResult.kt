@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.locations.business.stock
+package app.myliberty.easy_records.locations.business.stock
 
 import java.math.BigDecimal
 

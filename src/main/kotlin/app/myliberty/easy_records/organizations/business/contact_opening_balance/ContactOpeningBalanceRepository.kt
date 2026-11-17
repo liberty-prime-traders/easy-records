@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.organizations.business.contact_opening_balance
+package app.myliberty.easy_records.organizations.business.contact_opening_balance
 
-import me.ezra_home.retail_software_solution.organizations.business.contact_opening_balance.api.ContactSubledgerDirection
+import app.myliberty.easy_records.organizations.business.contact_opening_balance.api.ContactSubledgerDirection
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository

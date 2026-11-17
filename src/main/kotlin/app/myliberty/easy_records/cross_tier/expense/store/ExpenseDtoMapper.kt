@@ -1,17 +1,17 @@
-package me.ezra_home.retail_software_solution.cross_tier.expense.store
+package app.myliberty.easy_records.cross_tier.expense.store
 
-import me.ezra_home.retail_software_solution.cross_tier.expense.entities.ExpenseBase
-import me.ezra_home.retail_software_solution.cross_tier.expense.entities.ExpenseBatchBase
-import me.ezra_home.retail_software_solution.cross_tier.expense.entities.ExpensePaymentBase
-import me.ezra_home.retail_software_solution.cross_tier.expense.entities.ExpensePaymentStateBase
-import me.ezra_home.retail_software_solution.cross_tier.expense.entities.ExpensePaymentVoidBase
-import me.ezra_home.retail_software_solution.cross_tier.expense.entities.ExpenseVoidBase
-import me.ezra_home.retail_software_solution.cross_tier.expense.model.ExpenseBatchDto
-import me.ezra_home.retail_software_solution.cross_tier.expense.model.ExpenseDto
-import me.ezra_home.retail_software_solution.cross_tier.expense.model.ExpensePaymentDto
-import me.ezra_home.retail_software_solution.cross_tier.expense.model.ExpensePaymentStateDto
-import me.ezra_home.retail_software_solution.cross_tier.expense.model.ExpensePaymentVoidDto
-import me.ezra_home.retail_software_solution.cross_tier.expense.model.ExpenseVoidDto
+import app.myliberty.easy_records.cross_tier.expense.entities.ExpenseBase
+import app.myliberty.easy_records.cross_tier.expense.entities.ExpenseBatchBase
+import app.myliberty.easy_records.cross_tier.expense.entities.ExpensePaymentBase
+import app.myliberty.easy_records.cross_tier.expense.entities.ExpensePaymentStateBase
+import app.myliberty.easy_records.cross_tier.expense.entities.ExpensePaymentVoidBase
+import app.myliberty.easy_records.cross_tier.expense.entities.ExpenseVoidBase
+import app.myliberty.easy_records.cross_tier.expense.model.ExpenseBatchDto
+import app.myliberty.easy_records.cross_tier.expense.model.ExpenseDto
+import app.myliberty.easy_records.cross_tier.expense.model.ExpensePaymentDto
+import app.myliberty.easy_records.cross_tier.expense.model.ExpensePaymentStateDto
+import app.myliberty.easy_records.cross_tier.expense.model.ExpensePaymentVoidDto
+import app.myliberty.easy_records.cross_tier.expense.model.ExpenseVoidDto
 
 object ExpenseDtoMapper {
 

@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.locations.business.sale_session
+package app.myliberty.easy_records.locations.business.sale_session
 
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleDataFetcher
-import me.ezra_home.retail_software_solution.locations.business.sale_adjustment.api.SaleAdjustmentFetcher
-import me.ezra_home.retail_software_solution.locations.business.sale_payment.api.SalePaymentFetcher
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSession
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionHeader
+import app.myliberty.easy_records.locations.business.sale.api.SaleDataFetcher
+import app.myliberty.easy_records.locations.business.sale_adjustment.api.SaleAdjustmentFetcher
+import app.myliberty.easy_records.locations.business.sale_payment.api.SalePaymentFetcher
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSession
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionHeader
 import org.springframework.stereotype.Component
 import java.util.UUID
 

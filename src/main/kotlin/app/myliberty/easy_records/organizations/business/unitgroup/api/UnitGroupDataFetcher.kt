@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.organizations.business.unitgroup.api
+package app.myliberty.easy_records.organizations.business.unitgroup.api
 
-import me.ezra_home.retail_software_solution.organizations.business.unitgroup.UnitGroupCache
+import app.myliberty.easy_records.organizations.business.unitgroup.UnitGroupCache
 import org.springframework.stereotype.Component
 import java.util.UUID
 

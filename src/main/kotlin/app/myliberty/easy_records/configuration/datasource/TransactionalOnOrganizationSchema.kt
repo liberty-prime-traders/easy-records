@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.configuration.datasource
+package app.myliberty.easy_records.configuration.datasource
 
 import org.springframework.core.annotation.AliasFor
 import org.springframework.transaction.annotation.Isolation

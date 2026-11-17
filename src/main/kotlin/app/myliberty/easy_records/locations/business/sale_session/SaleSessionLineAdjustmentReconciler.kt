@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.locations.business.sale_session
+package app.myliberty.easy_records.locations.business.sale_session
 
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionAdjustment
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionLine
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionLineUpdateDto
-import me.ezra_home.retail_software_solution.organizations.business.adjustment_reason.api.AdjustmentReasonService
-import me.ezra_home.retail_software_solution.organizations.business.adjustment_reason.api.SystemAdjustmentReason
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionAdjustment
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionLine
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionLineUpdateDto
+import app.myliberty.easy_records.organizations.business.adjustment_reason.api.AdjustmentReasonService
+import app.myliberty.easy_records.organizations.business.adjustment_reason.api.SystemAdjustmentReason
 import org.springframework.stereotype.Service
 import java.util.UUID
 

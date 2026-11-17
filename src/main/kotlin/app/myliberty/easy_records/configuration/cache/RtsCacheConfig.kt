@@ -1,12 +1,12 @@
-package me.ezra_home.retail_software_solution.configuration.cache
+package app.myliberty.easy_records.configuration.cache
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import me.ezra_home.retail_software_solution.configuration.datasource.DataSourceBeanNames
-import me.ezra_home.retail_software_solution.configuration.session.SessionContextProvider
-import me.ezra_home.retail_software_solution.configuration.util.typeadapters.HibernateProxyTypeAdapter
-import me.ezra_home.retail_software_solution.configuration.util.typeadapters.OffsetDateTimeAdapter
-import me.ezra_home.retail_software_solution.util.enums.SchemaLevel
+import app.myliberty.easy_records.configuration.datasource.DataSourceBeanNames
+import app.myliberty.easy_records.configuration.session.SessionContextProvider
+import app.myliberty.easy_records.configuration.util.typeadapters.HibernateProxyTypeAdapter
+import app.myliberty.easy_records.configuration.util.typeadapters.OffsetDateTimeAdapter
+import app.myliberty.easy_records.util.enums.SchemaLevel
 import org.springframework.cache.annotation.CachingConfigurer
 import org.springframework.cache.annotation.EnableCaching
 import org.springframework.cache.interceptor.KeyGenerator

@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.locations.business.purchase.api
+package app.myliberty.easy_records.locations.business.purchase.api
 
-import me.ezra_home.retail_software_solution.util.enums.HasCode
+import app.myliberty.easy_records.util.enums.HasCode
 
 enum class PurchaseStatus(override val code: String) : HasCode {
     DRAFT("DFT"),

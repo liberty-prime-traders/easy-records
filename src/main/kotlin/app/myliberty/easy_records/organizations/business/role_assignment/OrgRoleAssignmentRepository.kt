@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.organizations.business.role_assignment
+package app.myliberty.easy_records.organizations.business.role_assignment
 
-import me.ezra_home.retail_software_solution.util.enums.RtsRole
+import app.myliberty.easy_records.util.enums.RtsRole
 import org.springframework.data.jpa.repository.JpaRepository
 import java.util.UUID
 

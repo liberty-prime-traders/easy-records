@@ -1,9 +1,9 @@
-package me.ezra_home.retail_software_solution.locations.business.sale_session.consolidation.line_merge
+package app.myliberty.easy_records.locations.business.sale_session.consolidation.line_merge
 
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionAdjustment
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionLine
-import me.ezra_home.retail_software_solution.organizations.business.unitconversion.api.UnitConversionGraph
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionAdjustment
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionLine
+import app.myliberty.easy_records.organizations.business.unitconversion.api.UnitConversionGraph
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import java.util.UUID
 
 object SaleLineMerger {

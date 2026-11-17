@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.organizations.rest.endpoints
+package app.myliberty.easy_records.organizations.rest.endpoints
 
-import me.ezra_home.retail_software_solution.organizations.business.opening_balance.api.OpeningBalanceRevisionDto
-import me.ezra_home.retail_software_solution.organizations.business.opening_balance.api.OpeningBalanceService
-import me.ezra_home.retail_software_solution.organizations.business.opening_balance.api.OpeningBalanceUpsertDto
-import me.ezra_home.retail_software_solution.platform.business.feature.api.Feature
-import me.ezra_home.retail_software_solution.util.annotations.RequiresFeature
+import app.myliberty.easy_records.organizations.business.opening_balance.api.OpeningBalanceRevisionDto
+import app.myliberty.easy_records.organizations.business.opening_balance.api.OpeningBalanceService
+import app.myliberty.easy_records.organizations.business.opening_balance.api.OpeningBalanceUpsertDto
+import app.myliberty.easy_records.platform.business.feature.api.Feature
+import app.myliberty.easy_records.util.annotations.RequiresFeature
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody

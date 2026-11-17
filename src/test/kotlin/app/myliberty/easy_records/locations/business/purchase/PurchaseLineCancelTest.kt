@@ -1,11 +1,11 @@
-package me.ezra_home.retail_software_solution.locations.business.purchase
+package app.myliberty.easy_records.locations.business.purchase
 
-import me.ezra_home.retail_software_solution.support.WithDefaultOrganizationSession
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
-import me.ezra_home.retail_software_solution.util.quantity.BreakdownUnit
-import me.ezra_home.retail_software_solution.util.quantity.ExactQuantity
-import me.ezra_home.retail_software_solution.util.quantity.PositiveUserProvidedQuantity
-import me.ezra_home.retail_software_solution.util.quantity.QuantityBreakdown
+import app.myliberty.easy_records.support.WithDefaultOrganizationSession
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.quantity.BreakdownUnit
+import app.myliberty.easy_records.util.quantity.ExactQuantity
+import app.myliberty.easy_records.util.quantity.PositiveUserProvidedQuantity
+import app.myliberty.easy_records.util.quantity.QuantityBreakdown
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertThrows

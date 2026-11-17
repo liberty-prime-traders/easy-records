@@ -1,13 +1,13 @@
-package me.ezra_home.retail_software_solution.locations.business.delivery
+package app.myliberty.easy_records.locations.business.delivery
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
-import me.ezra_home.retail_software_solution.locations.business.location_product.api.LastPurchaseCostUpdateDto
-import me.ezra_home.retail_software_solution.locations.business.location_product.api.LocationProductService
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.delivery.PurchaseDeliveryStatus
-import me.ezra_home.retail_software_solution.locations.business.stock.api.updater.PurchaseDeliveryStockUpdater
-import me.ezra_home.retail_software_solution.messaging.kafka.transaction.events.PurchaseDeliveredEvent
-import me.ezra_home.retail_software_solution.messaging.kafka.transaction.processors.InventoryEventProcessor
-import me.ezra_home.retail_software_solution.util.exceptions.UpdatingNonExistingRecordException
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.locations.business.location_product.api.LastPurchaseCostUpdateDto
+import app.myliberty.easy_records.locations.business.location_product.api.LocationProductService
+import app.myliberty.easy_records.locations.business.purchase.api.delivery.PurchaseDeliveryStatus
+import app.myliberty.easy_records.locations.business.stock.api.updater.PurchaseDeliveryStockUpdater
+import app.myliberty.easy_records.messaging.kafka.transaction.events.PurchaseDeliveredEvent
+import app.myliberty.easy_records.messaging.kafka.transaction.processors.InventoryEventProcessor
+import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import kotlin.reflect.KClass

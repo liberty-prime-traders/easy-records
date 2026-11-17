@@ -1,14 +1,14 @@
-package me.ezra_home.retail_software_solution.messaging.kafka.transaction.consumers
+package app.myliberty.easy_records.messaging.kafka.transaction.consumers
 
-import me.ezra_home.retail_software_solution.configuration.session.ServiceAccountContext
-import me.ezra_home.retail_software_solution.organizations.business.kafka_log.api.DltPublisher
-import me.ezra_home.retail_software_solution.organizations.business.kafka_log.api.EventProcessingLogService
-import me.ezra_home.retail_software_solution.messaging.kafka.common.EventSessionSetup
-import me.ezra_home.retail_software_solution.messaging.kafka.notifications.ConsumerFailureEvent
-import me.ezra_home.retail_software_solution.messaging.kafka.notifications.NotificationEventProducer
-import me.ezra_home.retail_software_solution.messaging.kafka.transaction.events.TransactionEvent
-import me.ezra_home.retail_software_solution.messaging.kafka.transaction.processors.TransactionEventProcessor
-import me.ezra_home.retail_software_solution.util.enums.ServiceAccount
+import app.myliberty.easy_records.configuration.session.ServiceAccountContext
+import app.myliberty.easy_records.organizations.business.kafka_log.api.DltPublisher
+import app.myliberty.easy_records.organizations.business.kafka_log.api.EventProcessingLogService
+import app.myliberty.easy_records.messaging.kafka.common.EventSessionSetup
+import app.myliberty.easy_records.messaging.kafka.notifications.ConsumerFailureEvent
+import app.myliberty.easy_records.messaging.kafka.notifications.NotificationEventProducer
+import app.myliberty.easy_records.messaging.kafka.transaction.events.TransactionEvent
+import app.myliberty.easy_records.messaging.kafka.transaction.processors.TransactionEventProcessor
+import app.myliberty.easy_records.util.enums.ServiceAccount
 import org.hibernate.exception.ConstraintViolationException
 import org.slf4j.LoggerFactory
 import org.springframework.dao.DataIntegrityViolationException

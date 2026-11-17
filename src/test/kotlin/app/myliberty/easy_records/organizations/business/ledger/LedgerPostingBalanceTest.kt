@@ -1,31 +1,31 @@
-package me.ezra_home.retail_software_solution.organizations.business.ledger
+package app.myliberty.easy_records.organizations.business.ledger
 
-import me.ezra_home.retail_software_solution.configuration.session.LocationSession
-import me.ezra_home.retail_software_solution.configuration.session.OrgSession
-import me.ezra_home.retail_software_solution.configuration.session.SessionContext
-import me.ezra_home.retail_software_solution.configuration.session.SessionContextProvider
-import me.ezra_home.retail_software_solution.messaging.kafka.common.EventSourceContext
-import me.ezra_home.retail_software_solution.messaging.kafka.transaction.events.SaleConfirmedEvent
-import me.ezra_home.retail_software_solution.messaging.kafka.transaction.events.SalePaymentLineDto
-import me.ezra_home.retail_software_solution.messaging.kafka.transaction.events.SalePaymentRecordedEvent
-import me.ezra_home.retail_software_solution.messaging.kafka.transaction.events.SalePaymentVoidedEvent
-import me.ezra_home.retail_software_solution.messaging.kafka.transaction.events.SaleVoidedEvent
-import me.ezra_home.retail_software_solution.organizations.business.account.api.RecordingAccountService
-import me.ezra_home.retail_software_solution.organizations.business.account.api.SystemAccount
-import me.ezra_home.retail_software_solution.organizations.business.contact.api.ContactDto
-import me.ezra_home.retail_software_solution.organizations.business.contact.api.ContactService
-import me.ezra_home.retail_software_solution.organizations.business.account.api.AccountPosting
-import me.ezra_home.retail_software_solution.organizations.business.ledger.api.LedgerPostingRequest
-import me.ezra_home.retail_software_solution.organizations.business.ledger.api.LedgerPostingService
-import me.ezra_home.retail_software_solution.organizations.business.ledger.helpers.LedgerPostingGate
-import me.ezra_home.retail_software_solution.organizations.business.ledger.processors.SaleConfirmedEventProcessor
-import me.ezra_home.retail_software_solution.organizations.business.ledger.processors.SalePaymentRecordedEventProcessor
-import me.ezra_home.retail_software_solution.organizations.business.ledger.processors.SalePaymentVoidedEventProcessor
-import me.ezra_home.retail_software_solution.organizations.business.ledger.helpers.SaleTaxLedgerEntriesBuilder
-import me.ezra_home.retail_software_solution.organizations.business.ledger.processors.SaleVoidedEventProcessor
-import me.ezra_home.retail_software_solution.util.business.Money
-import me.ezra_home.retail_software_solution.util.business.PositiveMoney
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.configuration.session.LocationSession
+import app.myliberty.easy_records.configuration.session.OrgSession
+import app.myliberty.easy_records.configuration.session.SessionContext
+import app.myliberty.easy_records.configuration.session.SessionContextProvider
+import app.myliberty.easy_records.messaging.kafka.common.EventSourceContext
+import app.myliberty.easy_records.messaging.kafka.transaction.events.SaleConfirmedEvent
+import app.myliberty.easy_records.messaging.kafka.transaction.events.SalePaymentLineDto
+import app.myliberty.easy_records.messaging.kafka.transaction.events.SalePaymentRecordedEvent
+import app.myliberty.easy_records.messaging.kafka.transaction.events.SalePaymentVoidedEvent
+import app.myliberty.easy_records.messaging.kafka.transaction.events.SaleVoidedEvent
+import app.myliberty.easy_records.organizations.business.account.api.RecordingAccountService
+import app.myliberty.easy_records.organizations.business.account.api.SystemAccount
+import app.myliberty.easy_records.organizations.business.contact.api.ContactDto
+import app.myliberty.easy_records.organizations.business.contact.api.ContactService
+import app.myliberty.easy_records.organizations.business.account.api.AccountPosting
+import app.myliberty.easy_records.organizations.business.ledger.api.LedgerPostingRequest
+import app.myliberty.easy_records.organizations.business.ledger.api.LedgerPostingService
+import app.myliberty.easy_records.organizations.business.ledger.helpers.LedgerPostingGate
+import app.myliberty.easy_records.organizations.business.ledger.processors.SaleConfirmedEventProcessor
+import app.myliberty.easy_records.organizations.business.ledger.processors.SalePaymentRecordedEventProcessor
+import app.myliberty.easy_records.organizations.business.ledger.processors.SalePaymentVoidedEventProcessor
+import app.myliberty.easy_records.organizations.business.ledger.helpers.SaleTaxLedgerEntriesBuilder
+import app.myliberty.easy_records.organizations.business.ledger.processors.SaleVoidedEventProcessor
+import app.myliberty.easy_records.util.business.Money
+import app.myliberty.easy_records.util.business.PositiveMoney
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertThrows
@@ -40,7 +40,7 @@ import java.time.Instant
 import java.time.LocalDate
 import java.time.OffsetDateTime
 import java.util.UUID
-import me.ezra_home.retail_software_solution.organizations.business.ledger.api.LedgerSourceType
+import app.myliberty.easy_records.organizations.business.ledger.api.LedgerSourceType
 
 /**
  * Runs real processor output through the real AccountService.patchBalances and asserts each

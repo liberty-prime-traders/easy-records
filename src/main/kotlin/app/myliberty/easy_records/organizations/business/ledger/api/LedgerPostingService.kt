@@ -1,20 +1,20 @@
-package me.ezra_home.retail_software_solution.organizations.business.ledger.api
+package app.myliberty.easy_records.organizations.business.ledger.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnOrganizationSchema
-import me.ezra_home.retail_software_solution.configuration.session.SessionContextProvider
-import me.ezra_home.retail_software_solution.organizations.business.account.api.AccountPosting
-import me.ezra_home.retail_software_solution.organizations.business.account.api.AccountService
-import me.ezra_home.retail_software_solution.organizations.business.fiscal_period.api.FiscalPeriodService
-import me.ezra_home.retail_software_solution.organizations.business.ledger.LedgerEntriesValidator
-import me.ezra_home.retail_software_solution.organizations.business.ledger.LedgerEntryEntity
-import me.ezra_home.retail_software_solution.organizations.business.ledger.LedgerEntryGroupEntity
-import me.ezra_home.retail_software_solution.organizations.business.ledger.LedgerEntryGroupRepository
-import me.ezra_home.retail_software_solution.organizations.business.ledger.LedgerEntryRepository
-import me.ezra_home.retail_software_solution.organizations.business.ledger.SubledgerBalanceRepository
-import me.ezra_home.retail_software_solution.organizations.business.ledger.SubledgerEntryEntity
-import me.ezra_home.retail_software_solution.organizations.business.ledger.SubledgerEntryRepository
-import me.ezra_home.retail_software_solution.util.business.DateTimes
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.configuration.session.SessionContextProvider
+import app.myliberty.easy_records.organizations.business.account.api.AccountPosting
+import app.myliberty.easy_records.organizations.business.account.api.AccountService
+import app.myliberty.easy_records.organizations.business.fiscal_period.api.FiscalPeriodService
+import app.myliberty.easy_records.organizations.business.ledger.LedgerEntriesValidator
+import app.myliberty.easy_records.organizations.business.ledger.LedgerEntryEntity
+import app.myliberty.easy_records.organizations.business.ledger.LedgerEntryGroupEntity
+import app.myliberty.easy_records.organizations.business.ledger.LedgerEntryGroupRepository
+import app.myliberty.easy_records.organizations.business.ledger.LedgerEntryRepository
+import app.myliberty.easy_records.organizations.business.ledger.SubledgerBalanceRepository
+import app.myliberty.easy_records.organizations.business.ledger.SubledgerEntryEntity
+import app.myliberty.easy_records.organizations.business.ledger.SubledgerEntryRepository
+import app.myliberty.easy_records.util.business.DateTimes
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Service
 
 @Service

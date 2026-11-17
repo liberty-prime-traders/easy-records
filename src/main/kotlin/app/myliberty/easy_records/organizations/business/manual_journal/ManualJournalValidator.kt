@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.organizations.business.manual_journal
+package app.myliberty.easy_records.organizations.business.manual_journal
 
-import me.ezra_home.retail_software_solution.organizations.business.account.api.AccountSelectionCandidate
-import me.ezra_home.retail_software_solution.organizations.business.account.api.EntryType
-import me.ezra_home.retail_software_solution.organizations.business.account_selection.api.AccountSelectionRule
-import me.ezra_home.retail_software_solution.organizations.business.manual_journal.api.ManualJournalLineCreateDto
-import me.ezra_home.retail_software_solution.util.business.StringUtils
+import app.myliberty.easy_records.organizations.business.account.api.AccountSelectionCandidate
+import app.myliberty.easy_records.organizations.business.account.api.EntryType
+import app.myliberty.easy_records.organizations.business.account_selection.api.AccountSelectionRule
+import app.myliberty.easy_records.organizations.business.manual_journal.api.ManualJournalLineCreateDto
+import app.myliberty.easy_records.util.business.StringUtils
 import java.math.BigDecimal
 
 object ManualJournalValidator {

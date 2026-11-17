@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.locations.business.product_sales_report
+package app.myliberty.easy_records.locations.business.product_sales_report
 
 import com.github.benmanes.caffeine.cache.Ticker
-import me.ezra_home.retail_software_solution.configuration.session.LocationSession
-import me.ezra_home.retail_software_solution.configuration.session.OrgSession
-import me.ezra_home.retail_software_solution.configuration.session.SessionContext
-import me.ezra_home.retail_software_solution.configuration.session.SessionContextProvider
+import app.myliberty.easy_records.configuration.session.LocationSession
+import app.myliberty.easy_records.configuration.session.OrgSession
+import app.myliberty.easy_records.configuration.session.SessionContext
+import app.myliberty.easy_records.configuration.session.SessionContextProvider
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotSame

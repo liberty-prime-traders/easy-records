@@ -1,11 +1,11 @@
-package me.ezra_home.retail_software_solution.organizations.business.contact
+package app.myliberty.easy_records.organizations.business.contact
 
-import me.ezra_home.retail_software_solution.support.WithDefaultOrganizationSession
-import me.ezra_home.retail_software_solution.organizations.business.contact.api.ContactInsertDto
-import me.ezra_home.retail_software_solution.organizations.business.contact.api.IdentityType
-import me.ezra_home.retail_software_solution.util.business.Money
-import me.ezra_home.retail_software_solution.util.business.mappers.MoneyQualifier
-import me.ezra_home.retail_software_solution.util.business.mappers.StringQualifier
+import app.myliberty.easy_records.support.WithDefaultOrganizationSession
+import app.myliberty.easy_records.organizations.business.contact.api.ContactInsertDto
+import app.myliberty.easy_records.organizations.business.contact.api.IdentityType
+import app.myliberty.easy_records.util.business.Money
+import app.myliberty.easy_records.util.business.mappers.MoneyQualifier
+import app.myliberty.easy_records.util.business.mappers.StringQualifier
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import java.math.BigDecimal

@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.organizations.business.manual_journal.api
+package app.myliberty.easy_records.organizations.business.manual_journal.api
 
-import me.ezra_home.retail_software_solution.organizations.business.account.api.AccountType
-import me.ezra_home.retail_software_solution.organizations.business.account.api.EntryType
+import app.myliberty.easy_records.organizations.business.account.api.AccountType
+import app.myliberty.easy_records.organizations.business.account.api.EntryType
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.OffsetDateTime

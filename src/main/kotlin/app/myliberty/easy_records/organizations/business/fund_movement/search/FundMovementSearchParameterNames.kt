@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.organizations.business.fund_movement.search
+package app.myliberty.easy_records.organizations.business.fund_movement.search
 
 object FundMovementSearchParameterNames {
     const val CREATED_FROM = "createdFrom"

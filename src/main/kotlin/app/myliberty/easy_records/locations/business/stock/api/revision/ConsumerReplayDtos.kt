@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.locations.business.stock.api.revision
+package app.myliberty.easy_records.locations.business.stock.api.revision
 
-import me.ezra_home.retail_software_solution.locations.business.stock.api.fifo.FifoConsumptionRequest
-import me.ezra_home.retail_software_solution.locations.business.stock.api.fifo.PlannedTake
+import app.myliberty.easy_records.locations.business.stock.api.fifo.FifoConsumptionRequest
+import app.myliberty.easy_records.locations.business.stock.api.fifo.PlannedTake
 import java.math.BigDecimal
 
 

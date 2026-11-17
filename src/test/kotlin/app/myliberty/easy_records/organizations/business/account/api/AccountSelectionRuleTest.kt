@@ -1,9 +1,9 @@
-package me.ezra_home.retail_software_solution.organizations.business.account.api
+package app.myliberty.easy_records.organizations.business.account.api
 
-import me.ezra_home.retail_software_solution.organizations.business.account.AccountDto
-import me.ezra_home.retail_software_solution.organizations.business.account_selection.api.AccountSelectionRule
-import me.ezra_home.retail_software_solution.organizations.business.account_selection.api.AccountSelectionService
-import me.ezra_home.retail_software_solution.util.ui_models.TreeNode
+import app.myliberty.easy_records.organizations.business.account.AccountDto
+import app.myliberty.easy_records.organizations.business.account_selection.api.AccountSelectionRule
+import app.myliberty.easy_records.organizations.business.account_selection.api.AccountSelectionService
+import app.myliberty.easy_records.util.ui_models.TreeNode
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito

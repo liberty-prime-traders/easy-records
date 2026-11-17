@@ -1,9 +1,9 @@
-package me.ezra_home.retail_software_solution.locations.business.sale_payment.api
+package app.myliberty.easy_records.locations.business.sale_payment.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
-import me.ezra_home.retail_software_solution.locations.business.sale_payment.ActiveSalePaymentRepository
-import me.ezra_home.retail_software_solution.locations.business.sale_payment.SalePaymentRepository
-import me.ezra_home.retail_software_solution.locations.business.sale_payment.SalePaymentVoidRepository
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.locations.business.sale_payment.ActiveSalePaymentRepository
+import app.myliberty.easy_records.locations.business.sale_payment.SalePaymentRepository
+import app.myliberty.easy_records.locations.business.sale_payment.SalePaymentVoidRepository
 import org.springframework.stereotype.Component
 import java.math.BigDecimal
 import java.time.OffsetDateTime

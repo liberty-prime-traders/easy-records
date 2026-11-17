@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.organizations.business.opening_balance.api
+package app.myliberty.easy_records.organizations.business.opening_balance.api
 
-import me.ezra_home.retail_software_solution.util.business.Money
+import app.myliberty.easy_records.util.business.Money
 
 data class OpeningBalanceUpsertDto(
     val accountCode: String,

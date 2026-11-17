@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.platform.business.db_version
+package app.myliberty.easy_records.platform.business.db_version
 
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query

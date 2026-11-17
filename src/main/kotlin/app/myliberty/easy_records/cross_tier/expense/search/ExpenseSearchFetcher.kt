@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.cross_tier.expense.search
+package app.myliberty.easy_records.cross_tier.expense.search
 
 import jakarta.persistence.Tuple
-import me.ezra_home.retail_software_solution.util.queries.KeysetSearchCursor
-import me.ezra_home.retail_software_solution.util.queries.SqlSearchExecutor
+import app.myliberty.easy_records.util.queries.KeysetSearchCursor
+import app.myliberty.easy_records.util.queries.SqlSearchExecutor
 
 class ExpenseSearchFetcher(
     private val sqlSearchExecutor: SqlSearchExecutor<Tuple, Tuple>,

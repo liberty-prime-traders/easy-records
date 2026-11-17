@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.organizations.business.location
+package app.myliberty.easy_records.organizations.business.location
 
-import me.ezra_home.retail_software_solution.configuration.datasource.DataSourceBeanNames
-import me.ezra_home.retail_software_solution.util.business.SchemaCreator
+import app.myliberty.easy_records.configuration.datasource.DataSourceBeanNames
+import app.myliberty.easy_records.util.business.SchemaCreator
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service

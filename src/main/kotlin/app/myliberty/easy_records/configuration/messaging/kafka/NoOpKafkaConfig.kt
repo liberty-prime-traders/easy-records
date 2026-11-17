@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.configuration.messaging.kafka
+package app.myliberty.easy_records.configuration.messaging.kafka
 
 import org.apache.kafka.clients.consumer.ConsumerGroupMetadata
 import org.apache.kafka.clients.consumer.OffsetAndMetadata

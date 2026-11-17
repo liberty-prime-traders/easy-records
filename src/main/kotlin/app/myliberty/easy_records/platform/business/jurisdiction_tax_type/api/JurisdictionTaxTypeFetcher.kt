@@ -1,14 +1,14 @@
-package me.ezra_home.retail_software_solution.platform.business.jurisdiction_tax_type.api
+package app.myliberty.easy_records.platform.business.jurisdiction_tax_type.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnPlatformSchema
-import me.ezra_home.retail_software_solution.platform.business.jurisdiction.api.JurisdictionFetcher
-import me.ezra_home.retail_software_solution.platform.business.jurisdiction_tax_type.JurisdictionTaxTypeCache
-import me.ezra_home.retail_software_solution.platform.business.tax_type.api.TaxCalculationMethod
-import me.ezra_home.retail_software_solution.platform.business.tax_type.api.PlatformTaxTypeDto
-import me.ezra_home.retail_software_solution.platform.business.tax_type.api.TaxApplicationLevel
-import me.ezra_home.retail_software_solution.platform.business.tax_type.api.TaxTypeDto
-import me.ezra_home.retail_software_solution.platform.business.tax_type.api.TaxTypeFetcher
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnPlatformSchema
+import app.myliberty.easy_records.platform.business.jurisdiction.api.JurisdictionFetcher
+import app.myliberty.easy_records.platform.business.jurisdiction_tax_type.JurisdictionTaxTypeCache
+import app.myliberty.easy_records.platform.business.tax_type.api.TaxCalculationMethod
+import app.myliberty.easy_records.platform.business.tax_type.api.PlatformTaxTypeDto
+import app.myliberty.easy_records.platform.business.tax_type.api.TaxApplicationLevel
+import app.myliberty.easy_records.platform.business.tax_type.api.TaxTypeDto
+import app.myliberty.easy_records.platform.business.tax_type.api.TaxTypeFetcher
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Service
 import java.util.UUID
 

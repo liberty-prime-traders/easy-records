@@ -1,12 +1,12 @@
-package me.ezra_home.retail_software_solution.cross_tier.expense.entities
+package app.myliberty.easy_records.cross_tier.expense.entities
 
 import jakarta.persistence.Column
 import jakarta.persistence.Convert
 import jakarta.persistence.MappedSuperclass
 import jakarta.persistence.Version
-import me.ezra_home.retail_software_solution.util.enums.PaymentStatus
-import me.ezra_home.retail_software_solution.util.enums.PaymentStatusConverter
-import me.ezra_home.retail_software_solution.util.model.HasCreatorEntity
+import app.myliberty.easy_records.util.enums.PaymentStatus
+import app.myliberty.easy_records.util.enums.PaymentStatusConverter
+import app.myliberty.easy_records.util.model.HasCreatorEntity
 import java.math.BigDecimal
 import java.util.UUID
 

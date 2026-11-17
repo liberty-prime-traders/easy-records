@@ -1,5 +1,5 @@
-package me.ezra_home.retail_software_solution.messaging.kafka.transaction.processors
+package app.myliberty.easy_records.messaging.kafka.transaction.processors
 
-import me.ezra_home.retail_software_solution.messaging.kafka.transaction.events.TransactionEvent
+import app.myliberty.easy_records.messaging.kafka.transaction.events.TransactionEvent
 
 interface InventoryEventProcessor<EVENT: TransactionEvent> : TransactionEventProcessor<EVENT>

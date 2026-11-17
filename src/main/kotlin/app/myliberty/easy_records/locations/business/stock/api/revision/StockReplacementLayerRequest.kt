@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.locations.business.stock.api.revision
+package app.myliberty.easy_records.locations.business.stock.api.revision
 
-import me.ezra_home.retail_software_solution.organizations.business.stock_item_source.api.StockItemSource
-import me.ezra_home.retail_software_solution.organizations.business.stock_movement_reason.api.MovementType
+import app.myliberty.easy_records.organizations.business.stock_item_source.api.StockItemSource
+import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.MovementType
 import java.math.BigDecimal
 import java.util.UUID
 

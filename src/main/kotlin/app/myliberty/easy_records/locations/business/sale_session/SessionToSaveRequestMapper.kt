@@ -1,14 +1,14 @@
-package me.ezra_home.retail_software_solution.locations.business.sale_session
+package app.myliberty.easy_records.locations.business.sale_session
 
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleAdjustmentSaveRequest
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleLineSaveRequest
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SalePaymentSaveRequest
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleSaveRequest
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSession
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionAdjustment
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionLine
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionPayment
-import me.ezra_home.retail_software_solution.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.locations.business.sale.api.SaleAdjustmentSaveRequest
+import app.myliberty.easy_records.locations.business.sale.api.SaleLineSaveRequest
+import app.myliberty.easy_records.locations.business.sale.api.SalePaymentSaveRequest
+import app.myliberty.easy_records.locations.business.sale.api.SaleSaveRequest
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSession
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionAdjustment
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionLine
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionPayment
+import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 

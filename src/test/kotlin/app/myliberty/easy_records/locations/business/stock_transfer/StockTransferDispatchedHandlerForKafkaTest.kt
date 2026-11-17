@@ -1,15 +1,15 @@
-package me.ezra_home.retail_software_solution.locations.business.stock_transfer
+package app.myliberty.easy_records.locations.business.stock_transfer
 
-import me.ezra_home.retail_software_solution.configuration.session.LocationSession
-import me.ezra_home.retail_software_solution.configuration.session.OrgSession
-import me.ezra_home.retail_software_solution.configuration.session.SessionContext
-import me.ezra_home.retail_software_solution.configuration.session.SessionContextProvider
-import me.ezra_home.retail_software_solution.messaging.kafka.transaction.events.StockTransferDispatchedEvent
-import me.ezra_home.retail_software_solution.organizations.business.location.api.LocationService
-import me.ezra_home.retail_software_solution.organizations.business.stock_transfer.api.StockTransferOrderDataFetcher
-import me.ezra_home.retail_software_solution.organizations.business.stock_transfer.api.StockTransferOrderDomainDto
-import me.ezra_home.retail_software_solution.organizations.business.stock_transfer.api.StockTransferStatus
-import me.ezra_home.retail_software_solution.util.business.Money
+import app.myliberty.easy_records.configuration.session.LocationSession
+import app.myliberty.easy_records.configuration.session.OrgSession
+import app.myliberty.easy_records.configuration.session.SessionContext
+import app.myliberty.easy_records.configuration.session.SessionContextProvider
+import app.myliberty.easy_records.messaging.kafka.transaction.events.StockTransferDispatchedEvent
+import app.myliberty.easy_records.organizations.business.location.api.LocationService
+import app.myliberty.easy_records.organizations.business.stock_transfer.api.StockTransferOrderDataFetcher
+import app.myliberty.easy_records.organizations.business.stock_transfer.api.StockTransferOrderDomainDto
+import app.myliberty.easy_records.organizations.business.stock_transfer.api.StockTransferStatus
+import app.myliberty.easy_records.util.business.Money
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach

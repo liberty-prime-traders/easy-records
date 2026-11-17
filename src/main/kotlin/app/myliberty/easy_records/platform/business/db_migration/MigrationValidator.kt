@@ -1,12 +1,12 @@
-package me.ezra_home.retail_software_solution.platform.business.db_migration
+package app.myliberty.easy_records.platform.business.db_migration
 
-import me.ezra_home.retail_software_solution.platform.business.db_migration.api.DbMigrationRequestDto
-import me.ezra_home.retail_software_solution.platform.business.db_migration.api.DbMigrationRetryRequestDto
-import me.ezra_home.retail_software_solution.platform.business.db_migration.api.MigrationStatus
-import me.ezra_home.retail_software_solution.platform.business.db_version.api.DbVersionDto
-import me.ezra_home.retail_software_solution.platform.business.db_version.api.DbVersionService
-import me.ezra_home.retail_software_solution.util.enums.SchemaOwnerType
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.platform.business.db_migration.api.DbMigrationRequestDto
+import app.myliberty.easy_records.platform.business.db_migration.api.DbMigrationRetryRequestDto
+import app.myliberty.easy_records.platform.business.db_migration.api.MigrationStatus
+import app.myliberty.easy_records.platform.business.db_version.api.DbVersionDto
+import app.myliberty.easy_records.platform.business.db_version.api.DbVersionService
+import app.myliberty.easy_records.util.enums.SchemaOwnerType
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Component
 import java.util.UUID
 

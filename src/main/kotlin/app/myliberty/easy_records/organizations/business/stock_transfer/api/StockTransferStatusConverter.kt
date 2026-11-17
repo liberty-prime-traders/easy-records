@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.organizations.business.stock_transfer.api
+package app.myliberty.easy_records.organizations.business.stock_transfer.api
 
 import jakarta.persistence.Converter
-import me.ezra_home.retail_software_solution.util.enums.EnumConverter
+import app.myliberty.easy_records.util.enums.EnumConverter
 
 @Converter(autoApply = true)
 class StockTransferStatusConverter : EnumConverter<StockTransferStatus>(StockTransferStatus::class.java)

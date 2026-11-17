@@ -1,12 +1,12 @@
-package me.ezra_home.retail_software_solution.cucumber.steps.platform
+package app.myliberty.easy_records.cucumber.steps.platform
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.cucumber.java.en.Then
-import me.ezra_home.retail_software_solution.cucumber.support.KafkaConsumerTestSupport
-import me.ezra_home.retail_software_solution.cucumber.support.context.KafkaContext
-import me.ezra_home.retail_software_solution.cucumber.support.context.ResponseContext
-import me.ezra_home.retail_software_solution.support.TestConstants
+import app.myliberty.easy_records.cucumber.support.KafkaConsumerTestSupport
+import app.myliberty.easy_records.cucumber.support.context.KafkaContext
+import app.myliberty.easy_records.cucumber.support.context.ResponseContext
+import app.myliberty.easy_records.support.TestConstants
 import org.awaitility.Awaitility.await
 import java.time.Duration
 import kotlin.test.assertEquals

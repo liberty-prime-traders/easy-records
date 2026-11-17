@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.organizations.business.product.api
+package app.myliberty.easy_records.organizations.business.product.api
 
-import me.ezra_home.retail_software_solution.util.enums.HasCode
+import app.myliberty.easy_records.util.enums.HasCode
 
 enum class ProductStatus(override val code: String) : HasCode {
     ACTIVE("A"),

@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.cross_tier.expense.search
+package app.myliberty.easy_records.cross_tier.expense.search
 
-import me.ezra_home.retail_software_solution.cross_tier.expense.response.ExpenseResponseBuilder
-import me.ezra_home.retail_software_solution.cross_tier.expense.store.ExpenseStore
-import me.ezra_home.retail_software_solution.organizations.business.expense_type.api.ExpenseTypeService
+import app.myliberty.easy_records.cross_tier.expense.response.ExpenseResponseBuilder
+import app.myliberty.easy_records.cross_tier.expense.store.ExpenseStore
+import app.myliberty.easy_records.organizations.business.expense_type.api.ExpenseTypeService
 import org.springframework.stereotype.Component
 
 @Component

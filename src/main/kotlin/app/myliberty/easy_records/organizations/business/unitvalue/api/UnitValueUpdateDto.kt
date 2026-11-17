@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.organizations.business.unitvalue.api
+package app.myliberty.easy_records.organizations.business.unitvalue.api
 
-import me.ezra_home.retail_software_solution.organizations.business.unitvalue.UnitValueDto
+import app.myliberty.easy_records.organizations.business.unitvalue.UnitValueDto
 import java.io.Serializable
 import java.util.Optional
 import java.util.UUID

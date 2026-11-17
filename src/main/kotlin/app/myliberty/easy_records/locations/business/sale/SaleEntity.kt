@@ -1,18 +1,18 @@
-package me.ezra_home.retail_software_solution.locations.business.sale
+package app.myliberty.easy_records.locations.business.sale
 
 import jakarta.persistence.Column
 import jakarta.persistence.Convert
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
 import jakarta.persistence.Version
-import me.ezra_home.retail_software_solution.util.enums.PaymentStatusConverter
-import me.ezra_home.retail_software_solution.util.enums.PaymentStatus
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleStatus
-import me.ezra_home.retail_software_solution.util.annotations.HasReference
-import me.ezra_home.retail_software_solution.util.model.ColumnNames
-import me.ezra_home.retail_software_solution.util.model.HasReferenceEntity
-import me.ezra_home.retail_software_solution.util.model.TableName
-import me.ezra_home.retail_software_solution.util.model.TableNames
+import app.myliberty.easy_records.util.enums.PaymentStatusConverter
+import app.myliberty.easy_records.util.enums.PaymentStatus
+import app.myliberty.easy_records.locations.business.sale.api.SaleStatus
+import app.myliberty.easy_records.util.annotations.HasReference
+import app.myliberty.easy_records.util.model.ColumnNames
+import app.myliberty.easy_records.util.model.HasReferenceEntity
+import app.myliberty.easy_records.util.model.TableName
+import app.myliberty.easy_records.util.model.TableNames
 import org.hibernate.envers.Audited
 import java.math.BigDecimal
 import java.time.OffsetDateTime

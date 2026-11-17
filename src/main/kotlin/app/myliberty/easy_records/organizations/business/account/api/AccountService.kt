@@ -1,15 +1,15 @@
-package me.ezra_home.retail_software_solution.organizations.business.account.api
+package app.myliberty.easy_records.organizations.business.account.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnOrganizationSchema
-import me.ezra_home.retail_software_solution.organizations.business.account.AccountCache
-import me.ezra_home.retail_software_solution.organizations.business.account.AccountAssertions
-import me.ezra_home.retail_software_solution.organizations.business.account.AccountCodeGenerator
-import me.ezra_home.retail_software_solution.organizations.business.account.AccountDto
-import me.ezra_home.retail_software_solution.organizations.business.account.AccountRepository
-import me.ezra_home.retail_software_solution.organizations.business.account.AccountResponseBuilder
-import me.ezra_home.retail_software_solution.organizations.business.account.ChildAccountCreator
-import me.ezra_home.retail_software_solution.util.business.StringUtils
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.organizations.business.account.AccountCache
+import app.myliberty.easy_records.organizations.business.account.AccountAssertions
+import app.myliberty.easy_records.organizations.business.account.AccountCodeGenerator
+import app.myliberty.easy_records.organizations.business.account.AccountDto
+import app.myliberty.easy_records.organizations.business.account.AccountRepository
+import app.myliberty.easy_records.organizations.business.account.AccountResponseBuilder
+import app.myliberty.easy_records.organizations.business.account.ChildAccountCreator
+import app.myliberty.easy_records.util.business.StringUtils
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 import java.time.Instant

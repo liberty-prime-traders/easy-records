@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.locations.business.reports.payments
+package app.myliberty.easy_records.locations.business.reports.payments
 
 import jakarta.persistence.Tuple
-import me.ezra_home.retail_software_solution.locations.business.reports.payments.api.PaymentType
-import me.ezra_home.retail_software_solution.util.business.mappers.DateQualifier
+import app.myliberty.easy_records.locations.business.reports.payments.api.PaymentType
+import app.myliberty.easy_records.util.business.mappers.DateQualifier
 import java.math.BigDecimal
 import java.time.Instant
 import java.util.UUID

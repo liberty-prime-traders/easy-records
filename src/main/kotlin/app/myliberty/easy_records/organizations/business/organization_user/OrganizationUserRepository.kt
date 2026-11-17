@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.organizations.business.organization_user
+package app.myliberty.easy_records.organizations.business.organization_user
 
-import me.ezra_home.retail_software_solution.cross_tier.authority.MembershipSummaryProjection
+import app.myliberty.easy_records.cross_tier.authority.MembershipSummaryProjection
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository

@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.locations.business.stock_adjustment.api
+package app.myliberty.easy_records.locations.business.stock_adjustment.api
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import me.ezra_home.retail_software_solution.locations.business.stock.api.StockAdjustmentCategory
-import me.ezra_home.retail_software_solution.util.business.PositiveMoney
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
-import me.ezra_home.retail_software_solution.util.quantity.PositiveUserProvidedQuantity
+import app.myliberty.easy_records.locations.business.stock.api.StockAdjustmentCategory
+import app.myliberty.easy_records.util.business.PositiveMoney
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.quantity.PositiveUserProvidedQuantity
 import java.util.UUID
 
 data class StockAdjustmentCreateDto(

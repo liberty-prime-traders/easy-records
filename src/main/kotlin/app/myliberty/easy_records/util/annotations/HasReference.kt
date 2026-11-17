@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.util.annotations
+package app.myliberty.easy_records.util.annotations
 
-import me.ezra_home.retail_software_solution.util.model.TableName
+import app.myliberty.easy_records.util.model.TableName
 
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.RUNTIME)

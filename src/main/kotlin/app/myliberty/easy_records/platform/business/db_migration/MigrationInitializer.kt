@@ -1,11 +1,11 @@
-package me.ezra_home.retail_software_solution.platform.business.db_migration
+package app.myliberty.easy_records.platform.business.db_migration
 
-import me.ezra_home.retail_software_solution.organizations.business.location.api.LocationDto
-import me.ezra_home.retail_software_solution.platform.business.db_migration.api.DbMigrationInsertDto
-import me.ezra_home.retail_software_solution.platform.business.db_migration.api.MigrationStatus
-import me.ezra_home.retail_software_solution.platform.business.db_version.api.DbVersionDto
-import me.ezra_home.retail_software_solution.platform.business.organization.api.OrganizationDto
-import me.ezra_home.retail_software_solution.util.enums.SchemaOwnerType
+import app.myliberty.easy_records.organizations.business.location.api.LocationDto
+import app.myliberty.easy_records.platform.business.db_migration.api.DbMigrationInsertDto
+import app.myliberty.easy_records.platform.business.db_migration.api.MigrationStatus
+import app.myliberty.easy_records.platform.business.db_version.api.DbVersionDto
+import app.myliberty.easy_records.platform.business.organization.api.OrganizationDto
+import app.myliberty.easy_records.util.enums.SchemaOwnerType
 import org.springframework.stereotype.Component
 import java.util.UUID
 

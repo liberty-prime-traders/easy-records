@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.locations.business.catalog_sync.strategy
+package app.myliberty.easy_records.locations.business.catalog_sync.strategy
 
-import me.ezra_home.retail_software_solution.locations.business.catalog_sync.SyncCursor
-import me.ezra_home.retail_software_solution.locations.business.catalog_sync.api.SyncMode
+import app.myliberty.easy_records.locations.business.catalog_sync.SyncCursor
+import app.myliberty.easy_records.locations.business.catalog_sync.api.SyncMode
 import org.springframework.stereotype.Component
 
 @Component

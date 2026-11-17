@@ -1,14 +1,14 @@
-package me.ezra_home.retail_software_solution.locations.business.sale_session.consolidation
+package app.myliberty.easy_records.locations.business.sale_session.consolidation
 
-import me.ezra_home.retail_software_solution.configuration.session.LocationSession
-import me.ezra_home.retail_software_solution.configuration.session.OrgSession
-import me.ezra_home.retail_software_solution.configuration.session.SessionContext
-import me.ezra_home.retail_software_solution.configuration.session.SessionContextProvider
-import me.ezra_home.retail_software_solution.locations.business.sale_session.SaleSessionBuilder
-import me.ezra_home.retail_software_solution.locations.business.sale_session.SaleSessionStore
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSession
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionHeader
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.configuration.session.LocationSession
+import app.myliberty.easy_records.configuration.session.OrgSession
+import app.myliberty.easy_records.configuration.session.SessionContext
+import app.myliberty.easy_records.configuration.session.SessionContextProvider
+import app.myliberty.easy_records.locations.business.sale_session.SaleSessionBuilder
+import app.myliberty.easy_records.locations.business.sale_session.SaleSessionStore
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSession
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionHeader
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Assertions.assertTrue

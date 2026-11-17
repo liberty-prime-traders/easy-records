@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.locations.business.opening_stock
+package app.myliberty.easy_records.locations.business.opening_stock
 
-import me.ezra_home.retail_software_solution.locations.business.opening_stock.api.OpeningStockLineDto
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.locations.business.opening_stock.api.OpeningStockLineDto
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import java.util.UUID
 
 object OpeningStockValidator {

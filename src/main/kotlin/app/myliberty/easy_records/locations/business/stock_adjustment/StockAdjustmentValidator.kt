@@ -1,9 +1,9 @@
-package me.ezra_home.retail_software_solution.locations.business.stock_adjustment
+package app.myliberty.easy_records.locations.business.stock_adjustment
 
-import me.ezra_home.retail_software_solution.locations.business.stock_adjustment.api.StockAdjustmentCreateDto
-import me.ezra_home.retail_software_solution.locations.business.stock_adjustment.api.StockAdjustmentDirection
-import me.ezra_home.retail_software_solution.util.business.StringUtils
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.locations.business.stock_adjustment.api.StockAdjustmentCreateDto
+import app.myliberty.easy_records.locations.business.stock_adjustment.api.StockAdjustmentDirection
+import app.myliberty.easy_records.util.business.StringUtils
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 
 object StockAdjustmentValidator {
 

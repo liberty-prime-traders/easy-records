@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.configuration.serializer
+package app.myliberty.easy_records.configuration.serializer
 
 import com.fasterxml.jackson.core.JsonGenerator
 import com.fasterxml.jackson.databind.JsonSerializer

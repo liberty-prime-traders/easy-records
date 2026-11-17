@@ -1,17 +1,17 @@
-package me.ezra_home.retail_software_solution.organizations.business.loan.api
+package app.myliberty.easy_records.organizations.business.loan.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnOrganizationSchema
-import me.ezra_home.retail_software_solution.organizations.business.contact.api.ContactService
-import me.ezra_home.retail_software_solution.organizations.business.loan.LoanMapper
-import me.ezra_home.retail_software_solution.organizations.business.loan.LoanRepository
-import me.ezra_home.retail_software_solution.organizations.business.loan.LoanResponseBuilder
-import me.ezra_home.retail_software_solution.organizations.business.loan.search.LoanSearchExecutor
-import me.ezra_home.retail_software_solution.organizations.business.loan.search.LoanSearchQueryBuilder
-import me.ezra_home.retail_software_solution.organizations.business.loan.search.LoanSearchRowMapper
-import me.ezra_home.retail_software_solution.organizations.business.loan.search.LoanSearchValidator
-import me.ezra_home.retail_software_solution.util.paging.PageRequest
-import me.ezra_home.retail_software_solution.util.paging.PageResponse
-import me.ezra_home.retail_software_solution.util.queries.KeysetSearchCursor
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.organizations.business.contact.api.ContactService
+import app.myliberty.easy_records.organizations.business.loan.LoanMapper
+import app.myliberty.easy_records.organizations.business.loan.LoanRepository
+import app.myliberty.easy_records.organizations.business.loan.LoanResponseBuilder
+import app.myliberty.easy_records.organizations.business.loan.search.LoanSearchExecutor
+import app.myliberty.easy_records.organizations.business.loan.search.LoanSearchQueryBuilder
+import app.myliberty.easy_records.organizations.business.loan.search.LoanSearchRowMapper
+import app.myliberty.easy_records.organizations.business.loan.search.LoanSearchValidator
+import app.myliberty.easy_records.util.paging.PageRequest
+import app.myliberty.easy_records.util.paging.PageResponse
+import app.myliberty.easy_records.util.queries.KeysetSearchCursor
 import org.springframework.stereotype.Service
 
 @Service

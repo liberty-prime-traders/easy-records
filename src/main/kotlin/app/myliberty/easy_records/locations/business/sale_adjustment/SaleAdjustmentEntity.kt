@@ -1,17 +1,17 @@
-package me.ezra_home.retail_software_solution.locations.business.sale_adjustment
+package app.myliberty.easy_records.locations.business.sale_adjustment
 
 import jakarta.persistence.Column
 import jakarta.persistence.Convert
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
-import me.ezra_home.retail_software_solution.organizations.business.adjustment_reason.api.AdjustmentDirection
-import me.ezra_home.retail_software_solution.organizations.business.adjustment_reason.api.AdjustmentDirectionConverter
-import me.ezra_home.retail_software_solution.locations.business.sale_adjustment.api.PriceAdjustmentMethod
-import me.ezra_home.retail_software_solution.locations.business.sale_adjustment.api.PriceAdjustmentMethodConverter
-import me.ezra_home.retail_software_solution.util.annotations.HasReference
-import me.ezra_home.retail_software_solution.util.model.HasReferenceEntity
-import me.ezra_home.retail_software_solution.util.model.TableName
-import me.ezra_home.retail_software_solution.util.model.TableNames
+import app.myliberty.easy_records.organizations.business.adjustment_reason.api.AdjustmentDirection
+import app.myliberty.easy_records.organizations.business.adjustment_reason.api.AdjustmentDirectionConverter
+import app.myliberty.easy_records.locations.business.sale_adjustment.api.PriceAdjustmentMethod
+import app.myliberty.easy_records.locations.business.sale_adjustment.api.PriceAdjustmentMethodConverter
+import app.myliberty.easy_records.util.annotations.HasReference
+import app.myliberty.easy_records.util.model.HasReferenceEntity
+import app.myliberty.easy_records.util.model.TableName
+import app.myliberty.easy_records.util.model.TableNames
 import org.hibernate.envers.Audited
 import java.math.BigDecimal
 import java.util.UUID

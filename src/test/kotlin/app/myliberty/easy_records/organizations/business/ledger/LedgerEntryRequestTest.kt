@@ -1,11 +1,11 @@
-package me.ezra_home.retail_software_solution.organizations.business.ledger
+package app.myliberty.easy_records.organizations.business.ledger
 
-import me.ezra_home.retail_software_solution.organizations.business.account.api.EntryType
-import me.ezra_home.retail_software_solution.organizations.business.account.api.SystemAccount
-import me.ezra_home.retail_software_solution.organizations.business.ledger.api.LedgerEntryRequest
-import me.ezra_home.retail_software_solution.support.WithDefaultOrganizationSession
-import me.ezra_home.retail_software_solution.util.business.PositiveMoney
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.organizations.business.account.api.EntryType
+import app.myliberty.easy_records.organizations.business.account.api.SystemAccount
+import app.myliberty.easy_records.organizations.business.ledger.api.LedgerEntryRequest
+import app.myliberty.easy_records.support.WithDefaultOrganizationSession
+import app.myliberty.easy_records.util.business.PositiveMoney
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Assertions.assertTrue

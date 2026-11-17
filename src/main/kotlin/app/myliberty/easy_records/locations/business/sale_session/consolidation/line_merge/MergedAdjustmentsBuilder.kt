@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.locations.business.sale_session.consolidation.line_merge
+package app.myliberty.easy_records.locations.business.sale_session.consolidation.line_merge
 
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionAdjustment
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionLine
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SessionIdentity
-import me.ezra_home.retail_software_solution.locations.business.sale_adjustment.api.PriceAdjustmentMethod
-import me.ezra_home.retail_software_solution.organizations.business.adjustment_reason.api.AdjustmentDirection
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionAdjustment
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionLine
+import app.myliberty.easy_records.locations.business.sale_session.api.SessionIdentity
+import app.myliberty.easy_records.locations.business.sale_adjustment.api.PriceAdjustmentMethod
+import app.myliberty.easy_records.organizations.business.adjustment_reason.api.AdjustmentDirection
 import java.util.UUID
 
 object MergedAdjustmentsBuilder {

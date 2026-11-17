@@ -1,9 +1,9 @@
-package me.ezra_home.retail_software_solution.organizations.business.feature.activators
+package app.myliberty.easy_records.organizations.business.feature.activators
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnOrganizationSchema
-import me.ezra_home.retail_software_solution.organizations.business.account.api.CoaDefaultsInserter
-import me.ezra_home.retail_software_solution.organizations.business.accounting_config.api.OrgAccountingConfigService
-import me.ezra_home.retail_software_solution.platform.business.feature.api.Feature
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.organizations.business.account.api.CoaDefaultsInserter
+import app.myliberty.easy_records.organizations.business.accounting_config.api.OrgAccountingConfigService
+import app.myliberty.easy_records.platform.business.feature.api.Feature
 import org.springframework.stereotype.Service
 
 @Service

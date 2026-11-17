@@ -1,12 +1,12 @@
-package me.ezra_home.retail_software_solution.locations.business.sale_session
+package app.myliberty.easy_records.locations.business.sale_session
 
-import me.ezra_home.retail_software_solution.locations.business.sale_adjustment.api.AdjustmentAmountCalculator
-import me.ezra_home.retail_software_solution.locations.business.sale_adjustment.api.SaleAdjustmentCreateDto
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSession
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionAdjustment
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionLine
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionTotals
-import me.ezra_home.retail_software_solution.organizations.business.adjustment_reason.api.AdjustmentDirection
+import app.myliberty.easy_records.locations.business.sale_adjustment.api.AdjustmentAmountCalculator
+import app.myliberty.easy_records.locations.business.sale_adjustment.api.SaleAdjustmentCreateDto
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSession
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionAdjustment
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionLine
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionTotals
+import app.myliberty.easy_records.organizations.business.adjustment_reason.api.AdjustmentDirection
 import java.math.BigDecimal
 import java.util.UUID
 

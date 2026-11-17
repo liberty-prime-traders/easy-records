@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.configuration.session
+package app.myliberty.easy_records.configuration.session
 
-import me.ezra_home.retail_software_solution.util.enums.ServiceAccount
+import app.myliberty.easy_records.util.enums.ServiceAccount
 
 object ServiceAccountContext {
 

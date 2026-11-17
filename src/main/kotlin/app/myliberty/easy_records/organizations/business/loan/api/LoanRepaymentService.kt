@@ -1,21 +1,21 @@
-package me.ezra_home.retail_software_solution.organizations.business.loan.api
+package app.myliberty.easy_records.organizations.business.loan.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnOrganizationSchema
-import me.ezra_home.retail_software_solution.organizations.business.ledger.api.LedgerPostingService
-import me.ezra_home.retail_software_solution.organizations.business.loan.LoanAccountValidator
-import me.ezra_home.retail_software_solution.organizations.business.loan.LoanFinder
-import me.ezra_home.retail_software_solution.organizations.business.loan.LoanMapper
-import me.ezra_home.retail_software_solution.organizations.business.loan.LoanPostingRequests
-import me.ezra_home.retail_software_solution.organizations.business.loan.LoanRepaymentEntity
-import me.ezra_home.retail_software_solution.organizations.business.loan.LoanRepaymentRepository
-import me.ezra_home.retail_software_solution.organizations.business.loan.LoanRepaymentValidator
-import me.ezra_home.retail_software_solution.organizations.business.loan.LoanRepaymentVoidEntity
-import me.ezra_home.retail_software_solution.organizations.business.loan.LoanRepaymentVoidRepository
-import me.ezra_home.retail_software_solution.organizations.business.loan.LoanResponseBuilder
-import me.ezra_home.retail_software_solution.organizations.business.loan.LoanStatusResolver
-import me.ezra_home.retail_software_solution.util.business.DateTimes
-import me.ezra_home.retail_software_solution.util.business.StringUtils
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.organizations.business.ledger.api.LedgerPostingService
+import app.myliberty.easy_records.organizations.business.loan.LoanAccountValidator
+import app.myliberty.easy_records.organizations.business.loan.LoanFinder
+import app.myliberty.easy_records.organizations.business.loan.LoanMapper
+import app.myliberty.easy_records.organizations.business.loan.LoanPostingRequests
+import app.myliberty.easy_records.organizations.business.loan.LoanRepaymentEntity
+import app.myliberty.easy_records.organizations.business.loan.LoanRepaymentRepository
+import app.myliberty.easy_records.organizations.business.loan.LoanRepaymentValidator
+import app.myliberty.easy_records.organizations.business.loan.LoanRepaymentVoidEntity
+import app.myliberty.easy_records.organizations.business.loan.LoanRepaymentVoidRepository
+import app.myliberty.easy_records.organizations.business.loan.LoanResponseBuilder
+import app.myliberty.easy_records.organizations.business.loan.LoanStatusResolver
+import app.myliberty.easy_records.util.business.DateTimes
+import app.myliberty.easy_records.util.business.StringUtils
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Service
 
 @Service

@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.platform.business.authorization_pass
+package app.myliberty.easy_records.platform.business.authorization_pass
 
 import jakarta.persistence.Converter
-import me.ezra_home.retail_software_solution.platform.business.authorization_pass.api.PassType
-import me.ezra_home.retail_software_solution.util.enums.EnumConverter
+import app.myliberty.easy_records.platform.business.authorization_pass.api.PassType
+import app.myliberty.easy_records.util.enums.EnumConverter
 
 @Converter(autoApply = true)
 class PassTypeConverter : EnumConverter<PassType>(PassType::class.java)

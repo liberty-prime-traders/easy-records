@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.locations.business.sale_adjustment.api
+package app.myliberty.easy_records.locations.business.sale_adjustment.api
 
-import me.ezra_home.retail_software_solution.util.enums.HasCode
+import app.myliberty.easy_records.util.enums.HasCode
 
 enum class PriceAdjustmentMethod(override val code: String) : HasCode {
     PERCENTAGE("PCT"),

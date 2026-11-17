@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.locations.business.stock_adjustment.api
+package app.myliberty.easy_records.locations.business.stock_adjustment.api
 
-import me.ezra_home.retail_software_solution.locations.business.stock_adjustment.StockAdjustmentCostEntity
-import me.ezra_home.retail_software_solution.locations.business.stock_adjustment.StockAdjustmentCostRepository
-import me.ezra_home.retail_software_solution.locations.business.stock_adjustment.StockAdjustmentEntity
-import me.ezra_home.retail_software_solution.locations.business.stock_adjustment.StockAdjustmentRepository
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.locations.business.stock_adjustment.StockAdjustmentCostEntity
+import app.myliberty.easy_records.locations.business.stock_adjustment.StockAdjustmentCostRepository
+import app.myliberty.easy_records.locations.business.stock_adjustment.StockAdjustmentEntity
+import app.myliberty.easy_records.locations.business.stock_adjustment.StockAdjustmentRepository
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test

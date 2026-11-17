@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.cross_tier.expense.model
+package app.myliberty.easy_records.cross_tier.expense.model
 
 import java.time.LocalDate
 import java.util.UUID

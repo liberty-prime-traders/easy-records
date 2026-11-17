@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.locations.business.product_sales_report
+package app.myliberty.easy_records.locations.business.product_sales_report
 
-import me.ezra_home.retail_software_solution.locations.business.location_product.api.LocationProductSummaryDto
-import me.ezra_home.retail_software_solution.locations.business.product_sales_report.api.ProductSalesLineAdjustmentDto
-import me.ezra_home.retail_software_solution.organizations.business.adjustment_reason.api.AdjustmentDirection
+import app.myliberty.easy_records.locations.business.location_product.api.LocationProductSummaryDto
+import app.myliberty.easy_records.locations.business.product_sales_report.api.ProductSalesLineAdjustmentDto
+import app.myliberty.easy_records.organizations.business.adjustment_reason.api.AdjustmentDirection
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test

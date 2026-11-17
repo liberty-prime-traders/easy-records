@@ -1,13 +1,13 @@
-package me.ezra_home.retail_software_solution.organizations.business.expense_type
+package app.myliberty.easy_records.organizations.business.expense_type
 
 import jakarta.persistence.Column
 import jakarta.persistence.Convert
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
-import me.ezra_home.retail_software_solution.cross_tier.expense.ExpenseSourceType
-import me.ezra_home.retail_software_solution.organizations.business.contact.api.ContactType
-import me.ezra_home.retail_software_solution.util.model.HasCreatorEntity
-import me.ezra_home.retail_software_solution.util.model.TableNames
+import app.myliberty.easy_records.cross_tier.expense.ExpenseSourceType
+import app.myliberty.easy_records.organizations.business.contact.api.ContactType
+import app.myliberty.easy_records.util.model.HasCreatorEntity
+import app.myliberty.easy_records.util.model.TableNames
 import org.hibernate.envers.Audited
 import org.hibernate.envers.NotAudited
 

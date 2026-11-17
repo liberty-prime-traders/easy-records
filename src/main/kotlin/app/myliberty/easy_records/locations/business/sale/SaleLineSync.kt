@@ -1,9 +1,9 @@
-package me.ezra_home.retail_software_solution.locations.business.sale
+package app.myliberty.easy_records.locations.business.sale
 
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleSaveRequest
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleLineSaveRequest
-import me.ezra_home.retail_software_solution.locations.business.sale_adjustment.api.PersistedSaleLine
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.locations.business.sale.api.SaleSaveRequest
+import app.myliberty.easy_records.locations.business.sale.api.SaleLineSaveRequest
+import app.myliberty.easy_records.locations.business.sale_adjustment.api.PersistedSaleLine
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import java.util.UUID
 
 object SaleLineSync {

@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.locations.business.sale_session.consolidation.line_merge
+package app.myliberty.easy_records.locations.business.sale_session.consolidation.line_merge
 
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionAdjustment
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionLine
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionAdjustment
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionLine
 
 sealed interface ProductMergeOutcome {
 

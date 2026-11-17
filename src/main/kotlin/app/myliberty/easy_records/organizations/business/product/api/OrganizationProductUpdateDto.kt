@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.organizations.business.product.api
+package app.myliberty.easy_records.organizations.business.product.api
 
-import me.ezra_home.retail_software_solution.organizations.business.product.OrganizationProductDto
+import app.myliberty.easy_records.organizations.business.product.OrganizationProductDto
 import java.io.Serializable
 import java.util.Optional
 import java.util.UUID

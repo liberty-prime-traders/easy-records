@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.organizations.business.fund_movement.search
+package app.myliberty.easy_records.organizations.business.fund_movement.search
 
-import me.ezra_home.retail_software_solution.organizations.business.fund_movement.api.FundMovementSearchParameters
-import me.ezra_home.retail_software_solution.util.queries.SearchGuards
+import app.myliberty.easy_records.organizations.business.fund_movement.api.FundMovementSearchParameters
+import app.myliberty.easy_records.util.queries.SearchGuards
 
 object FundMovementSearchValidator {
 

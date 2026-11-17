@@ -1,11 +1,11 @@
-package me.ezra_home.retail_software_solution.organizations.rest.endpoints
+package app.myliberty.easy_records.organizations.rest.endpoints
 
-import me.ezra_home.retail_software_solution.organizations.business.fiscal_period.api.FiscalPeriodRenameDto
-import me.ezra_home.retail_software_solution.organizations.business.fiscal_period.api.FiscalPeriodResponseDto
-import me.ezra_home.retail_software_solution.organizations.business.fiscal_period.api.FiscalPeriodService
-import me.ezra_home.retail_software_solution.organizations.business.fiscal_period.api.YearEndCloseService
-import me.ezra_home.retail_software_solution.platform.business.feature.api.Feature
-import me.ezra_home.retail_software_solution.util.annotations.RequiresFeature
+import app.myliberty.easy_records.organizations.business.fiscal_period.api.FiscalPeriodRenameDto
+import app.myliberty.easy_records.organizations.business.fiscal_period.api.FiscalPeriodResponseDto
+import app.myliberty.easy_records.organizations.business.fiscal_period.api.FiscalPeriodService
+import app.myliberty.easy_records.organizations.business.fiscal_period.api.YearEndCloseService
+import app.myliberty.easy_records.platform.business.feature.api.Feature
+import app.myliberty.easy_records.util.annotations.RequiresFeature
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable

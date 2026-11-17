@@ -1,13 +1,13 @@
-package me.ezra_home.retail_software_solution.locations.business.supplier_payment
+package app.myliberty.easy_records.locations.business.supplier_payment
 
-import me.ezra_home.retail_software_solution.locations.business.delivery.api.PurchaseDeliveryDataFetcher
-import me.ezra_home.retail_software_solution.util.enums.PaymentStatus
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.PurchaseDataFetcher
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.PurchaseDataFetcher.PurchaseInfo
-import me.ezra_home.retail_software_solution.locations.business.supplier_payment.api.SupplierPaymentResponseDto
-import me.ezra_home.retail_software_solution.organizations.business.contact.api.ContactService
-import me.ezra_home.retail_software_solution.organizations.business.payment_method.api.PaymentMethodDataFetcher
-import me.ezra_home.retail_software_solution.util.business.mappers.UserQualifier
+import app.myliberty.easy_records.locations.business.delivery.api.PurchaseDeliveryDataFetcher
+import app.myliberty.easy_records.util.enums.PaymentStatus
+import app.myliberty.easy_records.locations.business.purchase.api.PurchaseDataFetcher
+import app.myliberty.easy_records.locations.business.purchase.api.PurchaseDataFetcher.PurchaseInfo
+import app.myliberty.easy_records.locations.business.supplier_payment.api.SupplierPaymentResponseDto
+import app.myliberty.easy_records.organizations.business.contact.api.ContactService
+import app.myliberty.easy_records.organizations.business.payment_method.api.PaymentMethodDataFetcher
+import app.myliberty.easy_records.util.business.mappers.UserQualifier
 import org.springframework.stereotype.Component
 import java.util.UUID
 

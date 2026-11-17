@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.organizations.business.unit_bulk_import
+package app.myliberty.easy_records.organizations.business.unit_bulk_import
 
-import me.ezra_home.retail_software_solution.organizations.business.unitvalue.api.UnitValueResponseDto
+import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueResponseDto
 import java.util.UUID
 
 internal class ExistingUnitCodes(existingUnitValues: Collection<UnitValueResponseDto>) {

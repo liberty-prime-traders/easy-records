@@ -1,15 +1,15 @@
-package me.ezra_home.retail_software_solution.cucumber.steps.organizations
+package app.myliberty.easy_records.cucumber.steps.organizations
 
 import io.cucumber.datatable.DataTable
 import io.cucumber.java.en.Given
 import io.cucumber.java.en.When
-import me.ezra_home.retail_software_solution.cross_tier.product.search.common.ProductSearchParameters
-import me.ezra_home.retail_software_solution.cucumber.fixtures.organizations.ProductFixtureBuilder
-import me.ezra_home.retail_software_solution.cucumber.support.ApiClient
-import me.ezra_home.retail_software_solution.cucumber.support.context.InjectContext
-import me.ezra_home.retail_software_solution.cucumber.support.context.TransientKey
-import me.ezra_home.retail_software_solution.util.paging.PageRequest
-import me.ezra_home.retail_software_solution.util.queries.SearchStrategy
+import app.myliberty.easy_records.cross_tier.product.search.common.ProductSearchParameters
+import app.myliberty.easy_records.cucumber.fixtures.organizations.ProductFixtureBuilder
+import app.myliberty.easy_records.cucumber.support.ApiClient
+import app.myliberty.easy_records.cucumber.support.context.InjectContext
+import app.myliberty.easy_records.cucumber.support.context.TransientKey
+import app.myliberty.easy_records.util.paging.PageRequest
+import app.myliberty.easy_records.util.queries.SearchStrategy
 
 class ProductSteps(
   private val apiClient: ApiClient,

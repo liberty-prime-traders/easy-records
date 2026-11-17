@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.locations.business.sale_session.consolidation
+package app.myliberty.easy_records.locations.business.sale_session.consolidation
 
-import me.ezra_home.retail_software_solution.locations.business.location_product.api.LocationProductService
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleDataFetcher
-import me.ezra_home.retail_software_solution.locations.business.sale_session.SaleSessionValidator
-import me.ezra_home.retail_software_solution.organizations.business.adjustment_reason.api.AdjustmentReasonService
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.locations.business.location_product.api.LocationProductService
+import app.myliberty.easy_records.locations.business.sale.api.SaleDataFetcher
+import app.myliberty.easy_records.locations.business.sale_session.SaleSessionValidator
+import app.myliberty.easy_records.organizations.business.adjustment_reason.api.AdjustmentReasonService
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.mock

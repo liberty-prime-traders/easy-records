@@ -1,12 +1,12 @@
-package me.ezra_home.retail_software_solution.locations.business.stock_revision
+package app.myliberty.easy_records.locations.business.stock_revision
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
-import me.ezra_home.retail_software_solution.locations.business.delivery.api.PurchaseDeliveryDataFetcher
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.PurchaseDataFetcher
-import me.ezra_home.retail_software_solution.locations.business.stock.api.read.StockEntryFetcher
-import me.ezra_home.retail_software_solution.messaging.kafka.transaction.events.PurchaseDeliveryRevisedEvent
-import me.ezra_home.retail_software_solution.util.business.Money
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.locations.business.delivery.api.PurchaseDeliveryDataFetcher
+import app.myliberty.easy_records.locations.business.purchase.api.PurchaseDataFetcher
+import app.myliberty.easy_records.locations.business.stock.api.read.StockEntryFetcher
+import app.myliberty.easy_records.messaging.kafka.transaction.events.PurchaseDeliveryRevisedEvent
+import app.myliberty.easy_records.util.business.Money
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Component
 import java.math.BigDecimal

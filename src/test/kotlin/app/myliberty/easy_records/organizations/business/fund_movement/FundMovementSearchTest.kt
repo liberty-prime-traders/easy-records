@@ -1,14 +1,14 @@
-package me.ezra_home.retail_software_solution.organizations.business.fund_movement
+package app.myliberty.easy_records.organizations.business.fund_movement
 
-import me.ezra_home.retail_software_solution.organizations.business.fund_movement.api.FundMovementSearchParameters
-import me.ezra_home.retail_software_solution.organizations.business.fund_movement.api.FundMovementStatus
-import me.ezra_home.retail_software_solution.organizations.business.fund_movement.api.FundMovementType
-import me.ezra_home.retail_software_solution.organizations.business.fund_movement.search.FundMovementSearchParameterNames
-import me.ezra_home.retail_software_solution.organizations.business.fund_movement.search.FundMovementSearchQueryBuilder
-import me.ezra_home.retail_software_solution.organizations.business.fund_movement.search.FundMovementSearchValidator
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
-import me.ezra_home.retail_software_solution.util.queries.KeysetSearchCursor
-import me.ezra_home.retail_software_solution.util.queries.QueryParameterNames
+import app.myliberty.easy_records.organizations.business.fund_movement.api.FundMovementSearchParameters
+import app.myliberty.easy_records.organizations.business.fund_movement.api.FundMovementStatus
+import app.myliberty.easy_records.organizations.business.fund_movement.api.FundMovementType
+import app.myliberty.easy_records.organizations.business.fund_movement.search.FundMovementSearchParameterNames
+import app.myliberty.easy_records.organizations.business.fund_movement.search.FundMovementSearchQueryBuilder
+import app.myliberty.easy_records.organizations.business.fund_movement.search.FundMovementSearchValidator
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.queries.KeysetSearchCursor
+import app.myliberty.easy_records.util.queries.QueryParameterNames
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertThrows

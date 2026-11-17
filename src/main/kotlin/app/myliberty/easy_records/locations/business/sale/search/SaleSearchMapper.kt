@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.locations.business.sale.search
+package app.myliberty.easy_records.locations.business.sale.search
 
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleConsolidationEligibility
-import me.ezra_home.retail_software_solution.locations.business.sale.SaleArrears
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleSummary
+import app.myliberty.easy_records.locations.business.sale.api.SaleConsolidationEligibility
+import app.myliberty.easy_records.locations.business.sale.SaleArrears
+import app.myliberty.easy_records.locations.business.sale.api.SaleSummary
 import java.math.BigDecimal
 import java.util.UUID
 

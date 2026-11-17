@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.configuration.datasource
+package app.myliberty.easy_records.configuration.datasource
 
 object DataSourceBeanNames {
     const val LOCATION_SCHEMA_ENTITY_MANAGER_FACTORY = "locationSchemaEntityManagerFactory"

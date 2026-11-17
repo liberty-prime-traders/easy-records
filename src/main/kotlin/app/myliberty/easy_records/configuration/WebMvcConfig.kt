@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.configuration
+package app.myliberty.easy_records.configuration
 
-import me.ezra_home.retail_software_solution.util.annotations.interceptors.FeatureGateInterceptor
+import app.myliberty.easy_records.util.annotations.interceptors.FeatureGateInterceptor
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer

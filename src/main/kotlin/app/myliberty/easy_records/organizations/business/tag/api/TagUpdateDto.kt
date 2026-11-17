@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.organizations.business.tag.api
+package app.myliberty.easy_records.organizations.business.tag.api
 
 import java.io.Serializable
 import java.util.Optional

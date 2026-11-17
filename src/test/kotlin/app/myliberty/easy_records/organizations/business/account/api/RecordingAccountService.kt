@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.organizations.business.account.api
+package app.myliberty.easy_records.organizations.business.account.api
 
-import me.ezra_home.retail_software_solution.organizations.business.account.AccountCache
-import me.ezra_home.retail_software_solution.organizations.business.account.AccountDto
-import me.ezra_home.retail_software_solution.organizations.business.account.AccountRepository
-import me.ezra_home.retail_software_solution.organizations.business.account.AccountResponseBuilder
-import me.ezra_home.retail_software_solution.organizations.business.account.ChildAccountCreator
+import app.myliberty.easy_records.organizations.business.account.AccountCache
+import app.myliberty.easy_records.organizations.business.account.AccountDto
+import app.myliberty.easy_records.organizations.business.account.AccountRepository
+import app.myliberty.easy_records.organizations.business.account.AccountResponseBuilder
+import app.myliberty.easy_records.organizations.business.account.ChildAccountCreator
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.`when`
 import java.lang.reflect.Proxy

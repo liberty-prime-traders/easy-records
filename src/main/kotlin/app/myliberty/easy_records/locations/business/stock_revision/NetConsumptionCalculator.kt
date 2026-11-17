@@ -1,14 +1,14 @@
-package me.ezra_home.retail_software_solution.locations.business.stock_revision
+package app.myliberty.easy_records.locations.business.stock_revision
 
 import java.math.BigDecimal
 import java.util.UUID
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
-import me.ezra_home.retail_software_solution.locations.business.stock.api.read.StockMovementDto
-import me.ezra_home.retail_software_solution.locations.business.stock.api.read.StockMovementFetcher
-import me.ezra_home.retail_software_solution.locations.business.stock.api.read.StockEntryFetcher
-import me.ezra_home.retail_software_solution.util.exceptions.BlockedChangeException
-import me.ezra_home.retail_software_solution.util.exceptions.BlockingProblem
-import me.ezra_home.retail_software_solution.util.quantity.ExactQuantity
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.locations.business.stock.api.read.StockMovementDto
+import app.myliberty.easy_records.locations.business.stock.api.read.StockMovementFetcher
+import app.myliberty.easy_records.locations.business.stock.api.read.StockEntryFetcher
+import app.myliberty.easy_records.util.exceptions.BlockedChangeException
+import app.myliberty.easy_records.util.exceptions.BlockingProblem
+import app.myliberty.easy_records.util.quantity.ExactQuantity
 import org.springframework.stereotype.Component
 
 @Component

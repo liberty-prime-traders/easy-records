@@ -1,11 +1,11 @@
-package me.ezra_home.retail_software_solution.organizations.business.account_selection.api
+package app.myliberty.easy_records.organizations.business.account_selection.api
 
-import me.ezra_home.retail_software_solution.organizations.business.account.api.AccountDataFetcher
-import me.ezra_home.retail_software_solution.organizations.business.account.api.AccountSelectionCandidate
-import me.ezra_home.retail_software_solution.organizations.business.account.api.AccountStructureLock
-import me.ezra_home.retail_software_solution.organizations.business.account.api.RecordingAccountService
-import me.ezra_home.retail_software_solution.organizations.business.account.api.SystemAccount
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.organizations.business.account.api.AccountDataFetcher
+import app.myliberty.easy_records.organizations.business.account.api.AccountSelectionCandidate
+import app.myliberty.easy_records.organizations.business.account.api.AccountStructureLock
+import app.myliberty.easy_records.organizations.business.account.api.RecordingAccountService
+import app.myliberty.easy_records.organizations.business.account.api.SystemAccount
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.*

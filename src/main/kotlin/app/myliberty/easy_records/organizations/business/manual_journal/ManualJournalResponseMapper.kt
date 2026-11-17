@@ -1,11 +1,11 @@
-package me.ezra_home.retail_software_solution.organizations.business.manual_journal
+package app.myliberty.easy_records.organizations.business.manual_journal
 
-import me.ezra_home.retail_software_solution.organizations.business.account.api.AccountType
-import me.ezra_home.retail_software_solution.organizations.business.account.api.AccountNameAndTypeDto
-import me.ezra_home.retail_software_solution.organizations.business.manual_journal.api.ManualJournalLineResponseDto
-import me.ezra_home.retail_software_solution.organizations.business.manual_journal.api.ManualJournalResponseDto
-import me.ezra_home.retail_software_solution.platform.business.sysuser.api.CreatorFullName
-import me.ezra_home.retail_software_solution.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.organizations.business.account.api.AccountType
+import app.myliberty.easy_records.organizations.business.account.api.AccountNameAndTypeDto
+import app.myliberty.easy_records.organizations.business.manual_journal.api.ManualJournalLineResponseDto
+import app.myliberty.easy_records.organizations.business.manual_journal.api.ManualJournalResponseDto
+import app.myliberty.easy_records.platform.business.sysuser.api.CreatorFullName
+import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
 import org.mapstruct.Context
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping

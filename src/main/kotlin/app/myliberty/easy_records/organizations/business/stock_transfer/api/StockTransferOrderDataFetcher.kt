@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.organizations.business.stock_transfer.api
+package app.myliberty.easy_records.organizations.business.stock_transfer.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnOrganizationSchema
-import me.ezra_home.retail_software_solution.configuration.session.SessionContextProvider
-import me.ezra_home.retail_software_solution.organizations.business.stock_transfer.StockTransferOrderEntity
-import me.ezra_home.retail_software_solution.organizations.business.stock_transfer.StockTransferOrderRepository
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.configuration.session.SessionContextProvider
+import app.myliberty.easy_records.organizations.business.stock_transfer.StockTransferOrderEntity
+import app.myliberty.easy_records.organizations.business.stock_transfer.StockTransferOrderRepository
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Component
 import java.util.UUID

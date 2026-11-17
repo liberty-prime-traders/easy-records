@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.organizations.business.product_tag
+package app.myliberty.easy_records.organizations.business.product_tag
 
 import java.time.OffsetDateTime
 import java.util.UUID

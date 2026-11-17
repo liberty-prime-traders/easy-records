@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.locations.business.location_product.api
+package app.myliberty.easy_records.locations.business.location_product.api
 
-import me.ezra_home.retail_software_solution.organizations.business.product.api.ProductStatus
+import app.myliberty.easy_records.organizations.business.product.api.ProductStatus
 import java.util.UUID
 
 data class LocationProductSyncDto(

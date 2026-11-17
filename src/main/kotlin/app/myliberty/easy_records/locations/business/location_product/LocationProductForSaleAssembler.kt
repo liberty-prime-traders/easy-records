@@ -1,11 +1,11 @@
-package me.ezra_home.retail_software_solution.locations.business.location_product
+package app.myliberty.easy_records.locations.business.location_product
 
-import me.ezra_home.retail_software_solution.locations.business.location_product.api.LocationProductWithAvailability
-import me.ezra_home.retail_software_solution.locations.business.stock.api.availability.StockAvailabilityFetcher
-import me.ezra_home.retail_software_solution.organizations.business.unitconversion.api.QuantityBreakdownFactory
-import me.ezra_home.retail_software_solution.organizations.business.unitconversion.api.UnitConversionGraphFacade
-import me.ezra_home.retail_software_solution.util.quantity.BaseUnitDisplay
-import me.ezra_home.retail_software_solution.util.quantity.ExactQuantity
+import app.myliberty.easy_records.locations.business.location_product.api.LocationProductWithAvailability
+import app.myliberty.easy_records.locations.business.stock.api.availability.StockAvailabilityFetcher
+import app.myliberty.easy_records.organizations.business.unitconversion.api.QuantityBreakdownFactory
+import app.myliberty.easy_records.organizations.business.unitconversion.api.UnitConversionGraphFacade
+import app.myliberty.easy_records.util.quantity.BaseUnitDisplay
+import app.myliberty.easy_records.util.quantity.ExactQuantity
 import org.springframework.stereotype.Component
 import java.math.RoundingMode
 

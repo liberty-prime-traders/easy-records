@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.platform.business.db_migration.api
+package app.myliberty.easy_records.platform.business.db_migration.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnPlatformSchema
-import me.ezra_home.retail_software_solution.platform.business.db_migration.MigrationResponseMapper
-import me.ezra_home.retail_software_solution.platform.business.db_migration.MigrationRetryHandler
-import me.ezra_home.retail_software_solution.platform.business.db_migration.MigrationValidator
-import me.ezra_home.retail_software_solution.platform.business.db_migration.OrganizationMigrationHandler
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnPlatformSchema
+import app.myliberty.easy_records.platform.business.db_migration.MigrationResponseMapper
+import app.myliberty.easy_records.platform.business.db_migration.MigrationRetryHandler
+import app.myliberty.easy_records.platform.business.db_migration.MigrationValidator
+import app.myliberty.easy_records.platform.business.db_migration.OrganizationMigrationHandler
 import org.springframework.stereotype.Service
 
 @TransactionalOnPlatformSchema

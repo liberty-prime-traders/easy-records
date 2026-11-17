@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.locations.business.sale_session.consolidation
+package app.myliberty.easy_records.locations.business.sale_session.consolidation
 
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.ConsolidationSourceSale
+import app.myliberty.easy_records.locations.business.sale_session.api.ConsolidationSourceSale
 import java.util.UUID
 
 data class ConsolidationGenerateInput(

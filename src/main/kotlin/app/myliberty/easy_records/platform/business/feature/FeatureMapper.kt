@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.platform.business.feature
+package app.myliberty.easy_records.platform.business.feature
 
-import me.ezra_home.retail_software_solution.platform.business.feature.api.FeatureDto
-import me.ezra_home.retail_software_solution.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.platform.business.feature.api.FeatureDto
+import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
 import org.mapstruct.Mapper
 
 @Mapper(config = RtsMapperConfig::class)

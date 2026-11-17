@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.organizations.business.fiscal_period
+package app.myliberty.easy_records.organizations.business.fiscal_period
 
-import me.ezra_home.retail_software_solution.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
 import org.mapstruct.Mapper
 
 @Mapper(config = RtsMapperConfig::class)

@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.platform.rest.endpoints
+package app.myliberty.easy_records.platform.rest.endpoints
 
-import me.ezra_home.retail_software_solution.platform.business.db_version.api.DbVersionResponseDto
-import me.ezra_home.retail_software_solution.platform.business.db_version.api.DbVersionService
-import me.ezra_home.retail_software_solution.util.enums.RtsRoleNames
+import app.myliberty.easy_records.platform.business.db_version.api.DbVersionResponseDto
+import app.myliberty.easy_records.platform.business.db_version.api.DbVersionService
+import app.myliberty.easy_records.util.enums.RtsRoleNames
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable

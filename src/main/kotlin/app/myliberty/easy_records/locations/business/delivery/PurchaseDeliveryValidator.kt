@@ -1,13 +1,13 @@
-package me.ezra_home.retail_software_solution.locations.business.delivery
+package app.myliberty.easy_records.locations.business.delivery
 
-import me.ezra_home.retail_software_solution.locations.business.delivery.api.PurchaseDeliveryCreateDto
-import me.ezra_home.retail_software_solution.locations.business.location_product.api.LocationProductDataFetcher
-import me.ezra_home.retail_software_solution.locations.business.location_product.api.ProductStockBreakdownProvider
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.PurchaseLineDto
-import me.ezra_home.retail_software_solution.util.exceptions.BlockingProblem
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
-import me.ezra_home.retail_software_solution.util.quantity.ExactQuantity
-import me.ezra_home.retail_software_solution.util.quantity.QuantityBreakdown
+import app.myliberty.easy_records.locations.business.delivery.api.PurchaseDeliveryCreateDto
+import app.myliberty.easy_records.locations.business.location_product.api.LocationProductDataFetcher
+import app.myliberty.easy_records.locations.business.location_product.api.ProductStockBreakdownProvider
+import app.myliberty.easy_records.locations.business.purchase.api.PurchaseLineDto
+import app.myliberty.easy_records.util.exceptions.BlockingProblem
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.quantity.ExactQuantity
+import app.myliberty.easy_records.util.quantity.QuantityBreakdown
 import org.springframework.stereotype.Component
 import java.util.UUID
 

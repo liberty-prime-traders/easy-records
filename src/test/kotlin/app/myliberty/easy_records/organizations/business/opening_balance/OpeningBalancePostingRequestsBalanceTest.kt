@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.organizations.business.opening_balance
+package app.myliberty.easy_records.organizations.business.opening_balance
 
-import me.ezra_home.retail_software_solution.organizations.business.account.api.AccountPosting
-import me.ezra_home.retail_software_solution.organizations.business.account.api.EntryType
-import me.ezra_home.retail_software_solution.organizations.business.account.api.RecordingAccountService
-import me.ezra_home.retail_software_solution.organizations.business.account.api.SystemAccount
-import me.ezra_home.retail_software_solution.organizations.business.ledger.api.LedgerPostingRequest
+import app.myliberty.easy_records.organizations.business.account.api.AccountPosting
+import app.myliberty.easy_records.organizations.business.account.api.EntryType
+import app.myliberty.easy_records.organizations.business.account.api.RecordingAccountService
+import app.myliberty.easy_records.organizations.business.account.api.SystemAccount
+import app.myliberty.easy_records.organizations.business.ledger.api.LedgerPostingRequest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import java.math.BigDecimal

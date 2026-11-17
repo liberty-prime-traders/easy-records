@@ -1,12 +1,12 @@
-package me.ezra_home.retail_software_solution.cross_tier.product.search.common
+package app.myliberty.easy_records.cross_tier.product.search.common
 
-import me.ezra_home.retail_software_solution.util.paging.PageRequest
-import me.ezra_home.retail_software_solution.util.paging.PageResponse
-import me.ezra_home.retail_software_solution.util.queries.FetchesUsingSmartTextStrategy
-import me.ezra_home.retail_software_solution.util.queries.QueryFormatter
-import me.ezra_home.retail_software_solution.util.queries.QueryParameterNames
-import me.ezra_home.retail_software_solution.util.queries.SearchStrategyExecutor
-import me.ezra_home.retail_software_solution.util.queries.SqlQuery
+import app.myliberty.easy_records.util.paging.PageRequest
+import app.myliberty.easy_records.util.paging.PageResponse
+import app.myliberty.easy_records.util.queries.FetchesUsingSmartTextStrategy
+import app.myliberty.easy_records.util.queries.QueryFormatter
+import app.myliberty.easy_records.util.queries.QueryParameterNames
+import app.myliberty.easy_records.util.queries.SearchStrategyExecutor
+import app.myliberty.easy_records.util.queries.SqlQuery
 
 abstract class ProductSearchService<DTO>(
   private val fetcher: FetchesUsingSmartTextStrategy<ProductSearchParameters, DTO>,

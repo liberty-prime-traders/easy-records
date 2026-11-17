@@ -1,12 +1,12 @@
-package me.ezra_home.retail_software_solution.locations.business.supplier_payment.api
+package app.myliberty.easy_records.locations.business.supplier_payment.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
-import me.ezra_home.retail_software_solution.util.enums.PaymentStatus
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.payment.PurchasePaymentCeilingService
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.payment.PurchasePaymentCeilingService.PaymentCeiling
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.PurchaseUpdater
-import me.ezra_home.retail_software_solution.locations.business.supplier_payment.PaymentsCalculatorService
-import me.ezra_home.retail_software_solution.util.business.PaymentStatusResolver
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.util.enums.PaymentStatus
+import app.myliberty.easy_records.locations.business.purchase.api.payment.PurchasePaymentCeilingService
+import app.myliberty.easy_records.locations.business.purchase.api.payment.PurchasePaymentCeilingService.PaymentCeiling
+import app.myliberty.easy_records.locations.business.purchase.api.PurchaseUpdater
+import app.myliberty.easy_records.locations.business.supplier_payment.PaymentsCalculatorService
+import app.myliberty.easy_records.util.business.PaymentStatusResolver
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 import java.util.UUID

@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.organizations.business.adjustment_reason
+package app.myliberty.easy_records.organizations.business.adjustment_reason
 
-import me.ezra_home.retail_software_solution.organizations.business.adjustment_reason.api.AdjustmentDirection
+import app.myliberty.easy_records.organizations.business.adjustment_reason.api.AdjustmentDirection
 import java.time.OffsetDateTime
 import java.util.UUID
 

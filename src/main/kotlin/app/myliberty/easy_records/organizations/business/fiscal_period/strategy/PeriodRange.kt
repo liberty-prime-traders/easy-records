@@ -1,5 +1,5 @@
-package me.ezra_home.retail_software_solution.organizations.business.fiscal_period.strategy
+package app.myliberty.easy_records.organizations.business.fiscal_period.strategy
 
-import me.ezra_home.retail_software_solution.util.business.DateTimes
+import app.myliberty.easy_records.util.business.DateTimes
 
 typealias PeriodRange = DateTimes.DateRange

@@ -1,11 +1,11 @@
-package me.ezra_home.retail_software_solution.organizations.business.organization_admin.api
+package app.myliberty.easy_records.organizations.business.organization_admin.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnOrganizationSchema
-import me.ezra_home.retail_software_solution.configuration.session.SessionContextProvider
-import me.ezra_home.retail_software_solution.organizations.business.organization_admin.OrganizationAdminCache
-import me.ezra_home.retail_software_solution.organizations.business.organization_admin.OrganizationAdminMapper
-import me.ezra_home.retail_software_solution.platform.business.sysuser.api.SysUserService
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.configuration.session.SessionContextProvider
+import app.myliberty.easy_records.organizations.business.organization_admin.OrganizationAdminCache
+import app.myliberty.easy_records.organizations.business.organization_admin.OrganizationAdminMapper
+import app.myliberty.easy_records.platform.business.sysuser.api.SysUserService
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Service
 import java.time.OffsetDateTime
 import java.util.UUID

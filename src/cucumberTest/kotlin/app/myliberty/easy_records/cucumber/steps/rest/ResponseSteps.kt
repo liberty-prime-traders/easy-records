@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.cucumber.steps.rest
+package app.myliberty.easy_records.cucumber.steps.rest
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ArrayNode
@@ -6,12 +6,12 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import io.cucumber.datatable.DataTable
 import io.cucumber.java.en.Then
 import io.restassured.response.Response
-import me.ezra_home.retail_software_solution.cucumber.support.context.InjectContext
-import me.ezra_home.retail_software_solution.cucumber.support.context.ResponseContext
-import me.ezra_home.retail_software_solution.cucumber.support.rest.JsonSubsetMatcher
-import me.ezra_home.retail_software_solution.cucumber.support.rest.OrderOption
-import me.ezra_home.retail_software_solution.cucumber.support.rest.RestVerificationOption
-import me.ezra_home.retail_software_solution.cucumber.support.rest.SubsetOptions
+import app.myliberty.easy_records.cucumber.support.context.InjectContext
+import app.myliberty.easy_records.cucumber.support.context.ResponseContext
+import app.myliberty.easy_records.cucumber.support.rest.JsonSubsetMatcher
+import app.myliberty.easy_records.cucumber.support.rest.OrderOption
+import app.myliberty.easy_records.cucumber.support.rest.RestVerificationOption
+import app.myliberty.easy_records.cucumber.support.rest.SubsetOptions
 import org.hamcrest.Matchers.hasSize
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull

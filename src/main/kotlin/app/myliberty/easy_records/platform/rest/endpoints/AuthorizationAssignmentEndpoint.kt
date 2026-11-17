@@ -1,9 +1,9 @@
-package me.ezra_home.retail_software_solution.platform.rest.endpoints
+package app.myliberty.easy_records.platform.rest.endpoints
 
-import me.ezra_home.retail_software_solution.cross_tier.authority.AuthorizationAssignmentRequest
-import me.ezra_home.retail_software_solution.cross_tier.authority.AuthorizationRequestService
-import me.ezra_home.retail_software_solution.util.enums.RtsPermissionNames
-import me.ezra_home.retail_software_solution.util.enums.RtsRoleNames
+import app.myliberty.easy_records.cross_tier.authority.AuthorizationAssignmentRequest
+import app.myliberty.easy_records.cross_tier.authority.AuthorizationRequestService
+import app.myliberty.easy_records.util.enums.RtsPermissionNames
+import app.myliberty.easy_records.util.enums.RtsRoleNames
 import org.springframework.http.HttpStatus
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.DeleteMapping

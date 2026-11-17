@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.configuration.security
+package app.myliberty.easy_records.configuration.security
 
 object RtsHeaders {
     const val LOCATION_ID_HEADER = "X-LOCATION-ID"

@@ -1,16 +1,16 @@
-package me.ezra_home.retail_software_solution.organizations.business.product_bulk_import.api
+package app.myliberty.easy_records.organizations.business.product_bulk_import.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnOrganizationSchema
-import me.ezra_home.retail_software_solution.organizations.business.product.api.OrganizationProductInsertDto
-import me.ezra_home.retail_software_solution.organizations.business.product.api.OrganizationProductService
-import me.ezra_home.retail_software_solution.organizations.business.product_bulk_import.BulkProductImportValidator
-import me.ezra_home.retail_software_solution.organizations.business.product_category.api.ProductCategoryInsertDto
-import me.ezra_home.retail_software_solution.organizations.business.product_category.api.ProductCategoryService
-import me.ezra_home.retail_software_solution.organizations.business.product_group.api.ProductGroupInsertDto
-import me.ezra_home.retail_software_solution.organizations.business.product_group.api.ProductGroupService
-import me.ezra_home.retail_software_solution.organizations.business.unitvalue.api.UnitValueFetcher
-import me.ezra_home.retail_software_solution.util.business.StringUtils
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.organizations.business.product.api.OrganizationProductInsertDto
+import app.myliberty.easy_records.organizations.business.product.api.OrganizationProductService
+import app.myliberty.easy_records.organizations.business.product_bulk_import.BulkProductImportValidator
+import app.myliberty.easy_records.organizations.business.product_category.api.ProductCategoryInsertDto
+import app.myliberty.easy_records.organizations.business.product_category.api.ProductCategoryService
+import app.myliberty.easy_records.organizations.business.product_group.api.ProductGroupInsertDto
+import app.myliberty.easy_records.organizations.business.product_group.api.ProductGroupService
+import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueFetcher
+import app.myliberty.easy_records.util.business.StringUtils
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Service
 import java.util.UUID
 

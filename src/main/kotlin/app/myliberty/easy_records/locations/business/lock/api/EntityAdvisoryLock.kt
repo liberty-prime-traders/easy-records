@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.locations.business.lock.api
+package app.myliberty.easy_records.locations.business.lock.api
 
-import me.ezra_home.retail_software_solution.locations.business.lock.EntityAdvisoryLockRepository
-import me.ezra_home.retail_software_solution.util.business.lock.AdvisoryLock
+import app.myliberty.easy_records.locations.business.lock.EntityAdvisoryLockRepository
+import app.myliberty.easy_records.util.business.lock.AdvisoryLock
 import org.springframework.stereotype.Component
 import java.util.UUID
 

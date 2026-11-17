@@ -1,13 +1,13 @@
-package me.ezra_home.retail_software_solution.locations.business.purchase.api
+package app.myliberty.easy_records.locations.business.purchase.api
 
-import me.ezra_home.retail_software_solution.locations.business.purchase.PurchaseAssembler
-import me.ezra_home.retail_software_solution.locations.business.purchase.PurchaseEntity
-import me.ezra_home.retail_software_solution.locations.business.purchase.PurchaseLineEntity
-import me.ezra_home.retail_software_solution.locations.business.purchase.PurchaseLineRepository
-import me.ezra_home.retail_software_solution.locations.business.purchase.PurchaseRepository
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.delivery.DeliveryHandlerForPurchase
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.delivery.DeliveryLineQuantity
-import me.ezra_home.retail_software_solution.util.quantity.ExactQuantity
+import app.myliberty.easy_records.locations.business.purchase.PurchaseAssembler
+import app.myliberty.easy_records.locations.business.purchase.PurchaseEntity
+import app.myliberty.easy_records.locations.business.purchase.PurchaseLineEntity
+import app.myliberty.easy_records.locations.business.purchase.PurchaseLineRepository
+import app.myliberty.easy_records.locations.business.purchase.PurchaseRepository
+import app.myliberty.easy_records.locations.business.purchase.api.delivery.DeliveryHandlerForPurchase
+import app.myliberty.easy_records.locations.business.purchase.api.delivery.DeliveryLineQuantity
+import app.myliberty.easy_records.util.quantity.ExactQuantity
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

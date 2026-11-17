@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.locations.business.sale_payment.api
+package app.myliberty.easy_records.locations.business.sale_payment.api
 
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleStatus
-import me.ezra_home.retail_software_solution.util.business.DisplayFormatters
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.locations.business.sale.api.SaleStatus
+import app.myliberty.easy_records.util.business.DisplayFormatters
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import java.math.BigDecimal
 
 object SalePaymentValidator {

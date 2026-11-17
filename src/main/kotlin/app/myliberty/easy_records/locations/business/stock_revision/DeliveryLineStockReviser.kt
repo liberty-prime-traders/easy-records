@@ -1,13 +1,13 @@
-package me.ezra_home.retail_software_solution.locations.business.stock_revision
+package app.myliberty.easy_records.locations.business.stock_revision
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
-import me.ezra_home.retail_software_solution.locations.business.delivery.api.ReplacementDeliveryLineDto
-import me.ezra_home.retail_software_solution.locations.business.location_product.api.ProductStockBreakdownProvider
-import me.ezra_home.retail_software_solution.locations.business.stock.api.read.DeliveryLineStockInspector
-import me.ezra_home.retail_software_solution.locations.business.stock.api.revision.StockReplacementLayerRecorder
-import me.ezra_home.retail_software_solution.locations.business.stock.api.revision.StockRevisionCommitter
-import me.ezra_home.retail_software_solution.util.business.reference_number.ReferenceNumberGenerator
-import me.ezra_home.retail_software_solution.util.model.TableName
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.locations.business.delivery.api.ReplacementDeliveryLineDto
+import app.myliberty.easy_records.locations.business.location_product.api.ProductStockBreakdownProvider
+import app.myliberty.easy_records.locations.business.stock.api.read.DeliveryLineStockInspector
+import app.myliberty.easy_records.locations.business.stock.api.revision.StockReplacementLayerRecorder
+import app.myliberty.easy_records.locations.business.stock.api.revision.StockRevisionCommitter
+import app.myliberty.easy_records.util.business.reference_number.ReferenceNumberGenerator
+import app.myliberty.easy_records.util.model.TableName
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Propagation
 import java.util.UUID

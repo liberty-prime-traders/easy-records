@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.locations.business.stock_revision
+package app.myliberty.easy_records.locations.business.stock_revision
 
-import me.ezra_home.retail_software_solution.organizations.business.stock_movement_reason.api.MovementType
+import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.MovementType
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 

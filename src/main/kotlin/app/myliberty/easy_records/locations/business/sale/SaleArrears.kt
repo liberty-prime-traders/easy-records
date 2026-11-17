@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.locations.business.sale
+package app.myliberty.easy_records.locations.business.sale
 
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleStatus
+import app.myliberty.easy_records.locations.business.sale.api.SaleStatus
 import java.math.BigDecimal
 
 object SaleArrears {

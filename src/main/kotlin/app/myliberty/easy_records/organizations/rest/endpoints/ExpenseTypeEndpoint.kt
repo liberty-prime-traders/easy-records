@@ -1,13 +1,13 @@
-package me.ezra_home.retail_software_solution.organizations.rest.endpoints
+package app.myliberty.easy_records.organizations.rest.endpoints
 
-import me.ezra_home.retail_software_solution.cross_tier.expense.ExpenseSourceType
-import me.ezra_home.retail_software_solution.organizations.business.expense_type.api.ExpenseTypeInsertDto
-import me.ezra_home.retail_software_solution.organizations.business.expense_type.api.ExpenseTypeRenameDto
-import me.ezra_home.retail_software_solution.organizations.business.expense_type.api.ExpenseTypeResponseDto
-import me.ezra_home.retail_software_solution.organizations.business.expense_type.api.ExpenseTypeService
-import me.ezra_home.retail_software_solution.organizations.business.expense_type.api.ExpenseTypeUpdateDto
-import me.ezra_home.retail_software_solution.platform.business.feature.api.Feature
-import me.ezra_home.retail_software_solution.util.annotations.RequiresFeature
+import app.myliberty.easy_records.cross_tier.expense.ExpenseSourceType
+import app.myliberty.easy_records.organizations.business.expense_type.api.ExpenseTypeInsertDto
+import app.myliberty.easy_records.organizations.business.expense_type.api.ExpenseTypeRenameDto
+import app.myliberty.easy_records.organizations.business.expense_type.api.ExpenseTypeResponseDto
+import app.myliberty.easy_records.organizations.business.expense_type.api.ExpenseTypeService
+import app.myliberty.easy_records.organizations.business.expense_type.api.ExpenseTypeUpdateDto
+import app.myliberty.easy_records.platform.business.feature.api.Feature
+import app.myliberty.easy_records.util.annotations.RequiresFeature
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping

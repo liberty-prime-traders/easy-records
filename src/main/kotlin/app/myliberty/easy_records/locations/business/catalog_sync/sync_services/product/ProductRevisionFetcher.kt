@@ -1,9 +1,9 @@
-package me.ezra_home.retail_software_solution.locations.business.catalog_sync.sync_services.product
+package app.myliberty.easy_records.locations.business.catalog_sync.sync_services.product
 
 import jakarta.persistence.EntityManagerFactory
 import jakarta.persistence.Tuple
-import me.ezra_home.retail_software_solution.configuration.datasource.DataSourceBeanNames
-import me.ezra_home.retail_software_solution.locations.business.catalog_sync.sync_services.SyncQueryConstants
+import app.myliberty.easy_records.configuration.datasource.DataSourceBeanNames
+import app.myliberty.easy_records.locations.business.catalog_sync.sync_services.SyncQueryConstants
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Component
 import java.util.UUID

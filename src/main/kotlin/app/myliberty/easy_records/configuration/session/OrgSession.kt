@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.configuration.session
+package app.myliberty.easy_records.configuration.session
 
 import java.util.UUID
 

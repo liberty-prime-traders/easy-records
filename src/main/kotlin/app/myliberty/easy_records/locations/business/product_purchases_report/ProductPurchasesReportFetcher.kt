@@ -1,9 +1,9 @@
-package me.ezra_home.retail_software_solution.locations.business.product_purchases_report
+package app.myliberty.easy_records.locations.business.product_purchases_report
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
-import me.ezra_home.retail_software_solution.locations.business.product_purchases_report.api.ProductPurchasesDeliveryLinesParameters
-import me.ezra_home.retail_software_solution.locations.business.product_purchases_report.api.ProductPurchasesReportParameters
-import me.ezra_home.retail_software_solution.util.queries.KeysetSearchCursor
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.locations.business.product_purchases_report.api.ProductPurchasesDeliveryLinesParameters
+import app.myliberty.easy_records.locations.business.product_purchases_report.api.ProductPurchasesReportParameters
+import app.myliberty.easy_records.util.queries.KeysetSearchCursor
 import org.springframework.stereotype.Component
 import java.util.UUID
 

@@ -1,15 +1,15 @@
-package me.ezra_home.retail_software_solution.organizations.business.unitconversion
+package app.myliberty.easy_records.organizations.business.unitconversion
 
-import me.ezra_home.retail_software_solution.configuration.session.SessionContextProvider
-import me.ezra_home.retail_software_solution.organizations.business.unitconversion.api.ConversionTargetDto
-import me.ezra_home.retail_software_solution.organizations.business.unitconversion.api.UnitConversionGraph
-import me.ezra_home.retail_software_solution.organizations.business.unitgroup.api.UnitGroupDataFetcher
-import me.ezra_home.retail_software_solution.organizations.business.unitvalue.api.UnitChainNode
-import me.ezra_home.retail_software_solution.organizations.business.unitvalue.api.UnitChainResolver
-import me.ezra_home.retail_software_solution.organizations.business.unitvalue.api.UnitValueFetcher
-import me.ezra_home.retail_software_solution.organizations.business.unitvalue.api.UnitValueResponseDto
-import me.ezra_home.retail_software_solution.util.business.ConversionRatio
-import me.ezra_home.retail_software_solution.util.quantity.BreakdownUnit
+import app.myliberty.easy_records.configuration.session.SessionContextProvider
+import app.myliberty.easy_records.organizations.business.unitconversion.api.ConversionTargetDto
+import app.myliberty.easy_records.organizations.business.unitconversion.api.UnitConversionGraph
+import app.myliberty.easy_records.organizations.business.unitgroup.api.UnitGroupDataFetcher
+import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitChainNode
+import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitChainResolver
+import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueFetcher
+import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueResponseDto
+import app.myliberty.easy_records.util.business.ConversionRatio
+import app.myliberty.easy_records.util.quantity.BreakdownUnit
 import org.springframework.stereotype.Component
 import org.springframework.transaction.support.TransactionSynchronization
 import org.springframework.transaction.support.TransactionSynchronizationManager

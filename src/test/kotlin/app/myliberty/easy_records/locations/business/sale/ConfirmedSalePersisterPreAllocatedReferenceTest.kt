@@ -1,13 +1,13 @@
-package me.ezra_home.retail_software_solution.locations.business.sale
+package app.myliberty.easy_records.locations.business.sale
 
-import me.ezra_home.retail_software_solution.locations.business.location_product.api.LocationProductDataFetcher
-import me.ezra_home.retail_software_solution.locations.business.sale.api.ConfirmedSalePersister
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleSaveRequest
-import me.ezra_home.retail_software_solution.locations.business.sale_adjustment.api.SaleAdjustmentSyncer
-import me.ezra_home.retail_software_solution.locations.business.stock.api.updater.SaleStockUpdater
-import me.ezra_home.retail_software_solution.locations.business.stock_reservation.api.StockReserver
-import me.ezra_home.retail_software_solution.organizations.business.fiscal_period.api.FiscalPeriodService
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.locations.business.location_product.api.LocationProductDataFetcher
+import app.myliberty.easy_records.locations.business.sale.api.ConfirmedSalePersister
+import app.myliberty.easy_records.locations.business.sale.api.SaleSaveRequest
+import app.myliberty.easy_records.locations.business.sale_adjustment.api.SaleAdjustmentSyncer
+import app.myliberty.easy_records.locations.business.stock.api.updater.SaleStockUpdater
+import app.myliberty.easy_records.locations.business.stock_reservation.api.StockReserver
+import app.myliberty.easy_records.organizations.business.fiscal_period.api.FiscalPeriodService
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.mock

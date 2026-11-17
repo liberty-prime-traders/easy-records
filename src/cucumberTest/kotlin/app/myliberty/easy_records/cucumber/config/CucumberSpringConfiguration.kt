@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.cucumber.config
+package app.myliberty.easy_records.cucumber.config
 
 import io.cucumber.spring.CucumberContextConfiguration
-import me.ezra_home.retail_software_solution.TestMockBeansConfiguration
-import me.ezra_home.retail_software_solution.cucumber.support.initialization.ContainerInitializer
+import app.myliberty.easy_records.TestMockBeansConfiguration
+import app.myliberty.easy_records.cucumber.support.initialization.ContainerInitializer
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.context.annotation.Import
 import org.springframework.test.context.ActiveProfiles

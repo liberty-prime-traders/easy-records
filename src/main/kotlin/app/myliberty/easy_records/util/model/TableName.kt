@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.util.model
+package app.myliberty.easy_records.util.model
 
-import me.ezra_home.retail_software_solution.util.enums.HasCode
-import me.ezra_home.retail_software_solution.util.enums.SchemaLevel
+import app.myliberty.easy_records.util.enums.HasCode
+import app.myliberty.easy_records.util.enums.SchemaLevel
 
 enum class TableName(override val code: String, val schemaLevel: SchemaLevel) : HasCode {
 

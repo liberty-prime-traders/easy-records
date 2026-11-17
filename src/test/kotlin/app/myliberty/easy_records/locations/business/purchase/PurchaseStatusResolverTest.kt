@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.locations.business.purchase
+package app.myliberty.easy_records.locations.business.purchase
 
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.PurchaseStatus
+import app.myliberty.easy_records.locations.business.purchase.api.PurchaseStatus
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import java.math.BigDecimal

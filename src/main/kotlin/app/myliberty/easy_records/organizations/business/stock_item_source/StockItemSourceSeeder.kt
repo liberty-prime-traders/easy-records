@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.organizations.business.stock_item_source
+package app.myliberty.easy_records.organizations.business.stock_item_source
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnOrganizationSchema
-import me.ezra_home.retail_software_solution.organizations.business.org_profile.api.OrgDataSeeder
-import me.ezra_home.retail_software_solution.organizations.business.stock_item_source.api.StockItemSource
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.organizations.business.org_profile.api.OrgDataSeeder
+import app.myliberty.easy_records.organizations.business.stock_item_source.api.StockItemSource
 import org.springframework.stereotype.Component
 
 @Component

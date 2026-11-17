@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.util.business.lock
+package app.myliberty.easy_records.util.business.lock
 
 // Acquires a Postgres advisory lock (pg_advisory_xact_lock) for the whole current transaction —
 // released automatically on commit or rollback. Namespaced so keys from different natural-key

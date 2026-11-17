@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.locations.business.supplier_payment.api
+package app.myliberty.easy_records.locations.business.supplier_payment.api
 
 import java.util.UUID
 

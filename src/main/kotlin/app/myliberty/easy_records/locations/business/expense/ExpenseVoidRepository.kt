@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.locations.business.expense
+package app.myliberty.easy_records.locations.business.expense
 
-import me.ezra_home.retail_software_solution.cross_tier.expense.repository.ExpenseVoidRepositoryBase
+import app.myliberty.easy_records.cross_tier.expense.repository.ExpenseVoidRepositoryBase
 import org.springframework.stereotype.Repository
 
 @Repository

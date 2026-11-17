@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.organizations.business.org_jurisdiction_tax_type
+package app.myliberty.easy_records.organizations.business.org_jurisdiction_tax_type
 
 import jakarta.persistence.Converter
-import me.ezra_home.retail_software_solution.organizations.business.org_jurisdiction_tax_type.api.OrgJurisdictionTaxTypeStatus
-import me.ezra_home.retail_software_solution.util.enums.EnumConverter
+import app.myliberty.easy_records.organizations.business.org_jurisdiction_tax_type.api.OrgJurisdictionTaxTypeStatus
+import app.myliberty.easy_records.util.enums.EnumConverter
 
 @Converter(autoApply = true)
 class OrgJurisdictionTaxTypeStatusConverter : EnumConverter<OrgJurisdictionTaxTypeStatus>(OrgJurisdictionTaxTypeStatus::class.java)

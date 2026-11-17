@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.configuration.datasource
+package app.myliberty.easy_records.configuration.datasource
 
 import liquibase.integration.spring.SpringLiquibase
 import org.hibernate.engine.jdbc.connections.spi.MultiTenantConnectionProvider
@@ -15,7 +15,7 @@ import javax.sql.DataSource
 
 @Configuration
 @EnableJpaRepositories(
-    basePackages = ["me.ezra_home.retail_software_solution.locations"],
+    basePackages = ["app.myliberty.easy_records.locations"],
     entityManagerFactoryRef = DataSourceBeanNames.LOCATION_SCHEMA_ENTITY_MANAGER_FACTORY,
     transactionManagerRef = DataSourceBeanNames.LOCATION_SCHEMA_TRANSACTION_MANAGER
 )
@@ -31,7 +31,7 @@ class LocationSchemaDataSourceConfig(private val locationTenantIdentifier: Locat
         @Qualifier(DataSourceBeanNames.LOCATION_SCHEMA_DATA_SOURCE) dataSource: DataSource,
         @Qualifier(DataSourceBeanNames.LOCATION_SCHEMA_CONNECTION_PROVIDER) connectionProvider: MultiTenantConnectionProvider<String>
     ): LocalContainerEntityManagerFactoryBean {
-        val packagesToScan = "me.ezra_home.retail_software_solution.locations"
+        val packagesToScan = "app.myliberty.easy_records.locations"
         return EntityManagerFactoryBuilder.build(dataSource, connectionProvider, packagesToScan, locationTenantIdentifier)
     }
 

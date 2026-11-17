@@ -1,15 +1,15 @@
-package me.ezra_home.retail_software_solution.organizations.business.tax_rate
+package app.myliberty.easy_records.organizations.business.tax_rate
 
-import me.ezra_home.retail_software_solution.organizations.business.org_jurisdiction_tax_type.api.OrgJurisdictionTaxTypeFetcher
-import me.ezra_home.retail_software_solution.organizations.business.org_jurisdiction_tax_type.api.OrgJurisdictionTaxTypeStatus
-import me.ezra_home.retail_software_solution.organizations.business.tax_rate.api.TaxRateInsertDto
-import me.ezra_home.retail_software_solution.organizations.business.tax_rate.api.TaxRateUpdateDto
-import me.ezra_home.retail_software_solution.platform.business.jurisdiction_tax_type.api.JurisdictionTaxTypeFetcher
-import me.ezra_home.retail_software_solution.platform.business.tax_type.api.TaxApplicationLevel
-import me.ezra_home.retail_software_solution.platform.business.tax_type.api.TaxCalculationMethod
-import me.ezra_home.retail_software_solution.util.business.DateTimes
-import me.ezra_home.retail_software_solution.util.business.StringUtils
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.organizations.business.org_jurisdiction_tax_type.api.OrgJurisdictionTaxTypeFetcher
+import app.myliberty.easy_records.organizations.business.org_jurisdiction_tax_type.api.OrgJurisdictionTaxTypeStatus
+import app.myliberty.easy_records.organizations.business.tax_rate.api.TaxRateInsertDto
+import app.myliberty.easy_records.organizations.business.tax_rate.api.TaxRateUpdateDto
+import app.myliberty.easy_records.platform.business.jurisdiction_tax_type.api.JurisdictionTaxTypeFetcher
+import app.myliberty.easy_records.platform.business.tax_type.api.TaxApplicationLevel
+import app.myliberty.easy_records.platform.business.tax_type.api.TaxCalculationMethod
+import app.myliberty.easy_records.util.business.DateTimes
+import app.myliberty.easy_records.util.business.StringUtils
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Component
 import java.math.BigDecimal
 import java.time.LocalDate

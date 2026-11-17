@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.platform.business.table_registry
+package app.myliberty.easy_records.platform.business.table_registry
 
-import me.ezra_home.retail_software_solution.platform.business.startup_checks.api.StartupCheck
-import me.ezra_home.retail_software_solution.platform.business.table_registry.api.TableRegistryService
-import me.ezra_home.retail_software_solution.util.model.TableNames
+import app.myliberty.easy_records.platform.business.startup_checks.api.StartupCheck
+import app.myliberty.easy_records.platform.business.table_registry.api.TableRegistryService
+import app.myliberty.easy_records.util.model.TableNames
 import org.springframework.stereotype.Component
 
 @Component

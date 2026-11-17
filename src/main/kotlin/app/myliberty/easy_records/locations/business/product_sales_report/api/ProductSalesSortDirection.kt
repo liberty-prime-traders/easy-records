@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.locations.business.product_sales_report.api
+package app.myliberty.easy_records.locations.business.product_sales_report.api
 
 enum class ProductSalesSortDirection {
   ASC,

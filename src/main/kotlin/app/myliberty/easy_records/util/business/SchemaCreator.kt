@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.util.business
+package app.myliberty.easy_records.util.business
 
 import liquibase.command.CommandScope
 import liquibase.command.core.RollbackCommandStep
@@ -8,7 +8,7 @@ import liquibase.command.core.helpers.DatabaseChangelogCommandStep
 import liquibase.command.core.helpers.DbUrlConnectionArgumentsCommandStep
 import liquibase.database.DatabaseFactory
 import liquibase.database.jvm.JdbcConnection
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import javax.sql.DataSource
 
 object SchemaCreator {

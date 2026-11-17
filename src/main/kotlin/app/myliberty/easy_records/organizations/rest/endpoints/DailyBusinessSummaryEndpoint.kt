@@ -1,12 +1,12 @@
-package me.ezra_home.retail_software_solution.organizations.rest.endpoints
+package app.myliberty.easy_records.organizations.rest.endpoints
 
-import me.ezra_home.retail_software_solution.organizations.business.daily_business_summary.api.DailyBalancesResponse
-import me.ezra_home.retail_software_solution.organizations.business.daily_business_summary.api.DailyBalancesService
-import me.ezra_home.retail_software_solution.organizations.business.daily_business_summary.api.DailyBusinessSummaryRequest
-import me.ezra_home.retail_software_solution.organizations.business.daily_business_summary.api.DailyPerformanceResponse
-import me.ezra_home.retail_software_solution.organizations.business.daily_business_summary.api.DailyPerformanceService
-import me.ezra_home.retail_software_solution.platform.business.feature.api.Feature
-import me.ezra_home.retail_software_solution.util.annotations.RequiresFeature
+import app.myliberty.easy_records.organizations.business.daily_business_summary.api.DailyBalancesResponse
+import app.myliberty.easy_records.organizations.business.daily_business_summary.api.DailyBalancesService
+import app.myliberty.easy_records.organizations.business.daily_business_summary.api.DailyBusinessSummaryRequest
+import app.myliberty.easy_records.organizations.business.daily_business_summary.api.DailyPerformanceResponse
+import app.myliberty.easy_records.organizations.business.daily_business_summary.api.DailyPerformanceService
+import app.myliberty.easy_records.platform.business.feature.api.Feature
+import app.myliberty.easy_records.util.annotations.RequiresFeature
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping

@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.locations.business.stock.api.read
+package app.myliberty.easy_records.locations.business.stock.api.read
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
-import me.ezra_home.retail_software_solution.locations.business.stock.StockMovementRepository
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.locations.business.stock.StockMovementRepository
 import org.springframework.stereotype.Service
 import java.util.UUID
 

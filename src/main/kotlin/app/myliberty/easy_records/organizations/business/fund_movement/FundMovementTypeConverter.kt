@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.organizations.business.fund_movement
+package app.myliberty.easy_records.organizations.business.fund_movement
 
 import jakarta.persistence.Converter
-import me.ezra_home.retail_software_solution.organizations.business.fund_movement.api.FundMovementType
-import me.ezra_home.retail_software_solution.util.enums.EnumConverter
+import app.myliberty.easy_records.organizations.business.fund_movement.api.FundMovementType
+import app.myliberty.easy_records.util.enums.EnumConverter
 
 @Converter
 class FundMovementTypeConverter : EnumConverter<FundMovementType>(FundMovementType::class.java)

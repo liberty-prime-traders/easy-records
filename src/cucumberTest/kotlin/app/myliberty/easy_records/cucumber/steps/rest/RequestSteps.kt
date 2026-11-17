@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.cucumber.steps.rest
+package app.myliberty.easy_records.cucumber.steps.rest
 
 import io.cucumber.datatable.DataTable
 import io.cucumber.java.en.When
-import me.ezra_home.retail_software_solution.cucumber.support.ApiClient
-import me.ezra_home.retail_software_solution.cucumber.support.context.InjectContext
-import me.ezra_home.retail_software_solution.cucumber.support.rest.ParameterStyle
+import app.myliberty.easy_records.cucumber.support.ApiClient
+import app.myliberty.easy_records.cucumber.support.context.InjectContext
+import app.myliberty.easy_records.cucumber.support.rest.ParameterStyle
 import org.springframework.http.HttpMethod
 
 class RequestSteps(

@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.configuration.security
+package app.myliberty.easy_records.configuration.security
 
-import me.ezra_home.retail_software_solution.configuration.filters.SessionRenewalFilter
-import me.ezra_home.retail_software_solution.configuration.filters.UserDataExtractionFilter
+import app.myliberty.easy_records.configuration.filters.SessionRenewalFilter
+import app.myliberty.easy_records.configuration.filters.UserDataExtractionFilter
 import org.springframework.boot.web.servlet.FilterRegistrationBean
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

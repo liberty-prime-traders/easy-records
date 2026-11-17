@@ -1,12 +1,12 @@
-package me.ezra_home.retail_software_solution.organizations.business.contact_opening_balance
+package app.myliberty.easy_records.organizations.business.contact_opening_balance
 
-import me.ezra_home.retail_software_solution.organizations.business.account.api.AccountPosting
-import me.ezra_home.retail_software_solution.organizations.business.account.api.RecordingAccountService
-import me.ezra_home.retail_software_solution.organizations.business.account.api.SystemAccount
-import me.ezra_home.retail_software_solution.organizations.business.contact_opening_balance.api.ContactSubledgerDirection
-import me.ezra_home.retail_software_solution.organizations.business.ledger.api.LedgerPostingRequest
-import me.ezra_home.retail_software_solution.organizations.business.ledger.api.LedgerSourceType
-import me.ezra_home.retail_software_solution.organizations.business.ledger.api.SubledgerEntryRequest
+import app.myliberty.easy_records.organizations.business.account.api.AccountPosting
+import app.myliberty.easy_records.organizations.business.account.api.RecordingAccountService
+import app.myliberty.easy_records.organizations.business.account.api.SystemAccount
+import app.myliberty.easy_records.organizations.business.contact_opening_balance.api.ContactSubledgerDirection
+import app.myliberty.easy_records.organizations.business.ledger.api.LedgerPostingRequest
+import app.myliberty.easy_records.organizations.business.ledger.api.LedgerSourceType
+import app.myliberty.easy_records.organizations.business.ledger.api.SubledgerEntryRequest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import java.math.BigDecimal

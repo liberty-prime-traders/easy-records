@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.organizations.business.contact_opening_balance
+package app.myliberty.easy_records.organizations.business.contact_opening_balance
 
-import me.ezra_home.retail_software_solution.organizations.business.contact_opening_balance.api.ContactOpeningBalanceReader
-import me.ezra_home.retail_software_solution.organizations.business.contact_opening_balance.api.ContactSubledgerDirection
+import app.myliberty.easy_records.organizations.business.contact_opening_balance.api.ContactOpeningBalanceReader
+import app.myliberty.easy_records.organizations.business.contact_opening_balance.api.ContactSubledgerDirection
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test

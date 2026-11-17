@@ -1,11 +1,11 @@
-package me.ezra_home.retail_software_solution.locations.business.stock_revision
+package app.myliberty.easy_records.locations.business.stock_revision
 
-import me.ezra_home.retail_software_solution.locations.business.stock.api.revision.ConsumerReplayPlan
-import me.ezra_home.retail_software_solution.locations.business.stock.api.fifo.StockEntryFifoDto
-import me.ezra_home.retail_software_solution.organizations.business.stock_movement_reason.api.MovementType
-import me.ezra_home.retail_software_solution.util.exceptions.BlockingProblem
-import me.ezra_home.retail_software_solution.util.quantity.ExactQuantity
-import me.ezra_home.retail_software_solution.util.quantity.QuantityBreakdown
+import app.myliberty.easy_records.locations.business.stock.api.revision.ConsumerReplayPlan
+import app.myliberty.easy_records.locations.business.stock.api.fifo.StockEntryFifoDto
+import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.MovementType
+import app.myliberty.easy_records.util.exceptions.BlockingProblem
+import app.myliberty.easy_records.util.quantity.ExactQuantity
+import app.myliberty.easy_records.util.quantity.QuantityBreakdown
 
 data class ReplayRequest(
     val stockRevisionReferenceNumber: String,

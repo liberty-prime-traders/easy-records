@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.messaging.kafka.transaction.events
+package app.myliberty.easy_records.messaging.kafka.transaction.events
 
 import java.math.BigDecimal
 import java.util.UUID

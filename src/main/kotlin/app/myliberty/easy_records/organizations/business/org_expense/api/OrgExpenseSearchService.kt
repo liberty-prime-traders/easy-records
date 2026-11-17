@@ -1,15 +1,15 @@
-package me.ezra_home.retail_software_solution.organizations.business.org_expense.api
+package app.myliberty.easy_records.organizations.business.org_expense.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnOrganizationSchema
-import me.ezra_home.retail_software_solution.cross_tier.expense.response.ExpenseSummaryResponse
-import me.ezra_home.retail_software_solution.cross_tier.expense.search.ExpenseSearchFetcher
-import me.ezra_home.retail_software_solution.cross_tier.expense.search.ExpenseSearchOperationsFactory
-import me.ezra_home.retail_software_solution.cross_tier.expense.search.ExpenseSearchParameters
-import me.ezra_home.retail_software_solution.cross_tier.expense.search.ExpenseSearchSummaryResponseDto
-import me.ezra_home.retail_software_solution.cross_tier.expense.search.ExpenseSearchTables
-import me.ezra_home.retail_software_solution.organizations.business.org_expense.search.OrgExpenseSearchExecutor
-import me.ezra_home.retail_software_solution.util.paging.PageRequest
-import me.ezra_home.retail_software_solution.util.paging.PageResponse
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.cross_tier.expense.response.ExpenseSummaryResponse
+import app.myliberty.easy_records.cross_tier.expense.search.ExpenseSearchFetcher
+import app.myliberty.easy_records.cross_tier.expense.search.ExpenseSearchOperationsFactory
+import app.myliberty.easy_records.cross_tier.expense.search.ExpenseSearchParameters
+import app.myliberty.easy_records.cross_tier.expense.search.ExpenseSearchSummaryResponseDto
+import app.myliberty.easy_records.cross_tier.expense.search.ExpenseSearchTables
+import app.myliberty.easy_records.organizations.business.org_expense.search.OrgExpenseSearchExecutor
+import app.myliberty.easy_records.util.paging.PageRequest
+import app.myliberty.easy_records.util.paging.PageResponse
 import org.springframework.stereotype.Service
 
 @Service

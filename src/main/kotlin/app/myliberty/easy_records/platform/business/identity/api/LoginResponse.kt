@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.platform.business.identity.api
+package app.myliberty.easy_records.platform.business.identity.api
 
-import me.ezra_home.retail_software_solution.platform.business.sysuser.api.SysUserWithProfileDto
-import me.ezra_home.retail_software_solution.util.enums.RtsPermission
-import me.ezra_home.retail_software_solution.util.enums.RtsRole
+import app.myliberty.easy_records.platform.business.sysuser.api.SysUserWithProfileDto
+import app.myliberty.easy_records.util.enums.RtsPermission
+import app.myliberty.easy_records.util.enums.RtsRole
 
 data class LoginResponse(
     val sessionToken: String,

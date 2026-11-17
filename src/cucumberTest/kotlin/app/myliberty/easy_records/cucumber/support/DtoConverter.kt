@@ -1,9 +1,9 @@
-package me.ezra_home.retail_software_solution.cucumber.support
+package app.myliberty.easy_records.cucumber.support
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.node.ObjectNode
 import io.cucumber.datatable.DataTable
-import me.ezra_home.retail_software_solution.cucumber.support.context.InjectContext
+import app.myliberty.easy_records.cucumber.support.context.InjectContext
 import org.springframework.stereotype.Component
 
 @Component

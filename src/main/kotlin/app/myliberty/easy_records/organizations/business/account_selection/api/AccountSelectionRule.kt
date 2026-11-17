@@ -1,9 +1,9 @@
-package me.ezra_home.retail_software_solution.organizations.business.account_selection.api
+package app.myliberty.easy_records.organizations.business.account_selection.api
 
-import me.ezra_home.retail_software_solution.organizations.business.account.api.AccountSelectionCandidate
-import me.ezra_home.retail_software_solution.organizations.business.account.api.SystemAccount
-import me.ezra_home.retail_software_solution.organizations.business.account_selection.MANUAL_JOURNAL_ACCOUNTS
-import me.ezra_home.retail_software_solution.organizations.business.account_selection.RESERVED_EXPENSE_ACCOUNTS
+import app.myliberty.easy_records.organizations.business.account.api.AccountSelectionCandidate
+import app.myliberty.easy_records.organizations.business.account.api.SystemAccount
+import app.myliberty.easy_records.organizations.business.account_selection.MANUAL_JOURNAL_ACCOUNTS
+import app.myliberty.easy_records.organizations.business.account_selection.RESERVED_EXPENSE_ACCOUNTS
 
 
 enum class AccountSelectionRule(val accountDescription: String) {

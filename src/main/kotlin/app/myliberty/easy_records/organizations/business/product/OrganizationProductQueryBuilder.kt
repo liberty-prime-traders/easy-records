@@ -1,18 +1,18 @@
-package me.ezra_home.retail_software_solution.organizations.business.product
+package app.myliberty.easy_records.organizations.business.product
 
-import me.ezra_home.retail_software_solution.cross_tier.product.search.common.Aliases
-import me.ezra_home.retail_software_solution.cross_tier.product.search.common.ProductSearchParameters
-import me.ezra_home.retail_software_solution.cross_tier.product.search.common.filters.CategoryFilterStrategy
-import me.ezra_home.retail_software_solution.cross_tier.product.search.common.filters.ExcludeIdsFilterStrategy
-import me.ezra_home.retail_software_solution.cross_tier.product.search.common.filters.NameFilterStrategy
-import me.ezra_home.retail_software_solution.cross_tier.product.search.common.filters.ReferenceNumberFilterStrategy
-import me.ezra_home.retail_software_solution.cross_tier.product.search.common.filters.StatusFilterStrategy
-import me.ezra_home.retail_software_solution.cross_tier.product.search.common.filters.TextSearchFilterStrategy
-import me.ezra_home.retail_software_solution.util.model.TableNames
-import me.ezra_home.retail_software_solution.util.queries.QueryBuilderContext
-import me.ezra_home.retail_software_solution.util.queries.ProductQueryMetadata
-import me.ezra_home.retail_software_solution.util.queries.QueryParameterNames
-import me.ezra_home.retail_software_solution.util.queries.SqlQuery
+import app.myliberty.easy_records.cross_tier.product.search.common.Aliases
+import app.myliberty.easy_records.cross_tier.product.search.common.ProductSearchParameters
+import app.myliberty.easy_records.cross_tier.product.search.common.filters.CategoryFilterStrategy
+import app.myliberty.easy_records.cross_tier.product.search.common.filters.ExcludeIdsFilterStrategy
+import app.myliberty.easy_records.cross_tier.product.search.common.filters.NameFilterStrategy
+import app.myliberty.easy_records.cross_tier.product.search.common.filters.ReferenceNumberFilterStrategy
+import app.myliberty.easy_records.cross_tier.product.search.common.filters.StatusFilterStrategy
+import app.myliberty.easy_records.cross_tier.product.search.common.filters.TextSearchFilterStrategy
+import app.myliberty.easy_records.util.model.TableNames
+import app.myliberty.easy_records.util.queries.QueryBuilderContext
+import app.myliberty.easy_records.util.queries.ProductQueryMetadata
+import app.myliberty.easy_records.util.queries.QueryParameterNames
+import app.myliberty.easy_records.util.queries.SqlQuery
 
 object OrganizationProductQueryBuilder {
 

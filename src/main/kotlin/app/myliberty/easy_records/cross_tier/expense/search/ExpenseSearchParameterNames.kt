@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.cross_tier.expense.search
+package app.myliberty.easy_records.cross_tier.expense.search
 
 object ExpenseSearchParameterNames {
     const val CREATED_FROM = "createdFrom"

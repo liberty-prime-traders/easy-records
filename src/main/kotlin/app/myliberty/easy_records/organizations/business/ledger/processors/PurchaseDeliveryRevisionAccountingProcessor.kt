@@ -1,16 +1,16 @@
-package me.ezra_home.retail_software_solution.organizations.business.ledger.processors
+package app.myliberty.easy_records.organizations.business.ledger.processors
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnOrganizationSchema
-import me.ezra_home.retail_software_solution.messaging.kafka.transaction.events.PurchaseDeliveryRevisedEvent
-import me.ezra_home.retail_software_solution.messaging.kafka.transaction.processors.AccountingEventProcessor
-import me.ezra_home.retail_software_solution.organizations.business.contact.api.ContactService
-import me.ezra_home.retail_software_solution.organizations.business.ledger.api.LedgerPostingRequest
-import me.ezra_home.retail_software_solution.organizations.business.ledger.api.LedgerPostingService
-import me.ezra_home.retail_software_solution.organizations.business.ledger.api.LedgerSourceType
-import me.ezra_home.retail_software_solution.locations.business.stock_revision.api.RevisionLedgerEntries
-import me.ezra_home.retail_software_solution.organizations.business.ledger.api.SubledgerEntryRequest
-import me.ezra_home.retail_software_solution.organizations.business.ledger.helpers.LedgerPostingGate
-import me.ezra_home.retail_software_solution.util.business.Money
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.messaging.kafka.transaction.events.PurchaseDeliveryRevisedEvent
+import app.myliberty.easy_records.messaging.kafka.transaction.processors.AccountingEventProcessor
+import app.myliberty.easy_records.organizations.business.contact.api.ContactService
+import app.myliberty.easy_records.organizations.business.ledger.api.LedgerPostingRequest
+import app.myliberty.easy_records.organizations.business.ledger.api.LedgerPostingService
+import app.myliberty.easy_records.organizations.business.ledger.api.LedgerSourceType
+import app.myliberty.easy_records.locations.business.stock_revision.api.RevisionLedgerEntries
+import app.myliberty.easy_records.organizations.business.ledger.api.SubledgerEntryRequest
+import app.myliberty.easy_records.organizations.business.ledger.helpers.LedgerPostingGate
+import app.myliberty.easy_records.util.business.Money
 import org.springframework.stereotype.Service
 import kotlin.reflect.KClass
 

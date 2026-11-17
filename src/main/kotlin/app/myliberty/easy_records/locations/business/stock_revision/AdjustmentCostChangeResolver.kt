@@ -1,9 +1,9 @@
-package me.ezra_home.retail_software_solution.locations.business.stock_revision
+package app.myliberty.easy_records.locations.business.stock_revision
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
-import me.ezra_home.retail_software_solution.locations.business.stock_revision.api.AdjustmentCostChange
-import me.ezra_home.retail_software_solution.locations.business.stock_revision.api.RevisionLedgerEntries
-import me.ezra_home.retail_software_solution.organizations.business.ledger.api.PostedStockAdjustmentAccountsReader
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.locations.business.stock_revision.api.AdjustmentCostChange
+import app.myliberty.easy_records.locations.business.stock_revision.api.RevisionLedgerEntries
+import app.myliberty.easy_records.organizations.business.ledger.api.PostedStockAdjustmentAccountsReader
 import org.springframework.stereotype.Component
 
 // For a preview, which has nothing to wait for: an adjustment whose original posting is not there to read (cost zero, or

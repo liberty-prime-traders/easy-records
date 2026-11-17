@@ -1,9 +1,9 @@
-package me.ezra_home.retail_software_solution.organizations.business.fund_movement
+package app.myliberty.easy_records.organizations.business.fund_movement
 
-import me.ezra_home.retail_software_solution.organizations.business.ledger.api.LedgerEntryRequest
-import me.ezra_home.retail_software_solution.organizations.business.ledger.api.LedgerPostingRequest
-import me.ezra_home.retail_software_solution.organizations.business.ledger.api.LedgerSourceType
-import me.ezra_home.retail_software_solution.util.business.PositiveMoney
+import app.myliberty.easy_records.organizations.business.ledger.api.LedgerEntryRequest
+import app.myliberty.easy_records.organizations.business.ledger.api.LedgerPostingRequest
+import app.myliberty.easy_records.organizations.business.ledger.api.LedgerSourceType
+import app.myliberty.easy_records.util.business.PositiveMoney
 import java.math.BigDecimal
 import java.time.LocalDate
 

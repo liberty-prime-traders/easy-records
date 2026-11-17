@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.util.business.mappers
+package app.myliberty.easy_records.util.business.mappers
 
-import me.ezra_home.retail_software_solution.platform.business.sysuser.api.CreatorFullName
-import me.ezra_home.retail_software_solution.platform.business.sysuser.api.NullableFullName
-import me.ezra_home.retail_software_solution.platform.business.sysuser.api.SysUserService
+import app.myliberty.easy_records.platform.business.sysuser.api.CreatorFullName
+import app.myliberty.easy_records.platform.business.sysuser.api.NullableFullName
+import app.myliberty.easy_records.platform.business.sysuser.api.SysUserService
 import org.springframework.stereotype.Component
 import java.util.UUID
 

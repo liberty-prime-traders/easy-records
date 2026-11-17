@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.messaging.kafka.transaction
+package app.myliberty.easy_records.messaging.kafka.transaction
 
-import me.ezra_home.retail_software_solution.messaging.kafka.transaction.events.TransactionEvent
-import me.ezra_home.retail_software_solution.platform.business.startup_checks.api.StartupCheck
+import app.myliberty.easy_records.messaging.kafka.transaction.events.TransactionEvent
+import app.myliberty.easy_records.platform.business.startup_checks.api.StartupCheck
 import org.springframework.stereotype.Component
 
 @Component

@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.cross_tier.expense.search
+package app.myliberty.easy_records.cross_tier.expense.search
 
-import me.ezra_home.retail_software_solution.util.enums.PaymentStatus
+import app.myliberty.easy_records.util.enums.PaymentStatus
 import java.math.BigDecimal
 import java.time.OffsetDateTime
 import java.util.UUID

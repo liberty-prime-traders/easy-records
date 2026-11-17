@@ -1,14 +1,14 @@
-package me.ezra_home.retail_software_solution.locations.business.sale_session.api
+package app.myliberty.easy_records.locations.business.sale_session.api
 
-import me.ezra_home.retail_software_solution.locations.business.sale_session.consolidation.PendingConsolidationPromoter
+import app.myliberty.easy_records.locations.business.sale_session.consolidation.PendingConsolidationPromoter
 import com.google.common.base.Predicate
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
-import me.ezra_home.retail_software_solution.configuration.session.SessionContextProvider
-import me.ezra_home.retail_software_solution.locations.business.sale_session.SaleSessionAssembler
-import me.ezra_home.retail_software_solution.locations.business.sale_session.SaleSessionCopier
-import me.ezra_home.retail_software_solution.locations.business.sale_session.SaleSessionLoader
-import me.ezra_home.retail_software_solution.locations.business.sale_session.SaleSessionStore
-import me.ezra_home.retail_software_solution.locations.business.sale_session.SaleSessionUpdateFinalizer
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.configuration.session.SessionContextProvider
+import app.myliberty.easy_records.locations.business.sale_session.SaleSessionAssembler
+import app.myliberty.easy_records.locations.business.sale_session.SaleSessionCopier
+import app.myliberty.easy_records.locations.business.sale_session.SaleSessionLoader
+import app.myliberty.easy_records.locations.business.sale_session.SaleSessionStore
+import app.myliberty.easy_records.locations.business.sale_session.SaleSessionUpdateFinalizer
 import org.springframework.stereotype.Service
 import java.util.UUID
 

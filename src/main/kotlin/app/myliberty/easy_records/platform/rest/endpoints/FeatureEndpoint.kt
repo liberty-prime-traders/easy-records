@@ -1,9 +1,9 @@
-package me.ezra_home.retail_software_solution.platform.rest.endpoints
+package app.myliberty.easy_records.platform.rest.endpoints
 
-import me.ezra_home.retail_software_solution.platform.business.feature.api.Feature
-import me.ezra_home.retail_software_solution.platform.business.feature.api.FeatureDto
-import me.ezra_home.retail_software_solution.platform.business.feature.api.FeatureService
-import me.ezra_home.retail_software_solution.platform.business.feature.api.FeatureUpdateDto
+import app.myliberty.easy_records.platform.business.feature.api.Feature
+import app.myliberty.easy_records.platform.business.feature.api.FeatureDto
+import app.myliberty.easy_records.platform.business.feature.api.FeatureService
+import app.myliberty.easy_records.platform.business.feature.api.FeatureUpdateDto
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping

@@ -1,13 +1,13 @@
-package me.ezra_home.retail_software_solution.organizations.business.loan
+package app.myliberty.easy_records.organizations.business.loan
 
-import me.ezra_home.retail_software_solution.organizations.business.account.api.AccountDataFetcher
-import me.ezra_home.retail_software_solution.organizations.business.contact.api.ContactDto
-import me.ezra_home.retail_software_solution.organizations.business.loan.api.LoanAccountResponse
-import me.ezra_home.retail_software_solution.organizations.business.loan.api.LoanLenderResponse
-import me.ezra_home.retail_software_solution.organizations.business.loan.api.LoanRepaymentResponse
-import me.ezra_home.retail_software_solution.organizations.business.loan.api.LoanResponse
-import me.ezra_home.retail_software_solution.organizations.business.loan.api.LoanVoidResponse
-import me.ezra_home.retail_software_solution.util.business.mappers.UserQualifier
+import app.myliberty.easy_records.organizations.business.account.api.AccountDataFetcher
+import app.myliberty.easy_records.organizations.business.contact.api.ContactDto
+import app.myliberty.easy_records.organizations.business.loan.api.LoanAccountResponse
+import app.myliberty.easy_records.organizations.business.loan.api.LoanLenderResponse
+import app.myliberty.easy_records.organizations.business.loan.api.LoanRepaymentResponse
+import app.myliberty.easy_records.organizations.business.loan.api.LoanResponse
+import app.myliberty.easy_records.organizations.business.loan.api.LoanVoidResponse
+import app.myliberty.easy_records.util.business.mappers.UserQualifier
 import org.springframework.stereotype.Component
 import java.time.LocalDate
 import java.util.UUID

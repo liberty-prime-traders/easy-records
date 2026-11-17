@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.locations.business.catalog_sync
+package app.myliberty.easy_records.locations.business.catalog_sync
 
 sealed interface SyncCursor {
   data class Reference(val value: String) : SyncCursor

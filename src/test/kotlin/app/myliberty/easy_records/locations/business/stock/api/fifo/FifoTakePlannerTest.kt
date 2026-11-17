@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.locations.business.stock.api.fifo
+package app.myliberty.easy_records.locations.business.stock.api.fifo
 
-import me.ezra_home.retail_software_solution.support.WithDefaultOrganizationSession
-import me.ezra_home.retail_software_solution.util.quantity.ExactQuantity
+import app.myliberty.easy_records.support.WithDefaultOrganizationSession
+import app.myliberty.easy_records.util.quantity.ExactQuantity
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test

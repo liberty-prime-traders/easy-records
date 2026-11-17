@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.organizations.business.fund_movement.api
+package app.myliberty.easy_records.organizations.business.fund_movement.api
 
 import java.math.BigDecimal
 import java.time.LocalDate

@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.cross_tier.expense.search
+package app.myliberty.easy_records.cross_tier.expense.search
 
 import jakarta.persistence.Tuple
-import me.ezra_home.retail_software_solution.util.enums.PaymentStatus
+import app.myliberty.easy_records.util.enums.PaymentStatus
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.mock

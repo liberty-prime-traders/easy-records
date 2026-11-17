@@ -1,3 +1,3 @@
-package me.ezra_home.retail_software_solution.organizations.business.contact.api
+package app.myliberty.easy_records.organizations.business.contact.api
 
 class ContactLedgerSearchParameters

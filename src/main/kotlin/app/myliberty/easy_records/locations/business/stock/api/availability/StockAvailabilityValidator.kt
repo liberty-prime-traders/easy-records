@@ -1,12 +1,12 @@
-package me.ezra_home.retail_software_solution.locations.business.stock.api.availability
+package app.myliberty.easy_records.locations.business.stock.api.availability
 
-import me.ezra_home.retail_software_solution.locations.business.location_product.api.ProductStockBreakdownProvider
-import me.ezra_home.retail_software_solution.locations.business.lock.api.EntityAdvisoryLock
-import me.ezra_home.retail_software_solution.locations.business.stock.api.read.StockBalanceFetcher
-import me.ezra_home.retail_software_solution.locations.business.stock_reservation.api.StockReserver
-import me.ezra_home.retail_software_solution.util.business.lock.LockNamespaces
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
-import me.ezra_home.retail_software_solution.util.quantity.ExactQuantity
+import app.myliberty.easy_records.locations.business.location_product.api.ProductStockBreakdownProvider
+import app.myliberty.easy_records.locations.business.lock.api.EntityAdvisoryLock
+import app.myliberty.easy_records.locations.business.stock.api.read.StockBalanceFetcher
+import app.myliberty.easy_records.locations.business.stock_reservation.api.StockReserver
+import app.myliberty.easy_records.util.business.lock.LockNamespaces
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.quantity.ExactQuantity
 import org.springframework.stereotype.Component
 import java.math.BigDecimal
 import java.util.UUID

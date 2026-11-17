@@ -1,11 +1,11 @@
-package me.ezra_home.retail_software_solution.messaging.kafka.transaction
+package app.myliberty.easy_records.messaging.kafka.transaction
 
-import me.ezra_home.retail_software_solution.configuration.session.SessionContextProvider
-import me.ezra_home.retail_software_solution.configuration.session.withSession
-import me.ezra_home.retail_software_solution.organizations.business.kafka_log.api.EventProcessingLogService
-import me.ezra_home.retail_software_solution.messaging.kafka.common.EventSourceContext
-import me.ezra_home.retail_software_solution.messaging.kafka.common.KafkaConstants
-import me.ezra_home.retail_software_solution.messaging.kafka.transaction.events.TransactionEvent
+import app.myliberty.easy_records.configuration.session.SessionContextProvider
+import app.myliberty.easy_records.configuration.session.withSession
+import app.myliberty.easy_records.organizations.business.kafka_log.api.EventProcessingLogService
+import app.myliberty.easy_records.messaging.kafka.common.EventSourceContext
+import app.myliberty.easy_records.messaging.kafka.common.KafkaConstants
+import app.myliberty.easy_records.messaging.kafka.transaction.events.TransactionEvent
 import org.slf4j.LoggerFactory
 import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.stereotype.Component

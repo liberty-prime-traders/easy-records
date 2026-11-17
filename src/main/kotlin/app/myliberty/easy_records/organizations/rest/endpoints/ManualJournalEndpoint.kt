@@ -1,13 +1,13 @@
-package me.ezra_home.retail_software_solution.organizations.rest.endpoints
+package app.myliberty.easy_records.organizations.rest.endpoints
 
-import me.ezra_home.retail_software_solution.organizations.business.manual_journal.api.ManualJournalCreateDto
-import me.ezra_home.retail_software_solution.organizations.business.manual_journal.api.ManualJournalResponseDto
-import me.ezra_home.retail_software_solution.organizations.business.manual_journal.api.ManualJournalReversalCreateDto
-import me.ezra_home.retail_software_solution.organizations.business.manual_journal.api.ManualJournalDataFetcher
-import me.ezra_home.retail_software_solution.organizations.business.manual_journal.api.ManualJournalService
-import me.ezra_home.retail_software_solution.platform.business.feature.api.Feature
-import me.ezra_home.retail_software_solution.util.annotations.RequiresFeature
-import me.ezra_home.retail_software_solution.util.enums.RtsPermissionNames
+import app.myliberty.easy_records.organizations.business.manual_journal.api.ManualJournalCreateDto
+import app.myliberty.easy_records.organizations.business.manual_journal.api.ManualJournalResponseDto
+import app.myliberty.easy_records.organizations.business.manual_journal.api.ManualJournalReversalCreateDto
+import app.myliberty.easy_records.organizations.business.manual_journal.api.ManualJournalDataFetcher
+import app.myliberty.easy_records.organizations.business.manual_journal.api.ManualJournalService
+import app.myliberty.easy_records.platform.business.feature.api.Feature
+import app.myliberty.easy_records.util.annotations.RequiresFeature
+import app.myliberty.easy_records.util.enums.RtsPermissionNames
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable

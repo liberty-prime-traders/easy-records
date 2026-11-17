@@ -1,12 +1,12 @@
-package me.ezra_home.retail_software_solution.configuration.security
+package app.myliberty.easy_records.configuration.security
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier
 import com.google.api.client.http.javanet.NetHttpTransport
 import com.google.api.client.json.gson.GsonFactory
-import me.ezra_home.retail_software_solution.platform.business.identity.api.AuthenticatedIdentity
-import me.ezra_home.retail_software_solution.platform.business.identity.api.IdentityProvider
-import me.ezra_home.retail_software_solution.platform.business.identity.api.IdentityProviderService
-import me.ezra_home.retail_software_solution.util.exceptions.AuthException
+import app.myliberty.easy_records.platform.business.identity.api.AuthenticatedIdentity
+import app.myliberty.easy_records.platform.business.identity.api.IdentityProvider
+import app.myliberty.easy_records.platform.business.identity.api.IdentityProviderService
+import app.myliberty.easy_records.util.exceptions.AuthException
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 

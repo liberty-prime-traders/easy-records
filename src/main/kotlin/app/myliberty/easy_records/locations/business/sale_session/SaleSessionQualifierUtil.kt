@@ -1,14 +1,14 @@
-package me.ezra_home.retail_software_solution.locations.business.sale_session
+package app.myliberty.easy_records.locations.business.sale_session
 
-import me.ezra_home.retail_software_solution.util.enums.PaymentStatus
-import me.ezra_home.retail_software_solution.util.business.PaymentStatusResolver
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSession
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionAdjustment
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionLine
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionUiOptions
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SessionIdentity
-import me.ezra_home.retail_software_solution.util.quantity.BaseUnitDisplay
-import me.ezra_home.retail_software_solution.util.quantity.ExactQuantity
+import app.myliberty.easy_records.util.enums.PaymentStatus
+import app.myliberty.easy_records.util.business.PaymentStatusResolver
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSession
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionAdjustment
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionLine
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionUiOptions
+import app.myliberty.easy_records.locations.business.sale_session.api.SessionIdentity
+import app.myliberty.easy_records.util.quantity.BaseUnitDisplay
+import app.myliberty.easy_records.util.quantity.ExactQuantity
 import org.mapstruct.Context
 import org.springframework.stereotype.Component
 import java.math.BigDecimal

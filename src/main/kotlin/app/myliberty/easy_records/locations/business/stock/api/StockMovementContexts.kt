@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.locations.business.stock.api
+package app.myliberty.easy_records.locations.business.stock.api
 
 object StockMovementContexts {
 

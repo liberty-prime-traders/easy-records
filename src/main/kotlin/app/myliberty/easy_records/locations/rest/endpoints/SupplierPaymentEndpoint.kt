@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.locations.rest.endpoints
+package app.myliberty.easy_records.locations.rest.endpoints
 
-import me.ezra_home.retail_software_solution.locations.business.supplier_payment.api.SupplierPaymentCreateDto
-import me.ezra_home.retail_software_solution.locations.business.supplier_payment.api.SupplierPaymentDataFetcher
-import me.ezra_home.retail_software_solution.locations.business.supplier_payment.api.SupplierPaymentResponseDto
-import me.ezra_home.retail_software_solution.locations.business.supplier_payment.api.SupplierPaymentService
-import me.ezra_home.retail_software_solution.locations.business.supplier_payment.api.SupplierPaymentVoidCreateDto
+import app.myliberty.easy_records.locations.business.supplier_payment.api.SupplierPaymentCreateDto
+import app.myliberty.easy_records.locations.business.supplier_payment.api.SupplierPaymentDataFetcher
+import app.myliberty.easy_records.locations.business.supplier_payment.api.SupplierPaymentResponseDto
+import app.myliberty.easy_records.locations.business.supplier_payment.api.SupplierPaymentService
+import app.myliberty.easy_records.locations.business.supplier_payment.api.SupplierPaymentVoidCreateDto
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody

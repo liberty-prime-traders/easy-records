@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.locations.business.stock_reservation.api
+package app.myliberty.easy_records.locations.business.stock_reservation.api
 
 import java.math.BigDecimal
 import java.util.UUID

@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.configuration.filters
+package app.myliberty.easy_records.configuration.filters
 
-import me.ezra_home.retail_software_solution.configuration.security.JwtConfiguration
-import me.ezra_home.retail_software_solution.configuration.security.SessionTokenService
+import app.myliberty.easy_records.configuration.security.JwtConfiguration
+import app.myliberty.easy_records.configuration.security.SessionTokenService
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletResponse
 import org.junit.jupiter.api.AfterEach

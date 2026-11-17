@@ -1,11 +1,11 @@
-package me.ezra_home.retail_software_solution.organizations.rest.endpoints
+package app.myliberty.easy_records.organizations.rest.endpoints
 
-import me.ezra_home.retail_software_solution.organizations.business.unit_bulk_import.api.BulkUnitImportRequestDto
-import me.ezra_home.retail_software_solution.organizations.business.unit_bulk_import.api.BulkUnitImportService
-import me.ezra_home.retail_software_solution.organizations.business.unitgroup.api.UnitGroupInsertDto
-import me.ezra_home.retail_software_solution.organizations.business.unitgroup.api.UnitGroupResponseDto
-import me.ezra_home.retail_software_solution.organizations.business.unitgroup.api.UnitGroupService
-import me.ezra_home.retail_software_solution.organizations.business.unitgroup.api.UnitGroupUpdateDto
+import app.myliberty.easy_records.organizations.business.unit_bulk_import.api.BulkUnitImportRequestDto
+import app.myliberty.easy_records.organizations.business.unit_bulk_import.api.BulkUnitImportService
+import app.myliberty.easy_records.organizations.business.unitgroup.api.UnitGroupInsertDto
+import app.myliberty.easy_records.organizations.business.unitgroup.api.UnitGroupResponseDto
+import app.myliberty.easy_records.organizations.business.unitgroup.api.UnitGroupService
+import app.myliberty.easy_records.organizations.business.unitgroup.api.UnitGroupUpdateDto
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.CrossOrigin

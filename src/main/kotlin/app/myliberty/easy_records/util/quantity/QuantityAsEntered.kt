@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.util.quantity
+package app.myliberty.easy_records.util.quantity
 
 import java.util.UUID
 

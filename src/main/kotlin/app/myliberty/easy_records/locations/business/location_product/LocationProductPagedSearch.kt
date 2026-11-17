@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.locations.business.location_product
+package app.myliberty.easy_records.locations.business.location_product
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
-import me.ezra_home.retail_software_solution.cross_tier.product.search.common.ProductSearchParameters
-import me.ezra_home.retail_software_solution.cross_tier.product.search.common.ProductSearchService
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.cross_tier.product.search.common.ProductSearchParameters
+import app.myliberty.easy_records.cross_tier.product.search.common.ProductSearchService
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 

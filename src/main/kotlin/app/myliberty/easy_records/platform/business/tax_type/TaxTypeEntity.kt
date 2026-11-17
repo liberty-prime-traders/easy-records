@@ -1,18 +1,18 @@
-package me.ezra_home.retail_software_solution.platform.business.tax_type
+package app.myliberty.easy_records.platform.business.tax_type
 
 import jakarta.persistence.Column
 import jakarta.persistence.Convert
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
-import me.ezra_home.retail_software_solution.platform.business.tax_type.api.TaxCalculationMethod
-import me.ezra_home.retail_software_solution.platform.business.tax_type.api.TaxCalculationMethodConverter
-import me.ezra_home.retail_software_solution.platform.business.tax_type.api.TaxApplicationLevel
-import me.ezra_home.retail_software_solution.platform.business.tax_type.api.TaxRecoveryType
-import me.ezra_home.retail_software_solution.platform.business.tax_type.api.TaxTrigger
-import me.ezra_home.retail_software_solution.util.annotations.HasReference
-import me.ezra_home.retail_software_solution.util.model.HasReferenceEntity
-import me.ezra_home.retail_software_solution.util.model.TableName
-import me.ezra_home.retail_software_solution.util.model.TableNames
+import app.myliberty.easy_records.platform.business.tax_type.api.TaxCalculationMethod
+import app.myliberty.easy_records.platform.business.tax_type.api.TaxCalculationMethodConverter
+import app.myliberty.easy_records.platform.business.tax_type.api.TaxApplicationLevel
+import app.myliberty.easy_records.platform.business.tax_type.api.TaxRecoveryType
+import app.myliberty.easy_records.platform.business.tax_type.api.TaxTrigger
+import app.myliberty.easy_records.util.annotations.HasReference
+import app.myliberty.easy_records.util.model.HasReferenceEntity
+import app.myliberty.easy_records.util.model.TableName
+import app.myliberty.easy_records.util.model.TableNames
 import org.hibernate.envers.Audited
 
 @Audited

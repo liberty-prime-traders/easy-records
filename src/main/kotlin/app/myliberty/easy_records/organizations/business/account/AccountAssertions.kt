@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.organizations.business.account
+package app.myliberty.easy_records.organizations.business.account
 
-import me.ezra_home.retail_software_solution.organizations.business.account.api.AccountPosting
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.organizations.business.account.api.AccountPosting
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 
 object AccountAssertions {
 

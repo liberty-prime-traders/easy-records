@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.organizations.business.fiscal_period
+package app.myliberty.easy_records.organizations.business.fiscal_period
 
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query

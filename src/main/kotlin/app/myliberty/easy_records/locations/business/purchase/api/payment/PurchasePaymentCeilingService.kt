@@ -1,9 +1,9 @@
-package me.ezra_home.retail_software_solution.locations.business.purchase.api.payment
+package app.myliberty.easy_records.locations.business.purchase.api.payment
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
-import me.ezra_home.retail_software_solution.locations.business.delivery.api.PurchaseDeliveryDataFetcher
-import me.ezra_home.retail_software_solution.locations.business.purchase.PurchaseLineEntity
-import me.ezra_home.retail_software_solution.locations.business.purchase.PurchaseLineRepository
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.locations.business.delivery.api.PurchaseDeliveryDataFetcher
+import app.myliberty.easy_records.locations.business.purchase.PurchaseLineEntity
+import app.myliberty.easy_records.locations.business.purchase.PurchaseLineRepository
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 import java.util.UUID

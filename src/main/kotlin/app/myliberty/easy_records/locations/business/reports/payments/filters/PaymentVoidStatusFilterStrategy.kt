@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.locations.business.reports.payments.filters
+package app.myliberty.easy_records.locations.business.reports.payments.filters
 
-import me.ezra_home.retail_software_solution.locations.business.reports.payments.api.PaymentVoidStatusFilter
-import me.ezra_home.retail_software_solution.util.queries.FilterStrategy
-import me.ezra_home.retail_software_solution.util.queries.QueryBuilderContext
+import app.myliberty.easy_records.locations.business.reports.payments.api.PaymentVoidStatusFilter
+import app.myliberty.easy_records.util.queries.FilterStrategy
+import app.myliberty.easy_records.util.queries.QueryBuilderContext
 
 class PaymentVoidStatusFilterStrategy(
   private val statuses: Set<PaymentVoidStatusFilter>,

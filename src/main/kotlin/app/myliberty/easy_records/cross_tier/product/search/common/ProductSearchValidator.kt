@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.cross_tier.product.search.common
+package app.myliberty.easy_records.cross_tier.product.search.common
 
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 
 object ProductSearchValidator {
 

@@ -1,16 +1,16 @@
-package me.ezra_home.retail_software_solution.cucumber.steps.organizations
+package app.myliberty.easy_records.cucumber.steps.organizations
 
 import io.cucumber.java.en.Given
 import io.cucumber.java.en.Then
 import io.cucumber.java.en.When
 import io.restassured.response.Response
-import me.ezra_home.retail_software_solution.cucumber.support.ApiClient
-import me.ezra_home.retail_software_solution.cucumber.support.AuthenticatedRequestFactory
-import me.ezra_home.retail_software_solution.cucumber.support.context.ResponseContext
-import me.ezra_home.retail_software_solution.cucumber.support.database.LoanTestDatabase
-import me.ezra_home.retail_software_solution.organizations.business.contact.api.ContactInsertDto
-import me.ezra_home.retail_software_solution.organizations.business.contact.api.ContactType
-import me.ezra_home.retail_software_solution.organizations.business.contact.api.IdentityType
+import app.myliberty.easy_records.cucumber.support.ApiClient
+import app.myliberty.easy_records.cucumber.support.AuthenticatedRequestFactory
+import app.myliberty.easy_records.cucumber.support.context.ResponseContext
+import app.myliberty.easy_records.cucumber.support.database.LoanTestDatabase
+import app.myliberty.easy_records.organizations.business.contact.api.ContactInsertDto
+import app.myliberty.easy_records.organizations.business.contact.api.ContactType
+import app.myliberty.easy_records.organizations.business.contact.api.IdentityType
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.OffsetDateTime

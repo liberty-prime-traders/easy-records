@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.locations.business.product_sales_report
+package app.myliberty.easy_records.locations.business.product_sales_report
 
-import me.ezra_home.retail_software_solution.locations.business.product_sales_report.api.ProductSalesSortDirection
-import me.ezra_home.retail_software_solution.locations.business.product_sales_report.api.ProductSalesSortField
-import me.ezra_home.retail_software_solution.locations.business.product_sales_report.api.ProductSalesSummaryDto
+import app.myliberty.easy_records.locations.business.product_sales_report.api.ProductSalesSortDirection
+import app.myliberty.easy_records.locations.business.product_sales_report.api.ProductSalesSortField
+import app.myliberty.easy_records.locations.business.product_sales_report.api.ProductSalesSummaryDto
 import java.time.OffsetDateTime
 import java.util.concurrent.ConcurrentHashMap
 

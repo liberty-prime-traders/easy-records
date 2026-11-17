@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.locations.business.stock.api.updater
+package app.myliberty.easy_records.locations.business.stock.api.updater
 
-import me.ezra_home.retail_software_solution.locations.business.stock.api.StockAdjustmentMovementDetails
-import me.ezra_home.retail_software_solution.util.quantity.ExactQuantity
+import app.myliberty.easy_records.locations.business.stock.api.StockAdjustmentMovementDetails
+import app.myliberty.easy_records.util.quantity.ExactQuantity
 import java.math.BigDecimal
 import java.util.UUID
 

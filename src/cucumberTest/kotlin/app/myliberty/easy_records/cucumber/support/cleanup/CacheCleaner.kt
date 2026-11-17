@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.cucumber.support.cleanup
+package app.myliberty.easy_records.cucumber.support.cleanup
 
 import jakarta.annotation.PostConstruct
-import me.ezra_home.retail_software_solution.configuration.cache.CacheSchemaLevel
-import me.ezra_home.retail_software_solution.util.enums.SchemaLevel
+import app.myliberty.easy_records.configuration.cache.CacheSchemaLevel
+import app.myliberty.easy_records.util.enums.SchemaLevel
 import org.springframework.beans.factory.getBeansWithAnnotation
 import org.springframework.cache.CacheManager
 import org.springframework.cache.annotation.CacheConfig

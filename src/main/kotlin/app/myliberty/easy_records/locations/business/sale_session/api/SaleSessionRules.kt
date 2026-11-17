@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.locations.business.sale_session.api
+package app.myliberty.easy_records.locations.business.sale_session.api
 
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleConsolidationEligibility
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleStatus
+import app.myliberty.easy_records.locations.business.sale.api.SaleConsolidationEligibility
+import app.myliberty.easy_records.locations.business.sale.api.SaleStatus
 
 object SaleSessionRules {
 

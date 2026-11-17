@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.util.business.mappers
+package app.myliberty.easy_records.util.business.mappers
 
 import org.mapstruct.InjectionStrategy
 import org.mapstruct.MapperConfig

@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.organizations.business.loan.api
+package app.myliberty.easy_records.organizations.business.loan.api
 
 import java.math.BigDecimal
 import java.time.LocalDate

@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.organizations.business.ledger.api
+package app.myliberty.easy_records.organizations.business.ledger.api
 
-import me.ezra_home.retail_software_solution.util.business.Decimals
-import me.ezra_home.retail_software_solution.util.ui_models.BalanceEffect
+import app.myliberty.easy_records.util.business.Decimals
+import app.myliberty.easy_records.util.ui_models.BalanceEffect
 import java.math.BigDecimal
 
 data class SubledgerBalanceDto(

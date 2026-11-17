@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.cucumber.steps.platform
+package app.myliberty.easy_records.cucumber.steps.platform
 
 import io.cucumber.java.en.When
-import me.ezra_home.retail_software_solution.cucumber.support.ApiClient
-import me.ezra_home.retail_software_solution.platform.business.organization.api.OrganizationUpdateDto
+import app.myliberty.easy_records.cucumber.support.ApiClient
+import app.myliberty.easy_records.platform.business.organization.api.OrganizationUpdateDto
 import java.util.Optional
 
 class OrganizationCrudSteps(

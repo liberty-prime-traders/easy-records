@@ -1,9 +1,9 @@
-package me.ezra_home.retail_software_solution.organizations.business.product
+package app.myliberty.easy_records.organizations.business.product
 
-import me.ezra_home.retail_software_solution.cross_tier.product.search.common.Aliases
-import me.ezra_home.retail_software_solution.cross_tier.product.search.common.ParameterNames
-import me.ezra_home.retail_software_solution.util.queries.FilterStrategy
-import me.ezra_home.retail_software_solution.util.queries.QueryBuilderContext
+import app.myliberty.easy_records.cross_tier.product.search.common.Aliases
+import app.myliberty.easy_records.cross_tier.product.search.common.ParameterNames
+import app.myliberty.easy_records.util.queries.FilterStrategy
+import app.myliberty.easy_records.util.queries.QueryBuilderContext
 import java.util.UUID
 
 class TagFilterStrategy(

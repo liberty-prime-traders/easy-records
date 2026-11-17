@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.organizations.business.accounting_config
+package app.myliberty.easy_records.organizations.business.accounting_config
 
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository

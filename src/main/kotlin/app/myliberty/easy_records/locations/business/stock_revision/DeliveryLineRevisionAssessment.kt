@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.locations.business.stock_revision
+package app.myliberty.easy_records.locations.business.stock_revision
 
-import me.ezra_home.retail_software_solution.locations.business.delivery.api.ValidatedDeliveryLineRevisionDto
-import me.ezra_home.retail_software_solution.util.exceptions.BlockingProblem
-import me.ezra_home.retail_software_solution.util.quantity.QuantityBreakdown
+import app.myliberty.easy_records.locations.business.delivery.api.ValidatedDeliveryLineRevisionDto
+import app.myliberty.easy_records.util.exceptions.BlockingProblem
+import app.myliberty.easy_records.util.quantity.QuantityBreakdown
 import java.util.UUID
 
 data class DeliveryLineRevisionAssessment(

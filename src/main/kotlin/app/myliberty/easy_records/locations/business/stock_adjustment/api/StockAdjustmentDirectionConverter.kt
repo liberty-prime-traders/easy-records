@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.locations.business.stock_adjustment.api
+package app.myliberty.easy_records.locations.business.stock_adjustment.api
 
 import jakarta.persistence.Converter
-import me.ezra_home.retail_software_solution.util.enums.EnumConverter
+import app.myliberty.easy_records.util.enums.EnumConverter
 
 @Converter(autoApply = true)
 class StockAdjustmentDirectionConverter :

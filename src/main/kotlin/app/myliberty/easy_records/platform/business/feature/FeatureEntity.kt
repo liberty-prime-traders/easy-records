@@ -1,13 +1,13 @@
-package me.ezra_home.retail_software_solution.platform.business.feature
+package app.myliberty.easy_records.platform.business.feature
 
 import jakarta.persistence.Column
 import jakarta.persistence.Convert
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
-import me.ezra_home.retail_software_solution.platform.business.feature.api.Feature
-import me.ezra_home.retail_software_solution.platform.business.feature.api.FeatureConverter
-import me.ezra_home.retail_software_solution.util.model.BaseEntity
-import me.ezra_home.retail_software_solution.util.model.TableNames
+import app.myliberty.easy_records.platform.business.feature.api.Feature
+import app.myliberty.easy_records.platform.business.feature.api.FeatureConverter
+import app.myliberty.easy_records.util.model.BaseEntity
+import app.myliberty.easy_records.util.model.TableNames
 
 @Entity
 @Table(name = TableNames.FEATURE)

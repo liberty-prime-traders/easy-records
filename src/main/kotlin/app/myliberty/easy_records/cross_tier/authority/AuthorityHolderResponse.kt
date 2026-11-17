@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.cross_tier.authority
+package app.myliberty.easy_records.cross_tier.authority
 
 import java.time.OffsetDateTime
 

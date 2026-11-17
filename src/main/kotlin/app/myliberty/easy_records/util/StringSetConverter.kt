@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.util
+package app.myliberty.easy_records.util
 
 import jakarta.persistence.AttributeConverter
 import jakarta.persistence.Converter

@@ -1,15 +1,15 @@
-package me.ezra_home.retail_software_solution.organizations.rest.endpoints
+package app.myliberty.easy_records.organizations.rest.endpoints
 
-import me.ezra_home.retail_software_solution.cross_tier.product.search.common.ProductSearchParameters
-import me.ezra_home.retail_software_solution.organizations.business.product.api.OrganizationProductInsertDto
-import me.ezra_home.retail_software_solution.organizations.business.product.api.OrganizationProductResponseDto
-import me.ezra_home.retail_software_solution.organizations.business.product.api.OrganizationProductSearchService
-import me.ezra_home.retail_software_solution.organizations.business.product.api.OrganizationProductService
-import me.ezra_home.retail_software_solution.organizations.business.product.api.OrganizationProductUpdateDto
-import me.ezra_home.retail_software_solution.organizations.business.product_bulk_import.api.BulkProductImportRequestDto
-import me.ezra_home.retail_software_solution.organizations.business.product_bulk_import.api.BulkProductImportService
-import me.ezra_home.retail_software_solution.util.paging.PageRequest
-import me.ezra_home.retail_software_solution.util.paging.PageResponse
+import app.myliberty.easy_records.cross_tier.product.search.common.ProductSearchParameters
+import app.myliberty.easy_records.organizations.business.product.api.OrganizationProductInsertDto
+import app.myliberty.easy_records.organizations.business.product.api.OrganizationProductResponseDto
+import app.myliberty.easy_records.organizations.business.product.api.OrganizationProductSearchService
+import app.myliberty.easy_records.organizations.business.product.api.OrganizationProductService
+import app.myliberty.easy_records.organizations.business.product.api.OrganizationProductUpdateDto
+import app.myliberty.easy_records.organizations.business.product_bulk_import.api.BulkProductImportRequestDto
+import app.myliberty.easy_records.organizations.business.product_bulk_import.api.BulkProductImportService
+import app.myliberty.easy_records.util.paging.PageRequest
+import app.myliberty.easy_records.util.paging.PageResponse
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping

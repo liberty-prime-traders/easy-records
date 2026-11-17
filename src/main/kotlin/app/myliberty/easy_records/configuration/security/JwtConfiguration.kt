@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.configuration.security
+package app.myliberty.easy_records.configuration.security
 
 import com.nimbusds.jose.jwk.source.ImmutableSecret
 import org.springframework.beans.factory.annotation.Value

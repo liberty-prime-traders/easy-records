@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.organizations.business.ledger.helpers
+package app.myliberty.easy_records.organizations.business.ledger.helpers
 
-import me.ezra_home.retail_software_solution.organizations.business.account.api.SystemAccount
+import app.myliberty.easy_records.organizations.business.account.api.SystemAccount
 
 object ExpenseLiabilityAccount {
 

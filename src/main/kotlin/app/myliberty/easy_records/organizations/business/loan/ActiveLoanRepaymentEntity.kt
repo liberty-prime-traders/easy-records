@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.organizations.business.loan
+package app.myliberty.easy_records.organizations.business.loan
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
 import jakarta.persistence.Table
-import me.ezra_home.retail_software_solution.util.model.ViewNames
+import app.myliberty.easy_records.util.model.ViewNames
 import org.hibernate.annotations.Immutable
 import java.math.BigDecimal
 import java.time.OffsetDateTime

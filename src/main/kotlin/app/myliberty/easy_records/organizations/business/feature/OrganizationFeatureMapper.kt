@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.organizations.business.feature
+package app.myliberty.easy_records.organizations.business.feature
 
-import me.ezra_home.retail_software_solution.organizations.business.feature.api.OrganizationFeatureResponseDto
-import me.ezra_home.retail_software_solution.platform.business.sysuser.api.NullableFullName
-import me.ezra_home.retail_software_solution.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.organizations.business.feature.api.OrganizationFeatureResponseDto
+import app.myliberty.easy_records.platform.business.sysuser.api.NullableFullName
+import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 

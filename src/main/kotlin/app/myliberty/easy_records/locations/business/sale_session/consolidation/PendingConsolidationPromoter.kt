@@ -1,11 +1,11 @@
-package me.ezra_home.retail_software_solution.locations.business.sale_session.consolidation
+package app.myliberty.easy_records.locations.business.sale_session.consolidation
 
-import me.ezra_home.retail_software_solution.locations.business.location_product.api.LocationProductDataFetcher
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleDataFetcher
-import me.ezra_home.retail_software_solution.locations.business.sale_session.SaleSessionCopier
-import me.ezra_home.retail_software_solution.locations.business.sale_session.SaleSessionStockOverlay
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSession
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionKind
+import app.myliberty.easy_records.locations.business.location_product.api.LocationProductDataFetcher
+import app.myliberty.easy_records.locations.business.sale.api.SaleDataFetcher
+import app.myliberty.easy_records.locations.business.sale_session.SaleSessionCopier
+import app.myliberty.easy_records.locations.business.sale_session.SaleSessionStockOverlay
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSession
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionKind
 import org.springframework.stereotype.Component
 
 @Component

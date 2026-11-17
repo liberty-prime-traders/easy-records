@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.platform.business.organization
+package app.myliberty.easy_records.platform.business.organization
 
-import me.ezra_home.retail_software_solution.configuration.cache.CacheNames
-import me.ezra_home.retail_software_solution.platform.business.organization.api.OrganizationDto
-import me.ezra_home.retail_software_solution.platform.business.organization.api.OrganizationInsertDto
+import app.myliberty.easy_records.configuration.cache.CacheNames
+import app.myliberty.easy_records.platform.business.organization.api.OrganizationDto
+import app.myliberty.easy_records.platform.business.organization.api.OrganizationInsertDto
 import org.springframework.cache.annotation.CacheConfig
 import org.springframework.cache.annotation.CacheEvict
 import org.springframework.cache.annotation.Cacheable

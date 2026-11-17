@@ -1,11 +1,11 @@
-package me.ezra_home.retail_software_solution.organizations.business.fund_movement.search
+package app.myliberty.easy_records.organizations.business.fund_movement.search
 
 import jakarta.persistence.Tuple
-import me.ezra_home.retail_software_solution.organizations.business.fund_movement.FundMovementDto
-import me.ezra_home.retail_software_solution.organizations.business.fund_movement.FundMovementTypeConverter
-import me.ezra_home.retail_software_solution.organizations.business.fund_movement.FundMovementVoidDto
-import me.ezra_home.retail_software_solution.organizations.business.fund_movement.FundMovementWithVoid
-import me.ezra_home.retail_software_solution.util.business.mappers.DateQualifier
+import app.myliberty.easy_records.organizations.business.fund_movement.FundMovementDto
+import app.myliberty.easy_records.organizations.business.fund_movement.FundMovementTypeConverter
+import app.myliberty.easy_records.organizations.business.fund_movement.FundMovementVoidDto
+import app.myliberty.easy_records.organizations.business.fund_movement.FundMovementWithVoid
+import app.myliberty.easy_records.util.business.mappers.DateQualifier
 import java.math.BigDecimal
 import java.sql.Date
 import java.time.Instant

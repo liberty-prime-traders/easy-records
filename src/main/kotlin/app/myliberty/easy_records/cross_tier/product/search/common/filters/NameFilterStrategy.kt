@@ -1,9 +1,9 @@
-package me.ezra_home.retail_software_solution.cross_tier.product.search.common.filters
+package app.myliberty.easy_records.cross_tier.product.search.common.filters
 
-import me.ezra_home.retail_software_solution.cross_tier.product.search.common.Aliases.ColumnNames.CrossTierProduct
-import me.ezra_home.retail_software_solution.cross_tier.product.search.common.ParameterNames.PREVIOUS_NAME
-import me.ezra_home.retail_software_solution.util.queries.FilterStrategy
-import me.ezra_home.retail_software_solution.util.queries.QueryBuilderContext
+import app.myliberty.easy_records.cross_tier.product.search.common.Aliases.ColumnNames.CrossTierProduct
+import app.myliberty.easy_records.cross_tier.product.search.common.ParameterNames.PREVIOUS_NAME
+import app.myliberty.easy_records.util.queries.FilterStrategy
+import app.myliberty.easy_records.util.queries.QueryBuilderContext
 
 class NameFilterStrategy(private val previousName: String) : FilterStrategy {
 

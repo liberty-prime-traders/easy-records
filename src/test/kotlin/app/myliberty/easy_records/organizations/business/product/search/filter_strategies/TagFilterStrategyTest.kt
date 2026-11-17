@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.organizations.business.product.search.filter_strategies
+package app.myliberty.easy_records.organizations.business.product.search.filter_strategies
 
-import me.ezra_home.retail_software_solution.organizations.business.product.TagFilterStrategy
-import me.ezra_home.retail_software_solution.organizations.business.product.search.TestDataFactory.TestUUIDs
-import me.ezra_home.retail_software_solution.util.queries.QueryBuilderContext
+import app.myliberty.easy_records.organizations.business.product.TagFilterStrategy
+import app.myliberty.easy_records.organizations.business.product.search.TestDataFactory.TestUUIDs
+import app.myliberty.easy_records.util.queries.QueryBuilderContext
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue

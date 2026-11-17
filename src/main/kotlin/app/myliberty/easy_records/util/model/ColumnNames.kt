@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.util.model
+package app.myliberty.easy_records.util.model
 
 // Column names that SQL outside the owning entity depends on. The entity maps its column from the same constant, so a
 // rename breaks the build instead of the query.

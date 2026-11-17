@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.cucumber.support.context
+package app.myliberty.easy_records.cucumber.support.context
 
-import me.ezra_home.retail_software_solution.support.TestConstants
+import app.myliberty.easy_records.support.TestConstants
 import org.springframework.stereotype.Component
 
 @Component

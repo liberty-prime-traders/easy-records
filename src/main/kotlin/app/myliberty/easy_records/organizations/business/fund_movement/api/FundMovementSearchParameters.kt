@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.organizations.business.fund_movement.api
+package app.myliberty.easy_records.organizations.business.fund_movement.api
 
-import me.ezra_home.retail_software_solution.util.business.StringUtils
+import app.myliberty.easy_records.util.business.StringUtils
 import java.time.LocalDate
 import java.time.OffsetDateTime
 

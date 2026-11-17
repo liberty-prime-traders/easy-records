@@ -1,5 +1,5 @@
-package me.ezra_home.retail_software_solution.locations.business.reports.payments
+package app.myliberty.easy_records.locations.business.reports.payments
 
-import me.ezra_home.retail_software_solution.util.queries.QueryLogMetadata
+import app.myliberty.easy_records.util.queries.QueryLogMetadata
 
 data class PaymentSearchQueryMetadata(override val queryName: String) : QueryLogMetadata

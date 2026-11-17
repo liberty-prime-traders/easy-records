@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.locations.business.stock.api.read
+package app.myliberty.easy_records.locations.business.stock.api.read
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
-import me.ezra_home.retail_software_solution.locations.business.stock.StockEntryRepository
-import me.ezra_home.retail_software_solution.locations.business.stock.api.fifo.StockEntryFifoDto
-import me.ezra_home.retail_software_solution.locations.business.stock.stockEntryFifoComparator
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.locations.business.stock.StockEntryRepository
+import app.myliberty.easy_records.locations.business.stock.api.fifo.StockEntryFifoDto
+import app.myliberty.easy_records.locations.business.stock.stockEntryFifoComparator
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Service
 import java.util.UUID
 

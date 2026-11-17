@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.locations.business.sale_session.consolidation
+package app.myliberty.easy_records.locations.business.sale_session.consolidation
 
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleHeaderDto
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleLineDto
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleStatus
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.StockHeldBySales
-import me.ezra_home.retail_software_solution.util.quantity.ExactQuantity
+import app.myliberty.easy_records.locations.business.sale.api.SaleHeaderDto
+import app.myliberty.easy_records.locations.business.sale.api.SaleLineDto
+import app.myliberty.easy_records.locations.business.sale.api.SaleStatus
+import app.myliberty.easy_records.locations.business.sale_session.api.StockHeldBySales
+import app.myliberty.easy_records.util.quantity.ExactQuantity
 import java.math.BigDecimal
 import java.util.UUID
 

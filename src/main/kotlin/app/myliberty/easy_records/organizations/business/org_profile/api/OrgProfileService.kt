@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.organizations.business.org_profile.api
+package app.myliberty.easy_records.organizations.business.org_profile.api
 
-import me.ezra_home.retail_software_solution.configuration.session.ServiceAccountContext
-import me.ezra_home.retail_software_solution.util.async.AsyncExecutor
-import me.ezra_home.retail_software_solution.util.enums.ServiceAccount
+import app.myliberty.easy_records.configuration.session.ServiceAccountContext
+import app.myliberty.easy_records.util.async.AsyncExecutor
+import app.myliberty.easy_records.util.enums.ServiceAccount
 import org.springframework.stereotype.Service
 
 @Service

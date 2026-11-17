@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.locations.business.stock_reservation
+package app.myliberty.easy_records.locations.business.stock_reservation
 
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
@@ -11,7 +11,7 @@ interface StockReservationRepository : JpaRepository<StockReservationEntity, UUI
     fun deleteBySaleLineIdIn(saleLineIds: List<UUID>)
 
     @Query(
-        "SELECT new me.ezra_home.retail_software_solution.locations.business.stock_reservation.ProductReservationRow(" +
+        "SELECT new app.myliberty.easy_records.locations.business.stock_reservation.ProductReservationRow(" +
                 "r.locationProductId, r.saleId, SUM(r.storageQuantityReserved)) " +
                 "FROM StockReservationEntity r " +
                 "WHERE r.locationProductId IN :locationProductIds " +

@@ -1,11 +1,11 @@
-package me.ezra_home.retail_software_solution.locations.business.purchase
+package app.myliberty.easy_records.locations.business.purchase
 
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.PurchaseStatus
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.bulk_payment.PurchaseBulkPaymentSearchDto
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.search.PurchaseSearchParameters
-import me.ezra_home.retail_software_solution.locations.business.purchase.search.PurchaseSearchFetcher
-import me.ezra_home.retail_software_solution.locations.business.purchase.search.PurchaseSearchValidator
-import me.ezra_home.retail_software_solution.util.enums.PaymentStatus
+import app.myliberty.easy_records.locations.business.purchase.api.PurchaseStatus
+import app.myliberty.easy_records.locations.business.purchase.api.bulk_payment.PurchaseBulkPaymentSearchDto
+import app.myliberty.easy_records.locations.business.purchase.api.search.PurchaseSearchParameters
+import app.myliberty.easy_records.locations.business.purchase.search.PurchaseSearchFetcher
+import app.myliberty.easy_records.locations.business.purchase.search.PurchaseSearchValidator
+import app.myliberty.easy_records.util.enums.PaymentStatus
 import org.springframework.stereotype.Component
 
 @Component

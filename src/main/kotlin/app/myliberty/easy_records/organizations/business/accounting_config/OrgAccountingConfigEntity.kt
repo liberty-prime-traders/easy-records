@@ -1,12 +1,12 @@
-package me.ezra_home.retail_software_solution.organizations.business.accounting_config
+package app.myliberty.easy_records.organizations.business.accounting_config
 
 import jakarta.persistence.Column
 import jakarta.persistence.Convert
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
-import me.ezra_home.retail_software_solution.organizations.business.accounting_config.api.FiscalPeriodCycle
-import me.ezra_home.retail_software_solution.util.model.HasCreatorEntity
-import me.ezra_home.retail_software_solution.util.model.TableNames
+import app.myliberty.easy_records.organizations.business.accounting_config.api.FiscalPeriodCycle
+import app.myliberty.easy_records.util.model.HasCreatorEntity
+import app.myliberty.easy_records.util.model.TableNames
 import java.time.DayOfWeek
 
 @Entity

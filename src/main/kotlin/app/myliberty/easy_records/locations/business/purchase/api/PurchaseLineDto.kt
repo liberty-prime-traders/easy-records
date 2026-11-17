@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.locations.business.purchase.api
+package app.myliberty.easy_records.locations.business.purchase.api
 
-import me.ezra_home.retail_software_solution.util.quantity.ExactQuantity
+import app.myliberty.easy_records.util.quantity.ExactQuantity
 import java.math.BigDecimal
 import java.util.UUID
 

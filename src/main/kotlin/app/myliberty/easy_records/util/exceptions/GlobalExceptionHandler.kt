@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.util.exceptions
+package app.myliberty.easy_records.util.exceptions
 
 import jakarta.servlet.http.HttpServletRequest
 import org.slf4j.LoggerFactory

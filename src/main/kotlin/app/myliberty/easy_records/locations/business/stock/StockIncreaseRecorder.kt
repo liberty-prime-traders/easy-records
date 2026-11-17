@@ -1,11 +1,11 @@
-package me.ezra_home.retail_software_solution.locations.business.stock
+package app.myliberty.easy_records.locations.business.stock
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
-import me.ezra_home.retail_software_solution.locations.business.location_product.api.ProductStockBreakdownProvider
-import me.ezra_home.retail_software_solution.locations.business.lock.api.EntityAdvisoryLock
-import me.ezra_home.retail_software_solution.locations.business.stock.api.read.StockBalanceFetcher
-import me.ezra_home.retail_software_solution.util.business.lock.LockNamespaces
-import me.ezra_home.retail_software_solution.util.quantity.ExactQuantity
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.locations.business.location_product.api.ProductStockBreakdownProvider
+import app.myliberty.easy_records.locations.business.lock.api.EntityAdvisoryLock
+import app.myliberty.easy_records.locations.business.stock.api.read.StockBalanceFetcher
+import app.myliberty.easy_records.util.business.lock.LockNamespaces
+import app.myliberty.easy_records.util.quantity.ExactQuantity
 import org.springframework.stereotype.Service
 import java.util.UUID
 

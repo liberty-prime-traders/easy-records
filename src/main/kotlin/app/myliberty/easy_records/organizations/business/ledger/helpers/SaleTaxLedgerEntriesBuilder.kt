@@ -1,13 +1,13 @@
-package me.ezra_home.retail_software_solution.organizations.business.ledger.helpers
+package app.myliberty.easy_records.organizations.business.ledger.helpers
 
-import me.ezra_home.retail_software_solution.locations.business.tax_entry.api.TaxEntryDto
-import me.ezra_home.retail_software_solution.locations.business.tax_entry.api.TaxEntryService
-import me.ezra_home.retail_software_solution.locations.business.tax_entry.api.TaxSourceType
-import me.ezra_home.retail_software_solution.organizations.business.account.api.EntryType
-import me.ezra_home.retail_software_solution.organizations.business.account.api.SystemAccount
-import me.ezra_home.retail_software_solution.organizations.business.ledger.api.LedgerEntryRequest
-import me.ezra_home.retail_software_solution.organizations.business.org_jurisdiction_tax_type.api.OrgJurisdictionTaxTypeFetcher
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.locations.business.tax_entry.api.TaxEntryDto
+import app.myliberty.easy_records.locations.business.tax_entry.api.TaxEntryService
+import app.myliberty.easy_records.locations.business.tax_entry.api.TaxSourceType
+import app.myliberty.easy_records.organizations.business.account.api.EntryType
+import app.myliberty.easy_records.organizations.business.account.api.SystemAccount
+import app.myliberty.easy_records.organizations.business.ledger.api.LedgerEntryRequest
+import app.myliberty.easy_records.organizations.business.org_jurisdiction_tax_type.api.OrgJurisdictionTaxTypeFetcher
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 import java.util.UUID

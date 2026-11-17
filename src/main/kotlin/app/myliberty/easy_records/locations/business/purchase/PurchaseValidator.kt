@@ -1,9 +1,9 @@
-package me.ezra_home.retail_software_solution.locations.business.purchase
+package app.myliberty.easy_records.locations.business.purchase
 
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.PurchaseStatus
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
-import me.ezra_home.retail_software_solution.util.quantity.ExactQuantity
-import me.ezra_home.retail_software_solution.util.quantity.QuantityBreakdown
+import app.myliberty.easy_records.locations.business.purchase.api.PurchaseStatus
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.quantity.ExactQuantity
+import app.myliberty.easy_records.util.quantity.QuantityBreakdown
 import java.math.BigDecimal
 
 object PurchaseValidator {

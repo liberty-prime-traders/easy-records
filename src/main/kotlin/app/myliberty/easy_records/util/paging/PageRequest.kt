@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.util.paging
+package app.myliberty.easy_records.util.paging
 
 data class PageRequest<PARAMETER, CURSOR>  (
     val previousCursor: CURSOR,

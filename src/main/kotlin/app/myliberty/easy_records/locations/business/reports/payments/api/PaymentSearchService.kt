@@ -1,16 +1,16 @@
-package me.ezra_home.retail_software_solution.locations.business.reports.payments.api
+package app.myliberty.easy_records.locations.business.reports.payments.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
-import me.ezra_home.retail_software_solution.locations.business.reports.payments.PaymentMethodTotals
-import me.ezra_home.retail_software_solution.locations.business.reports.payments.PaymentRow
-import me.ezra_home.retail_software_solution.locations.business.reports.payments.PaymentSearchFetcher
-import me.ezra_home.retail_software_solution.locations.business.reports.payments.PaymentSearchValidator
-import me.ezra_home.retail_software_solution.locations.business.reports.payments.PaymentSource
-import me.ezra_home.retail_software_solution.organizations.business.payment_method.api.PaymentMethodDataFetcher
-import me.ezra_home.retail_software_solution.util.business.mappers.NameResolution
-import me.ezra_home.retail_software_solution.util.paging.PageRequest
-import me.ezra_home.retail_software_solution.util.paging.PageResponse
-import me.ezra_home.retail_software_solution.util.queries.KeysetSearchCursor
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.locations.business.reports.payments.PaymentMethodTotals
+import app.myliberty.easy_records.locations.business.reports.payments.PaymentRow
+import app.myliberty.easy_records.locations.business.reports.payments.PaymentSearchFetcher
+import app.myliberty.easy_records.locations.business.reports.payments.PaymentSearchValidator
+import app.myliberty.easy_records.locations.business.reports.payments.PaymentSource
+import app.myliberty.easy_records.organizations.business.payment_method.api.PaymentMethodDataFetcher
+import app.myliberty.easy_records.util.business.mappers.NameResolution
+import app.myliberty.easy_records.util.paging.PageRequest
+import app.myliberty.easy_records.util.paging.PageResponse
+import app.myliberty.easy_records.util.queries.KeysetSearchCursor
 import org.springframework.stereotype.Service
 import java.util.UUID
 

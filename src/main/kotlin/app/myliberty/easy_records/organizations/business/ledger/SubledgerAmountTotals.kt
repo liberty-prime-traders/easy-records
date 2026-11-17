@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.organizations.business.ledger
+package app.myliberty.easy_records.organizations.business.ledger
 
 import java.math.BigDecimal
 

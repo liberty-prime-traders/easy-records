@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.locations.business.sale.api
+package app.myliberty.easy_records.locations.business.sale.api
 
-import me.ezra_home.retail_software_solution.locations.business.sale_payment.api.PersistedSalePayment
+import app.myliberty.easy_records.locations.business.sale_payment.api.PersistedSalePayment
 import java.time.OffsetDateTime
 import java.util.UUID
 

@@ -1,12 +1,12 @@
-package me.ezra_home.retail_software_solution.platform.business.sysuser.api
+package app.myliberty.easy_records.platform.business.sysuser.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnPlatformSchema
-import me.ezra_home.retail_software_solution.configuration.session.ServiceAccountContext
-import me.ezra_home.retail_software_solution.platform.business.sysuser.SysUserCache
-import me.ezra_home.retail_software_solution.platform.business.sysuser.SysUserDto
-import me.ezra_home.retail_software_solution.util.business.StringUtils
-import me.ezra_home.retail_software_solution.util.enums.ServiceAccount
-import me.ezra_home.retail_software_solution.util.exceptions.AuthException
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnPlatformSchema
+import app.myliberty.easy_records.configuration.session.ServiceAccountContext
+import app.myliberty.easy_records.platform.business.sysuser.SysUserCache
+import app.myliberty.easy_records.platform.business.sysuser.SysUserDto
+import app.myliberty.easy_records.util.business.StringUtils
+import app.myliberty.easy_records.util.enums.ServiceAccount
+import app.myliberty.easy_records.util.exceptions.AuthException
 import org.springframework.stereotype.Service
 import java.util.UUID
 

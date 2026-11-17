@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.platform.business.jurisdiction
+package app.myliberty.easy_records.platform.business.jurisdiction
 
 import org.mapstruct.Context
 import org.mapstruct.Qualifier

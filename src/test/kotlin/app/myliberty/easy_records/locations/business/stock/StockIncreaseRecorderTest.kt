@@ -1,13 +1,13 @@
-package me.ezra_home.retail_software_solution.locations.business.stock
+package app.myliberty.easy_records.locations.business.stock
 
-import me.ezra_home.retail_software_solution.locations.business.location_product.api.ProductStockBreakdownProvider
-import me.ezra_home.retail_software_solution.locations.business.lock.api.EntityAdvisoryLock
-import me.ezra_home.retail_software_solution.locations.business.stock.api.read.StockBalanceFetcher
-import me.ezra_home.retail_software_solution.organizations.business.stock_item_source.api.StockItemSource
-import me.ezra_home.retail_software_solution.organizations.business.stock_movement_reason.api.MovementType
-import me.ezra_home.retail_software_solution.util.quantity.BreakdownUnit
-import me.ezra_home.retail_software_solution.util.quantity.ExactQuantity
-import me.ezra_home.retail_software_solution.util.quantity.QuantityBreakdown
+import app.myliberty.easy_records.locations.business.location_product.api.ProductStockBreakdownProvider
+import app.myliberty.easy_records.locations.business.lock.api.EntityAdvisoryLock
+import app.myliberty.easy_records.locations.business.stock.api.read.StockBalanceFetcher
+import app.myliberty.easy_records.organizations.business.stock_item_source.api.StockItemSource
+import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.MovementType
+import app.myliberty.easy_records.util.quantity.BreakdownUnit
+import app.myliberty.easy_records.util.quantity.ExactQuantity
+import app.myliberty.easy_records.util.quantity.QuantityBreakdown
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.mockito.ArgumentMatchers.any

@@ -1,5 +1,5 @@
-package me.ezra_home.retail_software_solution.locations.business.sale.search
+package app.myliberty.easy_records.locations.business.sale.search
 
-import me.ezra_home.retail_software_solution.util.queries.QueryLogMetadata
+import app.myliberty.easy_records.util.queries.QueryLogMetadata
 
 data class SaleSearchQueryMetadata(override val queryName: String) : QueryLogMetadata

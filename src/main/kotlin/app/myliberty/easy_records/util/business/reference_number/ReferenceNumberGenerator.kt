@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.util.business.reference_number
+package app.myliberty.easy_records.util.business.reference_number
 
-import me.ezra_home.retail_software_solution.organizations.business.org_table_registry.api.OrgTableRegistryService
-import me.ezra_home.retail_software_solution.platform.business.table_registry.api.TableRegistryService
-import me.ezra_home.retail_software_solution.util.enums.SchemaLevel
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
-import me.ezra_home.retail_software_solution.util.model.TableName
+import app.myliberty.easy_records.organizations.business.org_table_registry.api.OrgTableRegistryService
+import app.myliberty.easy_records.platform.business.table_registry.api.TableRegistryService
+import app.myliberty.easy_records.util.enums.SchemaLevel
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.model.TableName
 import org.springframework.stereotype.Service
 
 @Service

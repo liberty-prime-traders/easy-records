@@ -1,11 +1,11 @@
-package me.ezra_home.retail_software_solution.locations.business.stock_revision
+package app.myliberty.easy_records.locations.business.stock_revision
 
-import me.ezra_home.retail_software_solution.locations.business.stock_adjustment.api.StockAdjustmentAccountCodes
-import me.ezra_home.retail_software_solution.locations.business.stock_adjustment.api.StockAdjustmentAccountCodesFetcher
-import me.ezra_home.retail_software_solution.locations.business.stock_revision.api.AdjustmentCostChange
-import me.ezra_home.retail_software_solution.organizations.business.ledger.api.PostedStockAdjustmentAccounts
-import me.ezra_home.retail_software_solution.organizations.business.ledger.api.PostedStockAdjustmentAccountsReader
-import me.ezra_home.retail_software_solution.organizations.business.stock_movement_reason.api.MovementType
+import app.myliberty.easy_records.locations.business.stock_adjustment.api.StockAdjustmentAccountCodes
+import app.myliberty.easy_records.locations.business.stock_adjustment.api.StockAdjustmentAccountCodesFetcher
+import app.myliberty.easy_records.locations.business.stock_revision.api.AdjustmentCostChange
+import app.myliberty.easy_records.organizations.business.ledger.api.PostedStockAdjustmentAccounts
+import app.myliberty.easy_records.organizations.business.ledger.api.PostedStockAdjustmentAccountsReader
+import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.MovementType
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test

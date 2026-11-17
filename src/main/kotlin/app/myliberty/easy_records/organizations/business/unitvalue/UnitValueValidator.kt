@@ -1,15 +1,15 @@
-package me.ezra_home.retail_software_solution.organizations.business.unitvalue
+package app.myliberty.easy_records.organizations.business.unitvalue
 
-import me.ezra_home.retail_software_solution.organizations.business.unitgroup.api.UnitGroupDataFetcher
-import me.ezra_home.retail_software_solution.organizations.business.unitvalue.api.RootUnitDefinition
-import me.ezra_home.retail_software_solution.organizations.business.unitvalue.api.SystemUnitValue
-import me.ezra_home.retail_software_solution.organizations.business.unitvalue.api.UnitChainNode
-import me.ezra_home.retail_software_solution.organizations.business.unitvalue.api.UnitChainResolver
-import me.ezra_home.retail_software_solution.organizations.business.unitvalue.api.UnitValueInsertDto
-import me.ezra_home.retail_software_solution.organizations.business.unitvalue.api.UnitValueUpdateDto
-import me.ezra_home.retail_software_solution.util.business.StringUtils
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
-import me.ezra_home.retail_software_solution.util.exceptions.UpdatingNonExistingRecordException
+import app.myliberty.easy_records.organizations.business.unitgroup.api.UnitGroupDataFetcher
+import app.myliberty.easy_records.organizations.business.unitvalue.api.RootUnitDefinition
+import app.myliberty.easy_records.organizations.business.unitvalue.api.SystemUnitValue
+import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitChainNode
+import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitChainResolver
+import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueInsertDto
+import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueUpdateDto
+import app.myliberty.easy_records.util.business.StringUtils
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException
 import org.springframework.stereotype.Component
 import java.util.UUID
 

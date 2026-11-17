@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.platform.business.sysuser
+package app.myliberty.easy_records.platform.business.sysuser
 
-import me.ezra_home.retail_software_solution.platform.business.sysuser.api.UserType
+import app.myliberty.easy_records.platform.business.sysuser.api.UserType
 import java.time.OffsetDateTime
 import java.util.UUID
 

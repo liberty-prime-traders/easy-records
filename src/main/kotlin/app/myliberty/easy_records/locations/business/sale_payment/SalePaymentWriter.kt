@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.locations.business.sale_payment
+package app.myliberty.easy_records.locations.business.sale_payment
 
-import me.ezra_home.retail_software_solution.util.enums.PaymentStatus
-import me.ezra_home.retail_software_solution.util.business.PaymentStatusResolver
-import me.ezra_home.retail_software_solution.locations.business.sale_payment.api.SalePaymentFetcher
-import me.ezra_home.retail_software_solution.organizations.business.payment_method.api.PaymentMethodDataFetcher
-import me.ezra_home.retail_software_solution.util.business.DateTimes
+import app.myliberty.easy_records.util.enums.PaymentStatus
+import app.myliberty.easy_records.util.business.PaymentStatusResolver
+import app.myliberty.easy_records.locations.business.sale_payment.api.SalePaymentFetcher
+import app.myliberty.easy_records.organizations.business.payment_method.api.PaymentMethodDataFetcher
+import app.myliberty.easy_records.util.business.DateTimes
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 import java.time.OffsetDateTime

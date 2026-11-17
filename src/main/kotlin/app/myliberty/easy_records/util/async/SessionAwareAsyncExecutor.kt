@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.util.async
+package app.myliberty.easy_records.util.async
 
-import me.ezra_home.retail_software_solution.configuration.session.SessionContextProvider
-import me.ezra_home.retail_software_solution.configuration.session.withSession
+import app.myliberty.easy_records.configuration.session.SessionContextProvider
+import app.myliberty.easy_records.configuration.session.withSession
 import org.springframework.stereotype.Component
 import java.util.concurrent.Executors
 

@@ -1,15 +1,15 @@
-package me.ezra_home.retail_software_solution.organizations.business.fiscal_period.api
+package app.myliberty.easy_records.organizations.business.fiscal_period.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnOrganizationSchema
-import me.ezra_home.retail_software_solution.configuration.session.SessionContextProvider
-import me.ezra_home.retail_software_solution.organizations.business.account.api.DenormalizedYearEndBalanceTransfer
-import me.ezra_home.retail_software_solution.organizations.business.accounting_config.api.OrgAccountingConfigService
-import me.ezra_home.retail_software_solution.organizations.business.fiscal_period.FiscalPeriodMapper
-import me.ezra_home.retail_software_solution.organizations.business.fiscal_period.FiscalPeriodRepository
-import me.ezra_home.retail_software_solution.organizations.business.fiscal_period.FiscalPeriodUtils
-import me.ezra_home.retail_software_solution.organizations.business.fiscal_period.PeriodCloseValidator
-import me.ezra_home.retail_software_solution.util.business.mappers.UserQualifier
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.configuration.session.SessionContextProvider
+import app.myliberty.easy_records.organizations.business.account.api.DenormalizedYearEndBalanceTransfer
+import app.myliberty.easy_records.organizations.business.accounting_config.api.OrgAccountingConfigService
+import app.myliberty.easy_records.organizations.business.fiscal_period.FiscalPeriodMapper
+import app.myliberty.easy_records.organizations.business.fiscal_period.FiscalPeriodRepository
+import app.myliberty.easy_records.organizations.business.fiscal_period.FiscalPeriodUtils
+import app.myliberty.easy_records.organizations.business.fiscal_period.PeriodCloseValidator
+import app.myliberty.easy_records.util.business.mappers.UserQualifier
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Service
 import java.time.Instant
 import java.util.UUID

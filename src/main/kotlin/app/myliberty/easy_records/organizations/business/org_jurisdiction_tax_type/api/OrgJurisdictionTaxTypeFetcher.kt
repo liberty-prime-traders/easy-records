@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.organizations.business.org_jurisdiction_tax_type.api
+package app.myliberty.easy_records.organizations.business.org_jurisdiction_tax_type.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnOrganizationSchema
-import me.ezra_home.retail_software_solution.organizations.business.org_jurisdiction_tax_type.OrgJurisdictionTaxTypeCache
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.organizations.business.org_jurisdiction_tax_type.OrgJurisdictionTaxTypeCache
 import org.springframework.stereotype.Service
 import java.util.UUID
 

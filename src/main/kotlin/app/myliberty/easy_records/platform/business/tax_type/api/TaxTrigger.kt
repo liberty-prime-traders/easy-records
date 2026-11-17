@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.platform.business.tax_type.api
+package app.myliberty.easy_records.platform.business.tax_type.api
 
-import me.ezra_home.retail_software_solution.util.enums.HasCode
+import app.myliberty.easy_records.util.enums.HasCode
 
 enum class TaxTrigger(override val code: String) : HasCode {
     SALE("SAL"),

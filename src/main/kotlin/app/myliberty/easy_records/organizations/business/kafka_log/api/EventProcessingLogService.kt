@@ -1,14 +1,14 @@
-package me.ezra_home.retail_software_solution.organizations.business.kafka_log.api
+package app.myliberty.easy_records.organizations.business.kafka_log.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnOrganizationSchema
-import me.ezra_home.retail_software_solution.organizations.business.kafka_log.EventProcessingLogEntity
-import me.ezra_home.retail_software_solution.organizations.business.kafka_log.EventProcessingLogRepository
-import me.ezra_home.retail_software_solution.organizations.business.kafka_log.EventProcessingLogResolutionType
-import me.ezra_home.retail_software_solution.organizations.business.kafka_log.EventProcessingLogStatus
-import me.ezra_home.retail_software_solution.organizations.business.location.api.LocationService
-import me.ezra_home.retail_software_solution.messaging.kafka.common.EventSourceContext
-import me.ezra_home.retail_software_solution.messaging.kafka.transaction.events.TransactionEvent
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.organizations.business.kafka_log.EventProcessingLogEntity
+import app.myliberty.easy_records.organizations.business.kafka_log.EventProcessingLogRepository
+import app.myliberty.easy_records.organizations.business.kafka_log.EventProcessingLogResolutionType
+import app.myliberty.easy_records.organizations.business.kafka_log.EventProcessingLogStatus
+import app.myliberty.easy_records.organizations.business.location.api.LocationService
+import app.myliberty.easy_records.messaging.kafka.common.EventSourceContext
+import app.myliberty.easy_records.messaging.kafka.transaction.events.TransactionEvent
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Propagation
 import java.time.Instant

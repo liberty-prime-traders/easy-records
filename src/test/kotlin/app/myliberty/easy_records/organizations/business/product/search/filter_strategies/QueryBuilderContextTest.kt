@@ -1,11 +1,11 @@
-package me.ezra_home.retail_software_solution.organizations.business.product.search.filter_strategies
+package app.myliberty.easy_records.organizations.business.product.search.filter_strategies
 
-import me.ezra_home.retail_software_solution.cross_tier.product.search.common.filters.NameFilterStrategy
-import me.ezra_home.retail_software_solution.cross_tier.product.search.common.filters.StatusFilterStrategy
-import me.ezra_home.retail_software_solution.cross_tier.product.search.common.filters.TextSearchFilterStrategy
-import me.ezra_home.retail_software_solution.organizations.business.product.TagFilterStrategy
-import me.ezra_home.retail_software_solution.util.queries.QueryBuilderContext
-import me.ezra_home.retail_software_solution.util.queries.SearchStrategy
+import app.myliberty.easy_records.cross_tier.product.search.common.filters.NameFilterStrategy
+import app.myliberty.easy_records.cross_tier.product.search.common.filters.StatusFilterStrategy
+import app.myliberty.easy_records.cross_tier.product.search.common.filters.TextSearchFilterStrategy
+import app.myliberty.easy_records.organizations.business.product.TagFilterStrategy
+import app.myliberty.easy_records.util.queries.QueryBuilderContext
+import app.myliberty.easy_records.util.queries.SearchStrategy
 import org.junit.jupiter.api.Test
 import java.util.UUID
 import kotlin.test.assertEquals

@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution
+package app.myliberty.easy_records
 
 import org.mockito.Mockito.mock
 import org.springframework.boot.test.context.TestConfiguration

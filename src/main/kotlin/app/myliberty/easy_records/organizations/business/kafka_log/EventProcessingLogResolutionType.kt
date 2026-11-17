@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.organizations.business.kafka_log
+package app.myliberty.easy_records.organizations.business.kafka_log
 
-import me.ezra_home.retail_software_solution.util.enums.HasCode
+import app.myliberty.easy_records.util.enums.HasCode
 
 enum class EventProcessingLogResolutionType(override val code: String) : HasCode {
     DLT_REPLAY("RPL"),

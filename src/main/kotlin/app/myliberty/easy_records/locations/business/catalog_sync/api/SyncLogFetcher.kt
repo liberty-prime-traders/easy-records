@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.locations.business.catalog_sync.api
+package app.myliberty.easy_records.locations.business.catalog_sync.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
-import me.ezra_home.retail_software_solution.locations.business.catalog_sync.SyncLogEntity
-import me.ezra_home.retail_software_solution.locations.business.catalog_sync.SyncLogMapper
-import me.ezra_home.retail_software_solution.locations.business.catalog_sync.SyncLogRepository
-import me.ezra_home.retail_software_solution.util.model.TableName
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.locations.business.catalog_sync.SyncLogEntity
+import app.myliberty.easy_records.locations.business.catalog_sync.SyncLogMapper
+import app.myliberty.easy_records.locations.business.catalog_sync.SyncLogRepository
+import app.myliberty.easy_records.util.model.TableName
 import org.springframework.stereotype.Component
 import java.util.UUID
 

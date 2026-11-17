@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.platform.business.authorization_pass.api
+package app.myliberty.easy_records.platform.business.authorization_pass.api
 
-import me.ezra_home.retail_software_solution.util.enums.HasCode
+import app.myliberty.easy_records.util.enums.HasCode
 
 enum class PassType(override val code: String) : HasCode {
     CREATE_ORGANIZATION("CRORG")

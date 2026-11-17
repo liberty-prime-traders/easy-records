@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.messaging.kafka.transaction
+package app.myliberty.easy_records.messaging.kafka.transaction
 
-import me.ezra_home.retail_software_solution.messaging.kafka.common.BaseEvent
+import app.myliberty.easy_records.messaging.kafka.common.BaseEvent
 import java.util.UUID
 import kotlin.reflect.KClass
 

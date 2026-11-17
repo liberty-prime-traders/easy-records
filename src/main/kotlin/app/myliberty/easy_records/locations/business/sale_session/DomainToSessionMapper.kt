@@ -1,15 +1,15 @@
-package me.ezra_home.retail_software_solution.locations.business.sale_session
+package app.myliberty.easy_records.locations.business.sale_session
 
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleHeaderDto
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleLineDto
-import me.ezra_home.retail_software_solution.locations.business.sale_adjustment.api.SaleAdjustmentDto
-import me.ezra_home.retail_software_solution.locations.business.sale_payment.api.SalePaymentSnapshot
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionAdjustment
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionHeader
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionLine
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionPayment
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SessionIdentity
-import me.ezra_home.retail_software_solution.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.locations.business.sale.api.SaleHeaderDto
+import app.myliberty.easy_records.locations.business.sale.api.SaleLineDto
+import app.myliberty.easy_records.locations.business.sale_adjustment.api.SaleAdjustmentDto
+import app.myliberty.easy_records.locations.business.sale_payment.api.SalePaymentSnapshot
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionAdjustment
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionHeader
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionLine
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionPayment
+import app.myliberty.easy_records.locations.business.sale_session.api.SessionIdentity
+import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
 import org.mapstruct.Context
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping

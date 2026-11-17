@@ -1,15 +1,15 @@
-package me.ezra_home.retail_software_solution.organizations.business.unit_bulk_import.api
+package app.myliberty.easy_records.organizations.business.unit_bulk_import.api
 
-import me.ezra_home.retail_software_solution.organizations.business.unit_bulk_import.BulkUnitImportValidator
-import me.ezra_home.retail_software_solution.organizations.business.unitgroup.api.UnitGroupInsertDto
-import me.ezra_home.retail_software_solution.organizations.business.unitgroup.api.UnitGroupResponseDto
-import me.ezra_home.retail_software_solution.organizations.business.unitgroup.api.UnitGroupService
-import me.ezra_home.retail_software_solution.organizations.business.unitvalue.api.RootUnitDefinition
-import me.ezra_home.retail_software_solution.organizations.business.unitvalue.api.UnitValueBulkSaveEntry
-import me.ezra_home.retail_software_solution.organizations.business.unitvalue.api.UnitValueFetcher
-import me.ezra_home.retail_software_solution.organizations.business.unitvalue.api.UnitValueResponseDto
-import me.ezra_home.retail_software_solution.organizations.business.unitvalue.api.UnitValueService
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.organizations.business.unit_bulk_import.BulkUnitImportValidator
+import app.myliberty.easy_records.organizations.business.unitgroup.api.UnitGroupInsertDto
+import app.myliberty.easy_records.organizations.business.unitgroup.api.UnitGroupResponseDto
+import app.myliberty.easy_records.organizations.business.unitgroup.api.UnitGroupService
+import app.myliberty.easy_records.organizations.business.unitvalue.api.RootUnitDefinition
+import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueBulkSaveEntry
+import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueFetcher
+import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueResponseDto
+import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueService
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Assertions.assertThrows

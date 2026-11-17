@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.locations.business.stock.api.read
+package app.myliberty.easy_records.locations.business.stock.api.read
 
-import me.ezra_home.retail_software_solution.locations.business.stock.StockEntryEntity
-import me.ezra_home.retail_software_solution.locations.business.stock.StockEntryRepository
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.locations.business.stock.StockEntryEntity
+import app.myliberty.easy_records.locations.business.stock.StockEntryRepository
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test

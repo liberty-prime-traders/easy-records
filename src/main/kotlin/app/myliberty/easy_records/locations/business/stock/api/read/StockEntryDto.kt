@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.locations.business.stock.api.read
+package app.myliberty.easy_records.locations.business.stock.api.read
 
-import me.ezra_home.retail_software_solution.locations.business.stock.StockEntryEntity
-import me.ezra_home.retail_software_solution.locations.business.stock.api.StockEntryStatus
-import me.ezra_home.retail_software_solution.organizations.business.stock_item_source.api.StockItemSource
+import app.myliberty.easy_records.locations.business.stock.StockEntryEntity
+import app.myliberty.easy_records.locations.business.stock.api.StockEntryStatus
+import app.myliberty.easy_records.organizations.business.stock_item_source.api.StockItemSource
 import java.math.BigDecimal
 import java.util.UUID
 

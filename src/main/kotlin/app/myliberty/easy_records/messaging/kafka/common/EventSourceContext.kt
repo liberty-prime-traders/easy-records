@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.messaging.kafka.common
+package app.myliberty.easy_records.messaging.kafka.common
 
 import com.fasterxml.jackson.core.JsonParser
 import com.fasterxml.jackson.databind.DeserializationContext

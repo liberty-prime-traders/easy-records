@@ -1,13 +1,13 @@
-package me.ezra_home.retail_software_solution.locations.business.purchase.search
+package app.myliberty.easy_records.locations.business.purchase.search
 
 import java.time.OffsetDateTime
-import me.ezra_home.retail_software_solution.util.queries.KeysetSearchCursor
-import me.ezra_home.retail_software_solution.configuration.session.OrgSession
-import me.ezra_home.retail_software_solution.configuration.session.SessionContext
-import me.ezra_home.retail_software_solution.configuration.session.SessionContextProvider
-import me.ezra_home.retail_software_solution.locations.business.purchase.PurchaseLineEntity
-import me.ezra_home.retail_software_solution.util.business.Decimals
-import me.ezra_home.retail_software_solution.util.queries.QueryBuilderContext
+import app.myliberty.easy_records.util.queries.KeysetSearchCursor
+import app.myliberty.easy_records.configuration.session.OrgSession
+import app.myliberty.easy_records.configuration.session.SessionContext
+import app.myliberty.easy_records.configuration.session.SessionContextProvider
+import app.myliberty.easy_records.locations.business.purchase.PurchaseLineEntity
+import app.myliberty.easy_records.util.business.Decimals
+import app.myliberty.easy_records.util.queries.QueryBuilderContext
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue

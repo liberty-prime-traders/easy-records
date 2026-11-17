@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.util.enums
+package app.myliberty.easy_records.util.enums
 
 object RtsPermissionNames {
     const val ADD_USER_TO_LOCATION = "ADD_USER_TO_LOCATION"

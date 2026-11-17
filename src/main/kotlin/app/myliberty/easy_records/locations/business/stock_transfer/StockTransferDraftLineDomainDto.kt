@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.locations.business.stock_transfer
+package app.myliberty.easy_records.locations.business.stock_transfer
 
 import java.math.BigDecimal
 import java.time.OffsetDateTime

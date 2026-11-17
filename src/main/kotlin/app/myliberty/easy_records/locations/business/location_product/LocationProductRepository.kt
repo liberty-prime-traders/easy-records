@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.locations.business.location_product
+package app.myliberty.easy_records.locations.business.location_product
 
-import me.ezra_home.retail_software_solution.organizations.business.product.api.ProductStatus
+import app.myliberty.easy_records.organizations.business.product.api.ProductStatus
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository

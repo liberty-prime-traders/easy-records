@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.organizations.business.accounting_config.api
+package app.myliberty.easy_records.organizations.business.accounting_config.api
 
-import me.ezra_home.retail_software_solution.util.enums.HasCode
+import app.myliberty.easy_records.util.enums.HasCode
 
 enum class FiscalPeriodCycle(override val code: String) : HasCode {
     WEEKLY("W"),

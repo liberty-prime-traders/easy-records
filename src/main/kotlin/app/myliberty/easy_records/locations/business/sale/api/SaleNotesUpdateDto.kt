@@ -1,3 +1,3 @@
-package me.ezra_home.retail_software_solution.locations.business.sale.api
+package app.myliberty.easy_records.locations.business.sale.api
 
 data class SaleNotesUpdateDto(val notes: String?)

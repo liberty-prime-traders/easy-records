@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.platform.business.db_migration
+package app.myliberty.easy_records.platform.business.db_migration
 
-import me.ezra_home.retail_software_solution.organizations.business.location.api.LocationService
-import me.ezra_home.retail_software_solution.platform.business.organization.api.OrganizationService
-import me.ezra_home.retail_software_solution.util.enums.SchemaOwnerType
+import app.myliberty.easy_records.organizations.business.location.api.LocationService
+import app.myliberty.easy_records.platform.business.organization.api.OrganizationService
+import app.myliberty.easy_records.util.enums.SchemaOwnerType
 import org.mapstruct.Qualifier
 import org.springframework.stereotype.Component
 

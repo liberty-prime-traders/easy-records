@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.locations.business.stock_adjustment.api
+package app.myliberty.easy_records.locations.business.stock_adjustment.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
-import me.ezra_home.retail_software_solution.locations.business.stock_adjustment.StockAdjustmentCategoryRules
-import me.ezra_home.retail_software_solution.locations.business.stock_adjustment.StockAdjustmentRepository
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.locations.business.stock_adjustment.StockAdjustmentCategoryRules
+import app.myliberty.easy_records.locations.business.stock_adjustment.StockAdjustmentRepository
 import org.springframework.stereotype.Service
 
 @Service

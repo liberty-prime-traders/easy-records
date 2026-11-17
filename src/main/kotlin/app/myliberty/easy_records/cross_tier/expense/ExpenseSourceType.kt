@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.cross_tier.expense
+package app.myliberty.easy_records.cross_tier.expense
 
-import me.ezra_home.retail_software_solution.util.enums.HasCode
+import app.myliberty.easy_records.util.enums.HasCode
 
 enum class ExpenseSourceType(override val code: String) : HasCode {
     PURCHASE("PUR"),

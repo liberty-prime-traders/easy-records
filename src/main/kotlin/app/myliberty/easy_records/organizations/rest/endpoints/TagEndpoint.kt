@@ -1,9 +1,9 @@
-package me.ezra_home.retail_software_solution.organizations.rest.endpoints
+package app.myliberty.easy_records.organizations.rest.endpoints
 
-import me.ezra_home.retail_software_solution.organizations.business.tag.api.TagInsertDto
-import me.ezra_home.retail_software_solution.organizations.business.tag.api.TagResponseDto
-import me.ezra_home.retail_software_solution.organizations.business.tag.api.TagService
-import me.ezra_home.retail_software_solution.organizations.business.tag.api.TagUpdateDto
+import app.myliberty.easy_records.organizations.business.tag.api.TagInsertDto
+import app.myliberty.easy_records.organizations.business.tag.api.TagResponseDto
+import app.myliberty.easy_records.organizations.business.tag.api.TagService
+import app.myliberty.easy_records.organizations.business.tag.api.TagUpdateDto
 import org.springframework.http.HttpStatus
 import org.springframework.http.HttpStatusCode
 import org.springframework.http.ResponseEntity

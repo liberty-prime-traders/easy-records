@@ -1,9 +1,9 @@
-package me.ezra_home.retail_software_solution.util.exceptions
+package app.myliberty.easy_records.util.exceptions
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import me.ezra_home.retail_software_solution.util.business.Money
-import me.ezra_home.retail_software_solution.util.business.Percentage
-import me.ezra_home.retail_software_solution.util.quantity.UserProvidedQuantity
+import app.myliberty.easy_records.util.business.Money
+import app.myliberty.easy_records.util.business.Percentage
+import app.myliberty.easy_records.util.quantity.UserProvidedQuantity
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.http.MediaType

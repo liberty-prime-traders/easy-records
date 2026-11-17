@@ -1,12 +1,12 @@
-package me.ezra_home.retail_software_solution.locations.business.stock_revision
+package app.myliberty.easy_records.locations.business.stock_revision
 
-import me.ezra_home.retail_software_solution.locations.business.stock.api.read.StockEntryDto
-import me.ezra_home.retail_software_solution.locations.business.stock.api.StockMovementContexts
-import me.ezra_home.retail_software_solution.locations.business.stock.api.revision.StockMovementDraft
-import me.ezra_home.retail_software_solution.organizations.business.stock_movement_reason.api.MovementType
-import me.ezra_home.retail_software_solution.util.exceptions.BlockedChangeException
-import me.ezra_home.retail_software_solution.util.exceptions.BlockingProblem
-import me.ezra_home.retail_software_solution.util.quantity.ExactQuantity
+import app.myliberty.easy_records.locations.business.stock.api.read.StockEntryDto
+import app.myliberty.easy_records.locations.business.stock.api.StockMovementContexts
+import app.myliberty.easy_records.locations.business.stock.api.revision.StockMovementDraft
+import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.MovementType
+import app.myliberty.easy_records.util.exceptions.BlockedChangeException
+import app.myliberty.easy_records.util.exceptions.BlockingProblem
+import app.myliberty.easy_records.util.quantity.ExactQuantity
 import java.math.BigDecimal
 
 data class StockEntryRestoration(

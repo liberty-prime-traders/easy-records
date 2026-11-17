@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.organizations.business.ledger
+package app.myliberty.easy_records.organizations.business.ledger
 
 import jakarta.persistence.Converter
-import me.ezra_home.retail_software_solution.organizations.business.ledger.api.LedgerSourceType
-import me.ezra_home.retail_software_solution.util.enums.EnumConverter
+import app.myliberty.easy_records.organizations.business.ledger.api.LedgerSourceType
+import app.myliberty.easy_records.util.enums.EnumConverter
 
 @Converter(autoApply = true)
 class LedgerSourceTypeConverter : EnumConverter<LedgerSourceType>(LedgerSourceType::class.java)

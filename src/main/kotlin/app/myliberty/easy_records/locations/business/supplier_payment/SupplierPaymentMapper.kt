@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.locations.business.supplier_payment
+package app.myliberty.easy_records.locations.business.supplier_payment
 
-import me.ezra_home.retail_software_solution.locations.business.supplier_payment.api.SupplierPaymentCreateDto
-import me.ezra_home.retail_software_solution.locations.business.supplier_payment.api.SupplierPaymentDto
-import me.ezra_home.retail_software_solution.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.locations.business.supplier_payment.api.SupplierPaymentCreateDto
+import app.myliberty.easy_records.locations.business.supplier_payment.api.SupplierPaymentDto
+import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 

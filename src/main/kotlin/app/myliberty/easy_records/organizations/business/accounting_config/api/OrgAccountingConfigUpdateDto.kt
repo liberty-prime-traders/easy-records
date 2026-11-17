@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.organizations.business.accounting_config.api
+package app.myliberty.easy_records.organizations.business.accounting_config.api
 
 import java.time.DayOfWeek
 import java.util.Optional

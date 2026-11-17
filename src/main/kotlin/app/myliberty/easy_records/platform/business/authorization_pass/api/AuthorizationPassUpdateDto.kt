@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.platform.business.authorization_pass.api
+package app.myliberty.easy_records.platform.business.authorization_pass.api
 
 import java.io.Serializable
 import java.time.OffsetDateTime

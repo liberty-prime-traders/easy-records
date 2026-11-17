@@ -1,9 +1,9 @@
-package me.ezra_home.retail_software_solution.platform.business.jurisdiction_type
+package app.myliberty.easy_records.platform.business.jurisdiction_type
 
-import me.ezra_home.retail_software_solution.platform.business.jurisdiction_type.api.JurisdictionTypeDto
-import me.ezra_home.retail_software_solution.platform.business.jurisdiction_type.api.JurisdictionTypeInsertDto
-import me.ezra_home.retail_software_solution.platform.business.jurisdiction_type.api.JurisdictionTypeResponseDto
-import me.ezra_home.retail_software_solution.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.platform.business.jurisdiction_type.api.JurisdictionTypeDto
+import app.myliberty.easy_records.platform.business.jurisdiction_type.api.JurisdictionTypeInsertDto
+import app.myliberty.easy_records.platform.business.jurisdiction_type.api.JurisdictionTypeResponseDto
+import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 

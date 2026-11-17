@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.organizations.business.payment_method.api
+package app.myliberty.easy_records.organizations.business.payment_method.api
 
 import java.io.Serializable
 

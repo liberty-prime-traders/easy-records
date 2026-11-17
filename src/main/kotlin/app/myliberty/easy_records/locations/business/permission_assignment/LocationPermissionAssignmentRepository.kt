@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.locations.business.permission_assignment
+package app.myliberty.easy_records.locations.business.permission_assignment
 
-import me.ezra_home.retail_software_solution.util.enums.RtsPermission
+import app.myliberty.easy_records.util.enums.RtsPermission
 import org.springframework.data.jpa.repository.JpaRepository
 import java.util.UUID
 

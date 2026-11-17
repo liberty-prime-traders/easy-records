@@ -1,15 +1,15 @@
-package me.ezra_home.retail_software_solution.locations.business.delivery
+package app.myliberty.easy_records.locations.business.delivery
 
 import jakarta.persistence.Column
 import jakarta.persistence.Convert
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.delivery.PurchaseDeliveryStatusConverter
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.delivery.PurchaseDeliveryStatus
-import me.ezra_home.retail_software_solution.util.annotations.HasReference
-import me.ezra_home.retail_software_solution.util.model.HasReferenceEntity
-import me.ezra_home.retail_software_solution.util.model.TableName
-import me.ezra_home.retail_software_solution.util.model.TableNames
+import app.myliberty.easy_records.locations.business.purchase.api.delivery.PurchaseDeliveryStatusConverter
+import app.myliberty.easy_records.locations.business.purchase.api.delivery.PurchaseDeliveryStatus
+import app.myliberty.easy_records.util.annotations.HasReference
+import app.myliberty.easy_records.util.model.HasReferenceEntity
+import app.myliberty.easy_records.util.model.TableName
+import app.myliberty.easy_records.util.model.TableNames
 import org.hibernate.envers.Audited
 import java.time.OffsetDateTime
 import java.util.UUID

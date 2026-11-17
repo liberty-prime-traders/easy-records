@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.organizations.business.contact
+package app.myliberty.easy_records.organizations.business.contact
 
-import me.ezra_home.retail_software_solution.organizations.business.contact.api.ContactType
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.organizations.business.contact.api.ContactType
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.mock

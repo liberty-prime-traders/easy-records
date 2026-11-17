@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.locations.business.stock_revision
+package app.myliberty.easy_records.locations.business.stock_revision
 
-import me.ezra_home.retail_software_solution.locations.business.stock.api.read.StockMovementDto
-import me.ezra_home.retail_software_solution.locations.business.stock.api.revision.ConsumerReplayPlan
-import me.ezra_home.retail_software_solution.organizations.business.stock_movement_reason.api.MovementType
+import app.myliberty.easy_records.locations.business.stock.api.read.StockMovementDto
+import app.myliberty.easy_records.locations.business.stock.api.revision.ConsumerReplayPlan
+import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.MovementType
 import java.math.BigDecimal
 
 data class ConsumerCostChange(

@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.organizations.business.product_tag.api
+package app.myliberty.easy_records.organizations.business.product_tag.api
 
 import org.mapstruct.Qualifier
 

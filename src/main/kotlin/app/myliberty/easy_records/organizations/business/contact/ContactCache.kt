@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.organizations.business.contact
+package app.myliberty.easy_records.organizations.business.contact
 
-import me.ezra_home.retail_software_solution.configuration.cache.CacheNames
-import me.ezra_home.retail_software_solution.configuration.cache.CacheSchemaLevel
-import me.ezra_home.retail_software_solution.organizations.business.contact.api.ContactDto
-import me.ezra_home.retail_software_solution.organizations.business.contact.api.ContactInsertDto
-import me.ezra_home.retail_software_solution.util.enums.SchemaLevel
+import app.myliberty.easy_records.configuration.cache.CacheNames
+import app.myliberty.easy_records.configuration.cache.CacheSchemaLevel
+import app.myliberty.easy_records.organizations.business.contact.api.ContactDto
+import app.myliberty.easy_records.organizations.business.contact.api.ContactInsertDto
+import app.myliberty.easy_records.util.enums.SchemaLevel
 import org.springframework.cache.annotation.CacheConfig
 import org.springframework.cache.annotation.CacheEvict
 import org.springframework.cache.annotation.Cacheable

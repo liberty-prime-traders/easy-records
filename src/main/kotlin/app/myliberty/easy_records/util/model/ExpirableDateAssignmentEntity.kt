@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.util.model
+package app.myliberty.easy_records.util.model
 
 import jakarta.persistence.Column
 import jakarta.persistence.MappedSuperclass
-import me.ezra_home.retail_software_solution.util.business.DateTimes
+import app.myliberty.easy_records.util.business.DateTimes
 import java.time.LocalDate
 
 @MappedSuperclass

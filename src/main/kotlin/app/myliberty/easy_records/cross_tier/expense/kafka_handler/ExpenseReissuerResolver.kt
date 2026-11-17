@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.cross_tier.expense.kafka_handler
+package app.myliberty.easy_records.cross_tier.expense.kafka_handler
 
-import me.ezra_home.retail_software_solution.configuration.session.SessionContextProvider
-import me.ezra_home.retail_software_solution.cross_tier.expense.operation.ExpenseReissuer
+import app.myliberty.easy_records.configuration.session.SessionContextProvider
+import app.myliberty.easy_records.cross_tier.expense.operation.ExpenseReissuer
 import org.springframework.stereotype.Component
 
 @Component

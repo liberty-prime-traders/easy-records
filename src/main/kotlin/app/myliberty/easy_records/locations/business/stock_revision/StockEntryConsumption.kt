@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.locations.business.stock_revision
+package app.myliberty.easy_records.locations.business.stock_revision
 
-import me.ezra_home.retail_software_solution.locations.business.stock.api.StockAdjustmentMovementDetails
-import me.ezra_home.retail_software_solution.locations.business.stock.api.read.StockMovementDto
-import me.ezra_home.retail_software_solution.organizations.business.stock_movement_reason.api.MovementType
-import me.ezra_home.retail_software_solution.util.quantity.ExactQuantity
-import me.ezra_home.retail_software_solution.util.quantity.QuantityAsEntered
+import app.myliberty.easy_records.locations.business.stock.api.StockAdjustmentMovementDetails
+import app.myliberty.easy_records.locations.business.stock.api.read.StockMovementDto
+import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.MovementType
+import app.myliberty.easy_records.util.quantity.ExactQuantity
+import app.myliberty.easy_records.util.quantity.QuantityAsEntered
 import java.math.BigDecimal
 import java.time.OffsetDateTime
 import java.util.UUID

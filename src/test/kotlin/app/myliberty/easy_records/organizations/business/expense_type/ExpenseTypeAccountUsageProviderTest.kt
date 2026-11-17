@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.organizations.business.expense_type
+package app.myliberty.easy_records.organizations.business.expense_type
 
-import me.ezra_home.retail_software_solution.cross_tier.expense.ExpenseSourceType
-import me.ezra_home.retail_software_solution.organizations.business.account.api.AccountUsageType
-import me.ezra_home.retail_software_solution.organizations.business.contact.api.ContactType
+import app.myliberty.easy_records.cross_tier.expense.ExpenseSourceType
+import app.myliberty.easy_records.organizations.business.account.api.AccountUsageType
+import app.myliberty.easy_records.organizations.business.contact.api.ContactType
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.mock

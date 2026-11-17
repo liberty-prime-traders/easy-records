@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.organizations.business.kafka_log.api
+package app.myliberty.easy_records.organizations.business.kafka_log.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnOrganizationSchema
-import me.ezra_home.retail_software_solution.organizations.business.kafka_log.EventProcessingLogRepository
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.organizations.business.kafka_log.EventProcessingLogRepository
 import org.springframework.stereotype.Service
 import java.util.UUID
 

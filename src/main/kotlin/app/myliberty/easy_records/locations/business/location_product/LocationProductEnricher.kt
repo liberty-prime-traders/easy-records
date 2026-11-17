@@ -1,13 +1,13 @@
-package me.ezra_home.retail_software_solution.locations.business.location_product
+package app.myliberty.easy_records.locations.business.location_product
 
-import me.ezra_home.retail_software_solution.locations.business.location_product.api.LocationProductResponseDto
-import me.ezra_home.retail_software_solution.locations.business.opening_stock.api.OpeningStockAmountsFetcher
-import me.ezra_home.retail_software_solution.locations.business.stock.api.read.StockBalanceFetcher
-import me.ezra_home.retail_software_solution.organizations.business.unitconversion.api.QuantityBreakdownFactory
-import me.ezra_home.retail_software_solution.organizations.business.unitconversion.api.UnitConversionGraphFacade
-import me.ezra_home.retail_software_solution.organizations.business.unitvalue.api.UnitValueFetcher
-import me.ezra_home.retail_software_solution.util.quantity.BaseUnitDisplay
-import me.ezra_home.retail_software_solution.util.quantity.ExactQuantity
+import app.myliberty.easy_records.locations.business.location_product.api.LocationProductResponseDto
+import app.myliberty.easy_records.locations.business.opening_stock.api.OpeningStockAmountsFetcher
+import app.myliberty.easy_records.locations.business.stock.api.read.StockBalanceFetcher
+import app.myliberty.easy_records.organizations.business.unitconversion.api.QuantityBreakdownFactory
+import app.myliberty.easy_records.organizations.business.unitconversion.api.UnitConversionGraphFacade
+import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueFetcher
+import app.myliberty.easy_records.util.quantity.BaseUnitDisplay
+import app.myliberty.easy_records.util.quantity.ExactQuantity
 import org.springframework.stereotype.Component
 import java.math.RoundingMode
 

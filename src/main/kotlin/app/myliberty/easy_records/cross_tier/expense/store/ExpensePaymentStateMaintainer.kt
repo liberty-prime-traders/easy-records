@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.cross_tier.expense.store
+package app.myliberty.easy_records.cross_tier.expense.store
 
-import me.ezra_home.retail_software_solution.cross_tier.expense.entities.ExpensePaymentStateBase
-import me.ezra_home.retail_software_solution.cross_tier.expense.model.ExpenseDto
-import me.ezra_home.retail_software_solution.cross_tier.expense.repository.ExpensePaymentStateRepositoryBase
-import me.ezra_home.retail_software_solution.util.business.PaymentStatusResolver
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.cross_tier.expense.entities.ExpensePaymentStateBase
+import app.myliberty.easy_records.cross_tier.expense.model.ExpenseDto
+import app.myliberty.easy_records.cross_tier.expense.repository.ExpensePaymentStateRepositoryBase
+import app.myliberty.easy_records.util.business.PaymentStatusResolver
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import java.math.BigDecimal
 import java.util.UUID
 

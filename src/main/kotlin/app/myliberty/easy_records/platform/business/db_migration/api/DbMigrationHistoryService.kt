@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.platform.business.db_migration.api
+package app.myliberty.easy_records.platform.business.db_migration.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnPlatformSchema
-import me.ezra_home.retail_software_solution.platform.business.db_migration.DbMigrationCache
-import me.ezra_home.retail_software_solution.platform.business.db_version.api.DbVersionService
-import me.ezra_home.retail_software_solution.platform.business.organization.api.OrganizationService
-import me.ezra_home.retail_software_solution.util.enums.SchemaOwnerType
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnPlatformSchema
+import app.myliberty.easy_records.platform.business.db_migration.DbMigrationCache
+import app.myliberty.easy_records.platform.business.db_version.api.DbVersionService
+import app.myliberty.easy_records.platform.business.organization.api.OrganizationService
+import app.myliberty.easy_records.util.enums.SchemaOwnerType
 import org.springframework.stereotype.Service
 import java.time.OffsetDateTime
 import java.util.UUID

@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.cucumber.support.rest
+package app.myliberty.easy_records.cucumber.support.rest
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ArrayNode

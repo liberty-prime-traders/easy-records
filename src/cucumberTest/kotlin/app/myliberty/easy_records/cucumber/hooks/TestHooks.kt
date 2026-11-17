@@ -1,14 +1,14 @@
-package me.ezra_home.retail_software_solution.cucumber.hooks
+package app.myliberty.easy_records.cucumber.hooks
 
 import io.cucumber.java.After
 import io.cucumber.java.Before
-import me.ezra_home.retail_software_solution.cucumber.support.KafkaConsumerTestSupport
-import me.ezra_home.retail_software_solution.cucumber.support.cleanup.CacheCleaner
-import me.ezra_home.retail_software_solution.cucumber.support.cleanup.TestDatabaseCleaner
-import me.ezra_home.retail_software_solution.cucumber.support.context.AuthContext
-import me.ezra_home.retail_software_solution.cucumber.support.context.InjectContext
-import me.ezra_home.retail_software_solution.cucumber.support.context.KafkaContext
-import me.ezra_home.retail_software_solution.cucumber.support.context.ResponseContext
+import app.myliberty.easy_records.cucumber.support.KafkaConsumerTestSupport
+import app.myliberty.easy_records.cucumber.support.cleanup.CacheCleaner
+import app.myliberty.easy_records.cucumber.support.cleanup.TestDatabaseCleaner
+import app.myliberty.easy_records.cucumber.support.context.AuthContext
+import app.myliberty.easy_records.cucumber.support.context.InjectContext
+import app.myliberty.easy_records.cucumber.support.context.KafkaContext
+import app.myliberty.easy_records.cucumber.support.context.ResponseContext
 
 class TestHooks(
   private val responseContext: ResponseContext,

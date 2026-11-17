@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.configuration.audit
+package app.myliberty.easy_records.configuration.audit
 
-import me.ezra_home.retail_software_solution.configuration.session.SessionContextProvider
+import app.myliberty.easy_records.configuration.session.SessionContextProvider
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.domain.AuditorAware
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing

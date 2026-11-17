@@ -1,15 +1,15 @@
-package me.ezra_home.retail_software_solution.platform.business.authorization_pass
+package app.myliberty.easy_records.platform.business.authorization_pass
 
 import jakarta.persistence.Column
 import jakarta.persistence.Convert
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
-import me.ezra_home.retail_software_solution.platform.business.authorization_pass.api.PassStatus
-import me.ezra_home.retail_software_solution.platform.business.authorization_pass.api.PassType
-import me.ezra_home.retail_software_solution.util.annotations.HasReference
-import me.ezra_home.retail_software_solution.util.model.HasReferenceEntity
-import me.ezra_home.retail_software_solution.util.model.TableName
-import me.ezra_home.retail_software_solution.util.model.TableNames
+import app.myliberty.easy_records.platform.business.authorization_pass.api.PassStatus
+import app.myliberty.easy_records.platform.business.authorization_pass.api.PassType
+import app.myliberty.easy_records.util.annotations.HasReference
+import app.myliberty.easy_records.util.model.HasReferenceEntity
+import app.myliberty.easy_records.util.model.TableName
+import app.myliberty.easy_records.util.model.TableNames
 import org.hibernate.envers.Audited
 import org.hibernate.envers.NotAudited
 import java.time.OffsetDateTime

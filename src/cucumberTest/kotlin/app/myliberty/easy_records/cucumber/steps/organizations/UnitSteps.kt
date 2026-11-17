@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.cucumber.steps.organizations
+package app.myliberty.easy_records.cucumber.steps.organizations
 
 import io.cucumber.java.en.Given
-import me.ezra_home.retail_software_solution.cucumber.fixtures.organizations.UnitGroupFixtureBuilder
-import me.ezra_home.retail_software_solution.cucumber.fixtures.organizations.UnitValueFixtureBuilder
-import me.ezra_home.retail_software_solution.cucumber.support.context.InjectContext
-import me.ezra_home.retail_software_solution.cucumber.support.context.TransientKey
+import app.myliberty.easy_records.cucumber.fixtures.organizations.UnitGroupFixtureBuilder
+import app.myliberty.easy_records.cucumber.fixtures.organizations.UnitValueFixtureBuilder
+import app.myliberty.easy_records.cucumber.support.context.InjectContext
+import app.myliberty.easy_records.cucumber.support.context.TransientKey
 
 class UnitSteps(
   private val unitGroupFixtureBuilder: UnitGroupFixtureBuilder,

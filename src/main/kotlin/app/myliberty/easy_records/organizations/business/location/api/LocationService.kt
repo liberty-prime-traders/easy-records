@@ -1,15 +1,15 @@
-package me.ezra_home.retail_software_solution.organizations.business.location.api
+package app.myliberty.easy_records.organizations.business.location.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnOrganizationSchema
-import me.ezra_home.retail_software_solution.configuration.session.SessionContextProvider
-import me.ezra_home.retail_software_solution.locations.business.location_user.api.LocationUserService
-import me.ezra_home.retail_software_solution.organizations.business.location.LocationCache
-import me.ezra_home.retail_software_solution.organizations.business.location.LocationMapper
-import me.ezra_home.retail_software_solution.organizations.business.location.LocationSchemaService
-import me.ezra_home.retail_software_solution.organizations.business.location.LocationValidator
-import me.ezra_home.retail_software_solution.util.business.SchemaNameGenerator
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
-import me.ezra_home.retail_software_solution.util.exceptions.UpdatingNonExistingRecordException
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.configuration.session.SessionContextProvider
+import app.myliberty.easy_records.locations.business.location_user.api.LocationUserService
+import app.myliberty.easy_records.organizations.business.location.LocationCache
+import app.myliberty.easy_records.organizations.business.location.LocationMapper
+import app.myliberty.easy_records.organizations.business.location.LocationSchemaService
+import app.myliberty.easy_records.organizations.business.location.LocationValidator
+import app.myliberty.easy_records.util.business.SchemaNameGenerator
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException
 import org.springframework.stereotype.Service
 import java.util.Objects
 import java.util.UUID

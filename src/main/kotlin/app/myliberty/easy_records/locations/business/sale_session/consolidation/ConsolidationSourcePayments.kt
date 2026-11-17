@@ -1,14 +1,14 @@
-package me.ezra_home.retail_software_solution.locations.business.sale_session.consolidation
+package app.myliberty.easy_records.locations.business.sale_session.consolidation
 
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleHeaderDto
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleUpdater
-import me.ezra_home.retail_software_solution.locations.business.sale_payment.api.SalePaymentFetcher
-import me.ezra_home.retail_software_solution.locations.business.sale_payment.api.SalePaymentService
-import me.ezra_home.retail_software_solution.locations.business.sale_payment.api.SalePaymentSnapshot
-import me.ezra_home.retail_software_solution.locations.business.sale_payment.api.SalePaymentVoidCreateDto
-import me.ezra_home.retail_software_solution.locations.business.sale_session.DomainToSessionMapper
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionPayment
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SessionIdentity
+import app.myliberty.easy_records.locations.business.sale.api.SaleHeaderDto
+import app.myliberty.easy_records.locations.business.sale.api.SaleUpdater
+import app.myliberty.easy_records.locations.business.sale_payment.api.SalePaymentFetcher
+import app.myliberty.easy_records.locations.business.sale_payment.api.SalePaymentService
+import app.myliberty.easy_records.locations.business.sale_payment.api.SalePaymentSnapshot
+import app.myliberty.easy_records.locations.business.sale_payment.api.SalePaymentVoidCreateDto
+import app.myliberty.easy_records.locations.business.sale_session.DomainToSessionMapper
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionPayment
+import app.myliberty.easy_records.locations.business.sale_session.api.SessionIdentity
 import org.springframework.stereotype.Component
 
 @Component

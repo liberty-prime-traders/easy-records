@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.configuration.filters
+package app.myliberty.easy_records.configuration.filters
 
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
-import me.ezra_home.retail_software_solution.configuration.session.SessionContextProvider
-import me.ezra_home.retail_software_solution.cross_tier.authority.EffectiveAuthorizationService
+import app.myliberty.easy_records.configuration.session.SessionContextProvider
+import app.myliberty.easy_records.cross_tier.authority.EffectiveAuthorizationService
 import org.springframework.security.authentication.AbstractAuthenticationToken
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.context.SecurityContextHolder

@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.configuration.datasource
+package app.myliberty.easy_records.configuration.datasource
 
 import liquibase.integration.spring.SpringLiquibase
 import org.springframework.beans.factory.annotation.Qualifier
@@ -15,7 +15,7 @@ import javax.sql.DataSource
 
 @Configuration
 @EnableJpaRepositories(
-    basePackages = ["me.ezra_home.retail_software_solution.platform"],
+    basePackages = ["app.myliberty.easy_records.platform"],
     entityManagerFactoryRef = DataSourceBeanNames.PLATFORM_SCHEMA_ENTITY_MANAGER_FACTORY,
     transactionManagerRef = DataSourceBeanNames.PLATFORM_SCHEMA_TRANSACTION_MANAGER
 )
@@ -33,7 +33,7 @@ class PlatformSchemaDataSourceConfig(private val environment: Environment) {
 
         val em = LocalContainerEntityManagerFactoryBean()
         em.dataSource = dataSource
-        em.setPackagesToScan("me.ezra_home.retail_software_solution.platform")
+        em.setPackagesToScan("app.myliberty.easy_records.platform")
         em.jpaVendorAdapter = HibernateJpaVendorAdapter()
         em.setJpaPropertyMap(platformProperties + HibernateEnversProperties.enversPropertyMap)
         return em

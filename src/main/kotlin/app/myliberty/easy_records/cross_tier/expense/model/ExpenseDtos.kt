@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.cross_tier.expense.model
+package app.myliberty.easy_records.cross_tier.expense.model
 
-import me.ezra_home.retail_software_solution.cross_tier.expense.ExpenseSourceType
-import me.ezra_home.retail_software_solution.util.enums.PaymentStatus
+import app.myliberty.easy_records.cross_tier.expense.ExpenseSourceType
+import app.myliberty.easy_records.util.enums.PaymentStatus
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.OffsetDateTime

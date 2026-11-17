@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.configuration.session
+package app.myliberty.easy_records.configuration.session
 
-import me.ezra_home.retail_software_solution.util.enums.RtsPermission
-import me.ezra_home.retail_software_solution.util.enums.RtsRole
+import app.myliberty.easy_records.util.enums.RtsPermission
+import app.myliberty.easy_records.util.enums.RtsRole
 import java.util.UUID
 
 data class SessionContext(

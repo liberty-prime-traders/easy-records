@@ -1,12 +1,12 @@
-package me.ezra_home.retail_software_solution.organizations.business.product_tag.api
+package app.myliberty.easy_records.organizations.business.product_tag.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnOrganizationSchema
-import me.ezra_home.retail_software_solution.organizations.business.product.api.OrganizationProductResponseDto
-import me.ezra_home.retail_software_solution.organizations.business.product.api.TagSummaryDto
-import me.ezra_home.retail_software_solution.organizations.business.product_tag.ProductTagCache
-import me.ezra_home.retail_software_solution.organizations.business.product_tag.ProductTagInsertDto
-import me.ezra_home.retail_software_solution.organizations.business.product_tag.ProductTagValidator
-import me.ezra_home.retail_software_solution.organizations.business.tag.api.TagService
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.organizations.business.product.api.OrganizationProductResponseDto
+import app.myliberty.easy_records.organizations.business.product.api.TagSummaryDto
+import app.myliberty.easy_records.organizations.business.product_tag.ProductTagCache
+import app.myliberty.easy_records.organizations.business.product_tag.ProductTagInsertDto
+import app.myliberty.easy_records.organizations.business.product_tag.ProductTagValidator
+import app.myliberty.easy_records.organizations.business.tag.api.TagService
 import org.springframework.stereotype.Service
 import java.time.OffsetDateTime
 import java.util.UUID

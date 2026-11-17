@@ -1,9 +1,9 @@
-package me.ezra_home.retail_software_solution.organizations.business.lock
+package app.myliberty.easy_records.organizations.business.lock
 
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
 import jakarta.persistence.Table
-import me.ezra_home.retail_software_solution.util.model.TableNames
+import app.myliberty.easy_records.util.model.TableNames
 import java.util.UUID
 
 // Exists only to give OrgEntityAdvisoryLockRepository an entity to bind against, which routes

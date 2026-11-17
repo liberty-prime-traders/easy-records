@@ -1,14 +1,14 @@
-package me.ezra_home.retail_software_solution.locations.business.location_product.api
+package app.myliberty.easy_records.locations.business.location_product.api
 
-import me.ezra_home.retail_software_solution.locations.business.location_product.LocationProductEnricher
-import me.ezra_home.retail_software_solution.locations.business.location_product.LocationProductForSaleAssembler
-import me.ezra_home.retail_software_solution.locations.business.location_product.LocationProductIdentityView
-import me.ezra_home.retail_software_solution.locations.business.location_product.LocationProductPagedSearch
-import me.ezra_home.retail_software_solution.locations.business.location_product.LocationProductRepository
-import me.ezra_home.retail_software_solution.organizations.business.unitconversion.api.UnitConversionGraph
-import me.ezra_home.retail_software_solution.organizations.business.unitconversion.api.UnitConversionGraphFacade
-import me.ezra_home.retail_software_solution.organizations.business.unitvalue.api.UnitPlacement
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.locations.business.location_product.LocationProductEnricher
+import app.myliberty.easy_records.locations.business.location_product.LocationProductForSaleAssembler
+import app.myliberty.easy_records.locations.business.location_product.LocationProductIdentityView
+import app.myliberty.easy_records.locations.business.location_product.LocationProductPagedSearch
+import app.myliberty.easy_records.locations.business.location_product.LocationProductRepository
+import app.myliberty.easy_records.organizations.business.unitconversion.api.UnitConversionGraph
+import app.myliberty.easy_records.organizations.business.unitconversion.api.UnitConversionGraphFacade
+import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitPlacement
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test

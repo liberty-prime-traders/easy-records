@@ -1,17 +1,17 @@
-package me.ezra_home.retail_software_solution.organizations.business.product.api
+package app.myliberty.easy_records.organizations.business.product.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnOrganizationSchema
-import me.ezra_home.retail_software_solution.cross_tier.product.search.common.ProductSearchParameters
-import me.ezra_home.retail_software_solution.organizations.business.product.OrganizationProductCache
-import me.ezra_home.retail_software_solution.organizations.business.product.OrganizationProductMapper
-import me.ezra_home.retail_software_solution.organizations.business.product.OrganizationProductQueryBuilder
-import me.ezra_home.retail_software_solution.organizations.business.product.OrganizationProductSearchExecutor
-import me.ezra_home.retail_software_solution.organizations.business.product_tag.api.ProductTagService
-import me.ezra_home.retail_software_solution.organizations.business.unitvalue.api.UnitValueFetcher
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
-import me.ezra_home.retail_software_solution.util.paging.PageRequest
-import me.ezra_home.retail_software_solution.util.paging.PageResponse
-import me.ezra_home.retail_software_solution.util.queries.FetchesUsingSmartTextStrategy
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.cross_tier.product.search.common.ProductSearchParameters
+import app.myliberty.easy_records.organizations.business.product.OrganizationProductCache
+import app.myliberty.easy_records.organizations.business.product.OrganizationProductMapper
+import app.myliberty.easy_records.organizations.business.product.OrganizationProductQueryBuilder
+import app.myliberty.easy_records.organizations.business.product.OrganizationProductSearchExecutor
+import app.myliberty.easy_records.organizations.business.product_tag.api.ProductTagService
+import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueFetcher
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.paging.PageRequest
+import app.myliberty.easy_records.util.paging.PageResponse
+import app.myliberty.easy_records.util.queries.FetchesUsingSmartTextStrategy
 import org.springframework.stereotype.Service
 
 @Service

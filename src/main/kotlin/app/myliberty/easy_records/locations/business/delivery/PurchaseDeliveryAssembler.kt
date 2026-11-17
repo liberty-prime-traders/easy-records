@@ -1,9 +1,9 @@
-package me.ezra_home.retail_software_solution.locations.business.delivery
+package app.myliberty.easy_records.locations.business.delivery
 
-import me.ezra_home.retail_software_solution.locations.business.delivery.api.PurchaseDeliveryLineResponseDto
-import me.ezra_home.retail_software_solution.locations.business.delivery.api.PurchaseDeliveryResponseDto
-import me.ezra_home.retail_software_solution.locations.business.location_product.api.LocationProductSummaryDto
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.PurchaseLineDto
+import app.myliberty.easy_records.locations.business.delivery.api.PurchaseDeliveryLineResponseDto
+import app.myliberty.easy_records.locations.business.delivery.api.PurchaseDeliveryResponseDto
+import app.myliberty.easy_records.locations.business.location_product.api.LocationProductSummaryDto
+import app.myliberty.easy_records.locations.business.purchase.api.PurchaseLineDto
 import org.springframework.stereotype.Service
 import java.util.UUID
 

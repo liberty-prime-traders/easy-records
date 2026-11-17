@@ -1,14 +1,14 @@
-package me.ezra_home.retail_software_solution.organizations.rest.endpoints
+package app.myliberty.easy_records.organizations.rest.endpoints
 
-import me.ezra_home.retail_software_solution.organizations.business.org_jurisdiction_tax_type.api.OrgJurisdictionTaxTypeInsertDto
-import me.ezra_home.retail_software_solution.organizations.business.org_jurisdiction_tax_type.api.OrgJurisdictionTaxTypeResponseDto
-import me.ezra_home.retail_software_solution.organizations.business.org_jurisdiction_tax_type.api.OrgJurisdictionTaxTypeService
-import me.ezra_home.retail_software_solution.organizations.business.org_jurisdiction_tax_type.api.OrgJurisdictionTaxTypeUpdateDto
-import me.ezra_home.retail_software_solution.platform.business.feature.api.Feature
-import me.ezra_home.retail_software_solution.platform.business.jurisdiction_tax_type.api.JurisdictionTaxesTreeBuilder
-import me.ezra_home.retail_software_solution.platform.business.tax_type.api.TaxRecoveryType
-import me.ezra_home.retail_software_solution.util.annotations.RequiresFeature
-import me.ezra_home.retail_software_solution.util.ui_models.TreeNodeWithData
+import app.myliberty.easy_records.organizations.business.org_jurisdiction_tax_type.api.OrgJurisdictionTaxTypeInsertDto
+import app.myliberty.easy_records.organizations.business.org_jurisdiction_tax_type.api.OrgJurisdictionTaxTypeResponseDto
+import app.myliberty.easy_records.organizations.business.org_jurisdiction_tax_type.api.OrgJurisdictionTaxTypeService
+import app.myliberty.easy_records.organizations.business.org_jurisdiction_tax_type.api.OrgJurisdictionTaxTypeUpdateDto
+import app.myliberty.easy_records.platform.business.feature.api.Feature
+import app.myliberty.easy_records.platform.business.jurisdiction_tax_type.api.JurisdictionTaxesTreeBuilder
+import app.myliberty.easy_records.platform.business.tax_type.api.TaxRecoveryType
+import app.myliberty.easy_records.util.annotations.RequiresFeature
+import app.myliberty.easy_records.util.ui_models.TreeNodeWithData
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping

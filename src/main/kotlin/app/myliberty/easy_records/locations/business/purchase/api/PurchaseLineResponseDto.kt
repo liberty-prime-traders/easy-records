@@ -1,9 +1,9 @@
-package me.ezra_home.retail_software_solution.locations.business.purchase.api
+package app.myliberty.easy_records.locations.business.purchase.api
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import me.ezra_home.retail_software_solution.configuration.serializer.StripZeroesAndRound
-import me.ezra_home.retail_software_solution.locations.business.location_product.api.LocationProductSummaryDto
+import app.myliberty.easy_records.configuration.serializer.StripZeroesAndRound
+import app.myliberty.easy_records.locations.business.location_product.api.LocationProductSummaryDto
 import java.io.Serializable
 import java.math.BigDecimal
 import java.util.UUID

@@ -1,11 +1,11 @@
-package me.ezra_home.retail_software_solution.organizations.business.org_table_registry.api
+package app.myliberty.easy_records.organizations.business.org_table_registry.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnOrganizationSchema
-import me.ezra_home.retail_software_solution.organizations.business.org_table_registry.OrgTableRegistryCache
-import me.ezra_home.retail_software_solution.organizations.business.org_table_registry.OrgTableRegistryMapper
-import me.ezra_home.retail_software_solution.platform.business.table_registry.api.TableRegistryService
-import me.ezra_home.retail_software_solution.util.business.StringUtils
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.organizations.business.org_table_registry.OrgTableRegistryCache
+import app.myliberty.easy_records.organizations.business.org_table_registry.OrgTableRegistryMapper
+import app.myliberty.easy_records.platform.business.table_registry.api.TableRegistryService
+import app.myliberty.easy_records.util.business.StringUtils
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Component
 import java.util.UUID
 

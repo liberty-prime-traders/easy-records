@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.organizations.business.expense_type
+package app.myliberty.easy_records.organizations.business.expense_type
 
 import jakarta.persistence.Converter
-import me.ezra_home.retail_software_solution.organizations.business.contact.api.ContactType
-import me.ezra_home.retail_software_solution.util.enums.EnumSetConverter
+import app.myliberty.easy_records.organizations.business.contact.api.ContactType
+import app.myliberty.easy_records.util.enums.EnumSetConverter
 
 @Converter(autoApply = true)
 class ExpensePayeeTypeSetConverter : EnumSetConverter<ContactType>(ContactType::class.java)

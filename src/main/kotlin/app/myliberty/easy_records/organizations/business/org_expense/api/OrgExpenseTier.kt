@@ -1,11 +1,11 @@
-package me.ezra_home.retail_software_solution.organizations.business.org_expense.api
+package app.myliberty.easy_records.organizations.business.org_expense.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnOrganizationSchema
-import me.ezra_home.retail_software_solution.configuration.session.SessionContextProvider
-import me.ezra_home.retail_software_solution.cross_tier.expense.ExpenseTier
-import me.ezra_home.retail_software_solution.messaging.kafka.common.EventSourceContext
-import me.ezra_home.retail_software_solution.organizations.business.lock.api.OrgEntityAdvisoryLock
-import me.ezra_home.retail_software_solution.util.business.lock.LockNamespaces
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.configuration.session.SessionContextProvider
+import app.myliberty.easy_records.cross_tier.expense.ExpenseTier
+import app.myliberty.easy_records.messaging.kafka.common.EventSourceContext
+import app.myliberty.easy_records.organizations.business.lock.api.OrgEntityAdvisoryLock
+import app.myliberty.easy_records.util.business.lock.LockNamespaces
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Propagation
 import java.util.UUID

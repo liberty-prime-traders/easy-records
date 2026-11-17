@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.organizations.business.account.api
+package app.myliberty.easy_records.organizations.business.account.api
 
 enum class AccountUsageType {
     PAYMENT_METHOD,

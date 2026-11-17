@@ -1,14 +1,14 @@
-package me.ezra_home.retail_software_solution.platform.business.reserved_subdomain
+package app.myliberty.easy_records.platform.business.reserved_subdomain
 
 import jakarta.persistence.Column
 import jakarta.persistence.Convert
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
-import me.ezra_home.retail_software_solution.platform.business.reserved_subdomain.api.ReservedDomainStatus
-import me.ezra_home.retail_software_solution.util.annotations.HasReference
-import me.ezra_home.retail_software_solution.util.model.HasReferenceEntity
-import me.ezra_home.retail_software_solution.util.model.TableName
-import me.ezra_home.retail_software_solution.util.model.TableNames
+import app.myliberty.easy_records.platform.business.reserved_subdomain.api.ReservedDomainStatus
+import app.myliberty.easy_records.util.annotations.HasReference
+import app.myliberty.easy_records.util.model.HasReferenceEntity
+import app.myliberty.easy_records.util.model.TableName
+import app.myliberty.easy_records.util.model.TableNames
 
 @Entity
 @Table(name = TableNames.RESERVED_SUBDOMAIN)

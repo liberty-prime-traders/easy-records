@@ -1,13 +1,13 @@
-package me.ezra_home.retail_software_solution.organizations.business.expense_type.api
+package app.myliberty.easy_records.organizations.business.expense_type.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnOrganizationSchema
-import me.ezra_home.retail_software_solution.cross_tier.expense.ExpenseSourceType
-import me.ezra_home.retail_software_solution.organizations.business.expense_type.ExpenseTypeMapper
-import me.ezra_home.retail_software_solution.organizations.business.expense_type.ExpenseTypeRepository
-import me.ezra_home.retail_software_solution.organizations.business.expense_type.ExpenseTypeValidator
-import me.ezra_home.retail_software_solution.util.business.StringUtils
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
-import me.ezra_home.retail_software_solution.util.exceptions.UpdatingNonExistingRecordException
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.cross_tier.expense.ExpenseSourceType
+import app.myliberty.easy_records.organizations.business.expense_type.ExpenseTypeMapper
+import app.myliberty.easy_records.organizations.business.expense_type.ExpenseTypeRepository
+import app.myliberty.easy_records.organizations.business.expense_type.ExpenseTypeValidator
+import app.myliberty.easy_records.util.business.StringUtils
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException
 import org.springframework.stereotype.Service
 import java.util.UUID
 

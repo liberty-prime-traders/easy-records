@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.messaging.kafka.transaction.events
+package app.myliberty.easy_records.messaging.kafka.transaction.events
 
-import me.ezra_home.retail_software_solution.messaging.kafka.common.EventSourceContext
-import me.ezra_home.retail_software_solution.util.business.Money
+import app.myliberty.easy_records.messaging.kafka.common.EventSourceContext
+import app.myliberty.easy_records.util.business.Money
 import java.time.Instant
 import java.time.LocalDate
 import java.util.UUID

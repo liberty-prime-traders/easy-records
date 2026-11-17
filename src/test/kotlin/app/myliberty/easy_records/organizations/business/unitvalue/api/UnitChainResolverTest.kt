@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.organizations.business.unitvalue.api
+package app.myliberty.easy_records.organizations.business.unitvalue.api
 
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test

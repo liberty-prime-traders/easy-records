@@ -1,11 +1,11 @@
-package me.ezra_home.retail_software_solution.organizations.business.account
+package app.myliberty.easy_records.organizations.business.account
 
-import me.ezra_home.retail_software_solution.organizations.business.account.api.AccountChildCreateRequest
-import me.ezra_home.retail_software_solution.organizations.business.account.api.AccountInsertDto
-import me.ezra_home.retail_software_solution.organizations.business.account.api.AccountUsagesFinder
-import me.ezra_home.retail_software_solution.organizations.business.account.api.SystemAccount
-import me.ezra_home.retail_software_solution.util.business.StringUtils
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.organizations.business.account.api.AccountChildCreateRequest
+import app.myliberty.easy_records.organizations.business.account.api.AccountInsertDto
+import app.myliberty.easy_records.organizations.business.account.api.AccountUsagesFinder
+import app.myliberty.easy_records.organizations.business.account.api.SystemAccount
+import app.myliberty.easy_records.util.business.StringUtils
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Service
 
 @Service

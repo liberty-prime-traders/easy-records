@@ -1,14 +1,14 @@
-package me.ezra_home.retail_software_solution.locations.business.delivery.api
+package app.myliberty.easy_records.locations.business.delivery.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
-import me.ezra_home.retail_software_solution.locations.business.delivery.PurchaseDeliveryAssembler
-import me.ezra_home.retail_software_solution.locations.business.delivery.PurchaseDeliveryLineRepository
-import me.ezra_home.retail_software_solution.locations.business.delivery.PurchaseDeliveryRepository
-import me.ezra_home.retail_software_solution.locations.business.location_product.api.LocationProductSummaryDto
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.delivery.PurchaseDeliveryLineStatus
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.PurchaseLineDto
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
-import me.ezra_home.retail_software_solution.util.quantity.ExactQuantity
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.locations.business.delivery.PurchaseDeliveryAssembler
+import app.myliberty.easy_records.locations.business.delivery.PurchaseDeliveryLineRepository
+import app.myliberty.easy_records.locations.business.delivery.PurchaseDeliveryRepository
+import app.myliberty.easy_records.locations.business.location_product.api.LocationProductSummaryDto
+import app.myliberty.easy_records.locations.business.purchase.api.delivery.PurchaseDeliveryLineStatus
+import app.myliberty.easy_records.locations.business.purchase.api.PurchaseLineDto
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.quantity.ExactQuantity
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 import java.util.UUID

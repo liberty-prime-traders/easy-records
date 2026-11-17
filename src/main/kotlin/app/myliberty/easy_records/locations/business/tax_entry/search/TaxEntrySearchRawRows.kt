@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.locations.business.tax_entry.search
+package app.myliberty.easy_records.locations.business.tax_entry.search
 
-import me.ezra_home.retail_software_solution.locations.business.tax_entry.api.TaxDirection
-import me.ezra_home.retail_software_solution.locations.business.tax_entry.api.TaxSourceType
-import me.ezra_home.retail_software_solution.platform.business.tax_type.api.TaxCalculationMethod
+import app.myliberty.easy_records.locations.business.tax_entry.api.TaxDirection
+import app.myliberty.easy_records.locations.business.tax_entry.api.TaxSourceType
+import app.myliberty.easy_records.platform.business.tax_type.api.TaxCalculationMethod
 import java.math.BigDecimal
 import java.time.OffsetDateTime
 import java.util.UUID

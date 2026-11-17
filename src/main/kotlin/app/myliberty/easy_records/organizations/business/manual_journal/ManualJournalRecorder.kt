@@ -1,17 +1,17 @@
-package me.ezra_home.retail_software_solution.organizations.business.manual_journal
+package app.myliberty.easy_records.organizations.business.manual_journal
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnOrganizationSchema
-import me.ezra_home.retail_software_solution.organizations.business.account.api.AccountDataFetcher
-import me.ezra_home.retail_software_solution.organizations.business.ledger.api.LedgerEntryRequest
-import me.ezra_home.retail_software_solution.organizations.business.ledger.api.LedgerPostingRequest
-import me.ezra_home.retail_software_solution.organizations.business.ledger.api.LedgerPostingService
-import me.ezra_home.retail_software_solution.organizations.business.ledger.api.LedgerSourceType
-import me.ezra_home.retail_software_solution.organizations.business.manual_journal.api.ManualJournalLineCreateDto
-import me.ezra_home.retail_software_solution.organizations.business.manual_journal.api.ManualJournalResponseDto
-import me.ezra_home.retail_software_solution.util.business.DateTimes
-import me.ezra_home.retail_software_solution.util.business.PositiveMoney
-import me.ezra_home.retail_software_solution.util.business.reference_number.ReferenceNumberGenerator
-import me.ezra_home.retail_software_solution.util.model.TableName
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.organizations.business.account.api.AccountDataFetcher
+import app.myliberty.easy_records.organizations.business.ledger.api.LedgerEntryRequest
+import app.myliberty.easy_records.organizations.business.ledger.api.LedgerPostingRequest
+import app.myliberty.easy_records.organizations.business.ledger.api.LedgerPostingService
+import app.myliberty.easy_records.organizations.business.ledger.api.LedgerSourceType
+import app.myliberty.easy_records.organizations.business.manual_journal.api.ManualJournalLineCreateDto
+import app.myliberty.easy_records.organizations.business.manual_journal.api.ManualJournalResponseDto
+import app.myliberty.easy_records.util.business.DateTimes
+import app.myliberty.easy_records.util.business.PositiveMoney
+import app.myliberty.easy_records.util.business.reference_number.ReferenceNumberGenerator
+import app.myliberty.easy_records.util.model.TableName
 import org.springframework.stereotype.Service
 import java.time.LocalDate
 

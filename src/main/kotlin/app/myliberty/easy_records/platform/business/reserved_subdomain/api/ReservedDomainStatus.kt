@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.platform.business.reserved_subdomain.api
+package app.myliberty.easy_records.platform.business.reserved_subdomain.api
 
-import me.ezra_home.retail_software_solution.util.enums.HasCode
+import app.myliberty.easy_records.util.enums.HasCode
 
 enum class ReservedDomainStatus(override val code: String) : HasCode {
     USED("USD"),

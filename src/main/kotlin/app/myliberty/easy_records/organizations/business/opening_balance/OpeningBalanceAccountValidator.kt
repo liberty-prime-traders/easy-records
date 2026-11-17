@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.organizations.business.opening_balance
+package app.myliberty.easy_records.organizations.business.opening_balance
 
-import me.ezra_home.retail_software_solution.organizations.business.account.api.AccountLookupDto
-import me.ezra_home.retail_software_solution.organizations.business.account.api.SystemAccount
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.organizations.business.account.api.AccountLookupDto
+import app.myliberty.easy_records.organizations.business.account.api.SystemAccount
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 
 object OpeningBalanceAccountValidator {
 

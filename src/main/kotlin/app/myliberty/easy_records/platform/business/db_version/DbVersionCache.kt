@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.platform.business.db_version
+package app.myliberty.easy_records.platform.business.db_version
 
-import me.ezra_home.retail_software_solution.configuration.cache.CacheNames
-import me.ezra_home.retail_software_solution.platform.business.db_version.api.DbVersionDto
+import app.myliberty.easy_records.configuration.cache.CacheNames
+import app.myliberty.easy_records.platform.business.db_version.api.DbVersionDto
 import org.springframework.cache.annotation.CacheConfig
 import org.springframework.cache.annotation.CacheEvict
 import org.springframework.cache.annotation.Cacheable

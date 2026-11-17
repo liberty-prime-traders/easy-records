@@ -1,11 +1,11 @@
-package me.ezra_home.retail_software_solution.organizations.business.unitgroup.api
+package app.myliberty.easy_records.organizations.business.unitgroup.api
 
-import me.ezra_home.retail_software_solution.organizations.business.lock.api.OrgEntityAdvisoryLock
-import me.ezra_home.retail_software_solution.organizations.business.unitgroup.UnitGroupCache
-import me.ezra_home.retail_software_solution.organizations.business.unitgroup.UnitGroupMapper
-import me.ezra_home.retail_software_solution.organizations.business.unitvalue.api.UnitValueService
-import me.ezra_home.retail_software_solution.util.business.lock.LockNamespaces
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.organizations.business.lock.api.OrgEntityAdvisoryLock
+import app.myliberty.easy_records.organizations.business.unitgroup.UnitGroupCache
+import app.myliberty.easy_records.organizations.business.unitgroup.UnitGroupMapper
+import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueService
+import app.myliberty.easy_records.util.business.lock.LockNamespaces
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test

@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.util.quantity
+package app.myliberty.easy_records.util.quantity
 
-import me.ezra_home.retail_software_solution.util.business.Decimals
+import app.myliberty.easy_records.util.business.Decimals
 import java.math.BigDecimal
 import java.math.RoundingMode
 

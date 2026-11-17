@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.organizations.business.org_jurisdiction_tax_type.api
+package app.myliberty.easy_records.organizations.business.org_jurisdiction_tax_type.api
 
 import java.time.OffsetDateTime
 import java.util.UUID

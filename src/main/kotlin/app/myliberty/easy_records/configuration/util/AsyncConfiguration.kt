@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.configuration.util
+package app.myliberty.easy_records.configuration.util
 
 import org.springframework.context.annotation.Configuration
 import org.springframework.scheduling.annotation.EnableAsync

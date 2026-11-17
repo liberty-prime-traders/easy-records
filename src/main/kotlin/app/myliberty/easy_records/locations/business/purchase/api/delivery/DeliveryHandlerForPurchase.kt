@@ -1,17 +1,17 @@
-package me.ezra_home.retail_software_solution.locations.business.purchase.api.delivery
+package app.myliberty.easy_records.locations.business.purchase.api.delivery
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
-import me.ezra_home.retail_software_solution.locations.business.purchase.PurchaseAssembler
-import me.ezra_home.retail_software_solution.locations.business.purchase.PurchaseEntity
-import me.ezra_home.retail_software_solution.locations.business.purchase.PurchaseLineRepository
-import me.ezra_home.retail_software_solution.locations.business.purchase.PurchaseMapper
-import me.ezra_home.retail_software_solution.locations.business.purchase.PurchaseRepository
-import me.ezra_home.retail_software_solution.locations.business.purchase.PurchaseStatusResolver
-import me.ezra_home.retail_software_solution.locations.business.purchase.PurchaseValidator
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.PurchaseDataFetcher
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.PurchaseResponseDto
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
-import me.ezra_home.retail_software_solution.util.quantity.ExactQuantity
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.locations.business.purchase.PurchaseAssembler
+import app.myliberty.easy_records.locations.business.purchase.PurchaseEntity
+import app.myliberty.easy_records.locations.business.purchase.PurchaseLineRepository
+import app.myliberty.easy_records.locations.business.purchase.PurchaseMapper
+import app.myliberty.easy_records.locations.business.purchase.PurchaseRepository
+import app.myliberty.easy_records.locations.business.purchase.PurchaseStatusResolver
+import app.myliberty.easy_records.locations.business.purchase.PurchaseValidator
+import app.myliberty.easy_records.locations.business.purchase.api.PurchaseDataFetcher
+import app.myliberty.easy_records.locations.business.purchase.api.PurchaseResponseDto
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.quantity.ExactQuantity
 import org.springframework.stereotype.Service
 import java.util.UUID
 

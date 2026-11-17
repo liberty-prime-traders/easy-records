@@ -1,11 +1,11 @@
-package me.ezra_home.retail_software_solution.platform.business.sysuser
+package app.myliberty.easy_records.platform.business.sysuser
 
-import me.ezra_home.retail_software_solution.configuration.cache.CacheNames
-import me.ezra_home.retail_software_solution.platform.business.sysuser.api.FullNames
-import me.ezra_home.retail_software_solution.platform.business.sysuser.api.Initials
-import me.ezra_home.retail_software_solution.platform.business.sysuser.api.SysUserInsertDto
-import me.ezra_home.retail_software_solution.platform.business.sysuser.api.SysUserWithProfileDto
-import me.ezra_home.retail_software_solution.platform.business.sysuser.api.UserType
+import app.myliberty.easy_records.configuration.cache.CacheNames
+import app.myliberty.easy_records.platform.business.sysuser.api.FullNames
+import app.myliberty.easy_records.platform.business.sysuser.api.Initials
+import app.myliberty.easy_records.platform.business.sysuser.api.SysUserInsertDto
+import app.myliberty.easy_records.platform.business.sysuser.api.SysUserWithProfileDto
+import app.myliberty.easy_records.platform.business.sysuser.api.UserType
 import org.springframework.cache.annotation.CacheConfig
 import org.springframework.cache.annotation.CacheEvict
 import org.springframework.cache.annotation.Cacheable

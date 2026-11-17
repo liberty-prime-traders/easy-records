@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.organizations.business.account
+package app.myliberty.easy_records.organizations.business.account
 
-import me.ezra_home.retail_software_solution.organizations.business.account.api.AccountInsertDto
-import me.ezra_home.retail_software_solution.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.organizations.business.account.api.AccountInsertDto
+import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 

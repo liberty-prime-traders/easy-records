@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.locations.business.stock
+package app.myliberty.easy_records.locations.business.stock
 
-import me.ezra_home.retail_software_solution.locations.business.lock.api.EntityAdvisoryLock
-import me.ezra_home.retail_software_solution.organizations.business.stock_movement_reason.api.MovementType
-import me.ezra_home.retail_software_solution.util.business.lock.LockNamespaces
+import app.myliberty.easy_records.locations.business.lock.api.EntityAdvisoryLock
+import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.MovementType
+import app.myliberty.easy_records.util.business.lock.LockNamespaces
 import org.springframework.stereotype.Component
 import java.util.UUID
 

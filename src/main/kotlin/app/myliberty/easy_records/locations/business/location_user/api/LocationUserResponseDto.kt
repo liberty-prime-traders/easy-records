@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.locations.business.location_user.api
+package app.myliberty.easy_records.locations.business.location_user.api
 
 import java.io.Serializable
 import java.time.OffsetDateTime

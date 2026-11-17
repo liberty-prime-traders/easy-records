@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.util.business.reference_number
+package app.myliberty.easy_records.util.business.reference_number
 
 import jakarta.persistence.EntityManager
 import jakarta.persistence.EntityManagerFactory
-import me.ezra_home.retail_software_solution.configuration.datasource.DataSourceBeanNames
-import me.ezra_home.retail_software_solution.util.enums.SchemaLevel
-import me.ezra_home.retail_software_solution.util.model.TableName
+import app.myliberty.easy_records.configuration.datasource.DataSourceBeanNames
+import app.myliberty.easy_records.util.enums.SchemaLevel
+import app.myliberty.easy_records.util.model.TableName
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Service
 

@@ -1,11 +1,11 @@
-package me.ezra_home.retail_software_solution.platform.business.permission_assignment.api
+package app.myliberty.easy_records.platform.business.permission_assignment.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnPlatformSchema
-import me.ezra_home.retail_software_solution.cross_tier.authority.AuthorityGrant
-import me.ezra_home.retail_software_solution.platform.business.permission_assignment.PlatformPermissionAssignmentEntity
-import me.ezra_home.retail_software_solution.platform.business.permission_assignment.PlatformPermissionCache
-import me.ezra_home.retail_software_solution.util.business.DateTimes
-import me.ezra_home.retail_software_solution.util.enums.RtsPermission
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnPlatformSchema
+import app.myliberty.easy_records.cross_tier.authority.AuthorityGrant
+import app.myliberty.easy_records.platform.business.permission_assignment.PlatformPermissionAssignmentEntity
+import app.myliberty.easy_records.platform.business.permission_assignment.PlatformPermissionCache
+import app.myliberty.easy_records.util.business.DateTimes
+import app.myliberty.easy_records.util.enums.RtsPermission
 import org.springframework.stereotype.Service
 import java.util.UUID
 

@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.organizations.business.product_tag
+package app.myliberty.easy_records.organizations.business.product_tag
 
-import me.ezra_home.retail_software_solution.organizations.business.tag.api.TagService
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.organizations.business.tag.api.TagService
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Component
 import java.util.UUID
 

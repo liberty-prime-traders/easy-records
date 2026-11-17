@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.util.annotations
+package app.myliberty.easy_records.util.annotations
 
-import me.ezra_home.retail_software_solution.platform.business.feature.api.Feature
+import app.myliberty.easy_records.platform.business.feature.api.Feature
 
 @Target(AnnotationTarget.FUNCTION, AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.RUNTIME)

@@ -1,14 +1,14 @@
-package me.ezra_home.retail_software_solution.cross_tier.authority
+package app.myliberty.easy_records.cross_tier.authority
 
-import me.ezra_home.retail_software_solution.configuration.session.SessionContextProvider
-import me.ezra_home.retail_software_solution.locations.business.location_user.api.LocationUserService
-import me.ezra_home.retail_software_solution.locations.business.role_assignment.api.LocationRoleAssignmentService
-import me.ezra_home.retail_software_solution.organizations.business.organization_user.api.OrganizationUserService
-import me.ezra_home.retail_software_solution.organizations.business.role_assignment.api.OrgRoleAssignmentService
-import me.ezra_home.retail_software_solution.platform.business.role_assignment.api.PlatformRoleAssignmentService
-import me.ezra_home.retail_software_solution.util.enums.RtsRole
-import me.ezra_home.retail_software_solution.util.enums.SchemaLevel
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.configuration.session.SessionContextProvider
+import app.myliberty.easy_records.locations.business.location_user.api.LocationUserService
+import app.myliberty.easy_records.locations.business.role_assignment.api.LocationRoleAssignmentService
+import app.myliberty.easy_records.organizations.business.organization_user.api.OrganizationUserService
+import app.myliberty.easy_records.organizations.business.role_assignment.api.OrgRoleAssignmentService
+import app.myliberty.easy_records.platform.business.role_assignment.api.PlatformRoleAssignmentService
+import app.myliberty.easy_records.util.enums.RtsRole
+import app.myliberty.easy_records.util.enums.SchemaLevel
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Service
 import java.util.UUID
 

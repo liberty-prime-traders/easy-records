@@ -1,18 +1,18 @@
-package me.ezra_home.retail_software_solution.locations.business.product_purchases_report.api
+package app.myliberty.easy_records.locations.business.product_purchases_report.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
-import me.ezra_home.retail_software_solution.locations.business.location_product.api.LocationProductDataFetcher
-import me.ezra_home.retail_software_solution.locations.business.product_purchases_report.ProductPurchasesReportCalculator
-import me.ezra_home.retail_software_solution.locations.business.product_purchases_report.ProductPurchasesReportFetcher
-import me.ezra_home.retail_software_solution.locations.business.product_purchases_report.ProductPurchasesReportValidator
-import me.ezra_home.retail_software_solution.organizations.business.contact.api.ContactService
-import me.ezra_home.retail_software_solution.organizations.business.product_category.api.ProductCategoryService
-import me.ezra_home.retail_software_solution.organizations.business.unitconversion.api.QuantityBreakdownFactory
-import me.ezra_home.retail_software_solution.organizations.business.unitconversion.api.UnitConversionGraphFacade
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
-import me.ezra_home.retail_software_solution.util.paging.PageRequest
-import me.ezra_home.retail_software_solution.util.paging.PageResponse
-import me.ezra_home.retail_software_solution.util.queries.KeysetSearchCursor
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.locations.business.location_product.api.LocationProductDataFetcher
+import app.myliberty.easy_records.locations.business.product_purchases_report.ProductPurchasesReportCalculator
+import app.myliberty.easy_records.locations.business.product_purchases_report.ProductPurchasesReportFetcher
+import app.myliberty.easy_records.locations.business.product_purchases_report.ProductPurchasesReportValidator
+import app.myliberty.easy_records.organizations.business.contact.api.ContactService
+import app.myliberty.easy_records.organizations.business.product_category.api.ProductCategoryService
+import app.myliberty.easy_records.organizations.business.unitconversion.api.QuantityBreakdownFactory
+import app.myliberty.easy_records.organizations.business.unitconversion.api.UnitConversionGraphFacade
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.paging.PageRequest
+import app.myliberty.easy_records.util.paging.PageResponse
+import app.myliberty.easy_records.util.queries.KeysetSearchCursor
 import org.springframework.stereotype.Service
 import java.util.UUID
 

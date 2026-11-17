@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.locations.business.sale_adjustment.api
+package app.myliberty.easy_records.locations.business.sale_adjustment.api
 
-import me.ezra_home.retail_software_solution.locations.business.location_product.api.ProductLineWithPrice
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleAdjustmentSaveRequest
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleSaveRequest
-import me.ezra_home.retail_software_solution.locations.business.sale_adjustment.SaleAdjustmentEntity
-import me.ezra_home.retail_software_solution.locations.business.sale_adjustment.SaleAdjustmentRepository
+import app.myliberty.easy_records.locations.business.location_product.api.ProductLineWithPrice
+import app.myliberty.easy_records.locations.business.sale.api.SaleAdjustmentSaveRequest
+import app.myliberty.easy_records.locations.business.sale.api.SaleSaveRequest
+import app.myliberty.easy_records.locations.business.sale_adjustment.SaleAdjustmentEntity
+import app.myliberty.easy_records.locations.business.sale_adjustment.SaleAdjustmentRepository
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 import java.util.UUID

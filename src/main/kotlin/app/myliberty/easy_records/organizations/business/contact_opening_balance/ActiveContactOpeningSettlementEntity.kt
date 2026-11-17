@@ -1,12 +1,12 @@
-package me.ezra_home.retail_software_solution.organizations.business.contact_opening_balance
+package app.myliberty.easy_records.organizations.business.contact_opening_balance
 
 import jakarta.persistence.Column
 import jakarta.persistence.Convert
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
 import jakarta.persistence.Table
-import me.ezra_home.retail_software_solution.organizations.business.contact_opening_balance.api.ContactSubledgerDirection
-import me.ezra_home.retail_software_solution.util.model.ViewNames
+import app.myliberty.easy_records.organizations.business.contact_opening_balance.api.ContactSubledgerDirection
+import app.myliberty.easy_records.util.model.ViewNames
 import org.hibernate.annotations.Immutable
 import java.math.BigDecimal
 import java.util.UUID

@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.platform.business.db_migration
+package app.myliberty.easy_records.platform.business.db_migration
 
-import me.ezra_home.retail_software_solution.platform.business.db_migration.api.OrganizationMigrationResponseDto
+import app.myliberty.easy_records.platform.business.db_migration.api.OrganizationMigrationResponseDto
 import org.springframework.stereotype.Component
 
 @Component

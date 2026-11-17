@@ -1,12 +1,12 @@
-package me.ezra_home.retail_software_solution.cross_tier.expense.search
+package app.myliberty.easy_records.cross_tier.expense.search
 
-import me.ezra_home.retail_software_solution.cross_tier.expense.response.ExpenseResponseBuilder
-import me.ezra_home.retail_software_solution.cross_tier.expense.response.ExpenseSummaryResponse
-import me.ezra_home.retail_software_solution.cross_tier.expense.store.ExpenseStore
-import me.ezra_home.retail_software_solution.organizations.business.expense_type.api.ExpenseTypeService
-import me.ezra_home.retail_software_solution.util.paging.PageRequest
-import me.ezra_home.retail_software_solution.util.paging.PageResponse
-import me.ezra_home.retail_software_solution.util.queries.KeysetSearchCursor
+import app.myliberty.easy_records.cross_tier.expense.response.ExpenseResponseBuilder
+import app.myliberty.easy_records.cross_tier.expense.response.ExpenseSummaryResponse
+import app.myliberty.easy_records.cross_tier.expense.store.ExpenseStore
+import app.myliberty.easy_records.organizations.business.expense_type.api.ExpenseTypeService
+import app.myliberty.easy_records.util.paging.PageRequest
+import app.myliberty.easy_records.util.paging.PageResponse
+import app.myliberty.easy_records.util.queries.KeysetSearchCursor
 import java.util.UUID
 
 class ExpenseSearchOperations(

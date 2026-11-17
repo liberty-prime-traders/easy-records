@@ -1,12 +1,12 @@
-package me.ezra_home.retail_software_solution.locations.business.sale_session
+package app.myliberty.easy_records.locations.business.sale_session
 
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleStatus
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.PendingConsolidation
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSession
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionKind
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionHeader
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionTotals
-import me.ezra_home.retail_software_solution.util.enums.SystemContact
+import app.myliberty.easy_records.locations.business.sale.api.SaleStatus
+import app.myliberty.easy_records.locations.business.sale_session.api.PendingConsolidation
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSession
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionKind
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionHeader
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionTotals
+import app.myliberty.easy_records.util.enums.SystemContact
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test

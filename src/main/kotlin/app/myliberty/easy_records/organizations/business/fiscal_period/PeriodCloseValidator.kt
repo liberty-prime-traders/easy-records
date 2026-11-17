@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.organizations.business.fiscal_period
+package app.myliberty.easy_records.organizations.business.fiscal_period
 
-import me.ezra_home.retail_software_solution.organizations.business.accounting_config.api.OrgAccountingConfigService
-import me.ezra_home.retail_software_solution.util.business.DateTimes
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.organizations.business.accounting_config.api.OrgAccountingConfigService
+import app.myliberty.easy_records.util.business.DateTimes
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Component
 import java.time.LocalDate
 import java.util.UUID

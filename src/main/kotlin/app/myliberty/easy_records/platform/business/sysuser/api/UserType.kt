@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.platform.business.sysuser.api
+package app.myliberty.easy_records.platform.business.sysuser.api
 
-import me.ezra_home.retail_software_solution.util.enums.HasCode
+import app.myliberty.easy_records.util.enums.HasCode
 
 enum class UserType(override val code: String) : HasCode {
     END_USER("E"),

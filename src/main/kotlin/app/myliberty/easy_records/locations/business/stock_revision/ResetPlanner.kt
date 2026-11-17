@@ -1,14 +1,14 @@
-package me.ezra_home.retail_software_solution.locations.business.stock_revision
+package app.myliberty.easy_records.locations.business.stock_revision
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
-import me.ezra_home.retail_software_solution.locations.business.stock.api.read.StockBalanceFetcher
-import me.ezra_home.retail_software_solution.locations.business.stock.api.read.StockEntryFetcher
-import me.ezra_home.retail_software_solution.locations.business.stock.api.revision.StockEntryResetPlan
-import me.ezra_home.retail_software_solution.locations.business.stock.api.StockEntryStatus
-import me.ezra_home.retail_software_solution.util.exceptions.BlockedChangeException
-import me.ezra_home.retail_software_solution.util.exceptions.BlockingProblem
-import me.ezra_home.retail_software_solution.util.quantity.ExactQuantity
-import me.ezra_home.retail_software_solution.util.quantity.QuantityBreakdown
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.locations.business.stock.api.read.StockBalanceFetcher
+import app.myliberty.easy_records.locations.business.stock.api.read.StockEntryFetcher
+import app.myliberty.easy_records.locations.business.stock.api.revision.StockEntryResetPlan
+import app.myliberty.easy_records.locations.business.stock.api.StockEntryStatus
+import app.myliberty.easy_records.util.exceptions.BlockedChangeException
+import app.myliberty.easy_records.util.exceptions.BlockingProblem
+import app.myliberty.easy_records.util.quantity.ExactQuantity
+import app.myliberty.easy_records.util.quantity.QuantityBreakdown
 import org.springframework.stereotype.Component
 import java.util.UUID
 

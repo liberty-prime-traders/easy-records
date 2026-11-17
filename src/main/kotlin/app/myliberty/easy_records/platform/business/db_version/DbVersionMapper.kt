@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.platform.business.db_version
-import me.ezra_home.retail_software_solution.platform.business.db_version.api.DbVersionDto
+package app.myliberty.easy_records.platform.business.db_version
+import app.myliberty.easy_records.platform.business.db_version.api.DbVersionDto
 
-import me.ezra_home.retail_software_solution.platform.business.db_version.api.DbVersionResponseDto
-import me.ezra_home.retail_software_solution.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.platform.business.db_version.api.DbVersionResponseDto
+import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
 import org.mapstruct.Context
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping

@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.util.annotations.interceptors
+package app.myliberty.easy_records.util.annotations.interceptors
 
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
-import me.ezra_home.retail_software_solution.organizations.business.feature.api.OrganizationFeatureService
-import me.ezra_home.retail_software_solution.util.annotations.RequiresFeature
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.organizations.business.feature.api.OrganizationFeatureService
+import app.myliberty.easy_records.util.annotations.RequiresFeature
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Component
 import org.springframework.web.method.HandlerMethod
 import org.springframework.web.servlet.HandlerInterceptor

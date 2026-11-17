@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.organizations.business.account.api
+package app.myliberty.easy_records.organizations.business.account.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnOrganizationSchema
-import me.ezra_home.retail_software_solution.organizations.business.account.AccountCache
-import me.ezra_home.retail_software_solution.organizations.business.org_profile.api.OrgDataSeeder
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.organizations.business.account.AccountCache
+import app.myliberty.easy_records.organizations.business.org_profile.api.OrgDataSeeder
 import org.springframework.core.annotation.Order
 import org.springframework.stereotype.Component
 

@@ -1,16 +1,16 @@
-package me.ezra_home.retail_software_solution.locations.business.sale.search
+package app.myliberty.easy_records.locations.business.sale.search
 
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleSearchParameters
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleStatus
-import me.ezra_home.retail_software_solution.util.model.TableNames
-import me.ezra_home.retail_software_solution.util.model.ViewNames
-import me.ezra_home.retail_software_solution.util.queries.AnyListFilterStrategy
-import me.ezra_home.retail_software_solution.util.queries.DateRangeFilterStrategy
-import me.ezra_home.retail_software_solution.util.queries.ExpressionRangeFilterStrategy
-import me.ezra_home.retail_software_solution.util.queries.KeysetSearchCursor
-import me.ezra_home.retail_software_solution.util.queries.QueryBuilderContext
-import me.ezra_home.retail_software_solution.util.queries.QueryParameterNames
-import me.ezra_home.retail_software_solution.util.queries.SqlQuery
+import app.myliberty.easy_records.locations.business.sale.api.SaleSearchParameters
+import app.myliberty.easy_records.locations.business.sale.api.SaleStatus
+import app.myliberty.easy_records.util.model.TableNames
+import app.myliberty.easy_records.util.model.ViewNames
+import app.myliberty.easy_records.util.queries.AnyListFilterStrategy
+import app.myliberty.easy_records.util.queries.DateRangeFilterStrategy
+import app.myliberty.easy_records.util.queries.ExpressionRangeFilterStrategy
+import app.myliberty.easy_records.util.queries.KeysetSearchCursor
+import app.myliberty.easy_records.util.queries.QueryBuilderContext
+import app.myliberty.easy_records.util.queries.QueryParameterNames
+import app.myliberty.easy_records.util.queries.SqlQuery
 
 object SaleSearchQueryBuilder {
 

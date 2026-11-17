@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.cross_tier.expense.repository
+package app.myliberty.easy_records.cross_tier.expense.repository
 
-import me.ezra_home.retail_software_solution.cross_tier.expense.entities.ExpensePaymentBase
+import app.myliberty.easy_records.cross_tier.expense.entities.ExpensePaymentBase
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.repository.NoRepositoryBean
 import java.util.UUID

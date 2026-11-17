@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.organizations.business.ledger.api
+package app.myliberty.easy_records.organizations.business.ledger.api
 
-import me.ezra_home.retail_software_solution.util.enums.HasCode
+import app.myliberty.easy_records.util.enums.HasCode
 
 // postsToProfitAndLoss has no default, so a new source type cannot be added without deciding whether profit counts it.
 enum class LedgerSourceType(override val code: String, val postsToProfitAndLoss: Boolean) : HasCode {

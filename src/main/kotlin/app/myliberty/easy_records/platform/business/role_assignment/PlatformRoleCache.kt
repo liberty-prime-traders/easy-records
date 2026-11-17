@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.platform.business.role_assignment
+package app.myliberty.easy_records.platform.business.role_assignment
 
-import me.ezra_home.retail_software_solution.configuration.cache.CacheNames
-import me.ezra_home.retail_software_solution.cross_tier.authority.AuthorityGrant
-import me.ezra_home.retail_software_solution.util.enums.RtsRole
+import app.myliberty.easy_records.configuration.cache.CacheNames
+import app.myliberty.easy_records.cross_tier.authority.AuthorityGrant
+import app.myliberty.easy_records.util.enums.RtsRole
 import org.springframework.cache.annotation.CacheConfig
 import org.springframework.cache.annotation.CacheEvict
 import org.springframework.cache.annotation.Cacheable

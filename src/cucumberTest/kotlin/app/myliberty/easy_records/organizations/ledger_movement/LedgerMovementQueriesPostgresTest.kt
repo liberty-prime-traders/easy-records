@@ -1,11 +1,11 @@
-package me.ezra_home.retail_software_solution.organizations.ledger_movement
+package app.myliberty.easy_records.organizations.ledger_movement
 
-import me.ezra_home.retail_software_solution.configuration.session.OrgSession
-import me.ezra_home.retail_software_solution.configuration.session.SessionContext
-import me.ezra_home.retail_software_solution.configuration.session.SessionContextProvider
-import me.ezra_home.retail_software_solution.organizations.business.ledger.LedgerEntryRepository
-import me.ezra_home.retail_software_solution.organizations.business.ledger.api.LedgerMovementReader
-import me.ezra_home.retail_software_solution.util.business.DateTimes
+import app.myliberty.easy_records.configuration.session.OrgSession
+import app.myliberty.easy_records.configuration.session.SessionContext
+import app.myliberty.easy_records.configuration.session.SessionContextProvider
+import app.myliberty.easy_records.organizations.business.ledger.LedgerEntryRepository
+import app.myliberty.easy_records.organizations.business.ledger.api.LedgerMovementReader
+import app.myliberty.easy_records.util.business.DateTimes
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals

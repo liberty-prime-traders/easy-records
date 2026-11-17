@@ -1,15 +1,15 @@
-package me.ezra_home.retail_software_solution.cross_tier.expense.store
+package app.myliberty.easy_records.cross_tier.expense.store
 
-import me.ezra_home.retail_software_solution.cross_tier.expense.ExpenseSourceType
-import me.ezra_home.retail_software_solution.cross_tier.expense.model.ExpenseAggregate
-import me.ezra_home.retail_software_solution.cross_tier.expense.model.ExpenseBatchDto
-import me.ezra_home.retail_software_solution.cross_tier.expense.model.ExpensePaymentDraft
-import me.ezra_home.retail_software_solution.cross_tier.expense.model.ExpensePaymentDto
-import me.ezra_home.retail_software_solution.cross_tier.expense.model.ExpensePaymentVoidDto
-import me.ezra_home.retail_software_solution.cross_tier.expense.model.ExpenseDto
-import me.ezra_home.retail_software_solution.cross_tier.expense.model.ExpenseVoidDto
-import me.ezra_home.retail_software_solution.cross_tier.expense.model.NewExpense
-import me.ezra_home.retail_software_solution.cross_tier.expense.model.NewExpenseBatch
+import app.myliberty.easy_records.cross_tier.expense.ExpenseSourceType
+import app.myliberty.easy_records.cross_tier.expense.model.ExpenseAggregate
+import app.myliberty.easy_records.cross_tier.expense.model.ExpenseBatchDto
+import app.myliberty.easy_records.cross_tier.expense.model.ExpensePaymentDraft
+import app.myliberty.easy_records.cross_tier.expense.model.ExpensePaymentDto
+import app.myliberty.easy_records.cross_tier.expense.model.ExpensePaymentVoidDto
+import app.myliberty.easy_records.cross_tier.expense.model.ExpenseDto
+import app.myliberty.easy_records.cross_tier.expense.model.ExpenseVoidDto
+import app.myliberty.easy_records.cross_tier.expense.model.NewExpense
+import app.myliberty.easy_records.cross_tier.expense.model.NewExpenseBatch
 import java.math.BigDecimal
 import java.util.UUID
 

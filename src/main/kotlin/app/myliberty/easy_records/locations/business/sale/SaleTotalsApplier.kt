@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.locations.business.sale
+package app.myliberty.easy_records.locations.business.sale
 
-import me.ezra_home.retail_software_solution.locations.business.sale_adjustment.api.SaleAdjustmentSummaryDto
-import me.ezra_home.retail_software_solution.organizations.business.adjustment_reason.api.AdjustmentDirection
+import app.myliberty.easy_records.locations.business.sale_adjustment.api.SaleAdjustmentSummaryDto
+import app.myliberty.easy_records.organizations.business.adjustment_reason.api.AdjustmentDirection
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 

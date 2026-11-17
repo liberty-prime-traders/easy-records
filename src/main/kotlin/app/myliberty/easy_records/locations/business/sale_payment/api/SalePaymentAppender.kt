@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.locations.business.sale_payment.api
+package app.myliberty.easy_records.locations.business.sale_payment.api
 
-import me.ezra_home.retail_software_solution.util.enums.PaymentStatus
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleSaveRequest
-import me.ezra_home.retail_software_solution.locations.business.sale_payment.SalePaymentWriter
+import app.myliberty.easy_records.util.enums.PaymentStatus
+import app.myliberty.easy_records.locations.business.sale.api.SaleSaveRequest
+import app.myliberty.easy_records.locations.business.sale_payment.SalePaymentWriter
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 import java.util.UUID

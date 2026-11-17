@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.configuration.util.typeadapters
+package app.myliberty.easy_records.configuration.util.typeadapters
 
 import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer

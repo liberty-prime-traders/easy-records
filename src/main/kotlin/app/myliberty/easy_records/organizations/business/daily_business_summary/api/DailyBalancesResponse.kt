@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.organizations.business.daily_business_summary.api
+package app.myliberty.easy_records.organizations.business.daily_business_summary.api
 
-import me.ezra_home.retail_software_solution.util.ui_models.BalanceEffect
+import app.myliberty.easy_records.util.ui_models.BalanceEffect
 import java.math.BigDecimal
 import java.time.Instant
 import java.time.LocalDate

@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.locations.business.catalog_sync.sync_services.product
+package app.myliberty.easy_records.locations.business.catalog_sync.sync_services.product
 
-import me.ezra_home.retail_software_solution.locations.business.catalog_sync.sync_services.SyncQueryConstants
+import app.myliberty.easy_records.locations.business.catalog_sync.sync_services.SyncQueryConstants
 
 object ProductQueryBuilder {
 

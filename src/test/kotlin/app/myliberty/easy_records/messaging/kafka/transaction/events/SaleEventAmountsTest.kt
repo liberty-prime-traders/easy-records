@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.messaging.kafka.transaction.events
+package app.myliberty.easy_records.messaging.kafka.transaction.events
 
-import me.ezra_home.retail_software_solution.messaging.kafka.common.EventSourceContext
-import me.ezra_home.retail_software_solution.support.WithDefaultOrganizationSession
-import me.ezra_home.retail_software_solution.util.business.Decimals
-import me.ezra_home.retail_software_solution.util.business.Money
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.messaging.kafka.common.EventSourceContext
+import app.myliberty.easy_records.support.WithDefaultOrganizationSession
+import app.myliberty.easy_records.util.business.Decimals
+import app.myliberty.easy_records.util.business.Money
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test

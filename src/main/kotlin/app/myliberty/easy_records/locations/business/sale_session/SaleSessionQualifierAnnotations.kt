@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.locations.business.sale_session
+package app.myliberty.easy_records.locations.business.sale_session
 
 import org.mapstruct.Qualifier
 

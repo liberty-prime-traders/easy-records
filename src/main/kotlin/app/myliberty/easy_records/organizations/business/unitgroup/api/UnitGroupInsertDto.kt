@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.organizations.business.unitgroup.api
+package app.myliberty.easy_records.organizations.business.unitgroup.api
 
 import java.io.Serializable
 

@@ -1,9 +1,9 @@
-package me.ezra_home.retail_software_solution.locations.business.sale_session.api
+package app.myliberty.easy_records.locations.business.sale_session.api
 
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleStatus
-import me.ezra_home.retail_software_solution.util.business.DateTimes
-import me.ezra_home.retail_software_solution.util.enums.SystemContact
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.locations.business.sale.api.SaleStatus
+import app.myliberty.easy_records.util.business.DateTimes
+import app.myliberty.easy_records.util.enums.SystemContact
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import java.time.OffsetDateTime
 import java.util.UUID
 

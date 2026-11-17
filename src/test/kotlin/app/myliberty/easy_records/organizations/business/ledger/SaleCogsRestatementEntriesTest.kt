@@ -1,14 +1,14 @@
-package me.ezra_home.retail_software_solution.organizations.business.ledger
+package app.myliberty.easy_records.organizations.business.ledger
 
-import me.ezra_home.retail_software_solution.messaging.kafka.common.EventSourceContext
-import me.ezra_home.retail_software_solution.messaging.kafka.transaction.events.SaleCostRestatedEvent
-import me.ezra_home.retail_software_solution.organizations.business.account.api.EntryType
-import me.ezra_home.retail_software_solution.organizations.business.account.api.SystemAccount
-import me.ezra_home.retail_software_solution.organizations.business.ledger.api.LedgerPostingService
-import me.ezra_home.retail_software_solution.organizations.business.ledger.api.LedgerSourceType
-import me.ezra_home.retail_software_solution.organizations.business.ledger.helpers.LedgerPostingGate
-import me.ezra_home.retail_software_solution.organizations.business.ledger.processors.SaleCogsRestatementAccountingProcessor
-import me.ezra_home.retail_software_solution.util.business.Money
+import app.myliberty.easy_records.messaging.kafka.common.EventSourceContext
+import app.myliberty.easy_records.messaging.kafka.transaction.events.SaleCostRestatedEvent
+import app.myliberty.easy_records.organizations.business.account.api.EntryType
+import app.myliberty.easy_records.organizations.business.account.api.SystemAccount
+import app.myliberty.easy_records.organizations.business.ledger.api.LedgerPostingService
+import app.myliberty.easy_records.organizations.business.ledger.api.LedgerSourceType
+import app.myliberty.easy_records.organizations.business.ledger.helpers.LedgerPostingGate
+import app.myliberty.easy_records.organizations.business.ledger.processors.SaleCogsRestatementAccountingProcessor
+import app.myliberty.easy_records.util.business.Money
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.mock

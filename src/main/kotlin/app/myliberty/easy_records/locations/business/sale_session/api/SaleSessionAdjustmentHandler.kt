@@ -1,13 +1,13 @@
-package me.ezra_home.retail_software_solution.locations.business.sale_session.api
+package app.myliberty.easy_records.locations.business.sale_session.api
 
 import java.util.UUID
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
-import me.ezra_home.retail_software_solution.locations.business.sale_session.SaleSessionUpdateFinalizer
-import me.ezra_home.retail_software_solution.locations.business.sale_session.SaleSessionStore
-import me.ezra_home.retail_software_solution.locations.business.sale_session.SaleSessionValidator
-import me.ezra_home.retail_software_solution.locations.business.sale_adjustment.api.PriceAdjustmentMethod
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.locations.business.sale_session.SaleSessionUpdateFinalizer
+import app.myliberty.easy_records.locations.business.sale_session.SaleSessionStore
+import app.myliberty.easy_records.locations.business.sale_session.SaleSessionValidator
+import app.myliberty.easy_records.locations.business.sale_adjustment.api.PriceAdjustmentMethod
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Service
 
 @Service

@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.locations.business.location_product.api
+package app.myliberty.easy_records.locations.business.location_product.api
 
-import me.ezra_home.retail_software_solution.organizations.business.unitconversion.api.QuantityBreakdownFactory
-import me.ezra_home.retail_software_solution.util.quantity.QuantityBreakdown
+import app.myliberty.easy_records.organizations.business.unitconversion.api.QuantityBreakdownFactory
+import app.myliberty.easy_records.util.quantity.QuantityBreakdown
 import org.springframework.stereotype.Component
 import java.util.UUID
 

@@ -1,13 +1,13 @@
-package me.ezra_home.retail_software_solution.organizations.business.ledger.processors
+package app.myliberty.easy_records.organizations.business.ledger.processors
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnOrganizationSchema
-import me.ezra_home.retail_software_solution.messaging.kafka.transaction.events.TransactionEvent
-import me.ezra_home.retail_software_solution.messaging.kafka.transaction.processors.AccountingEventProcessor
-import me.ezra_home.retail_software_solution.organizations.business.contact.api.ContactService
-import me.ezra_home.retail_software_solution.organizations.business.ledger.api.LedgerPostingRequest
-import me.ezra_home.retail_software_solution.organizations.business.ledger.api.LedgerPostingService
-import me.ezra_home.retail_software_solution.organizations.business.ledger.api.LedgerSourceType
-import me.ezra_home.retail_software_solution.organizations.business.ledger.helpers.LedgerPostingGate
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.messaging.kafka.transaction.events.TransactionEvent
+import app.myliberty.easy_records.messaging.kafka.transaction.processors.AccountingEventProcessor
+import app.myliberty.easy_records.organizations.business.contact.api.ContactService
+import app.myliberty.easy_records.organizations.business.ledger.api.LedgerPostingRequest
+import app.myliberty.easy_records.organizations.business.ledger.api.LedgerPostingService
+import app.myliberty.easy_records.organizations.business.ledger.api.LedgerSourceType
+import app.myliberty.easy_records.organizations.business.ledger.helpers.LedgerPostingGate
 import java.util.UUID
 
 abstract class ExpenseAccountingProcessor<EVENT : TransactionEvent>(

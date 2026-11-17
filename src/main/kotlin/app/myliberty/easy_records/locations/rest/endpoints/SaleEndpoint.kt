@@ -1,14 +1,14 @@
-package me.ezra_home.retail_software_solution.locations.rest.endpoints
+package app.myliberty.easy_records.locations.rest.endpoints
 
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleDataFetcher
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleNotesUpdateDto
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleSearchParameters
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleSearchService
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleSearchSummaryResponseDto
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleSummary
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleUpdater
-import me.ezra_home.retail_software_solution.util.paging.PageRequest
-import me.ezra_home.retail_software_solution.util.paging.PageResponse
+import app.myliberty.easy_records.locations.business.sale.api.SaleDataFetcher
+import app.myliberty.easy_records.locations.business.sale.api.SaleNotesUpdateDto
+import app.myliberty.easy_records.locations.business.sale.api.SaleSearchParameters
+import app.myliberty.easy_records.locations.business.sale.api.SaleSearchService
+import app.myliberty.easy_records.locations.business.sale.api.SaleSearchSummaryResponseDto
+import app.myliberty.easy_records.locations.business.sale.api.SaleSummary
+import app.myliberty.easy_records.locations.business.sale.api.SaleUpdater
+import app.myliberty.easy_records.util.paging.PageRequest
+import app.myliberty.easy_records.util.paging.PageResponse
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable

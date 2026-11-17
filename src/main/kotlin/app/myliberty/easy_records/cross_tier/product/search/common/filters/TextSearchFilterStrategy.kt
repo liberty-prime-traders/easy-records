@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.cross_tier.product.search.common.filters
+package app.myliberty.easy_records.cross_tier.product.search.common.filters
 
-import me.ezra_home.retail_software_solution.cross_tier.product.search.common.Aliases
-import me.ezra_home.retail_software_solution.cross_tier.product.search.common.ParameterNames.NAME_OR_DESCRIPTION
-import me.ezra_home.retail_software_solution.util.queries.FilterStrategy
-import me.ezra_home.retail_software_solution.util.queries.QueryBuilderContext
-import me.ezra_home.retail_software_solution.util.queries.SearchStrategy
+import app.myliberty.easy_records.cross_tier.product.search.common.Aliases
+import app.myliberty.easy_records.cross_tier.product.search.common.ParameterNames.NAME_OR_DESCRIPTION
+import app.myliberty.easy_records.util.queries.FilterStrategy
+import app.myliberty.easy_records.util.queries.QueryBuilderContext
+import app.myliberty.easy_records.util.queries.SearchStrategy
 
 class TextSearchFilterStrategy(
   private val searchText: String?,

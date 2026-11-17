@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.cross_tier.product.search.common
+package app.myliberty.easy_records.cross_tier.product.search.common
 
 object Aliases {
   object ColumnNames {

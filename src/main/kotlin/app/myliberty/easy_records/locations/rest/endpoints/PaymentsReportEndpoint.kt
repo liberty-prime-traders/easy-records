@@ -1,11 +1,11 @@
-package me.ezra_home.retail_software_solution.locations.rest.endpoints
+package app.myliberty.easy_records.locations.rest.endpoints
 
-import me.ezra_home.retail_software_solution.locations.business.reports.payments.api.PaymentRowDto
-import me.ezra_home.retail_software_solution.locations.business.reports.payments.api.PaymentSearchParameters
-import me.ezra_home.retail_software_solution.locations.business.reports.payments.api.PaymentSearchService
-import me.ezra_home.retail_software_solution.locations.business.reports.payments.api.PaymentSummaryResponseDto
-import me.ezra_home.retail_software_solution.util.paging.PageRequest
-import me.ezra_home.retail_software_solution.util.paging.PageResponse
+import app.myliberty.easy_records.locations.business.reports.payments.api.PaymentRowDto
+import app.myliberty.easy_records.locations.business.reports.payments.api.PaymentSearchParameters
+import app.myliberty.easy_records.locations.business.reports.payments.api.PaymentSearchService
+import app.myliberty.easy_records.locations.business.reports.payments.api.PaymentSummaryResponseDto
+import app.myliberty.easy_records.util.paging.PageRequest
+import app.myliberty.easy_records.util.paging.PageResponse
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping

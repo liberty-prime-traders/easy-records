@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.organizations.business.daily_business_summary
+package app.myliberty.easy_records.organizations.business.daily_business_summary
 
-import me.ezra_home.retail_software_solution.organizations.business.daily_business_summary.api.PeriodStatus
-import me.ezra_home.retail_software_solution.util.business.DateTimes
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.organizations.business.daily_business_summary.api.PeriodStatus
+import app.myliberty.easy_records.util.business.DateTimes
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import java.time.LocalDate
 import java.time.OffsetDateTime
 

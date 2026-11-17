@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.locations.business.reports.payments
+package app.myliberty.easy_records.locations.business.reports.payments
 
-import me.ezra_home.retail_software_solution.locations.business.reports.payments.api.PaymentSearchParameters
-import me.ezra_home.retail_software_solution.locations.business.reports.payments.api.PaymentVoidStatusFilter
-import me.ezra_home.retail_software_solution.locations.business.reports.payments.api.PaymentType
-import me.ezra_home.retail_software_solution.util.queries.KeysetSearchCursor
-import me.ezra_home.retail_software_solution.util.queries.SqlQuery
+import app.myliberty.easy_records.locations.business.reports.payments.api.PaymentSearchParameters
+import app.myliberty.easy_records.locations.business.reports.payments.api.PaymentVoidStatusFilter
+import app.myliberty.easy_records.locations.business.reports.payments.api.PaymentType
+import app.myliberty.easy_records.util.queries.KeysetSearchCursor
+import app.myliberty.easy_records.util.queries.SqlQuery
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue

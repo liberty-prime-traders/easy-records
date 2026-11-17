@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.cucumber.steps.database
+package app.myliberty.easy_records.cucumber.steps.database
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -7,10 +7,10 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import io.cucumber.java.ParameterType
 import io.cucumber.java.en.Then
-import me.ezra_home.retail_software_solution.cucumber.support.context.InjectContext
-import me.ezra_home.retail_software_solution.cucumber.support.database.DataAccessHelper
-import me.ezra_home.retail_software_solution.cucumber.support.database.DataSourcePackage
-import me.ezra_home.retail_software_solution.cucumber.support.rest.JsonSubsetMatcher
+import app.myliberty.easy_records.cucumber.support.context.InjectContext
+import app.myliberty.easy_records.cucumber.support.database.DataAccessHelper
+import app.myliberty.easy_records.cucumber.support.database.DataSourcePackage
+import app.myliberty.easy_records.cucumber.support.rest.JsonSubsetMatcher
 import org.springframework.transaction.annotation.Transactional
 import java.util.UUID
 import kotlin.test.assertEquals

@@ -1,9 +1,9 @@
-package me.ezra_home.retail_software_solution.messaging.kafka.transaction.consumers
+package app.myliberty.easy_records.messaging.kafka.transaction.consumers
 
-import me.ezra_home.retail_software_solution.messaging.kafka.common.KafkaConstants
-import me.ezra_home.retail_software_solution.messaging.kafka.transaction.events.TransactionEvent
-import me.ezra_home.retail_software_solution.messaging.kafka.transaction.processors.AccountingEventProcessor
-import me.ezra_home.retail_software_solution.util.enums.ServiceAccount
+import app.myliberty.easy_records.messaging.kafka.common.KafkaConstants
+import app.myliberty.easy_records.messaging.kafka.transaction.events.TransactionEvent
+import app.myliberty.easy_records.messaging.kafka.transaction.processors.AccountingEventProcessor
+import app.myliberty.easy_records.util.enums.ServiceAccount
 import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.stereotype.Service
 

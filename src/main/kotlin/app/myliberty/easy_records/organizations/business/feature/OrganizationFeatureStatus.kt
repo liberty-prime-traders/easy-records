@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.organizations.business.feature
+package app.myliberty.easy_records.organizations.business.feature
 
-import me.ezra_home.retail_software_solution.util.enums.HasCode
+import app.myliberty.easy_records.util.enums.HasCode
 
 enum class OrganizationFeatureStatus(override val code: String) : HasCode {
     ACTIVE("ACTIVE"),

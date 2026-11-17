@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.organizations.business.product
+package app.myliberty.easy_records.organizations.business.product
 
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
@@ -16,7 +16,7 @@ interface OrganizationProductRepository: JpaRepository<OrganizationProductEntity
     fun findProductGroupNameById(productId: UUID): String
 
     @Query("" +
-            "SELECT new me.ezra_home.retail_software_solution.organizations.business.product.ProductGroupNameProjection(p.id, p.productGroupName)" +
+            "SELECT new app.myliberty.easy_records.organizations.business.product.ProductGroupNameProjection(p.id, p.productGroupName)" +
             " FROM OrganizationProductEntity p WHERE p.id IN :productIds"
     )
     fun findProductGroupNamesByIdIn(productIds: Collection<UUID>): List<ProductGroupNameProjection>

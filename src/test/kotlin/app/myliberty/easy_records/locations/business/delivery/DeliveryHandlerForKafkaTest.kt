@@ -1,15 +1,15 @@
-package me.ezra_home.retail_software_solution.locations.business.delivery
+package app.myliberty.easy_records.locations.business.delivery
 
-import me.ezra_home.retail_software_solution.configuration.session.LocationSession
-import me.ezra_home.retail_software_solution.configuration.session.OrgSession
-import me.ezra_home.retail_software_solution.configuration.session.SessionContext
-import me.ezra_home.retail_software_solution.configuration.session.SessionContextProvider
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.delivery.DeliveryHandlerForPurchase
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.delivery.PurchaseDeliveryContext
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.delivery.PurchaseDeliveryLineStatus
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.PurchaseLineDto
-import me.ezra_home.retail_software_solution.messaging.kafka.transaction.events.PurchaseDeliveredEvent
-import me.ezra_home.retail_software_solution.util.quantity.ExactQuantity
+import app.myliberty.easy_records.configuration.session.LocationSession
+import app.myliberty.easy_records.configuration.session.OrgSession
+import app.myliberty.easy_records.configuration.session.SessionContext
+import app.myliberty.easy_records.configuration.session.SessionContextProvider
+import app.myliberty.easy_records.locations.business.purchase.api.delivery.DeliveryHandlerForPurchase
+import app.myliberty.easy_records.locations.business.purchase.api.delivery.PurchaseDeliveryContext
+import app.myliberty.easy_records.locations.business.purchase.api.delivery.PurchaseDeliveryLineStatus
+import app.myliberty.easy_records.locations.business.purchase.api.PurchaseLineDto
+import app.myliberty.easy_records.messaging.kafka.transaction.events.PurchaseDeliveredEvent
+import app.myliberty.easy_records.util.quantity.ExactQuantity
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach

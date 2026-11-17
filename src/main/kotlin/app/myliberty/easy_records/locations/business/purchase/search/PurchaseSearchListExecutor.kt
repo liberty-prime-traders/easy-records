@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.locations.business.purchase.search
+package app.myliberty.easy_records.locations.business.purchase.search
 
-import me.ezra_home.retail_software_solution.configuration.datasource.DataSourceBeanNames
-import me.ezra_home.retail_software_solution.locations.business.purchase.PurchaseEntity
-import me.ezra_home.retail_software_solution.util.queries.SqlSearchExecutor
+import app.myliberty.easy_records.configuration.datasource.DataSourceBeanNames
+import app.myliberty.easy_records.locations.business.purchase.PurchaseEntity
+import app.myliberty.easy_records.util.queries.SqlSearchExecutor
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean
 import org.springframework.stereotype.Component

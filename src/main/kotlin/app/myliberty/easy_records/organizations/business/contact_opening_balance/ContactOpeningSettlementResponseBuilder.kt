@@ -1,12 +1,12 @@
-package me.ezra_home.retail_software_solution.organizations.business.contact_opening_balance
+package app.myliberty.easy_records.organizations.business.contact_opening_balance
 
-import me.ezra_home.retail_software_solution.organizations.business.contact_opening_balance.api.ContactOpeningSettlementResponse
-import me.ezra_home.retail_software_solution.organizations.business.contact_opening_balance.api.ContactOpeningSettlementSummaryResponse
-import me.ezra_home.retail_software_solution.organizations.business.contact_opening_balance.api.ContactOpeningSettlementVoidResponse
-import me.ezra_home.retail_software_solution.organizations.business.contact_opening_balance.api.ContactSubledgerDirection
-import me.ezra_home.retail_software_solution.organizations.business.account.api.AccountService
-import me.ezra_home.retail_software_solution.util.business.MoneyDisplay
-import me.ezra_home.retail_software_solution.util.business.mappers.UserQualifier
+import app.myliberty.easy_records.organizations.business.contact_opening_balance.api.ContactOpeningSettlementResponse
+import app.myliberty.easy_records.organizations.business.contact_opening_balance.api.ContactOpeningSettlementSummaryResponse
+import app.myliberty.easy_records.organizations.business.contact_opening_balance.api.ContactOpeningSettlementVoidResponse
+import app.myliberty.easy_records.organizations.business.contact_opening_balance.api.ContactSubledgerDirection
+import app.myliberty.easy_records.organizations.business.account.api.AccountService
+import app.myliberty.easy_records.util.business.MoneyDisplay
+import app.myliberty.easy_records.util.business.mappers.UserQualifier
 import org.springframework.stereotype.Component
 
 @Component

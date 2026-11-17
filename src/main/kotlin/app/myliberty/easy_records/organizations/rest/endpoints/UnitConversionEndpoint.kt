@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.organizations.rest.endpoints
+package app.myliberty.easy_records.organizations.rest.endpoints
 
-import me.ezra_home.retail_software_solution.organizations.business.unitconversion.api.ConversionTargetDto
-import me.ezra_home.retail_software_solution.organizations.business.unitconversion.api.UnitConversionGraphFacade
+import app.myliberty.easy_records.organizations.business.unitconversion.api.ConversionTargetDto
+import app.myliberty.easy_records.organizations.business.unitconversion.api.UnitConversionGraphFacade
 import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping

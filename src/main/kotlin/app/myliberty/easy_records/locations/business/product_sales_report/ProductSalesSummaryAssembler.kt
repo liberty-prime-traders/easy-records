@@ -1,11 +1,11 @@
-package me.ezra_home.retail_software_solution.locations.business.product_sales_report
+package app.myliberty.easy_records.locations.business.product_sales_report
 
-import me.ezra_home.retail_software_solution.locations.business.location_product.api.LocationProductDataFetcher
-import me.ezra_home.retail_software_solution.locations.business.product_sales_report.api.ProductSalesSummaryDto
-import me.ezra_home.retail_software_solution.organizations.business.unitconversion.api.QuantityBreakdownFactory
-import me.ezra_home.retail_software_solution.organizations.business.unitconversion.api.UnitConversionGraphFacade
-import me.ezra_home.retail_software_solution.organizations.business.unitvalue.api.UnitValueFetcher
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.locations.business.location_product.api.LocationProductDataFetcher
+import app.myliberty.easy_records.locations.business.product_sales_report.api.ProductSalesSummaryDto
+import app.myliberty.easy_records.organizations.business.unitconversion.api.QuantityBreakdownFactory
+import app.myliberty.easy_records.organizations.business.unitconversion.api.UnitConversionGraphFacade
+import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueFetcher
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Component
 import java.util.UUID
 

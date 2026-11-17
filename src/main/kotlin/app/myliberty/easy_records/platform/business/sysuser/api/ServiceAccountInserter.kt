@@ -1,9 +1,9 @@
-package me.ezra_home.retail_software_solution.platform.business.sysuser.api
+package app.myliberty.easy_records.platform.business.sysuser.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnPlatformSchema
-import me.ezra_home.retail_software_solution.platform.business.sysuser.SysUserEntity
-import me.ezra_home.retail_software_solution.platform.business.sysuser.SysUserRepository
-import me.ezra_home.retail_software_solution.util.enums.ServiceAccount
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnPlatformSchema
+import app.myliberty.easy_records.platform.business.sysuser.SysUserEntity
+import app.myliberty.easy_records.platform.business.sysuser.SysUserRepository
+import app.myliberty.easy_records.util.enums.ServiceAccount
 import org.springframework.stereotype.Component
 
 @Component

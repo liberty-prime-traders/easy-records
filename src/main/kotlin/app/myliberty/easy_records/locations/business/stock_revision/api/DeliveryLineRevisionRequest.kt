@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.locations.business.stock_revision.api
+package app.myliberty.easy_records.locations.business.stock_revision.api
 
-import me.ezra_home.retail_software_solution.util.business.Money
-import me.ezra_home.retail_software_solution.util.quantity.UserProvidedQuantity
+import app.myliberty.easy_records.util.business.Money
+import app.myliberty.easy_records.util.quantity.UserProvidedQuantity
 import java.util.UUID
 
 data class DeliveryLineRevisionRequest(

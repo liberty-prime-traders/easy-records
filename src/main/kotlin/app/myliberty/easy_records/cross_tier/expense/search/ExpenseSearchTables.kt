@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.cross_tier.expense.search
+package app.myliberty.easy_records.cross_tier.expense.search
 
-import me.ezra_home.retail_software_solution.util.model.TableNames
-import me.ezra_home.retail_software_solution.util.model.ViewNames
+import app.myliberty.easy_records.util.model.TableNames
+import app.myliberty.easy_records.util.model.ViewNames
 
 data class ExpenseSearchTables(
     val expense: String,

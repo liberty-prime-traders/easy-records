@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.organizations.business.tax_rate
+package app.myliberty.easy_records.organizations.business.tax_rate
 
-import me.ezra_home.retail_software_solution.organizations.business.tax_rate.api.TaxRateInsertDto
-import me.ezra_home.retail_software_solution.organizations.business.tax_rate.api.TaxRateResponseDto
-import me.ezra_home.retail_software_solution.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.organizations.business.tax_rate.api.TaxRateInsertDto
+import app.myliberty.easy_records.organizations.business.tax_rate.api.TaxRateResponseDto
+import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 

@@ -1,14 +1,14 @@
-package me.ezra_home.retail_software_solution.organizations.rest.endpoints
+package app.myliberty.easy_records.organizations.rest.endpoints
 
-import me.ezra_home.retail_software_solution.organizations.business.account.api.AccountChildCreateRequest
-import me.ezra_home.retail_software_solution.organizations.business.account.api.AccountResponseDto
-import me.ezra_home.retail_software_solution.organizations.business.account.api.AccountRootCreateRequest
-import me.ezra_home.retail_software_solution.organizations.business.account.api.AccountService
-import me.ezra_home.retail_software_solution.organizations.business.account.api.AccountUpdateDto
-import me.ezra_home.retail_software_solution.organizations.business.account_selection.api.AccountSelectionService
-import me.ezra_home.retail_software_solution.organizations.business.account_selection.api.AccountsTreesForSelection
-import me.ezra_home.retail_software_solution.platform.business.feature.api.Feature
-import me.ezra_home.retail_software_solution.util.annotations.RequiresFeature
+import app.myliberty.easy_records.organizations.business.account.api.AccountChildCreateRequest
+import app.myliberty.easy_records.organizations.business.account.api.AccountResponseDto
+import app.myliberty.easy_records.organizations.business.account.api.AccountRootCreateRequest
+import app.myliberty.easy_records.organizations.business.account.api.AccountService
+import app.myliberty.easy_records.organizations.business.account.api.AccountUpdateDto
+import app.myliberty.easy_records.organizations.business.account_selection.api.AccountSelectionService
+import app.myliberty.easy_records.organizations.business.account_selection.api.AccountsTreesForSelection
+import app.myliberty.easy_records.platform.business.feature.api.Feature
+import app.myliberty.easy_records.util.annotations.RequiresFeature
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping

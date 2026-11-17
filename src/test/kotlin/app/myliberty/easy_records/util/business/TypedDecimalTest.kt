@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.util.business
+package app.myliberty.easy_records.util.business
 
-import me.ezra_home.retail_software_solution.util.quantity.PositiveUserProvidedQuantity
-import me.ezra_home.retail_software_solution.util.quantity.UserProvidedQuantity
+import app.myliberty.easy_records.util.quantity.PositiveUserProvidedQuantity
+import app.myliberty.easy_records.util.quantity.UserProvidedQuantity
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotEquals
 import org.junit.jupiter.api.Test

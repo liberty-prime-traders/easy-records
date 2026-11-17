@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.locations.business.stock.api.availability
+package app.myliberty.easy_records.locations.business.stock.api.availability
 
-import me.ezra_home.retail_software_solution.locations.business.stock.api.read.StockBalanceFetcher
-import me.ezra_home.retail_software_solution.locations.business.stock_reservation.api.StockReserver
+import app.myliberty.easy_records.locations.business.stock.api.read.StockBalanceFetcher
+import app.myliberty.easy_records.locations.business.stock_reservation.api.StockReserver
 import org.springframework.stereotype.Component
 import java.math.BigDecimal
 import java.util.UUID

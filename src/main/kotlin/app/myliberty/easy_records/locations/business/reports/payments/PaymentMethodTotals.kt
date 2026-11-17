@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.locations.business.reports.payments
+package app.myliberty.easy_records.locations.business.reports.payments
 
 import java.math.BigDecimal
 import java.util.UUID

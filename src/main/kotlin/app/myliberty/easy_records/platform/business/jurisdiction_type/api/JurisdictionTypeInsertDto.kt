@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.platform.business.jurisdiction_type.api
+package app.myliberty.easy_records.platform.business.jurisdiction_type.api
 
 import java.io.Serializable
 

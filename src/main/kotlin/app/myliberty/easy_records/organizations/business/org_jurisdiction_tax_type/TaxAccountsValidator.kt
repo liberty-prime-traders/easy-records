@@ -1,11 +1,11 @@
-package me.ezra_home.retail_software_solution.organizations.business.org_jurisdiction_tax_type
+package app.myliberty.easy_records.organizations.business.org_jurisdiction_tax_type
 
-import me.ezra_home.retail_software_solution.organizations.business.account_selection.api.AccountSelectionRule
-import me.ezra_home.retail_software_solution.organizations.business.account_selection.api.AccountSelectionService
-import me.ezra_home.retail_software_solution.platform.business.tax_type.api.PlatformTaxTypeDto
-import me.ezra_home.retail_software_solution.platform.business.tax_type.api.TaxRecoveryType
-import me.ezra_home.retail_software_solution.util.business.StringUtils
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.organizations.business.account_selection.api.AccountSelectionRule
+import app.myliberty.easy_records.organizations.business.account_selection.api.AccountSelectionService
+import app.myliberty.easy_records.platform.business.tax_type.api.PlatformTaxTypeDto
+import app.myliberty.easy_records.platform.business.tax_type.api.TaxRecoveryType
+import app.myliberty.easy_records.util.business.StringUtils
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Component
 
 @Component

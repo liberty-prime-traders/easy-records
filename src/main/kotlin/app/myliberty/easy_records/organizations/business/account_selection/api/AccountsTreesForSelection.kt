@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.organizations.business.account_selection.api
+package app.myliberty.easy_records.organizations.business.account_selection.api
 
-import me.ezra_home.retail_software_solution.util.ui_models.TreeNode
+import app.myliberty.easy_records.util.ui_models.TreeNode
 
 data class AccountsTreesForSelection(
     val payable: List<TreeNode<String>>,

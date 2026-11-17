@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.platform.business.db_migration
+package app.myliberty.easy_records.platform.business.db_migration
 
-import me.ezra_home.retail_software_solution.util.enums.HasCode
+import app.myliberty.easy_records.util.enums.HasCode
 
 enum class MigrationType(override val code: String) : HasCode {
     ORG_ONLY("ORG_ONLY"),

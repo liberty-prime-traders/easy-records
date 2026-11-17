@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.organizations.business.fund_movement
+package app.myliberty.easy_records.organizations.business.fund_movement
 
-import me.ezra_home.retail_software_solution.organizations.business.account_selection.api.AccountSelectionRule
-import me.ezra_home.retail_software_solution.organizations.business.account_selection.api.AccountSelectionService
+import app.myliberty.easy_records.organizations.business.account_selection.api.AccountSelectionRule
+import app.myliberty.easy_records.organizations.business.account_selection.api.AccountSelectionService
 import org.springframework.stereotype.Component
 
 @Component

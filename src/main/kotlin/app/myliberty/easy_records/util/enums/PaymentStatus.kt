@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.util.enums
+package app.myliberty.easy_records.util.enums
 
 enum class PaymentStatus(override val code: String) : HasCode {
   UNPAID("UNP"),

@@ -1,13 +1,13 @@
-package me.ezra_home.retail_software_solution.locations.business.sale_cogs_backfill
+package app.myliberty.easy_records.locations.business.sale_cogs_backfill
 
-import me.ezra_home.retail_software_solution.configuration.session.OrgSession
-import me.ezra_home.retail_software_solution.configuration.session.SessionContext
-import me.ezra_home.retail_software_solution.configuration.session.SessionContextProvider
-import me.ezra_home.retail_software_solution.locations.business.sale_cogs_backfill.api.SaleLineCogsBackfiller
-import me.ezra_home.retail_software_solution.organizations.business.location.api.LocationDto
-import me.ezra_home.retail_software_solution.organizations.business.location.api.LocationService
-import me.ezra_home.retail_software_solution.util.async.AsyncExecutor
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.configuration.session.OrgSession
+import app.myliberty.easy_records.configuration.session.SessionContext
+import app.myliberty.easy_records.configuration.session.SessionContextProvider
+import app.myliberty.easy_records.locations.business.sale_cogs_backfill.api.SaleLineCogsBackfiller
+import app.myliberty.easy_records.organizations.business.location.api.LocationDto
+import app.myliberty.easy_records.organizations.business.location.api.LocationService
+import app.myliberty.easy_records.util.async.AsyncExecutor
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows

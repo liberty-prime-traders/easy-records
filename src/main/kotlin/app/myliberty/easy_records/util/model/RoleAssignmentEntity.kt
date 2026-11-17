@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.util.model
+package app.myliberty.easy_records.util.model
 
 import jakarta.persistence.Column
 import jakarta.persistence.Convert
 import jakarta.persistence.MappedSuperclass
-import me.ezra_home.retail_software_solution.util.enums.RtsRole
-import me.ezra_home.retail_software_solution.util.enums.RtsRoleConverter
+import app.myliberty.easy_records.util.enums.RtsRole
+import app.myliberty.easy_records.util.enums.RtsRoleConverter
 import java.time.OffsetDateTime
 import java.util.UUID
 

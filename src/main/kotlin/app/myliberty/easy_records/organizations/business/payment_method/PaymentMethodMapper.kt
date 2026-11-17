@@ -1,9 +1,9 @@
-package me.ezra_home.retail_software_solution.organizations.business.payment_method
+package app.myliberty.easy_records.organizations.business.payment_method
 
-import me.ezra_home.retail_software_solution.organizations.business.payment_method.api.PaymentMethodInsertDto
-import me.ezra_home.retail_software_solution.organizations.business.payment_method.api.PaymentMethodResponseDto
-import me.ezra_home.retail_software_solution.platform.business.sysuser.api.CreatorFullName
-import me.ezra_home.retail_software_solution.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.organizations.business.payment_method.api.PaymentMethodInsertDto
+import app.myliberty.easy_records.organizations.business.payment_method.api.PaymentMethodResponseDto
+import app.myliberty.easy_records.platform.business.sysuser.api.CreatorFullName
+import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
 import org.mapstruct.Context
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping

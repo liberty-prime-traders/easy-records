@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.organizations.business.expense_type
+package app.myliberty.easy_records.organizations.business.expense_type
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnOrganizationSchema
-import me.ezra_home.retail_software_solution.organizations.business.expense_type.api.SystemExpenseType
-import me.ezra_home.retail_software_solution.organizations.business.org_profile.api.OrgDataSeeder
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.organizations.business.expense_type.api.SystemExpenseType
+import app.myliberty.easy_records.organizations.business.org_profile.api.OrgDataSeeder
 import org.springframework.core.annotation.Order
 import org.springframework.stereotype.Component
 

@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.locations.business.sale
+package app.myliberty.easy_records.locations.business.sale
 
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleConsolidationEligibility
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleSummary
-import me.ezra_home.retail_software_solution.locations.business.sale_payment.api.SalePaymentFetcher
-import me.ezra_home.retail_software_solution.util.business.mappers.NameResolution
-import me.ezra_home.retail_software_solution.util.business.mappers.UserQualifier
+import app.myliberty.easy_records.locations.business.sale.api.SaleConsolidationEligibility
+import app.myliberty.easy_records.locations.business.sale.api.SaleSummary
+import app.myliberty.easy_records.locations.business.sale_payment.api.SalePaymentFetcher
+import app.myliberty.easy_records.util.business.mappers.NameResolution
+import app.myliberty.easy_records.util.business.mappers.UserQualifier
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 import java.util.UUID

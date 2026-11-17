@@ -1,12 +1,12 @@
-package me.ezra_home.retail_software_solution.locations.business.purchase
+package app.myliberty.easy_records.locations.business.purchase
 
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.PurchaseStatus
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.bulk_payment.PurchaseBulkPaymentSearchDto
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.search.PurchaseSearchParameters
-import me.ezra_home.retail_software_solution.locations.business.purchase.search.PurchaseSearchFetcher
-import me.ezra_home.retail_software_solution.util.enums.PaymentStatus
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
-import me.ezra_home.retail_software_solution.util.queries.KeysetSearchCursor
+import app.myliberty.easy_records.locations.business.purchase.api.PurchaseStatus
+import app.myliberty.easy_records.locations.business.purchase.api.bulk_payment.PurchaseBulkPaymentSearchDto
+import app.myliberty.easy_records.locations.business.purchase.api.search.PurchaseSearchParameters
+import app.myliberty.easy_records.locations.business.purchase.search.PurchaseSearchFetcher
+import app.myliberty.easy_records.util.enums.PaymentStatus
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.queries.KeysetSearchCursor
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue

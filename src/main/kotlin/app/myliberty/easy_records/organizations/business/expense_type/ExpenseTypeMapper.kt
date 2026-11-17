@@ -1,9 +1,9 @@
-package me.ezra_home.retail_software_solution.organizations.business.expense_type
+package app.myliberty.easy_records.organizations.business.expense_type
 
-import me.ezra_home.retail_software_solution.organizations.business.expense_type.api.ExpenseTypeDto
-import me.ezra_home.retail_software_solution.organizations.business.expense_type.api.ExpenseTypeInsertDto
-import me.ezra_home.retail_software_solution.organizations.business.expense_type.api.ExpenseTypeResponseDto
-import me.ezra_home.retail_software_solution.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.organizations.business.expense_type.api.ExpenseTypeDto
+import app.myliberty.easy_records.organizations.business.expense_type.api.ExpenseTypeInsertDto
+import app.myliberty.easy_records.organizations.business.expense_type.api.ExpenseTypeResponseDto
+import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 

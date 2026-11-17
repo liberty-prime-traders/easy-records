@@ -1,11 +1,11 @@
-package me.ezra_home.retail_software_solution.organizations.business.fiscal_period
+package app.myliberty.easy_records.organizations.business.fiscal_period
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnOrganizationSchema
-import me.ezra_home.retail_software_solution.organizations.business.accounting_config.api.OrgAccountingConfigDto
-import me.ezra_home.retail_software_solution.organizations.business.accounting_config.api.OrgAccountingConfigService
-import me.ezra_home.retail_software_solution.organizations.business.fiscal_period.strategy.PeriodCycleStrategyRegistry
-import me.ezra_home.retail_software_solution.organizations.business.fiscal_period.strategy.PeriodRange
-import me.ezra_home.retail_software_solution.util.business.DateTimes
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.organizations.business.accounting_config.api.OrgAccountingConfigDto
+import app.myliberty.easy_records.organizations.business.accounting_config.api.OrgAccountingConfigService
+import app.myliberty.easy_records.organizations.business.fiscal_period.strategy.PeriodCycleStrategyRegistry
+import app.myliberty.easy_records.organizations.business.fiscal_period.strategy.PeriodRange
+import app.myliberty.easy_records.util.business.DateTimes
 import org.springframework.stereotype.Service
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit

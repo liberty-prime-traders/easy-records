@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.locations.business.sale.api
+package app.myliberty.easy_records.locations.business.sale.api
 
-import me.ezra_home.retail_software_solution.util.business.StringUtils
-import me.ezra_home.retail_software_solution.util.enums.PaymentStatus
+import app.myliberty.easy_records.util.business.StringUtils
+import app.myliberty.easy_records.util.enums.PaymentStatus
 import java.math.BigDecimal
 import java.time.OffsetDateTime
 import java.util.UUID

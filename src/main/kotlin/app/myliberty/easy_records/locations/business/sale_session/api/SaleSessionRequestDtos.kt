@@ -1,12 +1,12 @@
-package me.ezra_home.retail_software_solution.locations.business.sale_session.api
+package app.myliberty.easy_records.locations.business.sale_session.api
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import me.ezra_home.retail_software_solution.organizations.business.adjustment_reason.api.AdjustmentDirection
-import me.ezra_home.retail_software_solution.util.business.Money
-import me.ezra_home.retail_software_solution.util.business.Percentage
-import me.ezra_home.retail_software_solution.util.business.PositiveMoney
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
-import me.ezra_home.retail_software_solution.util.quantity.PositiveUserProvidedQuantity
+import app.myliberty.easy_records.organizations.business.adjustment_reason.api.AdjustmentDirection
+import app.myliberty.easy_records.util.business.Money
+import app.myliberty.easy_records.util.business.Percentage
+import app.myliberty.easy_records.util.business.PositiveMoney
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.quantity.PositiveUserProvidedQuantity
 import java.time.OffsetDateTime
 import java.util.Optional
 import java.util.UUID

@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.organizations.business.tax_rate.api
+package app.myliberty.easy_records.organizations.business.tax_rate.api
 
-import me.ezra_home.retail_software_solution.support.WithDefaultOrganizationSession
-import me.ezra_home.retail_software_solution.organizations.business.tax_rate.api.TaxAmountCalculator.ActiveTaxTypeForCalculation
-import me.ezra_home.retail_software_solution.platform.business.tax_type.api.TaxCalculationMethod
+import app.myliberty.easy_records.support.WithDefaultOrganizationSession
+import app.myliberty.easy_records.organizations.business.tax_rate.api.TaxAmountCalculator.ActiveTaxTypeForCalculation
+import app.myliberty.easy_records.platform.business.tax_type.api.TaxCalculationMethod
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import java.math.BigDecimal

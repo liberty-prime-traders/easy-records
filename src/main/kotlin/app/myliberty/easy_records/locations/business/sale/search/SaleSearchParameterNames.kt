@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.locations.business.sale.search
+package app.myliberty.easy_records.locations.business.sale.search
 
 object SaleSearchParameterNames {
   const val CREATED_FROM = "createdFrom"

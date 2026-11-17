@@ -1,12 +1,12 @@
-package me.ezra_home.retail_software_solution.locations.business.catalog_sync.sync_services.product
+package app.myliberty.easy_records.locations.business.catalog_sync.sync_services.product
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnOrganizationSchema
-import me.ezra_home.retail_software_solution.locations.business.catalog_sync.SyncCursor
-import me.ezra_home.retail_software_solution.locations.business.catalog_sync.api.SyncService
-import me.ezra_home.retail_software_solution.locations.business.location_product.api.LocationProductSyncService
-import me.ezra_home.retail_software_solution.organizations.business.product.api.OrganizationProductFetcher
-import me.ezra_home.retail_software_solution.util.model.TableName
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.locations.business.catalog_sync.SyncCursor
+import app.myliberty.easy_records.locations.business.catalog_sync.api.SyncService
+import app.myliberty.easy_records.locations.business.location_product.api.LocationProductSyncService
+import app.myliberty.easy_records.organizations.business.product.api.OrganizationProductFetcher
+import app.myliberty.easy_records.util.model.TableName
 import org.springframework.stereotype.Service
 import java.util.UUID
 

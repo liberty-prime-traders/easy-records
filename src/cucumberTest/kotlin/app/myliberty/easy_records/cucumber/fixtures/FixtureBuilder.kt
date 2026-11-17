@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.cucumber.fixtures
+package app.myliberty.easy_records.cucumber.fixtures
 
-import me.ezra_home.retail_software_solution.cucumber.support.ApiClient
-import me.ezra_home.retail_software_solution.cucumber.support.context.InjectContext
-import me.ezra_home.retail_software_solution.cucumber.support.context.ResponseContext
+import app.myliberty.easy_records.cucumber.support.ApiClient
+import app.myliberty.easy_records.cucumber.support.context.InjectContext
+import app.myliberty.easy_records.cucumber.support.context.ResponseContext
 import java.util.UUID
 
 abstract class FixtureBuilder<INSERT_DTO>(

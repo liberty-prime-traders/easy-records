@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.messaging.kafka.catalog
+package app.myliberty.easy_records.messaging.kafka.catalog
 
 enum class CatalogEntityType {
     PRODUCT

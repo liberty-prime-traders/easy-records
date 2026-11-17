@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.organizations.business.loan.search
+package app.myliberty.easy_records.organizations.business.loan.search
 
-import me.ezra_home.retail_software_solution.organizations.business.loan.api.LoanSearchParameters
-import me.ezra_home.retail_software_solution.util.queries.SearchGuards
+import app.myliberty.easy_records.organizations.business.loan.api.LoanSearchParameters
+import app.myliberty.easy_records.util.queries.SearchGuards
 
 object LoanSearchValidator {
 

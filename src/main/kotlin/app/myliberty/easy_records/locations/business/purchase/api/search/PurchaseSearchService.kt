@@ -1,17 +1,17 @@
-package me.ezra_home.retail_software_solution.locations.business.purchase.api.search
+package app.myliberty.easy_records.locations.business.purchase.api.search
 
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.PurchaseResponseDto
-import me.ezra_home.retail_software_solution.util.enums.PaymentStatus
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
-import me.ezra_home.retail_software_solution.locations.business.purchase.PurchaseAssembler
-import me.ezra_home.retail_software_solution.locations.business.purchase.search.PurchasePaymentStatusSummaryRawRow
-import me.ezra_home.retail_software_solution.locations.business.purchase.search.PurchaseSearchFetcher
-import me.ezra_home.retail_software_solution.locations.business.purchase.search.PurchaseSearchValidator
-import me.ezra_home.retail_software_solution.locations.business.purchase.search.PurchaseSupplierSummaryRawRow
-import me.ezra_home.retail_software_solution.organizations.business.contact.api.ContactService
-import me.ezra_home.retail_software_solution.util.paging.PageRequest
-import me.ezra_home.retail_software_solution.util.paging.PageResponse
-import me.ezra_home.retail_software_solution.util.queries.KeysetSearchCursor
+import app.myliberty.easy_records.locations.business.purchase.api.PurchaseResponseDto
+import app.myliberty.easy_records.util.enums.PaymentStatus
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.locations.business.purchase.PurchaseAssembler
+import app.myliberty.easy_records.locations.business.purchase.search.PurchasePaymentStatusSummaryRawRow
+import app.myliberty.easy_records.locations.business.purchase.search.PurchaseSearchFetcher
+import app.myliberty.easy_records.locations.business.purchase.search.PurchaseSearchValidator
+import app.myliberty.easy_records.locations.business.purchase.search.PurchaseSupplierSummaryRawRow
+import app.myliberty.easy_records.organizations.business.contact.api.ContactService
+import app.myliberty.easy_records.util.paging.PageRequest
+import app.myliberty.easy_records.util.paging.PageResponse
+import app.myliberty.easy_records.util.queries.KeysetSearchCursor
 import org.springframework.stereotype.Service
 import java.util.UUID
 

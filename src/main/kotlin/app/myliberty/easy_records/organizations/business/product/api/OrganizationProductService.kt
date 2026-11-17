@@ -1,17 +1,17 @@
-package me.ezra_home.retail_software_solution.organizations.business.product.api
+package app.myliberty.easy_records.organizations.business.product.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnOrganizationSchema
-import me.ezra_home.retail_software_solution.messaging.kafka.catalog.CatalogEventHandler
-import me.ezra_home.retail_software_solution.organizations.business.product.OrganizationProductCache
-import me.ezra_home.retail_software_solution.organizations.business.product.OrganizationProductDto
-import me.ezra_home.retail_software_solution.organizations.business.product.OrganizationProductMapper
-import me.ezra_home.retail_software_solution.organizations.business.product.OrganizationProductRepository
-import me.ezra_home.retail_software_solution.organizations.business.product.OrganizationProductValidator
-import me.ezra_home.retail_software_solution.organizations.business.product_tag.api.ProductTagService
-import me.ezra_home.retail_software_solution.organizations.business.unitvalue.api.UnitValueFetcher
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
-import me.ezra_home.retail_software_solution.util.exceptions.UpdatingNonExistingRecordException
-import me.ezra_home.retail_software_solution.util.model.TableName
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.messaging.kafka.catalog.CatalogEventHandler
+import app.myliberty.easy_records.organizations.business.product.OrganizationProductCache
+import app.myliberty.easy_records.organizations.business.product.OrganizationProductDto
+import app.myliberty.easy_records.organizations.business.product.OrganizationProductMapper
+import app.myliberty.easy_records.organizations.business.product.OrganizationProductRepository
+import app.myliberty.easy_records.organizations.business.product.OrganizationProductValidator
+import app.myliberty.easy_records.organizations.business.product_tag.api.ProductTagService
+import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueFetcher
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException
+import app.myliberty.easy_records.util.model.TableName
 import org.springframework.stereotype.Service
 import java.util.UUID
 

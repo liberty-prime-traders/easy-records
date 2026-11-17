@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.locations.business.opening_stock.api
+package app.myliberty.easy_records.locations.business.opening_stock.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
-import me.ezra_home.retail_software_solution.locations.business.opening_stock.OpeningStockRepository
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.locations.business.opening_stock.OpeningStockRepository
 import org.springframework.stereotype.Component
 import java.util.UUID
 

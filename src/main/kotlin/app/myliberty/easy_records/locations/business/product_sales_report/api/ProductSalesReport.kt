@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.locations.business.product_sales_report.api
+package app.myliberty.easy_records.locations.business.product_sales_report.api
 
-import me.ezra_home.retail_software_solution.organizations.business.adjustment_reason.api.AdjustmentDirection
+import app.myliberty.easy_records.organizations.business.adjustment_reason.api.AdjustmentDirection
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.OffsetDateTime

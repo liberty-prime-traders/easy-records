@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.organizations.business.tax_rate.api
+package app.myliberty.easy_records.organizations.business.tax_rate.api
 
-import me.ezra_home.retail_software_solution.platform.business.tax_type.api.TaxCalculationMethod
-import me.ezra_home.retail_software_solution.util.business.Decimals
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.platform.business.tax_type.api.TaxCalculationMethod
+import app.myliberty.easy_records.util.business.Decimals
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import java.math.BigDecimal
 import java.util.UUID
 

@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.locations.business.location_product
+package app.myliberty.easy_records.locations.business.location_product
 
-import me.ezra_home.retail_software_solution.locations.business.location_product.api.LocationProductUpdateDto
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.locations.business.location_product.api.LocationProductUpdateDto
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 
 object LocationProductValidator {
 

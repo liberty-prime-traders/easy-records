@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.cross_tier.expense.operation
+package app.myliberty.easy_records.cross_tier.expense.operation
 
 import java.util.UUID
 

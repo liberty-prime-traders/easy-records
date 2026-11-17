@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.organizations.business.stock_movement_reason
+package app.myliberty.easy_records.organizations.business.stock_movement_reason
 
-import me.ezra_home.retail_software_solution.organizations.business.stock_movement_reason.api.MovementType
-import me.ezra_home.retail_software_solution.organizations.business.stock_movement_reason.api.StockDirection
+import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.MovementType
+import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.StockDirection
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue

@@ -1,9 +1,9 @@
-package me.ezra_home.retail_software_solution.organizations.business.address.api
+package app.myliberty.easy_records.organizations.business.address.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
-import me.ezra_home.retail_software_solution.organizations.business.address.AddressCache
-import me.ezra_home.retail_software_solution.organizations.business.address.AddressMapper
-import me.ezra_home.retail_software_solution.util.exceptions.UpdatingNonExistingRecordException
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.organizations.business.address.AddressCache
+import app.myliberty.easy_records.organizations.business.address.AddressMapper
+import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException
 import org.springframework.stereotype.Service
 import java.util.Objects
 

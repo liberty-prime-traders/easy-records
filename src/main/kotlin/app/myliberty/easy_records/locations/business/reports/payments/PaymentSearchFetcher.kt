@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.locations.business.reports.payments
+package app.myliberty.easy_records.locations.business.reports.payments
 
-import me.ezra_home.retail_software_solution.locations.business.reports.payments.api.PaymentSearchParameters
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
-import me.ezra_home.retail_software_solution.util.queries.KeysetSearchCursor
+import app.myliberty.easy_records.locations.business.reports.payments.api.PaymentSearchParameters
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.util.queries.KeysetSearchCursor
 import org.springframework.stereotype.Component
 
 @Component

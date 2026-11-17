@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.locations.business.location_product
+package app.myliberty.easy_records.locations.business.location_product
 
 import java.util.UUID
 

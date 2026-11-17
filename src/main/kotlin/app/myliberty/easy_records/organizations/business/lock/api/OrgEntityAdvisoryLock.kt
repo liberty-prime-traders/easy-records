@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.organizations.business.lock.api
+package app.myliberty.easy_records.organizations.business.lock.api
 
-import me.ezra_home.retail_software_solution.organizations.business.lock.OrgEntityAdvisoryLockRepository
-import me.ezra_home.retail_software_solution.util.business.lock.AdvisoryLock
+import app.myliberty.easy_records.organizations.business.lock.OrgEntityAdvisoryLockRepository
+import app.myliberty.easy_records.util.business.lock.AdvisoryLock
 import org.springframework.stereotype.Component
 
 @Component

@@ -1,14 +1,14 @@
-package me.ezra_home.retail_software_solution.organizations.business.org_jurisdiction_tax_type.api
+package app.myliberty.easy_records.organizations.business.org_jurisdiction_tax_type.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnOrganizationSchema
-import me.ezra_home.retail_software_solution.organizations.business.account.api.AccountService
-import me.ezra_home.retail_software_solution.organizations.business.org_jurisdiction_tax_type.OrgJurisdictionTaxTypeCache
-import me.ezra_home.retail_software_solution.organizations.business.org_jurisdiction_tax_type.TaxAccountsValidator
-import me.ezra_home.retail_software_solution.platform.business.jurisdiction_tax_type.api.JurisdictionTaxTypeFetcher
-import me.ezra_home.retail_software_solution.platform.business.tax_type.api.PlatformTaxTypeDto
-import me.ezra_home.retail_software_solution.platform.business.tax_type.api.TaxRecoveryType
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
-import me.ezra_home.retail_software_solution.util.exceptions.UpdatingNonExistingRecordException
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.organizations.business.account.api.AccountService
+import app.myliberty.easy_records.organizations.business.org_jurisdiction_tax_type.OrgJurisdictionTaxTypeCache
+import app.myliberty.easy_records.organizations.business.org_jurisdiction_tax_type.TaxAccountsValidator
+import app.myliberty.easy_records.platform.business.jurisdiction_tax_type.api.JurisdictionTaxTypeFetcher
+import app.myliberty.easy_records.platform.business.tax_type.api.PlatformTaxTypeDto
+import app.myliberty.easy_records.platform.business.tax_type.api.TaxRecoveryType
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException
 import org.springframework.stereotype.Service
 import java.util.UUID
 

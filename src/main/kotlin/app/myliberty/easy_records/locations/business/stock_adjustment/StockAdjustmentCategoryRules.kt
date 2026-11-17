@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.locations.business.stock_adjustment
+package app.myliberty.easy_records.locations.business.stock_adjustment
 
-import me.ezra_home.retail_software_solution.locations.business.stock.api.StockAdjustmentCategory
-import me.ezra_home.retail_software_solution.locations.business.stock_adjustment.api.StockAdjustmentDirection
-import me.ezra_home.retail_software_solution.organizations.business.account.api.SystemAccount
+import app.myliberty.easy_records.locations.business.stock.api.StockAdjustmentCategory
+import app.myliberty.easy_records.locations.business.stock_adjustment.api.StockAdjustmentDirection
+import app.myliberty.easy_records.organizations.business.account.api.SystemAccount
 
 data class StockAdjustmentLedgerAccounts(val debit: SystemAccount, val credit: SystemAccount)
 

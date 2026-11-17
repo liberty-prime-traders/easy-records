@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.organizations.business.feature.activators
+package app.myliberty.easy_records.organizations.business.feature.activators
 
-import me.ezra_home.retail_software_solution.platform.business.feature.api.Feature
+import app.myliberty.easy_records.platform.business.feature.api.Feature
 import org.springframework.stereotype.Component
 
 @Component

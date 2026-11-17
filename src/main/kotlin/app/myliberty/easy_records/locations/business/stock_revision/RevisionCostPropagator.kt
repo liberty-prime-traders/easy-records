@@ -1,11 +1,11 @@
-package me.ezra_home.retail_software_solution.locations.business.stock_revision
+package app.myliberty.easy_records.locations.business.stock_revision
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
-import me.ezra_home.retail_software_solution.locations.business.delivery.api.ReplacementDeliveryLineDto
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleCostRestater
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleLineCostChange
-import me.ezra_home.retail_software_solution.locations.business.stock_adjustment.api.StockAdjustmentCostChange
-import me.ezra_home.retail_software_solution.locations.business.stock_adjustment.api.StockAdjustmentCostRestater
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.locations.business.delivery.api.ReplacementDeliveryLineDto
+import app.myliberty.easy_records.locations.business.sale.api.SaleCostRestater
+import app.myliberty.easy_records.locations.business.sale.api.SaleLineCostChange
+import app.myliberty.easy_records.locations.business.stock_adjustment.api.StockAdjustmentCostChange
+import app.myliberty.easy_records.locations.business.stock_adjustment.api.StockAdjustmentCostRestater
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Propagation
 import java.util.UUID

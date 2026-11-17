@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.organizations.business.contact_opening_balance.api
+package app.myliberty.easy_records.organizations.business.contact_opening_balance.api
 
-import me.ezra_home.retail_software_solution.organizations.business.ledger.api.SubledgerBalanceDto
-import me.ezra_home.retail_software_solution.util.business.Decimals
-import me.ezra_home.retail_software_solution.util.business.Money
+import app.myliberty.easy_records.organizations.business.ledger.api.SubledgerBalanceDto
+import app.myliberty.easy_records.util.business.Decimals
+import app.myliberty.easy_records.util.business.Money
 import java.math.BigDecimal
 import java.util.Optional
 

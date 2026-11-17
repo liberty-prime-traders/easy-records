@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.locations.business.stock_transfer
+package app.myliberty.easy_records.locations.business.stock_transfer
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import me.ezra_home.retail_software_solution.configuration.serializer.StripZeroesAndRound
+import app.myliberty.easy_records.configuration.serializer.StripZeroesAndRound
 import java.math.BigDecimal
 import java.util.UUID
 

@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.organizations.business.unit_bulk_import.api
+package app.myliberty.easy_records.organizations.business.unit_bulk_import.api
 
 data class BulkUnitImportRequestDto(
     val unitGroups: List<UnitGroupBulkInsertDto> = emptyList()

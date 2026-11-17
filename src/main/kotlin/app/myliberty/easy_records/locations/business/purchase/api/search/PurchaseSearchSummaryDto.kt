@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.locations.business.purchase.api.search
+package app.myliberty.easy_records.locations.business.purchase.api.search
 
-import me.ezra_home.retail_software_solution.util.enums.PaymentStatus
+import app.myliberty.easy_records.util.enums.PaymentStatus
 import java.math.BigDecimal
 import java.util.UUID
 

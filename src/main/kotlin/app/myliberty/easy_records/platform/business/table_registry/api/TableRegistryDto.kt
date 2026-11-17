@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.platform.business.table_registry.api
+package app.myliberty.easy_records.platform.business.table_registry.api
 
-import me.ezra_home.retail_software_solution.util.enums.SchemaLevel
+import app.myliberty.easy_records.util.enums.SchemaLevel
 import java.util.UUID
 
 data class TableRegistryDto(

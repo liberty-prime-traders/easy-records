@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.organizations.business.address.api
+package app.myliberty.easy_records.organizations.business.address.api
 
 import java.io.Serializable
 import java.time.OffsetDateTime

@@ -1,13 +1,13 @@
-package me.ezra_home.retail_software_solution.organizations.business.contact.api
+package app.myliberty.easy_records.organizations.business.contact.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnOrganizationSchema
-import me.ezra_home.retail_software_solution.organizations.business.contact.ContactCache
-import me.ezra_home.retail_software_solution.organizations.business.contact.ContactResponseMapper
-import me.ezra_home.retail_software_solution.organizations.business.contact.ContactValidator
-import me.ezra_home.retail_software_solution.organizations.business.ledger.api.SubledgerBalanceDto
-import me.ezra_home.retail_software_solution.organizations.business.ledger.api.SubledgerService
-import me.ezra_home.retail_software_solution.util.business.StringUtils
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.organizations.business.contact.ContactCache
+import app.myliberty.easy_records.organizations.business.contact.ContactResponseMapper
+import app.myliberty.easy_records.organizations.business.contact.ContactValidator
+import app.myliberty.easy_records.organizations.business.ledger.api.SubledgerBalanceDto
+import app.myliberty.easy_records.organizations.business.ledger.api.SubledgerService
+import app.myliberty.easy_records.util.business.StringUtils
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Service
 
 @Service

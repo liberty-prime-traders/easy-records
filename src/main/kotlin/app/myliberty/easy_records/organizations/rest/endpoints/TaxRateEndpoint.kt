@@ -1,11 +1,11 @@
-package me.ezra_home.retail_software_solution.organizations.rest.endpoints
+package app.myliberty.easy_records.organizations.rest.endpoints
 
-import me.ezra_home.retail_software_solution.organizations.business.tax_rate.api.TaxRateInsertDto
-import me.ezra_home.retail_software_solution.organizations.business.tax_rate.api.TaxRateResponseDto
-import me.ezra_home.retail_software_solution.organizations.business.tax_rate.api.TaxRateService
-import me.ezra_home.retail_software_solution.organizations.business.tax_rate.api.TaxRateUpdateDto
-import me.ezra_home.retail_software_solution.platform.business.feature.api.Feature
-import me.ezra_home.retail_software_solution.util.annotations.RequiresFeature
+import app.myliberty.easy_records.organizations.business.tax_rate.api.TaxRateInsertDto
+import app.myliberty.easy_records.organizations.business.tax_rate.api.TaxRateResponseDto
+import app.myliberty.easy_records.organizations.business.tax_rate.api.TaxRateService
+import app.myliberty.easy_records.organizations.business.tax_rate.api.TaxRateUpdateDto
+import app.myliberty.easy_records.platform.business.feature.api.Feature
+import app.myliberty.easy_records.util.annotations.RequiresFeature
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping

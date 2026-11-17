@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.locations.business.sale
+package app.myliberty.easy_records.locations.business.sale
 
-import me.ezra_home.retail_software_solution.util.business.DateTimes
+import app.myliberty.easy_records.util.business.DateTimes
 import java.time.LocalDate
 
 data class VoidedSale(

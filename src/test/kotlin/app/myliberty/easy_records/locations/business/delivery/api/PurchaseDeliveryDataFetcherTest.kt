@@ -1,12 +1,12 @@
-package me.ezra_home.retail_software_solution.locations.business.delivery.api
+package app.myliberty.easy_records.locations.business.delivery.api
 
-import me.ezra_home.retail_software_solution.locations.business.delivery.PurchaseDeliveryAssembler
-import me.ezra_home.retail_software_solution.locations.business.delivery.PurchaseDeliveryEntity
-import me.ezra_home.retail_software_solution.locations.business.delivery.PurchaseDeliveryLineEntity
-import me.ezra_home.retail_software_solution.locations.business.delivery.PurchaseDeliveryLineRepository
-import me.ezra_home.retail_software_solution.locations.business.delivery.PurchaseDeliveryRepository
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.delivery.PurchaseDeliveryLineStatus
-import me.ezra_home.retail_software_solution.util.quantity.ExactQuantity
+import app.myliberty.easy_records.locations.business.delivery.PurchaseDeliveryAssembler
+import app.myliberty.easy_records.locations.business.delivery.PurchaseDeliveryEntity
+import app.myliberty.easy_records.locations.business.delivery.PurchaseDeliveryLineEntity
+import app.myliberty.easy_records.locations.business.delivery.PurchaseDeliveryLineRepository
+import app.myliberty.easy_records.locations.business.delivery.PurchaseDeliveryRepository
+import app.myliberty.easy_records.locations.business.purchase.api.delivery.PurchaseDeliveryLineStatus
+import app.myliberty.easy_records.util.quantity.ExactQuantity
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.mock

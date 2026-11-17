@@ -1,14 +1,14 @@
-package me.ezra_home.retail_software_solution.organizations.business.fund_movement.api
+package app.myliberty.easy_records.organizations.business.fund_movement.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnOrganizationSchema
-import me.ezra_home.retail_software_solution.organizations.business.fund_movement.FundMovementResponseBuilder
-import me.ezra_home.retail_software_solution.organizations.business.fund_movement.search.FundMovementSearchExecutor
-import me.ezra_home.retail_software_solution.organizations.business.fund_movement.search.FundMovementSearchQueryBuilder
-import me.ezra_home.retail_software_solution.organizations.business.fund_movement.search.FundMovementSearchRowMapper
-import me.ezra_home.retail_software_solution.organizations.business.fund_movement.search.FundMovementSearchValidator
-import me.ezra_home.retail_software_solution.util.paging.PageRequest
-import me.ezra_home.retail_software_solution.util.paging.PageResponse
-import me.ezra_home.retail_software_solution.util.queries.KeysetSearchCursor
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.organizations.business.fund_movement.FundMovementResponseBuilder
+import app.myliberty.easy_records.organizations.business.fund_movement.search.FundMovementSearchExecutor
+import app.myliberty.easy_records.organizations.business.fund_movement.search.FundMovementSearchQueryBuilder
+import app.myliberty.easy_records.organizations.business.fund_movement.search.FundMovementSearchRowMapper
+import app.myliberty.easy_records.organizations.business.fund_movement.search.FundMovementSearchValidator
+import app.myliberty.easy_records.util.paging.PageRequest
+import app.myliberty.easy_records.util.paging.PageResponse
+import app.myliberty.easy_records.util.queries.KeysetSearchCursor
 import org.springframework.stereotype.Service
 
 @Service

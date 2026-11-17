@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.organizations.business.unitvalue.api
+package app.myliberty.easy_records.organizations.business.unitvalue.api
 
-import me.ezra_home.retail_software_solution.organizations.business.unitvalue.UnitValueCache
-import me.ezra_home.retail_software_solution.organizations.business.unitvalue.UnitValueMapper
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.organizations.business.unitvalue.UnitValueCache
+import app.myliberty.easy_records.organizations.business.unitvalue.UnitValueMapper
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Component
 import java.util.UUID
 

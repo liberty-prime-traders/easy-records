@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.organizations.rest.endpoints
+package app.myliberty.easy_records.organizations.rest.endpoints
 
-import me.ezra_home.retail_software_solution.organizations.business.organization_admin.api.OrganizationAdminResponseDto
-import me.ezra_home.retail_software_solution.organizations.business.organization_admin.api.OrganizationAdminService
+import app.myliberty.easy_records.organizations.business.organization_admin.api.OrganizationAdminResponseDto
+import app.myliberty.easy_records.organizations.business.organization_admin.api.OrganizationAdminService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize

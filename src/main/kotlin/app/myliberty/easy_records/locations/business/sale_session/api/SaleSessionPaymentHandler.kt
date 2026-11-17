@@ -1,13 +1,13 @@
-package me.ezra_home.retail_software_solution.locations.business.sale_session.api
+package app.myliberty.easy_records.locations.business.sale_session.api
 
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleStatus
-import me.ezra_home.retail_software_solution.locations.business.sale_payment.api.SalePaymentCreateDto
-import me.ezra_home.retail_software_solution.locations.business.sale_payment.api.SalePaymentService
-import me.ezra_home.retail_software_solution.locations.business.sale_payment.api.SalePaymentVoidCreateDto
-import me.ezra_home.retail_software_solution.locations.business.sale_session.SaleSessionStore
-import me.ezra_home.retail_software_solution.locations.business.sale_session.SaleSessionUpdateFinalizer
-import me.ezra_home.retail_software_solution.locations.business.sale_session.SaleSessionValidator
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.locations.business.sale.api.SaleStatus
+import app.myliberty.easy_records.locations.business.sale_payment.api.SalePaymentCreateDto
+import app.myliberty.easy_records.locations.business.sale_payment.api.SalePaymentService
+import app.myliberty.easy_records.locations.business.sale_payment.api.SalePaymentVoidCreateDto
+import app.myliberty.easy_records.locations.business.sale_session.SaleSessionStore
+import app.myliberty.easy_records.locations.business.sale_session.SaleSessionUpdateFinalizer
+import app.myliberty.easy_records.locations.business.sale_session.SaleSessionValidator
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Service
 import java.time.OffsetDateTime
 import java.util.UUID

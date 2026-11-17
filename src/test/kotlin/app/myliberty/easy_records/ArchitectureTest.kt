@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution
+package app.myliberty.easy_records
 
 import com.tngtech.archunit.base.DescribedPredicate
 import com.tngtech.archunit.core.domain.JavaClass
@@ -10,7 +10,7 @@ import com.tngtech.archunit.lang.ConditionEvents
 import com.tngtech.archunit.lang.SimpleConditionEvent
 import com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes
 
-@AnalyzeClasses(packages = ["me.ezra_home.retail_software_solution"])
+@AnalyzeClasses(packages = ["app.myliberty.easy_records"])
 class ArchitectureTest {
 
     // Checks classes only: SQL, such as report query builders joining tables owned by other domains,
@@ -93,7 +93,7 @@ class ArchitectureTest {
     }
 
     private companion object {
-        const val ROOT_PACKAGE = "me.ezra_home.retail_software_solution"
+        const val ROOT_PACKAGE = "app.myliberty.easy_records"
         const val CONVERSION_RATIO_CLASS = "$ROOT_PACKAGE.util.business.ConversionRatio"
         const val BIG_DECIMAL_CLASS = "java.math.BigDecimal"
         val ROUNDING_POLICY_CLASSES = setOf("java.math.RoundingMode", "java.math.MathContext")

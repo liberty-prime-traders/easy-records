@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.locations.business.delivery.api
+package app.myliberty.easy_records.locations.business.delivery.api
 
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.delivery.PurchaseDeliveryLineStatus
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.delivery.PurchaseDeliveryStatus
+import app.myliberty.easy_records.locations.business.purchase.api.delivery.PurchaseDeliveryLineStatus
+import app.myliberty.easy_records.locations.business.purchase.api.delivery.PurchaseDeliveryStatus
 import java.math.BigDecimal
 import java.time.OffsetDateTime
 import java.util.UUID

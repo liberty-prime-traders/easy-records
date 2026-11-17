@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.locations.business.purchase.search
+package app.myliberty.easy_records.locations.business.purchase.search
 
 import jakarta.persistence.Tuple
 import java.math.BigDecimal

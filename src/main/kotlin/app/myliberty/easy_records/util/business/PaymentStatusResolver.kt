@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.util.business
+package app.myliberty.easy_records.util.business
 
-import me.ezra_home.retail_software_solution.util.enums.PaymentStatus
+import app.myliberty.easy_records.util.enums.PaymentStatus
 import java.math.BigDecimal
 
 object PaymentStatusResolver {

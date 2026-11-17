@@ -1,13 +1,13 @@
-package me.ezra_home.retail_software_solution.locations.business.product_sales_report
+package app.myliberty.easy_records.locations.business.product_sales_report
 
-import me.ezra_home.retail_software_solution.locations.business.location_product.api.LocationProductSummaryDto
-import me.ezra_home.retail_software_solution.locations.business.product_sales_report.api.ProductSalesLineAdjustmentDto
-import me.ezra_home.retail_software_solution.locations.business.product_sales_report.api.ProductSalesLineDto
-import me.ezra_home.retail_software_solution.locations.business.product_sales_report.api.ProductSalesSummaryDto
-import me.ezra_home.retail_software_solution.organizations.business.adjustment_reason.api.AdjustmentDirection
-import me.ezra_home.retail_software_solution.util.business.Decimals
-import me.ezra_home.retail_software_solution.util.quantity.BaseUnitDisplay
-import me.ezra_home.retail_software_solution.util.quantity.QuantityBreakdown
+import app.myliberty.easy_records.locations.business.location_product.api.LocationProductSummaryDto
+import app.myliberty.easy_records.locations.business.product_sales_report.api.ProductSalesLineAdjustmentDto
+import app.myliberty.easy_records.locations.business.product_sales_report.api.ProductSalesLineDto
+import app.myliberty.easy_records.locations.business.product_sales_report.api.ProductSalesSummaryDto
+import app.myliberty.easy_records.organizations.business.adjustment_reason.api.AdjustmentDirection
+import app.myliberty.easy_records.util.business.Decimals
+import app.myliberty.easy_records.util.quantity.BaseUnitDisplay
+import app.myliberty.easy_records.util.quantity.QuantityBreakdown
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.util.UUID

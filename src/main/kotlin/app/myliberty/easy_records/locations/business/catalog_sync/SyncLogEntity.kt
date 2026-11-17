@@ -1,17 +1,17 @@
-package me.ezra_home.retail_software_solution.locations.business.catalog_sync
+package app.myliberty.easy_records.locations.business.catalog_sync
 
 import jakarta.persistence.Column
 import jakarta.persistence.Convert
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
-import me.ezra_home.retail_software_solution.locations.business.catalog_sync.api.SyncInitiateType
-import me.ezra_home.retail_software_solution.locations.business.catalog_sync.api.SyncMode
-import me.ezra_home.retail_software_solution.locations.business.catalog_sync.api.SyncStatus
-import me.ezra_home.retail_software_solution.util.annotations.HasReference
-import me.ezra_home.retail_software_solution.util.model.HasReferenceEntity
-import me.ezra_home.retail_software_solution.util.model.TableName
-import me.ezra_home.retail_software_solution.util.model.TableNameConverter
-import me.ezra_home.retail_software_solution.util.model.TableNames
+import app.myliberty.easy_records.locations.business.catalog_sync.api.SyncInitiateType
+import app.myliberty.easy_records.locations.business.catalog_sync.api.SyncMode
+import app.myliberty.easy_records.locations.business.catalog_sync.api.SyncStatus
+import app.myliberty.easy_records.util.annotations.HasReference
+import app.myliberty.easy_records.util.model.HasReferenceEntity
+import app.myliberty.easy_records.util.model.TableName
+import app.myliberty.easy_records.util.model.TableNameConverter
+import app.myliberty.easy_records.util.model.TableNames
 import java.time.OffsetDateTime
 
 @Entity

@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.platform.business.organization
+package app.myliberty.easy_records.platform.business.organization
 
-import me.ezra_home.retail_software_solution.util.business.StringUtils
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.business.StringUtils
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Component
 import java.util.Objects
 import java.util.Optional

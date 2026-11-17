@@ -1,9 +1,9 @@
-package me.ezra_home.retail_software_solution.organizations.rest.endpoints
+package app.myliberty.easy_records.organizations.rest.endpoints
 
-import me.ezra_home.retail_software_solution.organizations.business.stock_movement_reason.api.StockMovementReasonInsertDto
-import me.ezra_home.retail_software_solution.organizations.business.stock_movement_reason.api.StockMovementReasonResponseDto
-import me.ezra_home.retail_software_solution.organizations.business.stock_movement_reason.api.StockMovementReasonService
-import me.ezra_home.retail_software_solution.organizations.business.stock_movement_reason.api.StockMovementReasonUpdateDto
+import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.StockMovementReasonInsertDto
+import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.StockMovementReasonResponseDto
+import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.StockMovementReasonService
+import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.StockMovementReasonUpdateDto
 import org.springframework.http.HttpStatus
 import org.springframework.http.HttpStatusCode
 import org.springframework.http.ResponseEntity

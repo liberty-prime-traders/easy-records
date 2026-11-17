@@ -1,9 +1,9 @@
-package me.ezra_home.retail_software_solution.locations.purchase_search
+package app.myliberty.easy_records.locations.purchase_search
 
-import me.ezra_home.retail_software_solution.locations.business.purchase.PurchaseLineEntity
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.search.PurchaseSearchParameters
-import me.ezra_home.retail_software_solution.locations.business.purchase.search.PurchaseSearchQueryBuilder
-import me.ezra_home.retail_software_solution.util.queries.SqlQuery
+import app.myliberty.easy_records.locations.business.purchase.PurchaseLineEntity
+import app.myliberty.easy_records.locations.business.purchase.api.search.PurchaseSearchParameters
+import app.myliberty.easy_records.locations.business.purchase.search.PurchaseSearchQueryBuilder
+import app.myliberty.easy_records.util.queries.SqlQuery
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals

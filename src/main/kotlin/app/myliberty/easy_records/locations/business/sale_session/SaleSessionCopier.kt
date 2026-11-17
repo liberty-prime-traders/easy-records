@@ -1,17 +1,17 @@
-package me.ezra_home.retail_software_solution.locations.business.sale_session
+package app.myliberty.easy_records.locations.business.sale_session
 
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleDataFetcher
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleHeaderDto
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleLineDto
-import me.ezra_home.retail_software_solution.locations.business.sale_adjustment.api.SaleAdjustmentDto
-import me.ezra_home.retail_software_solution.locations.business.sale_adjustment.api.SaleAdjustmentFetcher
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSession
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionAdjustment
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionHeader
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionLine
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SessionIdentity
-import me.ezra_home.retail_software_solution.locations.business.sale_session.consolidation.ConsolidationCopy
-import me.ezra_home.retail_software_solution.util.business.StringUtils
+import app.myliberty.easy_records.locations.business.sale.api.SaleDataFetcher
+import app.myliberty.easy_records.locations.business.sale.api.SaleHeaderDto
+import app.myliberty.easy_records.locations.business.sale.api.SaleLineDto
+import app.myliberty.easy_records.locations.business.sale_adjustment.api.SaleAdjustmentDto
+import app.myliberty.easy_records.locations.business.sale_adjustment.api.SaleAdjustmentFetcher
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSession
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionAdjustment
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionHeader
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionLine
+import app.myliberty.easy_records.locations.business.sale_session.api.SessionIdentity
+import app.myliberty.easy_records.locations.business.sale_session.consolidation.ConsolidationCopy
+import app.myliberty.easy_records.util.business.StringUtils
 import org.springframework.stereotype.Component
 import java.util.UUID
 

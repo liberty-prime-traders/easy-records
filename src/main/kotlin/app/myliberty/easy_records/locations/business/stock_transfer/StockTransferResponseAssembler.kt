@@ -1,14 +1,14 @@
-package me.ezra_home.retail_software_solution.locations.business.stock_transfer
+package app.myliberty.easy_records.locations.business.stock_transfer
 
-import me.ezra_home.retail_software_solution.configuration.session.SessionContextProvider
-import me.ezra_home.retail_software_solution.configuration.session.withLocationSchema
-import me.ezra_home.retail_software_solution.locations.business.stock_transfer.api.StockTransferDispatchResponseDto
-import me.ezra_home.retail_software_solution.locations.business.stock_transfer.api.StockTransferReceiptResponseDto
-import me.ezra_home.retail_software_solution.locations.business.stock_transfer.api.StockTransferResponse
-import me.ezra_home.retail_software_solution.organizations.business.location.api.LocationService
-import me.ezra_home.retail_software_solution.organizations.business.stock_transfer.api.StockTransferOrderDomainDto
-import me.ezra_home.retail_software_solution.organizations.business.stock_transfer.api.StockTransferStatus
-import me.ezra_home.retail_software_solution.organizations.business.stock_transfer.api.toSummaryDto
+import app.myliberty.easy_records.configuration.session.SessionContextProvider
+import app.myliberty.easy_records.configuration.session.withLocationSchema
+import app.myliberty.easy_records.locations.business.stock_transfer.api.StockTransferDispatchResponseDto
+import app.myliberty.easy_records.locations.business.stock_transfer.api.StockTransferReceiptResponseDto
+import app.myliberty.easy_records.locations.business.stock_transfer.api.StockTransferResponse
+import app.myliberty.easy_records.organizations.business.location.api.LocationService
+import app.myliberty.easy_records.organizations.business.stock_transfer.api.StockTransferOrderDomainDto
+import app.myliberty.easy_records.organizations.business.stock_transfer.api.StockTransferStatus
+import app.myliberty.easy_records.organizations.business.stock_transfer.api.toSummaryDto
 import org.springframework.stereotype.Component
 import java.util.UUID
 

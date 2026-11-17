@@ -1,12 +1,12 @@
-package me.ezra_home.retail_software_solution.locations.business.sale_session
+package app.myliberty.easy_records.locations.business.sale_session
 
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleStatus
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSession
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionLine
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.StockHeldBySales
-import me.ezra_home.retail_software_solution.locations.business.stock.api.availability.StockAvailabilityFetcher
-import me.ezra_home.retail_software_solution.locations.business.stock_reservation.api.ProductReservations
-import me.ezra_home.retail_software_solution.locations.business.stock_reservation.api.StockReserver
+import app.myliberty.easy_records.locations.business.sale.api.SaleStatus
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSession
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionLine
+import app.myliberty.easy_records.locations.business.sale_session.api.StockHeldBySales
+import app.myliberty.easy_records.locations.business.stock.api.availability.StockAvailabilityFetcher
+import app.myliberty.easy_records.locations.business.stock_reservation.api.ProductReservations
+import app.myliberty.easy_records.locations.business.stock_reservation.api.StockReserver
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 import java.util.UUID

@@ -1,11 +1,11 @@
-package me.ezra_home.retail_software_solution.configuration.filters
+package app.myliberty.easy_records.configuration.filters
 
 import jakarta.servlet.http.HttpServletRequest
-import me.ezra_home.retail_software_solution.configuration.datasource.DataSourceBeanNames
-import me.ezra_home.retail_software_solution.configuration.security.RtsHeaders.ORGANIZATION_ID_HEADER
-import me.ezra_home.retail_software_solution.configuration.session.SessionContextProvider
-import me.ezra_home.retail_software_solution.platform.business.organization.api.OrganizationService
-import me.ezra_home.retail_software_solution.util.business.StringUtils
+import app.myliberty.easy_records.configuration.datasource.DataSourceBeanNames
+import app.myliberty.easy_records.configuration.security.RtsHeaders.ORGANIZATION_ID_HEADER
+import app.myliberty.easy_records.configuration.session.SessionContextProvider
+import app.myliberty.easy_records.platform.business.organization.api.OrganizationService
+import app.myliberty.easy_records.util.business.StringUtils
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.orm.jpa.JpaTransactionManager
 import org.springframework.stereotype.Component

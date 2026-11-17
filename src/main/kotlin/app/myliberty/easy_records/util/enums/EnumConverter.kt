@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.util.enums
+package app.myliberty.easy_records.util.enums
 
 import jakarta.persistence.AttributeConverter
 import jakarta.persistence.Converter
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import java.util.EnumSet
 
 @Converter

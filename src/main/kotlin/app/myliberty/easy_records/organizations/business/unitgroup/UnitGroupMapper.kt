@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.organizations.business.unitgroup
+package app.myliberty.easy_records.organizations.business.unitgroup
 
-import me.ezra_home.retail_software_solution.organizations.business.unitgroup.api.UnitGroupDto
-import me.ezra_home.retail_software_solution.organizations.business.unitgroup.api.UnitGroupInsertDto
-import me.ezra_home.retail_software_solution.organizations.business.unitgroup.api.UnitGroupResponseDto
-import me.ezra_home.retail_software_solution.platform.business.sysuser.api.CreatorFullName
-import me.ezra_home.retail_software_solution.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.organizations.business.unitgroup.api.UnitGroupDto
+import app.myliberty.easy_records.organizations.business.unitgroup.api.UnitGroupInsertDto
+import app.myliberty.easy_records.organizations.business.unitgroup.api.UnitGroupResponseDto
+import app.myliberty.easy_records.platform.business.sysuser.api.CreatorFullName
+import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 

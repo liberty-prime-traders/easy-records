@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.configuration.cache
+package app.myliberty.easy_records.configuration.cache
 
-import me.ezra_home.retail_software_solution.util.enums.SchemaLevel
+import app.myliberty.easy_records.util.enums.SchemaLevel
 
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.RUNTIME)

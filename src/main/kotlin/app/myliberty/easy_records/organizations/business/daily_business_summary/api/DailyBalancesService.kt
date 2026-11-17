@@ -1,14 +1,14 @@
-package me.ezra_home.retail_software_solution.organizations.business.daily_business_summary.api
+package app.myliberty.easy_records.organizations.business.daily_business_summary.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnOrganizationSchema
-import me.ezra_home.retail_software_solution.organizations.business.account.api.AccountCategory
-import me.ezra_home.retail_software_solution.organizations.business.account.api.AccountService
-import me.ezra_home.retail_software_solution.organizations.business.account.api.AccountTreeNode
-import me.ezra_home.retail_software_solution.organizations.business.daily_business_summary.BalanceSectionBuilder
-import me.ezra_home.retail_software_solution.organizations.business.daily_business_summary.SummaryRange
-import me.ezra_home.retail_software_solution.organizations.business.ledger.api.LedgerAccountMovement
-import me.ezra_home.retail_software_solution.organizations.business.ledger.api.LedgerMovementReader
-import me.ezra_home.retail_software_solution.util.business.DateTimes
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.organizations.business.account.api.AccountCategory
+import app.myliberty.easy_records.organizations.business.account.api.AccountService
+import app.myliberty.easy_records.organizations.business.account.api.AccountTreeNode
+import app.myliberty.easy_records.organizations.business.daily_business_summary.BalanceSectionBuilder
+import app.myliberty.easy_records.organizations.business.daily_business_summary.SummaryRange
+import app.myliberty.easy_records.organizations.business.ledger.api.LedgerAccountMovement
+import app.myliberty.easy_records.organizations.business.ledger.api.LedgerMovementReader
+import app.myliberty.easy_records.util.business.DateTimes
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Isolation
 import org.springframework.transaction.annotation.Propagation

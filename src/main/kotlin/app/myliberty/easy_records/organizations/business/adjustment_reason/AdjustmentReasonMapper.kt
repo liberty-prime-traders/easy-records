@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.organizations.business.adjustment_reason
+package app.myliberty.easy_records.organizations.business.adjustment_reason
 
-import me.ezra_home.retail_software_solution.organizations.business.adjustment_reason.api.AdjustmentReasonInsertDto
-import me.ezra_home.retail_software_solution.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.organizations.business.adjustment_reason.api.AdjustmentReasonInsertDto
+import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 

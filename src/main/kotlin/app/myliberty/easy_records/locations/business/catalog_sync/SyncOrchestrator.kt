@@ -1,11 +1,11 @@
-package me.ezra_home.retail_software_solution.locations.business.catalog_sync
+package app.myliberty.easy_records.locations.business.catalog_sync
 
-import me.ezra_home.retail_software_solution.locations.business.catalog_sync.api.SyncLogFetcher
-import me.ezra_home.retail_software_solution.locations.business.catalog_sync.api.SyncLogUpdater
-import me.ezra_home.retail_software_solution.locations.business.catalog_sync.api.SyncMode
-import me.ezra_home.retail_software_solution.locations.business.catalog_sync.api.SyncServiceRegistry
-import me.ezra_home.retail_software_solution.locations.business.catalog_sync.api.SyncStatus
-import me.ezra_home.retail_software_solution.locations.business.catalog_sync.strategy.SyncStrategyRegistry
+import app.myliberty.easy_records.locations.business.catalog_sync.api.SyncLogFetcher
+import app.myliberty.easy_records.locations.business.catalog_sync.api.SyncLogUpdater
+import app.myliberty.easy_records.locations.business.catalog_sync.api.SyncMode
+import app.myliberty.easy_records.locations.business.catalog_sync.api.SyncServiceRegistry
+import app.myliberty.easy_records.locations.business.catalog_sync.api.SyncStatus
+import app.myliberty.easy_records.locations.business.catalog_sync.strategy.SyncStrategyRegistry
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 

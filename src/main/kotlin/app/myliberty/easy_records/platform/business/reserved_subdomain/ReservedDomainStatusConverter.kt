@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.platform.business.reserved_subdomain
+package app.myliberty.easy_records.platform.business.reserved_subdomain
 
 import jakarta.persistence.Converter
-import me.ezra_home.retail_software_solution.platform.business.reserved_subdomain.api.ReservedDomainStatus
-import me.ezra_home.retail_software_solution.util.enums.EnumConverter
+import app.myliberty.easy_records.platform.business.reserved_subdomain.api.ReservedDomainStatus
+import app.myliberty.easy_records.util.enums.EnumConverter
 
 @Converter(autoApply = true)
 class ReservedDomainStatusConverter : EnumConverter<ReservedDomainStatus>(ReservedDomainStatus::class.java)

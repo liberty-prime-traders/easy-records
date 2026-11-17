@@ -1,11 +1,11 @@
-package me.ezra_home.retail_software_solution.organizations.business.tag
+package app.myliberty.easy_records.organizations.business.tag
 
-import me.ezra_home.retail_software_solution.configuration.cache.CacheNames
-import me.ezra_home.retail_software_solution.configuration.cache.CacheSchemaLevel
-import me.ezra_home.retail_software_solution.organizations.business.tag.api.TagDto
-import me.ezra_home.retail_software_solution.organizations.business.tag.api.TagInsertDto
-import me.ezra_home.retail_software_solution.organizations.business.tag.mapping.TagMapper
-import me.ezra_home.retail_software_solution.util.enums.SchemaLevel
+import app.myliberty.easy_records.configuration.cache.CacheNames
+import app.myliberty.easy_records.configuration.cache.CacheSchemaLevel
+import app.myliberty.easy_records.organizations.business.tag.api.TagDto
+import app.myliberty.easy_records.organizations.business.tag.api.TagInsertDto
+import app.myliberty.easy_records.organizations.business.tag.mapping.TagMapper
+import app.myliberty.easy_records.util.enums.SchemaLevel
 import org.springframework.cache.annotation.CacheConfig
 import org.springframework.cache.annotation.CacheEvict
 import org.springframework.cache.annotation.Cacheable

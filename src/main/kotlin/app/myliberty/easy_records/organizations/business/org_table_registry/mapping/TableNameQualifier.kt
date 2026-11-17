@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.organizations.business.org_table_registry.mapping
+package app.myliberty.easy_records.organizations.business.org_table_registry.mapping
 
 import org.mapstruct.Qualifier
 

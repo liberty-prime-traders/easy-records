@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.platform.business.jurisdiction.api
+package app.myliberty.easy_records.platform.business.jurisdiction.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnPlatformSchema
-import me.ezra_home.retail_software_solution.platform.business.jurisdiction.JurisdictionCache
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnPlatformSchema
+import app.myliberty.easy_records.platform.business.jurisdiction.JurisdictionCache
 import org.springframework.stereotype.Service
 
 @Service

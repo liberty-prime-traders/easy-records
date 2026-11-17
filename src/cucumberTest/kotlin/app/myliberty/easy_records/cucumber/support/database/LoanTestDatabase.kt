@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.cucumber.support.database
+package app.myliberty.easy_records.cucumber.support.database
 
-import me.ezra_home.retail_software_solution.configuration.datasource.DataSourceBeanNames
-import me.ezra_home.retail_software_solution.support.TestConstants
+import app.myliberty.easy_records.configuration.datasource.DataSourceBeanNames
+import app.myliberty.easy_records.support.TestConstants
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.stereotype.Component

@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.organizations.business.fiscal_period.strategy
+package app.myliberty.easy_records.organizations.business.fiscal_period.strategy
 
-import me.ezra_home.retail_software_solution.organizations.business.accounting_config.api.OrgAccountingConfigDto
-import me.ezra_home.retail_software_solution.organizations.business.fiscal_period.FiscalPeriodUtils
+import app.myliberty.easy_records.organizations.business.accounting_config.api.OrgAccountingConfigDto
+import app.myliberty.easy_records.organizations.business.fiscal_period.FiscalPeriodUtils
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 

@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.organizations.business.contact.api
+package app.myliberty.easy_records.organizations.business.contact.api
 
-import me.ezra_home.retail_software_solution.util.business.StringUtils
+import app.myliberty.easy_records.util.business.StringUtils
 import java.io.Serializable
 
 sealed interface ContactIdentity : Serializable {

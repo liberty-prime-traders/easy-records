@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.organizations.business.contact.api
+package app.myliberty.easy_records.organizations.business.contact.api
 
-import me.ezra_home.retail_software_solution.util.business.MoneyDisplay
-import me.ezra_home.retail_software_solution.util.ui_models.BalanceEffect
+import app.myliberty.easy_records.util.business.MoneyDisplay
+import app.myliberty.easy_records.util.ui_models.BalanceEffect
 import java.io.Serializable
 import java.time.OffsetDateTime
 import java.util.UUID

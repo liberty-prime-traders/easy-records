@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.messaging.kafka.catalog
+package app.myliberty.easy_records.messaging.kafka.catalog
 
-import me.ezra_home.retail_software_solution.messaging.kafka.common.BaseEvent
-import me.ezra_home.retail_software_solution.messaging.kafka.common.EventSourceContext
-import me.ezra_home.retail_software_solution.util.model.TableName
+import app.myliberty.easy_records.messaging.kafka.common.BaseEvent
+import app.myliberty.easy_records.messaging.kafka.common.EventSourceContext
+import app.myliberty.easy_records.util.model.TableName
 import java.util.UUID
 
 data class CatalogChangedEvent(

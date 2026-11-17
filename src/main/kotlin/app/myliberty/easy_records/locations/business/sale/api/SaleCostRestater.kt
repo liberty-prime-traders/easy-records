@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.locations.business.sale.api
+package app.myliberty.easy_records.locations.business.sale.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
-import me.ezra_home.retail_software_solution.locations.business.sale.SaleLineCogsEntity
-import me.ezra_home.retail_software_solution.locations.business.sale.SaleLineCogsRepository
-import me.ezra_home.retail_software_solution.locations.business.sale.SaleLineRepository
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.locations.business.sale.SaleLineCogsEntity
+import app.myliberty.easy_records.locations.business.sale.SaleLineCogsRepository
+import app.myliberty.easy_records.locations.business.sale.SaleLineRepository
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Propagation
 

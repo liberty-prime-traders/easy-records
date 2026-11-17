@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.organizations.business.unit_bulk_import
+package app.myliberty.easy_records.organizations.business.unit_bulk_import
 
-import me.ezra_home.retail_software_solution.util.business.StringUtils
+import app.myliberty.easy_records.util.business.StringUtils
 
 // The keys StringUtils.isEquivalent and isEquivalentOnAlphanumerics compare, so a set lookup matches what a scan would.
 internal object BulkUnitNameKeys {

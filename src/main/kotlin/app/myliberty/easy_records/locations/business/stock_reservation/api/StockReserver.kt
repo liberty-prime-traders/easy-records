@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.locations.business.stock_reservation.api
+package app.myliberty.easy_records.locations.business.stock_reservation.api
 
-import me.ezra_home.retail_software_solution.locations.business.stock_reservation.StockReservationEntity
-import me.ezra_home.retail_software_solution.locations.business.stock_reservation.StockReservationRepository
+import app.myliberty.easy_records.locations.business.stock_reservation.StockReservationEntity
+import app.myliberty.easy_records.locations.business.stock_reservation.StockReservationRepository
 import org.springframework.stereotype.Component
 import java.util.UUID
 

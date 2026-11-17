@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.organizations.business.fiscal_period.strategy
+package app.myliberty.easy_records.organizations.business.fiscal_period.strategy
 
-import me.ezra_home.retail_software_solution.organizations.business.accounting_config.api.FiscalPeriodCycle
+import app.myliberty.easy_records.organizations.business.accounting_config.api.FiscalPeriodCycle
 import org.springframework.stereotype.Component
 
 @Component

@@ -1,9 +1,9 @@
-package me.ezra_home.retail_software_solution.platform.business.jurisdiction
+package app.myliberty.easy_records.platform.business.jurisdiction
 
-import me.ezra_home.retail_software_solution.platform.business.jurisdiction.api.JurisdictionDto
-import me.ezra_home.retail_software_solution.platform.business.jurisdiction_type.api.JurisdictionTypeService
-import me.ezra_home.retail_software_solution.util.business.StringUtils
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.platform.business.jurisdiction.api.JurisdictionDto
+import app.myliberty.easy_records.platform.business.jurisdiction_type.api.JurisdictionTypeService
+import app.myliberty.easy_records.util.business.StringUtils
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Component
 import java.util.UUID
 

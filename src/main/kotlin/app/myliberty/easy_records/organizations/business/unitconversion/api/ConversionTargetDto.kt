@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.organizations.business.unitconversion.api
+package app.myliberty.easy_records.organizations.business.unitconversion.api
 
-import me.ezra_home.retail_software_solution.organizations.business.unitvalue.api.UnitPlacement
-import me.ezra_home.retail_software_solution.util.business.ConversionRatio
-import me.ezra_home.retail_software_solution.util.business.Decimals
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
-import me.ezra_home.retail_software_solution.util.quantity.BreakdownUnit
+import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitPlacement
+import app.myliberty.easy_records.util.business.ConversionRatio
+import app.myliberty.easy_records.util.business.Decimals
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.quantity.BreakdownUnit
 import java.math.BigDecimal
 import java.util.UUID
 

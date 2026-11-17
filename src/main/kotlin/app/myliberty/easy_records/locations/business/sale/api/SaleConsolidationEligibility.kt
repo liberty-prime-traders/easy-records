@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.locations.business.sale.api
+package app.myliberty.easy_records.locations.business.sale.api
 
-import me.ezra_home.retail_software_solution.util.enums.SystemContact
+import app.myliberty.easy_records.util.enums.SystemContact
 import java.util.UUID
 
 object SaleConsolidationEligibility {

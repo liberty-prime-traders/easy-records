@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.organizations.business.fund_movement
+package app.myliberty.easy_records.organizations.business.fund_movement
 
-import me.ezra_home.retail_software_solution.organizations.business.fund_movement.api.FundMovementAccountResponse
-import me.ezra_home.retail_software_solution.organizations.business.fund_movement.api.FundMovementResponse
-import me.ezra_home.retail_software_solution.organizations.business.fund_movement.api.FundMovementVoidResponse
-import me.ezra_home.retail_software_solution.organizations.business.account.api.AccountDataFetcher
-import me.ezra_home.retail_software_solution.util.business.mappers.UserQualifier
+import app.myliberty.easy_records.organizations.business.fund_movement.api.FundMovementAccountResponse
+import app.myliberty.easy_records.organizations.business.fund_movement.api.FundMovementResponse
+import app.myliberty.easy_records.organizations.business.fund_movement.api.FundMovementVoidResponse
+import app.myliberty.easy_records.organizations.business.account.api.AccountDataFetcher
+import app.myliberty.easy_records.util.business.mappers.UserQualifier
 import org.springframework.stereotype.Component
 
 @Component

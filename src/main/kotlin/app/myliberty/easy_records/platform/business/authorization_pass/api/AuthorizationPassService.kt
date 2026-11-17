@@ -1,14 +1,14 @@
-package me.ezra_home.retail_software_solution.platform.business.authorization_pass.api
+package app.myliberty.easy_records.platform.business.authorization_pass.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnPlatformSchema
-import me.ezra_home.retail_software_solution.configuration.session.ServiceAccountContext
-import me.ezra_home.retail_software_solution.configuration.session.SessionContextProvider
-import me.ezra_home.retail_software_solution.platform.business.authorization_pass.AuthorizationPassEntity
-import me.ezra_home.retail_software_solution.platform.business.authorization_pass.AuthorizationPassMapper
-import me.ezra_home.retail_software_solution.platform.business.authorization_pass.AuthorizationPassRepository
-import me.ezra_home.retail_software_solution.util.enums.ServiceAccount
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
-import me.ezra_home.retail_software_solution.util.exceptions.UpdatingNonExistingRecordException
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnPlatformSchema
+import app.myliberty.easy_records.configuration.session.ServiceAccountContext
+import app.myliberty.easy_records.configuration.session.SessionContextProvider
+import app.myliberty.easy_records.platform.business.authorization_pass.AuthorizationPassEntity
+import app.myliberty.easy_records.platform.business.authorization_pass.AuthorizationPassMapper
+import app.myliberty.easy_records.platform.business.authorization_pass.AuthorizationPassRepository
+import app.myliberty.easy_records.util.enums.ServiceAccount
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException
 import org.springframework.stereotype.Service
 import java.time.OffsetDateTime
 import java.util.UUID

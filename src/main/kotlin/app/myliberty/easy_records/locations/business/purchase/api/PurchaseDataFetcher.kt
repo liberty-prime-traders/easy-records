@@ -1,14 +1,14 @@
-package me.ezra_home.retail_software_solution.locations.business.purchase.api
+package app.myliberty.easy_records.locations.business.purchase.api
 
-import me.ezra_home.retail_software_solution.util.enums.PaymentStatus
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
-import me.ezra_home.retail_software_solution.locations.business.lock.api.EntityAdvisoryLock
-import me.ezra_home.retail_software_solution.locations.business.purchase.PurchaseAssembler
-import me.ezra_home.retail_software_solution.locations.business.purchase.PurchaseEntity
-import me.ezra_home.retail_software_solution.locations.business.purchase.PurchaseLineRepository
-import me.ezra_home.retail_software_solution.locations.business.purchase.PurchaseRepository
-import me.ezra_home.retail_software_solution.util.business.lock.LockNamespaces
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.enums.PaymentStatus
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.locations.business.lock.api.EntityAdvisoryLock
+import app.myliberty.easy_records.locations.business.purchase.PurchaseAssembler
+import app.myliberty.easy_records.locations.business.purchase.PurchaseEntity
+import app.myliberty.easy_records.locations.business.purchase.PurchaseLineRepository
+import app.myliberty.easy_records.locations.business.purchase.PurchaseRepository
+import app.myliberty.easy_records.util.business.lock.LockNamespaces
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service

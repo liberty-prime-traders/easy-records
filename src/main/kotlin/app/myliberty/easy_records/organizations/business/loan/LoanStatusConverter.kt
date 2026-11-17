@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.organizations.business.loan
+package app.myliberty.easy_records.organizations.business.loan
 
 import jakarta.persistence.Converter
-import me.ezra_home.retail_software_solution.organizations.business.loan.api.LoanStatus
-import me.ezra_home.retail_software_solution.util.enums.EnumConverter
+import app.myliberty.easy_records.organizations.business.loan.api.LoanStatus
+import app.myliberty.easy_records.util.enums.EnumConverter
 
 @Converter(autoApply = true)
 class LoanStatusConverter : EnumConverter<LoanStatus>(LoanStatus::class.java)

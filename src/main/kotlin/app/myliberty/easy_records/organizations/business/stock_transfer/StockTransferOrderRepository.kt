@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.organizations.business.stock_transfer
+package app.myliberty.easy_records.organizations.business.stock_transfer
 
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository

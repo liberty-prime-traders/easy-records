@@ -1,15 +1,15 @@
-package me.ezra_home.retail_software_solution.platform.rest.endpoints
+package app.myliberty.easy_records.platform.rest.endpoints
 
-import me.ezra_home.retail_software_solution.cross_tier.authority.Authority
-import me.ezra_home.retail_software_solution.cross_tier.authority.AuthorityHolderResponse
-import me.ezra_home.retail_software_solution.cross_tier.authority.AuthorityType
-import me.ezra_home.retail_software_solution.cross_tier.authority.AuthorizationCatalogService
-import me.ezra_home.retail_software_solution.cross_tier.authority.PermissionResponse
-import me.ezra_home.retail_software_solution.platform.business.authority.api.PlatformAuthorityHolderService
-import me.ezra_home.retail_software_solution.util.enums.RtsPermissionNames
-import me.ezra_home.retail_software_solution.util.enums.RtsRole
-import me.ezra_home.retail_software_solution.util.enums.RtsRoleNames
-import me.ezra_home.retail_software_solution.util.enums.SchemaLevel
+import app.myliberty.easy_records.cross_tier.authority.Authority
+import app.myliberty.easy_records.cross_tier.authority.AuthorityHolderResponse
+import app.myliberty.easy_records.cross_tier.authority.AuthorityType
+import app.myliberty.easy_records.cross_tier.authority.AuthorizationCatalogService
+import app.myliberty.easy_records.cross_tier.authority.PermissionResponse
+import app.myliberty.easy_records.platform.business.authority.api.PlatformAuthorityHolderService
+import app.myliberty.easy_records.util.enums.RtsPermissionNames
+import app.myliberty.easy_records.util.enums.RtsRole
+import app.myliberty.easy_records.util.enums.RtsRoleNames
+import app.myliberty.easy_records.util.enums.SchemaLevel
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping

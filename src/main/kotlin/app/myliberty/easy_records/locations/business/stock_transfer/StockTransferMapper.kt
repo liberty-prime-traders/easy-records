@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.locations.business.stock_transfer
+package app.myliberty.easy_records.locations.business.stock_transfer
 
-import me.ezra_home.retail_software_solution.locations.business.stock.api.updater.StockTransferReceiptLineStockRequest
+import app.myliberty.easy_records.locations.business.stock.api.updater.StockTransferReceiptLineStockRequest
 
 
 fun StockTransferDispatchEntity.toDomainDto() = StockTransferDispatchDomainDto(

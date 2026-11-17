@@ -1,11 +1,11 @@
-package me.ezra_home.retail_software_solution.configuration.filters
+package app.myliberty.easy_records.configuration.filters
 
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
-import me.ezra_home.retail_software_solution.configuration.session.SessionContextProvider
-import me.ezra_home.retail_software_solution.platform.business.sysuser.api.SysUserService
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.configuration.session.SessionContextProvider
+import app.myliberty.easy_records.platform.business.sysuser.api.SysUserService
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.hibernate.annotations.Filter
 import org.springframework.core.Ordered
 import org.springframework.core.annotation.Order

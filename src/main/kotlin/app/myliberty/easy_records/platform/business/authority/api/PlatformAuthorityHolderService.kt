@@ -1,11 +1,11 @@
-package me.ezra_home.retail_software_solution.platform.business.authority.api
+package app.myliberty.easy_records.platform.business.authority.api
 
-import me.ezra_home.retail_software_solution.cross_tier.authority.AuthorityHolderResponse
-import me.ezra_home.retail_software_solution.cross_tier.authority.AuthorityType
-import me.ezra_home.retail_software_solution.platform.business.authority.PlatformAuthorityLookup
-import me.ezra_home.retail_software_solution.platform.business.permission_assignment.api.PlatformPermissionAssignmentService
-import me.ezra_home.retail_software_solution.platform.business.role_assignment.api.PlatformRoleAssignmentService
-import me.ezra_home.retail_software_solution.util.business.mappers.UserQualifier
+import app.myliberty.easy_records.cross_tier.authority.AuthorityHolderResponse
+import app.myliberty.easy_records.cross_tier.authority.AuthorityType
+import app.myliberty.easy_records.platform.business.authority.PlatformAuthorityLookup
+import app.myliberty.easy_records.platform.business.permission_assignment.api.PlatformPermissionAssignmentService
+import app.myliberty.easy_records.platform.business.role_assignment.api.PlatformRoleAssignmentService
+import app.myliberty.easy_records.util.business.mappers.UserQualifier
 import org.springframework.stereotype.Service
 
 @Service

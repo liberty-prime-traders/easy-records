@@ -1,17 +1,17 @@
-package me.ezra_home.retail_software_solution.organizations.business.manual_journal.api
+package app.myliberty.easy_records.organizations.business.manual_journal.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnOrganizationSchema
-import me.ezra_home.retail_software_solution.organizations.business.account.api.AccountDataFetcher
-import me.ezra_home.retail_software_solution.organizations.business.account.api.AccountStructureLock
-import me.ezra_home.retail_software_solution.organizations.business.fiscal_period.api.FiscalPeriodService
-import me.ezra_home.retail_software_solution.organizations.business.lock.api.OrgEntityAdvisoryLock
-import me.ezra_home.retail_software_solution.organizations.business.manual_journal.ManualJournalRecorder
-import me.ezra_home.retail_software_solution.organizations.business.manual_journal.ManualJournalRepository
-import me.ezra_home.retail_software_solution.organizations.business.manual_journal.ManualJournalValidator
-import me.ezra_home.retail_software_solution.util.business.DateTimes
-import me.ezra_home.retail_software_solution.util.business.StringUtils
-import me.ezra_home.retail_software_solution.util.business.lock.LockNamespaces
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.organizations.business.account.api.AccountDataFetcher
+import app.myliberty.easy_records.organizations.business.account.api.AccountStructureLock
+import app.myliberty.easy_records.organizations.business.fiscal_period.api.FiscalPeriodService
+import app.myliberty.easy_records.organizations.business.lock.api.OrgEntityAdvisoryLock
+import app.myliberty.easy_records.organizations.business.manual_journal.ManualJournalRecorder
+import app.myliberty.easy_records.organizations.business.manual_journal.ManualJournalRepository
+import app.myliberty.easy_records.organizations.business.manual_journal.ManualJournalValidator
+import app.myliberty.easy_records.util.business.DateTimes
+import app.myliberty.easy_records.util.business.StringUtils
+import app.myliberty.easy_records.util.business.lock.LockNamespaces
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Service
 
 @Service

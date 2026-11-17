@@ -1,13 +1,13 @@
-package me.ezra_home.retail_software_solution.locations.business.reports.payments
+package app.myliberty.easy_records.locations.business.reports.payments
 
-import me.ezra_home.retail_software_solution.locations.business.reports.payments.api.PaymentSearchParameters
-import me.ezra_home.retail_software_solution.locations.business.reports.payments.api.PaymentSearchService
-import me.ezra_home.retail_software_solution.locations.business.reports.payments.api.PaymentType
-import me.ezra_home.retail_software_solution.organizations.business.payment_method.api.PaymentMethodDataFetcher
-import me.ezra_home.retail_software_solution.util.business.mappers.NameResolution
-import me.ezra_home.retail_software_solution.util.paging.PageRequest
-import me.ezra_home.retail_software_solution.util.queries.KeysetSearchCursor
-import me.ezra_home.retail_software_solution.util.ui_models.BalanceEffect
+import app.myliberty.easy_records.locations.business.reports.payments.api.PaymentSearchParameters
+import app.myliberty.easy_records.locations.business.reports.payments.api.PaymentSearchService
+import app.myliberty.easy_records.locations.business.reports.payments.api.PaymentType
+import app.myliberty.easy_records.organizations.business.payment_method.api.PaymentMethodDataFetcher
+import app.myliberty.easy_records.util.business.mappers.NameResolution
+import app.myliberty.easy_records.util.paging.PageRequest
+import app.myliberty.easy_records.util.queries.KeysetSearchCursor
+import app.myliberty.easy_records.util.ui_models.BalanceEffect
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertNotNull

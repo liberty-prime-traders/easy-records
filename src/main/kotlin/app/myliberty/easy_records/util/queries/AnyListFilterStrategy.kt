@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.util.queries
+package app.myliberty.easy_records.util.queries
 
 // `values` must already be a concretely-typed array (Array<UUID>, Array<String>, ...), never Array<Any> -
 // Hibernate infers the Postgres array element type from the array's runtime component type, and an erased

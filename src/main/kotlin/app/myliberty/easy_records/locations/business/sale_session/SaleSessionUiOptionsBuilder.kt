@@ -1,12 +1,12 @@
-package me.ezra_home.retail_software_solution.locations.business.sale_session
+package app.myliberty.easy_records.locations.business.sale_session
 
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleStatus
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleDiscardAction
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSession
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionAction
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionKind
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionRules
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionUiOptions
+import app.myliberty.easy_records.locations.business.sale.api.SaleStatus
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleDiscardAction
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSession
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionAction
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionKind
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionRules
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionUiOptions
 import java.util.UUID
 
 object SaleSessionUiOptionsBuilder {

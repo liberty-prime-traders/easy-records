@@ -1,16 +1,16 @@
-package me.ezra_home.retail_software_solution.locations.business.stock_revision
+package app.myliberty.easy_records.locations.business.stock_revision
 
 import java.math.BigDecimal
-import me.ezra_home.retail_software_solution.locations.business.stock.api.revision.ConsumerReplayPlan
-import me.ezra_home.retail_software_solution.locations.business.stock.api.fifo.FifoConsumptionRequest
-import me.ezra_home.retail_software_solution.locations.business.stock.api.fifo.FifoTakePlanner
-import me.ezra_home.retail_software_solution.locations.business.stock.api.fifo.PlannedTake
-import me.ezra_home.retail_software_solution.locations.business.stock.api.fifo.StockEntryFifoDto
-import me.ezra_home.retail_software_solution.locations.business.stock.api.StockMovementContexts
-import me.ezra_home.retail_software_solution.organizations.business.stock_movement_reason.api.MovementType
-import me.ezra_home.retail_software_solution.util.business.Decimals
-import me.ezra_home.retail_software_solution.util.exceptions.BlockingProblem
-import me.ezra_home.retail_software_solution.util.quantity.ExactQuantity
+import app.myliberty.easy_records.locations.business.stock.api.revision.ConsumerReplayPlan
+import app.myliberty.easy_records.locations.business.stock.api.fifo.FifoConsumptionRequest
+import app.myliberty.easy_records.locations.business.stock.api.fifo.FifoTakePlanner
+import app.myliberty.easy_records.locations.business.stock.api.fifo.PlannedTake
+import app.myliberty.easy_records.locations.business.stock.api.fifo.StockEntryFifoDto
+import app.myliberty.easy_records.locations.business.stock.api.StockMovementContexts
+import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.MovementType
+import app.myliberty.easy_records.util.business.Decimals
+import app.myliberty.easy_records.util.exceptions.BlockingProblem
+import app.myliberty.easy_records.util.quantity.ExactQuantity
 
 // A later consumer is planned against what the earlier ones left, so the order below matters.
 object ConsumerReplayer {

@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.organizations.rest.endpoints
+package app.myliberty.easy_records.organizations.rest.endpoints
 
-import me.ezra_home.retail_software_solution.organizations.business.payment_method.api.PaymentMethodDataFetcher
-import me.ezra_home.retail_software_solution.organizations.business.payment_method.api.PaymentMethodInsertDto
-import me.ezra_home.retail_software_solution.organizations.business.payment_method.api.PaymentMethodResponseDto
-import me.ezra_home.retail_software_solution.organizations.business.payment_method.api.PaymentMethodService
-import me.ezra_home.retail_software_solution.organizations.business.payment_method.api.PaymentMethodUpdateDto
+import app.myliberty.easy_records.organizations.business.payment_method.api.PaymentMethodDataFetcher
+import app.myliberty.easy_records.organizations.business.payment_method.api.PaymentMethodInsertDto
+import app.myliberty.easy_records.organizations.business.payment_method.api.PaymentMethodResponseDto
+import app.myliberty.easy_records.organizations.business.payment_method.api.PaymentMethodService
+import app.myliberty.easy_records.organizations.business.payment_method.api.PaymentMethodUpdateDto
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.CrossOrigin

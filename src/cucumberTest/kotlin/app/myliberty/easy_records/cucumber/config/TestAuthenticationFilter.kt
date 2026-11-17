@@ -1,12 +1,12 @@
-package me.ezra_home.retail_software_solution.cucumber.config
+package app.myliberty.easy_records.cucumber.config
 
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
-import me.ezra_home.retail_software_solution.cucumber.support.TestUserRegistry
-import me.ezra_home.retail_software_solution.support.TestConstants
-import me.ezra_home.retail_software_solution.util.enums.RtsPermissionNames
-import me.ezra_home.retail_software_solution.util.enums.RtsRoleNames
+import app.myliberty.easy_records.cucumber.support.TestUserRegistry
+import app.myliberty.easy_records.support.TestConstants
+import app.myliberty.easy_records.util.enums.RtsPermissionNames
+import app.myliberty.easy_records.util.enums.RtsRoleNames
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.oauth2.jwt.Jwt

@@ -1,13 +1,13 @@
-package me.ezra_home.retail_software_solution.locations.business
+package app.myliberty.easy_records.locations.business
 
-import me.ezra_home.retail_software_solution.support.WithDefaultOrganizationSession
+import app.myliberty.easy_records.support.WithDefaultOrganizationSession
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import me.ezra_home.retail_software_solution.locations.business.delivery.api.PurchaseDeliveryLineCreateDto
-import me.ezra_home.retail_software_solution.locations.business.opening_stock.api.OpeningStockLineDto
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.PurchaseLineCreateDto
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.PurchaseLineUpdateDto
-import me.ezra_home.retail_software_solution.locations.business.stock_adjustment.api.StockAdjustmentCreateDto
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.locations.business.delivery.api.PurchaseDeliveryLineCreateDto
+import app.myliberty.easy_records.locations.business.opening_stock.api.OpeningStockLineDto
+import app.myliberty.easy_records.locations.business.purchase.api.PurchaseLineCreateDto
+import app.myliberty.easy_records.locations.business.purchase.api.PurchaseLineUpdateDto
+import app.myliberty.easy_records.locations.business.stock_adjustment.api.StockAdjustmentCreateDto
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test

@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.organizations.business.product_category
+package app.myliberty.easy_records.organizations.business.product_category
 
-import me.ezra_home.retail_software_solution.organizations.business.product_category.api.ProductCategoryDto
-import me.ezra_home.retail_software_solution.organizations.business.product_category.api.ProductCategoryInsertDto
-import me.ezra_home.retail_software_solution.organizations.business.product_category.api.ProductCategoryResponseDto
-import me.ezra_home.retail_software_solution.platform.business.sysuser.api.CreatorFullName
-import me.ezra_home.retail_software_solution.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.organizations.business.product_category.api.ProductCategoryDto
+import app.myliberty.easy_records.organizations.business.product_category.api.ProductCategoryInsertDto
+import app.myliberty.easy_records.organizations.business.product_category.api.ProductCategoryResponseDto
+import app.myliberty.easy_records.platform.business.sysuser.api.CreatorFullName
+import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 

@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.platform.business.feature.api
+package app.myliberty.easy_records.platform.business.feature.api
 
-import me.ezra_home.retail_software_solution.util.business.StringUtils
+import app.myliberty.easy_records.util.business.StringUtils
 import java.util.Optional
 
 

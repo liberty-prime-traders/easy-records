@@ -1,16 +1,16 @@
-package me.ezra_home.retail_software_solution.locations.business.purchase.api
+package app.myliberty.easy_records.locations.business.purchase.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
-import me.ezra_home.retail_software_solution.locations.business.location_product.api.LocationProductDataFetcher
-import me.ezra_home.retail_software_solution.locations.business.location_product.api.LocationProductService
-import me.ezra_home.retail_software_solution.locations.business.location_product.api.LocationProductUnitRequestDto
-import me.ezra_home.retail_software_solution.locations.business.purchase.LineUpdateResult
-import me.ezra_home.retail_software_solution.locations.business.purchase.PurchaseAssembler
-import me.ezra_home.retail_software_solution.locations.business.purchase.PurchaseLineRepository
-import me.ezra_home.retail_software_solution.locations.business.purchase.PurchaseLinesResolver
-import me.ezra_home.retail_software_solution.locations.business.purchase.PurchaseMapper
-import me.ezra_home.retail_software_solution.locations.business.purchase.PurchaseRepository
-import me.ezra_home.retail_software_solution.locations.business.purchase.PurchaseValidator
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.locations.business.location_product.api.LocationProductDataFetcher
+import app.myliberty.easy_records.locations.business.location_product.api.LocationProductService
+import app.myliberty.easy_records.locations.business.location_product.api.LocationProductUnitRequestDto
+import app.myliberty.easy_records.locations.business.purchase.LineUpdateResult
+import app.myliberty.easy_records.locations.business.purchase.PurchaseAssembler
+import app.myliberty.easy_records.locations.business.purchase.PurchaseLineRepository
+import app.myliberty.easy_records.locations.business.purchase.PurchaseLinesResolver
+import app.myliberty.easy_records.locations.business.purchase.PurchaseMapper
+import app.myliberty.easy_records.locations.business.purchase.PurchaseRepository
+import app.myliberty.easy_records.locations.business.purchase.PurchaseValidator
 import org.springframework.stereotype.Service
 import java.util.UUID
 

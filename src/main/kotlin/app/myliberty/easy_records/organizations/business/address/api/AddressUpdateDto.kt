@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.organizations.business.address.api
+package app.myliberty.easy_records.organizations.business.address.api
 
-import me.ezra_home.retail_software_solution.organizations.business.address.AddressDto
+import app.myliberty.easy_records.organizations.business.address.AddressDto
 import java.io.Serializable
 import java.util.Optional
 import java.util.UUID

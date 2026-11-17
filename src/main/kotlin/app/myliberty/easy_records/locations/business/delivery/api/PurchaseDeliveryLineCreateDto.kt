@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.locations.business.delivery.api
+package app.myliberty.easy_records.locations.business.delivery.api
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import me.ezra_home.retail_software_solution.util.business.PositiveMoney
-import me.ezra_home.retail_software_solution.util.quantity.PositiveUserProvidedQuantity
+import app.myliberty.easy_records.util.business.PositiveMoney
+import app.myliberty.easy_records.util.quantity.PositiveUserProvidedQuantity
 import java.util.UUID
 
 data class PurchaseDeliveryLineCreateDto(

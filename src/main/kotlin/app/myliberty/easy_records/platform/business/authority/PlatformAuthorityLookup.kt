@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.platform.business.authority
+package app.myliberty.easy_records.platform.business.authority
 
-import me.ezra_home.retail_software_solution.cross_tier.authority.AuthorityType
-import me.ezra_home.retail_software_solution.util.enums.RtsPermission
-import me.ezra_home.retail_software_solution.util.enums.RtsRole
-import me.ezra_home.retail_software_solution.util.enums.SchemaLevel
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.cross_tier.authority.AuthorityType
+import app.myliberty.easy_records.util.enums.RtsPermission
+import app.myliberty.easy_records.util.enums.RtsRole
+import app.myliberty.easy_records.util.enums.SchemaLevel
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 
 sealed interface PlatformAuthorityLookup {
     data class ByRole(val role: RtsRole) : PlatformAuthorityLookup

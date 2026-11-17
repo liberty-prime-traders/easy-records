@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.cross_tier.expense.kafka_handler
+package app.myliberty.easy_records.cross_tier.expense.kafka_handler
 
-import me.ezra_home.retail_software_solution.configuration.session.LocationSession
-import me.ezra_home.retail_software_solution.configuration.session.SessionContextProvider
-import me.ezra_home.retail_software_solution.cross_tier.expense.operation.ExpenseReissuer
+import app.myliberty.easy_records.configuration.session.LocationSession
+import app.myliberty.easy_records.configuration.session.SessionContextProvider
+import app.myliberty.easy_records.cross_tier.expense.operation.ExpenseReissuer
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertSame
 import org.junit.jupiter.api.Test

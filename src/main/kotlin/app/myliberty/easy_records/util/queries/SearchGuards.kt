@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.util.queries
+package app.myliberty.easy_records.util.queries
 
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import java.math.BigDecimal
 import java.time.OffsetDateTime
 

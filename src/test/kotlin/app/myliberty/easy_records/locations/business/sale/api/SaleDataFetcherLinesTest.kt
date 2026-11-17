@@ -1,15 +1,15 @@
-package me.ezra_home.retail_software_solution.locations.business.sale.api
+package app.myliberty.easy_records.locations.business.sale.api
 
-import me.ezra_home.retail_software_solution.locations.business.location_product.api.LocationProductDataFetcher
-import me.ezra_home.retail_software_solution.locations.business.location_product.api.LocationProductSummaryDto
-import me.ezra_home.retail_software_solution.locations.business.sale.SaleAssembler
-import me.ezra_home.retail_software_solution.locations.business.sale.SaleLineCogsRepository
-import me.ezra_home.retail_software_solution.locations.business.sale.SaleLineEntity
-import me.ezra_home.retail_software_solution.locations.business.sale.SaleLineRepository
-import me.ezra_home.retail_software_solution.locations.business.sale.SaleRepository
-import me.ezra_home.retail_software_solution.locations.business.sale.SaleVoidRepository
-import me.ezra_home.retail_software_solution.locations.business.sale.SaleLocker
-import me.ezra_home.retail_software_solution.util.business.mappers.UserQualifier
+import app.myliberty.easy_records.locations.business.location_product.api.LocationProductDataFetcher
+import app.myliberty.easy_records.locations.business.location_product.api.LocationProductSummaryDto
+import app.myliberty.easy_records.locations.business.sale.SaleAssembler
+import app.myliberty.easy_records.locations.business.sale.SaleLineCogsRepository
+import app.myliberty.easy_records.locations.business.sale.SaleLineEntity
+import app.myliberty.easy_records.locations.business.sale.SaleLineRepository
+import app.myliberty.easy_records.locations.business.sale.SaleRepository
+import app.myliberty.easy_records.locations.business.sale.SaleVoidRepository
+import app.myliberty.easy_records.locations.business.sale.SaleLocker
+import app.myliberty.easy_records.util.business.mappers.UserQualifier
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.mock

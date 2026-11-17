@@ -1,13 +1,13 @@
-package me.ezra_home.retail_software_solution.locations.business.tax_entry.search
+package app.myliberty.easy_records.locations.business.tax_entry.search
 
-import me.ezra_home.retail_software_solution.locations.business.tax_entry.api.TaxEntrySearchParameters
-import me.ezra_home.retail_software_solution.util.model.TableNames
-import me.ezra_home.retail_software_solution.util.queries.AnyListFilterStrategy
-import me.ezra_home.retail_software_solution.util.queries.ExpressionRangeFilterStrategy
-import me.ezra_home.retail_software_solution.util.queries.KeysetSearchCursor
-import me.ezra_home.retail_software_solution.util.queries.QueryBuilderContext
-import me.ezra_home.retail_software_solution.util.queries.QueryParameterNames
-import me.ezra_home.retail_software_solution.util.queries.SqlQuery
+import app.myliberty.easy_records.locations.business.tax_entry.api.TaxEntrySearchParameters
+import app.myliberty.easy_records.util.model.TableNames
+import app.myliberty.easy_records.util.queries.AnyListFilterStrategy
+import app.myliberty.easy_records.util.queries.ExpressionRangeFilterStrategy
+import app.myliberty.easy_records.util.queries.KeysetSearchCursor
+import app.myliberty.easy_records.util.queries.QueryBuilderContext
+import app.myliberty.easy_records.util.queries.QueryParameterNames
+import app.myliberty.easy_records.util.queries.SqlQuery
 
 object TaxEntrySearchQueryBuilder {
 

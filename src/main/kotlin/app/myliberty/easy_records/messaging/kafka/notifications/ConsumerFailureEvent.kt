@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.messaging.kafka.notifications
+package app.myliberty.easy_records.messaging.kafka.notifications
 
-import me.ezra_home.retail_software_solution.messaging.kafka.common.BaseEvent
-import me.ezra_home.retail_software_solution.messaging.kafka.common.EventSourceContext
+import app.myliberty.easy_records.messaging.kafka.common.BaseEvent
+import app.myliberty.easy_records.messaging.kafka.common.EventSourceContext
 import java.time.Instant
 import java.util.UUID
 

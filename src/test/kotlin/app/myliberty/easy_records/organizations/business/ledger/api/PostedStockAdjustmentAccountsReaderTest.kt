@@ -1,15 +1,15 @@
-package me.ezra_home.retail_software_solution.organizations.business.ledger.api
+package app.myliberty.easy_records.organizations.business.ledger.api
 
-import me.ezra_home.retail_software_solution.configuration.session.LocationSession
-import me.ezra_home.retail_software_solution.configuration.session.OrgSession
-import me.ezra_home.retail_software_solution.configuration.session.SessionContext
-import me.ezra_home.retail_software_solution.configuration.session.SessionContextProvider
-import me.ezra_home.retail_software_solution.organizations.business.account.api.EntryType
-import me.ezra_home.retail_software_solution.organizations.business.ledger.LedgerEntryEntity
-import me.ezra_home.retail_software_solution.organizations.business.ledger.LedgerEntryGroupEntity
-import me.ezra_home.retail_software_solution.organizations.business.ledger.LedgerEntryGroupRepository
-import me.ezra_home.retail_software_solution.organizations.business.ledger.LedgerEntryRepository
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.configuration.session.LocationSession
+import app.myliberty.easy_records.configuration.session.OrgSession
+import app.myliberty.easy_records.configuration.session.SessionContext
+import app.myliberty.easy_records.configuration.session.SessionContextProvider
+import app.myliberty.easy_records.organizations.business.account.api.EntryType
+import app.myliberty.easy_records.organizations.business.ledger.LedgerEntryEntity
+import app.myliberty.easy_records.organizations.business.ledger.LedgerEntryGroupEntity
+import app.myliberty.easy_records.organizations.business.ledger.LedgerEntryGroupRepository
+import app.myliberty.easy_records.organizations.business.ledger.LedgerEntryRepository
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows

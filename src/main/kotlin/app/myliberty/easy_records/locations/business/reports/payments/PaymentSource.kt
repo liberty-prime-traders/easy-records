@@ -1,9 +1,9 @@
-package me.ezra_home.retail_software_solution.locations.business.reports.payments
+package app.myliberty.easy_records.locations.business.reports.payments
 
-import me.ezra_home.retail_software_solution.locations.business.reports.payments.api.PaymentType
-import me.ezra_home.retail_software_solution.util.model.ColumnNames
-import me.ezra_home.retail_software_solution.util.model.TableNames
-import me.ezra_home.retail_software_solution.util.ui_models.BalanceEffect
+import app.myliberty.easy_records.locations.business.reports.payments.api.PaymentType
+import app.myliberty.easy_records.util.model.ColumnNames
+import app.myliberty.easy_records.util.model.TableNames
+import app.myliberty.easy_records.util.ui_models.BalanceEffect
 
 enum class PaymentSource(
   val type: PaymentType,

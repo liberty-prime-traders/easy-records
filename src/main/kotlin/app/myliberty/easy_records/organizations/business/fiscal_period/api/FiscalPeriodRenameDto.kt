@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.organizations.business.fiscal_period.api
+package app.myliberty.easy_records.organizations.business.fiscal_period.api
 
 import java.util.UUID
 

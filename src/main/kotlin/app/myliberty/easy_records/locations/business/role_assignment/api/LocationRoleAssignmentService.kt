@@ -1,11 +1,11 @@
-package me.ezra_home.retail_software_solution.locations.business.role_assignment.api
+package app.myliberty.easy_records.locations.business.role_assignment.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
-import me.ezra_home.retail_software_solution.cross_tier.authority.GrantedRole
-import me.ezra_home.retail_software_solution.locations.business.role_assignment.LocationRoleAssignmentEntity
-import me.ezra_home.retail_software_solution.locations.business.role_assignment.LocationRoleCache
-import me.ezra_home.retail_software_solution.util.business.DateTimes
-import me.ezra_home.retail_software_solution.util.enums.RtsRole
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.cross_tier.authority.GrantedRole
+import app.myliberty.easy_records.locations.business.role_assignment.LocationRoleAssignmentEntity
+import app.myliberty.easy_records.locations.business.role_assignment.LocationRoleCache
+import app.myliberty.easy_records.util.business.DateTimes
+import app.myliberty.easy_records.util.enums.RtsRole
 import org.springframework.stereotype.Service
 import java.util.UUID
 

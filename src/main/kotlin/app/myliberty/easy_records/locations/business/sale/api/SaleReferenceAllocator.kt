@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.locations.business.sale.api
+package app.myliberty.easy_records.locations.business.sale.api
 
-import me.ezra_home.retail_software_solution.util.business.reference_number.ReferenceNumberGenerator
-import me.ezra_home.retail_software_solution.util.model.TableName
+import app.myliberty.easy_records.util.business.reference_number.ReferenceNumberGenerator
+import app.myliberty.easy_records.util.model.TableName
 import org.springframework.stereotype.Component
 
 @Component

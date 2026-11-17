@@ -1,11 +1,11 @@
-package me.ezra_home.retail_software_solution.locations.business.location_product.api
+package app.myliberty.easy_records.locations.business.location_product.api
 
-import me.ezra_home.retail_software_solution.locations.business.location_product.LocationProductEnricher
-import me.ezra_home.retail_software_solution.locations.business.location_product.LocationProductForSaleAssembler
-import me.ezra_home.retail_software_solution.locations.business.location_product.LocationProductPagedSearch
-import me.ezra_home.retail_software_solution.locations.business.location_product.LocationProductSummaryView
-import me.ezra_home.retail_software_solution.locations.business.location_product.LocationProductRepository
-import me.ezra_home.retail_software_solution.organizations.business.unitconversion.api.UnitConversionGraphFacade
+import app.myliberty.easy_records.locations.business.location_product.LocationProductEnricher
+import app.myliberty.easy_records.locations.business.location_product.LocationProductForSaleAssembler
+import app.myliberty.easy_records.locations.business.location_product.LocationProductPagedSearch
+import app.myliberty.easy_records.locations.business.location_product.LocationProductSummaryView
+import app.myliberty.easy_records.locations.business.location_product.LocationProductRepository
+import app.myliberty.easy_records.organizations.business.unitconversion.api.UnitConversionGraphFacade
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.mockito.ArgumentMatchers.anyCollection

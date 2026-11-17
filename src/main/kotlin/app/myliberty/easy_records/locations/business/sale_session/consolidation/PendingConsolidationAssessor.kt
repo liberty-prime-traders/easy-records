@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.locations.business.sale_session.consolidation
+package app.myliberty.easy_records.locations.business.sale_session.consolidation
 
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.ConsolidationIssueResponse
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSession
-import me.ezra_home.retail_software_solution.locations.business.sale_session.consolidation.line_merge.ConsolidationProblemStoryWriter
-import me.ezra_home.retail_software_solution.locations.business.sale_session.consolidation.line_merge.SaleLineMerger
-import me.ezra_home.retail_software_solution.organizations.business.unitconversion.api.UnitConversionGraph
+import app.myliberty.easy_records.locations.business.sale_session.api.ConsolidationIssueResponse
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSession
+import app.myliberty.easy_records.locations.business.sale_session.consolidation.line_merge.ConsolidationProblemStoryWriter
+import app.myliberty.easy_records.locations.business.sale_session.consolidation.line_merge.SaleLineMerger
+import app.myliberty.easy_records.organizations.business.unitconversion.api.UnitConversionGraph
 import java.util.UUID
 
 object PendingConsolidationAssessor {

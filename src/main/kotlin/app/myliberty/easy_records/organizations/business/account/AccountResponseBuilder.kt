@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.organizations.business.account
+package app.myliberty.easy_records.organizations.business.account
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnOrganizationSchema
-import me.ezra_home.retail_software_solution.organizations.business.account.api.AccountResponseDto
-import me.ezra_home.retail_software_solution.organizations.business.account.api.SystemAccount
-import me.ezra_home.retail_software_solution.organizations.business.opening_balance.api.OpeningBalanceReader
-import me.ezra_home.retail_software_solution.util.ui_models.BalanceEffect
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.organizations.business.account.api.AccountResponseDto
+import app.myliberty.easy_records.organizations.business.account.api.SystemAccount
+import app.myliberty.easy_records.organizations.business.opening_balance.api.OpeningBalanceReader
+import app.myliberty.easy_records.util.ui_models.BalanceEffect
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 

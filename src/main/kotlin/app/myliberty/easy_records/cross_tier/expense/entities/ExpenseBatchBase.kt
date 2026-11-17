@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.cross_tier.expense.entities
+package app.myliberty.easy_records.cross_tier.expense.entities
 
-import me.ezra_home.retail_software_solution.cross_tier.expense.ExpenseSourceType
+import app.myliberty.easy_records.cross_tier.expense.ExpenseSourceType
 import jakarta.persistence.Column
 import jakarta.persistence.Convert
 import jakarta.persistence.MappedSuperclass
-import me.ezra_home.retail_software_solution.util.model.ImmutableEntity
+import app.myliberty.easy_records.util.model.ImmutableEntity
 
 @MappedSuperclass
 abstract class ExpenseBatchBase(

@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.cross_tier.expense.kafka_handler
+package app.myliberty.easy_records.cross_tier.expense.kafka_handler
 
-import me.ezra_home.retail_software_solution.messaging.kafka.transaction.EventReissueHandler
-import me.ezra_home.retail_software_solution.messaging.kafka.transaction.events.ExpenseRecordedEvent
+import app.myliberty.easy_records.messaging.kafka.transaction.EventReissueHandler
+import app.myliberty.easy_records.messaging.kafka.transaction.events.ExpenseRecordedEvent
 import org.springframework.stereotype.Component
 import java.util.UUID
 

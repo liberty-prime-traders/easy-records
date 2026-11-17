@@ -1,9 +1,9 @@
-package me.ezra_home.retail_software_solution.cross_tier.authority
+package app.myliberty.easy_records.cross_tier.authority
 
-import me.ezra_home.retail_software_solution.util.enums.RtsPermission
-import me.ezra_home.retail_software_solution.util.enums.RtsRole
-import me.ezra_home.retail_software_solution.util.enums.SchemaLevel
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.enums.RtsPermission
+import app.myliberty.easy_records.util.enums.RtsRole
+import app.myliberty.easy_records.util.enums.SchemaLevel
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import java.util.UUID
 
 // Batch: every user in userIds receives every role and every permission listed (cross product).

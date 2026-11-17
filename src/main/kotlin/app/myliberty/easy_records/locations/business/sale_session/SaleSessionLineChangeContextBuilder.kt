@@ -1,13 +1,13 @@
-package me.ezra_home.retail_software_solution.locations.business.sale_session
+package app.myliberty.easy_records.locations.business.sale_session
 
-import me.ezra_home.retail_software_solution.locations.business.location_product.api.LocationProductDataFetcher
-import me.ezra_home.retail_software_solution.locations.business.location_product.api.LocationProductService
-import me.ezra_home.retail_software_solution.locations.business.location_product.api.LocationProductSummaryDto
-import me.ezra_home.retail_software_solution.locations.business.location_product.api.LocationProductUnitRequestDto
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionLine
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionLineAddDto
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionLineUpdateDto
-import me.ezra_home.retail_software_solution.organizations.business.unitconversion.api.UnitConversionGraphFacade
+import app.myliberty.easy_records.locations.business.location_product.api.LocationProductDataFetcher
+import app.myliberty.easy_records.locations.business.location_product.api.LocationProductService
+import app.myliberty.easy_records.locations.business.location_product.api.LocationProductSummaryDto
+import app.myliberty.easy_records.locations.business.location_product.api.LocationProductUnitRequestDto
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionLine
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionLineAddDto
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionLineUpdateDto
+import app.myliberty.easy_records.organizations.business.unitconversion.api.UnitConversionGraphFacade
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 import java.util.UUID

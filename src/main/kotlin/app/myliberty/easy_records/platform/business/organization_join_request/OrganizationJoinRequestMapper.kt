@@ -1,12 +1,12 @@
-package me.ezra_home.retail_software_solution.platform.business.organization_join_request
+package app.myliberty.easy_records.platform.business.organization_join_request
 
-import me.ezra_home.retail_software_solution.platform.business.organization.api.OrganizationResponseDto
-import me.ezra_home.retail_software_solution.platform.business.organization_join_request.api.OrganizationAdminJoinRequestResponseDto
-import me.ezra_home.retail_software_solution.platform.business.organization_join_request.api.OrganizationJoinRequestInsertDto
-import me.ezra_home.retail_software_solution.platform.business.organization_join_request.api.OrganizationJoinRequestResponseDto
-import me.ezra_home.retail_software_solution.platform.business.organization_join_request.api.OrganizationLaunchResponseDto
-import me.ezra_home.retail_software_solution.platform.business.sysuser.api.CreatorFullName
-import me.ezra_home.retail_software_solution.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.platform.business.organization.api.OrganizationResponseDto
+import app.myliberty.easy_records.platform.business.organization_join_request.api.OrganizationAdminJoinRequestResponseDto
+import app.myliberty.easy_records.platform.business.organization_join_request.api.OrganizationJoinRequestInsertDto
+import app.myliberty.easy_records.platform.business.organization_join_request.api.OrganizationJoinRequestResponseDto
+import app.myliberty.easy_records.platform.business.organization_join_request.api.OrganizationLaunchResponseDto
+import app.myliberty.easy_records.platform.business.sysuser.api.CreatorFullName
+import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 import org.mapstruct.NullValueMappingStrategy

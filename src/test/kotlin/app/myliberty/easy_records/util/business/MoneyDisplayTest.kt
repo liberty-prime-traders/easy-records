@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.util.business
+package app.myliberty.easy_records.util.business
 
 import com.fasterxml.jackson.databind.exc.InvalidDefinitionException
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper

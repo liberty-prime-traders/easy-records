@@ -1,12 +1,12 @@
-package me.ezra_home.retail_software_solution.locations.business.purchase
+package app.myliberty.easy_records.locations.business.purchase
 
-import me.ezra_home.retail_software_solution.configuration.session.SessionContextProvider
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.PurchaseCreateDto
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.PurchaseLineCreateDto
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.PurchaseLineDto
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.PurchaseStatus
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.PurchaseUpdateDto
-import me.ezra_home.retail_software_solution.util.business.DateTimes
+import app.myliberty.easy_records.configuration.session.SessionContextProvider
+import app.myliberty.easy_records.locations.business.purchase.api.PurchaseCreateDto
+import app.myliberty.easy_records.locations.business.purchase.api.PurchaseLineCreateDto
+import app.myliberty.easy_records.locations.business.purchase.api.PurchaseLineDto
+import app.myliberty.easy_records.locations.business.purchase.api.PurchaseStatus
+import app.myliberty.easy_records.locations.business.purchase.api.PurchaseUpdateDto
+import app.myliberty.easy_records.util.business.DateTimes
 import java.util.UUID
 
 object PurchaseMapper {

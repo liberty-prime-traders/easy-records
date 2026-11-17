@@ -1,15 +1,15 @@
-package me.ezra_home.retail_software_solution.locations.business.sale_session
+package app.myliberty.easy_records.locations.business.sale_session
 
-import me.ezra_home.retail_software_solution.locations.business.location_product.api.LinePricing
-import me.ezra_home.retail_software_solution.locations.business.sale_adjustment.api.PriceAdjustmentMethod
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionAdjustment
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionLine
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionLineUpdateDto
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SessionIdentity
-import me.ezra_home.retail_software_solution.organizations.business.adjustment_reason.api.AdjustmentDirection
-import me.ezra_home.retail_software_solution.organizations.business.adjustment_reason.api.AdjustmentReasonService
-import me.ezra_home.retail_software_solution.organizations.business.adjustment_reason.api.SystemAdjustmentReason
-import me.ezra_home.retail_software_solution.util.business.Decimals
+import app.myliberty.easy_records.locations.business.location_product.api.LinePricing
+import app.myliberty.easy_records.locations.business.sale_adjustment.api.PriceAdjustmentMethod
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionAdjustment
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionLine
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionLineUpdateDto
+import app.myliberty.easy_records.locations.business.sale_session.api.SessionIdentity
+import app.myliberty.easy_records.organizations.business.adjustment_reason.api.AdjustmentDirection
+import app.myliberty.easy_records.organizations.business.adjustment_reason.api.AdjustmentReasonService
+import app.myliberty.easy_records.organizations.business.adjustment_reason.api.SystemAdjustmentReason
+import app.myliberty.easy_records.util.business.Decimals
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 import java.util.UUID

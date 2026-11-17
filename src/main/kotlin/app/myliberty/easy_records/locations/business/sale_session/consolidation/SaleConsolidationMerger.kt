@@ -1,9 +1,9 @@
-package me.ezra_home.retail_software_solution.locations.business.sale_session.consolidation
+package app.myliberty.easy_records.locations.business.sale_session.consolidation
 
-import me.ezra_home.retail_software_solution.locations.business.location_product.api.LocationProductDataFetcher
-import me.ezra_home.retail_software_solution.locations.business.sale_session.consolidation.line_merge.SaleLineMerger
-import me.ezra_home.retail_software_solution.locations.business.sale_session.consolidation.line_merge.SaleLineMergeResult
-import me.ezra_home.retail_software_solution.organizations.business.unitconversion.api.UnitConversionGraphFacade
+import app.myliberty.easy_records.locations.business.location_product.api.LocationProductDataFetcher
+import app.myliberty.easy_records.locations.business.sale_session.consolidation.line_merge.SaleLineMerger
+import app.myliberty.easy_records.locations.business.sale_session.consolidation.line_merge.SaleLineMergeResult
+import app.myliberty.easy_records.organizations.business.unitconversion.api.UnitConversionGraphFacade
 import org.springframework.stereotype.Component
 
 @Component

@@ -1,16 +1,16 @@
-package me.ezra_home.retail_software_solution.locations.business.purchase.api.bulk_payment
+package app.myliberty.easy_records.locations.business.purchase.api.bulk_payment
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
-import me.ezra_home.retail_software_solution.locations.business.purchase.PayablePurchaseFinder
-import me.ezra_home.retail_software_solution.locations.business.purchase.PurchaseBulkPaymentAssembler
-import me.ezra_home.retail_software_solution.locations.business.purchase.PurchaseBulkPaymentPlanner
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.PurchaseDataFetcher
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.payment.PurchasePaymentCeilingService
-import me.ezra_home.retail_software_solution.locations.business.supplier_payment.api.SupplierPaymentCreateDto
-import me.ezra_home.retail_software_solution.locations.business.supplier_payment.api.SupplierPaymentDataFetcher
-import me.ezra_home.retail_software_solution.locations.business.supplier_payment.api.SupplierPaymentService
-import me.ezra_home.retail_software_solution.util.business.PositiveMoney
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.locations.business.purchase.PayablePurchaseFinder
+import app.myliberty.easy_records.locations.business.purchase.PurchaseBulkPaymentAssembler
+import app.myliberty.easy_records.locations.business.purchase.PurchaseBulkPaymentPlanner
+import app.myliberty.easy_records.locations.business.purchase.api.PurchaseDataFetcher
+import app.myliberty.easy_records.locations.business.purchase.api.payment.PurchasePaymentCeilingService
+import app.myliberty.easy_records.locations.business.supplier_payment.api.SupplierPaymentCreateDto
+import app.myliberty.easy_records.locations.business.supplier_payment.api.SupplierPaymentDataFetcher
+import app.myliberty.easy_records.locations.business.supplier_payment.api.SupplierPaymentService
+import app.myliberty.easy_records.util.business.PositiveMoney
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 

@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.util.queries
+package app.myliberty.easy_records.util.queries
 
 import jakarta.persistence.QueryTimeoutException
-import me.ezra_home.retail_software_solution.util.paging.PageRequest
-import me.ezra_home.retail_software_solution.util.paging.PageResponse
+import app.myliberty.easy_records.util.paging.PageRequest
+import app.myliberty.easy_records.util.paging.PageResponse
 
 object SearchStrategyExecutor {
 

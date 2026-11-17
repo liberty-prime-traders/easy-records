@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.platform.business.organization_join_request.api
+package app.myliberty.easy_records.platform.business.organization_join_request.api
 
-import me.ezra_home.retail_software_solution.platform.business.organization.api.OrganizationResponseDto
+import app.myliberty.easy_records.platform.business.organization.api.OrganizationResponseDto
 import java.io.Serializable
 
 data class OrganizationLaunchResponseDto(

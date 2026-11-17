@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.cross_tier.authority
+package app.myliberty.easy_records.cross_tier.authority
 
-import me.ezra_home.retail_software_solution.util.enums.SchemaLevel
+import app.myliberty.easy_records.util.enums.SchemaLevel
 
 enum class AuthorityType { ROLE, PERMISSION }
 

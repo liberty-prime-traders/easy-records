@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.platform.rest.endpoints
+package app.myliberty.easy_records.platform.rest.endpoints
 
-import me.ezra_home.retail_software_solution.platform.business.identity.api.IdentityService
-import me.ezra_home.retail_software_solution.platform.business.identity.api.LoginRequest
-import me.ezra_home.retail_software_solution.platform.business.identity.api.LoginResponse
+import app.myliberty.easy_records.platform.business.identity.api.IdentityService
+import app.myliberty.easy_records.platform.business.identity.api.LoginRequest
+import app.myliberty.easy_records.platform.business.identity.api.LoginResponse
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping

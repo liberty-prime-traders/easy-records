@@ -1,14 +1,14 @@
-package me.ezra_home.retail_software_solution.locations.business.stock.api.updater
+package app.myliberty.easy_records.locations.business.stock.api.updater
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
-import me.ezra_home.retail_software_solution.locations.business.stock.InboundLayerSpec
-import me.ezra_home.retail_software_solution.locations.business.stock.StockIncreaseRecorder
-import me.ezra_home.retail_software_solution.locations.business.stock.api.StockMovementContexts
-import me.ezra_home.retail_software_solution.messaging.kafka.transaction.events.PurchaseDeliveredEvent
-import me.ezra_home.retail_software_solution.organizations.business.stock_item_source.api.StockItemSource
-import me.ezra_home.retail_software_solution.organizations.business.stock_movement_reason.api.MovementType
-import me.ezra_home.retail_software_solution.util.business.Decimals
-import me.ezra_home.retail_software_solution.util.quantity.ExactQuantity
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.locations.business.stock.InboundLayerSpec
+import app.myliberty.easy_records.locations.business.stock.StockIncreaseRecorder
+import app.myliberty.easy_records.locations.business.stock.api.StockMovementContexts
+import app.myliberty.easy_records.messaging.kafka.transaction.events.PurchaseDeliveredEvent
+import app.myliberty.easy_records.organizations.business.stock_item_source.api.StockItemSource
+import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.MovementType
+import app.myliberty.easy_records.util.business.Decimals
+import app.myliberty.easy_records.util.quantity.ExactQuantity
 import org.springframework.stereotype.Service
 
 @Service

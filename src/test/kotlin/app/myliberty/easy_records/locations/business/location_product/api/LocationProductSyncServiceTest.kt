@@ -1,11 +1,11 @@
-package me.ezra_home.retail_software_solution.locations.business.location_product.api
+package app.myliberty.easy_records.locations.business.location_product.api
 
-import me.ezra_home.retail_software_solution.locations.business.location_product.LocationProductCache
-import me.ezra_home.retail_software_solution.locations.business.location_product.LocationProductEntity
-import me.ezra_home.retail_software_solution.locations.business.location_product.LocationProductMapper
-import me.ezra_home.retail_software_solution.locations.business.location_product.LocationProductRepository
-import me.ezra_home.retail_software_solution.organizations.business.product.api.ProductStatus
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.locations.business.location_product.LocationProductCache
+import app.myliberty.easy_records.locations.business.location_product.LocationProductEntity
+import app.myliberty.easy_records.locations.business.location_product.LocationProductMapper
+import app.myliberty.easy_records.locations.business.location_product.LocationProductRepository
+import app.myliberty.easy_records.organizations.business.product.api.ProductStatus
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test

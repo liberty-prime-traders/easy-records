@@ -1,11 +1,11 @@
-package me.ezra_home.retail_software_solution.locations.business.sale
+package app.myliberty.easy_records.locations.business.sale
 
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleSaveRequest
-import me.ezra_home.retail_software_solution.locations.business.sale_adjustment.api.RetainedSaleAdjustments
-import me.ezra_home.retail_software_solution.locations.business.sale_adjustment.api.SaleAdjustmentSyncer
-import me.ezra_home.retail_software_solution.locations.business.sale_adjustment.api.SaleAdjustmentFetcher
-import me.ezra_home.retail_software_solution.locations.business.sale_payment.api.PersistedSalePayment
-import me.ezra_home.retail_software_solution.locations.business.sale_payment.api.SalePaymentAppender
+import app.myliberty.easy_records.locations.business.sale.api.SaleSaveRequest
+import app.myliberty.easy_records.locations.business.sale_adjustment.api.RetainedSaleAdjustments
+import app.myliberty.easy_records.locations.business.sale_adjustment.api.SaleAdjustmentSyncer
+import app.myliberty.easy_records.locations.business.sale_adjustment.api.SaleAdjustmentFetcher
+import app.myliberty.easy_records.locations.business.sale_payment.api.PersistedSalePayment
+import app.myliberty.easy_records.locations.business.sale_payment.api.SalePaymentAppender
 import org.springframework.stereotype.Component
 import java.util.UUID
 

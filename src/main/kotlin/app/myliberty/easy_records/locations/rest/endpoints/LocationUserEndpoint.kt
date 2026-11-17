@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.locations.rest.endpoints
+package app.myliberty.easy_records.locations.rest.endpoints
 
-import me.ezra_home.retail_software_solution.cross_tier.authority.MembershipUserSummary
-import me.ezra_home.retail_software_solution.cross_tier.authority.UserAccessDetail
-import me.ezra_home.retail_software_solution.locations.business.location_user.api.LocationUserResponseDto
-import me.ezra_home.retail_software_solution.locations.business.location_user.api.LocationUserService
-import me.ezra_home.retail_software_solution.util.enums.RtsPermissionNames
+import app.myliberty.easy_records.cross_tier.authority.MembershipUserSummary
+import app.myliberty.easy_records.cross_tier.authority.UserAccessDetail
+import app.myliberty.easy_records.locations.business.location_user.api.LocationUserResponseDto
+import app.myliberty.easy_records.locations.business.location_user.api.LocationUserService
+import app.myliberty.easy_records.util.enums.RtsPermissionNames
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping

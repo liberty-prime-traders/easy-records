@@ -1,11 +1,11 @@
-package me.ezra_home.retail_software_solution.organizations.business.unit_bulk_import
+package app.myliberty.easy_records.organizations.business.unit_bulk_import
 
-import me.ezra_home.retail_software_solution.organizations.business.unit_bulk_import.api.UnitGroupBulkInsertDto
-import me.ezra_home.retail_software_solution.organizations.business.unitgroup.api.SystemUnitGroup
-import me.ezra_home.retail_software_solution.organizations.business.unitgroup.api.UnitGroupDto
-import me.ezra_home.retail_software_solution.organizations.business.unitvalue.api.RootUnitDefinition
-import me.ezra_home.retail_software_solution.organizations.business.unitvalue.api.SystemUnitValue
-import me.ezra_home.retail_software_solution.util.business.StringUtils
+import app.myliberty.easy_records.organizations.business.unit_bulk_import.api.UnitGroupBulkInsertDto
+import app.myliberty.easy_records.organizations.business.unitgroup.api.SystemUnitGroup
+import app.myliberty.easy_records.organizations.business.unitgroup.api.UnitGroupDto
+import app.myliberty.easy_records.organizations.business.unitvalue.api.RootUnitDefinition
+import app.myliberty.easy_records.organizations.business.unitvalue.api.SystemUnitValue
+import app.myliberty.easy_records.util.business.StringUtils
 
 object BulkUnitGroupValidator {
 

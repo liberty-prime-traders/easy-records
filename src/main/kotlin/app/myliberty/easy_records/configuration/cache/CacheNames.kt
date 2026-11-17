@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.configuration.cache
+package app.myliberty.easy_records.configuration.cache
 
 class CacheNames {
     companion object {

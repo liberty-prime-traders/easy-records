@@ -1,12 +1,12 @@
-package me.ezra_home.retail_software_solution.locations.business.stock.api.read
+package app.myliberty.easy_records.locations.business.stock.api.read
 
-import me.ezra_home.retail_software_solution.locations.business.stock.StockMovementEntity
-import me.ezra_home.retail_software_solution.locations.business.stock.StockMovementRepository
-import me.ezra_home.retail_software_solution.organizations.business.stock_movement_reason.api.StockMovementReasonFetcher
-import me.ezra_home.retail_software_solution.organizations.business.unitconversion.api.UnitConversionGraph
-import me.ezra_home.retail_software_solution.organizations.business.unitconversion.api.UnitConversionGraphFacade
-import me.ezra_home.retail_software_solution.organizations.business.unitvalue.api.UnitValueFetcher
-import me.ezra_home.retail_software_solution.util.business.DisplayFormatters
+import app.myliberty.easy_records.locations.business.stock.StockMovementEntity
+import app.myliberty.easy_records.locations.business.stock.StockMovementRepository
+import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.StockMovementReasonFetcher
+import app.myliberty.easy_records.organizations.business.unitconversion.api.UnitConversionGraph
+import app.myliberty.easy_records.organizations.business.unitconversion.api.UnitConversionGraphFacade
+import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueFetcher
+import app.myliberty.easy_records.util.business.DisplayFormatters
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Component

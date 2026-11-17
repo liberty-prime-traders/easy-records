@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.organizations.business.account.api
+package app.myliberty.easy_records.organizations.business.account.api
 
-import me.ezra_home.retail_software_solution.util.enums.HasCode
-import me.ezra_home.retail_software_solution.util.ui_models.BalanceEffect
+import app.myliberty.easy_records.util.enums.HasCode
+import app.myliberty.easy_records.util.ui_models.BalanceEffect
 import java.math.BigDecimal
 
 enum class AccountType(override val code: String, val normalBalance: EntryType) : HasCode {

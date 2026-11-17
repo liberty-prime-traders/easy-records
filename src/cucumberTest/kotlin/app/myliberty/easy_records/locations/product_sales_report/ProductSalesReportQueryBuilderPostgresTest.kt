@@ -1,15 +1,15 @@
-package me.ezra_home.retail_software_solution.locations.product_sales_report
+package app.myliberty.easy_records.locations.product_sales_report
 
-import me.ezra_home.retail_software_solution.configuration.session.LocationSession
-import me.ezra_home.retail_software_solution.configuration.session.OrgSession
-import me.ezra_home.retail_software_solution.configuration.session.SessionContext
-import me.ezra_home.retail_software_solution.configuration.session.SessionContextProvider
-import me.ezra_home.retail_software_solution.locations.business.product_sales_report.DateSoldRange
-import me.ezra_home.retail_software_solution.locations.business.product_sales_report.ProductSalesReportQueryBuilder
-import me.ezra_home.retail_software_solution.locations.business.product_sales_report.ProductSalesReportWindow
-import me.ezra_home.retail_software_solution.util.queries.KeysetSearchCursor
-import me.ezra_home.retail_software_solution.util.queries.QueryParameterNames
-import me.ezra_home.retail_software_solution.util.queries.SqlQuery
+import app.myliberty.easy_records.configuration.session.LocationSession
+import app.myliberty.easy_records.configuration.session.OrgSession
+import app.myliberty.easy_records.configuration.session.SessionContext
+import app.myliberty.easy_records.configuration.session.SessionContextProvider
+import app.myliberty.easy_records.locations.business.product_sales_report.DateSoldRange
+import app.myliberty.easy_records.locations.business.product_sales_report.ProductSalesReportQueryBuilder
+import app.myliberty.easy_records.locations.business.product_sales_report.ProductSalesReportWindow
+import app.myliberty.easy_records.util.queries.KeysetSearchCursor
+import app.myliberty.easy_records.util.queries.QueryParameterNames
+import app.myliberty.easy_records.util.queries.SqlQuery
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals

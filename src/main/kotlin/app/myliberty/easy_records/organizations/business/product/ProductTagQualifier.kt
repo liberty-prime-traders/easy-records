@@ -1,9 +1,9 @@
-package me.ezra_home.retail_software_solution.organizations.business.product
+package app.myliberty.easy_records.organizations.business.product
 
-import me.ezra_home.retail_software_solution.organizations.business.product.api.TagSummaryDto
-import me.ezra_home.retail_software_solution.organizations.business.product_tag.api.ProductTagService
-import me.ezra_home.retail_software_solution.organizations.business.product_tag.api.ActiveProductTags
-import me.ezra_home.retail_software_solution.organizations.business.tag.api.TagService
+import app.myliberty.easy_records.organizations.business.product.api.TagSummaryDto
+import app.myliberty.easy_records.organizations.business.product_tag.api.ProductTagService
+import app.myliberty.easy_records.organizations.business.product_tag.api.ActiveProductTags
+import app.myliberty.easy_records.organizations.business.tag.api.TagService
 import org.springframework.stereotype.Component
 import java.util.UUID
 

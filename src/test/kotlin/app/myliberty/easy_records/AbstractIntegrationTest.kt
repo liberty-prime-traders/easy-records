@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution
+package app.myliberty.easy_records
 
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.context.annotation.Import

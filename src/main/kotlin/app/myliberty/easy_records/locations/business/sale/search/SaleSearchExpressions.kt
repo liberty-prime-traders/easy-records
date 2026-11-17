@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.locations.business.sale.search
+package app.myliberty.easy_records.locations.business.sale.search
 
 // Duplicates SaleEntity's Kotlin helpers (discountTotal / surchargeTotal / displaySubtotal / receivableTotal).
 // A new surcharge or discount bucket must be added in both places or the grid and the filter will

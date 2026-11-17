@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.organizations.business.org_expense
+package app.myliberty.easy_records.organizations.business.org_expense
 
-import me.ezra_home.retail_software_solution.cross_tier.expense.repository.ExpenseBatchRepositoryBase
+import app.myliberty.easy_records.cross_tier.expense.repository.ExpenseBatchRepositoryBase
 import org.springframework.stereotype.Repository
 
 @Repository

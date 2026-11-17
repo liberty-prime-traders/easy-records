@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.organizations.business.account.api
+package app.myliberty.easy_records.organizations.business.account.api
 
-import me.ezra_home.retail_software_solution.util.ui_models.BalanceEffect
+import app.myliberty.easy_records.util.ui_models.BalanceEffect
 
 enum class AccountCategory {
     ASSET, LIABILITY, EQUITY, REVENUE, EXPENSE;

@@ -1,11 +1,11 @@
-package me.ezra_home.retail_software_solution.locations.business.delivery
+package app.myliberty.easy_records.locations.business.delivery
 
-import me.ezra_home.retail_software_solution.locations.business.delivery.api.PurchaseDeliveryCreateDto
-import me.ezra_home.retail_software_solution.locations.business.purchase.api.PurchaseLineDto
-import me.ezra_home.retail_software_solution.messaging.kafka.common.EventSourceContext
-import me.ezra_home.retail_software_solution.messaging.kafka.transaction.events.PurchaseDeliveredEvent
-import me.ezra_home.retail_software_solution.messaging.kafka.transaction.events.PurchaseDeliveredLineDto
-import me.ezra_home.retail_software_solution.util.business.Money
+import app.myliberty.easy_records.locations.business.delivery.api.PurchaseDeliveryCreateDto
+import app.myliberty.easy_records.locations.business.purchase.api.PurchaseLineDto
+import app.myliberty.easy_records.messaging.kafka.common.EventSourceContext
+import app.myliberty.easy_records.messaging.kafka.transaction.events.PurchaseDeliveredEvent
+import app.myliberty.easy_records.messaging.kafka.transaction.events.PurchaseDeliveredLineDto
+import app.myliberty.easy_records.util.business.Money
 import java.time.Instant
 import java.util.UUID
 

@@ -1,13 +1,13 @@
-package me.ezra_home.retail_software_solution.platform.business.reserved_subdomain.api
+package app.myliberty.easy_records.platform.business.reserved_subdomain.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnPlatformSchema
-import me.ezra_home.retail_software_solution.configuration.session.SessionContextProvider
-import me.ezra_home.retail_software_solution.platform.business.reserved_subdomain.ReservedSubdomainEntity
-import me.ezra_home.retail_software_solution.platform.business.reserved_subdomain.ReservedSubdomainMaper
-import me.ezra_home.retail_software_solution.platform.business.reserved_subdomain.SubdomainRepository
-import me.ezra_home.retail_software_solution.util.business.SchemaNameGenerator
-import me.ezra_home.retail_software_solution.util.business.StringUtils
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnPlatformSchema
+import app.myliberty.easy_records.configuration.session.SessionContextProvider
+import app.myliberty.easy_records.platform.business.reserved_subdomain.ReservedSubdomainEntity
+import app.myliberty.easy_records.platform.business.reserved_subdomain.ReservedSubdomainMaper
+import app.myliberty.easy_records.platform.business.reserved_subdomain.SubdomainRepository
+import app.myliberty.easy_records.util.business.SchemaNameGenerator
+import app.myliberty.easy_records.util.business.StringUtils
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Component
 import java.util.UUID

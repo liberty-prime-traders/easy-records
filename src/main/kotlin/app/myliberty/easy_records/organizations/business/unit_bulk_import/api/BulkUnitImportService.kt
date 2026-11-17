@@ -1,19 +1,19 @@
-package me.ezra_home.retail_software_solution.organizations.business.unit_bulk_import.api
+package app.myliberty.easy_records.organizations.business.unit_bulk_import.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnOrganizationSchema
-import me.ezra_home.retail_software_solution.organizations.business.unit_bulk_import.BulkUnitImportValidator
-import me.ezra_home.retail_software_solution.organizations.business.unit_bulk_import.UnitValueDependencyGraph
-import me.ezra_home.retail_software_solution.organizations.business.unitgroup.api.SystemUnitGroup
-import me.ezra_home.retail_software_solution.organizations.business.unitgroup.api.UnitGroupInsertDto
-import me.ezra_home.retail_software_solution.organizations.business.unitgroup.api.UnitGroupResponseDto
-import me.ezra_home.retail_software_solution.organizations.business.unitgroup.api.UnitGroupService
-import me.ezra_home.retail_software_solution.organizations.business.unitvalue.api.RootUnitDefinition
-import me.ezra_home.retail_software_solution.organizations.business.unitvalue.api.UnitValueBulkSaveEntry
-import me.ezra_home.retail_software_solution.organizations.business.unitvalue.api.UnitValueFetcher
-import me.ezra_home.retail_software_solution.organizations.business.unitvalue.api.UnitValueResponseDto
-import me.ezra_home.retail_software_solution.organizations.business.unitvalue.api.UnitValueService
-import me.ezra_home.retail_software_solution.util.business.StringUtils
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.organizations.business.unit_bulk_import.BulkUnitImportValidator
+import app.myliberty.easy_records.organizations.business.unit_bulk_import.UnitValueDependencyGraph
+import app.myliberty.easy_records.organizations.business.unitgroup.api.SystemUnitGroup
+import app.myliberty.easy_records.organizations.business.unitgroup.api.UnitGroupInsertDto
+import app.myliberty.easy_records.organizations.business.unitgroup.api.UnitGroupResponseDto
+import app.myliberty.easy_records.organizations.business.unitgroup.api.UnitGroupService
+import app.myliberty.easy_records.organizations.business.unitvalue.api.RootUnitDefinition
+import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueBulkSaveEntry
+import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueFetcher
+import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueResponseDto
+import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueService
+import app.myliberty.easy_records.util.business.StringUtils
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Service
 import java.util.UUID
 

@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.organizations.business.account.api
+package app.myliberty.easy_records.organizations.business.account.api
 
-import me.ezra_home.retail_software_solution.util.enums.HasCode
+import app.myliberty.easy_records.util.enums.HasCode
 import java.math.BigDecimal
 
 enum class EntryType(override val code: String) : HasCode {

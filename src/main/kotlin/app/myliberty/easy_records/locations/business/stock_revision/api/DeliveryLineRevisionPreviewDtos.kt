@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.locations.business.stock_revision.api
+package app.myliberty.easy_records.locations.business.stock_revision.api
 
-import me.ezra_home.retail_software_solution.util.ui_models.BalanceEffect
+import app.myliberty.easy_records.util.ui_models.BalanceEffect
 import java.math.BigDecimal
 
 // Declaration order is the display order: blocking items first.

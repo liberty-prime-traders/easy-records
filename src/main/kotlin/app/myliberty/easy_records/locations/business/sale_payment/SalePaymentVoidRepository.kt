@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.locations.business.sale_payment
+package app.myliberty.easy_records.locations.business.sale_payment
 
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository

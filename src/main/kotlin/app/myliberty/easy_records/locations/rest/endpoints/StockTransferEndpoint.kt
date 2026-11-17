@@ -1,14 +1,14 @@
-package me.ezra_home.retail_software_solution.locations.rest.endpoints
+package app.myliberty.easy_records.locations.rest.endpoints
 
-import me.ezra_home.retail_software_solution.locations.business.stock_transfer.api.StockTransferCreateDto
-import me.ezra_home.retail_software_solution.locations.business.stock_transfer.api.StockTransferDispatchService
-import me.ezra_home.retail_software_solution.locations.business.stock_transfer.api.StockTransferDraftService
-import me.ezra_home.retail_software_solution.locations.business.stock_transfer.api.StockTransferLineRequestDto
-import me.ezra_home.retail_software_solution.locations.business.stock_transfer.api.StockTransferReceiptService
-import me.ezra_home.retail_software_solution.locations.business.stock_transfer.api.StockTransferResponse
-import me.ezra_home.retail_software_solution.locations.business.stock_transfer.api.StockTransferService
-import me.ezra_home.retail_software_solution.organizations.business.stock_transfer.api.StockTransferSummaryDto
-import me.ezra_home.retail_software_solution.organizations.business.stock_transfer.api.StockTransferSummaryService
+import app.myliberty.easy_records.locations.business.stock_transfer.api.StockTransferCreateDto
+import app.myliberty.easy_records.locations.business.stock_transfer.api.StockTransferDispatchService
+import app.myliberty.easy_records.locations.business.stock_transfer.api.StockTransferDraftService
+import app.myliberty.easy_records.locations.business.stock_transfer.api.StockTransferLineRequestDto
+import app.myliberty.easy_records.locations.business.stock_transfer.api.StockTransferReceiptService
+import app.myliberty.easy_records.locations.business.stock_transfer.api.StockTransferResponse
+import app.myliberty.easy_records.locations.business.stock_transfer.api.StockTransferService
+import app.myliberty.easy_records.organizations.business.stock_transfer.api.StockTransferSummaryDto
+import app.myliberty.easy_records.organizations.business.stock_transfer.api.StockTransferSummaryService
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable

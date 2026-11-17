@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.locations.business.catalog_sync.sync_services
+package app.myliberty.easy_records.locations.business.catalog_sync.sync_services
 
 object SyncQueryConstants {
   object AuditColumns {

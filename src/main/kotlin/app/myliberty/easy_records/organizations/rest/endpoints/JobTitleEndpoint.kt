@@ -1,9 +1,9 @@
-package me.ezra_home.retail_software_solution.organizations.rest.endpoints
+package app.myliberty.easy_records.organizations.rest.endpoints
 
-import me.ezra_home.retail_software_solution.organizations.business.jobtitle.api.JobTitleInsertDto
-import me.ezra_home.retail_software_solution.organizations.business.jobtitle.api.JobTitleResponseDto
-import me.ezra_home.retail_software_solution.organizations.business.jobtitle.api.JobTitleService
-import me.ezra_home.retail_software_solution.organizations.business.jobtitle.api.JobTitleUpdateDto
+import app.myliberty.easy_records.organizations.business.jobtitle.api.JobTitleInsertDto
+import app.myliberty.easy_records.organizations.business.jobtitle.api.JobTitleResponseDto
+import app.myliberty.easy_records.organizations.business.jobtitle.api.JobTitleService
+import app.myliberty.easy_records.organizations.business.jobtitle.api.JobTitleUpdateDto
 import org.springframework.http.HttpStatus
 import org.springframework.http.HttpStatusCode
 import org.springframework.http.ResponseEntity

@@ -1,16 +1,16 @@
-package me.ezra_home.retail_software_solution.platform.business.db_migration
+package app.myliberty.easy_records.platform.business.db_migration
 
 import jakarta.persistence.Column
 import jakarta.persistence.Convert
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
-import me.ezra_home.retail_software_solution.platform.business.db_migration.api.MigrationStatus
-import me.ezra_home.retail_software_solution.util.annotations.HasReference
-import me.ezra_home.retail_software_solution.util.enums.SchemaOwnerType
-import me.ezra_home.retail_software_solution.util.enums.SchemaOwnerTypeConverter
-import me.ezra_home.retail_software_solution.util.model.HasReferenceEntity
-import me.ezra_home.retail_software_solution.util.model.TableName
-import me.ezra_home.retail_software_solution.util.model.TableNames
+import app.myliberty.easy_records.platform.business.db_migration.api.MigrationStatus
+import app.myliberty.easy_records.util.annotations.HasReference
+import app.myliberty.easy_records.util.enums.SchemaOwnerType
+import app.myliberty.easy_records.util.enums.SchemaOwnerTypeConverter
+import app.myliberty.easy_records.util.model.HasReferenceEntity
+import app.myliberty.easy_records.util.model.TableName
+import app.myliberty.easy_records.util.model.TableNames
 import java.time.OffsetDateTime
 import java.util.UUID
 

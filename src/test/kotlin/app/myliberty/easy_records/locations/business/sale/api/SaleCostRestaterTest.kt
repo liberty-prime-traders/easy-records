@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.locations.business.sale.api
+package app.myliberty.easy_records.locations.business.sale.api
 
-import me.ezra_home.retail_software_solution.locations.business.sale.SaleLineCogsEntity
-import me.ezra_home.retail_software_solution.locations.business.sale.SaleLineCogsRepository
-import me.ezra_home.retail_software_solution.locations.business.sale.SaleLineEntity
-import me.ezra_home.retail_software_solution.locations.business.sale.SaleLineRepository
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.locations.business.sale.SaleLineCogsEntity
+import app.myliberty.easy_records.locations.business.sale.SaleLineCogsRepository
+import app.myliberty.easy_records.locations.business.sale.SaleLineEntity
+import app.myliberty.easy_records.locations.business.sale.SaleLineRepository
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test

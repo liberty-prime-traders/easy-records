@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.organizations.business.stock_movement_reason
+package app.myliberty.easy_records.organizations.business.stock_movement_reason
 
-import me.ezra_home.retail_software_solution.organizations.business.stock_movement_reason.api.MovementType
-import me.ezra_home.retail_software_solution.util.enums.HasCode
+import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.MovementType
+import app.myliberty.easy_records.util.enums.HasCode
 
 enum class StockMovementReason(
     override val code: String,

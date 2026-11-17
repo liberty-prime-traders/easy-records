@@ -1,16 +1,16 @@
-package me.ezra_home.retail_software_solution.locations.business.sale_session
+package app.myliberty.easy_records.locations.business.sale_session
 
-import me.ezra_home.retail_software_solution.configuration.session.SessionContextProvider
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleStatus
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.PendingConsolidation
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSession
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionAdjustment
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionHeader
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionKind
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionLine
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionPayment
-import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionTotals
-import me.ezra_home.retail_software_solution.util.business.DateTimes
+import app.myliberty.easy_records.configuration.session.SessionContextProvider
+import app.myliberty.easy_records.locations.business.sale.api.SaleStatus
+import app.myliberty.easy_records.locations.business.sale_session.api.PendingConsolidation
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSession
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionAdjustment
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionHeader
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionKind
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionLine
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionPayment
+import app.myliberty.easy_records.locations.business.sale_session.api.SaleSessionTotals
+import app.myliberty.easy_records.util.business.DateTimes
 import java.util.UUID
 
 class SaleSessionBuilder(private val sessionId: UUID) {

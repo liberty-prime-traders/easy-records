@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.util.exceptions
+package app.myliberty.easy_records.util.exceptions
 
 import org.junit.jupiter.api.Assertions.assertDoesNotThrow
 import org.junit.jupiter.api.Assertions.assertEquals

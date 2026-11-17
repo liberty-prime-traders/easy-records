@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.organizations.business.stock_item_source.api
+package app.myliberty.easy_records.organizations.business.stock_item_source.api
 
-import me.ezra_home.retail_software_solution.util.enums.HasCode
+import app.myliberty.easy_records.util.enums.HasCode
 
 enum class StockItemSource(override val code: String, val displayName: String, val description: String) : HasCode {
     PURCHASE("PUR", "Purchase", "Stock received through a supplier purchase order"),

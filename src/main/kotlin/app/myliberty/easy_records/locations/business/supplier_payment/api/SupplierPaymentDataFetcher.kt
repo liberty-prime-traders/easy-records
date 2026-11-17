@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.locations.business.supplier_payment.api
+package app.myliberty.easy_records.locations.business.supplier_payment.api
 
-import me.ezra_home.retail_software_solution.locations.business.supplier_payment.PaymentsCalculatorService
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
-import me.ezra_home.retail_software_solution.locations.business.supplier_payment.SupplierPaymentAssembler
-import me.ezra_home.retail_software_solution.locations.business.supplier_payment.SupplierPaymentRepository
-import me.ezra_home.retail_software_solution.locations.business.supplier_payment.SupplierPaymentVoidRepository
+import app.myliberty.easy_records.locations.business.supplier_payment.PaymentsCalculatorService
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.locations.business.supplier_payment.SupplierPaymentAssembler
+import app.myliberty.easy_records.locations.business.supplier_payment.SupplierPaymentRepository
+import app.myliberty.easy_records.locations.business.supplier_payment.SupplierPaymentVoidRepository
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 import java.util.UUID

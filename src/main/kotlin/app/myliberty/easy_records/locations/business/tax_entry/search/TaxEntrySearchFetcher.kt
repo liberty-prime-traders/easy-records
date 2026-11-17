@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.locations.business.tax_entry.search
+package app.myliberty.easy_records.locations.business.tax_entry.search
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
-import me.ezra_home.retail_software_solution.locations.business.tax_entry.api.TaxEntrySearchParameters
-import me.ezra_home.retail_software_solution.util.queries.KeysetSearchCursor
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.locations.business.tax_entry.api.TaxEntrySearchParameters
+import app.myliberty.easy_records.util.queries.KeysetSearchCursor
 import org.springframework.stereotype.Component
 
 @Component

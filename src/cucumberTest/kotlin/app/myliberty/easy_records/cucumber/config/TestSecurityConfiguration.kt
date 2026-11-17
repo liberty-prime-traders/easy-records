@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.cucumber.config
+package app.myliberty.easy_records.cucumber.config
 
-import me.ezra_home.retail_software_solution.configuration.filters.UserDataExtractionFilter
+import app.myliberty.easy_records.configuration.filters.UserDataExtractionFilter
 import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Primary

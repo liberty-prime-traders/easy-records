@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.util.business
+package app.myliberty.easy_records.util.business
 
-import me.ezra_home.retail_software_solution.util.business.mappers.MoneyQualifier
+import app.myliberty.easy_records.util.business.mappers.MoneyQualifier
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test

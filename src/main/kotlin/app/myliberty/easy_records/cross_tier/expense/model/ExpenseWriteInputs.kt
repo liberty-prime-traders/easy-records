@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.cross_tier.expense.model
+package app.myliberty.easy_records.cross_tier.expense.model
 
-import me.ezra_home.retail_software_solution.cross_tier.expense.ExpenseSourceType
-import me.ezra_home.retail_software_solution.organizations.business.contact.api.ContactDto
-import me.ezra_home.retail_software_solution.organizations.business.expense_type.api.ExpenseTypeDto
+import app.myliberty.easy_records.cross_tier.expense.ExpenseSourceType
+import app.myliberty.easy_records.organizations.business.contact.api.ContactDto
+import app.myliberty.easy_records.organizations.business.expense_type.api.ExpenseTypeDto
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.util.UUID

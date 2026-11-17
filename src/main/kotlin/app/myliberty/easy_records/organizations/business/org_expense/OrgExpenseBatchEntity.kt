@@ -1,12 +1,12 @@
-package me.ezra_home.retail_software_solution.organizations.business.org_expense
+package app.myliberty.easy_records.organizations.business.org_expense
 
-import me.ezra_home.retail_software_solution.cross_tier.expense.entities.ExpenseBatchBase
-import me.ezra_home.retail_software_solution.cross_tier.expense.ExpenseSourceType
+import app.myliberty.easy_records.cross_tier.expense.entities.ExpenseBatchBase
+import app.myliberty.easy_records.cross_tier.expense.ExpenseSourceType
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
-import me.ezra_home.retail_software_solution.util.annotations.HasReference
-import me.ezra_home.retail_software_solution.util.model.TableName
-import me.ezra_home.retail_software_solution.util.model.TableNames
+import app.myliberty.easy_records.util.annotations.HasReference
+import app.myliberty.easy_records.util.model.TableName
+import app.myliberty.easy_records.util.model.TableNames
 
 @Entity
 @Table(name = TableNames.ORG_EXPENSE_BATCH)

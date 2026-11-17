@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.platform.business.organization_join_request
+package app.myliberty.easy_records.platform.business.organization_join_request
 
-import me.ezra_home.retail_software_solution.platform.business.organization_join_request.api.JoinRequestStatus
+import app.myliberty.easy_records.platform.business.organization_join_request.api.JoinRequestStatus
 import java.time.OffsetDateTime
 import java.util.UUID
 

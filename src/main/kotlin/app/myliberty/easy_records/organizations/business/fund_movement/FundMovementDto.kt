@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.organizations.business.fund_movement
+package app.myliberty.easy_records.organizations.business.fund_movement
 
-import me.ezra_home.retail_software_solution.organizations.business.fund_movement.api.FundMovementType
+import app.myliberty.easy_records.organizations.business.fund_movement.api.FundMovementType
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.OffsetDateTime

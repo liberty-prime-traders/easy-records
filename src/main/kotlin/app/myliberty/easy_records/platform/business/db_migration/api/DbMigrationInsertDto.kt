@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.platform.business.db_migration.api
+package app.myliberty.easy_records.platform.business.db_migration.api
 
-import me.ezra_home.retail_software_solution.platform.business.db_migration.MigrationType
-import me.ezra_home.retail_software_solution.util.enums.SchemaOwnerType
+import app.myliberty.easy_records.platform.business.db_migration.MigrationType
+import app.myliberty.easy_records.util.enums.SchemaOwnerType
 import java.io.Serializable
 import java.time.OffsetDateTime
 import java.util.UUID

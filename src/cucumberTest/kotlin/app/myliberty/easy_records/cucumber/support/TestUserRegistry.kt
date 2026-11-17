@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.cucumber.support
+package app.myliberty.easy_records.cucumber.support
 
 import java.util.UUID
 

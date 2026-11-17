@@ -1,14 +1,14 @@
-package me.ezra_home.retail_software_solution.organizations.business.product_bulk_import
+package app.myliberty.easy_records.organizations.business.product_bulk_import
 
-import me.ezra_home.retail_software_solution.organizations.business.product.api.OrganizationProductService
-import me.ezra_home.retail_software_solution.organizations.business.product_bulk_import.api.BulkProductImportRequestDto
-import me.ezra_home.retail_software_solution.organizations.business.product_bulk_import.api.ProductBulkInsertDto
-import me.ezra_home.retail_software_solution.organizations.business.product_bulk_import.api.ProductCategoryBulkInsertDto
-import me.ezra_home.retail_software_solution.organizations.business.product_bulk_import.api.ProductGroupBulkInsertDto
-import me.ezra_home.retail_software_solution.organizations.business.product_category.api.ProductCategoryService
-import me.ezra_home.retail_software_solution.organizations.business.product_group.api.ProductGroupService
-import me.ezra_home.retail_software_solution.organizations.business.unitvalue.api.UnitValueFetcher
-import me.ezra_home.retail_software_solution.util.business.StringUtils
+import app.myliberty.easy_records.organizations.business.product.api.OrganizationProductService
+import app.myliberty.easy_records.organizations.business.product_bulk_import.api.BulkProductImportRequestDto
+import app.myliberty.easy_records.organizations.business.product_bulk_import.api.ProductBulkInsertDto
+import app.myliberty.easy_records.organizations.business.product_bulk_import.api.ProductCategoryBulkInsertDto
+import app.myliberty.easy_records.organizations.business.product_bulk_import.api.ProductGroupBulkInsertDto
+import app.myliberty.easy_records.organizations.business.product_category.api.ProductCategoryService
+import app.myliberty.easy_records.organizations.business.product_group.api.ProductGroupService
+import app.myliberty.easy_records.organizations.business.unitvalue.api.UnitValueFetcher
+import app.myliberty.easy_records.util.business.StringUtils
 import org.springframework.stereotype.Component
 
 @Component

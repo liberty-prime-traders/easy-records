@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.util.enums
+package app.myliberty.easy_records.util.enums
 
-import me.ezra_home.retail_software_solution.platform.business.startup_checks.api.StartupCheck
+import app.myliberty.easy_records.platform.business.startup_checks.api.StartupCheck
 import org.springframework.stereotype.Component
 
 @Component

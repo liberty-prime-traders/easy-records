@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.locations.business.tax_entry.api
+package app.myliberty.easy_records.locations.business.tax_entry.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
-import me.ezra_home.retail_software_solution.locations.business.tax_entry.TaxEntryEntity
-import me.ezra_home.retail_software_solution.locations.business.tax_entry.TaxEntryRepository
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.locations.business.tax_entry.TaxEntryEntity
+import app.myliberty.easy_records.locations.business.tax_entry.TaxEntryRepository
 import org.springframework.stereotype.Service
 
 @Service

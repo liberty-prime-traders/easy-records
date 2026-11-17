@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.platform.business.feature.api
+package app.myliberty.easy_records.platform.business.feature.api
 
-import me.ezra_home.retail_software_solution.util.enums.HasCode
+import app.myliberty.easy_records.util.enums.HasCode
 
 enum class Feature(override val code: String) : HasCode {
     CHART_OF_ACCOUNTS("CHART_OF_ACCOUNTS"),

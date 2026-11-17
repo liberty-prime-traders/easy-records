@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.platform.business.feature
+package app.myliberty.easy_records.platform.business.feature
 
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository

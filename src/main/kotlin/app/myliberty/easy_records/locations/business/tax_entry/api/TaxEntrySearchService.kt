@@ -1,14 +1,14 @@
-package me.ezra_home.retail_software_solution.locations.business.tax_entry.api
+package app.myliberty.easy_records.locations.business.tax_entry.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
-import me.ezra_home.retail_software_solution.locations.business.tax_entry.search.TaxEntrySearchFetcher
-import me.ezra_home.retail_software_solution.locations.business.tax_entry.search.TaxEntrySearchMapper
-import me.ezra_home.retail_software_solution.locations.business.tax_entry.search.TaxEntrySearchValidator
-import me.ezra_home.retail_software_solution.locations.business.tax_entry.search.TaxEntrySourceTypeSummaryRawRow
-import me.ezra_home.retail_software_solution.organizations.business.fiscal_period.api.FiscalPeriodService
-import me.ezra_home.retail_software_solution.util.paging.PageRequest
-import me.ezra_home.retail_software_solution.util.paging.PageResponse
-import me.ezra_home.retail_software_solution.util.queries.KeysetSearchCursor
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.locations.business.tax_entry.search.TaxEntrySearchFetcher
+import app.myliberty.easy_records.locations.business.tax_entry.search.TaxEntrySearchMapper
+import app.myliberty.easy_records.locations.business.tax_entry.search.TaxEntrySearchValidator
+import app.myliberty.easy_records.locations.business.tax_entry.search.TaxEntrySourceTypeSummaryRawRow
+import app.myliberty.easy_records.organizations.business.fiscal_period.api.FiscalPeriodService
+import app.myliberty.easy_records.util.paging.PageRequest
+import app.myliberty.easy_records.util.paging.PageResponse
+import app.myliberty.easy_records.util.queries.KeysetSearchCursor
 import org.springframework.stereotype.Service
 import java.util.UUID
 

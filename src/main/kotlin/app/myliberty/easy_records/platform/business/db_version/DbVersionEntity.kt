@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.platform.business.db_version
+package app.myliberty.easy_records.platform.business.db_version
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
-import me.ezra_home.retail_software_solution.util.model.BaseEntity
-import me.ezra_home.retail_software_solution.util.model.TableNames
+import app.myliberty.easy_records.util.model.BaseEntity
+import app.myliberty.easy_records.util.model.TableNames
 import java.time.OffsetDateTime
 import java.util.UUID
 

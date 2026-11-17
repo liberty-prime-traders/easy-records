@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.util.model
+package app.myliberty.easy_records.util.model
 
 import jakarta.persistence.PrePersist
-import me.ezra_home.retail_software_solution.util.annotations.HasReference
-import me.ezra_home.retail_software_solution.util.business.reference_number.ReferenceNumberGenerator
+import app.myliberty.easy_records.util.annotations.HasReference
+import app.myliberty.easy_records.util.business.reference_number.ReferenceNumberGenerator
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.getBean

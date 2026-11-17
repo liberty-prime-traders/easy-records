@@ -1,14 +1,14 @@
-package me.ezra_home.retail_software_solution.locations.business.sale.api
+package app.myliberty.easy_records.locations.business.sale.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
-import me.ezra_home.retail_software_solution.locations.business.sale.search.SaleSearchFetcher
-import me.ezra_home.retail_software_solution.locations.business.sale.search.SaleSearchMapper
-import me.ezra_home.retail_software_solution.locations.business.sale.search.SaleSearchValidator
-import me.ezra_home.retail_software_solution.locations.business.sale_payment.api.SalePaymentFetcher
-import me.ezra_home.retail_software_solution.util.business.mappers.NameResolution
-import me.ezra_home.retail_software_solution.util.paging.PageRequest
-import me.ezra_home.retail_software_solution.util.paging.PageResponse
-import me.ezra_home.retail_software_solution.util.queries.KeysetSearchCursor
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.locations.business.sale.search.SaleSearchFetcher
+import app.myliberty.easy_records.locations.business.sale.search.SaleSearchMapper
+import app.myliberty.easy_records.locations.business.sale.search.SaleSearchValidator
+import app.myliberty.easy_records.locations.business.sale_payment.api.SalePaymentFetcher
+import app.myliberty.easy_records.util.business.mappers.NameResolution
+import app.myliberty.easy_records.util.paging.PageRequest
+import app.myliberty.easy_records.util.paging.PageResponse
+import app.myliberty.easy_records.util.queries.KeysetSearchCursor
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 

@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.locations.business.purchase.api
+package app.myliberty.easy_records.locations.business.purchase.api
 
-import me.ezra_home.retail_software_solution.util.enums.PaymentStatus
-import me.ezra_home.retail_software_solution.locations.business.delivery.api.PurchaseDeliveryResponseDto
+import app.myliberty.easy_records.util.enums.PaymentStatus
+import app.myliberty.easy_records.locations.business.delivery.api.PurchaseDeliveryResponseDto
 import java.math.BigDecimal
 import java.time.OffsetDateTime
 import java.util.UUID

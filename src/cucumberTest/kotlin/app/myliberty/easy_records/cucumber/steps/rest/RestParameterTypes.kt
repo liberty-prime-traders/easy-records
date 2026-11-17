@@ -1,9 +1,9 @@
-package me.ezra_home.retail_software_solution.cucumber.steps.rest
+package app.myliberty.easy_records.cucumber.steps.rest
 
 import io.cucumber.java.ParameterType
-import me.ezra_home.retail_software_solution.cucumber.support.rest.OrderOption
-import me.ezra_home.retail_software_solution.cucumber.support.rest.ParameterStyle
-import me.ezra_home.retail_software_solution.cucumber.support.rest.RestVerificationOption
+import app.myliberty.easy_records.cucumber.support.rest.OrderOption
+import app.myliberty.easy_records.cucumber.support.rest.ParameterStyle
+import app.myliberty.easy_records.cucumber.support.rest.RestVerificationOption
 import org.springframework.http.HttpMethod
 
 class RestParameterTypes {

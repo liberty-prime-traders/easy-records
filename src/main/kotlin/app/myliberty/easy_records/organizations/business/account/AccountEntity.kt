@@ -1,12 +1,12 @@
-package me.ezra_home.retail_software_solution.organizations.business.account
+package app.myliberty.easy_records.organizations.business.account
 
-import me.ezra_home.retail_software_solution.organizations.business.account.api.AccountType
+import app.myliberty.easy_records.organizations.business.account.api.AccountType
 import jakarta.persistence.Column
 import jakarta.persistence.Convert
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
-import me.ezra_home.retail_software_solution.util.model.HasCreatorEntity
-import me.ezra_home.retail_software_solution.util.model.TableNames
+import app.myliberty.easy_records.util.model.HasCreatorEntity
+import app.myliberty.easy_records.util.model.TableNames
 import org.hibernate.envers.Audited
 import org.hibernate.envers.NotAudited
 import java.math.BigDecimal

@@ -1,7 +1,7 @@
-package me.ezra_home.retail_software_solution.organizations.business.stock_item_source.api
+package app.myliberty.easy_records.organizations.business.stock_item_source.api
 
 import jakarta.persistence.Converter
-import me.ezra_home.retail_software_solution.util.enums.EnumConverter
+import app.myliberty.easy_records.util.enums.EnumConverter
 
 @Converter(autoApply = true)
 class StockItemSourceConverter : EnumConverter<StockItemSource>(StockItemSource::class.java)

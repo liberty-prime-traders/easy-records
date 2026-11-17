@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.cucumber.steps.platform
+package app.myliberty.easy_records.cucumber.steps.platform
 
 import io.cucumber.java.en.Given
-import me.ezra_home.retail_software_solution.cucumber.support.context.AuthContext
-import me.ezra_home.retail_software_solution.support.TestConstants
+import app.myliberty.easy_records.cucumber.support.context.AuthContext
+import app.myliberty.easy_records.support.TestConstants
 
 class AuthenticationSteps(private val authContext: AuthContext) {
 

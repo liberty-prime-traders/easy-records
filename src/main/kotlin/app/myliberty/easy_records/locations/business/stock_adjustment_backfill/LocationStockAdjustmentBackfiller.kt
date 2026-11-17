@@ -1,9 +1,9 @@
-package me.ezra_home.retail_software_solution.locations.business.stock_adjustment_backfill
+package app.myliberty.easy_records.locations.business.stock_adjustment_backfill
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
-import me.ezra_home.retail_software_solution.locations.business.stock_adjustment.api.StockAdjustmentBackfillStore
-import me.ezra_home.retail_software_solution.util.business.reference_number.ReferenceNumberGenerator
-import me.ezra_home.retail_software_solution.util.model.TableName
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.locations.business.stock_adjustment.api.StockAdjustmentBackfillStore
+import app.myliberty.easy_records.util.business.reference_number.ReferenceNumberGenerator
+import app.myliberty.easy_records.util.model.TableName
 import org.springframework.stereotype.Service
 
 @Service

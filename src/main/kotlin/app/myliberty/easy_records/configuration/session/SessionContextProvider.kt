@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.configuration.session
+package app.myliberty.easy_records.configuration.session
 
-import me.ezra_home.retail_software_solution.configuration.security.RtsHeaders
-import me.ezra_home.retail_software_solution.organizations.business.location.api.LocationDto
-import me.ezra_home.retail_software_solution.platform.business.organization.api.OrganizationDto
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
-import me.ezra_home.retail_software_solution.util.exceptions.RtsMissingHeaderException
+import app.myliberty.easy_records.configuration.security.RtsHeaders
+import app.myliberty.easy_records.organizations.business.location.api.LocationDto
+import app.myliberty.easy_records.platform.business.organization.api.OrganizationDto
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.RtsMissingHeaderException
 import java.util.UUID
 
 object SessionContextProvider {

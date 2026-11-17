@@ -1,11 +1,11 @@
-package me.ezra_home.retail_software_solution.cucumber.fixtures.organizations
+package app.myliberty.easy_records.cucumber.fixtures.organizations
 
-import me.ezra_home.retail_software_solution.cucumber.fixtures.FixtureBuilder
-import me.ezra_home.retail_software_solution.cucumber.support.ApiClient
-import me.ezra_home.retail_software_solution.cucumber.support.context.InjectContext
-import me.ezra_home.retail_software_solution.organizations.business.contact.api.ContactInsertDto
-import me.ezra_home.retail_software_solution.organizations.business.contact.api.ContactType
-import me.ezra_home.retail_software_solution.organizations.business.contact.api.IdentityType
+import app.myliberty.easy_records.cucumber.fixtures.FixtureBuilder
+import app.myliberty.easy_records.cucumber.support.ApiClient
+import app.myliberty.easy_records.cucumber.support.context.InjectContext
+import app.myliberty.easy_records.organizations.business.contact.api.ContactInsertDto
+import app.myliberty.easy_records.organizations.business.contact.api.ContactType
+import app.myliberty.easy_records.organizations.business.contact.api.IdentityType
 import org.springframework.stereotype.Component
 import java.util.UUID
 

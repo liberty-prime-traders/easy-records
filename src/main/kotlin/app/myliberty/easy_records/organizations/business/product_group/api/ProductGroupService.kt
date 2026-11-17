@@ -1,12 +1,12 @@
-package me.ezra_home.retail_software_solution.organizations.business.product_group.api
+package app.myliberty.easy_records.organizations.business.product_group.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnOrganizationSchema
-import me.ezra_home.retail_software_solution.organizations.business.product_category.api.ProductCategoryService
-import me.ezra_home.retail_software_solution.organizations.business.product_group.ProductGroupCache
-import me.ezra_home.retail_software_solution.organizations.business.product_group.ProductGroupMapper
-import me.ezra_home.retail_software_solution.organizations.business.product_group.ProductGroupRepository
-import me.ezra_home.retail_software_solution.organizations.business.product_group.ProductGroupValidator
-import me.ezra_home.retail_software_solution.util.exceptions.UpdatingNonExistingRecordException
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.organizations.business.product_category.api.ProductCategoryService
+import app.myliberty.easy_records.organizations.business.product_group.ProductGroupCache
+import app.myliberty.easy_records.organizations.business.product_group.ProductGroupMapper
+import app.myliberty.easy_records.organizations.business.product_group.ProductGroupRepository
+import app.myliberty.easy_records.organizations.business.product_group.ProductGroupValidator
+import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException
 import org.springframework.stereotype.Service
 import java.util.UUID
 

@@ -1,9 +1,9 @@
-package me.ezra_home.retail_software_solution.locations.business.sale_cogs_backfill
+package app.myliberty.easy_records.locations.business.sale_cogs_backfill
 
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleLineCogsBackfillCandidate
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleLineCogsBackfillStore
-import me.ezra_home.retail_software_solution.util.business.reference_number.ReferenceNumberGenerator
-import me.ezra_home.retail_software_solution.util.model.TableName
+import app.myliberty.easy_records.locations.business.sale.api.SaleLineCogsBackfillCandidate
+import app.myliberty.easy_records.locations.business.sale.api.SaleLineCogsBackfillStore
+import app.myliberty.easy_records.util.business.reference_number.ReferenceNumberGenerator
+import app.myliberty.easy_records.util.model.TableName
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.mock

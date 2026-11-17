@@ -1,6 +1,6 @@
-package me.ezra_home.retail_software_solution.organizations.business.contact_opening_balance.api
+package app.myliberty.easy_records.organizations.business.contact_opening_balance.api
 
-import me.ezra_home.retail_software_solution.util.ui_models.BalanceEffect
+import app.myliberty.easy_records.util.ui_models.BalanceEffect
 import java.math.BigDecimal
 import java.time.OffsetDateTime
 

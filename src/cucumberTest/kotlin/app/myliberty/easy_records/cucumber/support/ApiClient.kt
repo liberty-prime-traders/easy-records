@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.cucumber.support
+package app.myliberty.easy_records.cucumber.support
 
 import io.restassured.response.Response
 import io.restassured.specification.RequestSpecification
-import me.ezra_home.retail_software_solution.cucumber.support.context.ResponseContext
+import app.myliberty.easy_records.cucumber.support.context.ResponseContext
 import org.springframework.http.HttpMethod
 import org.springframework.stereotype.Component
 

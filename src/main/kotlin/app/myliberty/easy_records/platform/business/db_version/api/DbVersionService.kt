@@ -1,10 +1,10 @@
-package me.ezra_home.retail_software_solution.platform.business.db_version.api
+package app.myliberty.easy_records.platform.business.db_version.api
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnPlatformSchema
-import me.ezra_home.retail_software_solution.platform.business.db_version.DbVersionCache
-import me.ezra_home.retail_software_solution.platform.business.db_version.DbVersionMapper
-import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
-import me.ezra_home.retail_software_solution.util.exceptions.UpdatingNonExistingRecordException
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnPlatformSchema
+import app.myliberty.easy_records.platform.business.db_version.DbVersionCache
+import app.myliberty.easy_records.platform.business.db_version.DbVersionMapper
+import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException
 import org.springframework.stereotype.Service
 import java.time.OffsetDateTime
 import java.util.UUID

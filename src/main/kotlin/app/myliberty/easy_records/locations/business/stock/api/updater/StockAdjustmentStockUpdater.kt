@@ -1,19 +1,19 @@
-package me.ezra_home.retail_software_solution.locations.business.stock.api.updater
+package app.myliberty.easy_records.locations.business.stock.api.updater
 
-import me.ezra_home.retail_software_solution.configuration.datasource.TransactionalOnLocationSchema
-import me.ezra_home.retail_software_solution.locations.business.location_product.api.ProductStockBreakdownProvider
-import me.ezra_home.retail_software_solution.locations.business.lock.api.EntityAdvisoryLock
-import me.ezra_home.retail_software_solution.locations.business.stock.FifoStockConsumer
-import me.ezra_home.retail_software_solution.locations.business.stock.InboundLayerSpec
-import me.ezra_home.retail_software_solution.locations.business.stock.StockEntryRepository
-import me.ezra_home.retail_software_solution.locations.business.stock.StockIncreaseRecorder
-import me.ezra_home.retail_software_solution.locations.business.stock.StockMovementRepository
-import me.ezra_home.retail_software_solution.locations.business.stock.api.availability.StockAvailabilityValidator
-import me.ezra_home.retail_software_solution.locations.business.stock.api.fifo.FifoConsumptionRequest
-import me.ezra_home.retail_software_solution.locations.business.stock.api.read.StockBalanceFetcher
-import me.ezra_home.retail_software_solution.organizations.business.stock_item_source.api.StockItemSource
-import me.ezra_home.retail_software_solution.organizations.business.stock_movement_reason.api.MovementType
-import me.ezra_home.retail_software_solution.util.business.lock.LockNamespaces
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.locations.business.location_product.api.ProductStockBreakdownProvider
+import app.myliberty.easy_records.locations.business.lock.api.EntityAdvisoryLock
+import app.myliberty.easy_records.locations.business.stock.FifoStockConsumer
+import app.myliberty.easy_records.locations.business.stock.InboundLayerSpec
+import app.myliberty.easy_records.locations.business.stock.StockEntryRepository
+import app.myliberty.easy_records.locations.business.stock.StockIncreaseRecorder
+import app.myliberty.easy_records.locations.business.stock.StockMovementRepository
+import app.myliberty.easy_records.locations.business.stock.api.availability.StockAvailabilityValidator
+import app.myliberty.easy_records.locations.business.stock.api.fifo.FifoConsumptionRequest
+import app.myliberty.easy_records.locations.business.stock.api.read.StockBalanceFetcher
+import app.myliberty.easy_records.organizations.business.stock_item_source.api.StockItemSource
+import app.myliberty.easy_records.organizations.business.stock_movement_reason.api.MovementType
+import app.myliberty.easy_records.util.business.lock.LockNamespaces
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 

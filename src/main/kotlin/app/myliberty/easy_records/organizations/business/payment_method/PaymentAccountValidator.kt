@@ -1,8 +1,8 @@
-package me.ezra_home.retail_software_solution.organizations.business.payment_method
+package app.myliberty.easy_records.organizations.business.payment_method
 
-import me.ezra_home.retail_software_solution.organizations.business.account_selection.api.AccountSelectionRule
-import me.ezra_home.retail_software_solution.organizations.business.account_selection.api.AccountSelectionService
-import me.ezra_home.retail_software_solution.util.business.StringUtils
+import app.myliberty.easy_records.organizations.business.account_selection.api.AccountSelectionRule
+import app.myliberty.easy_records.organizations.business.account_selection.api.AccountSelectionService
+import app.myliberty.easy_records.util.business.StringUtils
 import org.springframework.stereotype.Component
 
 @Component

@@ -1,9 +1,9 @@
-package me.ezra_home.retail_software_solution.platform.rest.endpoints
+package app.myliberty.easy_records.platform.rest.endpoints
 
-import me.ezra_home.retail_software_solution.platform.business.tax_type.api.TaxTypeInsertDto
-import me.ezra_home.retail_software_solution.platform.business.tax_type.api.TaxTypeResponseDto
-import me.ezra_home.retail_software_solution.platform.business.tax_type.api.TaxTypeService
-import me.ezra_home.retail_software_solution.platform.business.tax_type.api.TaxTypeUpdateDto
+import app.myliberty.easy_records.platform.business.tax_type.api.TaxTypeInsertDto
+import app.myliberty.easy_records.platform.business.tax_type.api.TaxTypeResponseDto
+import app.myliberty.easy_records.platform.business.tax_type.api.TaxTypeService
+import app.myliberty.easy_records.platform.business.tax_type.api.TaxTypeUpdateDto
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize

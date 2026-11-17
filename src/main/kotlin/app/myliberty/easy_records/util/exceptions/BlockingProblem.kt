@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.util.exceptions
+package app.myliberty.easy_records.util.exceptions
 
 data class BlockingProblem(
     val documentReference: String,

@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.platform.business.startup_checks.api
+package app.myliberty.easy_records.platform.business.startup_checks.api
 
 interface StartupCheck {
     val name: String
