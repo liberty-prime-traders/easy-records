@@ -7,7 +7,6 @@ import me.ezra_home.retail_software_solution.cross_tier.expense.model.NewExpense
 import me.ezra_home.retail_software_solution.cross_tier.expense.ExpenseSourceType
 import me.ezra_home.retail_software_solution.cross_tier.expense.model.ExpenseDto
 import me.ezra_home.retail_software_solution.cross_tier.expense.model.ResolvedExpenseRow
-import me.ezra_home.retail_software_solution.cross_tier.expense.repository.ExpensePaymentStateRepositoryBase
 import me.ezra_home.retail_software_solution.util.enums.PaymentStatus
 import me.ezra_home.retail_software_solution.organizations.business.contact.api.ContactDto
 import me.ezra_home.retail_software_solution.organizations.business.expense_type.api.ExpenseTypeDto
@@ -86,15 +85,9 @@ class OrgExpenseStoreTest {
             LocalDate.of(2026, 3, 10), null, ExpenseSourceType.ADHOC, null, UUID.randomUUID(), OffsetDateTime.now(), UUID.randomUUID()
         )
         val state = OrgExpensePaymentStateEntity(expenseDto.id)
-        `when`(orgExpensePaymentStateRepository.sumActivePaidByExpenseId(anyCollection())).thenReturn(
-            listOf(object : ExpensePaymentStateRepositoryBase.ActivePaidAmount {
-                override val expenseId = expenseDto.id
-                override val amountPaid = BigDecimal("40")
-            })
-        )
         `when`(orgExpensePaymentStateRepository.findByExpenseIdIn(anyCollection())).thenReturn(listOf(state))
 
-        orgExpenseStore.refreshPaymentStates(listOf(expenseDto))
+        orgExpenseStore.refreshPaymentStates(listOf(expenseDto), mapOf(expenseDto.id to BigDecimal("40")))
 
         assertEquals(PaymentStatus.PARTIALLY_SETTLED, state.paymentStatus)
         assertEquals(0, BigDecimal("40").compareTo(state.amountPaid))

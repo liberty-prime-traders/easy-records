@@ -28,11 +28,10 @@ class ExpensePaymentStateMaintainerTest {
             UUID.randomUUID(), "EXPN01", UUID.randomUUID(), "005.005", UUID.randomUUID(), BigDecimal("100"),
             LocalDate.of(2026, 3, 10), null, ExpenseSourceType.ADHOC, null, UUID.randomUUID(), OffsetDateTime.now(), UUID.randomUUID()
         )
-        `when`(expensePaymentStateRepository.sumActivePaidByExpenseId(setOf(expenseDto.id))).thenReturn(emptyList())
         `when`(expensePaymentStateRepository.findByExpenseIdIn(setOf(expenseDto.id))).thenReturn(emptyList())
 
         assertThrows(RtsGenericException::class.java) {
-            ExpensePaymentStateMaintainer.refresh(expensePaymentStateRepository, listOf(expenseDto))
+            ExpensePaymentStateMaintainer.refresh(expensePaymentStateRepository, listOf(expenseDto), mapOf(expenseDto.id to BigDecimal.ZERO))
         }
     }
 }

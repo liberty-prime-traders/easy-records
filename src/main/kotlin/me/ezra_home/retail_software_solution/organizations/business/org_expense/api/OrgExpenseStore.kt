@@ -21,6 +21,7 @@ import me.ezra_home.retail_software_solution.organizations.business.org_expense.
 import me.ezra_home.retail_software_solution.organizations.business.org_expense.OrgExpenseVoidRepository
 import me.ezra_home.retail_software_solution.util.business.DateTimes
 import org.springframework.stereotype.Component
+import java.math.BigDecimal
 import java.util.UUID
 
 @Component
@@ -62,8 +63,8 @@ class OrgExpenseStore(
         return orgExpenseEntitys
     }
 
-    override fun refreshPaymentStates(expenseDtos: Collection<ExpenseDto>) =
-        ExpensePaymentStateMaintainer.refresh(orgExpensePaymentStateRepository, expenseDtos)
+    override fun refreshPaymentStates(expenseDtos: Collection<ExpenseDto>, paidTotalsByExpenseId: Map<UUID, BigDecimal>) =
+        ExpensePaymentStateMaintainer.refresh(orgExpensePaymentStateRepository, expenseDtos, paidTotalsByExpenseId)
 
     override fun saveNewPayments(expensePaymentDrafts: List<ExpensePaymentDraft>) =
         orgExpensePaymentRepository.saveAll(

@@ -10,6 +10,7 @@ import me.ezra_home.retail_software_solution.cross_tier.expense.model.ExpenseDto
 import me.ezra_home.retail_software_solution.cross_tier.expense.model.ExpenseVoidDto
 import me.ezra_home.retail_software_solution.cross_tier.expense.model.NewExpense
 import me.ezra_home.retail_software_solution.cross_tier.expense.model.NewExpenseBatch
+import java.math.BigDecimal
 import java.util.UUID
 
 interface ExpenseStore {
@@ -22,7 +23,7 @@ interface ExpenseStore {
 
     fun savePayments(expensePaymentDrafts: List<ExpensePaymentDraft>): List<ExpensePaymentDto>
 
-    fun refreshPaymentStates(expenseDtos: Collection<ExpenseDto>)
+    fun refreshPaymentStates(expenseDtos: Collection<ExpenseDto>, paidTotalsByExpenseId: Map<UUID, BigDecimal>)
 
     fun saveExpenseVoid(expenseId: UUID, reason: String): ExpenseVoidDto
 

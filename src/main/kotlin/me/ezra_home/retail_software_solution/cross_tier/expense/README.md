@@ -138,12 +138,15 @@ per tier (`expense_payment_state`, `org_expense_payment_state`; `ExpensePaymentS
 immutable, already-audited row.
 
 - Each tier's `saveNewExpenses` saves every row of a submission in one `saveAll` and creates each row's state as `UNPAID` / 0 in a second `saveAll`.
-- `ExpensePaymentStateMaintainer.refresh` recomputes `amount_paid` from active (non-voided)
-  payments (`sumActivePaidByExpenseId`, JPQL per tier over the `active_expense_payment` / `active_org_expense_payment`
-  views, which hold the one definition of "active": a payment with no void row) and the status with `PaymentStatusResolver`.
+- `ExpensePaymentStateMaintainer.refresh` takes the paid total per expense from its caller and resolves the status
+  with `PaymentStatusResolver`; it never re-reads payments. The `active_expense_payment` / `active_org_expense_payment`
+  views do not see the transaction's pending payment or void rows (the JPQL query does not flush them), so a re-read
+  right after the write returns the pre-write total and leaves the status one step behind. Callers read the active total once
+  before writing (`ExpenseAggregate.activePaidAmount`) and move it with `PaymentStatusResolver.paidTotalAfterRecording` /
+  `paidTotalAfterVoid`; `settleNewExpenses` starts from zero.
   It throws when an expense has no state row: search joins the state table, so a missing row would
   hide the expense from search and summary.
-  Callers must hold the expense lock: the state rows load before the sum is read, so a caller that skipped the lock fails on the state row's `@Version` instead of persisting a stale sum.
+  Callers must hold the expense lock: the state rows load first, so a caller that skipped the lock fails on the state row's `@Version` instead of persisting a total computed from stale payments.
 - Voiding an expense does not touch the row: it requires every payment voided first, so it already
   reads `UNPAID` / 0. "Voided" is never a `PaymentStatus`; it is derived from the void table.
 - Reads take status and `amountPaid` from this row: `JpaExpenseStore` loads the rows into

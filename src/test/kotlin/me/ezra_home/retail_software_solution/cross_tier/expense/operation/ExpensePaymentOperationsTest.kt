@@ -233,7 +233,7 @@ class ExpensePaymentOperationsTest {
 
     @Test
     fun `recording payments refreshes the payment state of each paid expense after the payments are saved`() {
-        val expenseDto = stubExpense(amount = "100", activePayments = emptyList())
+        val expenseDto = stubExpense(amount = "100", activePayments = listOf("20"))
         `when`(expenseStore.savePayments(listOf(ExpensePaymentDraft(expenseDto.id, BigDecimal("30.00"), resolvedSettlement()))))
             .thenReturn(listOf(paymentDto(expenseDto.id, "30")))
 
@@ -241,7 +241,7 @@ class ExpensePaymentOperationsTest {
             listOf(ExpensePaymentCreateRequest(expenseDto.referenceNumber, settlementInstruction, PositiveMoney.of(BigDecimal("30"))))
         )
 
-        assertRefreshedAfter("savePayments", listOf(expenseDto))
+        assertRefreshedAfter("savePayments", listOf(expenseDto), mapOf(expenseDto.id to BigDecimal("50")))
     }
 
     @Test
@@ -258,7 +258,10 @@ class ExpensePaymentOperationsTest {
 
         verify(expenseStore).savePayments(drafts)
         assertEquals(2, mockingDetails(eventPublisher).invocations.size)
-        assertRefreshedAfter("savePayments", listOf(firstExpense, secondExpense))
+        assertRefreshedAfter(
+            "savePayments", listOf(firstExpense, secondExpense),
+            mapOf(firstExpense.id to BigDecimal("100"), secondExpense.id to BigDecimal("50"))
+        )
     }
 
     @Test
@@ -283,7 +286,7 @@ class ExpensePaymentOperationsTest {
 
         expensePaymentOperations.voidPayment(ExpensePaymentVoidRequest("EXPY01", "wrong method"))
 
-        assertRefreshedAfter("savePaymentVoid", listOf(expenseDto))
+        assertRefreshedAfter("savePaymentVoid", listOf(expenseDto), mapOf(expenseDto.id to BigDecimal.ZERO))
     }
 
     @Test
@@ -299,12 +302,22 @@ class ExpensePaymentOperationsTest {
         assertTrue(mockingDetails(expenseStore).invocations.none { it.method.name == "refreshPaymentStates" })
     }
 
-    private fun assertRefreshedAfter(writeMethodName: String, expectedExpenseRecords: List<ExpenseDto>) {
+    private fun assertRefreshedAfter(
+        writeMethodName: String,
+        expectedExpenseRecords: List<ExpenseDto>,
+        expectedPaidTotalsByExpenseId: Map<UUID, BigDecimal>
+    ) {
         val invocations = mockingDetails(expenseStore).invocations
         val writeIndex = invocations.indexOfFirst { it.method.name == writeMethodName }
         val refreshInvocations = invocations.filter { it.method.name == "refreshPaymentStates" }
         assertEquals(1, refreshInvocations.size)
         assertEquals(expectedExpenseRecords, (refreshInvocations.single().arguments[0] as Collection<*>).toList())
+        @Suppress("UNCHECKED_CAST")
+        val actualPaidTotals = refreshInvocations.single().arguments[1] as Map<UUID, BigDecimal>
+        assertEquals(expectedPaidTotalsByExpenseId.keys, actualPaidTotals.keys)
+        expectedPaidTotalsByExpenseId.forEach { (expenseId, expectedTotal) ->
+            assertEquals(0, expectedTotal.compareTo(actualPaidTotals.getValue(expenseId)), "paid total for $expenseId")
+        }
         assertTrue(writeIndex in 0 until invocations.indexOf(refreshInvocations.single()))
     }
 
