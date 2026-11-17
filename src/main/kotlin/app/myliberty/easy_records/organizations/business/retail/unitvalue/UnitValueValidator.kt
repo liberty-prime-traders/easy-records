@@ -8,7 +8,7 @@ import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.Un
 import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueInsertDto
 import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueUpdateDto
 import app.myliberty.easy_records.util.business.StringUtils
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException
 import org.springframework.stereotype.Component
 import java.util.UUID
@@ -21,16 +21,16 @@ class UnitValueValidator(
 
     fun validateUnitValueInsert(unitValueInsertDto: UnitValueInsertDto) {
         if (!StringUtils.hasValue(unitValueInsertDto.name)) {
-            throw RtsGenericException(NAME_IS_REQUIRED)
+            throw LibertyGenericException(NAME_IS_REQUIRED)
         }
         if (!StringUtils.hasValue(unitValueInsertDto.code)) {
-            throw RtsGenericException(CODE_IS_REQUIRED)
+            throw LibertyGenericException(CODE_IS_REQUIRED)
         }
         if (unitValueInsertDto.unitGroupId == null) {
-            throw RtsGenericException(UNIT_GROUP_ID_IS_REQUIRED)
+            throw LibertyGenericException(UNIT_GROUP_ID_IS_REQUIRED)
         }
         if (!unitGroupDataFetcher.exists(unitValueInsertDto.unitGroupId)) {
-            throw RtsGenericException(PROVIDED_MISSING_UNIT_GROUP)
+            throw LibertyGenericException(PROVIDED_MISSING_UNIT_GROUP)
         }
         requireNameIsFreeInGroup(unitValueInsertDto.name!!, unitValueInsertDto.unitGroupId, excludedUnitId = null)
         requireCodeIsWellFormed(unitValueInsertDto.code!!)
@@ -38,21 +38,21 @@ class UnitValueValidator(
 
         if (unitGroupDataFetcher.isMiscellaneous(unitValueInsertDto.unitGroupId)) {
             if (unitValueInsertDto.baseUnit != null || unitValueInsertDto.unitsOfBasePerUnit != null) {
-                throw RtsGenericException(MISCELLANEOUS_UNIT_CANNOT_HAVE_BASE_UNIT)
+                throw LibertyGenericException(MISCELLANEOUS_UNIT_CANNOT_HAVE_BASE_UNIT)
             }
             return
         }
         if (unitValueInsertDto.baseUnit == null) {
-            throw RtsGenericException(BASE_UNIT_IS_REQUIRED)
+            throw LibertyGenericException(BASE_UNIT_IS_REQUIRED)
         }
         if (unitValueInsertDto.unitsOfBasePerUnit == null) {
-            throw RtsGenericException(UNITS_OF_BASE_PER_UNIT_IS_REQUIRED)
+            throw LibertyGenericException(UNITS_OF_BASE_PER_UNIT_IS_REQUIRED)
         }
         requireFactorWithinBounds(unitValueInsertDto.unitsOfBasePerUnit)
 
         val unitGroupNodes = unitValueCache.getByUnitGroupId(unitValueInsertDto.unitGroupId).map { toChainNode(it) }
         if (unitGroupNodes.none { it.id == unitValueInsertDto.baseUnit }) {
-            throw RtsGenericException(BASE_UNIT_MUST_BE_IN_GROUP)
+            throw LibertyGenericException(BASE_UNIT_MUST_BE_IN_GROUP)
         }
         val insertedNode = UnitChainNode(UUID.randomUUID(), unitValueInsertDto.baseUnit, unitValueInsertDto.unitsOfBasePerUnit)
         UnitChainResolver.resolvePlacements(unitGroupNodes + insertedNode)
@@ -72,11 +72,11 @@ class UnitValueValidator(
     fun validateUnitValueUpdate(unitValueUpdateDto: UnitValueUpdateDto) {
         val name = unitValueUpdateDto.name?.get()
         if (!StringUtils.hasValue(name)) {
-            throw RtsGenericException(NAME_IS_REQUIRED)
+            throw LibertyGenericException(NAME_IS_REQUIRED)
         }
         val code = unitValueUpdateDto.code?.get()
         if (!StringUtils.hasValue(code)) {
-            throw RtsGenericException(CODE_IS_REQUIRED)
+            throw LibertyGenericException(CODE_IS_REQUIRED)
         }
         val existing = unitValueCache.getAllUnitValues().find { it.id == unitValueUpdateDto.id }
             ?: throw UpdatingNonExistingRecordException()
@@ -89,13 +89,13 @@ class UnitValueValidator(
         val unitsOfBasePerUnitIsProvided = unitValueUpdateDto.unitsOfBasePerUnit?.isPresent == true
 
         if (baseUnitIsProvided && !unitsOfBasePerUnitIsProvided) {
-            throw RtsGenericException(UNITS_OF_BASE_PER_UNIT_IS_REQUIRED)
+            throw LibertyGenericException(UNITS_OF_BASE_PER_UNIT_IS_REQUIRED)
         }
         if (unitsOfBasePerUnitIsProvided && !baseUnitIsProvided) {
-            throw RtsGenericException(BASE_UNIT_IS_REQUIRED)
+            throw LibertyGenericException(BASE_UNIT_IS_REQUIRED)
         }
         if (existing.baseUnit == null && baseUnitIsProvided) {
-            throw RtsGenericException(ROOT_UNIT_CANNOT_HAVE_BASE_UNIT)
+            throw LibertyGenericException(ROOT_UNIT_CANNOT_HAVE_BASE_UNIT)
         }
         if (unitsOfBasePerUnitIsProvided) {
             requireFactorWithinBounds(unitValueUpdateDto.unitsOfBasePerUnit?.get()!!)
@@ -104,7 +104,7 @@ class UnitValueValidator(
         val updated = unitValueUpdateDto.applyTo(existing)
         val unitGroupNodes = unitValueCache.getByUnitGroupId(existing.unitGroupId)
         if (baseUnitIsProvided && unitGroupNodes.none { it.id == updated.baseUnit }) {
-            throw RtsGenericException(BASE_UNIT_MUST_BE_IN_GROUP)
+            throw LibertyGenericException(BASE_UNIT_MUST_BE_IN_GROUP)
         }
         val nodesAfterUpdate = unitGroupNodes.map { toChainNode(if (it.id == existing.id) updated else it) }
         UnitChainResolver.resolvePlacements(nodesAfterUpdate)
@@ -115,33 +115,33 @@ class UnitValueValidator(
 
     private fun requireNameIsFreeInGroup(name: String, unitGroupId: UUID?, excludedUnitId: UUID?) {
         if (StringUtils.alphanumericKey(name).isEmpty()) {
-            throw RtsGenericException(NAME_MUST_CONTAIN_LETTER_OR_DIGIT)
+            throw LibertyGenericException(NAME_MUST_CONTAIN_LETTER_OR_DIGIT)
         }
         unitValueCache.getByUnitGroupId(unitGroupId)
             .find { it.id != excludedUnitId && StringUtils.isEquivalentOnAlphanumerics(it.name, name) }
-            ?.let { throw RtsGenericException(String.format(NAME_ALREADY_EXISTS, name)) }
+            ?.let { throw LibertyGenericException(String.format(NAME_ALREADY_EXISTS, name)) }
     }
 
     private fun requireCodeIsWellFormed(code: String) {
         if (code.length > SystemUnitValue.MAX_CODE_LENGTH) {
-            throw RtsGenericException(String.format(CODE_TOO_LONG, SystemUnitValue.MAX_CODE_LENGTH))
+            throw LibertyGenericException(String.format(CODE_TOO_LONG, SystemUnitValue.MAX_CODE_LENGTH))
         }
         if (code == RootUnitDefinition.PIECE_BASE_UNIT_CODE) {
-            throw RtsGenericException(String.format(CODE_IS_RESERVED, code))
+            throw LibertyGenericException(String.format(CODE_IS_RESERVED, code))
         }
     }
 
     private fun requireCodeIsFree(code: String, excludedUnitId: UUID?) {
         unitValueCache.getAllUnitValues().find { it.code == code && it.id != excludedUnitId }
-            ?.let { throw RtsGenericException(String.format(CODE_ALREADY_EXISTS, code)) }
+            ?.let { throw LibertyGenericException(String.format(CODE_ALREADY_EXISTS, code)) }
     }
 
     private fun requireFactorWithinBounds(unitsOfBasePerUnit: Long) {
         if (unitsOfBasePerUnit < 1) {
-            throw RtsGenericException(UNITS_OF_BASE_PER_UNIT_MUST_BE_POSITIVE)
+            throw LibertyGenericException(UNITS_OF_BASE_PER_UNIT_MUST_BE_POSITIVE)
         }
         if (unitsOfBasePerUnit > UnitChainResolver.MAX_SIZE_IN_ROOT) {
-            throw RtsGenericException(UnitChainResolver.CHAIN_SIZE_TOO_LARGE)
+            throw LibertyGenericException(UnitChainResolver.CHAIN_SIZE_TOO_LARGE)
         }
     }
 

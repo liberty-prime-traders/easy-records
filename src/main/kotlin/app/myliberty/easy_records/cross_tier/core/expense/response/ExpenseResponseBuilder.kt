@@ -8,7 +8,7 @@ import app.myliberty.easy_records.organizations.business.core.expense_type.api.E
 import app.myliberty.easy_records.organizations.business.core.payment_method.api.PaymentMethodDataFetcher
 import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.business.mappers.UserQualifier
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Component
 import java.util.UUID
 
@@ -32,11 +32,11 @@ class ExpenseResponseBuilder(
         val paymentStatesByExpenseId = expenseAggregate.paymentStates.associateBy { it.expenseId }
         return expenseAggregate.expenses.map { expense ->
             val expenseType = expenseTypesById[expense.expenseTypeId]
-                ?: throw RtsGenericException("Expense type ${expense.expenseTypeId} not found")
+                ?: throw LibertyGenericException("Expense type ${expense.expenseTypeId} not found")
             val batch = batchesById.getValue(expense.batchId)
             val payments = paymentsByExpenseId[expense.id].orEmpty().sortedBy { it.createdOn }
             val paymentState = paymentStatesByExpenseId[expense.id]
-                ?: throw RtsGenericException("Payment state for expense ${expense.referenceNumber} not found")
+                ?: throw LibertyGenericException("Payment state for expense ${expense.referenceNumber} not found")
             val expenseVoid = voidsByExpenseId[expense.id]
             ExpenseSummaryResponse(
                 reference = expense.referenceNumber,

@@ -24,7 +24,7 @@ whose root unit codes collide,
 cyclic base-unit chains, and chains whose size in the root exceeds 1,000,000,000
 (`UnitChainResolver`) — instead of throwing on the
 first one like the single-item validators do. If that list is non-empty,
-`bulkImport` throws `RtsGenericException("Bulk unit import validation
+`bulkImport` throws `LibertyGenericException("Bulk unit import validation
 failed", errors)` before anything is saved; `GlobalExceptionHandler` puts the
 list in `ApiError.body`. Only once validation is fully clean does phase two
 run: groups, then unit values, in that order, since units depend on the

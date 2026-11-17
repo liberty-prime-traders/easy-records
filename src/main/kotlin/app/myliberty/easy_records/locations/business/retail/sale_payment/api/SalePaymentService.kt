@@ -14,7 +14,7 @@ import app.myliberty.easy_records.organizations.business.core.fiscal_period.api.
 import app.myliberty.easy_records.organizations.business.core.payment_method.api.PaymentMethodDataFetcher
 import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.business.PaymentStatusResolver
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 
@@ -33,7 +33,7 @@ class SalePaymentService(
 ) {
 
     fun recordPayment(salePaymentCreateDto: SalePaymentCreateDto): SalePaymentResponseDto {
-        val saleId = salePaymentCreateDto.saleId ?: throw RtsGenericException("saleId is required")
+        val saleId = salePaymentCreateDto.saleId ?: throw LibertyGenericException("saleId is required")
         val effectivePaymentDate = salePaymentCreateDto.paymentDate ?: DateTimes.Offset.Now.organization()
         fiscalPeriodService.requireOpenForDate(DateTimes.Local.atOrganizationZone(effectivePaymentDate))
         val (contactId, receivableTotal, saleStatus) = saleDataFetcher.lockAndGetSaleContext(saleId)
@@ -71,11 +71,11 @@ class SalePaymentService(
         fiscalPeriodService.requireOpenForDate(DateTimes.Local.Now.organization())
         val reasonBySalePaymentId = salePaymentVoidCreateDtos.associate { it.salePaymentId to it.reason }
         if (reasonBySalePaymentId.size != salePaymentVoidCreateDtos.size) {
-            throw RtsGenericException("The same payment was selected to void more than once")
+            throw LibertyGenericException("The same payment was selected to void more than once")
         }
         val payments = salePaymentRepository.findAllById(reasonBySalePaymentId.keys)
         if (payments.size != reasonBySalePaymentId.size) {
-            throw RtsGenericException("Some payments to void no longer exist")
+            throw LibertyGenericException("Some payments to void no longer exist")
         }
         val paymentsBySaleId = payments.groupBy { it.saleId }
         val saleContextBySaleId = saleDataFetcher.lockAndGetSaleContexts(paymentsBySaleId.keys.toList())

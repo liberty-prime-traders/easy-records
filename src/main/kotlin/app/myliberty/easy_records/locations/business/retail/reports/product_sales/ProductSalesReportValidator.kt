@@ -2,7 +2,7 @@ package app.myliberty.easy_records.locations.business.retail.reports.product_sal
 
 import app.myliberty.easy_records.locations.business.retail.reports.product_sales.api.ProductSalesSortDirection
 import app.myliberty.easy_records.locations.business.retail.reports.product_sales.api.ProductSalesSortField
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.queries.SearchGuards
 import java.time.OffsetDateTime
 import java.util.UUID
@@ -24,16 +24,16 @@ object ProductSalesReportValidator {
 
   fun guardValidSummaryProductIds(locationProductIds: List<UUID>) {
     if (locationProductIds.size !in MIN_SUMMARY_PRODUCTS..MAX_SUMMARY_PRODUCTS) {
-      throw RtsGenericException("locationProductIds must contain between $MIN_SUMMARY_PRODUCTS and $MAX_SUMMARY_PRODUCTS products")
+      throw LibertyGenericException("locationProductIds must contain between $MIN_SUMMARY_PRODUCTS and $MAX_SUMMARY_PRODUCTS products")
     }
     if (locationProductIds.toSet().size != locationProductIds.size) {
-      throw RtsGenericException("locationProductIds must not contain duplicates")
+      throw LibertyGenericException("locationProductIds must not contain duplicates")
     }
   }
 
   fun guardValidSort(sortField: ProductSalesSortField, sortDirection: ProductSalesSortDirection) {
     if (sortField == ProductSalesSortField.NEEDS_ATTENTION && sortDirection != ProductSalesSortDirection.DESC) {
-      throw RtsGenericException("NEEDS_ATTENTION can only be sorted descending")
+      throw LibertyGenericException("NEEDS_ATTENTION can only be sorted descending")
     }
   }
 

@@ -10,7 +10,7 @@ constructor or data class that tests build, or fixing a failing test.
 A test file compiles with no warnings. The ones that keep appearing:
 
 - **Unnecessary non-null assertion (`!!`).** Use `!!` only on a type that is really nullable (entity ids, optional
-  fields). `RtsGenericException.message` is a non-null `String`: `refusal.message.contains("SALE02")`, never
+  fields). `LibertyGenericException.message` is a non-null `String`: `refusal.message.contains("SALE02")`, never
   `refusal.message!!.contains("SALE02")`.
 - **Unnecessary safe call (`?.`)** on a non-null receiver.
 - **Condition that is always true or false**, and **unused variable, parameter or import**.
@@ -37,7 +37,7 @@ touched. Fix the type or the call, never suppress the warning.
 - A refusal test captures the exception and asserts its message, not only that something was thrown:
 
   ```kotlin
-  val refusal = assertThrows(RtsGenericException::class.java) { generator.generate(staleInput) }
+  val refusal = assertThrows(LibertyGenericException::class.java) { generator.generate(staleInput) }
   assertTrue(refusal.message.contains("SALE02"))
   ```
 

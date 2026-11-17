@@ -2,7 +2,7 @@ package app.myliberty.easy_records.locations.business.retail.stock.api.read
 
 import app.myliberty.easy_records.locations.business.retail.stock.StockEntryEntity
 import app.myliberty.easy_records.locations.business.retail.stock.StockEntryRepository
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
@@ -41,7 +41,7 @@ class StockEntryFetcherTest {
         val unknownStockEntryId = UUID.randomUUID()
         `when`(stockEntryRepository.findById(unknownStockEntryId)).thenReturn(Optional.empty())
 
-        assertThrows(RtsGenericException::class.java) { stockEntryFetcher.get(unknownStockEntryId) }
+        assertThrows(LibertyGenericException::class.java) { stockEntryFetcher.get(unknownStockEntryId) }
     }
 
     @Test

@@ -3,7 +3,7 @@ package app.myliberty.easy_records.util.exceptions
 import org.springframework.http.HttpStatus
 
 sealed class AuthException(payload: Any? = null)
-    : RtsGenericException("Login Failed", payload, HttpStatus.UNAUTHORIZED) {
+    : LibertyGenericException("Login Failed", payload, HttpStatus.UNAUTHORIZED) {
 
     data class AuthFailure(val code: AuthFailureCode, val data: Any? = null)
 

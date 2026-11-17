@@ -2,7 +2,7 @@ package app.myliberty.easy_records.organizations.business.core.opening_balance
 
 import app.myliberty.easy_records.organizations.business.core.account.api.AccountLookupDto
 import app.myliberty.easy_records.organizations.business.core.account.api.SystemAccount
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 
 object OpeningBalanceAccountValidator {
 
@@ -14,15 +14,15 @@ object OpeningBalanceAccountValidator {
 
     fun assertManualOpeningBalanceAccepted(accountCode: String) {
         val rejectionReason = manualOpeningBalanceRejections[accountCode] ?: return
-        throw RtsGenericException("Account $accountCode $rejectionReason and cannot take a manual opening balance")
+        throw LibertyGenericException("Account $accountCode $rejectionReason and cannot take a manual opening balance")
     }
 
     fun requireLeafActive(account: AccountLookupDto) {
         if (!account.accountIsActive) {
-            throw RtsGenericException("Account ${account.code} is not active")
+            throw LibertyGenericException("Account ${account.code} is not active")
         }
         if (account.hasChildren) {
-            throw RtsGenericException("Only leaf (postable) accounts can have an opening balance")
+            throw LibertyGenericException("Only leaf (postable) accounts can have an opening balance")
         }
     }
 }

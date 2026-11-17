@@ -4,7 +4,7 @@ import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocati
 import app.myliberty.easy_records.locations.business.retail.stock.StockEntryRepository
 import app.myliberty.easy_records.locations.business.retail.stock.StockMovementRepository
 import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.MovementType
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Service
 import java.util.UUID
 
@@ -20,7 +20,7 @@ class DeliveryLineStockInspector(
             deliveryReferenceNumber,
             deliveryLineReferenceNumber
         ).singleOrNull()
-            ?: throw RtsGenericException(
+            ?: throw LibertyGenericException(
                 "The stock records of delivery line $deliveryLineReferenceNumber are incomplete, " +
                     "so it cannot be changed. Please contact support."
             )

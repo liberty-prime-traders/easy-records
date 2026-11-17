@@ -3,7 +3,7 @@ package app.myliberty.easy_records.locations.business.retail.sale_session.consol
 import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionAdjustment
 import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionLine
 import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.UnitConversionGraph
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import java.util.UUID
 
 object SaleLineMerger {
@@ -21,7 +21,7 @@ object SaleLineMerger {
         val adjustmentsByLineKey = lineLevelSaleAdjustments.groupBy { it.requiredRelatedSaleLineKey() }
         val saleLineKeys = saleLines.mapTo(HashSet()) { it.identity.key() }
         if (adjustmentsByLineKey.keys.any { it !in saleLineKeys }) {
-            throw RtsGenericException("Adjustment references a line that is not on the sale")
+            throw LibertyGenericException("Adjustment references a line that is not on the sale")
         }
         val firstSeenLocationProductIds = saleLines.map { it.locationProductId }.distinct()
 

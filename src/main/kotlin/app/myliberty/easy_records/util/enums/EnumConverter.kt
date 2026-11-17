@@ -2,7 +2,7 @@ package app.myliberty.easy_records.util.enums
 
 import jakarta.persistence.AttributeConverter
 import jakarta.persistence.Converter
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import java.util.EnumSet
 
 @Converter
@@ -17,6 +17,6 @@ open class EnumConverter<ENUM>(private val enumClass: Class<ENUM>) : AttributeCo
         if (code == null) return null
         return EnumSet.allOf(enumClass)
             .firstOrNull { enumValue -> enumValue.code.contentEquals(code) }
-            ?: throw RtsGenericException("No enum constant '${code}' found for enum class '${enumClass.simpleName}'")
+            ?: throw LibertyGenericException("No enum constant '${code}' found for enum class '${enumClass.simpleName}'")
     }
 }

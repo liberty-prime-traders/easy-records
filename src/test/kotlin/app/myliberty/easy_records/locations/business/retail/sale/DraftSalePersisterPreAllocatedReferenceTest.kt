@@ -7,7 +7,7 @@ import app.myliberty.easy_records.locations.business.retail.sale_adjustment.api.
 import app.myliberty.easy_records.locations.business.retail.sale_adjustment.api.SaleAdjustmentSyncer
 import app.myliberty.easy_records.locations.business.retail.stock_reservation.api.StockReserver
 import app.myliberty.easy_records.organizations.business.core.fiscal_period.api.FiscalPeriodService
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Assertions.assertThrows
@@ -104,7 +104,7 @@ class DraftSalePersisterPreAllocatedReferenceTest {
 
     @Test
     fun `an allocated reference on an existing sale is refused before anything is loaded or saved`() {
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             draftSalePersister.saveDraft(saveRequest(UUID.randomUUID(), "SALE0009"))
         }
 

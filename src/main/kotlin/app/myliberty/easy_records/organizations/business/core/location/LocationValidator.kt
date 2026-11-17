@@ -5,7 +5,7 @@ import app.myliberty.easy_records.organizations.business.core.location.api.Locat
 import app.myliberty.easy_records.organizations.business.core.location.api.LocationUpdateDto
 import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.business.StringUtils
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Component
 import java.util.Objects
 
@@ -22,7 +22,7 @@ class LocationValidator(private val locationCache: LocationCache) {
         val name = StringUtils.getValueOrException(locationInsertDto.name, NAME_IS_REQUIRED)
         locationCache.getAllLocations()
             .find { StringUtils.isEquivalent(it.name, locationInsertDto.name) }
-            ?.let { throw RtsGenericException(String.format(NAME_ALREADY_EXISTS, name)) }
+            ?.let { throw LibertyGenericException(String.format(NAME_ALREADY_EXISTS, name)) }
         DateTimes.validateTimezone(locationInsertDto.timezone)
     }
 
@@ -31,7 +31,7 @@ class LocationValidator(private val locationCache: LocationCache) {
         val locationId = SessionContextProvider.getLocationId()
         locationCache.getAllLocations()
             .find { StringUtils.isEquivalent(it.name, name) && !Objects.equals(it.id, locationId) }
-            ?.let { throw RtsGenericException(String.format(NAME_ALREADY_EXISTS, name)) }
+            ?.let { throw LibertyGenericException(String.format(NAME_ALREADY_EXISTS, name)) }
         DateTimes.validateTimezone(locationUpdateDto.timezone)
     }
 

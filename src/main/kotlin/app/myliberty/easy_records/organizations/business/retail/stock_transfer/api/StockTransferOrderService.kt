@@ -3,7 +3,7 @@ package app.myliberty.easy_records.organizations.business.retail.stock_transfer.
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
 import app.myliberty.easy_records.organizations.business.retail.stock_transfer.StockTransferOrderEntity
 import app.myliberty.easy_records.organizations.business.retail.stock_transfer.StockTransferOrderRepository
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 import java.time.OffsetDateTime
@@ -60,7 +60,7 @@ class StockTransferOrderService(
 
     private fun findByReferenceNumberOrThrow(referenceNumber: String): StockTransferOrderEntity =
         stockTransferOrderRepository.findByReferenceNumber(referenceNumber)
-            ?: throw RtsGenericException("Stock transfer order $referenceNumber not found")
+            ?: throw LibertyGenericException("Stock transfer order $referenceNumber not found")
 
     private fun StockTransferOrderEntity.toDomainDto() = StockTransferOrderDomainDto(
         id = id!!,

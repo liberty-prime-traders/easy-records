@@ -14,7 +14,7 @@ import app.myliberty.easy_records.organizations.business.core.ledger.SubledgerBa
 import app.myliberty.easy_records.organizations.business.core.ledger.SubledgerEntryEntity
 import app.myliberty.easy_records.organizations.business.core.ledger.SubledgerEntryRepository
 import app.myliberty.easy_records.util.business.DateTimes
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Service
 
 @Service
@@ -53,7 +53,7 @@ class LedgerPostingService(
 
     private fun saveLedgerGroup(ledgerPostingRequest: LedgerPostingRequest): LedgerEntryGroupEntity {
         val fiscalPeriodId = fiscalPeriodService.findOpenForDate(ledgerPostingRequest.postingDate)
-            ?: throw RtsGenericException("No open fiscal period for ${ledgerPostingRequest.postingDate}")
+            ?: throw LibertyGenericException("No open fiscal period for ${ledgerPostingRequest.postingDate}")
         val group = LedgerEntryGroupEntity(
             sourceReferenceNumber = ledgerPostingRequest.sourceReferenceNumber,
             sourceType = ledgerPostingRequest.sourceType,
@@ -89,7 +89,7 @@ class LedgerPostingService(
         subledgerRepository.saveAll(
             ledgerPostingRequest.subledgerEntries.map { subledgerEntryRequest ->
                 val subledgerBalanceEntity = balancesByContact[subledgerEntryRequest.contactReferenceNumber]
-                    ?: throw RtsGenericException("No subledger balance exists for contact ${subledgerEntryRequest.contactReferenceNumber}")
+                    ?: throw LibertyGenericException("No subledger balance exists for contact ${subledgerEntryRequest.contactReferenceNumber}")
                 // Managed entity: dirty checking flushes the new totals with the entry rows.
                 subledgerBalanceEntity.runningPayable += subledgerEntryRequest.payableAmount.toBigDecimal()
                 subledgerBalanceEntity.runningReceivable += subledgerEntryRequest.receivableAmount.toBigDecimal()

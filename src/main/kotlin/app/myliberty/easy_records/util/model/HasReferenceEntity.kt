@@ -3,7 +3,7 @@ package app.myliberty.easy_records.util.model
 import jakarta.persistence.Column
 import jakarta.persistence.EntityListeners
 import jakarta.persistence.MappedSuperclass
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 
 @MappedSuperclass
 @EntityListeners(ReferenceNumberEntityListener::class)
@@ -14,5 +14,5 @@ abstract class HasReferenceEntity(
 ): HasCreatorEntity() {
 
     fun requiredReference(): String = referenceNumber
-        ?: throw RtsGenericException("${javaClass.simpleName} is missing its reference number")
+        ?: throw LibertyGenericException("${javaClass.simpleName} is missing its reference number")
 }

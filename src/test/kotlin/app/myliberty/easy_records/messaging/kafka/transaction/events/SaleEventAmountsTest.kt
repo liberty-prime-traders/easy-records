@@ -4,7 +4,7 @@ import app.myliberty.easy_records.messaging.kafka.common.EventSourceContext
 import app.myliberty.easy_records.support.WithDefaultOrganizationSession
 import app.myliberty.easy_records.util.business.Decimals
 import app.myliberty.easy_records.util.business.Money
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
@@ -34,13 +34,13 @@ class SaleEventAmountsTest {
         val taxableAtCeiling = Money.of(Decimals.MAXIMUM_TRANSACTION_AMOUNT)
         val oneCent = Money.of(BigDecimal("0.01"))
 
-        assertThrows(RtsGenericException::class.java) { saleConfirmedEvent(taxableAmount = taxableAtCeiling, taxBilled = oneCent) }
-        assertThrows(RtsGenericException::class.java) { saleVoidedEvent(taxableAmount = taxableAtCeiling, taxBilled = oneCent) }
+        assertThrows(LibertyGenericException::class.java) { saleConfirmedEvent(taxableAmount = taxableAtCeiling, taxBilled = oneCent) }
+        assertThrows(LibertyGenericException::class.java) { saleVoidedEvent(taxableAmount = taxableAtCeiling, taxBilled = oneCent) }
     }
 
     @Test
     fun `a taxable amount plus discount above the ceiling fails when the event is built`() {
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             saleConfirmedEvent(taxableAmount = Money.of(Decimals.MAXIMUM_TRANSACTION_AMOUNT), discountTotal = Money.of(BigDecimal("0.01")))
         }
     }

@@ -4,7 +4,7 @@ import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrgani
 import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.StockMovementReasonCache
 import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.StockMovementReasonMapper
 import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.StockMovementReasonValidator
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException
 import org.springframework.stereotype.Service
 import java.util.UUID
@@ -24,14 +24,14 @@ class StockMovementReasonService(
 
     fun update(updateDto: StockMovementReasonUpdateDto): StockMovementReasonResponseDto {
         val existing = cache.getAll().find { it.id == updateDto.id } ?: throw UpdatingNonExistingRecordException()
-        if (existing.systemDefined) throw RtsGenericException(SYSTEM_REASON_CANNOT_BE_MODIFIED)
+        if (existing.systemDefined) throw LibertyGenericException(SYSTEM_REASON_CANNOT_BE_MODIFIED)
         validator.validateUpdate(updateDto)
         return mapper.toResponseDto(cache.save(updateDto.applyTo(existing)))
     }
 
     fun delete(id: UUID) {
         val existing = cache.getAll().find { it.id == id } ?: return
-        if (existing.systemDefined) throw RtsGenericException(SYSTEM_REASON_CANNOT_BE_DELETED)
+        if (existing.systemDefined) throw LibertyGenericException(SYSTEM_REASON_CANNOT_BE_DELETED)
         cache.delete(id)
     }
 
@@ -41,14 +41,14 @@ class StockMovementReasonService(
     fun guardReason(movementType: MovementType, reasonId: UUID?) {
         if (reasonId == null) {
             if (movementType.reasonRequired) {
-                throw RtsGenericException("A reason is required for ${movementType.name} movements")
+                throw LibertyGenericException("A reason is required for ${movementType.name} movements")
             }
             return
         }
         val reason = cache.getAll().find { it.id == reasonId }
-            ?: throw RtsGenericException("Stock movement reason $reasonId does not exist")
+            ?: throw LibertyGenericException("Stock movement reason $reasonId does not exist")
         if (movementType !in reason.movementTypes) {
-            throw RtsGenericException("Reason '${reason.name}' does not apply to ${movementType.name} movements")
+            throw LibertyGenericException("Reason '${reason.name}' does not apply to ${movementType.name} movements")
         }
     }
 

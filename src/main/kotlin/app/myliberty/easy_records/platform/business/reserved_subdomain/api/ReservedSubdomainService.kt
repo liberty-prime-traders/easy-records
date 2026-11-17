@@ -7,7 +7,7 @@ import app.myliberty.easy_records.platform.business.reserved_subdomain.ReservedS
 import app.myliberty.easy_records.platform.business.reserved_subdomain.SubdomainRepository
 import app.myliberty.easy_records.util.business.SchemaNameGenerator
 import app.myliberty.easy_records.util.business.StringUtils
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Component
 import java.util.UUID
@@ -26,13 +26,13 @@ class ReservedSubdomainService(
 
     fun sanitizeThenReserveSubdomain(suggestedSubdomain: String?): ReservedSubdomainDto {
         if (!StringUtils.hasValue(suggestedSubdomain)) {
-            throw RtsGenericException("An empty subdomain cannot be verified")
+            throw LibertyGenericException("An empty subdomain cannot be verified")
         }
         val subdomain = SchemaNameGenerator.generateSubDomain(suggestedSubdomain!!)
         val userId = SessionContextProvider.getUserId()
         subdomainRepository.findByStatusNotAndSubdomain(ReservedDomainStatus.ABANDONED, subdomain)
             .find { it.status == ReservedDomainStatus.USED || it.createdById != userId }
-            ?.let { throw RtsGenericException("Subdomain '$subdomain' is taken") }
+            ?.let { throw LibertyGenericException("Subdomain '$subdomain' is taken") }
         return reservedSubdomainMapper.toDto(reserveSubdomain(subdomain))
     }
 

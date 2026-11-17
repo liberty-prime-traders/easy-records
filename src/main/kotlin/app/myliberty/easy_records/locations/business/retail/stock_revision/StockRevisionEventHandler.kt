@@ -4,7 +4,7 @@ import app.myliberty.easy_records.configuration.session.SessionContextProvider
 import app.myliberty.easy_records.messaging.kafka.common.EventSourceContext
 import app.myliberty.easy_records.messaging.kafka.transaction.EventReissueHandler
 import app.myliberty.easy_records.util.business.DateTimes
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import java.time.LocalDate
 import java.util.UUID
 
@@ -15,7 +15,7 @@ abstract class StockRevisionEventHandler(
     override fun reissue(sourceDocumentId: UUID) {
         republish(
             stockRevisionRepository.findById(sourceDocumentId)
-                .orElseThrow { RtsGenericException("Stock revision $sourceDocumentId not found") }
+                .orElseThrow { LibertyGenericException("Stock revision $sourceDocumentId not found") }
         )
     }
 

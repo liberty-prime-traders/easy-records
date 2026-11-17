@@ -1,6 +1,6 @@
 package app.myliberty.easy_records.locations.business.retail.reports.product_purchases
 
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
@@ -21,18 +21,18 @@ class ProductPurchasesReportValidatorTest {
 
   @Test
   fun `rejects a missing bound`() {
-    assertThrows(RtsGenericException::class.java) { ProductPurchasesReportValidator.resolveDeliveredRange(null, before) }
-    assertThrows(RtsGenericException::class.java) { ProductPurchasesReportValidator.resolveDeliveredRange(from, null) }
+    assertThrows(LibertyGenericException::class.java) { ProductPurchasesReportValidator.resolveDeliveredRange(null, before) }
+    assertThrows(LibertyGenericException::class.java) { ProductPurchasesReportValidator.resolveDeliveredRange(from, null) }
   }
 
   @Test
   fun `rejects a range that runs backwards`() {
-    assertThrows(RtsGenericException::class.java) { ProductPurchasesReportValidator.resolveDeliveredRange(before, from) }
+    assertThrows(LibertyGenericException::class.java) { ProductPurchasesReportValidator.resolveDeliveredRange(before, from) }
   }
 
   @Test
   fun `rejects a range longer than one year`() {
-    assertThrows(RtsGenericException::class.java) {
+    assertThrows(LibertyGenericException::class.java) {
       ProductPurchasesReportValidator.resolveDeliveredRange(from, from.plusYears(2))
     }
   }
@@ -41,7 +41,7 @@ class ProductPurchasesReportValidatorTest {
   fun `accepts page sizes at both bounds and rejects values outside them`() {
     ProductPurchasesReportValidator.guardValidPageSize(1)
     ProductPurchasesReportValidator.guardValidPageSize(500)
-    assertThrows(RtsGenericException::class.java) { ProductPurchasesReportValidator.guardValidPageSize(0) }
-    assertThrows(RtsGenericException::class.java) { ProductPurchasesReportValidator.guardValidPageSize(501) }
+    assertThrows(LibertyGenericException::class.java) { ProductPurchasesReportValidator.guardValidPageSize(0) }
+    assertThrows(LibertyGenericException::class.java) { ProductPurchasesReportValidator.guardValidPageSize(501) }
   }
 }

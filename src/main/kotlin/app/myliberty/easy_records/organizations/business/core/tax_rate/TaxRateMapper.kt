@@ -2,11 +2,11 @@ package app.myliberty.easy_records.organizations.business.core.tax_rate
 
 import app.myliberty.easy_records.organizations.business.core.tax_rate.api.TaxRateInsertDto
 import app.myliberty.easy_records.organizations.business.core.tax_rate.api.TaxRateResponseDto
-import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.util.business.mappers.LibertyMapperConfig
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 
-@Mapper(config = RtsMapperConfig::class)
+@Mapper(config = LibertyMapperConfig::class)
 interface TaxRateMapper {
 
     @Mapping(target = "id", ignore = true)

@@ -3,11 +3,11 @@ package app.myliberty.easy_records.organizations.business.core.address
 import app.myliberty.easy_records.organizations.business.core.address.api.AddressInsertDto
 import app.myliberty.easy_records.organizations.business.core.address.api.AddressResponseDto
 import app.myliberty.easy_records.platform.business.sysuser.api.CreatorFullName
-import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.util.business.mappers.LibertyMapperConfig
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 
-@Mapper(config = RtsMapperConfig::class)
+@Mapper(config = LibertyMapperConfig::class)
 interface AddressMapper {
 
     @Mapping(target = "id", ignore = true)

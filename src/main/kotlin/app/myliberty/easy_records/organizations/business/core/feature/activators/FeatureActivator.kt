@@ -1,7 +1,7 @@
 package app.myliberty.easy_records.organizations.business.core.feature.activators
 
 import app.myliberty.easy_records.platform.business.feature.api.Feature
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 
 interface FeatureActivator {
     val feature: Feature
@@ -13,7 +13,7 @@ interface FeatureActivator {
     fun activate() {
         val unmetPrerequisites = getUnmetPrerequisites()
         if (unmetPrerequisites.isNotEmpty()) {
-            throw RtsGenericException("Cannot activate feature $feature", unmetPrerequisites)
+            throw LibertyGenericException("Cannot activate feature $feature", unmetPrerequisites)
         }
         onActivate()
     }

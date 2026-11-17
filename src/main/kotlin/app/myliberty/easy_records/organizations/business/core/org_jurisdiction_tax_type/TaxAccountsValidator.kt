@@ -5,7 +5,7 @@ import app.myliberty.easy_records.organizations.business.core.account_selection.
 import app.myliberty.easy_records.platform.business.tax_type.api.PlatformTaxTypeDto
 import app.myliberty.easy_records.platform.business.tax_type.api.TaxRecoveryType
 import app.myliberty.easy_records.util.business.StringUtils
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Component
 
 @Component
@@ -26,11 +26,11 @@ class TaxAccountsValidator(private val accountSelectionService: AccountSelection
         val taxLabel = platformTaxType.label
         if (platformTaxType.taxRecoveryType == TaxRecoveryType.RECOVERABLE) {
             if (normalizedCode == null) {
-                throw RtsGenericException("$taxLabel requires a recoverable account")
+                throw LibertyGenericException("$taxLabel requires a recoverable account")
             }
         } else {
             if (normalizedCode != null) {
-                throw RtsGenericException("$taxLabel is not recoverable, so a recoverable account should not be provided")
+                throw LibertyGenericException("$taxLabel is not recoverable, so a recoverable account should not be provided")
             }
             return
         }

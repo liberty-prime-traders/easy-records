@@ -3,7 +3,7 @@ package app.myliberty.easy_records.locations.business.retail.sale_session.api
 import app.myliberty.easy_records.locations.business.retail.sale.api.SaleStatus
 import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.enums.SystemContact
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import java.time.OffsetDateTime
 import java.util.UUID
 
@@ -32,12 +32,12 @@ data class SaleSession(
     init {
         val isPendingConsolidation = kind == SaleSessionKind.PENDING_CONSOLIDATION
         if (isPendingConsolidation != (pendingConsolidation != null)) {
-            throw RtsGenericException(
+            throw LibertyGenericException(
                 "SaleSession $sessionId of kind $kind has inconsistent pending consolidation data"
             )
         }
         if (isPendingConsolidation && (saleId != null || saleVersion != null || salePayments.isNotEmpty())) {
-            throw RtsGenericException(
+            throw LibertyGenericException(
                 "SaleSession $sessionId is a pending consolidation, so it has no sale id, sale version or payments"
             )
         }
@@ -50,10 +50,10 @@ data class SaleSession(
         originalStatus == SaleStatus.DRAFT
 
     fun requiredPendingConsolidation(): PendingConsolidation = pendingConsolidation
-        ?: throw RtsGenericException("SaleSession $sessionId is not a pending consolidation")
+        ?: throw LibertyGenericException("SaleSession $sessionId is not a pending consolidation")
 
     fun requiredSaleId(): UUID = saleId
-        ?: throw RtsGenericException("SaleSession $sessionId with status $originalStatus is missing its saleId")
+        ?: throw LibertyGenericException("SaleSession $sessionId with status $originalStatus is missing its saleId")
 
     fun totalPaid() =
         salePayments.filter { it.voidedReason == null }.sumOf { it.amount }
@@ -74,7 +74,7 @@ data class SaleSession(
     }
 
     fun withoutLine(targetLineKey: UUID): SaleSession {
-        if (saleLines.none { it.lineKey == targetLineKey }) throw RtsGenericException("Line not found on session")
+        if (saleLines.none { it.lineKey == targetLineKey }) throw LibertyGenericException("Line not found on session")
         return copy(
             saleLines = saleLines.filter { it.lineKey != targetLineKey },
             saleAdjustments = saleAdjustments.filter { it.relatedSaleLineIdentity?.key() != targetLineKey },

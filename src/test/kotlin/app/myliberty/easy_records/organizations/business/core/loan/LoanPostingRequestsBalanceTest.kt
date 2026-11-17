@@ -6,7 +6,7 @@ import app.myliberty.easy_records.organizations.business.core.account.api.System
 import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerPostingRequest
 import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerSourceType
 import app.myliberty.easy_records.organizations.business.core.ledger.api.SubledgerEntryRequest
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
@@ -103,7 +103,7 @@ class LoanPostingRequestsBalanceTest {
     fun `a loan cannot be recorded onto an inactive asset account but both voids still post to it`() {
         deactivateCash()
 
-        assertThrows(RtsGenericException::class.java) { post(recordedLoan()) }
+        assertThrows(LibertyGenericException::class.java) { post(recordedLoan()) }
 
         post(voidedRepayment())
         post(voidedLoan())

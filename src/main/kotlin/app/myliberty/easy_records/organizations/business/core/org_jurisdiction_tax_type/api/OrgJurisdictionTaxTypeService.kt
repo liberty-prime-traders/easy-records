@@ -7,7 +7,7 @@ import app.myliberty.easy_records.organizations.business.core.org_jurisdiction_t
 import app.myliberty.easy_records.platform.business.jurisdiction_tax_type.api.JurisdictionTaxTypeFetcher
 import app.myliberty.easy_records.platform.business.tax_type.api.PlatformTaxTypeDto
 import app.myliberty.easy_records.platform.business.tax_type.api.TaxRecoveryType
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException
 import org.springframework.stereotype.Service
 import java.util.UUID
@@ -33,14 +33,14 @@ class OrgJurisdictionTaxTypeService(
         val existingJurisdictionIds = orgJurisdictionTaxTypeCache.getAll().mapTo(HashSet()) { it.jurisdictionTaxTypeId }
         val seen = HashSet<UUID>()
         dtos.forEach { dto ->
-            val platformTaxType = index[dto.jurisdictionTaxTypeId] ?: throw RtsGenericException("Jurisdiction tax type not found: ${dto.jurisdictionTaxTypeId}")
+            val platformTaxType = index[dto.jurisdictionTaxTypeId] ?: throw LibertyGenericException("Jurisdiction tax type not found: ${dto.jurisdictionTaxTypeId}")
             val taxLabel = platformTaxType.label
             if (!seen.add(dto.jurisdictionTaxTypeId))
-                throw RtsGenericException("Duplicate jurisdiction tax type in request: $taxLabel")
+                throw LibertyGenericException("Duplicate jurisdiction tax type in request: $taxLabel")
             if (dto.jurisdictionTaxTypeId !in activeIds)
-                throw RtsGenericException("Jurisdiction tax type not found or is already stopped: $taxLabel")
+                throw LibertyGenericException("Jurisdiction tax type not found or is already stopped: $taxLabel")
             if (dto.jurisdictionTaxTypeId in existingJurisdictionIds)
-                throw RtsGenericException("$taxLabel is already registered for this organization")
+                throw LibertyGenericException("$taxLabel is already registered for this organization")
             taxAccountsValidator.validate(dto.payableAccountCode, dto.recoverableAccountCode, platformTaxType)
         }
         val savedDtos = orgJurisdictionTaxTypeCache.createAll(dtos)
@@ -52,7 +52,7 @@ class OrgJurisdictionTaxTypeService(
         val existing = orgJurisdictionTaxTypeCache.getAll().find { it.id == dto.id }
             ?: throw UpdatingNonExistingRecordException()
         val index = jurisdictionTaxTypeFetcher.buildIndex()
-        val platformTaxType = index[existing.jurisdictionTaxTypeId] ?: throw RtsGenericException("Jurisdiction tax type not found")
+        val platformTaxType = index[existing.jurisdictionTaxTypeId] ?: throw LibertyGenericException("Jurisdiction tax type not found")
         val updated = dto.applyTo(existing).let {
             if (platformTaxType.taxRecoveryType != TaxRecoveryType.RECOVERABLE) {
                 it.copy(recoverableAccountCode = null)
@@ -69,7 +69,7 @@ class OrgJurisdictionTaxTypeService(
         taxTypeById: Map<UUID, PlatformTaxTypeDto>,
         accountNamesByCode: Map<String, String>
     ): OrgJurisdictionTaxTypeResponseDto {
-        val platformTaxType = taxTypeById[dto.jurisdictionTaxTypeId] ?: throw RtsGenericException("Jurisdiction tax type not found")
+        val platformTaxType = taxTypeById[dto.jurisdictionTaxTypeId] ?: throw LibertyGenericException("Jurisdiction tax type not found")
         return OrgJurisdictionTaxTypeResponseDto(
             id = dto.id,
             referenceNumber = dto.referenceNumber,

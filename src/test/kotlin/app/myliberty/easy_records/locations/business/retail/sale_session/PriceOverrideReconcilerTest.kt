@@ -10,7 +10,7 @@ import app.myliberty.easy_records.organizations.business.retail.adjustment_reaso
 import app.myliberty.easy_records.organizations.business.retail.adjustment_reason.api.AdjustmentReasonService
 import app.myliberty.easy_records.organizations.business.retail.adjustment_reason.api.SystemAdjustmentReason
 import app.myliberty.easy_records.util.business.Money
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.quantity.PositiveUserProvidedQuantity
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotEquals
@@ -95,7 +95,7 @@ class PriceOverrideReconcilerTest {
     fun `a new typed price with three decimals is a business error`() {
         val gross = line("2", "2000.0000")
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             reconcile(gross, gross, update("2", "12.345"))
         }
     }

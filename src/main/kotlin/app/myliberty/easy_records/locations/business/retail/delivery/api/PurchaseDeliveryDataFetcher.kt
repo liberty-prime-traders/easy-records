@@ -7,7 +7,7 @@ import app.myliberty.easy_records.locations.business.retail.delivery.PurchaseDel
 import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductSummaryDto
 import app.myliberty.easy_records.locations.business.retail.purchase.api.delivery.PurchaseDeliveryLineStatus
 import app.myliberty.easy_records.locations.business.retail.purchase.api.PurchaseLineDto
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.quantity.ExactQuantity
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
@@ -35,9 +35,9 @@ class PurchaseDeliveryDataFetcher(
             .findByReferenceNumberIn(listOf(revisedLineReferenceNumber, replacementLineReferenceNumber))
             .associateBy { it.requiredReference() }
         val revisedLine = lineByReferenceNumber[revisedLineReferenceNumber]
-            ?: throw RtsGenericException("Delivery line $revisedLineReferenceNumber not found")
+            ?: throw LibertyGenericException("Delivery line $revisedLineReferenceNumber not found")
         val replacementLine = lineByReferenceNumber[replacementLineReferenceNumber]
-            ?: throw RtsGenericException("Delivery line $replacementLineReferenceNumber not found")
+            ?: throw LibertyGenericException("Delivery line $replacementLineReferenceNumber not found")
         return DeliveryLineRevisionTotalsDto(
             purchaseId = purchaseDeliveryRepository.getReferenceById(replacementLine.purchaseDeliveryId).purchaseId,
             revisedLineTotal = revisedLine.lineTotal(),
@@ -48,7 +48,7 @@ class PurchaseDeliveryDataFetcher(
     fun getOwners(deliveryLineId: UUID): DeliveryLineOwnersDto =
         purchaseDeliveryLineRepository.findOwnersById(deliveryLineId)
             ?.let { DeliveryLineOwnersDto(it.purchaseId, it.purchaseLineId) }
-            ?: throw RtsGenericException("That delivery line could not be found. Refresh the page and try again.")
+            ?: throw LibertyGenericException("That delivery line could not be found. Refresh the page and try again.")
 
     fun calculateDeliveredTotals(purchaseIds: Set<UUID>): Map<UUID, BigDecimal> {
         val purchaseIdByDeliveryId = purchaseDeliveryRepository.findByPurchaseIdIn(purchaseIds)

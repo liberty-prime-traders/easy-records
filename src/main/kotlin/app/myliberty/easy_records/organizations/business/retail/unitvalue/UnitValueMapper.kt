@@ -3,12 +3,12 @@ package app.myliberty.easy_records.organizations.business.retail.unitvalue
 import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueInsertDto
 import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueResponseDto
 import app.myliberty.easy_records.platform.business.sysuser.api.CreatorFullName
-import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.util.business.mappers.LibertyMapperConfig
 import org.mapstruct.Context
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 
-@Mapper(config = RtsMapperConfig::class)
+@Mapper(config = LibertyMapperConfig::class)
 abstract class UnitValueMapper {
 
     @Mapping(target = "id", ignore = true)

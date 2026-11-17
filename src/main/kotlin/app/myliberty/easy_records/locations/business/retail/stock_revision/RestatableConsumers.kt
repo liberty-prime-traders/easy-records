@@ -2,7 +2,7 @@ package app.myliberty.easy_records.locations.business.retail.stock_revision
 
 import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.MovementType
 import app.myliberty.easy_records.util.exceptions.BlockingProblem
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 
 // Every type a revision can replay has a ledger restatement. A type without one would move stock cost the ledger
 // never sees, leaving its inventory out of step with the stock.
@@ -38,7 +38,7 @@ object RestatableConsumers {
            .toSet()
            .let { unrestatableMovementTypes ->
                if (unrestatableMovementTypes.isNotEmpty()) {
-                   throw RtsGenericException(
+                   throw LibertyGenericException(
                        "A stock revision cannot replay $unrestatableMovementTypes: no ledger restatement covers them."
                    )
                }

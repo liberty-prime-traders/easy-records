@@ -12,7 +12,7 @@ import app.myliberty.easy_records.organizations.business.retail.stock_item_sourc
 import app.myliberty.easy_records.organizations.business.retail.stock_item_source.api.StockItemSource
 import app.myliberty.easy_records.util.annotations.HasReference
 import app.myliberty.easy_records.util.business.DateTimes
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.model.HasReferenceEntity
 import app.myliberty.easy_records.util.model.TableName
 import app.myliberty.easy_records.util.model.TableNames
@@ -78,7 +78,7 @@ class StockEntryEntity(
   }
 
   fun requiredActivatedOn(): OffsetDateTime = activatedOn
-    ?: throw RtsGenericException("Stock entry ${id} is missing its activatedOn timestamp")
+    ?: throw LibertyGenericException("Stock entry ${id} is missing its activatedOn timestamp")
 
   fun toFifoLayer() = FifoLayer(id!!, storageQuantityRemaining, costRemaining, storageBatchSize, batchCost)
 

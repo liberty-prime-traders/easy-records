@@ -13,7 +13,7 @@ import app.myliberty.easy_records.organizations.business.core.fiscal_period.Peri
 import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.business.StringUtils
 import app.myliberty.easy_records.util.business.mappers.UserQualifier
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Service
 import java.time.Instant
 import java.time.LocalDate
@@ -41,7 +41,7 @@ class FiscalPeriodService(
 
     @TransactionalOnOrganizationSchema(readOnly = true)
     fun requireOpenForDate(date: LocalDate): UUID {
-        return findOpenForDate(date) ?: throw RtsGenericException("No open fiscal period for date $date")
+        return findOpenForDate(date) ?: throw LibertyGenericException("No open fiscal period for date $date")
     }
 
     @TransactionalOnOrganizationSchema(readOnly = true)
@@ -60,10 +60,10 @@ class FiscalPeriodService(
         val now = Instant.now()
         val periods = repository.findByIdIn(ids)
         val missingIds = ids - periods.mapNotNull { it.id }.toSet()
-        if (missingIds.isNotEmpty()) throw RtsGenericException("Fiscal periods not found: $missingIds")
+        if (missingIds.isNotEmpty()) throw LibertyGenericException("Fiscal periods not found: $missingIds")
         periods.forEach { period ->
             if (period.yearEnd) {
-                throw RtsGenericException("Period '${period.name}' is a year-end period — use the year-end close endpoint")
+                throw LibertyGenericException("Period '${period.name}' is a year-end period — use the year-end close endpoint")
             }
             validator.assertCanClose(period)
             period.closedAt = now
@@ -78,7 +78,7 @@ class FiscalPeriodService(
     fun rename(fiscalPeriodRenameDto: FiscalPeriodRenameDto): FiscalPeriodResponseDto {
         val id = fiscalPeriodRenameDto.id
         val name = fiscalPeriodRenameDto.name
-        val period = repository.findById(id).orElseThrow { RtsGenericException("Fiscal period not found: $id") }
+        val period = repository.findById(id).orElseThrow { LibertyGenericException("Fiscal period not found: $id") }
         val config = requireConfig()
         if (StringUtils.isEquivalent(period.name, name)) {
             val dto = mapper.toDomainDto(period)
@@ -88,14 +88,14 @@ class FiscalPeriodService(
         val yearStart = FiscalPeriodUtils.yearStart(yearEnd)
         val nameConflict = repository.findPeriodsInGivenYear(yearStart, yearEnd)
             .any { StringUtils.isEquivalent(it.name, name) }
-        if (nameConflict) throw RtsGenericException("A period named '$name' already exists in this fiscal year")
+        if (nameConflict) throw LibertyGenericException("A period named '$name' already exists in this fiscal year")
         period.name = name
         val savedDto = mapper.toDomainDto(repository.save(period))
         return toResponseDto(savedDto, config, validator.isClosable(savedDto))
     }
 
     private fun requireConfig(): OrgAccountingConfigDto =
-        configService.getConfig() ?: throw RtsGenericException("Accounting configuration has not been initialized")
+        configService.getConfig() ?: throw LibertyGenericException("Accounting configuration has not been initialized")
 
     private fun toResponseDto(
         dto: FiscalPeriodDto,

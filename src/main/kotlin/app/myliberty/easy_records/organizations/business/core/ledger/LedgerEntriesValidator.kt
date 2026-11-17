@@ -2,7 +2,7 @@ package app.myliberty.easy_records.organizations.business.core.ledger
 
 import app.myliberty.easy_records.organizations.business.core.account.api.EntryType
 import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerEntryRequest
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import java.math.BigDecimal
 
 object LedgerEntriesValidator {
@@ -15,7 +15,7 @@ object LedgerEntriesValidator {
             .filter { it.entryType == EntryType.CREDIT }
             .fold(BigDecimal.ZERO) { acc, e -> acc + e.amount.toBigDecimal() }
         if (totalDebits.compareTo(totalCredits) != 0) {
-            throw RtsGenericException("Ledger entries are not balanced — debits: $totalDebits, credits: $totalCredits")
+            throw LibertyGenericException("Ledger entries are not balanced — debits: $totalDebits, credits: $totalCredits")
         }
     }
 }

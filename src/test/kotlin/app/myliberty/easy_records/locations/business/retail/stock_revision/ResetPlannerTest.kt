@@ -10,7 +10,7 @@ import app.myliberty.easy_records.locations.business.retail.stock.api.read.Stock
 import app.myliberty.easy_records.locations.business.retail.stock.api.revision.StockEntryResetPlan
 import app.myliberty.easy_records.organizations.business.retail.stock_item_source.api.StockItemSource
 import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.MovementType
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.quantity.BreakdownUnit
 import app.myliberty.easy_records.util.quantity.ExactQuantity
 import app.myliberty.easy_records.util.quantity.QuantityAsEntered
@@ -192,7 +192,7 @@ class ResetPlannerTest {
 
     @Test
     fun `a consumer that cannot be reversed is rejected`() {
-        val exception = assertThrows(RtsGenericException::class.java) {
+        val exception = assertThrows(LibertyGenericException::class.java) {
             plan(
                 stockEntry("7", "70.00"),
                 listOf(received(), movement(MovementType.SUPPLIER_RETURN, "3", "30.00", "SRT1", 1)),
@@ -222,7 +222,7 @@ class ResetPlannerTest {
 
     @Test
     fun `an entry that was already replaced is rejected`() {
-        val exception = assertThrows(RtsGenericException::class.java) {
+        val exception = assertThrows(LibertyGenericException::class.java) {
             plan(stockEntry("0", "0.00", StockEntryStatus.REPLACED), listOf(received()), productBalance = "0")
         }
 

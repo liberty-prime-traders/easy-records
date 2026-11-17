@@ -5,7 +5,7 @@ import app.myliberty.easy_records.organizations.business.core.account.api.Accoun
 import app.myliberty.easy_records.organizations.business.core.account.api.AccountStructureLock
 import app.myliberty.easy_records.organizations.business.core.account.api.RecordingAccountService
 import app.myliberty.easy_records.organizations.business.core.account.api.SystemAccount
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.*
@@ -32,10 +32,10 @@ class AccountSelectionServiceTest {
     fun `requireSelectable refuses unknown and inactive accounts before consulting the rule`() {
         `when`(accountDataFetcher.getFreshSelectionCandidates()).thenReturn(candidatesOf(activeAccounts = false))
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             accountSelectionService.requireSelectable(AccountSelectionRule.EXPENSE_TYPE, "999.999")
         }
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             accountSelectionService.requireSelectable(AccountSelectionRule.EXPENSE_TYPE, SystemAccount.RENT_EXPENSE.code)
         }
     }

@@ -8,7 +8,7 @@ import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSes
 import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionStore
 import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSession
 import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionHeader
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -68,7 +68,7 @@ class ConsolidationSessionCleanupTest {
         doThrow(IllegalStateException("redis down")).`when`(saleSessionStore).save(newSession)
         consolidationSessionCleanup.replaceAfterCommit(newSession, emptyList(), pendingSessionId)
 
-        val refusal = assertThrows(RtsGenericException::class.java) { commit() }
+        val refusal = assertThrows(LibertyGenericException::class.java) { commit() }
 
         assertTrue(refusal.message.contains("The sales were consolidated"))
         assertTrue(refusal.message.contains("sales grid"))

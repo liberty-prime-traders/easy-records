@@ -5,7 +5,7 @@ import app.myliberty.easy_records.locations.business.core.lock.api.EntityAdvisor
 import app.myliberty.easy_records.locations.business.retail.stock.api.read.StockBalanceFetcher
 import app.myliberty.easy_records.locations.business.retail.stock_reservation.api.StockReserver
 import app.myliberty.easy_records.util.business.lock.LockNamespaces
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.quantity.ExactQuantity
 import org.springframework.stereotype.Component
 import java.math.BigDecimal
@@ -36,7 +36,7 @@ class StockAvailabilityValidator(
             if (available < storageQuantityNeeded) {
                 val label = productLabelByLocationProductId[locationProductId] ?: locationProductId.toString()
                 val breakdown = breakdownByLocationProductId.getValue(locationProductId)
-                throw RtsGenericException(
+                throw LibertyGenericException(
                     "Insufficient stock for $label. Available: ${breakdown.render(available)}, Requested: ${breakdown.render(storageQuantityNeeded)}"
                 )
             }

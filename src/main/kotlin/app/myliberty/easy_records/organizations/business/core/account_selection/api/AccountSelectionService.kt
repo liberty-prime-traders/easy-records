@@ -4,7 +4,7 @@ import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrgani
 import app.myliberty.easy_records.organizations.business.core.account.api.AccountDataFetcher
 import app.myliberty.easy_records.organizations.business.core.account.api.AccountStructureLock
 import app.myliberty.easy_records.organizations.business.core.account_selection.AccountTreeBuilder
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Service
 
 @Service
@@ -33,10 +33,10 @@ class AccountSelectionService(
     fun requireSelectable(rule: AccountSelectionRule, accountCode: String) {
         accountStructureLock.acquire(accountCode)
         val candidate = accountDataFetcher.getFreshSelectionCandidates().firstOrNull { it.code == accountCode }
-            ?: throw RtsGenericException("${rule.accountDescription} not found: $accountCode")
+            ?: throw LibertyGenericException("${rule.accountDescription} not found: $accountCode")
         if (!candidate.accountIsActive) {
-            throw RtsGenericException("${rule.accountDescription} is inactive: ${candidate.label}")
+            throw LibertyGenericException("${rule.accountDescription} is inactive: ${candidate.label}")
         }
-        rule.rejectionReason(candidate)?.let { throw RtsGenericException(it) }
+        rule.rejectionReason(candidate)?.let { throw LibertyGenericException(it) }
     }
 }

@@ -9,7 +9,7 @@ import app.myliberty.easy_records.locations.business.retail.location_product.Loc
 import app.myliberty.easy_records.locations.business.retail.location_product.LocationProductRepository
 import app.myliberty.easy_records.organizations.business.retail.product.api.ProductStatus
 import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.UnitConversionGraphFacade
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.paging.PageRequest
 import app.myliberty.easy_records.util.paging.PageResponse
 import org.springframework.stereotype.Component
@@ -122,7 +122,7 @@ class LocationProductDataFetcher(
 
     fun findIdentityByOrgProductId(orgProductId: UUID): LocationProductIdentityDto {
         val identityView = locationProductRepository.findIdentityViewsByOrgProductIdIn(listOf(orgProductId)).firstOrNull()
-            ?: throw RtsGenericException("No location product found for product $orgProductId")
+            ?: throw LibertyGenericException("No location product found for product $orgProductId")
         return LocationProductIdentityDto(locationProductId = identityView.id, orgProductId = identityView.orgProductId)
     }
 
@@ -146,7 +146,7 @@ class LocationProductDataFetcher(
         return productUnitRequests.associateWith { (locationProductId, unitId) ->
             val baseUnitId = baseUnitIds.getValue(locationProductId)
             if (unitConversionGraph.getStorageUnitId(unitId) != unitConversionGraph.getStorageUnitId(baseUnitId)) {
-                throw RtsGenericException(UNIT_OUTSIDE_PRODUCT_GROUP)
+                throw LibertyGenericException(UNIT_OUTSIDE_PRODUCT_GROUP)
             }
             unitConversionGraph.getSizeInRoot(unitId)
         }

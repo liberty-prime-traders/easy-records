@@ -1,6 +1,6 @@
 package app.myliberty.easy_records.organizations.business.retail.unitvalue.api
 
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import java.util.UUID
 
 data class UnitChainNode(val id: UUID, val baseUnitId: UUID?, val unitsOfBasePerUnit: Long?)
@@ -33,9 +33,9 @@ object UnitChainResolver {
         val idsOnPath = HashSet<UUID>()
         var current: UnitChainNode? = startNode
         while (current != null && current.id !in placementById) {
-            if (!idsOnPath.add(current.id)) throw RtsGenericException(CHAIN_HAS_CYCLE)
+            if (!idsOnPath.add(current.id)) throw LibertyGenericException(CHAIN_HAS_CYCLE)
             unresolvedPath.add(current)
-            current = current.baseUnitId?.let { nodeById[it] ?: throw RtsGenericException(CHAIN_BASE_UNIT_MISSING) }
+            current = current.baseUnitId?.let { nodeById[it] ?: throw LibertyGenericException(CHAIN_BASE_UNIT_MISSING) }
         }
         unresolvedPath.asReversed().forEach { node ->
             placementById[node.id] = placeOnTopOfBase(node, placementById)
@@ -44,14 +44,14 @@ object UnitChainResolver {
 
     private fun placeOnTopOfBase(node: UnitChainNode, placementById: Map<UUID, UnitPlacement>): UnitPlacement {
         val baseUnitId = node.baseUnitId ?: return UnitPlacement(node.id, 1L)
-        val unitsOfBasePerUnit = node.unitsOfBasePerUnit ?: throw RtsGenericException(CHAIN_FACTOR_MISSING)
+        val unitsOfBasePerUnit = node.unitsOfBasePerUnit ?: throw LibertyGenericException(CHAIN_FACTOR_MISSING)
         val basePlacement = placementById.getValue(baseUnitId)
         val sizeInRoot = try {
             Math.multiplyExact(unitsOfBasePerUnit, basePlacement.sizeInRoot)
         } catch (_: ArithmeticException) {
-            throw RtsGenericException(CHAIN_SIZE_TOO_LARGE)
+            throw LibertyGenericException(CHAIN_SIZE_TOO_LARGE)
         }
-        if (sizeInRoot > MAX_SIZE_IN_ROOT) throw RtsGenericException(CHAIN_SIZE_TOO_LARGE)
+        if (sizeInRoot > MAX_SIZE_IN_ROOT) throw LibertyGenericException(CHAIN_SIZE_TOO_LARGE)
         return UnitPlacement(basePlacement.rootUnitId, sizeInRoot)
     }
 }

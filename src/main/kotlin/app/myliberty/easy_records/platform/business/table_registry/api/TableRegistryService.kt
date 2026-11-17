@@ -4,7 +4,7 @@ import app.myliberty.easy_records.configuration.datasource.TransactionalOnPlatfo
 import app.myliberty.easy_records.platform.business.table_registry.TableRegistryCache
 import app.myliberty.easy_records.platform.business.table_registry.TableRegistryMapper
 import app.myliberty.easy_records.util.business.StringUtils
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.model.TableName
 import org.springframework.stereotype.Component
 import java.util.UUID
@@ -25,7 +25,7 @@ class TableRegistryService(
 
     fun validate(id: UUID): TableRegistryResponseDto {
         val allTables = tableRegistryCache.getAllTables()
-        val dto = allTables.find { it.id == id } ?: throw RtsGenericException("Table not found")
+        val dto = allTables.find { it.id == id } ?: throw LibertyGenericException("Table not found")
         if (!dto.validated) {
             validateName(dto.tableName)
             val updatedRegistry = tableRegistryCache.save(dto.copy(validated = true))
@@ -49,7 +49,7 @@ class TableRegistryService(
 
     fun update(dto: TableRegistryUpdateDto): TableRegistryResponseDto {
         val allTables = tableRegistryCache.getAllTables()
-        val tableDto = allTables.find { it.id == dto.id } ?: throw RtsGenericException("Table not found")
+        val tableDto = allTables.find { it.id == dto.id } ?: throw LibertyGenericException("Table not found")
         val updated = dto.applyTo(tableDto)
         validateRequiredFields(updated)
         validateUniqueness(updated.tableName, updated.defaultPrefix, updated.displayName, updated.id, allTables)
@@ -73,17 +73,17 @@ class TableRegistryService(
         if (tableName.isNotBlank()) {
             allTables
                 .find { StringUtils.isEquivalent(it.tableName, tableName) && it.id != tableId }
-                ?.let { throw RtsGenericException("A Table using the name '$tableName' already exists") }
+                ?.let { throw LibertyGenericException("A Table using the name '$tableName' already exists") }
         }
         if (defaultPrefix.isNotBlank()) {
             allTables
                 .find { StringUtils.isEquivalent(it.defaultPrefix, defaultPrefix) && it.id != tableId }
-                ?.let { throw RtsGenericException("A Table using the default prefix '$defaultPrefix' already exists") }
+                ?.let { throw LibertyGenericException("A Table using the default prefix '$defaultPrefix' already exists") }
         }
         if (displayName.isNotBlank()) {
             allTables
                 .find { StringUtils.isEquivalent(it.displayName, displayName) && it.id != tableId }
-                ?.let { throw RtsGenericException("A Table using the display name '$displayName' already exists") }
+                ?.let { throw LibertyGenericException("A Table using the display name '$displayName' already exists") }
         }
     }
 }

@@ -9,7 +9,7 @@ import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.Un
 import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueFetcher
 import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueResponseDto
 import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueService
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Assertions.assertThrows
@@ -179,7 +179,7 @@ class BulkUnitImportServiceTest {
             bulkUnitImportValidator, unitGroupService, unitValueService, unitValueFetcher
         )
 
-        val exception = assertThrows(RtsGenericException::class.java) { service.bulkImport(request) }
+        val exception = assertThrows(LibertyGenericException::class.java) { service.bulkImport(request) }
 
         assertEquals(validationErrors, exception.payload)
         verifyNoInteractions(unitGroupService, unitValueService)

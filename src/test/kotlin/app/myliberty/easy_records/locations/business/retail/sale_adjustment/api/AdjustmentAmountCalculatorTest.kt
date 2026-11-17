@@ -3,7 +3,7 @@ package app.myliberty.easy_records.locations.business.retail.sale_adjustment.api
 import app.myliberty.easy_records.support.WithDefaultOrganizationSession
 import app.myliberty.easy_records.locations.business.retail.location_product.api.ProductLineWithPrice
 import app.myliberty.easy_records.organizations.business.retail.adjustment_reason.api.AdjustmentDirection
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
@@ -111,7 +111,7 @@ class AdjustmentAmountCalculatorTest {
     fun `an adjustment on a line that is not in the list is refused`() {
         val adjustmentOnMissingLine = adjustment(PriceAdjustmentMethod.PERCENTAGE, "10", onLine = true)
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             AdjustmentAmountCalculator.calculateAmount(
                 adjustmentOnMissingLine, listOf(line("1", "100.00", UUID.randomUUID()))
             )

@@ -9,7 +9,7 @@ import app.myliberty.easy_records.organizations.business.core.tax_rate.TaxRateMa
 import app.myliberty.easy_records.organizations.business.core.tax_rate.TaxRateRepository
 import app.myliberty.easy_records.organizations.business.core.tax_rate.TaxRateValidator
 import app.myliberty.easy_records.platform.business.jurisdiction_tax_type.api.JurisdictionTaxTypeFetcher
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException
 import org.springframework.stereotype.Service
 import java.time.LocalDate
@@ -58,7 +58,7 @@ class TaxRateService(
     }
 
     fun update(dto: TaxRateUpdateDto): TaxRateResponseDto {
-        if (dto.name == null && dto.endDate == null) throw RtsGenericException("Nothing to update")
+        if (dto.name == null && dto.endDate == null) throw LibertyGenericException("Nothing to update")
         val existing = taxRateCache.getAll().firstOrNull { it.id == dto.id } ?: throw UpdatingNonExistingRecordException()
         taxRateValidator.validateForUpdate(existing, dto)
         val updated = dto.applyTo(existing)

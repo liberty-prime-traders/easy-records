@@ -17,8 +17,8 @@ class GlobalExceptionHandler {
 
     private val log = LoggerFactory.getLogger(GlobalExceptionHandler::class.java)
 
-    @ExceptionHandler(RtsGenericException::class)
-    fun handleRts(ex: RtsGenericException, req: HttpServletRequest): ResponseEntity<ApiError> {
+    @ExceptionHandler(LibertyGenericException::class)
+    fun handleRts(ex: LibertyGenericException, req: HttpServletRequest): ResponseEntity<ApiError> {
         log.warn("Business error on ${req.method} ${req.requestURI}: ${ex.message}")
         return ResponseEntity
             .status(ex.statusCode)
@@ -28,7 +28,7 @@ class GlobalExceptionHandler {
     // Jackson wraps an exception thrown from a request class's init block, so the business error is in the cause chain
     @ExceptionHandler(HttpMessageNotReadableException::class)
     fun handleUnreadableBody(ex: HttpMessageNotReadableException, req: HttpServletRequest): ResponseEntity<ApiError> {
-        val businessError = generateSequence<Throwable>(ex) { it.cause }.filterIsInstance<RtsGenericException>().firstOrNull()
+        val businessError = generateSequence<Throwable>(ex) { it.cause }.filterIsInstance<LibertyGenericException>().firstOrNull()
         if (businessError != null) {
             return handleRts(businessError, req)
         }

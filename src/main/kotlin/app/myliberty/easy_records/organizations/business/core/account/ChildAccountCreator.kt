@@ -5,7 +5,7 @@ import app.myliberty.easy_records.organizations.business.core.account.api.Accoun
 import app.myliberty.easy_records.organizations.business.core.account.api.AccountUsagesFinder
 import app.myliberty.easy_records.organizations.business.core.account.api.SystemAccount
 import app.myliberty.easy_records.util.business.StringUtils
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Service
 
 @Service
@@ -16,7 +16,7 @@ class ChildAccountCreator(
 
     fun createChild(dto: AccountChildCreateRequest, accountsByCode: Map<String, AccountDto>): AccountDto {
         val parentCode = dto.parentAccountCode
-        val parent = accountsByCode[parentCode] ?: throw RtsGenericException("Parent account not found")
+        val parent = accountsByCode[parentCode] ?: throw LibertyGenericException("Parent account not found")
         val siblings = accountsByCode.values.filter { it.parentAccountCode == parentCode }
 
         runValidations(dto, parent, siblings, accountsByCode)
@@ -45,12 +45,12 @@ class ChildAccountCreator(
 
     private fun ensureParentCanGainChild(parent: AccountDto) {
         if (!parent.accountIsActive) {
-            throw RtsGenericException("Cannot add children to inactive account '${parent.name}' (${parent.code})")
+            throw LibertyGenericException("Cannot add children to inactive account '${parent.name}' (${parent.code})")
         }
         if (parent.accountIsSystemMaintained) {
             val systemAccount = SystemAccount.fromCode(parent.code)
             if (systemAccount?.isSingleLevelExtensionPoint() != true) {
-                throw RtsGenericException("${parent.label} is maintained by the system and does not allow child accounts to be added")
+                throw LibertyGenericException("${parent.label} is maintained by the system and does not allow child accounts to be added")
             }
         }
     }
@@ -60,13 +60,13 @@ class ChildAccountCreator(
         val grandparentIsSystemAccount = grandparent.accountIsSystemMaintained
         val grandparentIsSingleLevelExtensionPoint = SystemAccount.fromCode(grandparent.code)?.isSingleLevelExtensionPoint() == true
         if (grandparentIsSystemAccount && grandparentIsSingleLevelExtensionPoint) {
-            throw RtsGenericException("Cannot add further children under '${parent.label}'")
+            throw LibertyGenericException("Cannot add further children under '${parent.label}'")
         }
     }
 
     private fun preventNameCollisionAmongSiblings(childCreateRequest: AccountChildCreateRequest, siblings: List<AccountDto>) {
         siblings.find { StringUtils.isEquivalent(it.name, childCreateRequest.name) }
-            ?.let { throw RtsGenericException("Sibling is already registered with the same name") }
+            ?.let { throw LibertyGenericException("Sibling is already registered with the same name") }
     }
 
 

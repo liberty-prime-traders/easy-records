@@ -5,7 +5,7 @@ import app.myliberty.easy_records.organizations.business.core.loan.api.LoanStatu
 import app.myliberty.easy_records.organizations.business.core.loan.search.LoanSearchParameterNames
 import app.myliberty.easy_records.organizations.business.core.loan.search.LoanSearchQueryBuilder
 import app.myliberty.easy_records.organizations.business.core.loan.search.LoanSearchValidator
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.queries.KeysetSearchCursor
 import app.myliberty.easy_records.util.queries.QueryParameterNames
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -26,13 +26,13 @@ class LoanSearchTest {
 
     @Test
     fun `both created bounds are required and may span at most one year`() {
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             LoanSearchValidator.guardValidParameters(LoanSearchParameters(createdFrom = createdFrom))
         }
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             LoanSearchValidator.guardValidParameters(LoanSearchParameters(createdBefore = createdFrom))
         }
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             LoanSearchValidator.guardValidParameters(
                 LoanSearchParameters(createdFrom = createdFrom, createdBefore = createdFrom.plusYears(1).plusDays(1))
             )
@@ -42,7 +42,7 @@ class LoanSearchTest {
 
     @Test
     fun `loan date bounds must be in order`() {
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             LoanSearchValidator.guardValidParameters(
                 bounded(LoanSearchParameters(loanDateFrom = LocalDate.of(2026, 3, 2), loanDateBefore = LocalDate.of(2026, 3, 1)))
             )

@@ -2,11 +2,11 @@ package app.myliberty.easy_records.organizations.business.core.feature
 
 import app.myliberty.easy_records.organizations.business.core.feature.api.OrganizationFeatureResponseDto
 import app.myliberty.easy_records.platform.business.sysuser.api.NullableFullName
-import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.util.business.mappers.LibertyMapperConfig
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 
-@Mapper(config = RtsMapperConfig::class)
+@Mapper(config = LibertyMapperConfig::class)
 interface OrganizationFeatureMapper {
     fun toDomainDto(organizationFeatureEntity: OrganizationFeatureEntity): OrganizationFeatureDto
     fun toEntity(dto: OrganizationFeatureDto): OrganizationFeatureEntity

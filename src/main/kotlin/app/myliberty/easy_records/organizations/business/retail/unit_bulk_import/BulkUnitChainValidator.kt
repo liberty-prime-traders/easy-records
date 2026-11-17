@@ -7,7 +7,7 @@ import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.Un
 import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitChainResolver
 import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueResponseDto
 import app.myliberty.easy_records.util.business.StringUtils
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import java.util.UUID
 
 internal object BulkUnitChainValidator {
@@ -44,7 +44,7 @@ internal object BulkUnitChainValidator {
         }
         try {
             UnitChainResolver.resolvePlacements(existingNodes + payloadNodes)
-        } catch (chainException: RtsGenericException) {
+        } catch (chainException: LibertyGenericException) {
             errors.add("Unit chain rejected: ${chainException.message}")
         }
     }

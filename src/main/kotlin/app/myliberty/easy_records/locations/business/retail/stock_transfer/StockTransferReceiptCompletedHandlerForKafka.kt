@@ -10,7 +10,7 @@ import app.myliberty.easy_records.organizations.business.core.location.api.Locat
 import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferOrderDataFetcher
 import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.business.Money
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Component
 import java.time.Instant
@@ -31,7 +31,7 @@ class StockTransferReceiptCompletedHandlerForKafka(
     @TransactionalOnLocationSchema(readOnly = true)
     override fun reissue(sourceDocumentId: UUID) {
         val receipt = stockTransferReceiptRepository.findById(sourceDocumentId)
-            .orElseThrow { RtsGenericException("Stock transfer receipt $sourceDocumentId not found") }
+            .orElseThrow { LibertyGenericException("Stock transfer receipt $sourceDocumentId not found") }
         val order = stockTransferOrderDataFetcher.getByReferenceNumber(receipt.stockTransferOrderRef)
         val sourceSchema = locationService.getSchemaByLocationId(order.sourceLocationId)
         val dispatchReferenceNumber = locationService.withLocationSchema(sourceSchema) {

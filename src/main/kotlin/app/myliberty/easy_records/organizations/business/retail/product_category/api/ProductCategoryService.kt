@@ -4,7 +4,7 @@ import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrgani
 import app.myliberty.easy_records.organizations.business.retail.product_category.ProductCategoryCache
 import app.myliberty.easy_records.organizations.business.retail.product_category.ProductCategoryMapper
 import app.myliberty.easy_records.util.business.StringUtils
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException
 import org.springframework.stereotype.Service
 import java.util.Objects
@@ -31,7 +31,7 @@ class ProductCategoryService(
     fun createCategory(productCategoryInsertDto: ProductCategoryInsertDto): ProductCategoryResponseDto {
         val categoryName = StringUtils.getValueOrException(productCategoryInsertDto.categoryName, NAME_IS_REQUIRED)
         productCategoryCache.getAllCategories().find { StringUtils.isEquivalent(it.categoryName, categoryName) }
-            ?.let { throw RtsGenericException(String.format(NAME_ALREADY_EXISTS, categoryName))}
+            ?.let { throw LibertyGenericException(String.format(NAME_ALREADY_EXISTS, categoryName))}
         val savedDto = productCategoryCache.create(productCategoryInsertDto)
         return productCategoryMapper.toResponseDto(savedDto)
     }
@@ -49,7 +49,7 @@ class ProductCategoryService(
         val name = StringUtils.getValueOrException(productCategoryUpdateDto.categoryName, NAME_IS_REQUIRED)
         productCategoryCache.getAllCategories()
             .find { StringUtils.isEquivalent(it.categoryName, name) && it.id != productCategoryUpdateDto.id }
-            ?.let { throw RtsGenericException(String.format(NAME_ALREADY_EXISTS, name)) }
+            ?.let { throw LibertyGenericException(String.format(NAME_ALREADY_EXISTS, name)) }
     }
 
     fun deleteCategory(id: UUID) {

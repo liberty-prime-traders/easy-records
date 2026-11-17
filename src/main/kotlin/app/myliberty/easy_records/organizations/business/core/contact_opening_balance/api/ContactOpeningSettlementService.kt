@@ -17,7 +17,7 @@ import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.business.DisplayFormatters
 import app.myliberty.easy_records.util.business.StringUtils
 import app.myliberty.easy_records.util.business.lock.LockNamespaces
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Service
 
 @Service
@@ -39,7 +39,7 @@ class ContactOpeningSettlementService(
         DateTimes.Local.requireNotInFuture(contactOpeningSettlementCreateRequest.settlementDate, "Settlement date")
         val contactDto = contactService.getContactById(contactOpeningSettlementCreateRequest.contactId)
         if (contactDto.status != ContactStatus.ACTIVE) {
-            throw RtsGenericException("Only an active contact can be settled against an opening balance")
+            throw LibertyGenericException("Only an active contact can be settled against an opening balance")
         }
         orgEntityAdvisoryLock.acquire(LockNamespaces.CONTACT_OPENING_BALANCE, contactDto.referenceNumber)
         val settlementAmount = contactOpeningSettlementCreateRequest.amount.toBigDecimal()
@@ -49,7 +49,7 @@ class ContactOpeningSettlementService(
         )
         if (settlementAmount > outstandingAmount) {
             val directionName = contactOpeningSettlementCreateRequest.subledgerDirection.name.lowercase()
-            throw RtsGenericException(
+            throw LibertyGenericException(
                 "Settlement of ${DisplayFormatters.formatCurrency(settlementAmount)} exceeds the outstanding " +
                     "${DisplayFormatters.formatCurrency(outstandingAmount)} $directionName " +
                     "opening balance of ${contactDto.referenceNumber}; declare or raise the opening balance first"
@@ -75,10 +75,10 @@ class ContactOpeningSettlementService(
     ): ContactOpeningSettlementSummaryResponse {
         val settlementEntity = contactOpeningSettlementRepository
             .findById(contactOpeningSettlementVoidRequest.settlementId)
-            .orElseThrow { RtsGenericException("Contact opening settlement not found") }
+            .orElseThrow { LibertyGenericException("Contact opening settlement not found") }
         orgEntityAdvisoryLock.acquire(LockNamespaces.CONTACT_OPENING_BALANCE, settlementEntity.contactReferenceNumber)
         if (contactOpeningSettlementVoidRepository.existsBySettlementId(settlementEntity.requiredId())) {
-            throw RtsGenericException(
+            throw LibertyGenericException(
                 "Contact opening settlement ${settlementEntity.requiredReference()} is already voided"
             )
         }

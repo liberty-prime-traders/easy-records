@@ -1,7 +1,7 @@
 package app.myliberty.easy_records.locations.business.retail.stock_revision
 
 import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.MovementType
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.quantity.ExactQuantity
 import app.myliberty.easy_records.util.quantity.QuantityAsEntered
 import org.junit.jupiter.api.Assertions.assertDoesNotThrow
@@ -52,7 +52,7 @@ class RestatableConsumersTest {
 
     @Test
     fun `any other consumer type is refused and named`() {
-        val exception = assertThrows(RtsGenericException::class.java) {
+        val exception = assertThrows(LibertyGenericException::class.java) {
             RestatableConsumers.requireAllRestatable(
                 listOf(consumption(MovementType.SALE), consumption(MovementType.TRANSFER_OUT))
             )

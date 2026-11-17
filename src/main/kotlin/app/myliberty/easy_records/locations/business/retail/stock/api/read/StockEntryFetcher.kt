@@ -4,7 +4,7 @@ import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocati
 import app.myliberty.easy_records.locations.business.retail.stock.StockEntryRepository
 import app.myliberty.easy_records.locations.business.retail.stock.api.fifo.StockEntryFifoDto
 import app.myliberty.easy_records.locations.business.retail.stock.stockEntryFifoComparator
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Service
 import java.util.UUID
 
@@ -16,7 +16,7 @@ class StockEntryFetcher(
 
     fun get(stockEntryId: UUID): StockEntryDto =
         StockEntryDto.of(
-            stockEntryRepository.findById(stockEntryId).orElseThrow { RtsGenericException(
+            stockEntryRepository.findById(stockEntryId).orElseThrow { LibertyGenericException(
                 "Stock entry $stockEntryId not found."
             ) }
         )

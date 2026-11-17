@@ -19,7 +19,7 @@ import app.myliberty.easy_records.platform.business.reserved_subdomain.api.Reser
 import app.myliberty.easy_records.platform.business.reserved_subdomain.api.ReservedSubdomainService
 import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.business.SchemaNameGenerator
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException
 import org.springframework.stereotype.Service
 import java.util.UUID
@@ -50,11 +50,11 @@ class OrganizationService(
     @TransactionalOnPlatformSchema(readOnly = true)
     fun getBySchema(schema: String): OrganizationDto =
         organizationCache.getAllOrganizations().find { it.schemaName == schema }
-            ?: throw RtsGenericException("No organization found for schema $schema.")
+            ?: throw LibertyGenericException("No organization found for schema $schema.")
 
     fun updateCurrentDbVersion(organizationId: UUID, versionId: UUID) {
         val org = organizationCache.getAllOrganizations().find { it.id == organizationId }
-            ?: throw RtsGenericException("Organization not found")
+            ?: throw LibertyGenericException("Organization not found")
         organizationCache.save(org.copy(currentDbVersionId = versionId))
     }
 
@@ -86,7 +86,7 @@ class OrganizationService(
     private fun markSubdomainAsUsed(subdomain: String) {
         val reservedSubdomain = reservedSubdomainService.getReservedSubdomains()
             .find { it.subdomain == subdomain && it.status == ReservedDomainStatus.UNUSED }
-            ?: throw RtsGenericException("Subdomain '$subdomain' was not reserved")
+            ?: throw LibertyGenericException("Subdomain '$subdomain' was not reserved")
         reservedSubdomainService.markSubdomainAsUsed(reservedSubdomain.id)
     }
 
@@ -132,7 +132,7 @@ class OrganizationService(
     fun getOrganizationLocations(organizationId: UUID): Collection<LocationResponseDto> {
         val organization = organizationCache.getAllOrganizations()
             .find { it.id == organizationId }
-            ?: throw RtsGenericException("The organization with id $organizationId does not exist")
+            ?: throw LibertyGenericException("The organization with id $organizationId does not exist")
         SessionContextProvider.initOrganization(organization)
         return locationService.getAllLocations()
     }

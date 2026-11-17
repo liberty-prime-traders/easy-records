@@ -1,6 +1,6 @@
 package app.myliberty.easy_records.locations.business.retail.sale.api
 
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Assertions.assertNull
 import app.myliberty.easy_records.locations.business.retail.sale.SaleAssembler
@@ -114,10 +114,10 @@ class SaleUpdaterConsolidationVoidTest {
         sale.notes = "first"
         `when`(saleLocker.lockAndGetSale(sourceSaleId)).thenReturn(sale)
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             saleUpdater.updateNotesAtVersion(sourceSaleId, "from a stale tab", sale.version + 1)
         }
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             saleUpdater.updateNotesAtVersion(sourceSaleId, "from a tab with no version", null)
         }
 

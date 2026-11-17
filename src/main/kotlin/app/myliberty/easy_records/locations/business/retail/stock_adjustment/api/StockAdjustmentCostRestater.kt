@@ -4,7 +4,7 @@ import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocati
 import app.myliberty.easy_records.locations.business.retail.stock_adjustment.StockAdjustmentCostEntity
 import app.myliberty.easy_records.locations.business.retail.stock_adjustment.StockAdjustmentCostRepository
 import app.myliberty.easy_records.locations.business.retail.stock_adjustment.StockAdjustmentRepository
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Propagation
 
@@ -31,12 +31,12 @@ class StockAdjustmentCostRestater(
         stockAdjustmentCostChanges.forEach { stockAdjustmentCostChange ->
             val referenceNumber = stockAdjustmentCostChange.adjustmentReferenceNumber
             val stockAdjustment = stockAdjustmentByReferenceNumber[referenceNumber]
-                ?: throw RtsGenericException("Stock adjustment $referenceNumber not found")
+                ?: throw LibertyGenericException("Stock adjustment $referenceNumber not found")
             val activeCost = activeCostByStockAdjustmentId[stockAdjustment.id!!]
-                ?: throw RtsGenericException("Stock adjustment $referenceNumber has no cost record")
+                ?: throw LibertyGenericException("Stock adjustment $referenceNumber has no cost record")
             val restatedTotalCost = activeCost.totalCost - stockAdjustmentCostChange.oldCost + stockAdjustmentCostChange.newCost
             if (restatedTotalCost.signum() < 0) {
-                throw RtsGenericException("Stock adjustment $referenceNumber would have a negative cost after the revision")
+                throw LibertyGenericException("Stock adjustment $referenceNumber would have a negative cost after the revision")
             }
             // Flushed first: the unique index on ACTIVE rows is not deferrable and inserts flush before updates.
             activeCost.status = StockAdjustmentCostStatus.REPLACED

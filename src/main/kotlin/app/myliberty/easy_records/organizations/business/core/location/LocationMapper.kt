@@ -4,11 +4,11 @@ import app.myliberty.easy_records.organizations.business.core.location.api.Locat
 import app.myliberty.easy_records.organizations.business.core.location.api.LocationInsertDto
 import app.myliberty.easy_records.organizations.business.core.location.api.LocationResponseDto
 import app.myliberty.easy_records.platform.business.sysuser.api.CreatorFullName
-import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.util.business.mappers.LibertyMapperConfig
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 
-@Mapper(config = RtsMapperConfig::class)
+@Mapper(config = LibertyMapperConfig::class)
 interface LocationMapper {
 
     @Mapping(target = "id", ignore = true)

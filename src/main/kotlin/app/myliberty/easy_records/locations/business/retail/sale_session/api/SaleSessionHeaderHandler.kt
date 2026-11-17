@@ -7,7 +7,7 @@ import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSes
 import app.myliberty.easy_records.organizations.business.core.contact.api.ContactService
 import app.myliberty.easy_records.util.business.StringUtils
 import app.myliberty.easy_records.util.enums.SystemContact
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Service
 import java.util.UUID
 
@@ -34,7 +34,7 @@ class SaleSessionHeaderHandler(
         headerActions(headerUpdateDto).forEach { saleSessionValidator.guardAllowed(saleSession, it) }
         val updatedHeader = saleSession.header.copy(
             contactId = headerUpdateDto.contactId?.let {
-                it.orElseThrow { RtsGenericException("contactId cannot be cleared") }
+                it.orElseThrow { LibertyGenericException("contactId cannot be cleared") }
             } ?: saleSession.header.contactId,
             soldById = headerUpdateDto.soldById?.orElse(null) ?: saleSession.header.soldById,
             dateSold = headerUpdateDto.dateSold?.orElse(null) ?: saleSession.header.dateSold,

@@ -8,7 +8,7 @@ import app.myliberty.easy_records.organizations.business.core.location.LocationM
 import app.myliberty.easy_records.organizations.business.core.location.LocationSchemaService
 import app.myliberty.easy_records.organizations.business.core.location.LocationValidator
 import app.myliberty.easy_records.util.business.SchemaNameGenerator
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException
 import org.springframework.stereotype.Service
 import java.util.Objects
@@ -35,17 +35,17 @@ class LocationService(
     @TransactionalOnOrganizationSchema(readOnly = true)
     fun getBySchema(schema: String): LocationDto =
         locationCache.getAllLocations().find { it.schemaName == schema }
-            ?: throw RtsGenericException("No location found for schema $schema.")
+            ?: throw LibertyGenericException("No location found for schema $schema.")
 
     @TransactionalOnOrganizationSchema(readOnly = true)
     fun getById(locationId: UUID): LocationDto =
         locationCache.getAllLocations().find { it.id == locationId }
-            ?: throw RtsGenericException("No location found for $locationId.")
+            ?: throw LibertyGenericException("No location found for $locationId.")
 
     @TransactionalOnOrganizationSchema(readOnly = true)
     fun getSchemaByLocationId(locationId: UUID): String =
         locationCache.getAllLocations().find { it.id == locationId }?.schemaName
-            ?: throw RtsGenericException("Location schema not found for $locationId")
+            ?: throw LibertyGenericException("Location schema not found for $locationId")
 
     fun createLocation(locationInsertDto: LocationInsertDto): LocationResponseDto {
         locationValidator.validateLocationInsert(locationInsertDto)

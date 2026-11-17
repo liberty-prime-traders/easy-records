@@ -5,7 +5,7 @@ import app.myliberty.easy_records.locations.business.retail.location_product.Loc
 import app.myliberty.easy_records.locations.business.retail.location_product.LocationProductMapper
 import app.myliberty.easy_records.locations.business.retail.location_product.LocationProductRepository
 import app.myliberty.easy_records.organizations.business.retail.product.api.ProductStatus
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
@@ -45,7 +45,7 @@ class LocationProductSyncServiceTest {
     fun `a sync carrying a different base unit for an existing location product is rejected and nothing is saved`() {
         `when`(locationProductRepository.findByOrgProductId(orgProductId)).thenReturn(existing)
 
-        val exception = assertThrows(RtsGenericException::class.java) { syncService.syncUpsert(syncDto(UUID.randomUUID())) }
+        val exception = assertThrows(LibertyGenericException::class.java) { syncService.syncUpsert(syncDto(UUID.randomUUID())) }
 
         assertEquals(LocationProductSyncService.BASE_UNIT_CANNOT_CHANGE, exception.message)
         assertEquals(baleId, existing.baseUnitId)

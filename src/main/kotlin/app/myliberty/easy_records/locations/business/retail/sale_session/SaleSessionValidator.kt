@@ -16,7 +16,7 @@ import app.myliberty.easy_records.organizations.business.retail.adjustment_reaso
 import app.myliberty.easy_records.organizations.business.retail.adjustment_reason.api.SystemAdjustmentReason
 import app.myliberty.easy_records.util.business.Decimals
 import app.myliberty.easy_records.util.business.DisplayFormatters
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Component
 import java.util.UUID
 
@@ -44,7 +44,7 @@ class SaleSessionValidator(
     private fun guardOrderLevelAdjustmentsAllowed(saleSession: SaleSession) {
         val refusal = SaleSessionRules.refusalOrNull(saleSession.kind, SaleSessionAction.ADD_ORDER_LEVEL_ADJUSTMENT)
             ?: return
-        if (saleSession.saleAdjustments.any { it.relatedSaleLineIdentity == null }) throw RtsGenericException(refusal)
+        if (saleSession.saleAdjustments.any { it.relatedSaleLineIdentity == null }) throw LibertyGenericException(refusal)
     }
 
     private fun guardAmountsWithinMaximum(saleSession: SaleSession, totals: SaleSessionTotals) {
@@ -71,7 +71,7 @@ class SaleSessionValidator(
             if (saleSessionAdjustment.adjustmentReasonId == priceOverrideReasonId) return@forEach
             if (targetLineKey !in lineKeysWithOverride) return@forEach
             val productLabel = saleSessionLinesByKey[targetLineKey]?.productLabel ?: "this line"
-            throw RtsGenericException(
+            throw LibertyGenericException(
                 "$productLabel has both a price override and another adjustment — " +
                 " Remove the override and use adjustments to update price"
             )
@@ -80,13 +80,13 @@ class SaleSessionValidator(
 
     fun guardReasonIsNotPriceOverride(adjustmentReasonId: UUID) {
         if (adjustmentReasonId == adjustmentReasonService.getSystemReasonId(SystemAdjustmentReason.PRICE_OVERRIDE)) {
-            throw RtsGenericException("The Price Override reason is applied by changing a line's price, not by adding an adjustment")
+            throw LibertyGenericException("The Price Override reason is applied by changing a line's price, not by adding an adjustment")
         }
     }
 
     fun guardAllowed(saleSession: SaleSession, action: SaleSessionAction) {
         if (saleSession.allows(action)) return
-        throw RtsGenericException(
+        throw LibertyGenericException(
             SaleSessionRules.refusalOrNull(saleSession.kind, action)
                 ?: "Sale session is read-only because the underlying sale is ${saleSession.originalStatus}"
         )
@@ -95,7 +95,7 @@ class SaleSessionValidator(
     fun canAddPayments(saleSession: SaleSession) {
         guardAllowed(saleSession, SaleSessionAction.ADD_PAYMENT)
         if (!saleSession.canAddPayments()) {
-            throw RtsGenericException(
+            throw LibertyGenericException(
                 "Cannot add a payment because the sale is ${saleSession.originalStatus}"
             )
         }
@@ -103,13 +103,13 @@ class SaleSessionValidator(
 
     fun guardSourceSaleCopyable(sourceSaleStatus: SaleStatus) {
         if (!SaleSessionRules.isCopyable(sourceSaleStatus)) {
-            throw RtsGenericException("A confirmed sale cannot be copied")
+            throw LibertyGenericException("A confirmed sale cannot be copied")
         }
     }
 
     fun guardConsolidationSelectionSize(selectedSaleCount: Int) {
         if (selectedSaleCount !in MINIMUM_SALES_TO_CONSOLIDATE..MAXIMUM_SALES_TO_CONSOLIDATE) {
-            throw RtsGenericException(
+            throw LibertyGenericException(
                 "Select between $MINIMUM_SALES_TO_CONSOLIDATE and $MAXIMUM_SALES_TO_CONSOLIDATE sales to consolidate"
             )
         }
@@ -118,20 +118,20 @@ class SaleSessionValidator(
     fun guardSingleContactAcrossSales(sourceSaleHeaders: List<SaleHeaderDto>) {
         val distinctContactIds = sourceSaleHeaders.map { it.contactId }.toSet()
         if (distinctContactIds.size > 1) {
-            throw RtsGenericException("Sales for different customers cannot be consolidated")
+            throw LibertyGenericException("Sales for different customers cannot be consolidated")
         }
     }
 
     fun guardSourceSalesConsolidatable(sourceSaleHeaders: List<SaleHeaderDto>) {
         sourceSaleHeaders.firstOrNull { !SaleSessionRules.isConsolidatable(it.status) }
             ?.let { saleHeader ->
-                throw RtsGenericException(
+                throw LibertyGenericException(
                     "Sale ${saleHeader.referenceNumber} is ${saleHeader.status.name.lowercase()}; " +
                         "only draft and confirmed sales can be consolidated"
                 )
             }
         if (sourceSaleHeaders.any { SaleConsolidationEligibility.isWalkInSale(it.contactId) }) {
-            throw RtsGenericException("Walk-in sales cannot be consolidated")
+            throw LibertyGenericException("Walk-in sales cannot be consolidated")
         }
     }
 
@@ -141,13 +141,13 @@ class SaleSessionValidator(
 
     fun guardNonEmptyLines(saleSession: SaleSession) {
         if (saleSession.saleLines.isEmpty()) {
-            throw RtsGenericException("Sale must have at least one line")
+            throw LibertyGenericException("Sale must have at least one line")
         }
     }
 
     fun guardWalkInFullyCovered(saleSession: SaleSession) {
         if (saleSession.walkInIsNotFullyCovered()) {
-            throw RtsGenericException("Walk-in sales require full payment coverage")
+            throw LibertyGenericException("Walk-in sales require full payment coverage")
         }
     }
 
@@ -162,7 +162,7 @@ class SaleSessionValidator(
     private fun guardNoDuplicateProducts(saleSessionLines: List<SaleSessionLine>) {
         val locationProductIds = saleSessionLines.map { it.locationProductId }
         if (locationProductIds.size != locationProductIds.toSet().size) {
-            throw RtsGenericException("Duplicate products are not allowed in a sale")
+            throw LibertyGenericException("Duplicate products are not allowed in a sale")
         }
     }
 
@@ -171,7 +171,7 @@ class SaleSessionValidator(
         saleSession.saleAdjustments.forEach { saleSessionAdjustment ->
             val targetLineKey = saleSessionAdjustment.relatedSaleLineIdentity?.key() ?: return@forEach
             if (targetLineKey !in saleSessionLineKeys) {
-                throw RtsGenericException("Adjustment references a line that is not on the sale")
+                throw LibertyGenericException("Adjustment references a line that is not on the sale")
             }
         }
     }
@@ -189,7 +189,7 @@ class SaleSessionValidator(
         guardLineDiscountCeilings(saleSession)
         val remainingSubtotalAfterLineDiscounts = totals.subtotal - totals.lineLevelDiscountTotal
         if (totals.orderLevelDiscountTotal > remainingSubtotalAfterLineDiscounts) {
-            throw RtsGenericException(
+            throw LibertyGenericException(
                 "Order-level discount total of ${DisplayFormatters.formatCurrency(totals.orderLevelDiscountTotal)} exceeds " +
                         "remaining subtotal ${DisplayFormatters.formatCurrency(remainingSubtotalAfterLineDiscounts)} " +
                         "(subtotal ${DisplayFormatters.formatCurrency(totals.subtotal)} " +
@@ -205,13 +205,13 @@ class SaleSessionValidator(
             .groupBy { it.requiredRelatedSaleLineKey() }
         lineDiscountsByLineKey.forEach { (targetLineKey, lineDiscounts) ->
             val targetSaleSessionLine = saleSessionLinesByKey[targetLineKey]
-                ?: throw RtsGenericException("Adjustment references a line that is not on the sale")
+                ?: throw LibertyGenericException("Adjustment references a line that is not on the sale")
             val totalDiscountAmount = lineDiscounts.sumOf {
                 SaleSessionTotalsCalculator.calculateAdjustmentAmount(it, saleSession.saleLines)
             }
             val lineTotal = targetSaleSessionLine.lineTotal
             if (totalDiscountAmount > lineTotal) {
-                throw RtsGenericException(
+                throw LibertyGenericException(
                     "On ${targetSaleSessionLine.productLabel}, total discounts of " +
                             "${DisplayFormatters.formatCurrency(totalDiscountAmount)} exceed " +
                             "line total of ${DisplayFormatters.formatCurrency(lineTotal)}."

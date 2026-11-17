@@ -10,7 +10,7 @@ import app.myliberty.easy_records.organizations.business.retail.product_group.ap
 import app.myliberty.easy_records.organizations.business.retail.product_group.api.ProductGroupService
 import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueFetcher
 import app.myliberty.easy_records.util.business.StringUtils
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Service
 import java.util.UUID
 
@@ -27,7 +27,7 @@ class BulkProductImportService(
     fun bulkImport(bulkProductImportRequestDto: BulkProductImportRequestDto) {
         val errors = bulkProductImportValidator.validate(bulkProductImportRequestDto)
         if (errors.isNotEmpty()) {
-            throw RtsGenericException("Bulk product import validation failed", errors)
+            throw LibertyGenericException("Bulk product import validation failed", errors)
         }
         val categoryIdByNormalizedName = saveOrReuseCategories(bulkProductImportRequestDto.categories)
         val groupIdByNormalizedName = saveOrReuseProductGroups(bulkProductImportRequestDto.productGroups, categoryIdByNormalizedName)

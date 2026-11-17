@@ -9,7 +9,7 @@ import app.myliberty.easy_records.organizations.business.retail.product.api.Orga
 import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.UnitConversionGraph
 import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.UnitConversionGraphFacade
 import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitPlacement
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -84,7 +84,7 @@ class LocationProductServiceLastPurchaseCostTest {
     fun `a product whose base unit is unknown fails the whole update and saves nothing`() {
         val product = product(unknownUnitId)
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             locationProductService.updateLastPurchaseCosts(
                 listOf(LastPurchaseCostUpdateDto(product.id!!, BigDecimal("5.00"), 1))
             )

@@ -1,6 +1,6 @@
 package app.myliberty.easy_records.locations.business.retail.sale.api
 
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.business.StringUtils
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
 import app.myliberty.easy_records.util.enums.PaymentStatus
@@ -53,7 +53,7 @@ class SaleUpdater(
     fun updateNotesAtVersion(id: UUID, notes: String?, expectedVersion: Long?): Long {
         val sale = saleLocker.lockAndGetSale(id)
         if (expectedVersion == null || sale.version != expectedVersion) {
-            throw RtsGenericException(
+            throw LibertyGenericException(
                 "Sale ${sale.requiredReference()} has been modified since you opened it — please reload and try again"
             )
         }

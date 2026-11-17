@@ -16,7 +16,7 @@ import app.myliberty.easy_records.locations.business.retail.sale_session.consoli
 import app.myliberty.easy_records.locations.business.retail.sale_session.consolidation.SaleConsolidationGenerator
 import app.myliberty.easy_records.locations.business.retail.sale_session.consolidation.SaleConsolidationStarter
 import app.myliberty.easy_records.organizations.business.retail.adjustment_reason.api.AdjustmentReasonService
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
@@ -85,7 +85,7 @@ class SaleConsolidationHandlerTest {
         `when`(saleSessionStore.load(sessionId)).thenReturn(pendingSession)
         `when`(pendingConsolidationPromoter.promote(pendingSession)).thenReturn(promotedSession)
 
-        val refusal = assertThrows(RtsGenericException::class.java) { saleConsolidationHandler.generate(sessionId) }
+        val refusal = assertThrows(LibertyGenericException::class.java) { saleConsolidationHandler.generate(sessionId) }
 
         assertTrue(refusal.message.contains("still cannot be combined"))
         verify(saleSessionStore).save(promotedSession)

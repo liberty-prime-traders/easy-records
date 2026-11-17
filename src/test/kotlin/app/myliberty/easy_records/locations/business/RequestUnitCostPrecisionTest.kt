@@ -7,7 +7,7 @@ import app.myliberty.easy_records.locations.business.retail.opening_stock.api.Op
 import app.myliberty.easy_records.locations.business.retail.purchase.api.PurchaseLineCreateDto
 import app.myliberty.easy_records.locations.business.retail.purchase.api.PurchaseLineUpdateDto
 import app.myliberty.easy_records.locations.business.retail.stock_adjustment.api.StockAdjustmentCreateDto
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
@@ -33,7 +33,7 @@ class RequestUnitCostPrecisionTest {
     fun `a typed unit cost with three decimals is a business error in every request that carries one`() {
         everyRequestBuiltWith("1.255").forEach { build ->
             val thrown = assertThrows(Exception::class.java) { build() }
-            assertTrue(generateSequence<Throwable>(thrown) { it.cause }.any { it is RtsGenericException })
+            assertTrue(generateSequence<Throwable>(thrown) { it.cause }.any { it is LibertyGenericException })
         }
     }
 

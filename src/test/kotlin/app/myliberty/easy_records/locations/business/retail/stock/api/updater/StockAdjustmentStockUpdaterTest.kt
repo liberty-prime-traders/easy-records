@@ -12,7 +12,7 @@ import app.myliberty.easy_records.locations.business.retail.stock.StockEntryEnti
 import app.myliberty.easy_records.locations.business.retail.stock.StockEntryRepository
 import app.myliberty.easy_records.locations.business.retail.stock.StockIncreaseRecorder
 import app.myliberty.easy_records.locations.business.retail.stock.StockMovementRepository
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.quantity.BreakdownUnit
 import app.myliberty.easy_records.util.quantity.ExactQuantity
 import app.myliberty.easy_records.util.quantity.QuantityBreakdown
@@ -86,7 +86,7 @@ class StockAdjustmentStockUpdaterTest {
     fun `decrease larger than the available quantity is rejected`() {
         givenStock(balance = "3", layers = listOf(stockEntry(storageQuantity = "3", batchCost = "9.0000")))
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             stockAdjustmentStockUpdater.decreaseStock(decreaseRequest("4"))
         }
     }

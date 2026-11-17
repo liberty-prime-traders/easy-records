@@ -11,7 +11,7 @@ import app.myliberty.easy_records.organizations.business.core.ledger.SubledgerEn
 import app.myliberty.easy_records.organizations.business.core.ledger.SubledgerEntryRepository
 import app.myliberty.easy_records.util.business.Money
 import app.myliberty.easy_records.util.business.PositiveMoney
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.support.WithDefaultOrganizationSession
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
@@ -88,7 +88,7 @@ class LedgerPostingServiceSubledgerTest {
     fun `a contact without a balance row fails the posting instead of starting from zero`() {
         `when`(subledgerBalanceRepository.findByContactReferenceNumberIn(setOf(contactReferenceNumber))).thenReturn(emptyList())
 
-        assertThrows(RtsGenericException::class.java) { post(subledgerEntry(payable = "0", receivable = "25")) }
+        assertThrows(LibertyGenericException::class.java) { post(subledgerEntry(payable = "0", receivable = "25")) }
 
         verify(subledgerEntryRepository, never()).saveAll(anyIterable<SubledgerEntryEntity>())
     }

@@ -1,11 +1,11 @@
 package app.myliberty.easy_records.locations.business.retail.supplier_payment
 
 import app.myliberty.easy_records.locations.business.retail.supplier_payment.api.SupplierPaymentVoidCreateDto
-import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.util.business.mappers.LibertyMapperConfig
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 
-@Mapper(config = RtsMapperConfig::class)
+@Mapper(config = LibertyMapperConfig::class)
 interface SupplierPaymentVoidMapper {
 
     fun toDomainDto(supplierPaymentVoidEntity: SupplierPaymentVoidEntity): SupplierPaymentVoidDto

@@ -4,12 +4,12 @@ import app.myliberty.easy_records.organizations.business.retail.product_group.ap
 import app.myliberty.easy_records.organizations.business.retail.product_group.api.ProductGroupInsertDto
 import app.myliberty.easy_records.organizations.business.retail.product_group.api.ProductGroupResponseDto
 import app.myliberty.easy_records.platform.business.sysuser.api.CreatorFullName
-import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.util.business.mappers.LibertyMapperConfig
 import org.mapstruct.Context
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 
-@Mapper(config = RtsMapperConfig::class)
+@Mapper(config = LibertyMapperConfig::class)
 interface ProductGroupMapper {
 
     @Mapping(target = "id", ignore = true)

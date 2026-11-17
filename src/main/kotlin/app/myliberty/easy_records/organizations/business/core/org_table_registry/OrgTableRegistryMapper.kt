@@ -4,12 +4,12 @@ import app.myliberty.easy_records.organizations.business.core.org_table_registry
 import app.myliberty.easy_records.organizations.business.core.org_table_registry.api.OrgTableRegistryResponseDto
 import app.myliberty.easy_records.organizations.business.core.org_table_registry.mapping.TableNameQualifier
 import app.myliberty.easy_records.organizations.business.core.org_table_registry.mapping.TableNameResolver
-import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.util.business.mappers.LibertyMapperConfig
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 
 @Mapper(
-    config = RtsMapperConfig::class,
+    config = LibertyMapperConfig::class,
     uses = [TableNameResolver::class]
 )
 interface OrgTableRegistryMapper {

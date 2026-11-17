@@ -21,7 +21,7 @@ import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.business.PositiveMoney
 import app.myliberty.easy_records.util.business.lock.LockNamespaces
 import app.myliberty.easy_records.util.business.mappers.StringQualifier
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
@@ -100,7 +100,7 @@ class LoanRepaymentServiceTest {
     @Test
     fun `zero, negative and amounts that round to zero are rejected`() {
         listOf("0", "-5", "0.00004").forEach { amount ->
-            assertThrows(RtsGenericException::class.java) {
+            assertThrows(LibertyGenericException::class.java) {
                 loanRepaymentService.recordRepayment(LoanRepaymentCreateRequest(loanId, cashCode, PositiveMoney.of(BigDecimal(amount)), loanDate))
             }
         }
@@ -111,9 +111,9 @@ class LoanRepaymentServiceTest {
 
     @Test
     fun `an asset account the selection rule rejects stops a repayment before it is saved`() {
-        doThrow(RtsGenericException("Loan account is inactive")).`when`(loanAccountValidator).requireSelectable(cashCode)
+        doThrow(LibertyGenericException("Loan account is inactive")).`when`(loanAccountValidator).requireSelectable(cashCode)
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             loanRepaymentService.recordRepayment(LoanRepaymentCreateRequest(loanId, cashCode, PositiveMoney.of(BigDecimal("10")), loanDate))
         }
 
@@ -144,7 +144,7 @@ class LoanRepaymentServiceTest {
     fun `a repayment above the outstanding balance names the amount requested and the outstanding amount`() {
         outstandingIs("30.00")
 
-        val exception = assertThrows(RtsGenericException::class.java) {
+        val exception = assertThrows(LibertyGenericException::class.java) {
             loanRepaymentService.recordRepayment(LoanRepaymentCreateRequest(loanId, cashCode, PositiveMoney.of(BigDecimal("30.01")), loanDate))
         }
 
@@ -165,12 +165,12 @@ class LoanRepaymentServiceTest {
     @Test
     fun `a repayment against a voided loan, or an unknown one, is rejected`() {
         `when`(loanVoidRepository.existsByLoanId(loanId)).thenReturn(true)
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             loanRepaymentService.recordRepayment(LoanRepaymentCreateRequest(loanId, cashCode, PositiveMoney.of(BigDecimal("10")), loanDate))
         }
         val unknownLoanId = UUID.randomUUID()
         `when`(loanRepository.findById(unknownLoanId)).thenReturn(Optional.empty())
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             loanRepaymentService.recordRepayment(LoanRepaymentCreateRequest(unknownLoanId, cashCode, PositiveMoney.of(BigDecimal("10")), loanDate))
         }
 
@@ -182,7 +182,7 @@ class LoanRepaymentServiceTest {
     fun `a repayment dated in the future is rejected, and today is accepted`() {
         val tomorrow = DateTimes.Local.Now.organization().plusDays(1)
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             loanRepaymentService.recordRepayment(LoanRepaymentCreateRequest(loanId, cashCode, PositiveMoney.of(BigDecimal("10")), tomorrow))
         }
         verify(loanRepaymentRepository, never()).save(any(LoanRepaymentEntity::class.java))
@@ -194,7 +194,7 @@ class LoanRepaymentServiceTest {
 
     @Test
     fun `a repayment dated before its loan is rejected, and the loan date itself is accepted`() {
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             loanRepaymentService.recordRepayment(LoanRepaymentCreateRequest(loanId, cashCode, PositiveMoney.of(BigDecimal("10")), loanDate.minusDays(1)))
         }
         verify(loanRepaymentRepository, never()).save(any(LoanRepaymentEntity::class.java))
@@ -231,8 +231,8 @@ class LoanRepaymentServiceTest {
         val unknownRepaymentId = UUID.randomUUID()
         `when`(loanRepaymentRepository.findById(unknownRepaymentId)).thenReturn(Optional.empty())
 
-        assertThrows(RtsGenericException::class.java) { loanRepaymentService.voidRepayment(LoanRepaymentVoidRequest(repayment.id!!)) }
-        assertThrows(RtsGenericException::class.java) { loanRepaymentService.voidRepayment(LoanRepaymentVoidRequest(unknownRepaymentId)) }
+        assertThrows(LibertyGenericException::class.java) { loanRepaymentService.voidRepayment(LoanRepaymentVoidRequest(repayment.id!!)) }
+        assertThrows(LibertyGenericException::class.java) { loanRepaymentService.voidRepayment(LoanRepaymentVoidRequest(unknownRepaymentId)) }
 
         verify(loanRepaymentVoidRepository, never()).save(any(LoanRepaymentVoidEntity::class.java))
         assertTrue(postedRequests.isEmpty())
@@ -240,9 +240,9 @@ class LoanRepaymentServiceTest {
 
     @Test
     fun `a ledger posting failure reaches the caller and the service rolls back on any exception`() {
-        doThrow(RtsGenericException("No open fiscal period")).`when`(ledgerPostingService).post(anyNonNull(LedgerPostingRequest::class.java))
+        doThrow(LibertyGenericException("No open fiscal period")).`when`(ledgerPostingService).post(anyNonNull(LedgerPostingRequest::class.java))
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             loanRepaymentService.recordRepayment(LoanRepaymentCreateRequest(loanId, cashCode, PositiveMoney.of(BigDecimal("10")), loanDate))
         }
 

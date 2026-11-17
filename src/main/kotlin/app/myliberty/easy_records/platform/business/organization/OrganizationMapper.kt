@@ -6,12 +6,12 @@ import app.myliberty.easy_records.platform.business.organization.api.Organizatio
 import app.myliberty.easy_records.platform.business.organization.api.OrganizationInsertDto
 import app.myliberty.easy_records.platform.business.organization.api.OrganizationResponseDto
 import app.myliberty.easy_records.platform.business.sysuser.api.CreatorFullName
-import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.util.business.mappers.LibertyMapperConfig
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 
 @Mapper(
-    config = RtsMapperConfig::class,
+    config = LibertyMapperConfig::class,
     uses = [AuthorizationPassQualifier::class, DbVersionService::class]
 )
 interface OrganizationMapper {

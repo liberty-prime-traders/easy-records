@@ -14,7 +14,7 @@ import app.myliberty.easy_records.locations.business.retail.sale_session.Session
 import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionResponseDto
 import app.myliberty.easy_records.locations.business.retail.sale_session.consolidation.line_merge.OrderLevelAdjustmentsCombiner
 import app.myliberty.easy_records.locations.business.retail.sale_session.consolidation.line_merge.SaleLineMergeResult
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Propagation
 import java.util.UUID
@@ -64,7 +64,7 @@ class SaleConsolidationGenerator(
         keepOrderLevelAdjustments: Boolean,
     ): SaleSessionResponseDto {
         if (mergeResult.problems.isNotEmpty()) {
-            throw RtsGenericException("Some products still cannot be combined. Fix the issues listed first")
+            throw LibertyGenericException("Some products still cannot be combined. Fix the issues listed first")
         }
         val activeSourcePayments = consolidationSourcePayments.activePaymentsOf(sourceSaleHeaders)
         val carriedOrderLevelAdjustments = if (keepOrderLevelAdjustments) {

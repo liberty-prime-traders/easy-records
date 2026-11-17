@@ -20,7 +20,7 @@ import app.myliberty.easy_records.organizations.business.retail.adjustment_reaso
 import app.myliberty.easy_records.support.WithDefaultOrganizationSession
 import app.myliberty.easy_records.util.business.Decimals
 import app.myliberty.easy_records.util.enums.SystemContact
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -57,7 +57,7 @@ class SaleSessionValidatorTest {
         )
 
         listOf(SaleStatus.VOIDED, SaleStatus.DISCARDED).forEach { refusedStatus ->
-            val refusal = assertThrows(RtsGenericException::class.java) {
+            val refusal = assertThrows(LibertyGenericException::class.java) {
                 saleSessionValidator.guardSourceSalesConsolidatable(
                     listOf(
                         consolidationHeader(SaleStatus.DRAFT, contactId),
@@ -67,7 +67,7 @@ class SaleSessionValidatorTest {
             }
             assertTrue(refusal.message.contains("SALE-$refusedStatus"))
         }
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             saleSessionValidator.guardSourceSalesConsolidatable(
                 listOf(consolidationHeader(SaleStatus.DRAFT, SystemContact.WALK_IN.id))
             )
@@ -81,7 +81,7 @@ class SaleSessionValidatorTest {
 
     @Test
     fun `the system price override reason is not accepted for an added adjustment, any other reason is`() {
-        assertThrows(RtsGenericException::class.java) { saleSessionValidator.guardReasonIsNotPriceOverride(priceOverrideReasonId) }
+        assertThrows(LibertyGenericException::class.java) { saleSessionValidator.guardReasonIsNotPriceOverride(priceOverrideReasonId) }
 
         saleSessionValidator.guardReasonIsNotPriceOverride(UUID.randomUUID())
     }
@@ -93,7 +93,7 @@ class SaleSessionValidatorTest {
 
     @Test
     fun `a line total above the maximum is rejected before the database column can overflow`() {
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             saleSessionValidator.validate(saleSession(listOf(saleSessionLine(maximum + BigDecimal("0.01")))))
         }
     }
@@ -102,7 +102,7 @@ class SaleSessionValidatorTest {
     fun `lines that are each within the maximum are rejected when their subtotal is not`() {
         val saleSession = saleSession(listOf(saleSessionLine(BigDecimal("600000000000.00")), saleSessionLine(BigDecimal("600000000000.00"))))
 
-        assertThrows(RtsGenericException::class.java) { saleSessionValidator.validate(saleSession) }
+        assertThrows(LibertyGenericException::class.java) { saleSessionValidator.validate(saleSession) }
     }
 
     @Test
@@ -110,7 +110,7 @@ class SaleSessionValidatorTest {
         val line = saleSessionLine(BigDecimal("10.00"), quantity = BigDecimal("1000"))
         val surcharge = priceOverrideAdjustment(line, maximum)
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             saleSessionValidator.validate(saleSession(listOf(line), listOf(surcharge)))
         }
     }
@@ -120,7 +120,7 @@ class SaleSessionValidatorTest {
         val line = saleSessionLine(maximum)
         val discount = percentageAdjustment(AdjustmentDirection.DISCOUNT, BigDecimal("200"), line)
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             saleSessionValidator.validate(saleSession(listOf(line), listOf(discount)))
         }
     }
@@ -129,7 +129,7 @@ class SaleSessionValidatorTest {
     fun `a surcharge that pushes the receivable total above the maximum is rejected while the subtotal and the adjustment are within it`() {
         val surcharge = percentageAdjustment(AdjustmentDirection.SURCHARGE, BigDecimal("10"), null)
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             saleSessionValidator.validate(saleSession(listOf(saleSessionLine(maximum)), listOf(surcharge)))
         }
     }
@@ -138,10 +138,10 @@ class SaleSessionValidatorTest {
     fun `a session line whose product is inactive blocks the commit until the line is removed`() {
         val inactiveProductLine = saleSessionLine(BigDecimal("10.00"))
         val activeProductLine = saleSessionLine(BigDecimal("5.00"))
-        doThrow(RtsGenericException("Inactive products are not allowed"))
+        doThrow(LibertyGenericException("Inactive products are not allowed"))
             .`when`(locationProductService).guardAllActive(listOf(inactiveProductLine.locationProductId, activeProductLine.locationProductId))
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             saleSessionValidator.guardNoInactiveProducts(saleSession(listOf(inactiveProductLine, activeProductLine)))
         }
 
@@ -150,7 +150,7 @@ class SaleSessionValidatorTest {
 
     @Test
     fun `only a confirmed sale is refused as the source of a copy`() {
-        assertThrows(RtsGenericException::class.java) { saleSessionValidator.guardSourceSaleCopyable(SaleStatus.CONFIRMED) }
+        assertThrows(LibertyGenericException::class.java) { saleSessionValidator.guardSourceSaleCopyable(SaleStatus.CONFIRMED) }
 
         listOf(SaleStatus.DRAFT, SaleStatus.VOIDED, SaleStatus.DISCARDED).forEach { copyableStatus ->
             saleSessionValidator.guardSourceSaleCopyable(copyableStatus)
@@ -164,7 +164,7 @@ class SaleSessionValidatorTest {
         saleSessionValidator.guardSingleContactAcrossSales(
             listOf(saleHeader(contactId), saleHeader(contactId))
         )
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             saleSessionValidator.guardSingleContactAcrossSales(
                 listOf(saleHeader(contactId), saleHeader(UUID.randomUUID()))
             )
@@ -176,7 +176,7 @@ class SaleSessionValidatorTest {
         saleSessionValidator.guardConsolidationSelectionSize(2)
         saleSessionValidator.guardConsolidationSelectionSize(20)
         listOf(0, 1, 21).forEach { refusedSize ->
-            assertThrows(RtsGenericException::class.java) {
+            assertThrows(LibertyGenericException::class.java) {
                 saleSessionValidator.guardConsolidationSelectionSize(refusedSize)
             }
         }
@@ -187,7 +187,7 @@ class SaleSessionValidatorTest {
         val firstLine = saleSessionLine(BigDecimal("10.00"))
         val secondLine = firstLine.copy(identity = SessionIdentity.mintFreshIdentity())
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             saleSessionValidator.validate(saleSession(listOf(firstLine, secondLine)))
         }
         saleSessionValidator.validate(pendingConsolidationSession(listOf(firstLine, secondLine)))
@@ -200,7 +200,7 @@ class SaleSessionValidatorTest {
         val lineLevelAdjustment = percentageAdjustment(AdjustmentDirection.DISCOUNT, BigDecimal("5"), saleSessionLine)
 
         saleSessionValidator.validate(pendingConsolidationSession(listOf(saleSessionLine), listOf(lineLevelAdjustment)))
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             saleSessionValidator.validate(
                 pendingConsolidationSession(listOf(saleSessionLine), listOf(orderLevelAdjustment))
             )
@@ -217,9 +217,9 @@ class SaleSessionValidatorTest {
             SaleSessionAction.ADD_PAYMENT, SaleSessionAction.ADD_ORDER_LEVEL_ADJUSTMENT,
         ).forEach { action ->
             saleSessionValidator.guardAllowed(saleSession, action)
-            assertThrows(RtsGenericException::class.java) { saleSessionValidator.guardAllowed(pendingSession, action) }
+            assertThrows(LibertyGenericException::class.java) { saleSessionValidator.guardAllowed(pendingSession, action) }
         }
-        assertThrows(RtsGenericException::class.java) { saleSessionValidator.canAddPayments(pendingSession) }
+        assertThrows(LibertyGenericException::class.java) { saleSessionValidator.canAddPayments(pendingSession) }
     }
 
     @Test
@@ -227,10 +227,10 @@ class SaleSessionValidatorTest {
         val pendingSession = pendingConsolidationSession(emptyList())
         val confirmedSession = saleSession(emptyList()).copy(originalStatus = SaleStatus.CONFIRMED)
 
-        val tableRefusal = assertThrows(RtsGenericException::class.java) {
+        val tableRefusal = assertThrows(LibertyGenericException::class.java) {
             saleSessionValidator.guardAllowed(pendingSession, SaleSessionAction.UPDATE_CONTACT)
         }
-        val statusRefusal = assertThrows(RtsGenericException::class.java) {
+        val statusRefusal = assertThrows(LibertyGenericException::class.java) {
             saleSessionValidator.guardAllowed(confirmedSession, SaleSessionAction.EDIT_LINES)
         }
 
@@ -242,7 +242,7 @@ class SaleSessionValidatorTest {
     fun `an action that needs a mutable sale is refused once the sale is no longer a draft`() {
         val confirmedSession = saleSession(emptyList()).copy(originalStatus = SaleStatus.CONFIRMED)
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             saleSessionValidator.guardAllowed(confirmedSession, SaleSessionAction.EDIT_LINES)
         }
         saleSessionValidator.guardAllowed(confirmedSession, SaleSessionAction.REMOVE_PAYMENT)
@@ -269,7 +269,7 @@ class SaleSessionValidatorTest {
     }
 
     private fun assertRefusedAtConstruction(buildSaleSession: () -> SaleSession) {
-        assertThrows(RtsGenericException::class.java) { buildSaleSession() }
+        assertThrows(LibertyGenericException::class.java) { buildSaleSession() }
     }
 
     private fun pendingConsolidationSession(

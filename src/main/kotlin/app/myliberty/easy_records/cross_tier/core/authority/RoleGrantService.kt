@@ -8,7 +8,7 @@ import app.myliberty.easy_records.organizations.business.core.role_assignment.ap
 import app.myliberty.easy_records.platform.business.role_assignment.api.PlatformRoleAssignmentService
 import app.myliberty.easy_records.util.enums.RtsRole
 import app.myliberty.easy_records.util.enums.SchemaLevel
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Service
 import java.util.UUID
 
@@ -56,7 +56,7 @@ class RoleGrantService(
         userIds.forEach { userId ->
             val missingRequiredRoles = role.requiredRoles.filterNot { holds(userId, it) }
             if (missingRequiredRoles.isNotEmpty()) {
-                throw RtsGenericException(
+                throw LibertyGenericException(
                     "Cannot assign role ${role.name} before user gets the following role(s): ${missingRequiredRoles.joinToString { it.name }}"
                 )
             }

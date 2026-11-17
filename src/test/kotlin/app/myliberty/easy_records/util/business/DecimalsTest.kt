@@ -1,6 +1,6 @@
 package app.myliberty.easy_records.util.business
 
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Assertions.assertThrows
@@ -55,7 +55,7 @@ class DecimalsTest {
     @Test
     fun `zero and negative values are not positive transaction amounts`() {
         listOf("0", "-5").forEach { amount ->
-            assertThrows(RtsGenericException::class.java) { Decimals.requirePositive(BigDecimal(amount), "Amount") }
+            assertThrows(LibertyGenericException::class.java) { Decimals.requirePositive(BigDecimal(amount), "Amount") }
         }
     }
 
@@ -65,7 +65,7 @@ class DecimalsTest {
         Decimals.requireWithinMaximum(Decimals.MAXIMUM_TRANSACTION_AMOUNT.negate(), Decimals.MAXIMUM_TRANSACTION_AMOUNT, "Amount")
         val justOverMaximum = Decimals.MAXIMUM_TRANSACTION_AMOUNT.add(BigDecimal("0.01"))
         listOf(justOverMaximum, justOverMaximum.negate()).forEach { overMaximum ->
-            assertThrows(RtsGenericException::class.java) {
+            assertThrows(LibertyGenericException::class.java) {
                 Decimals.requireWithinMaximum(overMaximum, Decimals.MAXIMUM_TRANSACTION_AMOUNT, "Amount")
             }
         }
@@ -79,7 +79,7 @@ class DecimalsTest {
 
     @Test
     fun `the label names the field in the positivity error`() {
-        val exception = assertThrows(RtsGenericException::class.java) { Decimals.requirePositive(BigDecimal.ZERO, "Payment amount") }
+        val exception = assertThrows(LibertyGenericException::class.java) { Decimals.requirePositive(BigDecimal.ZERO, "Payment amount") }
         assertEquals("Payment amount must be greater than zero", exception.message)
     }
 

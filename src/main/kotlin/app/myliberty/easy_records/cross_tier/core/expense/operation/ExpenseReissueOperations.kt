@@ -2,7 +2,7 @@ package app.myliberty.easy_records.cross_tier.core.expense.operation
 
 import app.myliberty.easy_records.cross_tier.core.expense.ExpenseTier
 import app.myliberty.easy_records.cross_tier.core.expense.model.ExpensePaymentDto
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import java.util.UUID
 
 class ExpenseReissueOperations(
@@ -19,7 +19,7 @@ class ExpenseReissueOperations(
 
     fun reissueVoided(expenseVoidId: UUID) {
         val expenseVoidDto = expenseStore.findExpenseVoidById(expenseVoidId)
-            ?: throw RtsGenericException("Expense void $expenseVoidId not found")
+            ?: throw LibertyGenericException("Expense void $expenseVoidId not found")
         expenseEvents.publishVoided(expenseVoidDto, expenseLookup.requireExpenseById(expenseVoidDto.expenseId))
     }
 
@@ -31,12 +31,12 @@ class ExpenseReissueOperations(
 
     fun reissuePaymentVoided(paymentVoidId: UUID) {
         val expensePaymentVoidDto = expenseStore.findPaymentVoidById(paymentVoidId)
-            ?: throw RtsGenericException("Expense payment void $paymentVoidId not found")
+            ?: throw LibertyGenericException("Expense payment void $paymentVoidId not found")
         val expensePaymentDto = requirePaymentById(expensePaymentVoidDto.paymentId)
         val expenseDto = expenseLookup.requireExpenseById(expensePaymentDto.expenseId)
         expenseEvents.publishPaymentVoided(expensePaymentVoidDto, expensePaymentDto, expenseDto)
     }
 
     private fun requirePaymentById(paymentId: UUID): ExpensePaymentDto =
-        expenseStore.findPaymentById(paymentId) ?: throw RtsGenericException("Expense payment $paymentId not found")
+        expenseStore.findPaymentById(paymentId) ?: throw LibertyGenericException("Expense payment $paymentId not found")
 }

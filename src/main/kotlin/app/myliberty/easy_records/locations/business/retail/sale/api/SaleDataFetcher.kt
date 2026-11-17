@@ -10,7 +10,7 @@ import app.myliberty.easy_records.locations.business.retail.sale.SaleLocker
 import app.myliberty.easy_records.locations.business.retail.sale.SaleRepository
 import app.myliberty.easy_records.locations.business.retail.sale.SaleVoidRepository
 import app.myliberty.easy_records.util.business.mappers.UserQualifier
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
@@ -35,8 +35,8 @@ class SaleDataFetcher(
 
     fun fetchRecent(n: Int?): List<SaleSummary> {
         val recordCount = n ?: 30
-        if (recordCount <= 0) throw RtsGenericException("Limit must be positive")
-        if (recordCount > 1000) throw RtsGenericException("Limit exceeds maximum of 1000")
+        if (recordCount <= 0) throw LibertyGenericException("Limit must be positive")
+        if (recordCount > 1000) throw LibertyGenericException("Limit exceeds maximum of 1000")
         val sort = Sort.by(Sort.Order.desc("createdOn"))
         return saleAssembler.buildSummaries(
             saleRepository.findAll(PageRequest.of(0, recordCount, sort)).content
@@ -77,7 +77,7 @@ class SaleDataFetcher(
 
     fun getSaleHeaderByReferenceNumber(referenceNumber: String): SaleHeaderDto {
         val saleEntity = saleRepository.findByReferenceNumber(referenceNumber)
-            ?: throw RtsGenericException("Sale $referenceNumber not found")
+            ?: throw LibertyGenericException("Sale $referenceNumber not found")
         return extractHeader(saleEntity)
     }
 
@@ -117,7 +117,7 @@ class SaleDataFetcher(
     private fun loadHeaders(saleIds: List<UUID>): List<SaleHeaderDto> {
         val saleEntities = saleRepository.findAllById(saleIds)
         val missingSaleId = saleIds.firstOrNull { saleId -> saleEntities.none { it.id == saleId } }
-        if (missingSaleId != null) throw RtsGenericException("Sale $missingSaleId not found")
+        if (missingSaleId != null) throw LibertyGenericException("Sale $missingSaleId not found")
         return saleEntities.map(::extractHeader)
     }
 

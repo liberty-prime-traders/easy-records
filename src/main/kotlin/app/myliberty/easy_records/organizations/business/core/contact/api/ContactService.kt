@@ -8,7 +8,7 @@ import app.myliberty.easy_records.organizations.business.core.contact_opening_ba
 import app.myliberty.easy_records.organizations.business.core.ledger.api.SubledgerBalanceDto
 import app.myliberty.easy_records.organizations.business.core.ledger.api.SubledgerEntryResponse
 import app.myliberty.easy_records.organizations.business.core.ledger.api.SubledgerService
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException
 import app.myliberty.easy_records.util.paging.PageRequest
 import app.myliberty.easy_records.util.paging.PageResponse
@@ -114,7 +114,7 @@ class ContactService(
         val id = contactUpdateDto.id
         val existing = contactCache.getAllContacts().find { it.id == id }
             ?: throw UpdatingNonExistingRecordException()
-        if (existing.systemDefined) throw RtsGenericException("System-defined contacts cannot be modified")
+        if (existing.systemDefined) throw LibertyGenericException("System-defined contacts cannot be modified")
 
         var updated = contactUpdateDto.applyTo(existing)
         contactValidator.validateContactTypes(updated.contactTypes)

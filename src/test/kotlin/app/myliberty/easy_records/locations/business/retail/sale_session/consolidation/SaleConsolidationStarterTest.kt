@@ -29,7 +29,7 @@ import app.myliberty.easy_records.locations.business.retail.sale_session.consoli
 import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductService
 import app.myliberty.easy_records.organizations.business.retail.adjustment_reason.api.AdjustmentReasonService
 import app.myliberty.easy_records.support.WithDefaultOrganizationSession
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.BeforeEach
@@ -175,7 +175,7 @@ class SaleConsolidationStarterTest {
         `when`(saleDataFetcher.lockAndGetSaleHeaders(eqNonNull(listOf(voided.id, draft.id))))
             .thenReturn(listOf(voided, draft))
 
-        assertThrows(RtsGenericException::class.java) { saleConsolidationStarter.start(listOf(voided.id, draft.id)) }
+        assertThrows(LibertyGenericException::class.java) { saleConsolidationStarter.start(listOf(voided.id, draft.id)) }
 
         verifyNoInteractions(saleSessionCopier, saleConsolidationGenerator)
     }

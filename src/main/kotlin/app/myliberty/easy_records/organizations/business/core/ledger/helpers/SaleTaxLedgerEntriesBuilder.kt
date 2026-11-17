@@ -7,7 +7,7 @@ import app.myliberty.easy_records.organizations.business.core.account.api.EntryT
 import app.myliberty.easy_records.organizations.business.core.account.api.SystemAccount
 import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerEntryRequest
 import app.myliberty.easy_records.organizations.business.core.org_jurisdiction_tax_type.api.OrgJurisdictionTaxTypeFetcher
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 import java.util.UUID
@@ -78,7 +78,7 @@ class SaleTaxLedgerEntriesBuilder(
         orgJurisdictionTaxTypeFetcher.getAllDtos().associate { it.jurisdictionTaxTypeId to it.payableAccountCode }
 
     private fun throwMissingPayableAccountCodeException(taxEntryDto: TaxEntryDto): Nothing {
-        throw RtsGenericException(
+        throw LibertyGenericException(
             "Missing payable account code for tax type ${taxEntryDto.taxTypeName} in jurisdiction ${taxEntryDto.jurisdictionName}. " +
                     "Please configure the payable account code for this tax type in the organization settings."
         )

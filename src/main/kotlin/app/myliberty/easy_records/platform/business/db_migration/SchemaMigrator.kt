@@ -1,6 +1,6 @@
 package app.myliberty.easy_records.platform.business.db_migration
 
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Component
 
 @Component
@@ -17,7 +17,7 @@ class SchemaMigrator(
     try {
       schemaExecutor.executeOrganizationSchema(schemaName, versionLabel, previousVersionLabel)
     } catch (e: Exception) {
-      throw RtsGenericException("$entityName schema migration failed: ${e.message}")
+      throw LibertyGenericException("$entityName schema migration failed: ${e.message}")
     }
   }
 
@@ -33,7 +33,7 @@ class SchemaMigrator(
       migrationStatusUpdater.markSuccess(migration, "Successfully migrated")
     } catch (e: Exception) {
       migrationStatusUpdater.markFailure(migration, e)
-      throw RtsGenericException("$entityName migration failed: ${e.message}")
+      throw LibertyGenericException("$entityName migration failed: ${e.message}")
     }
   }
 }

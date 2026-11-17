@@ -19,7 +19,7 @@ import app.myliberty.easy_records.organizations.business.core.lock.api.OrgEntity
 import app.myliberty.easy_records.util.business.Money
 import app.myliberty.easy_records.util.business.lock.LockNamespaces
 import app.myliberty.easy_records.util.business.mappers.UserQualifier
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.ui_models.BalanceEffect
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -136,7 +136,7 @@ class ContactOpeningBalanceServiceTest {
 
     @Test
     fun `a negative amount on either side rejects both`() {
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             contactOpeningBalanceService.set(contactId, setDto(payable = "-1.00", receivable = "100.00"))
         }
         assertTrue(savedRevisions.isEmpty())
@@ -165,7 +165,7 @@ class ContactOpeningBalanceServiceTest {
 
     @Test
     fun `an amount beyond scale 2 is rejected before any revision is written`() {
-        assertThrows(RtsGenericException::class.java) { setDto(payable = "10.005") }
+        assertThrows(LibertyGenericException::class.java) { setDto(payable = "10.005") }
         assertTrue(savedRevisions.isEmpty())
     }
 
@@ -184,7 +184,7 @@ class ContactOpeningBalanceServiceTest {
         givenLatestRevision(revisionRow(ContactSubledgerDirection.RECEIVABLE, "100.00"))
         activeSettledAmount = BigDecimal("60.00")
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             contactOpeningBalanceService.set(contactId, setDto(payable = "40.00", receivable = "50.00"))
         }
         assertTrue(savedRevisions.isEmpty())
@@ -197,7 +197,7 @@ class ContactOpeningBalanceServiceTest {
     fun `an inactive contact is rejected`() {
         givenContact(ContactStatus.INACTIVE)
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             contactOpeningBalanceService.set(contactId, setDto(payable = "0", receivable = "10.00"))
         }
         assertTrue(savedRevisions.isEmpty())

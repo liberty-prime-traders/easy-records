@@ -4,7 +4,7 @@ import app.myliberty.easy_records.configuration.datasource.TransactionalOnPlatfo
 import app.myliberty.easy_records.platform.business.jurisdiction.api.JurisdictionFetcher
 import app.myliberty.easy_records.platform.business.jurisdiction_tax_type.JurisdictionTaxTypeCache
 import app.myliberty.easy_records.platform.business.tax_type.api.TaxTypeFetcher
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Service
 import java.util.UUID
 
@@ -22,10 +22,10 @@ class JurisdictionTaxTypeService(
         val jurisdictionIds = jurisdictionFetcher.getAllDtos().mapTo(HashSet()) { it.id }
         val existingLinks = jurisdictionTaxTypeCache.getAll().mapTo(HashSet()) { it.taxTypeId to it.jurisdictionId }
         dtos.forEach { dto ->
-            if (dto.taxTypeId !in taxTypeIds) throw RtsGenericException("Tax type not found")
-            if (dto.jurisdictionId !in jurisdictionIds) throw RtsGenericException("Jurisdiction not found")
+            if (dto.taxTypeId !in taxTypeIds) throw LibertyGenericException("Tax type not found")
+            if (dto.jurisdictionId !in jurisdictionIds) throw LibertyGenericException("Jurisdiction not found")
             if ((dto.taxTypeId to dto.jurisdictionId) in existingLinks)
-                throw RtsGenericException("A link between this tax type and jurisdiction already exists")
+                throw LibertyGenericException("A link between this tax type and jurisdiction already exists")
         }
         jurisdictionTaxTypeCache.createAll(dtos)
     }
@@ -39,7 +39,7 @@ class JurisdictionTaxTypeService(
         val toReactivate = mutableListOf<JurisdictionTaxTypeDto>()
         val toCreate = mutableListOf<JurisdictionTaxTypeInsertDto>()
         taxTypeIds.forEach { taxTypeId ->
-            if (taxTypeId !in taxTypeIdSet) throw RtsGenericException("Tax type not found")
+            if (taxTypeId !in taxTypeIdSet) throw LibertyGenericException("Tax type not found")
             val existing = existingJurisdictionTaxTypes[taxTypeId]
             when {
                 existing == null -> toCreate.add(JurisdictionTaxTypeInsertDto(taxTypeId, jurisdictionId))
@@ -60,7 +60,7 @@ class JurisdictionTaxTypeService(
             .associateBy { it.taxTypeId }
         val dtos = taxTypeIds.map { taxTypeId ->
             linkIndex[taxTypeId]?.copy(active = false)
-                ?: throw RtsGenericException("Tax type $taxTypeId is not linked to this jurisdiction")
+                ?: throw LibertyGenericException("Tax type $taxTypeId is not linked to this jurisdiction")
         }
         jurisdictionTaxTypeCache.saveAll(dtos)
     }

@@ -9,7 +9,7 @@ import app.myliberty.easy_records.organizations.business.retail.unitvalue.UnitVa
 import app.myliberty.easy_records.organizations.business.retail.unitvalue.UnitValueMapper
 import app.myliberty.easy_records.organizations.business.retail.unitvalue.UnitValueValidator
 import app.myliberty.easy_records.util.business.lock.LockNamespaces
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException
 import org.springframework.stereotype.Service
 import java.util.Objects
@@ -93,7 +93,7 @@ class UnitValueService(
             ?: throw UpdatingNonExistingRecordException()
         lockUnitGroup(existing.unitGroupId)
         unitValueValidator.validateUnitValueUpdate(unitValueUpdateDto)
-        if (existing.systemDefined) throw RtsGenericException("System-defined unit values cannot be modified")
+        if (existing.systemDefined) throw LibertyGenericException("System-defined unit values cannot be modified")
         val updated = unitValueUpdateDto.applyTo(existing)
         val saved = unitValueCache.save(updated)
         unitConversionGraphFacade.invalidate()
@@ -105,8 +105,8 @@ class UnitValueService(
         allUnitValues
             .find { it.id == id }
             ?.apply {
-                if (systemDefined) throw RtsGenericException("System-defined unit values cannot be deleted")
-                if (allUnitValues.any { it.baseUnit == id }) throw RtsGenericException(UNIT_IS_BASE_OF_ANOTHER_UNIT)
+                if (systemDefined) throw LibertyGenericException("System-defined unit values cannot be deleted")
+                if (allUnitValues.any { it.baseUnit == id }) throw LibertyGenericException(UNIT_IS_BASE_OF_ANOTHER_UNIT)
                 unitValueCache.deleteUnitValue(id)
                 unitConversionGraphFacade.invalidate()
             }
@@ -115,7 +115,7 @@ class UnitValueService(
     fun deleteAllInUnitGroup(unitGroupId: UUID) {
         lockUnitGroup(unitGroupId)
         val unitValuesInGroup = unitValueCache.getByUnitGroupId(unitGroupId)
-        if (unitValuesInGroup.any { !it.systemDefined }) throw RtsGenericException(UNIT_GROUP_HAS_USER_DEFINED_UNITS)
+        if (unitValuesInGroup.any { !it.systemDefined }) throw LibertyGenericException(UNIT_GROUP_HAS_USER_DEFINED_UNITS)
         if (unitValuesInGroup.isEmpty()) return
         unitValueCache.deleteAllByIds(unitValuesInGroup.map { it.id })
         unitConversionGraphFacade.invalidate()

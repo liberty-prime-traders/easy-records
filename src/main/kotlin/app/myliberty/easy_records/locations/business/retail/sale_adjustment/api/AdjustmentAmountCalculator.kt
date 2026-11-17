@@ -3,7 +3,7 @@ package app.myliberty.easy_records.locations.business.retail.sale_adjustment.api
 import app.myliberty.easy_records.locations.business.retail.location_product.api.LinePricing
 import app.myliberty.easy_records.locations.business.retail.location_product.api.ProductLineWithPrice
 import app.myliberty.easy_records.util.business.Decimals
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import java.math.BigDecimal
 
 object AdjustmentAmountCalculator {
@@ -30,5 +30,5 @@ object AdjustmentAmountCalculator {
         saleAdjustmentCreateDto: SaleAdjustmentCreateDto,
         productLinesWithPrice: List<ProductLineWithPrice>,
     ): ProductLineWithPrice = productLinesWithPrice.singleOrNull { it.lineKey == saleAdjustmentCreateDto.saleLineKey }
-        ?: throw RtsGenericException("Adjustment references a line that is not on the sale")
+        ?: throw LibertyGenericException("Adjustment references a line that is not on the sale")
 }

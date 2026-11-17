@@ -3,7 +3,7 @@ package app.myliberty.easy_records.locations.business.retail.sale
 import app.myliberty.easy_records.locations.business.retail.sale.api.SaleSaveRequest
 import app.myliberty.easy_records.locations.business.retail.sale.api.SaleLineSaveRequest
 import app.myliberty.easy_records.locations.business.retail.sale_adjustment.api.PersistedSaleLine
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import java.util.UUID
 
 object SaleLineSync {
@@ -42,7 +42,7 @@ object SaleLineSync {
                     existingSaleLineEntity.lineTotal = saleLineSaveRequest.lineTotal
                     existingSaleLineEntity.defaultSalePrice = saleLineSaveRequest.defaultSalePrice
                     existingSaleLineEntity.storageUnitsPerUserProvidedUnit = saleLineSaveRequest.storageUnitsPerUserProvidedUnit
-                } ?: throw RtsGenericException("Sale line ${saleLineSaveRequest.existingId} no longer exists")
+                } ?: throw LibertyGenericException("Sale line ${saleLineSaveRequest.existingId} no longer exists")
             } else {
                 saleLineSaveRequest.toEntity(saleId)
             }

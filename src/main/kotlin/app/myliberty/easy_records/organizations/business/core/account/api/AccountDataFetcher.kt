@@ -3,7 +3,7 @@ package app.myliberty.easy_records.organizations.business.core.account.api
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
 import app.myliberty.easy_records.organizations.business.core.account.AccountCache
 import app.myliberty.easy_records.organizations.business.core.account.AccountRepository
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Component
 
 @Component
@@ -31,7 +31,7 @@ class AccountDataFetcher(
 
     fun getByCode(accountCode: String): AccountLookupDto {
         val account = accountCache.getAll().firstOrNull { it.code == accountCode }
-            ?: throw RtsGenericException("Account $accountCode does not exist")
+            ?: throw LibertyGenericException("Account $accountCode does not exist")
         return AccountLookupDto(
             code = account.code,
             accountIsActive = account.accountIsActive,

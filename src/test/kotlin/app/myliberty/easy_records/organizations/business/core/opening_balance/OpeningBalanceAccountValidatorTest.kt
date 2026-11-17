@@ -1,7 +1,7 @@
 package app.myliberty.easy_records.organizations.business.core.opening_balance
 
 import app.myliberty.easy_records.organizations.business.core.account.api.SystemAccount
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -11,17 +11,17 @@ class OpeningBalanceAccountValidatorTest {
 
     @Test
     fun `trade receivables and trade payables cannot take an opening balance`() {
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             OpeningBalanceAccountValidator.assertManualOpeningBalanceAccepted(SystemAccount.TRADE_RECEIVABLES.code)
         }
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             OpeningBalanceAccountValidator.assertManualOpeningBalanceAccepted(SystemAccount.TRADE_PAYABLES.code)
         }
     }
 
     @Test
     fun `loans payable cannot take an opening balance and the message says it is driven by loans`() {
-        val exception = assertThrows(RtsGenericException::class.java) {
+        val exception = assertThrows(LibertyGenericException::class.java) {
             OpeningBalanceAccountValidator.assertManualOpeningBalanceAccepted(SystemAccount.LOANS_PAYABLE.code)
         }
 

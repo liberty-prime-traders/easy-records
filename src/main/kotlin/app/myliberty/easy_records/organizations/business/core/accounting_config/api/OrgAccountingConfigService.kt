@@ -4,7 +4,7 @@ import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrgani
 import app.myliberty.easy_records.organizations.business.core.accounting_config.OrgAccountingConfigCache
 import app.myliberty.easy_records.organizations.business.core.accounting_config.OrgAccountingConfigMapper
 import app.myliberty.easy_records.util.business.DateTimes
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Service
 import java.time.DayOfWeek
 
@@ -17,7 +17,7 @@ class OrgAccountingConfigService(
 
     @TransactionalOnOrganizationSchema(readOnly = true)
     fun get(): OrgAccountingConfigResponseDto {
-        val config = configCache.get() ?: throw RtsGenericException("Accounting configuration has not been initialized")
+        val config = configCache.get() ?: throw LibertyGenericException("Accounting configuration has not been initialized")
         return mapper.toResponseDto(config)
     }
 
@@ -36,7 +36,7 @@ class OrgAccountingConfigService(
     }
 
     fun update(dto: OrgAccountingConfigUpdateDto): OrgAccountingConfigResponseDto {
-        val existing = configCache.get() ?: throw RtsGenericException("Accounting configuration has not been initialized")
+        val existing = configCache.get() ?: throw LibertyGenericException("Accounting configuration has not been initialized")
         val updated = configCache.save(dto.applyTo(existing))
         return mapper.toResponseDto(updated)
     }

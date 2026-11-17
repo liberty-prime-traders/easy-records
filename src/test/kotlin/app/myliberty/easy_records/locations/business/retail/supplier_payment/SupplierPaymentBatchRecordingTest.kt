@@ -19,7 +19,7 @@ import app.myliberty.easy_records.organizations.business.core.fiscal_period.api.
 import app.myliberty.easy_records.organizations.business.core.payment_method.api.PaymentMethodDataFetcher
 import app.myliberty.easy_records.util.business.PositiveMoney
 import app.myliberty.easy_records.util.enums.PaymentStatus
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
@@ -190,7 +190,7 @@ class SupplierPaymentBatchRecordingTest {
     fun `rejects two payments for the same purchase`() {
         val purchaseId = UUID.randomUUID()
 
-        assertThrows<RtsGenericException> {
+        assertThrows<LibertyGenericException> {
             supplierPaymentService.recordPaymentsForLockedPurchases(
                 listOf(createDto(purchaseId, "10.00"), createDto(purchaseId, "10.00")),
                 mapOf(purchaseId to ceiling("100.00", true)),
@@ -205,7 +205,7 @@ class SupplierPaymentBatchRecordingTest {
     fun `rejects a payment above the delivered balance of a fully delivered purchase`() {
         val purchaseId = UUID.randomUUID()
 
-        assertThrows<RtsGenericException> {
+        assertThrows<LibertyGenericException> {
             supplierPaymentService.recordPaymentsForLockedPurchases(
                 listOf(createDto(purchaseId, "60.00")),
                 mapOf(purchaseId to ceiling("100.00", true)),

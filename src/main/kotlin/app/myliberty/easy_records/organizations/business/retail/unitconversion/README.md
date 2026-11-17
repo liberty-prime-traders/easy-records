@@ -34,7 +34,7 @@ Units convert **only within their group**. A unit's size in its group's root is 
 A Miscellaneous unit stands alone (`UnitValueValidator` forbids a base unit), so it converts only to itself, never to
 the other units of the Miscellaneous group.
 
-Requesting a ratio between units of different groups, or between two Miscellaneous units, throws `RtsGenericException`
+Requesting a ratio between units of different groups, or between two Miscellaneous units, throws `LibertyGenericException`
 (`UnitConversionGraph.getTarget` finds no entry).
 
 ## 3. The index and the graph

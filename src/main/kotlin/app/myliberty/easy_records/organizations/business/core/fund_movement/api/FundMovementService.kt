@@ -16,7 +16,7 @@ import app.myliberty.easy_records.organizations.business.core.lock.api.OrgEntity
 import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.business.StringUtils
 import app.myliberty.easy_records.util.business.lock.LockNamespaces
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 import java.time.LocalDate
@@ -37,7 +37,7 @@ class FundMovementService(
         val fromAccountCode = StringUtils.getValueOrException(fundMovementTransferRequest.fromAccountCode, "From account is required")
         val toAccountCode = StringUtils.getValueOrException(fundMovementTransferRequest.toAccountCode, "To account is required")
         if (fromAccountCode == toAccountCode) {
-            throw RtsGenericException("Cannot transfer funds from an account to itself")
+            throw LibertyGenericException("Cannot transfer funds from an account to itself")
         }
         return record(
             FundMovementType.TRANSFER_BETWEEN_ACCOUNTS,
@@ -80,9 +80,9 @@ class FundMovementService(
         val reason = StringUtils.getValueOrNull(fundMovementVoidRequest.reason)
         orgEntityAdvisoryLock.acquire(LockNamespaces.FUND_MOVEMENT, fundMovementVoidRequest.id.toString())
         val fundMovementEntity = fundMovementRepository.findById(fundMovementVoidRequest.id)
-            .orElseThrow { RtsGenericException("Fund movement not found") }
+            .orElseThrow { LibertyGenericException("Fund movement not found") }
         if (fundMovementVoidRepository.existsByFundMovementId(fundMovementVoidRequest.id)) {
-            throw RtsGenericException("Fund movement ${fundMovementEntity.requiredReference()} is already voided")
+            throw LibertyGenericException("Fund movement ${fundMovementEntity.requiredReference()} is already voided")
         }
         val fundMovementDto = fundMovementMapper.toDto(fundMovementEntity)
         val fundMovementVoidDto = fundMovementMapper.toVoidDto(

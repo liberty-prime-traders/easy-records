@@ -22,7 +22,7 @@ import app.myliberty.easy_records.locations.business.retail.sale.api.SaleStatus
 import app.myliberty.easy_records.organizations.business.core.expense_type.api.ExpenseTypeService
 import app.myliberty.easy_records.organizations.business.core.expense_type.api.SystemExpenseType
 import app.myliberty.easy_records.util.business.StringUtils
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Service
 import java.util.UUID
 
@@ -66,7 +66,7 @@ class ExpenseService(
             StringUtils.getValueOrException(purchaseExpenseBatchRequest.purchaseReference, "Purchase reference is required")
         )
         if (purchaseInfo.purchaseStatus == PurchaseStatus.DRAFT) {
-            throw RtsGenericException("Purchase ${purchaseInfo.referenceNumber} is still a draft and cannot carry expenses")
+            throw LibertyGenericException("Purchase ${purchaseInfo.referenceNumber} is still a draft and cannot carry expenses")
         }
         return expenseOperations.createForSourceDocument(
             SourceDocument(ExpenseSourceType.PURCHASE, purchaseInfo.referenceNumber, purchaseInfo.id),
@@ -87,8 +87,8 @@ class ExpenseService(
             StringUtils.getValueOrException(saleExpenseBatchRequest.saleReference, "Sale reference is required")
         )
         when (saleHeader.status) {
-            SaleStatus.DRAFT -> throw RtsGenericException("Sale ${saleHeader.referenceNumber} is still a draft and cannot carry expenses")
-            SaleStatus.DISCARDED -> throw RtsGenericException("Sale ${saleHeader.referenceNumber} was discarded and cannot carry expenses")
+            SaleStatus.DRAFT -> throw LibertyGenericException("Sale ${saleHeader.referenceNumber} is still a draft and cannot carry expenses")
+            SaleStatus.DISCARDED -> throw LibertyGenericException("Sale ${saleHeader.referenceNumber} was discarded and cannot carry expenses")
             SaleStatus.CONFIRMED, SaleStatus.VOIDED -> Unit
         }
         return expenseOperations.createForSourceDocument(

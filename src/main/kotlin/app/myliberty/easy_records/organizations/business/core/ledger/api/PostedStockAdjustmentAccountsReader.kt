@@ -6,7 +6,7 @@ import app.myliberty.easy_records.organizations.business.core.account.api.EntryT
 import app.myliberty.easy_records.organizations.business.core.ledger.LedgerEntryGroupEntity
 import app.myliberty.easy_records.organizations.business.core.ledger.LedgerEntryGroupRepository
 import app.myliberty.easy_records.organizations.business.core.ledger.LedgerEntryRepository
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Component
 
 data class PostedStockAdjustmentAccounts(val debitAccountCode: String, val creditAccountCode: String)
@@ -26,7 +26,7 @@ class PostedStockAdjustmentAccountsReader(
         val groups = groupsOf(adjustmentReferenceNumbers)
         val notPosted = adjustmentReferenceNumbers - groups.map { it.sourceReferenceNumber }.toSet()
         if (notPosted.isNotEmpty()) {
-            throw RtsGenericException(
+            throw LibertyGenericException(
                 "Cannot restate $notPosted: their ${LedgerSourceType.STOCK_ADJUSTMENT.name} posting does not exist"
             )
         }

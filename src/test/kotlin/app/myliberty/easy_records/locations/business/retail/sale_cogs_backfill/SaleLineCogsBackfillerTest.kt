@@ -7,7 +7,7 @@ import app.myliberty.easy_records.locations.business.retail.sale_cogs_backfill.a
 import app.myliberty.easy_records.organizations.business.core.location.api.LocationDto
 import app.myliberty.easy_records.organizations.business.core.location.api.LocationService
 import app.myliberty.easy_records.util.async.AsyncExecutor
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
@@ -87,7 +87,7 @@ class SaleLineCogsBackfillerTest {
 
         queuedBackfiller.startBackfillAllLocations()
 
-        assertThrows(RtsGenericException::class.java) { queuedBackfiller.startBackfillAllLocations() }
+        assertThrows(LibertyGenericException::class.java) { queuedBackfiller.startBackfillAllLocations() }
         queuedBlocks.single().invoke()
         queuedBackfiller.startBackfillAllLocations()
         assertEquals(2, queuedBlocks.size)

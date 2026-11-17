@@ -8,7 +8,7 @@ import liquibase.command.core.helpers.DatabaseChangelogCommandStep
 import liquibase.command.core.helpers.DbUrlConnectionArgumentsCommandStep
 import liquibase.database.DatabaseFactory
 import liquibase.database.jvm.JdbcConnection
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import javax.sql.DataSource
 
 object SchemaCreator {
@@ -22,7 +22,7 @@ object SchemaCreator {
             }
         } catch (e: Exception) {
             dropSchema(schemaName, dataSource)
-            throw RtsGenericException("Failed to create schema $schemaName: ${e.message}")
+            throw LibertyGenericException("Failed to create schema $schemaName: ${e.message}")
         }
 
         try {
@@ -33,7 +33,7 @@ object SchemaCreator {
             )
         } catch (e: Exception) {
             dropSchema(schemaName, dataSource)
-            throw RtsGenericException("Failed to run migration for schema $schemaName: ${e.message}")
+            throw LibertyGenericException("Failed to run migration for schema $schemaName: ${e.message}")
         }
 
     }
@@ -47,7 +47,7 @@ object SchemaCreator {
             }
         } catch (e: Exception) {
             println("Error dropping schema $schemaName: ${e.message}")
-            throw RtsGenericException("Failed to drop schema $schemaName: ${e.message}")
+            throw LibertyGenericException("Failed to drop schema $schemaName: ${e.message}")
         }
     }
 
@@ -74,7 +74,7 @@ object SchemaCreator {
             }
         } catch (_: Exception) {
             rollbackMigration(schemaName, dataSource, changeLog, previousVersion)
-            throw RtsGenericException("Failed to run migration for schema $schemaName")
+            throw LibertyGenericException("Failed to run migration for schema $schemaName")
         }
     }
 
@@ -111,7 +111,7 @@ object SchemaCreator {
                     .execute()
             }
         } catch (_: Exception) {
-            throw RtsGenericException("Failed to run migration for schema $schemaName. Additionally, the schema failed to rollback")
+            throw LibertyGenericException("Failed to run migration for schema $schemaName. Additionally, the schema failed to rollback")
         }
     }
 }

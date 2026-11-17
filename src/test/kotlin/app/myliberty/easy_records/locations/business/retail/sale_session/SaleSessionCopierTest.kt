@@ -12,7 +12,7 @@ import app.myliberty.easy_records.locations.business.retail.sale_adjustment.api.
 import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSession
 import app.myliberty.easy_records.organizations.business.retail.adjustment_reason.api.AdjustmentReasonService
 import app.myliberty.easy_records.support.WithDefaultOrganizationSession
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Assertions.assertThrows
@@ -92,7 +92,7 @@ class SaleSessionCopierTest {
     fun `a single sale is refused before anything is fetched`() {
         val sourceSaleHeaders = listOf(saleHeader("SALE01", UUID.randomUUID(), null))
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             saleSessionCopier.copyFromSalesWithSourceReferences(UUID.randomUUID(), sourceSaleHeaders)
         }
         verify(saleDataFetcher, never()).getSaleLinesBySaleId(sourceSaleHeaders.map { it.id })
@@ -105,7 +105,7 @@ class SaleSessionCopierTest {
             saleHeader("SALE02", UUID.randomUUID(), null),
         )
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             saleSessionCopier.copyFromSalesWithSourceReferences(UUID.randomUUID(), sourceSaleHeaders)
         }
     }

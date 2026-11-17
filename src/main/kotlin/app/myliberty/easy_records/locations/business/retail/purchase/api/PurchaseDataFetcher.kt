@@ -8,7 +8,7 @@ import app.myliberty.easy_records.locations.business.retail.purchase.PurchaseEnt
 import app.myliberty.easy_records.locations.business.retail.purchase.PurchaseLineRepository
 import app.myliberty.easy_records.locations.business.retail.purchase.PurchaseRepository
 import app.myliberty.easy_records.util.business.lock.LockNamespaces
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
@@ -45,20 +45,20 @@ class PurchaseDataFetcher(
 
   fun fetchTop(n: Int?): List<PurchaseResponseDto> {
     val recordCount = n ?: 10
-    if (recordCount > 1000) throw RtsGenericException("Limit exceeds maximum of 1000")
+    if (recordCount > 1000) throw LibertyGenericException("Limit exceeds maximum of 1000")
     val sort = Sort.by(Sort.Direction.DESC, "createdOn")
     return purchaseAssembler.buildResponses(purchaseRepository.findTopN(PageRequest.of(0, recordCount, sort)))
   }
 
   fun findPurchaseInfoByReferenceNumber(referenceNumber: String): PurchaseInfo {
     val purchase = purchaseRepository.findByReferenceNumber(referenceNumber)
-      ?: throw RtsGenericException("Purchase $referenceNumber not found")
+      ?: throw LibertyGenericException("Purchase $referenceNumber not found")
     return PurchaseInfo.from(purchase)
   }
 
   fun getLocationProductIdOfLine(purchaseLineId: UUID): UUID =
     purchaseLineRepository.findLocationProductIdById(purchaseLineId)
-      ?: throw RtsGenericException("Purchase line $purchaseLineId not found")
+      ?: throw LibertyGenericException("Purchase line $purchaseLineId not found")
 
   fun getSupplierId(purchaseId: UUID): UUID {
     return purchaseRepository.getReferenceById(purchaseId).supplierId

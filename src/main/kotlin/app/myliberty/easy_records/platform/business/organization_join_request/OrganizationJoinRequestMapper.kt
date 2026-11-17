@@ -6,13 +6,13 @@ import app.myliberty.easy_records.platform.business.organization_join_request.ap
 import app.myliberty.easy_records.platform.business.organization_join_request.api.OrganizationJoinRequestResponseDto
 import app.myliberty.easy_records.platform.business.organization_join_request.api.OrganizationLaunchResponseDto
 import app.myliberty.easy_records.platform.business.sysuser.api.CreatorFullName
-import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.util.business.mappers.LibertyMapperConfig
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 import org.mapstruct.NullValueMappingStrategy
 
 @Mapper(
-    config = RtsMapperConfig::class,
+    config = LibertyMapperConfig::class,
     nullValueMappingStrategy = NullValueMappingStrategy.RETURN_DEFAULT
 )
 interface OrganizationJoinRequestMapper {

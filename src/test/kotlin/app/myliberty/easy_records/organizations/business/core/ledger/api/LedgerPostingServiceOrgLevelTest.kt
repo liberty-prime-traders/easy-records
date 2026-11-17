@@ -11,7 +11,7 @@ import app.myliberty.easy_records.configuration.session.OrgSession
 import app.myliberty.easy_records.configuration.session.SessionContext
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
 import app.myliberty.easy_records.util.business.PositiveMoney
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
@@ -91,7 +91,7 @@ class LedgerPostingServiceOrgLevelTest {
         val closedDate = LocalDate.of(2026, 2, 1)
         `when`(fiscalPeriodService.findOpenForDate(closedDate)).thenReturn(null)
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             ledgerPostingService.post(
                 LedgerPostingRequest(
                     sourceReferenceNumber = "FMOV000002",

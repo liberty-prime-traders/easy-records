@@ -22,7 +22,7 @@ import app.myliberty.easy_records.util.business.Decimals
 import app.myliberty.easy_records.util.business.PositiveMoney
 import app.myliberty.easy_records.util.business.lock.LockNamespaces
 import app.myliberty.easy_records.util.business.mappers.StringQualifier
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
@@ -139,7 +139,7 @@ class LoanServiceTest {
     @Test
     fun `zero, negative and amounts that round to zero are rejected`() {
         listOf("0", "-5", "0.00004").forEach { amount ->
-            assertThrows(RtsGenericException::class.java) {
+            assertThrows(LibertyGenericException::class.java) {
                 loanService.createLoan(LoanCreateRequest(lenderContactDto.referenceNumber, cashCode, PositiveMoney.of(BigDecimal(amount)), loanDate))
             }
         }
@@ -169,9 +169,9 @@ class LoanServiceTest {
 
     @Test
     fun `a lender the validator rejects stops the loan before it is saved`() {
-        doThrow(RtsGenericException("Contact Acme is not a lender")).`when`(loanLenderValidator).requireActiveLender("CT000009")
+        doThrow(LibertyGenericException("Contact Acme is not a lender")).`when`(loanLenderValidator).requireActiveLender("CT000009")
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             loanService.createLoan(LoanCreateRequest("CT000009", cashCode, PositiveMoney.of(BigDecimal("10")), loanDate))
         }
 
@@ -181,9 +181,9 @@ class LoanServiceTest {
 
     @Test
     fun `an asset account the selection rule rejects stops a loan before it is saved`() {
-        doThrow(RtsGenericException("Loan account is inactive")).`when`(loanAccountValidator).requireSelectable(cashCode)
+        doThrow(LibertyGenericException("Loan account is inactive")).`when`(loanAccountValidator).requireSelectable(cashCode)
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             loanService.createLoan(LoanCreateRequest(lenderContactDto.referenceNumber, cashCode, PositiveMoney.of(BigDecimal("10")), loanDate))
         }
 
@@ -194,7 +194,7 @@ class LoanServiceTest {
     fun `a loan dated in the future is rejected, and today is accepted`() {
         val tomorrow = DateTimes.Local.Now.organization().plusDays(1)
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             loanService.createLoan(LoanCreateRequest(lenderContactDto.referenceNumber, cashCode, PositiveMoney.of(BigDecimal("10")), tomorrow))
         }
         verify(loanRepository, never()).save(any(LoanEntity::class.java))
@@ -240,7 +240,7 @@ class LoanServiceTest {
         val activeRepayments = listOf("LNRP000001", "LNRP000002").map { reference -> activeRepayment("10.0000", reference) }
         `when`(activeLoanRepaymentRepository.findByLoanIdOrderByCreatedOnAscIdAsc(loanId)).thenReturn(activeRepayments)
 
-        val exception = assertThrows(RtsGenericException::class.java) { loanService.voidLoan(LoanVoidRequest(loanId)) }
+        val exception = assertThrows(LibertyGenericException::class.java) { loanService.voidLoan(LoanVoidRequest(loanId)) }
 
         assertTrue(exception.message.contains("LNRP000001") && exception.message.contains("LNRP000002"), exception.message)
         verify(loanVoidRepository, never()).save(any(LoanVoidEntity::class.java))
@@ -251,7 +251,7 @@ class LoanServiceTest {
     fun `a loan cannot be voided twice`() {
         `when`(loanVoidRepository.existsByLoanId(loanId)).thenReturn(true)
 
-        assertThrows(RtsGenericException::class.java) { loanService.voidLoan(LoanVoidRequest(loanId)) }
+        assertThrows(LibertyGenericException::class.java) { loanService.voidLoan(LoanVoidRequest(loanId)) }
 
         verify(loanVoidRepository, never()).save(any(LoanVoidEntity::class.java))
         assertTrue(postedRequests.isEmpty())
@@ -260,9 +260,9 @@ class LoanServiceTest {
     // Rolling the rows back relies on the exception leaving the transactional service; the rollback itself needs a real database.
     @Test
     fun `a ledger posting failure reaches the caller and the service rolls back on any exception`() {
-        doThrow(RtsGenericException("No open fiscal period")).`when`(ledgerPostingService).post(anyNonNull(LedgerPostingRequest::class.java))
+        doThrow(LibertyGenericException("No open fiscal period")).`when`(ledgerPostingService).post(anyNonNull(LedgerPostingRequest::class.java))
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             loanService.createLoan(LoanCreateRequest(lenderContactDto.referenceNumber, cashCode, PositiveMoney.of(BigDecimal("10")), loanDate))
         }
 

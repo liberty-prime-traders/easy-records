@@ -14,7 +14,7 @@ import app.myliberty.easy_records.platform.business.organization_join_request.ap
 import app.myliberty.easy_records.platform.business.sysuser.api.SysUserService
 import app.myliberty.easy_records.util.enums.RtsPermission
 import app.myliberty.easy_records.util.enums.RtsRole
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Service
 import java.time.OffsetDateTime
 import java.util.UUID
@@ -66,7 +66,7 @@ class OrganizationUserService(
 
     fun terminateOrganizationUsers(organizationUserIds: List<UUID>): Collection<OrganizationUserResponseDto> {
         if (organizationUserIds.isEmpty()) {
-            throw RtsGenericException("No users provided for termination")
+            throw LibertyGenericException("No users provided for termination")
         }
 
         return organizationUserCache.getOrganizationUsers().filter {
@@ -86,7 +86,7 @@ class OrganizationUserService(
             .associate { it.userId to it.id }
         return userIds.associateWith { userId ->
             activeMembershipIdByUserId[userId]
-                ?: throw RtsGenericException("User is not an active member of this organization")
+                ?: throw LibertyGenericException("User is not an active member of this organization")
         }
     }
 

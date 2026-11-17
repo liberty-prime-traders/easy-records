@@ -22,7 +22,7 @@ import app.myliberty.easy_records.cross_tier.core.expense.repository.ExpensePaym
 import app.myliberty.easy_records.cross_tier.core.expense.repository.ExpensePaymentVoidRepositoryBase
 import app.myliberty.easy_records.cross_tier.core.expense.repository.ExpenseRepositoryBase
 import app.myliberty.easy_records.cross_tier.core.expense.repository.ExpenseVoidRepositoryBase
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import java.util.UUID
 
 abstract class JpaExpenseStore(
@@ -85,14 +85,14 @@ abstract class JpaExpenseStore(
 
     override fun loadForBatch(batchId: UUID): ExpenseAggregate {
         val batchEntity = expenseBatchRepository.findById(batchId)
-            .orElseThrow { RtsGenericException("Expense batch $batchId not found") }
+            .orElseThrow { LibertyGenericException("Expense batch $batchId not found") }
         return assemble(listOf(batchEntity), expenseRepository.findByBatchId(batchId))
     }
 
     override fun loadForExpenses(expenseIds: Collection<UUID>): ExpenseAggregate {
         val expenseEntities = expenseRepository.findAllById(expenseIds)
         val missingExpenseIds = expenseIds.toSet() - expenseEntities.map { it.id!! }.toSet()
-        if (missingExpenseIds.isNotEmpty()) throw RtsGenericException("Expense $missingExpenseIds not found")
+        if (missingExpenseIds.isNotEmpty()) throw LibertyGenericException("Expense $missingExpenseIds not found")
         return assemble(expenseBatchRepository.findAllById(expenseEntities.map { it.batchId }.toSet()), expenseEntities)
     }
 

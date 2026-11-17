@@ -12,7 +12,7 @@ import app.myliberty.easy_records.locations.business.retail.reports.product_sale
 import app.myliberty.easy_records.locations.business.retail.reports.product_sales.ProductSalesReportTestSummaries
 import app.myliberty.easy_records.locations.business.retail.reports.product_sales.ProductSalesReportWindow
 import app.myliberty.easy_records.locations.business.retail.reports.product_sales.ProductSalesSummaryAssembler
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.paging.PageRequest
 import app.myliberty.easy_records.util.paging.PageResponseWithMetadata
 import org.junit.jupiter.api.AfterEach
@@ -295,7 +295,7 @@ class ProductSalesReportSearchServiceTest {
     val otherSort = parameters(sortField = ProductSalesSortField.NET_SALES, sortDirection = ProductSalesSortDirection.ASC)
     assertEquals(
       "Malformed cursor",
-      assertThrows<RtsGenericException> {
+      assertThrows<LibertyGenericException> {
         service.search(request(previousCursor = firstPage.currentCursor, parameters = otherSort))
       }.message
     )
@@ -305,7 +305,7 @@ class ProductSalesReportSearchServiceTest {
   fun `needs attention cannot be sorted ascending`() {
     summaries = plainProducts(2)
 
-    assertThrows<RtsGenericException> {
+    assertThrows<LibertyGenericException> {
       service(threshold = 1).search(request(parameters = parameters(sortDirection = ProductSalesSortDirection.ASC)))
     }
   }
@@ -316,7 +316,7 @@ class ProductSalesReportSearchServiceTest {
 
     assertEquals(
       "Malformed cursor",
-      assertThrows<RtsGenericException> { service(threshold = 1).search(request(previousCursor = "garbage")) }.message
+      assertThrows<LibertyGenericException> { service(threshold = 1).search(request(previousCursor = "garbage")) }.message
     )
   }
 
@@ -325,9 +325,9 @@ class ProductSalesReportSearchServiceTest {
     summaries = plainProducts(2)
     val service = service(threshold = 1)
 
-    assertThrows<RtsGenericException> { service.search(request(parameters = parameters().copy(from = null))) }
-    assertThrows<RtsGenericException> { service.search(request(parameters = parameters().copy(to = null))) }
-    assertThrows<RtsGenericException> { service.search(request(parameters = parameters(days = 0))) }
+    assertThrows<LibertyGenericException> { service.search(request(parameters = parameters().copy(from = null))) }
+    assertThrows<LibertyGenericException> { service.search(request(parameters = parameters().copy(to = null))) }
+    assertThrows<LibertyGenericException> { service.search(request(parameters = parameters(days = 0))) }
   }
 
   @Test
@@ -400,7 +400,7 @@ class ProductSalesReportSearchServiceTest {
     summaries = plainProducts(5)
     val service = service(threshold = 1)
 
-    assertThrows<RtsGenericException> { service.search(request(requestedSize = 0)) }
-    assertThrows<RtsGenericException> { service.search(request(requestedSize = 501)) }
+    assertThrows<LibertyGenericException> { service.search(request(requestedSize = 0)) }
+    assertThrows<LibertyGenericException> { service.search(request(requestedSize = 501)) }
   }
 }

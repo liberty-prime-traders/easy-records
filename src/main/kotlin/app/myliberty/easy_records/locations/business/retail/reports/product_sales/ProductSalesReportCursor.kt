@@ -2,7 +2,7 @@ package app.myliberty.easy_records.locations.business.retail.reports.product_sal
 
 import app.myliberty.easy_records.locations.business.retail.reports.product_sales.api.ProductSalesSortDirection
 import app.myliberty.easy_records.locations.business.retail.reports.product_sales.api.ProductSalesSortField
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import java.math.BigDecimal
 import java.util.Base64
 import java.util.UUID
@@ -54,7 +54,7 @@ data class ProductSalesReportCursor(
         if (decoded.sortField != sortField || decoded.sortDirection != sortDirection) throw IllegalArgumentException()
         return decoded
       } catch (_: IllegalArgumentException) {
-        throw RtsGenericException("Malformed cursor")
+        throw LibertyGenericException("Malformed cursor")
       }
     }
   }

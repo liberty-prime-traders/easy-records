@@ -11,7 +11,7 @@ import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSes
 import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionUpdateFinalizer
 import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionValidator
 import app.myliberty.easy_records.locations.business.retail.stock_reservation.api.StockReserver
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 import java.util.UUID
@@ -81,7 +81,7 @@ class SaleSessionLineHandler(
             .filterNot { saleSessionLinesByKey.containsKey(it) }
             .let {
                 if (it.isNotEmpty()) {
-                    throw RtsGenericException("Attempted to update a line that is not in the session")
+                    throw LibertyGenericException("Attempted to update a line that is not in the session")
                 }
             }
     }
@@ -95,7 +95,7 @@ class SaleSessionLineHandler(
         return additions.mapIndexed { additionIndex, lineAddDto ->
             val productSummary = saleSessionLineChangeContext.locationProductSummariesById.getValue(lineAddDto.locationProductId)
             val defaultSalePrice = saleSessionLineChangeContext.defaultSalePricesByLocationProductId[lineAddDto.locationProductId]
-                ?: throw RtsGenericException("Product ${productSummary.label} has no default sale price")
+                ?: throw LibertyGenericException("Product ${productSummary.label} has no default sale price")
             val storageUnitsPerBaseUnit = saleSessionLineChangeContext.storageUnitsPerBaseUnitByBaseUnitId.getValue(productSummary.baseUnitId)
             SaleSessionLine(
                 identity = SessionIdentity.mintFreshIdentity(),

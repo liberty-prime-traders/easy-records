@@ -11,13 +11,13 @@ import app.myliberty.easy_records.locations.business.retail.sale_session.api.Sal
 import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionSummaryDto
 import app.myliberty.easy_records.platform.business.sysuser.api.CreatorFullName
 import app.myliberty.easy_records.platform.business.sysuser.api.NullableFullName
-import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.util.business.mappers.LibertyMapperConfig
 import org.mapstruct.Context
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 import java.util.UUID
 
-@Mapper(config = RtsMapperConfig::class, uses = [SaleSessionQualifierUtil::class])
+@Mapper(config = LibertyMapperConfig::class, uses = [SaleSessionQualifierUtil::class])
 interface SessionToResponseMapper {
 
     @Mapping(source = "header.referenceNumber", target = "referenceNumber")

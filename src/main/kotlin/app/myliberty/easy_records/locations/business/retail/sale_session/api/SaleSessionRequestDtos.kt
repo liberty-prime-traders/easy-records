@@ -5,7 +5,7 @@ import app.myliberty.easy_records.organizations.business.retail.adjustment_reaso
 import app.myliberty.easy_records.util.business.Money
 import app.myliberty.easy_records.util.business.Percentage
 import app.myliberty.easy_records.util.business.PositiveMoney
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.quantity.PositiveUserProvidedQuantity
 import java.time.OffsetDateTime
 import java.util.Optional
@@ -19,13 +19,13 @@ data class SaleSessionStartDto(
     init {
         val nothingProvided = contactId == null && saleId == null && copyFromSaleId == null
         if (nothingProvided) {
-            throw RtsGenericException(
+            throw LibertyGenericException(
                 "Either contactId, saleId or copyFromSaleId must be provided when starting a new Sale Session"
             )
         }
         val editAndCopyRequested = saleId != null && copyFromSaleId != null
         if (editAndCopyRequested) {
-            throw RtsGenericException("A Sale Session cannot both edit a sale and copy from a sale")
+            throw LibertyGenericException("A Sale Session cannot both edit a sale and copy from a sale")
         }
     }
 }
@@ -63,7 +63,7 @@ data class SaleSessionAdjustmentAddDto(
 ) {
     init {
         if (direction == AdjustmentDirection.BOTH) {
-            throw RtsGenericException("An adjustment is applied as a DISCOUNT or a SURCHARGE, never BOTH")
+            throw LibertyGenericException("An adjustment is applied as a DISCOUNT or a SURCHARGE, never BOTH")
         }
     }
 }

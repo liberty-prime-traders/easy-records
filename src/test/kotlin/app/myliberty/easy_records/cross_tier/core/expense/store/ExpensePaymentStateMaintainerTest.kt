@@ -4,7 +4,7 @@ import app.myliberty.easy_records.cross_tier.core.expense.ExpenseSourceType
 import app.myliberty.easy_records.cross_tier.core.expense.entities.ExpensePaymentStateBase
 import app.myliberty.easy_records.cross_tier.core.expense.model.ExpenseDto
 import app.myliberty.easy_records.cross_tier.core.expense.repository.ExpensePaymentStateRepositoryBase
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.mock
@@ -30,7 +30,7 @@ class ExpensePaymentStateMaintainerTest {
         )
         `when`(expensePaymentStateRepository.findByExpenseIdIn(setOf(expenseDto.id))).thenReturn(emptyList())
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             ExpensePaymentStateMaintainer.refresh(expensePaymentStateRepository, listOf(expenseDto), mapOf(expenseDto.id to BigDecimal.ZERO))
         }
     }

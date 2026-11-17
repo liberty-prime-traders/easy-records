@@ -4,7 +4,7 @@ import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrgani
 import app.myliberty.easy_records.organizations.business.core.account.api.AccountService
 import app.myliberty.easy_records.organizations.business.core.payment_method.PaymentMethodCache
 import app.myliberty.easy_records.organizations.business.core.payment_method.PaymentMethodMapper
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Service
 import java.util.UUID
 
@@ -31,7 +31,7 @@ class PaymentMethodDataFetcher(
         val accountCodesById = paymentMethodCache.getAllPaymentMethods().associateBy({ it.id }, { it.accountCode })
         val missingIds = ids.filterNot { it in accountCodesById }
         if (missingIds.isNotEmpty()) {
-            throw RtsGenericException("Payment methods not found: ${missingIds.joinToString()}")
+            throw LibertyGenericException("Payment methods not found: ${missingIds.joinToString()}")
         }
         return accountCodesById.filterKeys { it in ids }
     }

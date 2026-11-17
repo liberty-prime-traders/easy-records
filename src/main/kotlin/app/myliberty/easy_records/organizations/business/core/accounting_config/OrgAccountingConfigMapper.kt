@@ -3,11 +3,11 @@ package app.myliberty.easy_records.organizations.business.core.accounting_config
 import app.myliberty.easy_records.organizations.business.core.accounting_config.api.OrgAccountingConfigDto
 import app.myliberty.easy_records.organizations.business.core.accounting_config.api.OrgAccountingConfigInsertDto
 import app.myliberty.easy_records.organizations.business.core.accounting_config.api.OrgAccountingConfigResponseDto
-import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.util.business.mappers.LibertyMapperConfig
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 
-@Mapper(config = RtsMapperConfig::class)
+@Mapper(config = LibertyMapperConfig::class)
 interface OrgAccountingConfigMapper {
 
     fun toDomainDto(orgAccountingConfigEntity: OrgAccountingConfigEntity): OrgAccountingConfigDto

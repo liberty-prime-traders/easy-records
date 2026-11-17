@@ -3,7 +3,7 @@ package app.myliberty.easy_records.organizations.business.retail.product
 import app.myliberty.easy_records.configuration.datasource.DataSourceBeanNames
 import app.myliberty.easy_records.organizations.business.retail.product.api.OrganizationProductResponseDto
 import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueFetcher
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.queries.SqlSearchExecutor
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean
@@ -21,7 +21,7 @@ class OrganizationProductSearchExecutor(
     val unitNamesById = unitValueFetcher.getUnitNamesById()
     return entities.map { entity ->
       val baseUnit = unitNamesById[entity.baseUnitId]
-        ?: throw RtsGenericException("Unit name not found for id ${entity.baseUnitId}")
+        ?: throw LibertyGenericException("Unit name not found for id ${entity.baseUnitId}")
       mapper.toResponseDto(mapper.toDomainDto(entity), baseUnit)
     }
   }

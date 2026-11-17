@@ -3,11 +3,11 @@ package app.myliberty.easy_records.locations.business.core.location_user
 import app.myliberty.easy_records.locations.business.core.location_user.api.LocationUserInsertDto
 import app.myliberty.easy_records.locations.business.core.location_user.api.LocationUserResponseDto
 import app.myliberty.easy_records.platform.business.sysuser.api.NullableFullName
-import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.util.business.mappers.LibertyMapperConfig
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 
-@Mapper(config = RtsMapperConfig::class)
+@Mapper(config = LibertyMapperConfig::class)
 interface LocationUserMapper {
 
     fun toDomainDto(locationUserEntity: LocationUserEntity): LocationUserDto

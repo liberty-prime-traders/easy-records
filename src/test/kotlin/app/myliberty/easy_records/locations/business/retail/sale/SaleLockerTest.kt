@@ -3,7 +3,7 @@ package app.myliberty.easy_records.locations.business.retail.sale
 import app.myliberty.easy_records.locations.business.core.lock.api.EntityAdvisoryLock
 import app.myliberty.easy_records.locations.business.retail.sale.api.SaleStatus
 import app.myliberty.easy_records.util.business.lock.LockNamespaces
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -46,7 +46,7 @@ class SaleLockerTest {
     fun `a sale that no longer exists is named in the refusal`() {
         `when`(saleRepository.findAllById(listOf(smallerSaleId, largerSaleId))).thenReturn(listOf(sale(smallerSaleId)))
 
-        val refusal = assertThrows(RtsGenericException::class.java) {
+        val refusal = assertThrows(LibertyGenericException::class.java) {
             saleLocker.lockAndGetSales(listOf(smallerSaleId, largerSaleId))
         }
 
@@ -58,8 +58,8 @@ class SaleLockerTest {
         `when`(saleRepository.findAllById(listOf(smallerSaleId))).thenReturn(listOf(sale(smallerSaleId, version = 4L)))
 
         assertEquals(smallerSaleId, saleLocker.loadDraftAtVersion(smallerSaleId, 4L).id)
-        assertThrows(RtsGenericException::class.java) { saleLocker.loadDraftAtVersion(smallerSaleId, 3L) }
-        assertThrows(RtsGenericException::class.java) { saleLocker.loadDraftAtVersion(smallerSaleId, null) }
+        assertThrows(LibertyGenericException::class.java) { saleLocker.loadDraftAtVersion(smallerSaleId, 3L) }
+        assertThrows(LibertyGenericException::class.java) { saleLocker.loadDraftAtVersion(smallerSaleId, null) }
     }
 
     @Test
@@ -67,6 +67,6 @@ class SaleLockerTest {
         `when`(saleRepository.findAllById(listOf(smallerSaleId)))
             .thenReturn(listOf(sale(smallerSaleId, SaleStatus.CONFIRMED)))
 
-        assertThrows(RtsGenericException::class.java) { saleLocker.loadDraftAtVersion(smallerSaleId, 0L) }
+        assertThrows(LibertyGenericException::class.java) { saleLocker.loadDraftAtVersion(smallerSaleId, 0L) }
     }
 }

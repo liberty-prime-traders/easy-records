@@ -3,11 +3,11 @@ package app.myliberty.easy_records.organizations.business.retail.stock_movement_
 import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.StockMovementReasonInsertDto
 import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.StockMovementReasonResponseDto
 import app.myliberty.easy_records.platform.business.sysuser.api.CreatorFullName
-import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.util.business.mappers.LibertyMapperConfig
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 
-@Mapper(config = RtsMapperConfig::class)
+@Mapper(config = LibertyMapperConfig::class)
 abstract class StockMovementReasonMapper {
 
     @Mapping(target = "id", ignore = true)

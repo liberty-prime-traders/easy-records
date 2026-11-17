@@ -16,7 +16,7 @@ import app.myliberty.easy_records.organizations.business.retail.daily_business_s
 import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerMovement
 import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerMovementReader
 import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerSourceType
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
@@ -212,7 +212,7 @@ class DailyPerformanceServiceTest {
 
     @Test
     fun `range guard names the rule that was broken`() {
-        fun message(from: LocalDate, before: LocalDate) = assertThrows(RtsGenericException::class.java) {
+        fun message(from: LocalDate, before: LocalDate) = assertThrows(LibertyGenericException::class.java) {
             perform(dailyBusinessSummaryRequest = DailyBusinessSummaryRequest(from, before))
         }.message
 

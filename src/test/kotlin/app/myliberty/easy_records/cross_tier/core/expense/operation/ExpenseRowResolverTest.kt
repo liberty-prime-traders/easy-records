@@ -12,7 +12,7 @@ import app.myliberty.easy_records.organizations.business.core.expense_type.api.E
 import app.myliberty.easy_records.organizations.business.core.fiscal_period.api.FiscalPeriodService
 import app.myliberty.easy_records.organizations.business.core.payment_method.api.PaymentMethodDataFetcher
 import app.myliberty.easy_records.util.business.Decimals
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
@@ -54,7 +54,7 @@ class ExpenseRowResolverTest {
     fun `a payee with no overlapping contact type is rejected`() {
         stub(freightExpenseType, employeeContact)
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             expenseRowResolver.resolve(ExpenseSourceType.ADHOC, ExpenseSubmission(batchExpenseDate, listOf(rowCommand(freightExpenseType, employeeContact))))
         }
     }
@@ -63,7 +63,7 @@ class ExpenseRowResolverTest {
     fun `a type that does not list the source type is rejected`() {
         stub(freightExpenseType, supplierContact)
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             expenseRowResolver.resolve(ExpenseSourceType.SALE, ExpenseSubmission(batchExpenseDate, listOf(rowCommand(freightExpenseType, supplierContact))))
         }
     }
@@ -113,11 +113,11 @@ class ExpenseRowResolverTest {
 
     @Test
     fun `an empty or oversized request is rejected`() {
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             expenseRowResolver.resolve(ExpenseSourceType.ADHOC, ExpenseSubmission(batchExpenseDate, emptyList()))
         }
         val tooManyRows = List(ExpenseRowResolver.MAXIMUM_ROWS_PER_REQUEST + 1) { rowCommand(freightExpenseType, supplierContact) }
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             expenseRowResolver.resolve(ExpenseSourceType.ADHOC, ExpenseSubmission(batchExpenseDate, tooManyRows))
         }
     }

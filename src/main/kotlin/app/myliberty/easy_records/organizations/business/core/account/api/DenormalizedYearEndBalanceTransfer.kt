@@ -2,7 +2,7 @@ package app.myliberty.easy_records.organizations.business.core.account.api
 
 import app.myliberty.easy_records.organizations.business.core.account.AccountEntity
 import app.myliberty.easy_records.organizations.business.core.account.AccountRepository
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 import java.time.Instant
@@ -19,7 +19,7 @@ class DenormalizedYearEndBalanceTransfer(
     fun applyYearEndBalanceTransfer() {
         val accounts = accountRepository.findAll()
         val retainedEarnings = accounts.firstOrNull { it.code == SystemAccount.RETAINED_EARNINGS.code }
-            ?: throw RtsGenericException("Retained Earnings account not found in organization.")
+            ?: throw LibertyGenericException("Retained Earnings account not found in organization.")
 
         val closingAccountsByCode = accounts.filter { it.accountType.isClosingType() }.associateBy { it.code }
         if (closingAccountsByCode.isEmpty()) return

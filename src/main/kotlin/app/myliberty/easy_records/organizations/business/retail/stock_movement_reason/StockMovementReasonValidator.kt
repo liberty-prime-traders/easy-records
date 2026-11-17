@@ -4,7 +4,7 @@ import app.myliberty.easy_records.organizations.business.retail.stock_movement_r
 import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.StockMovementReasonInsertDto
 import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.StockMovementReasonUpdateDto
 import app.myliberty.easy_records.util.business.StringUtils
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Component
 
 @Component
@@ -15,7 +15,7 @@ class StockMovementReasonValidator(private val cache: StockMovementReasonCache) 
         requireMovementTypes(dto.movementTypes)
         cache.getAll()
             .find { StringUtils.isEquivalent(it.name, name)}
-            ?.let { throw RtsGenericException(String.format(NAME_ALREADY_EXISTS, name)) }
+            ?.let { throw LibertyGenericException(String.format(NAME_ALREADY_EXISTS, name)) }
     }
 
     fun validateUpdate(dto: StockMovementReasonUpdateDto) {
@@ -24,11 +24,11 @@ class StockMovementReasonValidator(private val cache: StockMovementReasonCache) 
         val name = StringUtils.getValueOrException(dto.name, "Name cannot be null or empty")
         cache.getAll()
             .find { StringUtils.isEquivalent(it.name, name) && it.id != dto.id }
-            ?.let { throw RtsGenericException(String.format(NAME_ALREADY_EXISTS, name)) }
+            ?.let { throw LibertyGenericException(String.format(NAME_ALREADY_EXISTS, name)) }
     }
 
     private fun requireMovementTypes(movementTypes: Set<MovementType>) {
-        if (movementTypes.isEmpty()) throw RtsGenericException(MOVEMENT_TYPES_REQUIRED)
+        if (movementTypes.isEmpty()) throw LibertyGenericException(MOVEMENT_TYPES_REQUIRED)
     }
 
     companion object {

@@ -4,7 +4,7 @@ import app.myliberty.easy_records.locations.business.retail.stock_adjustment.Sto
 import app.myliberty.easy_records.locations.business.retail.stock_adjustment.StockAdjustmentCostRepository
 import app.myliberty.easy_records.locations.business.retail.stock_adjustment.StockAdjustmentEntity
 import app.myliberty.easy_records.locations.business.retail.stock_adjustment.StockAdjustmentRepository
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
@@ -43,7 +43,7 @@ class StockAdjustmentCostRestaterTest {
     fun `a change that would leave a negative cost is refused`() {
         givenAdjustmentWithActiveCost("ADJ1", "10.00")
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             stockAdjustmentCostRestater.restate(listOf(StockAdjustmentCostChange("ADJ1", BigDecimal("20.00"), BigDecimal("5.00"))))
         }
     }
@@ -57,7 +57,7 @@ class StockAdjustmentCostRestaterTest {
         `when`(stockAdjustmentCostRepository.findByStockAdjustmentIdInAndStatus(listOf(stockAdjustmentId), StockAdjustmentCostStatus.ACTIVE))
             .thenReturn(emptyList())
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             stockAdjustmentCostRestater.restate(listOf(StockAdjustmentCostChange("ADJ1", BigDecimal.ONE, BigDecimal.TEN)))
         }
     }

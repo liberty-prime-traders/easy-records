@@ -9,7 +9,7 @@ import app.myliberty.easy_records.locations.business.retail.reports.product_sale
 import app.myliberty.easy_records.organizations.business.retail.adjustment_reason.api.AdjustmentReasonService
 import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.QuantityBreakdownFactory
 import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.UnitConversionGraphFacade
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.paging.PageRequest
 import app.myliberty.easy_records.util.paging.PageResponse
 import app.myliberty.easy_records.util.queries.KeysetSearchCursor
@@ -89,7 +89,7 @@ class ProductSalesReportService(
     val baseUnitIdsByLocationProductId = locationProductDataFetcher.getBaseUnitIds(locationProductIds)
     val missingLocationProductIds = locationProductIds.filter { it !in baseUnitIdsByLocationProductId }
     if (missingLocationProductIds.isNotEmpty()) {
-      throw RtsGenericException("Location products not found: ${missingLocationProductIds.joinToString()}")
+      throw LibertyGenericException("Location products not found: ${missingLocationProductIds.joinToString()}")
     }
     return baseUnitIdsByLocationProductId
   }

@@ -1,12 +1,12 @@
 package app.myliberty.easy_records.locations.business.retail.location_product
 
 import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductResponseDto
-import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.util.business.mappers.LibertyMapperConfig
 import org.mapstruct.Context
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 
-@Mapper(config = RtsMapperConfig::class)
+@Mapper(config = LibertyMapperConfig::class)
 interface LocationProductMapper {
 
     fun toDomainDto(locationProductEntity: LocationProductEntity): LocationProductDto

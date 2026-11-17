@@ -2,7 +2,7 @@ package app.myliberty.easy_records.organizations.business.core.fiscal_period
 
 import app.myliberty.easy_records.organizations.business.core.accounting_config.api.OrgAccountingConfigService
 import app.myliberty.easy_records.util.business.DateTimes
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Component
 import java.time.LocalDate
 import java.util.UUID
@@ -14,10 +14,10 @@ class PeriodCloseValidator(
 ) {
 
     fun assertCanClose(period: FiscalPeriodEntity) {
-        if (period.isClosed) throw RtsGenericException("Period '${period.name}' is already closed")
-        if (!isClosable(period.endDate)) throw RtsGenericException("Period '${period.name}' has not ended yet and cannot be closed")
+        if (period.isClosed) throw LibertyGenericException("Period '${period.name}' is already closed")
+        if (!isClosable(period.endDate)) throw LibertyGenericException("Period '${period.name}' has not ended yet and cannot be closed")
         if (period.yearEnd && hasOpenSiblings(period.id!!, period.endDate)) {
-            throw RtsGenericException("All periods in the fiscal year must be closed before closing '${period.name}'")
+            throw LibertyGenericException("All periods in the fiscal year must be closed before closing '${period.name}'")
         }
     }
 
@@ -34,7 +34,7 @@ class PeriodCloseValidator(
     }
 
     private fun hasOpenSiblings(id: UUID, endDate: LocalDate): Boolean {
-        val config = configService.getConfig() ?: throw RtsGenericException("Accounting configuration has not been initialized")
+        val config = configService.getConfig() ?: throw LibertyGenericException("Accounting configuration has not been initialized")
         val yearEnd = FiscalPeriodUtils.yearEnd(endDate, config.fiscalYearEndMonth)
         val yearStart = FiscalPeriodUtils.yearStart(yearEnd)
         return repository.countOpenInYear(yearStart, yearEnd, id) > 0

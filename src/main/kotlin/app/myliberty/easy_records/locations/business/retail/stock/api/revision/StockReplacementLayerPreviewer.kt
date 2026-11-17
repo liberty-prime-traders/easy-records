@@ -8,7 +8,7 @@ import app.myliberty.easy_records.locations.business.retail.stock.StockReplaceme
 import app.myliberty.easy_records.locations.business.retail.stock.api.fifo.FifoLayer
 import app.myliberty.easy_records.locations.business.retail.stock.api.fifo.StockEntryFifoDto
 import app.myliberty.easy_records.locations.business.retail.stock.stockEntryFifoComparator
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Service
 import java.util.UUID
 
@@ -44,7 +44,7 @@ class StockReplacementLayerPreviewer(
 
     private fun findRevisedStockEntry(revisedStockEntryId: UUID): StockEntryEntity =
         stockEntryRepository.findById(revisedStockEntryId).orElseThrow {
-            RtsGenericException("The stock of this delivery could not be found. Please contact support.")
+            LibertyGenericException("The stock of this delivery could not be found. Please contact support.")
         }
 
     private fun unsavedFifoDtoOf(unsavedEntry: StockEntryEntity, referenceNumber: String): StockEntryFifoDto {

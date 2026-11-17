@@ -3,7 +3,7 @@ package app.myliberty.easy_records.locations.business.retail.stock_adjustment.ap
 import com.fasterxml.jackson.annotation.JsonProperty
 import app.myliberty.easy_records.locations.business.retail.stock.api.StockAdjustmentCategory
 import app.myliberty.easy_records.util.business.PositiveMoney
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.quantity.PositiveUserProvidedQuantity
 import java.util.UUID
 
@@ -19,5 +19,5 @@ data class StockAdjustmentCreateDto(
     val unitCost: PositiveMoney? = null
 ) {
 
-    fun requiredUnitCost(): PositiveMoney = unitCost ?: throw RtsGenericException("Unit cost is required for a stock increase")
+    fun requiredUnitCost(): PositiveMoney = unitCost ?: throw LibertyGenericException("Unit cost is required for a stock increase")
 }

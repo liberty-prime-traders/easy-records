@@ -6,7 +6,7 @@ import app.myliberty.easy_records.locations.business.retail.location_product.api
 import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueFetcher
 import app.myliberty.easy_records.util.business.Money
 import app.myliberty.easy_records.util.business.StringUtils
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.quantity.PositiveUserProvidedQuantity
 import org.springframework.stereotype.Service
 import java.util.UUID
@@ -44,7 +44,7 @@ class OpeningStockBulkService(
             }
         }
         if (errors.isNotEmpty()) {
-            throw RtsGenericException("Bulk opening stock validation failed", errors)
+            throw LibertyGenericException("Bulk opening stock validation failed", errors)
         }
 
         val openingStockResponseDtos =

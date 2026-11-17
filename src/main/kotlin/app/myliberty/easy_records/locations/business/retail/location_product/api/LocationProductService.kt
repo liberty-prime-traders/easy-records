@@ -11,7 +11,7 @@ import app.myliberty.easy_records.organizations.business.retail.product.api.Orga
 import app.myliberty.easy_records.organizations.business.retail.product.api.ProductStatus
 import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.UnitConversionGraphFacade
 import app.myliberty.easy_records.util.business.Money
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException
 import org.springframework.stereotype.Service
 import java.util.UUID
@@ -31,7 +31,7 @@ class LocationProductService(
     fun guardAllActive(ids: Collection<UUID>) {
         val inactive = locationProductRepository.findAllById(ids)
             .filter { it.status != ProductStatus.ACTIVE }
-        if (inactive.isNotEmpty()) throw RtsGenericException(
+        if (inactive.isNotEmpty()) throw LibertyGenericException(
             "Inactive products are not allowed: ${inactive.joinToString { "${it.referenceNumber}/${it.productName}" }}"
         )
     }

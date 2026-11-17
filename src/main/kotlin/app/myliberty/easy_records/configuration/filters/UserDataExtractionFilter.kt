@@ -5,7 +5,7 @@ import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
 import app.myliberty.easy_records.platform.business.sysuser.api.SysUserService
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.hibernate.annotations.Filter
 import org.springframework.core.Ordered
 import org.springframework.core.annotation.Order
@@ -33,7 +33,7 @@ class UserDataExtractionFilter(private val sysUserService: SysUserService) : Onc
                 sysUserService.throwIfAccountIsDisabled(systemUserId)
                 SessionContextProvider.getSession().systemUserId = systemUserId
             } catch (_: ClassCastException) {
-                throw RtsGenericException("Failed to extract user data from security context")
+                throw LibertyGenericException("Failed to extract user data from security context")
             }
         }
 

@@ -300,7 +300,7 @@ list, so the screen reads `error.error.body` as items and shows the headline fro
 problems as `BLOCKS_SAVE` rows, so one rendering serves both and a save that meets a new blocker after a preview shows it
 the same way. A problem that only support can fix uses `BlockedChangeException.contactSupport`, whose headline says so and whose
 rows quote the stock record reference. A single-sentence failure with nothing to list (a line that cannot be found, a missing
-reason) stays a plain `RtsGenericException`.
+reason) stays a plain `LibertyGenericException`.
 
 ## The stock revision row
 

@@ -3,7 +3,7 @@ package app.myliberty.easy_records.cross_tier.core.expense.operation
 import app.myliberty.easy_records.cross_tier.core.expense.model.ExpenseAggregate
 import app.myliberty.easy_records.cross_tier.core.expense.model.ExpenseDto
 import app.myliberty.easy_records.cross_tier.core.expense.store.ExpenseStore
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import java.util.UUID
 
 class ExpenseLookup(
@@ -11,21 +11,21 @@ class ExpenseLookup(
 ) {
 
     fun requireExpense(expenseReference: String): ExpenseDto =
-        expenseStore.findExpenseByReference(expenseReference) ?: throw RtsGenericException("Expense $expenseReference not found")
+        expenseStore.findExpenseByReference(expenseReference) ?: throw LibertyGenericException("Expense $expenseReference not found")
 
     fun requireExpenses(expenseReferences: Collection<String>): Map<String, ExpenseDto> {
         val expenseDtosByReference = expenseStore.findExpensesByReferences(expenseReferences).associateBy { it.referenceNumber }
         expenseReferences.firstOrNull { it !in expenseDtosByReference }
-            ?.let { throw RtsGenericException("Expense $it not found") }
+            ?.let { throw LibertyGenericException("Expense $it not found") }
         return expenseDtosByReference
     }
 
     fun requireExpenseById(expenseId: UUID): ExpenseDto =
-        expenseStore.findExpenseById(expenseId) ?: throw RtsGenericException("Expense $expenseId not found")
+        expenseStore.findExpenseById(expenseId) ?: throw LibertyGenericException("Expense $expenseId not found")
 
     fun requireNotVoided(expenseAggregate: ExpenseAggregate, expenseDto: ExpenseDto) {
         if (expenseAggregate.isVoided(expenseDto.id)) {
-            throw RtsGenericException("Expense ${expenseDto.referenceNumber} has been voided")
+            throw LibertyGenericException("Expense ${expenseDto.referenceNumber} has been voided")
         }
     }
 }

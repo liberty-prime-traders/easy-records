@@ -9,7 +9,7 @@ import app.myliberty.easy_records.platform.business.tax_type.api.TaxApplicationL
 import app.myliberty.easy_records.platform.business.tax_type.api.TaxCalculationMethod
 import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.business.StringUtils
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Component
 import java.math.BigDecimal
 import java.time.LocalDate
@@ -28,9 +28,9 @@ class TaxRateValidator(
         validateBillingAndInclusionAreNotBothTrue(dto.taxIsBilledToCustomerSeparately, dto.taxIsIncludedInTaxableAmount)
         val parent = orgJurisdictionTaxTypeFetcher.getAllDtos()
             .firstOrNull { it.id == dto.orgJurisdictionTaxTypeId }
-            ?: throw RtsGenericException("Org jurisdiction tax type not found")
+            ?: throw LibertyGenericException("Org jurisdiction tax type not found")
         if (parent.status != OrgJurisdictionTaxTypeStatus.ACTIVE)
-            throw RtsGenericException("Cannot create a rate for an inactive Tax Type")
+            throw LibertyGenericException("Cannot create a rate for an inactive Tax Type")
         validateRateValue(parent.jurisdictionTaxTypeId, dto.ratePercentage, dto.rateFlatAmount?.toBigDecimal())
         val taxApplicationLevel = jurisdictionTaxTypeFetcher.getTaxApplicationLevel(parent.jurisdictionTaxTypeId)
         val overlappingRates = overlappingRates(dto.orgJurisdictionTaxTypeId, dto.startDate, dto.endDate)
@@ -43,9 +43,9 @@ class TaxRateValidator(
 
     fun validateForUpdate(taxRateDto: TaxRateDto, dto: TaxRateUpdateDto) {
         val id = taxRateDto.id
-        val updatedName = dto.name?.orElseThrow { RtsGenericException("Name must not be null") }
+        val updatedName = dto.name?.orElseThrow { LibertyGenericException("Name must not be null") }
             ?.also { validateName(it) }
-        val updatedEndDate = dto.endDate?.orElseThrow { RtsGenericException("End date must not be null") }
+        val updatedEndDate = dto.endDate?.orElseThrow { LibertyGenericException("End date must not be null") }
             ?.also { validateDates(taxRateDto.startDate, it) }
         if (updatedName == null && updatedEndDate == null) return
         val effectiveName = updatedName ?: taxRateDto.name
@@ -64,7 +64,7 @@ class TaxRateValidator(
         taxIsIncludedInTaxableAmount: Boolean
     ) {
         if (taxIsBilledToCustomerSeparately && taxIsIncludedInTaxableAmount)
-            throw RtsGenericException("A tax already included in the taxable amount cannot also be billed separately")
+            throw LibertyGenericException("A tax already included in the taxable amount cannot also be billed separately")
     }
 
     private fun validateName(name: String) {
@@ -73,9 +73,9 @@ class TaxRateValidator(
 
     private fun validateDates(startDate: LocalDate, endDate: LocalDate?) {
         if (endDate != null && endDate.isBefore(DateTimes.Local.Now.organization()))
-            throw RtsGenericException("End date must not be in the past")
+            throw LibertyGenericException("End date must not be in the past")
         if (endDate != null && startDate.isAfter(endDate))
-            throw RtsGenericException("The start date must be before the end date")
+            throw LibertyGenericException("The start date must be before the end date")
     }
 
     private fun overlappingRates(
@@ -98,7 +98,7 @@ class TaxRateValidator(
 
     private fun throwOverlapError(conflict: TaxRateDto) {
         val expiry = if (conflict.endDate != null) "expires on ${conflict.endDate}" else "never expires"
-        throw RtsGenericException("'${conflict.name}' starts on ${conflict.startDate} and $expiry. Please adjust your dates to avoid this overlap.")
+        throw LibertyGenericException("'${conflict.name}' starts on ${conflict.startDate} and $expiry. Please adjust your dates to avoid this overlap.")
     }
 
     private fun validateRateValue(
@@ -109,21 +109,21 @@ class TaxRateValidator(
         when (jurisdictionTaxTypeFetcher.getCalculationMethod(jurisdictionTaxTypeId)) {
             TaxCalculationMethod.PERCENTAGE -> {
                 if (ratePercentage == null)
-                    throw RtsGenericException("ratePercentage is required for PERCENTAGE tax types")
+                    throw LibertyGenericException("ratePercentage is required for PERCENTAGE tax types")
                 if (ratePercentage < BigDecimal.ZERO)
-                    throw RtsGenericException("ratePercentage must be not be negative")
+                    throw LibertyGenericException("ratePercentage must be not be negative")
                 if (ratePercentage > BigDecimal.valueOf(100))
-                    throw RtsGenericException("ratePercentage must not exceed 100")
+                    throw LibertyGenericException("ratePercentage must not exceed 100")
                 if (rateFlatAmount != null)
-                    throw RtsGenericException("rateFlatAmount must not be provided for PERCENTAGE tax types")
+                    throw LibertyGenericException("rateFlatAmount must not be provided for PERCENTAGE tax types")
             }
             TaxCalculationMethod.FIXED_VALUE -> {
                 if (rateFlatAmount == null)
-                    throw RtsGenericException("rateFlatAmount is required for FIXED_VALUE tax types")
+                    throw LibertyGenericException("rateFlatAmount is required for FIXED_VALUE tax types")
                 if (rateFlatAmount < BigDecimal.ZERO)
-                    throw RtsGenericException("rateFlatAmount must not be negative")
+                    throw LibertyGenericException("rateFlatAmount must not be negative")
                 if (ratePercentage != null)
-                    throw RtsGenericException("ratePercentage must not be provided for FIXED_VALUE tax types")
+                    throw LibertyGenericException("ratePercentage must not be provided for FIXED_VALUE tax types")
             }
         }
     }

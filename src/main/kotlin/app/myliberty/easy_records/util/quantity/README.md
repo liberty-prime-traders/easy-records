@@ -32,7 +32,7 @@ nothing rounds on the way in and there is no rounding policy to manage.
      adjustment, delivery, purchase create and cancel, stock transfer and sale session lines).
    - Both bind from and serialize to a bare JSON number. Unwrap with `toBigDecimal()` at the boundary into entities,
      `ExactQuantity` and pricing.
-   - `GlobalExceptionHandler.handleUnreadableBody` returns the `RtsGenericException` thrown during binding as the
+   - `GlobalExceptionHandler.handleUnreadableBody` returns the `LibertyGenericException` thrown during binding as the
      business error instead of a 500.
    - Quantities the system derives (storage quantities, cost-group shares, remainders) are exempt and keep 4 decimals.
      `ExactQuantity.toStorageQuantity()` throws instead of rounding if a digit beyond scale 4 would be lost.

@@ -4,7 +4,7 @@ import app.myliberty.easy_records.organizations.business.core.account.api.System
 import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerEntryRequest
 import app.myliberty.easy_records.support.WithDefaultOrganizationSession
 import app.myliberty.easy_records.util.business.PositiveMoney
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertDoesNotThrow
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
@@ -32,7 +32,7 @@ class LedgerEntriesValidatorTest {
 
     @Test
     fun `unbalanced entries are rejected`() {
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             LedgerEntriesValidator.validate(
                 listOf(
                     LedgerEntryRequest.debit(SystemAccount.CASH.code, PositiveMoney.of(BigDecimal("10.00"))),

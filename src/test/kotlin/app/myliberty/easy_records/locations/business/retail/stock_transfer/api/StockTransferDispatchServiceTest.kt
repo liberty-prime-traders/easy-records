@@ -36,7 +36,7 @@ import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.business.Money
 import app.myliberty.easy_records.util.business.lock.LockNamespaces
 import app.myliberty.easy_records.util.business.mappers.UserQualifier
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.quantity.BreakdownUnit
 import app.myliberty.easy_records.util.quantity.QuantityBreakdown
 import org.junit.jupiter.api.AfterEach
@@ -266,9 +266,9 @@ class StockTransferDispatchServiceTest {
         `when`(stockTransferOrderDataFetcher.getByReferenceNumber(orderReferenceNumber))
             .thenReturn(order(StockTransferStatus.DRAFT))
         `when`(stockTransferDraftDispatchFetcher.requireDraftDispatch(orderReferenceNumber))
-            .thenThrow(RtsGenericException("Operation only allowed in DRAFT status. Current: CANCELLED"))
+            .thenThrow(LibertyGenericException("Operation only allowed in DRAFT status. Current: CANCELLED"))
 
-        assertThrows(RtsGenericException::class.java) { stockTransferDispatchService.dispatch(orderReferenceNumber) }
+        assertThrows(LibertyGenericException::class.java) { stockTransferDispatchService.dispatch(orderReferenceNumber) }
 
         val inOrder = inOrder(entityAdvisoryLock, stockTransferDraftDispatchFetcher)
         inOrder.verify(entityAdvisoryLock).acquire(LockNamespaces.STOCK_TRANSFER_ORDER, orderId)

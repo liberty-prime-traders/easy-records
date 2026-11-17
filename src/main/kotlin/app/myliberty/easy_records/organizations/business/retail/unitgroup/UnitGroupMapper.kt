@@ -4,11 +4,11 @@ import app.myliberty.easy_records.organizations.business.retail.unitgroup.api.Un
 import app.myliberty.easy_records.organizations.business.retail.unitgroup.api.UnitGroupInsertDto
 import app.myliberty.easy_records.organizations.business.retail.unitgroup.api.UnitGroupResponseDto
 import app.myliberty.easy_records.platform.business.sysuser.api.CreatorFullName
-import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.util.business.mappers.LibertyMapperConfig
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 
-@Mapper(config = RtsMapperConfig::class)
+@Mapper(config = LibertyMapperConfig::class)
 interface UnitGroupMapper {
 
     @Mapping(target = "id", ignore = true)

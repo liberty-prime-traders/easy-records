@@ -12,7 +12,7 @@ import app.myliberty.easy_records.organizations.business.core.lock.api.OrgEntity
 import app.myliberty.easy_records.util.business.MoneyDisplay
 import app.myliberty.easy_records.util.business.lock.LockNamespaces
 import app.myliberty.easy_records.util.business.mappers.StringQualifier
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.queries.KeysetSearchCursor
 import app.myliberty.easy_records.util.ui_models.BalanceEffect
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -113,8 +113,8 @@ class SubledgerServiceTest {
 
     @Test
     fun `page size outside the allowed range is rejected before any query runs`() {
-        assertThrows(RtsGenericException::class.java) { subledgerService.getEntries(contactReferenceNumber, "", 0) }
-        assertThrows(RtsGenericException::class.java) { subledgerService.getEntries(contactReferenceNumber, "", 201) }
+        assertThrows(LibertyGenericException::class.java) { subledgerService.getEntries(contactReferenceNumber, "", 0) }
+        assertThrows(LibertyGenericException::class.java) { subledgerService.getEntries(contactReferenceNumber, "", 201) }
         verifyNoInteractions(subledgerEntryRepository, ledgerEntryGroupRepository)
     }
 

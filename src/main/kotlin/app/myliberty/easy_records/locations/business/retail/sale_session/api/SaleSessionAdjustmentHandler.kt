@@ -7,7 +7,7 @@ import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSes
 import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionStore
 import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionValidator
 import app.myliberty.easy_records.locations.business.retail.sale_adjustment.api.PriceAdjustmentMethod
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Service
 
 @Service
@@ -25,7 +25,7 @@ class SaleSessionAdjustmentHandler(
         if (adjustmentAddDto.relatedSaleLineIdentity != null) {
             val targetLineKey = adjustmentAddDto.relatedSaleLineIdentity.key()
             if (saleSession.saleLines.none { it.identity.key() == targetLineKey }) {
-                throw RtsGenericException("Adjustment references a line that is not on the sale")
+                throw LibertyGenericException("Adjustment references a line that is not on the sale")
             }
         }
         val newSaleSessionAdjustment = SaleSessionAdjustment(
@@ -55,7 +55,7 @@ class SaleSessionAdjustmentHandler(
         val targetAdjustmentKey = rowIdentityDto.identity.key()
         val survivingSaleAdjustments = saleSession.saleAdjustments.filter { it.identity.key() != targetAdjustmentKey }
         if (survivingSaleAdjustments.size == saleSession.saleAdjustments.size) {
-            throw RtsGenericException("Adjustment not found on session")
+            throw LibertyGenericException("Adjustment not found on session")
         }
         val updatedSaleSession = saleSession.copy(saleAdjustments = survivingSaleAdjustments)
         return saleSessionUpdateFinalizer.finalize(updatedSaleSession)

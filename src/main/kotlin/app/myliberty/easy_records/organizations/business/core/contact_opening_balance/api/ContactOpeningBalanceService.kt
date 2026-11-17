@@ -15,7 +15,7 @@ import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.business.DisplayFormatters
 import app.myliberty.easy_records.util.business.lock.LockNamespaces
 import app.myliberty.easy_records.util.business.mappers.UserQualifier
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.ui_models.BalanceEffect
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
@@ -39,7 +39,7 @@ class ContactOpeningBalanceService(
         fiscalPeriodService.requireOpenForDate(postingDate)
         val contactDto = contactService.getContactById(contactId)
         if (contactDto.status != ContactStatus.ACTIVE) {
-            throw RtsGenericException("Only an active contact can take an opening balance")
+            throw LibertyGenericException("Only an active contact can take an opening balance")
         }
         orgEntityAdvisoryLock.acquire(LockNamespaces.CONTACT_OPENING_BALANCE, contactDto.referenceNumber)
         val existingBalance = SubledgerBalanceDto(
@@ -80,7 +80,7 @@ class ContactOpeningBalanceService(
     ) {
         val settledAmount = contactOpeningSettlementFinder.activeSettledAmount(contactReferenceNumber, subledgerDirection)
         if (targetAmount < settledAmount) {
-            throw RtsGenericException(
+            throw LibertyGenericException(
                 "The ${subledgerDirection.name.lowercase()} opening balance cannot be set to " +
                     "${DisplayFormatters.formatCurrency(targetAmount)}, below the " +
                     "${DisplayFormatters.formatCurrency(settledAmount)} already settled against it; " +

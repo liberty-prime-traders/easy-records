@@ -17,7 +17,7 @@ import app.myliberty.easy_records.locations.business.retail.sale_payment.api.Sal
 import app.myliberty.easy_records.organizations.business.core.fiscal_period.api.FiscalPeriodService
 import app.myliberty.easy_records.organizations.business.core.payment_method.api.PaymentMethodDataFetcher
 import app.myliberty.easy_records.util.enums.PaymentStatus
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
@@ -160,7 +160,7 @@ class SalePaymentStatusTest {
             mock(FiscalPeriodService::class.java)
         )
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             salePaymentService.voidPayment(SalePaymentVoidCreateDto(payment.id!!, "entered twice"))
         }
 

@@ -4,7 +4,7 @@ import app.myliberty.easy_records.cross_tier.core.expense.entities.ExpensePaymen
 import app.myliberty.easy_records.cross_tier.core.expense.model.ExpenseDto
 import app.myliberty.easy_records.cross_tier.core.expense.repository.ExpensePaymentStateRepositoryBase
 import app.myliberty.easy_records.util.business.PaymentStatusResolver
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import java.math.BigDecimal
 import java.util.UUID
 
@@ -21,7 +21,7 @@ object ExpensePaymentStateMaintainer {
         val expensePaymentStates = expensePaymentStateRepository.findByExpenseIdIn(expenseAmountsById.keys)
         val expenseIdsMissingState = expenseAmountsById.keys - expensePaymentStates.map { it.expenseId }.toSet()
         if (expenseIdsMissingState.isNotEmpty()) {
-            throw RtsGenericException("Expense payment state is missing for expenses $expenseIdsMissingState")
+            throw LibertyGenericException("Expense payment state is missing for expenses $expenseIdsMissingState")
         }
         expensePaymentStates.forEach { expensePaymentState ->
             val amountPaid = paidTotalsByExpenseId.getValue(expensePaymentState.expenseId)

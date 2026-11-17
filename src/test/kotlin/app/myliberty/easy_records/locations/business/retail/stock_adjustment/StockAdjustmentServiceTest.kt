@@ -24,7 +24,7 @@ import app.myliberty.easy_records.organizations.business.retail.stock_movement_r
 import app.myliberty.easy_records.util.business.PositiveMoney
 import app.myliberty.easy_records.util.business.mappers.UserQualifier
 import app.myliberty.easy_records.util.business.reference_number.ReferenceNumberGenerator
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.model.TableName
 import app.myliberty.easy_records.util.quantity.PositiveUserProvidedQuantity
 import org.junit.jupiter.api.AfterEach
@@ -167,7 +167,7 @@ class StockAdjustmentServiceTest {
 
     @Test
     fun `opening stock increase requires the entered unit cost`() {
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             stockAdjustmentService.adjust(createDto(StockAdjustmentCategory.OPENING_STOCK, "3", note = "Count at go-live"))
         }
         assertEquals(emptyList<StockAdjustmentIncreaseStockRequest>(), increaseRequests)
@@ -184,17 +184,17 @@ class StockAdjustmentServiceTest {
 
     @Test
     fun `internal use rejects a unit cost because the cost comes from stock`() {
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             stockAdjustmentService.adjust(createDto(StockAdjustmentCategory.INTERNAL_USE, "3", unitCost = "10", note = "Supplies"))
         }
     }
 
     @Test
     fun `categories other than other require a note and reject a reason`() {
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             stockAdjustmentService.adjust(createDto(StockAdjustmentCategory.INTERNAL_USE, "1"))
         }
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             stockAdjustmentService.adjust(
                 createDto(StockAdjustmentCategory.INTERNAL_USE, "1", note = "Supplies", stockMovementReasonId = stockMovementReasonId)
             )
@@ -203,7 +203,7 @@ class StockAdjustmentServiceTest {
 
     @Test
     fun `a fixed-direction category rejects the opposite direction`() {
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             stockAdjustmentService.adjust(
                 createDto(StockAdjustmentCategory.INTERNAL_USE, "1", note = "Supplies", direction = StockAdjustmentDirection.INCREASE)
             )
@@ -212,10 +212,10 @@ class StockAdjustmentServiceTest {
 
     @Test
     fun `other requires a direction and a reason that is guarded against the direction`() {
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             stockAdjustmentService.adjust(createDto(StockAdjustmentCategory.OTHER, "1", stockMovementReasonId = stockMovementReasonId))
         }
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             stockAdjustmentService.adjust(createDto(StockAdjustmentCategory.OTHER, "1", direction = StockAdjustmentDirection.DECREASE))
         }
 
@@ -245,7 +245,7 @@ class StockAdjustmentServiceTest {
 
     @Test
     fun `other increase without a unit cost is rejected before stock changes`() {
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             stockAdjustmentService.adjust(
                 createDto(
                     StockAdjustmentCategory.OTHER, "3",
@@ -258,7 +258,7 @@ class StockAdjustmentServiceTest {
 
     @Test
     fun `other decrease rejects a unit cost because FIFO supplies it`() {
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             stockAdjustmentService.adjust(
                 createDto(
                     StockAdjustmentCategory.OTHER, "3", unitCost = "6",
@@ -271,7 +271,7 @@ class StockAdjustmentServiceTest {
 
     @Test
     fun `quantity beyond the allowed decimal places is rejected instead of rounded`() {
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             createDto(StockAdjustmentCategory.FREE_GOODS, "0.333", unitCost = "10", note = "Bonus")
         }
     }

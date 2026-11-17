@@ -14,7 +14,7 @@ import app.myliberty.easy_records.organizations.business.core.fiscal_period.api.
 import app.myliberty.easy_records.organizations.business.core.payment_method.api.PaymentMethodDataFetcher
 import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.business.StringUtils
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Service
 import java.time.LocalDate
 import java.util.UUID
@@ -29,9 +29,9 @@ class ExpenseRowResolver(
 ) {
 
     fun guardRowCount(rowCount: Int) {
-        if (rowCount == 0) throw RtsGenericException("At least one expense row is required")
+        if (rowCount == 0) throw LibertyGenericException("At least one expense row is required")
         if (rowCount > MAXIMUM_ROWS_PER_REQUEST) {
-            throw RtsGenericException("A request may contain at most $MAXIMUM_ROWS_PER_REQUEST expense rows")
+            throw LibertyGenericException("A request may contain at most $MAXIMUM_ROWS_PER_REQUEST expense rows")
         }
     }
 
@@ -45,13 +45,13 @@ class ExpenseRowResolver(
                 expenseTypeService.getById(rowCommand.expenseTypeId)
             }
             if (sourceType !in expenseType.eligibleSourceTypes) {
-                throw RtsGenericException("Expense type ${expenseType.name} cannot be used from this screen")
+                throw LibertyGenericException("Expense type ${expenseType.name} cannot be used from this screen")
             }
             val payee = payeesById.getOrPut(rowCommand.payeeContactId) {
                 contactService.getContactById(rowCommand.payeeContactId)
             }
             if (payee.contactTypes.intersect(expenseType.eligiblePayeeTypes).isEmpty()) {
-                throw RtsGenericException(
+                throw LibertyGenericException(
                     "The selected payee (${payee.identity.displayName}) is not eligible for expense type: ${expenseType.name}"
                 )
             }

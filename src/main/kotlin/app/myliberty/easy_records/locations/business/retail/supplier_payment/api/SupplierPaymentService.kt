@@ -22,7 +22,7 @@ import app.myliberty.easy_records.organizations.business.core.fiscal_period.api.
 import app.myliberty.easy_records.organizations.business.core.payment_method.api.PaymentMethodDataFetcher
 import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.business.DisplayFormatters
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
@@ -83,7 +83,7 @@ class SupplierPaymentService(
     private fun requireOnePaymentPerPurchase(supplierPaymentCreateDtos: List<SupplierPaymentCreateDto>) {
         val purchaseIds = supplierPaymentCreateDtos.map { it.purchaseId }
         if (purchaseIds.size != purchaseIds.toSet().size) {
-            throw RtsGenericException("A batch can hold only one payment per purchase")
+            throw LibertyGenericException("A batch can hold only one payment per purchase")
         }
     }
 
@@ -141,7 +141,7 @@ class SupplierPaymentService(
         if (ceiling.isFullyDelivered && amount > payable) {
             val formattedAmount = DisplayFormatters.formatCurrency(amount)
             val formattedBalance = DisplayFormatters.formatCurrency(payable)
-            throw RtsGenericException(
+            throw LibertyGenericException(
                 "Payment of $formattedAmount would exceed the remaining balance of $formattedBalance"
             )
         }
@@ -156,7 +156,7 @@ class SupplierPaymentService(
             if (alreadyPaidForDelivery + amount > deliveryCeiling) {
                 val formattedAmount = DisplayFormatters.formatCurrency(amount)
                 val formattedBalance = DisplayFormatters.formatCurrency(deliveryCeiling - alreadyPaidForDelivery)
-                throw RtsGenericException(
+                throw LibertyGenericException(
                     "Payment of $formattedAmount would exceed the remaining delivery balance of $formattedBalance"
                 )
             }
@@ -170,7 +170,7 @@ class SupplierPaymentService(
         purchaseDataFetcher.lockPurchase(paymentEntity.purchaseId)
 
         if (supplierPaymentVoidRepository.existsBySupplierPaymentId(supplierPaymentVoidCreateDto.supplierPaymentId)) {
-            throw RtsGenericException("Payment ${paymentEntity.referenceNumber} has already been voided")
+            throw LibertyGenericException("Payment ${paymentEntity.referenceNumber} has already been voided")
         }
 
         val paidTotalBeforeVoid = paymentsCalculatorService.calculatePaidAmountForPurchase(paymentEntity.purchaseId)

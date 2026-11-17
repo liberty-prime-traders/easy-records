@@ -4,7 +4,7 @@ import app.myliberty.easy_records.locations.business.retail.sale.SaleLineCogsEnt
 import app.myliberty.easy_records.locations.business.retail.sale.SaleLineCogsRepository
 import app.myliberty.easy_records.locations.business.retail.sale.SaleLineEntity
 import app.myliberty.easy_records.locations.business.retail.sale.SaleLineRepository
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
@@ -53,7 +53,7 @@ class SaleCostRestaterTest {
         `when`(saleLineCogsRepository.findBySaleLineIdInAndStatus(listOf(saleLineId), SaleLineCogsStatus.ACTIVE))
             .thenReturn(listOf(SaleLineCogsEntity(saleLineId = saleLineId, cogsTotal = BigDecimal("10.00"))))
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             saleCostRestater.restate(listOf(SaleLineCostChange("SALN1", BigDecimal("20.00"), BigDecimal("5.00"))))
         }
     }

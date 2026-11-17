@@ -22,7 +22,7 @@ import app.myliberty.easy_records.organizations.business.core.payment_method.api
 import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.business.Decimals
 import app.myliberty.easy_records.util.enums.SystemContact
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Component
 import java.time.Duration
 import java.util.UUID
@@ -89,7 +89,7 @@ class SaleSessionAssembler(
         if (saleSession.originalStatus != SaleStatus.VOIDED) return null
         val saleId = saleSession.requiredSaleId()
         return saleDataFetcher.getSaleVoidInfo(saleId)
-            ?: throw RtsGenericException("Voided sale $saleId is missing its sale void record")
+            ?: throw LibertyGenericException("Voided sale $saleId is missing its sale void record")
     }
 
     private fun buildLineMappingContext(

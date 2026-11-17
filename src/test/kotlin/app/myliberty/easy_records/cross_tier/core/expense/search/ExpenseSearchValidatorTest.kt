@@ -1,6 +1,6 @@
 package app.myliberty.easy_records.cross_tier.core.expense.search
 
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertDoesNotThrow
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
@@ -97,8 +97,8 @@ class ExpenseSearchValidatorTest {
     fun `page size must be between 1 and 500`() {
         assertDoesNotThrow { ExpenseSearchValidator.guardValidPageSize(1) }
         assertDoesNotThrow { ExpenseSearchValidator.guardValidPageSize(500) }
-        assertThrows(RtsGenericException::class.java) { ExpenseSearchValidator.guardValidPageSize(0) }
-        assertThrows(RtsGenericException::class.java) { ExpenseSearchValidator.guardValidPageSize(501) }
+        assertThrows(LibertyGenericException::class.java) { ExpenseSearchValidator.guardValidPageSize(0) }
+        assertThrows(LibertyGenericException::class.java) { ExpenseSearchValidator.guardValidPageSize(501) }
     }
 
     private fun rangedParameters(
@@ -127,6 +127,6 @@ class ExpenseSearchValidatorTest {
     )
 
     private fun assertRejected(expenseSearchParameters: ExpenseSearchParameters) {
-        assertThrows(RtsGenericException::class.java) { ExpenseSearchValidator.guardValidParameters(expenseSearchParameters) }
+        assertThrows(LibertyGenericException::class.java) { ExpenseSearchValidator.guardValidParameters(expenseSearchParameters) }
     }
 }

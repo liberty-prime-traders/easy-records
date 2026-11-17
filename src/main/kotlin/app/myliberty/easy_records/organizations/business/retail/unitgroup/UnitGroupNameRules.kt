@@ -2,7 +2,7 @@ package app.myliberty.easy_records.organizations.business.retail.unitgroup
 
 import app.myliberty.easy_records.organizations.business.retail.unitgroup.api.UnitGroupDto
 import app.myliberty.easy_records.util.business.StringUtils
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import java.util.UUID
 
 object UnitGroupNameRules {
@@ -16,7 +16,7 @@ object UnitGroupNameRules {
                 it.id != excludedUnitGroupId && StringUtils.isEquivalentOnAlphanumerics(it.name, name)
             }
             if (takenByEarlierName || takenByExistingGroup) {
-                throw RtsGenericException("An UnitGroup using the name '$name' already exists")
+                throw LibertyGenericException("An UnitGroup using the name '$name' already exists")
             }
         }
     }

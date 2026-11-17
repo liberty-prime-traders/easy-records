@@ -1,12 +1,12 @@
 package app.myliberty.easy_records.organizations.business.core.account
 
 import app.myliberty.easy_records.organizations.business.core.account.api.AccountInsertDto
-import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.util.business.mappers.LibertyMapperConfig
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 
 
-@Mapper(config = RtsMapperConfig::class)
+@Mapper(config = LibertyMapperConfig::class)
 interface AccountMapper {
 
     fun toDomainDto(accountEntity: AccountEntity): AccountDto

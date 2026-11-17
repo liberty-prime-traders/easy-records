@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import app.myliberty.easy_records.organizations.business.retail.adjustment_reason.api.AdjustmentDirection
 import app.myliberty.easy_records.support.WithDefaultOrganizationSession
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -49,6 +49,6 @@ class SaleSessionAdjustmentAddDtoTest {
 
     private fun assertRejected(build: () -> Any) {
         val thrown = assertThrows(Exception::class.java) { build() }
-        assertTrue(generateSequence<Throwable>(thrown) { it.cause }.any { it is RtsGenericException })
+        assertTrue(generateSequence<Throwable>(thrown) { it.cause }.any { it is LibertyGenericException })
     }
 }

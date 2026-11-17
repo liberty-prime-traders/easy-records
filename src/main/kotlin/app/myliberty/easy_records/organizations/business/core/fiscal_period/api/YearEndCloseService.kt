@@ -9,7 +9,7 @@ import app.myliberty.easy_records.organizations.business.core.fiscal_period.Fisc
 import app.myliberty.easy_records.organizations.business.core.fiscal_period.FiscalPeriodUtils
 import app.myliberty.easy_records.organizations.business.core.fiscal_period.PeriodCloseValidator
 import app.myliberty.easy_records.util.business.mappers.UserQualifier
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Service
 import java.time.Instant
 import java.util.UUID
@@ -26,12 +26,12 @@ class YearEndCloseService(
 ) {
 
     fun close(periodId: UUID): FiscalPeriodResponseDto {
-        val config = configService.getConfig() ?: throw RtsGenericException("Accounting configuration has not been initialized")
+        val config = configService.getConfig() ?: throw LibertyGenericException("Accounting configuration has not been initialized")
         val period = repository.findById(periodId).orElseThrow {
-            RtsGenericException("Fiscal period not found: $periodId")
+            LibertyGenericException("Fiscal period not found: $periodId")
         }
 
-        if (!period.yearEnd) throw RtsGenericException("Period '${period.name}' is not a year-end period")
+        if (!period.yearEnd) throw LibertyGenericException("Period '${period.name}' is not a year-end period")
         validator.assertCanClose(period)
 
         denormalizedYearEndBalanceTransfer.applyYearEndBalanceTransfer()

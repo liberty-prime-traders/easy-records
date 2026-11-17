@@ -5,7 +5,7 @@ import app.myliberty.easy_records.organizations.business.core.contact.api.Contac
 import app.myliberty.easy_records.organizations.business.core.contact.api.ContactStatus
 import app.myliberty.easy_records.organizations.business.core.contact.api.ContactType
 import app.myliberty.easy_records.util.business.StringUtils
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Component
 
 @Component
@@ -16,13 +16,13 @@ class LoanLenderValidator(
     fun requireActiveLender(lenderContactReference: String?): ContactDto {
         val referenceNumber = StringUtils.getValueOrException(lenderContactReference, "Lender is required")
         val lenderContactDto = contactService.findContactByReferenceNumber(referenceNumber)
-            ?: throw RtsGenericException("Lender not found: $referenceNumber")
+            ?: throw LibertyGenericException("Lender not found: $referenceNumber")
         val displayName = lenderContactDto.identity.displayName
         if (lenderContactDto.status != ContactStatus.ACTIVE) {
-            throw RtsGenericException("Lender $displayName is not active")
+            throw LibertyGenericException("Lender $displayName is not active")
         }
         if (ContactType.LENDER !in lenderContactDto.contactTypes) {
-            throw RtsGenericException("Contact $displayName is not a lender")
+            throw LibertyGenericException("Contact $displayName is not a lender")
         }
         return lenderContactDto
     }

@@ -10,7 +10,7 @@ import app.myliberty.easy_records.locations.business.retail.location_product.api
 import app.myliberty.easy_records.locations.business.retail.purchase.api.delivery.DeliveryHandlerForPurchase
 import app.myliberty.easy_records.locations.business.retail.purchase.api.delivery.PurchaseDeliveryLineStatus
 import app.myliberty.easy_records.util.exceptions.BlockedChangeException
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.quantity.ExactQuantity
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Propagation
@@ -106,6 +106,6 @@ class PurchaseDeliveryLineReplacer(
 
     private fun requiredRevisedLine(revisedDeliveryLineId: UUID): PurchaseDeliveryLineEntity =
         purchaseDeliveryLineRepository.findById(revisedDeliveryLineId).orElseThrow {
-            RtsGenericException("That delivery line could not be found. Refresh the page and try again.")
+            LibertyGenericException("That delivery line could not be found. Refresh the page and try again.")
         }
 }

@@ -1,7 +1,7 @@
 package app.myliberty.easy_records.util.quantity
 
 import app.myliberty.easy_records.util.business.Decimals
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
 import java.math.BigDecimal
@@ -22,7 +22,7 @@ class DecimalPlacesLimitTest {
 
     @Test
     fun `three decimals are rejected with a business error`() {
-        assertThrows(RtsGenericException::class.java) { check("1.255") }
-        assertThrows(RtsGenericException::class.java) { check("0.001") }
+        assertThrows(LibertyGenericException::class.java) { check("1.255") }
+        assertThrows(LibertyGenericException::class.java) { check("0.001") }
     }
 }

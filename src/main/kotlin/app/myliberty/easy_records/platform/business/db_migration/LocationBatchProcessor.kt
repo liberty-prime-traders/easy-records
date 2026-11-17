@@ -5,7 +5,7 @@ import app.myliberty.easy_records.organizations.business.core.location.api.Locat
 import app.myliberty.easy_records.platform.business.db_version.api.DbVersionDto
 import app.myliberty.easy_records.platform.business.db_version.api.DbVersionService
 import app.myliberty.easy_records.platform.business.organization.api.OrganizationDto
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Component
 import java.util.UUID
 
@@ -30,7 +30,7 @@ class LocationBatchProcessor(
     val locations = locationService.getAllLocationDtos().filter { it.id in locationIds }
 
     if (locations.isEmpty()) {
-      throw RtsGenericException("None of the specified locations were found for migration")
+      throw LibertyGenericException("None of the specified locations were found for migration")
     }
 
     val successful = mutableListOf<DbMigrationDto>()

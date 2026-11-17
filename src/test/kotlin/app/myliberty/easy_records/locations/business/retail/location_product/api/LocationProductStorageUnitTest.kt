@@ -8,7 +8,7 @@ import app.myliberty.easy_records.locations.business.retail.location_product.Loc
 import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.UnitConversionGraph
 import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.UnitConversionGraphFacade
 import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitPlacement
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
@@ -74,7 +74,7 @@ class LocationProductStorageUnitTest {
     fun `a unit whose root differs from the product's storage unit is rejected`() {
         val locationProductId = productWithBaseUnit(baleId)
 
-        val exception = assertThrows(RtsGenericException::class.java) {
+        val exception = assertThrows(LibertyGenericException::class.java) {
             fetcher.getStorageUnitsPerUserProvidedUnit(listOf(LocationProductUnitRequestDto(locationProductId, gramId)))
         }
 
@@ -89,7 +89,7 @@ class LocationProductStorageUnitTest {
             1L,
             fetcher.getStorageUnitsPerUserProvidedUnit(listOf(LocationProductUnitRequestDto(locationProductId, miscPieceId))).getValue(locationProductId)
         )
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             fetcher.getStorageUnitsPerUserProvidedUnit(listOf(LocationProductUnitRequestDto(locationProductId, miscCartonId)))
         }
     }

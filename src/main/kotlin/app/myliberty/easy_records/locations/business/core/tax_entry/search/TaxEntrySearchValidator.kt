@@ -1,7 +1,7 @@
 package app.myliberty.easy_records.locations.business.core.tax_entry.search
 
 import app.myliberty.easy_records.locations.business.core.tax_entry.api.TaxEntrySearchParameters
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.queries.SearchGuards
 
 object TaxEntrySearchValidator {
@@ -40,7 +40,7 @@ object TaxEntrySearchValidator {
 
     fun guardFiscalPeriodSupplied(taxEntrySearchParameters: TaxEntrySearchParameters) {
         if (taxEntrySearchParameters.fiscalPeriodIds.isEmpty()) {
-            throw RtsGenericException("At least one fiscal period must be supplied to search tax entries")
+            throw LibertyGenericException("At least one fiscal period must be supplied to search tax entries")
         }
     }
 }

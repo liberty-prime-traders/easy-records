@@ -8,7 +8,7 @@ import app.myliberty.easy_records.organizations.business.retail.unitgroup.UnitGr
 import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueService
 import app.myliberty.easy_records.util.business.StringUtils
 import app.myliberty.easy_records.util.business.lock.LockNamespaces
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException
 import org.springframework.stereotype.Service
 import java.util.Optional
@@ -56,7 +56,7 @@ class UnitGroupService(
     private fun validateNameOnSave(optionalName: Optional<String>?, id: UUID? = null) {
         val name = StringUtils.getValueOrException(optionalName, "An UnitGroup must have a name")
         if (name.none { it.isLetterOrDigit() }) {
-            throw RtsGenericException("A unit group name must contain at least one letter or digit")
+            throw LibertyGenericException("A unit group name must contain at least one letter or digit")
         }
         requireNamesAvailable(listOf(name), id)
     }
@@ -69,7 +69,7 @@ class UnitGroupService(
     fun updateUnitGroup(unitGroupUpdateDto: UnitGroupUpdateDto): UnitGroupResponseDto {
         val existing = unitGroupCache.getAllUnitGroups().find { it.id == unitGroupUpdateDto.id }
             ?: throw UpdatingNonExistingRecordException()
-        if (existing.systemDefined) throw RtsGenericException("System-defined unit groups cannot be modified")
+        if (existing.systemDefined) throw LibertyGenericException("System-defined unit groups cannot be modified")
         validateNameOnSave(unitGroupUpdateDto.name, unitGroupUpdateDto.id)
         val updated = unitGroupUpdateDto.applyTo(existing)
         val saved = unitGroupCache.save(updated)
@@ -79,7 +79,7 @@ class UnitGroupService(
     fun deleteUnitGroup(id: UUID) {
         unitGroupCache.getAllUnitGroups().find { it.id == id }
             ?.apply {
-                if (this.systemDefined) throw RtsGenericException("System-defined unit groups cannot be deleted")
+                if (this.systemDefined) throw LibertyGenericException("System-defined unit groups cannot be deleted")
                 unitValueService.deleteAllInUnitGroup(id)
                 unitGroupCache.deleteUnitGroup(id)
             }

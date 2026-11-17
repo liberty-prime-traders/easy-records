@@ -11,7 +11,7 @@ import app.myliberty.easy_records.locations.business.retail.sale_payment.api.Sal
 import app.myliberty.easy_records.locations.business.retail.stock.api.read.StockBalanceFetcher
 import app.myliberty.easy_records.locations.business.retail.stock_reservation.api.StockReserver
 import app.myliberty.easy_records.util.business.DateTimes
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.quantity.ExactQuantity
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
@@ -31,13 +31,13 @@ class SaleValidator(
     companion object {
         fun guardNoPreAllocatedReferenceOnExistingSale(saleSaveRequest: SaleSaveRequest) {
             if (saleSaveRequest.preAllocatedReferenceNumber != null) {
-                throw RtsGenericException("A reference number can only be pre-allocated for a new sale")
+                throw LibertyGenericException("A reference number can only be pre-allocated for a new sale")
             }
         }
 
         fun guardNoPreAllocatedReferenceOnConfirm(saleSaveRequest: SaleSaveRequest) {
             if (saleSaveRequest.preAllocatedReferenceNumber != null) {
-                throw RtsGenericException("A reference number can only be pre-allocated when saving a draft")
+                throw LibertyGenericException("A reference number can only be pre-allocated when saving a draft")
             }
         }
 
@@ -45,7 +45,7 @@ class SaleValidator(
             val orgToday = DateTimes.Local.Now.organization()
             val saleLocalDate = DateTimes.Local.atOrganizationZone(dateSold)
             if (saleLocalDate > orgToday) {
-                throw RtsGenericException("Sale date must be today or in the past. Provided date: $saleLocalDate")
+                throw LibertyGenericException("Sale date must be today or in the past. Provided date: $saleLocalDate")
             }
         }
     }
@@ -57,16 +57,16 @@ class SaleValidator(
 
     private fun guardCanVoid(sale: SaleEntity, hasActivePayments: Boolean) {
         if (sale.status == SaleStatus.VOIDED) {
-            throw RtsGenericException("Sale ${sale.referenceNumber} is already voided")
+            throw LibertyGenericException("Sale ${sale.referenceNumber} is already voided")
         }
         if (sale.status == SaleStatus.DISCARDED) {
-            throw RtsGenericException("Sale ${sale.referenceNumber} is discarded and cannot be voided")
+            throw LibertyGenericException("Sale ${sale.referenceNumber} is discarded and cannot be voided")
         }
         if (hasActivePayments) {
-            throw RtsGenericException("Cannot void a sale with active payments")
+            throw LibertyGenericException("Cannot void a sale with active payments")
         }
         if (sale.status != SaleStatus.DRAFT && sale.taxTotal == null) {
-            throw RtsGenericException("Cannot void sale ${sale.referenceNumber} — tax finalization is still pending")
+            throw LibertyGenericException("Cannot void sale ${sale.referenceNumber} — tax finalization is still pending")
         }
     }
 
@@ -86,7 +86,7 @@ class SaleValidator(
             if (available < storageQuantity) {
                 val label = productSummaries[locationProductId]?.label ?: locationProductId.toString()
                 val quantityBreakdown = breakdownByLocationProductId.getValue(locationProductId)
-                throw RtsGenericException(
+                throw LibertyGenericException(
                     "Insufficient stock for $label. Available: ${quantityBreakdown.render(available)}, Requested: ${quantityBreakdown.render(storageQuantity)}"
                 )
             }

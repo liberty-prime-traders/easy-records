@@ -3,7 +3,7 @@ package app.myliberty.easy_records.locations.business.retail.stock
 import app.myliberty.easy_records.locations.business.retail.stock.api.fifo.FifoConsumptionRequest
 import app.myliberty.easy_records.support.WithDefaultOrganizationSession
 import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.MovementType
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.quantity.BreakdownUnit
 import app.myliberty.easy_records.util.quantity.ExactQuantity
 import app.myliberty.easy_records.util.quantity.QuantityBreakdown
@@ -209,7 +209,7 @@ class FifoStockConsumerTest {
     fun `sufficiency is exact so one storage unit more than available is rejected with breakdown figures`() {
         val onlyLayer = stockEntry(priority = 0, storageQuantity = "35", batchCost = "70.0000")
 
-        val exception = assertThrows(RtsGenericException::class.java) {
+        val exception = assertThrows(LibertyGenericException::class.java) {
             FifoStockConsumer.consume(
                 request("36", userProvidedQuantity = "2", storageUnitsPerUserProvidedUnit = 18L), listOf(onlyLayer), BigDecimal("35"), baleBreakdown, "Bella"
             )

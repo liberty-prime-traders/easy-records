@@ -3,7 +3,7 @@ package app.myliberty.easy_records.util.exceptions
 class BlockedChangeException(
     headline: String,
     val problems: List<BlockingProblem>
-) : RtsGenericException(headline, payload = problems) {
+) : LibertyGenericException(headline, payload = problems) {
 
     companion object {
 

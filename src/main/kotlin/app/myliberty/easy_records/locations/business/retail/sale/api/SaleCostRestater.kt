@@ -4,7 +4,7 @@ import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocati
 import app.myliberty.easy_records.locations.business.retail.sale.SaleLineCogsEntity
 import app.myliberty.easy_records.locations.business.retail.sale.SaleLineCogsRepository
 import app.myliberty.easy_records.locations.business.retail.sale.SaleLineRepository
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Propagation
 
@@ -28,12 +28,12 @@ class SaleCostRestater(
 
         saleLineCostChanges.forEach { saleLineCostChange ->
             val saleLine = saleLineByReferenceNumber[saleLineCostChange.saleLineReferenceNumber]
-                ?: throw RtsGenericException("Sale line ${saleLineCostChange.saleLineReferenceNumber} not found")
+                ?: throw LibertyGenericException("Sale line ${saleLineCostChange.saleLineReferenceNumber} not found")
             val activeCogs = activeCogsBySaleLineId[saleLine.id!!]
-                ?: throw RtsGenericException("Sale line ${saleLineCostChange.saleLineReferenceNumber} has no cost record")
+                ?: throw LibertyGenericException("Sale line ${saleLineCostChange.saleLineReferenceNumber} has no cost record")
             val restatedCogsTotal = activeCogs.cogsTotal - saleLineCostChange.oldCost + saleLineCostChange.newCost
             if (restatedCogsTotal.signum() < 0) {
-                throw RtsGenericException(
+                throw LibertyGenericException(
                     "Sale line ${saleLineCostChange.saleLineReferenceNumber} would have a negative cost after the revision"
                 )
             }

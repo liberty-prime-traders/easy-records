@@ -2,12 +2,12 @@ package app.myliberty.easy_records.util.model
 
 import jakarta.persistence.MappedSuperclass
 import jakarta.persistence.PreUpdate
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 
 @MappedSuperclass
 abstract class ImmutableEntity: HasReferenceEntity() {
     @PreUpdate
     fun onUpdate() {
-        throw RtsGenericException("Cannot update an immutable entity ${this::class.simpleName}")
+        throw LibertyGenericException("Cannot update an immutable entity ${this::class.simpleName}")
     }
 }

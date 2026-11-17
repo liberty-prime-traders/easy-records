@@ -1,11 +1,11 @@
 package app.myliberty.easy_records.platform.business.sysuser
 
 import app.myliberty.easy_records.platform.business.sysuser.api.SysUserInsertDto
-import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.util.business.mappers.LibertyMapperConfig
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 
-@Mapper(config = RtsMapperConfig::class)
+@Mapper(config = LibertyMapperConfig::class)
 interface SysUserMapper {
     fun toDomainDto(sysUserEntity: SysUserEntity): SysUserDto
 

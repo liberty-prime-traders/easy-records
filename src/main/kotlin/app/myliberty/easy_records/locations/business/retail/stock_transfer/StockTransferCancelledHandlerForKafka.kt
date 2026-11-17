@@ -6,7 +6,7 @@ import app.myliberty.easy_records.messaging.kafka.common.EventSourceContext
 import app.myliberty.easy_records.messaging.kafka.transaction.EventReissueHandler
 import app.myliberty.easy_records.messaging.kafka.transaction.events.StockTransferCancelledEvent
 import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferOrderDataFetcher
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.business.Money
 import org.springframework.context.ApplicationEventPublisher
@@ -28,7 +28,7 @@ class StockTransferCancelledHandlerForKafka(
     override fun reissue(sourceDocumentId: UUID) {
         val order = stockTransferOrderDataFetcher.getById(sourceDocumentId)
         val dispatch = stockTransferDispatchRepository.findByStockTransferOrderRef(order.referenceNumber)
-            ?: throw RtsGenericException("Dispatch not found for order ${order.referenceNumber}")
+            ?: throw LibertyGenericException("Dispatch not found for order ${order.referenceNumber}")
         publish(
             orderId = order.id,
             orderReferenceNumber = order.referenceNumber,

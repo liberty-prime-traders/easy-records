@@ -3,7 +3,7 @@ package app.myliberty.easy_records.organizations.business.retail.unitvalue
 import app.myliberty.easy_records.organizations.business.retail.unitgroup.api.UnitGroupDataFetcher
 import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueInsertDto
 import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueUpdateDto
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -140,7 +140,7 @@ class UnitValueValidatorTest {
     }
 
     private fun assertRejected(action: () -> Unit) {
-        assertThrows(RtsGenericException::class.java, action)
+        assertThrows(LibertyGenericException::class.java, action)
     }
 
     private fun insert(name: String, code: String, unitGroupId: UUID, baseUnit: UUID? = null, unitsOfBasePerUnit: Long? = null) =

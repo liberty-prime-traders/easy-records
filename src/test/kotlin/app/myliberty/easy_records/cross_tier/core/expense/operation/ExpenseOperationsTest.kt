@@ -28,7 +28,7 @@ import app.myliberty.easy_records.messaging.kafka.transaction.events.ExpenseReco
 import app.myliberty.easy_records.organizations.business.core.contact.api.ContactDto
 import app.myliberty.easy_records.organizations.business.core.contact.api.ContactType
 import app.myliberty.easy_records.organizations.business.core.expense_type.api.ExpenseTypeDto
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertInstanceOf
@@ -89,7 +89,7 @@ class ExpenseOperationsTest {
     fun `an expense with a live payment cannot be voided`() {
         val expenseDto = stubExpense(amount = "100", activePayments = listOf("40"))
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             expenseOperations.voidExpense(ExpenseVoidRequest(expenseDto.referenceNumber, "entered twice"))
         }
         verify(expenseStore, never()).saveExpenseVoid(expenseDto.id, "entered twice")
@@ -100,7 +100,7 @@ class ExpenseOperationsTest {
     fun `an already voided expense cannot be voided or paid again`() {
         val expenseDto = stubExpense(amount = "100", activePayments = emptyList(), voided = true)
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             expenseOperations.voidExpense(ExpenseVoidRequest(expenseDto.referenceNumber, "again"))
         }
         verifyNoInteractions(eventPublisher)
@@ -108,7 +108,7 @@ class ExpenseOperationsTest {
 
     @Test
     fun `voiding requires a reason`() {
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             expenseOperations.voidExpense(ExpenseVoidRequest("EXPN01", "  "))
         }
     }

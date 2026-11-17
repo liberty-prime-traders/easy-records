@@ -7,7 +7,7 @@ import app.myliberty.easy_records.messaging.kafka.common.EventSourceContext
 import app.myliberty.easy_records.messaging.kafka.transaction.EventReissueHandler
 import app.myliberty.easy_records.messaging.kafka.transaction.events.SupplierPaymentRecordedEvent
 import app.myliberty.easy_records.util.business.PositiveMoney
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Component
 import java.time.Instant
@@ -25,7 +25,7 @@ class SupplierPaymentHandlerForKafka(
 
     override fun reissue(sourceDocumentId: UUID) {
         val payment = supplierPaymentRepository.findById(sourceDocumentId)
-            .orElseThrow { RtsGenericException("Payment $sourceDocumentId not found") }
+            .orElseThrow { LibertyGenericException("Payment $sourceDocumentId not found") }
         val context = deliveryHandlerForPurchase.getDeliveryContext(payment.purchaseId)
         publish(payment, context.supplierId)
     }

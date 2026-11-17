@@ -13,7 +13,7 @@ import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.Un
 import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueResponseDto
 import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueService
 import app.myliberty.easy_records.util.business.StringUtils
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Service
 import java.util.UUID
 
@@ -29,7 +29,7 @@ class BulkUnitImportService(
     fun bulkImport(bulkUnitImportRequestDto: BulkUnitImportRequestDto): Collection<UnitGroupResponseDto> {
         val errors = bulkUnitImportValidator.validate(bulkUnitImportRequestDto)
         if (errors.isNotEmpty()) {
-            throw RtsGenericException("Bulk unit import validation failed", errors)
+            throw LibertyGenericException("Bulk unit import validation failed", errors)
         }
 
         val existingSystemDefinedGroupsByNormalizedName = unitGroupService.getAllUnitGroups()

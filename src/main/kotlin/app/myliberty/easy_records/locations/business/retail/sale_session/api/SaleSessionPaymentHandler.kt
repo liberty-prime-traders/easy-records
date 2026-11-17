@@ -7,7 +7,7 @@ import app.myliberty.easy_records.locations.business.retail.sale_payment.api.Sal
 import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionStore
 import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionUpdateFinalizer
 import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionValidator
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Service
 import java.time.OffsetDateTime
 import java.util.UUID
@@ -24,7 +24,7 @@ class SaleSessionPaymentHandler(
         val saleSession = saleSessionStore.load(sessionId)
         saleSessionValidator.canAddPayments(saleSession)
         val persistedPaymentOutcome = if (saleSession.originalStatus == SaleStatus.CONFIRMED) {
-            val saleId = saleSession.saleId ?: throw RtsGenericException("CONFIRMED session is missing a saleId")
+            val saleId = saleSession.saleId ?: throw LibertyGenericException("CONFIRMED session is missing a saleId")
             persistPayment(saleId, paymentAddDto)
         } else {
             PersistedPaymentOutcome(SessionIdentity.mintFreshIdentity(), null)
@@ -71,7 +71,7 @@ class SaleSessionPaymentHandler(
         saleSessionValidator.guardAllowed(saleSession, SaleSessionAction.REMOVE_PAYMENT)
         val targetPaymentKey = paymentRemoveDto.identity.key()
         val targetSaleSessionPayment = saleSession.salePayments.firstOrNull { it.identity.key() == targetPaymentKey }
-            ?: throw RtsGenericException("Payment not found on session")
+            ?: throw LibertyGenericException("Payment not found on session")
         val persistedPaymentId = targetSaleSessionPayment.identity.id
         val refreshedSession = if (persistedPaymentId == null) {
             saleSession.copy(
@@ -79,7 +79,7 @@ class SaleSessionPaymentHandler(
             )
         } else {
             val voidReason = paymentRemoveDto.voidReason
-                ?: throw RtsGenericException("voidReason is required when voiding a recorded payment")
+                ?: throw LibertyGenericException("voidReason is required when voiding a recorded payment")
             val voidPaymentResponse = salePaymentService.voidPayment(
                 SalePaymentVoidCreateDto(salePaymentId = persistedPaymentId, reason = voidReason)
             )

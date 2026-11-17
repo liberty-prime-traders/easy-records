@@ -26,7 +26,7 @@ import app.myliberty.easy_records.organizations.business.retail.stock_transfer.a
 import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferStatus
 import app.myliberty.easy_records.util.business.Money
 import app.myliberty.easy_records.util.business.lock.LockNamespaces
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.BeforeEach
@@ -216,7 +216,7 @@ class StockTransferReceiptServiceTest {
         givenOrderWithOneDispatchLine(StockTransferStatus.DISPATCHED, StockTransferStatus.CANCELLED)
         givenReceiptLinesConfirmed("DL-1")
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             stockTransferReceiptService.completeTransfer(receiptReferenceNumber)
         }
 
@@ -229,7 +229,7 @@ class StockTransferReceiptServiceTest {
         `when`(stockTransferReceiptRepository.findByReferenceNumber(receiptReferenceNumber))
             .thenReturn(receipt(StockTransferReceiptStatus.COMPLETED))
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             stockTransferReceiptService.completeTransfer(receiptReferenceNumber)
         }
 
@@ -241,7 +241,7 @@ class StockTransferReceiptServiceTest {
         givenOrderWithOneDispatchLine()
         givenReceiptLinesConfirmed()
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             stockTransferReceiptService.completeTransfer(receiptReferenceNumber)
         }
 
@@ -254,7 +254,7 @@ class StockTransferReceiptServiceTest {
         `when`(stockTransferOrderDataFetcher.getByReferenceNumber(orderReferenceNumber))
             .thenReturn(order(StockTransferStatus.DISPATCHED), order(StockTransferStatus.CANCELLED))
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             stockTransferReceiptService.completeTransfer(receiptReferenceNumber)
         }
 
@@ -267,7 +267,7 @@ class StockTransferReceiptServiceTest {
         `when`(stockTransferOrderDataFetcher.getByReferenceNumber(orderReferenceNumber))
             .thenReturn(order(StockTransferStatus.DISPATCHED), order(StockTransferStatus.CANCELLED))
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             stockTransferReceiptService.completeTransfer(receiptReferenceNumber)
         }
 
@@ -285,7 +285,7 @@ class StockTransferReceiptServiceTest {
         `when`(stockTransferReceiptRepository.findByReferenceNumber(receiptReferenceNumber))
             .thenReturn(receipt(StockTransferReceiptStatus.COMPLETED))
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             stockTransferReceiptService.completeTransfer(receiptReferenceNumber)
         }
 
@@ -294,7 +294,7 @@ class StockTransferReceiptServiceTest {
 
     @Test
     fun `completing an unknown receipt throws before any lock is taken`() {
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             stockTransferReceiptService.completeTransfer(receiptReferenceNumber)
         }
 

@@ -5,7 +5,7 @@ import app.myliberty.easy_records.configuration.session.SessionContextProvider
 import app.myliberty.easy_records.organizations.business.core.organization_admin.OrganizationAdminCache
 import app.myliberty.easy_records.organizations.business.core.organization_admin.OrganizationAdminMapper
 import app.myliberty.easy_records.platform.business.sysuser.api.SysUserService
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Service
 import java.time.OffsetDateTime
 import java.util.UUID
@@ -32,7 +32,7 @@ class OrganizationAdminService(
 
     private fun validateUserExists(adminId: UUID) {
         sysUserService.findById(adminId)
-            ?: throw RtsGenericException("User with id $adminId not found")
+            ?: throw LibertyGenericException("User with id $adminId not found")
     }
 
     fun terminateOrganizationAdmin(adminId: UUID) {

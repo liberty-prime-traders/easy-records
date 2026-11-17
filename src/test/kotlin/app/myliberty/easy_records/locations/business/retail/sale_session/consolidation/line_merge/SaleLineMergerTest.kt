@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.UnitConversionGraph
 import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitPlacement
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.quantity.BreakdownUnit
 import java.math.BigDecimal
 import java.time.OffsetDateTime
@@ -486,7 +486,7 @@ class SaleLineMergerTest {
         val sugarLine = saleLine(sugarId, "3", "45.00")
         val adjustmentOnAnotherLine = percentageDiscount(saleLine(riceId, "2", "40.00"), "10")
 
-        assertThrows(RtsGenericException::class.java) { merge(listOf(sugarLine), listOf(adjustmentOnAnotherLine)) }
+        assertThrows(LibertyGenericException::class.java) { merge(listOf(sugarLine), listOf(adjustmentOnAnotherLine)) }
     }
 
     @Test

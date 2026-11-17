@@ -4,7 +4,7 @@ import jakarta.persistence.Column
 import jakarta.persistence.EntityListeners
 import jakarta.persistence.MappedSuperclass
 import app.myliberty.easy_records.util.business.DateTimes
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.data.annotation.CreatedBy
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import java.time.OffsetDateTime
@@ -34,8 +34,8 @@ abstract class HasCreatorEntity(
     }
 
     fun requiredCreatedOn(): OffsetDateTime = createdOn
-        ?: throw RtsGenericException("${javaClass.simpleName} is missing its createdOn timestamp")
+        ?: throw LibertyGenericException("${javaClass.simpleName} is missing its createdOn timestamp")
 
     fun requiredCreatedById(): UUID = createdById
-        ?: throw RtsGenericException("${javaClass.simpleName} is missing its createdById")
+        ?: throw LibertyGenericException("${javaClass.simpleName} is missing its createdById")
 }

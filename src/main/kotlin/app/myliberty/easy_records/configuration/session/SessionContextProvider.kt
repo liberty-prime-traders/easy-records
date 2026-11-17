@@ -3,7 +3,7 @@ package app.myliberty.easy_records.configuration.session
 import app.myliberty.easy_records.configuration.security.RtsHeaders
 import app.myliberty.easy_records.organizations.business.core.location.api.LocationDto
 import app.myliberty.easy_records.platform.business.organization.api.OrganizationDto
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.exceptions.RtsMissingHeaderException
 import java.util.UUID
 
@@ -19,7 +19,7 @@ object SessionContextProvider {
     }
 
     fun getUserId(): UUID {
-        return getSession().systemUserId ?: throw RtsGenericException("User ID not found in session")
+        return getSession().systemUserId ?: throw LibertyGenericException("User ID not found in session")
     }
 
     fun getUserIdOrNull(): UUID? {
@@ -43,15 +43,15 @@ object SessionContextProvider {
     }
 
     fun getLocationSchema(): String {
-        return getSession().location?.schemaName ?: throw RtsGenericException("Location schema not found in session.")
+        return getSession().location?.schemaName ?: throw LibertyGenericException("Location schema not found in session.")
     }
 
     fun getOrganizationSchema(): String {
-        return getSession().organization?.schemaName ?: throw RtsGenericException("Organization schema not found in session.")
+        return getSession().organization?.schemaName ?: throw LibertyGenericException("Organization schema not found in session.")
     }
 
     fun getOrgTimezone(): String {
-        return getSession().organization?.timezone ?: throw RtsGenericException("Organization timezone not found in session.")
+        return getSession().organization?.timezone ?: throw LibertyGenericException("Organization timezone not found in session.")
     }
 
     fun clear() {

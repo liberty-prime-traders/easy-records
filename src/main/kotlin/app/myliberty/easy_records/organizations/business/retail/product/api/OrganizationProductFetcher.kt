@@ -8,7 +8,7 @@ import app.myliberty.easy_records.organizations.business.retail.product.Organiza
 import app.myliberty.easy_records.organizations.business.retail.product.OrganizationProductSearchExecutor
 import app.myliberty.easy_records.organizations.business.retail.product_tag.api.ProductTagService
 import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueFetcher
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.paging.PageRequest
 import app.myliberty.easy_records.util.paging.PageResponse
 import app.myliberty.easy_records.util.queries.FetchesUsingSmartTextStrategy
@@ -50,7 +50,7 @@ class OrganizationProductFetcher(
         val unitNamesById = unitValueFetcher.getUnitNamesById()
         val responseDtos = organizationProductCache.findAllProducts().map {
             val baseUnit = unitNamesById[it.baseUnitId]
-                ?: throw RtsGenericException("Unit name not found for id ${it.baseUnitId}")
+                ?: throw LibertyGenericException("Unit name not found for id ${it.baseUnitId}")
             organizationProductMapper.toResponseDtoWithoutTags(it, baseUnit)
         }
         return productTagService.populateTagsForProducts(responseDtos)

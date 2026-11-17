@@ -7,7 +7,7 @@ import app.myliberty.easy_records.organizations.business.core.payment_method.Pay
 import app.myliberty.easy_records.organizations.business.core.payment_method.PaymentMethodMapper
 import app.myliberty.easy_records.util.business.StringUtils
 import app.myliberty.easy_records.util.exceptions.QueriedByEmptyIdException
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException
 import org.springframework.stereotype.Service
 import java.util.Objects
@@ -35,7 +35,7 @@ class PaymentMethodService(
         val name = StringUtils.getValueOrException(optionalName, "A Payment Method must have a name")
         paymentMethodCache.getAllPaymentMethods()
             .find { StringUtils.isEquivalent(it.name, name) && !Objects.equals(it.id, id) }
-            ?.let { throw RtsGenericException("A Payment Method using the name '$name' already exists") }
+            ?.let { throw LibertyGenericException("A Payment Method using the name '$name' already exists") }
     }
 
     fun updatePaymentMethod(paymentMethodUpdateDto: PaymentMethodUpdateDto): PaymentMethodResponseDto {

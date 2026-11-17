@@ -1,6 +1,6 @@
 package app.myliberty.easy_records.locations.business.retail.sale_session.api
 
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.locations.business.retail.sale_session.consolidation.PendingConsolidationPromoter
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
 import app.myliberty.easy_records.locations.business.retail.sale_session.consolidation.ConsolidationGenerateInput
@@ -31,7 +31,7 @@ class SaleConsolidationHandler(
         saleSessionValidator.guardAllowed(pendingSession, SaleSessionAction.GENERATE_CONSOLIDATED_SALE)
         if (pendingSession !== loadedSession) {
             saleSessionStore.save(pendingSession)
-            throw RtsGenericException("Some products still cannot be combined. Reload this page to see them")
+            throw LibertyGenericException("Some products still cannot be combined. Reload this page to see them")
         }
         return saleConsolidationGenerator.generate(
             ConsolidationGenerateInput(

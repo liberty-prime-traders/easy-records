@@ -10,7 +10,7 @@ import app.myliberty.easy_records.locations.business.retail.supplier_payment.api
 import app.myliberty.easy_records.locations.business.retail.supplier_payment.api.SupplierPaymentDataFetcher
 import app.myliberty.easy_records.locations.business.retail.supplier_payment.api.SupplierPaymentService
 import app.myliberty.easy_records.util.business.PositiveMoney
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 
@@ -43,9 +43,9 @@ class PurchaseBulkPaymentService(
 
   fun record(purchaseBulkPaymentCreateDto: PurchaseBulkPaymentCreateDto): List<PurchaseBulkPaymentResponseDto> {
     val purchaseIds = purchaseBulkPaymentCreateDto.purchaseIds
-    if (purchaseIds.isEmpty()) throw RtsGenericException("At least one purchase must be selected")
+    if (purchaseIds.isEmpty()) throw LibertyGenericException("At least one purchase must be selected")
     if (purchaseIds.size > MAX_PAID_PURCHASES) {
-      throw RtsGenericException("At most $MAX_PAID_PURCHASES purchases can be paid in one batch")
+      throw LibertyGenericException("At most $MAX_PAID_PURCHASES purchases can be paid in one batch")
     }
 
     purchaseIds.sorted().forEach { purchaseDataFetcher.lockPurchase(it) }

@@ -26,7 +26,7 @@ import app.myliberty.easy_records.organizations.business.retail.stock_transfer.a
 import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferOrderService
 import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferStatus
 import app.myliberty.easy_records.util.business.lock.LockNamespaces
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertInstanceOf
 import org.junit.jupiter.api.Assertions.assertNull
@@ -214,7 +214,7 @@ class StockTransferOrderLockConcurrencyTest {
         cancelThread.join(10_000)
 
         assertNull(completeFailure.get())
-        assertInstanceOf(RtsGenericException::class.java, cancelFailure.get())
+        assertInstanceOf(LibertyGenericException::class.java, cancelFailure.get())
         assertEquals(StockTransferStatus.COMPLETED, orderStatus.get())
         verify(stockTransferSchemaGateway, never()).cancelDispatch(orderReferenceNumber)
         verifyNoInteractions(stockTransferCancelledHandlerForKafka)
@@ -245,7 +245,7 @@ class StockTransferOrderLockConcurrencyTest {
         completeThread.join(10_000)
 
         assertNull(cancelFailure.get())
-        assertInstanceOf(RtsGenericException::class.java, completeFailure.get())
+        assertInstanceOf(LibertyGenericException::class.java, completeFailure.get())
         assertEquals(StockTransferStatus.CANCELLED, orderStatus.get())
         verifyNoInteractions(stockTransferReceiptStockUpdater, stockTransferReceiptCompletedHandlerForKafka)
     }

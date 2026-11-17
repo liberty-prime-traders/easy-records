@@ -4,7 +4,7 @@ import app.myliberty.easy_records.organizations.business.core.contact.api.Contac
 import app.myliberty.easy_records.organizations.business.core.contact.api.ContactService
 import app.myliberty.easy_records.organizations.business.core.lock.api.OrgEntityAdvisoryLock
 import app.myliberty.easy_records.util.business.lock.LockNamespaces
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Component
 import java.util.UUID
 
@@ -22,11 +22,11 @@ class LoanFinder(
     }
 
     fun findLoan(loanId: UUID): LoanDto = loanMapper.toDto(
-        loanRepository.findById(loanId).orElseThrow { RtsGenericException("Loan not found") }
+        loanRepository.findById(loanId).orElseThrow { LibertyGenericException("Loan not found") }
     )
 
     fun findLoanStatusFigures(loanId: UUID): LoanStatusFigures = loanMapper.toStatusFigures(
-        loanStatusRepository.findById(loanId).orElseThrow { RtsGenericException("Loan status not found") }
+        loanStatusRepository.findById(loanId).orElseThrow { LibertyGenericException("Loan status not found") }
     )
 
     fun findLender(loanDto: LoanDto): ContactDto = contactService.getContactById(loanDto.lenderContactId)

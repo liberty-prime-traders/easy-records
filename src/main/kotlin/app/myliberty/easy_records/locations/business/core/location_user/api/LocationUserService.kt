@@ -13,7 +13,7 @@ import app.myliberty.easy_records.locations.business.core.role_assignment.api.Lo
 import app.myliberty.easy_records.platform.business.sysuser.api.SysUserService
 import app.myliberty.easy_records.platform.business.sysuser.api.SysUserWithProfileDto
 import app.myliberty.easy_records.util.enums.RtsPermission
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Service
 import java.time.OffsetDateTime
 import java.util.UUID
@@ -83,7 +83,7 @@ class LocationUserService(
 
     fun terminateLocationUsers(locationUserIds: List<UUID>): Collection<LocationUserResponseDto> {
         if (locationUserIds.isEmpty()) {
-            throw RtsGenericException("No users provided for termination")
+            throw LibertyGenericException("No users provided for termination")
         }
 
         return locationUserCache.getLocationUsers().filter {
@@ -103,7 +103,7 @@ class LocationUserService(
             .associate { it.userId to it.id }
         return userIds.associateWith { userId ->
             activeMembershipIdByUserId[userId]
-                ?: throw RtsGenericException("User is not an active member of this location")
+                ?: throw LibertyGenericException("User is not an active member of this location")
         }
     }
 }

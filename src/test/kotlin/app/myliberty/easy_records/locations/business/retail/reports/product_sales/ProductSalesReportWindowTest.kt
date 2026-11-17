@@ -1,6 +1,6 @@
 package app.myliberty.easy_records.locations.business.retail.reports.product_sales
 
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -25,15 +25,15 @@ class ProductSalesReportWindowTest {
 
   @Test
   fun `a missing or inverted date is rejected`() {
-    assertThrows<RtsGenericException> { ProductSalesReportWindow.ofInclusiveDates(null, firstDay) }
-    assertThrows<RtsGenericException> { ProductSalesReportWindow.ofInclusiveDates(firstDay, null) }
-    assertThrows<RtsGenericException> { ProductSalesReportWindow.ofInclusiveDates(firstDay.plusDays(1), firstDay) }
+    assertThrows<LibertyGenericException> { ProductSalesReportWindow.ofInclusiveDates(null, firstDay) }
+    assertThrows<LibertyGenericException> { ProductSalesReportWindow.ofInclusiveDates(firstDay, null) }
+    assertThrows<LibertyGenericException> { ProductSalesReportWindow.ofInclusiveDates(firstDay.plusDays(1), firstDay) }
   }
 
   @Test
   fun `a range of a whole year or more is rejected`() {
     ProductSalesReportWindow.ofInclusiveDates(firstDay, firstDay.plusYears(1).minusDays(1))
 
-    assertThrows<RtsGenericException> { ProductSalesReportWindow.ofInclusiveDates(firstDay, firstDay.plusYears(1)) }
+    assertThrows<LibertyGenericException> { ProductSalesReportWindow.ofInclusiveDates(firstDay, firstDay.plusYears(1)) }
   }
 }

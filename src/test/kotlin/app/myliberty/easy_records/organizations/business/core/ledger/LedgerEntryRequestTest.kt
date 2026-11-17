@@ -5,7 +5,7 @@ import app.myliberty.easy_records.organizations.business.core.account.api.System
 import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerEntryRequest
 import app.myliberty.easy_records.support.WithDefaultOrganizationSession
 import app.myliberty.easy_records.util.business.PositiveMoney
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -31,13 +31,13 @@ class LedgerEntryRequestTest {
 
     @Test
     fun `a negative amount is not skipped and fails loudly so a bad total cannot post silently`() {
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             LedgerEntryRequest.debitUnlessZero(SystemAccount.COST_OF_GOODS_SOLD.code, BigDecimal("-1.00"))
         }
     }
 
     @Test
     fun `an amount finer than the money scale is rejected even when the entries would balance`() {
-        assertThrows(RtsGenericException::class.java) { PositiveMoney.of(BigDecimal("10.005")) }
+        assertThrows(LibertyGenericException::class.java) { PositiveMoney.of(BigDecimal("10.005")) }
     }
 }

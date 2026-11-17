@@ -2,7 +2,7 @@ package app.myliberty.easy_records.organizations.business.core.tax_rate.api
 
 import app.myliberty.easy_records.platform.business.tax_type.api.TaxCalculationMethod
 import app.myliberty.easy_records.util.business.Decimals
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import java.math.BigDecimal
 import java.util.UUID
 
@@ -113,8 +113,8 @@ object TaxAmountCalculator {
         Decimals.MoneyScale.round(requireFlatAmount(activeTaxType))
 
     private fun requirePercentage(activeTaxType: ActiveTaxTypeForCalculation): BigDecimal =
-        activeTaxType.activeTaxRateDto.ratePercentage ?: throw RtsGenericException("Tax rate missing ratePercentage")
+        activeTaxType.activeTaxRateDto.ratePercentage ?: throw LibertyGenericException("Tax rate missing ratePercentage")
 
     private fun requireFlatAmount(activeTaxType: ActiveTaxTypeForCalculation): BigDecimal =
-        activeTaxType.activeTaxRateDto.rateFlatAmount ?: throw RtsGenericException("Tax rate missing rateFlatAmount")
+        activeTaxType.activeTaxRateDto.rateFlatAmount ?: throw LibertyGenericException("Tax rate missing rateFlatAmount")
 }

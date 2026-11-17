@@ -6,7 +6,7 @@ import app.myliberty.easy_records.locations.business.retail.purchase.api.Purchas
 import app.myliberty.easy_records.locations.business.retail.stock.api.read.StockEntryFetcher
 import app.myliberty.easy_records.messaging.kafka.transaction.events.PurchaseDeliveryRevisedEvent
 import app.myliberty.easy_records.util.business.Money
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Component
 import java.math.BigDecimal
@@ -27,7 +27,7 @@ class StockRevisionHandlerForKafka(
 
     override fun republish(stockRevision: StockRevisionEntity) {
         val revisedLineReferenceNumber = stockEntryFetcher.get(stockRevision.revisedStockEntryId).detailReference
-            ?: throw RtsGenericException("Stock revision ${stockRevision.requiredReference()} has no revised line")
+            ?: throw LibertyGenericException("Stock revision ${stockRevision.requiredReference()} has no revised line")
         val totals = purchaseDeliveryDataFetcher.getRevisionTotals(
             revisedLineReferenceNumber, stockRevision.sourceReferenceNumber
         )

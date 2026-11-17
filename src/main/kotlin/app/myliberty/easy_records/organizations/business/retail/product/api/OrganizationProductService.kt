@@ -9,7 +9,7 @@ import app.myliberty.easy_records.organizations.business.retail.product.Organiza
 import app.myliberty.easy_records.organizations.business.retail.product.OrganizationProductValidator
 import app.myliberty.easy_records.organizations.business.retail.product_tag.api.ProductTagService
 import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueFetcher
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException
 import app.myliberty.easy_records.util.model.TableName
 import org.springframework.stereotype.Service
@@ -46,7 +46,7 @@ class OrganizationProductService(
         val dto = organizationProductCache.findAllProducts().find { it.id == orgProductId }
             ?: throw UpdatingNonExistingRecordException()
         if (dto.status != ProductStatus.ACTIVE) {
-            throw RtsGenericException("Cannot reactivate location product: organization product is not active")
+            throw LibertyGenericException("Cannot reactivate location product: organization product is not active")
         }
     }
 

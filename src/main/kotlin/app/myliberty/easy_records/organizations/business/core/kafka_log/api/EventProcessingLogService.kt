@@ -8,7 +8,7 @@ import app.myliberty.easy_records.organizations.business.core.kafka_log.EventPro
 import app.myliberty.easy_records.organizations.business.core.location.api.LocationService
 import app.myliberty.easy_records.messaging.kafka.common.EventSourceContext
 import app.myliberty.easy_records.messaging.kafka.transaction.events.TransactionEvent
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Propagation
 import java.time.Instant
@@ -96,7 +96,7 @@ class EventProcessingLogService(
     @TransactionalOnOrganizationSchema(propagation = Propagation.REQUIRES_NEW)
     fun markRetrying(logId: UUID) {
         val entry = repository.findById(logId)
-            .orElseThrow { RtsGenericException("Event log entry $logId not found") }
+            .orElseThrow { LibertyGenericException("Event log entry $logId not found") }
         entry.status = EventProcessingLogStatus.RETRYING
         entry.resolutionType = EventProcessingLogResolutionType.DLT_REPLAY
         repository.save(entry)

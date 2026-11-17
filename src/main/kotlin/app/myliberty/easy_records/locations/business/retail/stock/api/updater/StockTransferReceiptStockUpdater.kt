@@ -10,7 +10,7 @@ import app.myliberty.easy_records.organizations.business.retail.stock_item_sourc
 import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.MovementType
 import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.UnitConversionGraphFacade
 import app.myliberty.easy_records.util.business.lock.LockNamespaces
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.quantity.ExactQuantity
 import org.springframework.stereotype.Service
 import java.util.UUID
@@ -35,7 +35,7 @@ class StockTransferReceiptStockUpdater(
         val identitiesByOrgProductId = locationProductDataFetcher.findIdentitiesByOrgProductIds(orgProductIds)
         val locationProductIdByOrgProductId = orgProductIds.associateWith { orgProductId ->
             identitiesByOrgProductId[orgProductId]?.locationProductId
-                ?: throw RtsGenericException("No location product found for product $orgProductId at destination")
+                ?: throw LibertyGenericException("No location product found for product $orgProductId at destination")
         }
         entityAdvisoryLock.acquire(LockNamespaces.PRODUCT, locationProductIdByOrgProductId.values.toSet())
 
@@ -77,7 +77,7 @@ class StockTransferReceiptStockUpdater(
         stockTransferReceiptLineStockRequests.forEach { line ->
             val destinationBaseUnitId = baseUnitIdByLocationProductId.getValue(locationProductIdByOrgProductId.getValue(line.orgProductId))
             if (unitConversionGraph.getStorageUnitId(line.unitId) != unitConversionGraph.getStorageUnitId(destinationBaseUnitId)) {
-                throw RtsGenericException(SOURCE_AND_DESTINATION_STORAGE_UNITS_DIFFER)
+                throw LibertyGenericException(SOURCE_AND_DESTINATION_STORAGE_UNITS_DIFFER)
             }
         }
     }

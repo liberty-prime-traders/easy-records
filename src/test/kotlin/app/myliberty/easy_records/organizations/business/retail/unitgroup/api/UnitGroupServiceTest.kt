@@ -5,7 +5,7 @@ import app.myliberty.easy_records.organizations.business.retail.unitgroup.UnitGr
 import app.myliberty.easy_records.organizations.business.retail.unitgroup.UnitGroupMapper
 import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueService
 import app.myliberty.easy_records.util.business.lock.LockNamespaces
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
@@ -89,10 +89,10 @@ class UnitGroupServiceTest {
         val unitValueService = mock(UnitValueService::class.java)
         val insertDto = UnitGroupInsertDto(name = "Boxes", baseUnitCode = "taken-root")
         `when`(unitGroupCache.getAllUnitGroups()).thenReturn(emptyList())
-        `when`(unitValueService.validateRootUnitCodeBeforeGroupCreate("Boxes", "taken-root")).thenThrow(RtsGenericException("taken"))
+        `when`(unitValueService.validateRootUnitCodeBeforeGroupCreate("Boxes", "taken-root")).thenThrow(LibertyGenericException("taken"))
         val service = UnitGroupService(mock(UnitGroupMapper::class.java), unitGroupCache, unitValueService, mock(OrgEntityAdvisoryLock::class.java))
 
-        assertThrows(RtsGenericException::class.java) { service.createUnitGroup(insertDto) }
+        assertThrows(LibertyGenericException::class.java) { service.createUnitGroup(insertDto) }
 
         verify(unitGroupCache, never()).create(insertDto)
     }
@@ -116,7 +116,7 @@ class UnitGroupServiceTest {
         `when`(unitGroupCache.getAllUnitGroups()).thenReturn(listOf(unitGroupDto(UUID.randomUUID(), "Pack Size")))
         val service = UnitGroupService(mock(UnitGroupMapper::class.java), unitGroupCache, mock(UnitValueService::class.java), mock(OrgEntityAdvisoryLock::class.java))
 
-        assertThrows(RtsGenericException::class.java) { service.createUnitGroup(UnitGroupInsertDto(name = "Pack-Size", description = null)) }
+        assertThrows(LibertyGenericException::class.java) { service.createUnitGroup(UnitGroupInsertDto(name = "Pack-Size", description = null)) }
     }
 
     @Test
@@ -125,7 +125,7 @@ class UnitGroupServiceTest {
         `when`(unitGroupCache.getAllUnitGroups()).thenReturn(listOf(unitGroupDto(UUID.randomUUID(), "Count")))
         val service = UnitGroupService(mock(UnitGroupMapper::class.java), unitGroupCache, mock(UnitValueService::class.java), mock(OrgEntityAdvisoryLock::class.java))
 
-        assertThrows(RtsGenericException::class.java) { service.createUnitGroup(UnitGroupInsertDto(name = "Co-unt", description = null)) }
+        assertThrows(LibertyGenericException::class.java) { service.createUnitGroup(UnitGroupInsertDto(name = "Co-unt", description = null)) }
     }
 
     @Test
@@ -134,7 +134,7 @@ class UnitGroupServiceTest {
         `when`(unitGroupCache.getAllUnitGroups()).thenReturn(listOf(unitGroupDto(UUID.randomUUID(), "Miscellaneous")))
         val service = UnitGroupService(mock(UnitGroupMapper::class.java), unitGroupCache, mock(UnitValueService::class.java), mock(OrgEntityAdvisoryLock::class.java))
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             service.bulkCreateValidatedList(listOf(UnitGroupInsertDto(name = "Boxes"), UnitGroupInsertDto(name = "miscellaneous")))
         }
 
@@ -147,7 +147,7 @@ class UnitGroupServiceTest {
         `when`(unitGroupCache.getAllUnitGroups()).thenReturn(emptyList())
         val service = UnitGroupService(mock(UnitGroupMapper::class.java), unitGroupCache, mock(UnitValueService::class.java), mock(OrgEntityAdvisoryLock::class.java))
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             service.bulkCreateValidatedList(listOf(UnitGroupInsertDto(name = "Pack Size"), UnitGroupInsertDto(name = "Pack-Size")))
         }
 

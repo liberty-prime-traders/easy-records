@@ -2,7 +2,7 @@ package app.myliberty.easy_records.cross_tier.core.authority
 
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
 import app.myliberty.easy_records.util.enums.SchemaLevel
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Service
 
 @Service
@@ -44,17 +44,17 @@ class AuthorizationRequestService(private val authorizationBatchExecutor: Author
 
     private fun requireExactTier(tiers: List<SchemaLevel>, expected: SchemaLevel) {
         if (tiers.any { it != expected }) {
-            throw RtsGenericException("This endpoint only accepts $expected-tier roles/permissions")
+            throw LibertyGenericException("This endpoint only accepts $expected-tier roles/permissions")
         }
     }
 
     private fun requireTierContext(tier: SchemaLevel) {
         when (tier) {
             SchemaLevel.ORGANIZATION -> if (SessionContextProvider.getOrganizationIdOrNull() == null) {
-                throw RtsGenericException("Organization context is required for an organization-tier request")
+                throw LibertyGenericException("Organization context is required for an organization-tier request")
             }
             SchemaLevel.LOCATION -> if (SessionContextProvider.getLocationIdOrNull() == null) {
-                throw RtsGenericException("Location context is required for a location-tier request")
+                throw LibertyGenericException("Location context is required for a location-tier request")
             }
             SchemaLevel.PLATFORM -> Unit
         }

@@ -15,7 +15,7 @@ import app.myliberty.easy_records.organizations.business.core.loan.LoanResponseB
 import app.myliberty.easy_records.organizations.business.core.loan.LoanStatusResolver
 import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.business.StringUtils
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Service
 
 @Service
@@ -64,7 +64,7 @@ class LoanRepaymentService(
         val reason = StringUtils.getValueOrNull(loanRepaymentVoidRequest.reason)
         val loanRepaymentDto = loanMapper.toRepaymentDto(
             loanRepaymentRepository.findById(loanRepaymentVoidRequest.repaymentId)
-                .orElseThrow { RtsGenericException("Loan repayment not found") }
+                .orElseThrow { LibertyGenericException("Loan repayment not found") }
         )
         loanFinder.lockLoan(loanRepaymentDto.loanId)
         loanRepaymentValidator.requireVoidable(loanRepaymentDto)

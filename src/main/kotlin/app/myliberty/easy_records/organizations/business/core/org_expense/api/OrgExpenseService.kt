@@ -15,7 +15,7 @@ import app.myliberty.easy_records.cross_tier.core.expense.model.SourceDocument
 import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferOrderDataFetcher
 import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferStatus
 import app.myliberty.easy_records.util.business.StringUtils
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Service
 import java.util.UUID
 
@@ -43,7 +43,7 @@ class OrgExpenseService(
             StringUtils.getValueOrException(stockTransferExpenseBatchRequest.transferReference, "Transfer reference is required")
         )
         if (stockTransferOrder.status == StockTransferStatus.DRAFT) {
-            throw RtsGenericException("Transfer ${stockTransferOrder.referenceNumber} is still a draft and cannot carry expenses")
+            throw LibertyGenericException("Transfer ${stockTransferOrder.referenceNumber} is still a draft and cannot carry expenses")
         }
         return expenseOperations.createForSourceDocument(
             SourceDocument(ExpenseSourceType.STOCK_TRANSFER, stockTransferOrder.referenceNumber, stockTransferOrder.id),

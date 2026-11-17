@@ -3,7 +3,7 @@ package app.myliberty.easy_records.organizations.business.retail.stock_movement_
 import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.MovementType
 import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.StockMovementReasonInsertDto
 import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.StockMovementReasonUpdateDto
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.mock
@@ -21,7 +21,7 @@ class StockMovementReasonValidatorTest {
 
     @Test
     fun `an org reason with no movement types is rejected`() {
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             validator.validateInsert(StockMovementReasonInsertDto(name = "Samples", movementTypes = emptySet()))
         }
     }
@@ -33,7 +33,7 @@ class StockMovementReasonValidatorTest {
 
     @Test
     fun `clearing the movement types of an org reason is rejected`() {
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             validator.validateUpdate(StockMovementReasonUpdateDto(id = UUID.randomUUID(), movementTypes = emptySet()))
         }
     }

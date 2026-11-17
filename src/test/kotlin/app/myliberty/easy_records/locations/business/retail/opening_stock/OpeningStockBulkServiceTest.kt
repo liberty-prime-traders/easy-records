@@ -11,7 +11,7 @@ import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.Un
 import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueResponseDto
 import app.myliberty.easy_records.util.business.Money
 import app.myliberty.easy_records.util.business.PositiveMoney
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.quantity.PositiveUserProvidedQuantity
 import app.myliberty.easy_records.util.quantity.UserProvidedQuantity
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -75,7 +75,7 @@ class OpeningStockBulkServiceTest {
         `when`(locationProductDataFetcher.findIdsByReferenceNumbers(listOf("LP000001", "LP999999", "LP000002")))
             .thenReturn(mapOf("LP000001" to colaLocationProductId, "LP000002" to chipsLocationProductId))
 
-        val exception = assertThrows(RtsGenericException::class.java) {
+        val exception = assertThrows(LibertyGenericException::class.java) {
             openingStockBulkService.bulkDeclareInitialStock(
                 listOf(
                     bulkLine("LP000001", "PC", "1", "1.00", "2.00"),
@@ -97,7 +97,7 @@ class OpeningStockBulkServiceTest {
         `when`(locationProductDataFetcher.findIdsByReferenceNumbers(listOf("LP999999")))
             .thenReturn(emptyMap())
 
-        val exception = assertThrows(RtsGenericException::class.java) {
+        val exception = assertThrows(LibertyGenericException::class.java) {
             openingStockBulkService.bulkDeclareInitialStock(
                 listOf(
                     bulkLine("  ", "PC", "1", "1.00", "2.00"),
@@ -123,7 +123,7 @@ class OpeningStockBulkServiceTest {
         `when`(locationProductDataFetcher.findIdsByReferenceNumbers(listOf("LP000001", "LP000001")))
             .thenReturn(mapOf("LP000001" to colaLocationProductId))
 
-        val exception = assertThrows(RtsGenericException::class.java) {
+        val exception = assertThrows(LibertyGenericException::class.java) {
             openingStockBulkService.bulkDeclareInitialStock(
                 listOf(
                     bulkLine("LP000001", "PC", "1", "1.00", "2.00"),
@@ -168,7 +168,7 @@ class OpeningStockBulkServiceTest {
         `when`(locationProductDataFetcher.findIdsByReferenceNumbers(listOf("LP000001")))
             .thenReturn(mapOf("LP000001" to colaLocationProductId))
 
-        val exception = assertThrows(RtsGenericException::class.java) {
+        val exception = assertThrows(LibertyGenericException::class.java) {
             openingStockBulkService.bulkDeclareInitialStock(listOf(bulkLine("LP000001", "PC", "5", null, "2.00")))
         }
 
@@ -181,7 +181,7 @@ class OpeningStockBulkServiceTest {
         `when`(locationProductDataFetcher.findIdsByReferenceNumbers(listOf("LP000001")))
             .thenReturn(mapOf("LP000001" to colaLocationProductId))
 
-        val exception = assertThrows(RtsGenericException::class.java) {
+        val exception = assertThrows(LibertyGenericException::class.java) {
             openingStockBulkService.bulkDeclareInitialStock(
                 listOf(bulkLine("LP000001", "PC", "1", "1.00", "2.00", costUnitCode = "NOPE"))
             )
@@ -196,9 +196,9 @@ class OpeningStockBulkServiceTest {
         `when`(locationProductDataFetcher.findIdsByReferenceNumbers(listOf("LP000001")))
             .thenReturn(mapOf("LP000001" to colaLocationProductId))
         `when`(openingStockService.declareInitialStock(listOf(openingStockLine(colaLocationProductId))))
-            .thenThrow(RtsGenericException("Opening stock already declared"))
+            .thenThrow(LibertyGenericException("Opening stock already declared"))
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             openingStockBulkService.bulkDeclareInitialStock(listOf(bulkLine("LP000001", "PC", "1", "1.00", "2.00")))
         }
 

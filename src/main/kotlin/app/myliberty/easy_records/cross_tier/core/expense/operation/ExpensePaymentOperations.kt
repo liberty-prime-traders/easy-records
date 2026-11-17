@@ -15,7 +15,7 @@ import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.business.DisplayFormatters
 import app.myliberty.easy_records.util.business.PaymentStatusResolver
 import app.myliberty.easy_records.util.business.StringUtils
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.util.UUID
@@ -56,9 +56,9 @@ class ExpensePaymentOperations(
     }
 
     private fun requireWithinRequestLimits(expensePaymentCreateRequests: List<ExpensePaymentCreateRequest>) {
-        if (expensePaymentCreateRequests.isEmpty()) throw RtsGenericException("At least one payment is required")
+        if (expensePaymentCreateRequests.isEmpty()) throw LibertyGenericException("At least one payment is required")
         if (expensePaymentCreateRequests.size > ExpenseRowResolver.MAXIMUM_ROWS_PER_REQUEST) {
-            throw RtsGenericException("A request can carry at most ${ExpenseRowResolver.MAXIMUM_ROWS_PER_REQUEST} payments")
+            throw LibertyGenericException("A request can carry at most ${ExpenseRowResolver.MAXIMUM_ROWS_PER_REQUEST} payments")
         }
     }
 
@@ -97,7 +97,7 @@ class ExpensePaymentOperations(
             val formattedRemainingBalance = DisplayFormatters.formatCurrency(remainingBalance)
             val formattedTotalRequested = DisplayFormatters.formatCurrency(totalRequested)
             val formattedDifference = DisplayFormatters.formatCurrency(totalRequested - remainingBalance)
-            throw RtsGenericException(
+            throw LibertyGenericException(
                 "Payments totalling $formattedTotalRequested exceed the remaining balance of $formattedRemainingBalance " +
                     "on ${expenseDto.referenceNumber} by $formattedDifference"
             )
@@ -133,11 +133,11 @@ class ExpensePaymentOperations(
         val voidReason = StringUtils.getValueOrException(expensePaymentVoidRequest.reason, "A void reason is required")
         expenseRowResolver.requireOpenPeriodToday()
         val expensePaymentDto = expenseStore.findPaymentByReference(expensePaymentVoidRequest.paymentReference)
-            ?: throw RtsGenericException("Expense payment ${expensePaymentVoidRequest.paymentReference} not found")
+            ?: throw LibertyGenericException("Expense payment ${expensePaymentVoidRequest.paymentReference} not found")
         expenseTier.lockExpense(expensePaymentDto.expenseId)
         val expenseAggregate = expenseStore.loadForExpenses(listOf(expensePaymentDto.expenseId))
         if (expenseAggregate.paymentVoids.any { it.paymentId == expensePaymentDto.id }) {
-            throw RtsGenericException("Payment ${expensePaymentDto.referenceNumber} has already been voided")
+            throw LibertyGenericException("Payment ${expensePaymentDto.referenceNumber} has already been voided")
         }
         val expenseDto = expenseAggregate.expenses.single()
         val expensePaymentVoidDto = expenseStore.savePaymentVoid(expensePaymentDto.id, voidReason)

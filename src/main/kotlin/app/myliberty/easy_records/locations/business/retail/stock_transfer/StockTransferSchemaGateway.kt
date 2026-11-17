@@ -4,7 +4,7 @@ import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocati
 import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductDataFetcher
 import app.myliberty.easy_records.locations.business.retail.stock.api.updater.StockTransferStockUpdater
 import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferStatus
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Propagation
 import java.util.UUID
@@ -28,12 +28,12 @@ class StockTransferSchemaGateway(
     @TransactionalOnLocationSchema(readOnly = true, propagation = Propagation.REQUIRES_NEW)
     fun readDispatchLine(dispatchLineReferenceNumber: String): StockTransferDispatchLineEntity =
         stockTransferDispatchLineRepository.findByReferenceNumber(dispatchLineReferenceNumber)
-            ?: throw RtsGenericException("Dispatch line $dispatchLineReferenceNumber not found")
+            ?: throw LibertyGenericException("Dispatch line $dispatchLineReferenceNumber not found")
 
     @TransactionalOnLocationSchema(readOnly = true, propagation = Propagation.REQUIRES_NEW)
     fun readDispatchAndLines(orderReferenceNumber: String): DispatchWithLines {
         val dispatch = stockTransferDispatchRepository.findByStockTransferOrderRef(orderReferenceNumber)
-            ?: throw RtsGenericException("Dispatch not found for order $orderReferenceNumber")
+            ?: throw LibertyGenericException("Dispatch not found for order $orderReferenceNumber")
         val lines = stockTransferDispatchLineRepository.findByStockTransferDispatchId(dispatch.id!!)
         return DispatchWithLines(dispatch, lines)
     }
@@ -59,7 +59,7 @@ class StockTransferSchemaGateway(
     @TransactionalOnLocationSchema(readOnly = true, propagation = Propagation.REQUIRES_NEW)
     fun buildDispatchWithLines(orderReferenceNumber: String, isDraft: Boolean, confirmedDispatchLineReferenceNumbers: Set<String>): DispatchWithReconciledLines {
         val dispatch = stockTransferDispatchRepository.findByStockTransferOrderRef(orderReferenceNumber)
-            ?: throw RtsGenericException("Dispatch not found for order $orderReferenceNumber")
+            ?: throw LibertyGenericException("Dispatch not found for order $orderReferenceNumber")
         val lines = if (isDraft) {
             reconciledTransferLineFetcher.draftLines(dispatch.id!!)
         } else {
@@ -79,7 +79,7 @@ class StockTransferSchemaGateway(
     @TransactionalOnLocationSchema(propagation = Propagation.REQUIRES_NEW)
     fun cancelDispatch(orderReferenceNumber: String): String {
         val dispatch = stockTransferDispatchRepository.findByStockTransferOrderRef(orderReferenceNumber)
-            ?: throw RtsGenericException("Dispatch not found for order $orderReferenceNumber")
+            ?: throw LibertyGenericException("Dispatch not found for order $orderReferenceNumber")
         val dispatchLineReferences = stockTransferDispatchLineRepository
             .findByStockTransferDispatchId(dispatch.id!!)
             .map { it.requiredReference() }

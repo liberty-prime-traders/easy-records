@@ -7,7 +7,7 @@ import app.myliberty.easy_records.locations.business.retail.purchase.api.payment
 import app.myliberty.easy_records.locations.business.retail.purchase.api.payment.PurchasePaymentCeilingService.PaymentCeiling
 import app.myliberty.easy_records.locations.business.retail.supplier_payment.api.SupplierPaymentDataFetcher
 import app.myliberty.easy_records.util.business.DisplayFormatters
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Component
 import java.math.BigDecimal
 import java.util.UUID
@@ -45,7 +45,7 @@ class PurchaseBulkPaymentPlanner(
     val amount = purchaseBulkPaymentCreateDto.amount.toBigDecimal()
     val totalPayable = payablesByPurchaseId.values.sumOf { it }
     if (amount > totalPayable) {
-      throw RtsGenericException(
+      throw LibertyGenericException(
         "Amount ${DisplayFormatters.formatCurrency(amount)} exceeds the total payable of " +
           DisplayFormatters.formatCurrency(totalPayable)
       )
@@ -80,7 +80,7 @@ class PurchaseBulkPaymentPlanner(
       .filter { it.supplierId != purchaseBulkPaymentCreateDto.supplierId }
       .map { it.id!! }
     if (missingPurchaseIds.isNotEmpty() || foreignPurchaseIds.isNotEmpty()) {
-      throw RtsGenericException(
+      throw LibertyGenericException(
         "Purchases not found or not owned by the supplier: " +
           (missingPurchaseIds + foreignPurchaseIds).joinToString()
       )
@@ -89,7 +89,7 @@ class PurchaseBulkPaymentPlanner(
       .filter { it.purchaseStatus !in PayablePurchaseFinder.PAYABLE_PURCHASE_STATUSES }
       .map { it.id!! }
     if (unpayableStatusPurchaseIds.isNotEmpty()) {
-      throw RtsGenericException(
+      throw LibertyGenericException(
         "Draft or canceled purchases cannot be paid: ${unpayableStatusPurchaseIds.joinToString()}"
       )
     }

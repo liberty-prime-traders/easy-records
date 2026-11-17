@@ -18,4 +18,4 @@ import org.mapstruct.ReportingPolicy
         MoneyQualifier::class
     ]
 )
-interface RtsMapperConfig
+interface LibertyMapperConfig

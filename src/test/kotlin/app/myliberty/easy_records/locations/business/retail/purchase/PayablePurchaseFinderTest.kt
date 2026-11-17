@@ -5,7 +5,7 @@ import app.myliberty.easy_records.locations.business.retail.purchase.api.bulk_pa
 import app.myliberty.easy_records.locations.business.retail.purchase.api.search.PurchaseSearchParameters
 import app.myliberty.easy_records.locations.business.retail.purchase.search.PurchaseSearchFetcher
 import app.myliberty.easy_records.util.enums.PaymentStatus
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.queries.KeysetSearchCursor
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
@@ -69,10 +69,10 @@ class PayablePurchaseFinderTest {
 
   @Test
   fun `needs a range of at most a year, in order, before searching`() {
-    assertThrows<RtsGenericException> {
+    assertThrows<LibertyGenericException> {
       payablePurchaseFinder.findPayablePurchases(searchDto(january, january.plusYears(1).plusDays(1)))
     }
-    assertThrows<RtsGenericException> {
+    assertThrows<LibertyGenericException> {
       payablePurchaseFinder.findPayablePurchases(searchDto(january.plusDays(2), january.plusDays(1)))
     }
     verify(purchaseSearchFetcher, never()).search(anyNonNull(), noCursor(), anyInt(), anyBoolean())

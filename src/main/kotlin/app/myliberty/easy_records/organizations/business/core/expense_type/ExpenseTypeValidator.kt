@@ -8,7 +8,7 @@ import app.myliberty.easy_records.organizations.business.core.expense_type.api.E
 import app.myliberty.easy_records.organizations.business.core.lock.api.OrgEntityAdvisoryLock
 import app.myliberty.easy_records.util.business.StringUtils
 import app.myliberty.easy_records.util.business.lock.LockNamespaces
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Component
 import java.util.UUID
 
@@ -35,12 +35,12 @@ class ExpenseTypeValidator(
         orgEntityAdvisoryLock.acquire(LockNamespaces.EXPENSE_TYPE, EXPENSE_TYPE_NAME_LOCK_KEY)
         expenseTypeRepository.findAll()
             .find { StringUtils.isEquivalent(it.name, requiredName) && it.id != expenseTypeId }
-            ?.let { throw RtsGenericException("An expense type named '$requiredName' already exists") }
+            ?.let { throw LibertyGenericException("An expense type named '$requiredName' already exists") }
     }
 
     fun guardEligibilityNotEmpty(eligiblePayeeTypes: Set<ContactType>, eligibleSourceTypes: Set<ExpenseSourceType>) {
-        if (eligiblePayeeTypes.isEmpty()) throw RtsGenericException("At least one eligible payee type is required")
-        if (eligibleSourceTypes.isEmpty()) throw RtsGenericException("At least one eligible entry point is required")
+        if (eligiblePayeeTypes.isEmpty()) throw LibertyGenericException("At least one eligible payee type is required")
+        if (eligibleSourceTypes.isEmpty()) throw LibertyGenericException("At least one eligible entry point is required")
     }
 
     private companion object {

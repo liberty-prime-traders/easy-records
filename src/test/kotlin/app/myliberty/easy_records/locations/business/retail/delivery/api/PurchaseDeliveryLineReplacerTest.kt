@@ -15,7 +15,7 @@ import app.myliberty.easy_records.util.quantity.ExactQuantity
 import app.myliberty.easy_records.util.business.Money
 import app.myliberty.easy_records.util.exceptions.BlockedChangeException
 import app.myliberty.easy_records.util.exceptions.BlockingProblem
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.quantity.UserProvidedQuantity
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
@@ -170,7 +170,7 @@ class PurchaseDeliveryLineReplacerTest {
     fun `an unknown delivery line is reported as not found`() {
         `when`(purchaseDeliveryLineRepository.findById(revisedLine.id!!)).thenReturn(Optional.empty())
 
-        val exception = assertThrows(RtsGenericException::class.java) {
+        val exception = assertThrows(LibertyGenericException::class.java) {
             purchaseDeliveryLineReplacer.validateRevisionReportingProblems(
                 PurchaseDeliveryLineReplaceRequest(
                     revisedLine.id!!,

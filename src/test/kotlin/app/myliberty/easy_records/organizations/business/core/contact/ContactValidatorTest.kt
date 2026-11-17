@@ -1,7 +1,7 @@
 package app.myliberty.easy_records.organizations.business.core.contact
 
 import app.myliberty.easy_records.organizations.business.core.contact.api.ContactType
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.mock
@@ -15,7 +15,7 @@ class ContactValidatorTest {
         contactValidator.validateContactTypes(setOf(ContactType.LENDER))
         contactValidator.validateContactTypes(setOf(ContactType.LENDER, ContactType.SUPPLIER))
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             contactValidator.validateContactTypes(setOf(ContactType.LENDER, ContactType.OTHER))
         }
     }

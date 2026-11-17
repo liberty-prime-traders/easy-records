@@ -3,7 +3,7 @@ package app.myliberty.easy_records.organizations.business.retail.product
 import app.myliberty.easy_records.organizations.business.retail.product.api.OrganizationProductInsertDto
 import app.myliberty.easy_records.organizations.business.retail.product.api.OrganizationProductUpdateDto
 import app.myliberty.easy_records.util.business.StringUtils
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Component
 
 @Component
@@ -14,12 +14,12 @@ class OrganizationProductValidator(
     fun validateProductUpdate(productUpdateDto: OrganizationProductUpdateDto) {
         val name = StringUtils.getValueOrException(productUpdateDto.productName, NAME_IS_REQUIRED)
         if (productUpdateDto.productGroupId != null && productUpdateDto.productGroupId.isEmpty) {
-            throw RtsGenericException("If a product group is provided, it cannot be empty.")
+            throw LibertyGenericException("If a product group is provided, it cannot be empty.")
         }
 
         organizationProductRepository.findFirstByProductNameIgnoreCase(name)?.let {
             if(it.id != productUpdateDto.id) {
-                throw RtsGenericException(String.format(NAME_ALREADY_EXISTS, name))
+                throw LibertyGenericException(String.format(NAME_ALREADY_EXISTS, name))
             }
         }
     }
@@ -27,7 +27,7 @@ class OrganizationProductValidator(
     fun validateProductInsert(productInsertDto: OrganizationProductInsertDto) {
         val name = StringUtils.getValueOrException(productInsertDto.productName, NAME_IS_REQUIRED)
         organizationProductRepository.findFirstByProductNameIgnoreCase(name)
-            ?.let { throw RtsGenericException(String.format(NAME_ALREADY_EXISTS, name)) }
+            ?.let { throw LibertyGenericException(String.format(NAME_ALREADY_EXISTS, name)) }
     }
 
 

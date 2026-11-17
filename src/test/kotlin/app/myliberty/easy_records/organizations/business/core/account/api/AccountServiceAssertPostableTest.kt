@@ -1,6 +1,6 @@
 package app.myliberty.easy_records.organizations.business.core.account.api
 
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertDoesNotThrow
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
@@ -24,14 +24,14 @@ class AccountServiceAssertPostableTest {
 
     @Test
     fun `unknown account codes are rejected`() {
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             accountService.assertPostable(listOf(debit("999.999", BigDecimal.TEN)))
         }
     }
 
     @Test
     fun `accounts with children are rejected`() {
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             accountService.assertPostable(listOf(debit(SystemAccount.ACCOUNTS_RECEIVABLE.code, BigDecimal.TEN)))
         }
     }
@@ -42,7 +42,7 @@ class AccountServiceAssertPostableTest {
             .map { if (it.code == SystemAccount.CASH.code) it.copy(accountIsActive = false) else it }
         val inactiveCashService = RecordingAccountService(accountDtos).accountService
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             inactiveCashService.assertPostable(listOf(debit(SystemAccount.CASH.code, BigDecimal.TEN)))
         }
         assertDoesNotThrow {
@@ -59,7 +59,7 @@ class AccountServiceAssertPostableTest {
         assertDoesNotThrow {
             inactiveCashService.assertPostableReversal(listOf(debit(SystemAccount.CASH.code, BigDecimal.TEN)))
         }
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             inactiveCashService.assertPostableReversal(listOf(debit(SystemAccount.ACCOUNTS_RECEIVABLE.code, BigDecimal.TEN)))
         }
     }
@@ -70,7 +70,7 @@ class AccountServiceAssertPostableTest {
             .map { if (it.code == SystemAccount.SALES_DISCOUNTS.code) it.copy(accountIsActive = false) else it }
         val inactiveDiscountsService = RecordingAccountService(accountDtos).accountService
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             inactiveDiscountsService.assertPostable(listOf(debit(SystemAccount.SALES_DISCOUNTS.code, BigDecimal.TEN)))
         }
         assertDoesNotThrow {

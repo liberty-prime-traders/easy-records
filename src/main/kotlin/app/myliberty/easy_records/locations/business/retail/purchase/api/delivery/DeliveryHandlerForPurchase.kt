@@ -10,7 +10,7 @@ import app.myliberty.easy_records.locations.business.retail.purchase.PurchaseSta
 import app.myliberty.easy_records.locations.business.retail.purchase.PurchaseValidator
 import app.myliberty.easy_records.locations.business.retail.purchase.api.PurchaseDataFetcher
 import app.myliberty.easy_records.locations.business.retail.purchase.api.PurchaseResponseDto
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.quantity.ExactQuantity
 import org.springframework.stereotype.Service
 import java.util.UUID
@@ -57,7 +57,7 @@ class DeliveryHandlerForPurchase(
         val toSave = deliveryLines.map { (lineId, storageQuantity) ->
             lineById[lineId]?.also {
                 it.storageQuantityDelivered = (ExactQuantity.ofStorage(it.storageQuantityDelivered) + storageQuantity).toStorageQuantity()
-            } ?: throw RtsGenericException("Purchase line $lineId not found")
+            } ?: throw LibertyGenericException("Purchase line $lineId not found")
         }
         purchaseLineRepository.saveAll(toSave)
         purchase.purchaseStatus = PurchaseStatusResolver.resolveAfterQuantityChange(purchaseLines)

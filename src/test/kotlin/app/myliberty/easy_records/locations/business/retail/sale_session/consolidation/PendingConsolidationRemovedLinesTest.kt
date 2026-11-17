@@ -12,7 +12,7 @@ import app.myliberty.easy_records.locations.business.retail.sale_session.api.Sal
 import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionTotals
 import app.myliberty.easy_records.locations.business.retail.sale_session.api.SessionIdentity
 import app.myliberty.easy_records.organizations.business.retail.adjustment_reason.api.AdjustmentDirection
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -59,10 +59,10 @@ class PendingConsolidationRemovedLinesTest {
     fun `a line that is not on the session cannot be removed, and one that was not removed cannot be restored`() {
         val pendingSession = session(SaleSessionKind.PENDING_CONSOLIDATION)
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             PendingConsolidationRemovedLines.remove(pendingSession, UUID.randomUUID())
         }
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             PendingConsolidationRemovedLines.restore(pendingSession, firstLine.lineKey)
         }
     }
@@ -71,10 +71,10 @@ class PendingConsolidationRemovedLinesTest {
     fun `a sale has no removed lines to keep or restore`() {
         val saleSession = session(SaleSessionKind.SALE)
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             PendingConsolidationRemovedLines.remove(saleSession, firstLine.lineKey)
         }
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             PendingConsolidationRemovedLines.restore(saleSession, firstLine.lineKey)
         }
     }
@@ -90,7 +90,7 @@ class PendingConsolidationRemovedLinesTest {
 
     @Test
     fun `a line that is not on a sale cannot be removed from it`() {
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             session(SaleSessionKind.SALE).withoutLine(UUID.randomUUID())
         }
     }

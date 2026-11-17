@@ -25,7 +25,7 @@ import app.myliberty.easy_records.organizations.business.core.ledger.helpers.Sal
 import app.myliberty.easy_records.organizations.business.core.ledger.processors.SaleVoidedEventProcessor
 import app.myliberty.easy_records.util.business.Money
 import app.myliberty.easy_records.util.business.PositiveMoney
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertThrows
@@ -130,7 +130,7 @@ class LedgerPostingBalanceTest {
     @Test
     fun `a sale void is skipped once the void is posted and fails while the sale itself is unposted`() {
         assertTrue(saleVoidedProcessor.shouldProcess(saleVoidedEvent()))
-        assertThrows(RtsGenericException::class.java) { saleVoidedProcessor.prepareLedgerRequest(saleVoidedEvent()) }
+        assertThrows(LibertyGenericException::class.java) { saleVoidedProcessor.prepareLedgerRequest(saleVoidedEvent()) }
 
         markPosted("SALE-1", LedgerSourceType.SALE_VOID)
         assertFalse(saleVoidedProcessor.shouldProcess(saleVoidedEvent()))
@@ -139,7 +139,7 @@ class LedgerPostingBalanceTest {
     @Test
     fun `a payment void is skipped once the void is posted and fails while the payment itself is unposted`() {
         assertTrue(salePaymentVoidedProcessor.shouldProcess(salePaymentVoidedEvent(BigDecimal("40.00"))))
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             salePaymentVoidedProcessor.prepareLedgerRequest(salePaymentVoidedEvent(BigDecimal("40.00")))
         }
 

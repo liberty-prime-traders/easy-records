@@ -13,7 +13,7 @@ import app.myliberty.easy_records.organizations.business.core.kafka_log.EventPro
 import app.myliberty.easy_records.organizations.business.core.kafka_log.EventProcessingLogStatus
 import app.myliberty.easy_records.organizations.business.core.location.api.LocationDto
 import app.myliberty.easy_records.organizations.business.core.location.api.LocationService
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
@@ -97,10 +97,10 @@ class EventRetryServiceTest {
 
     @Test
     fun `the callers location is restored when the reissue fails`() {
-        recordingReissueHandler.failure = RtsGenericException("reissue failed")
+        recordingReissueHandler.failure = LibertyGenericException("reissue failed")
         val logId = stubLogEntry(sourceLocationId = rowLocationId)
 
-        assertThrows(RtsGenericException::class.java) { eventRetryService.retry(logId) }
+        assertThrows(LibertyGenericException::class.java) { eventRetryService.retry(logId) }
 
         assertEquals(callerLocationId, SessionContextProvider.getLocationIdOrNull())
     }

@@ -2,7 +2,7 @@ package app.myliberty.easy_records.locations.business.retail.reports.product_sal
 
 import app.myliberty.easy_records.locations.business.retail.reports.product_sales.api.ProductSalesSortDirection
 import app.myliberty.easy_records.locations.business.retail.reports.product_sales.api.ProductSalesSortField
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
@@ -39,7 +39,7 @@ class ProductSalesReportCursorTest {
   @Test
   fun `garbage and truncated cursors are rejected`() {
     listOf("not-base64!!", Base64.getEncoder().encodeToString("a|b".toByteArray())).forEach {
-      assertEquals("Malformed cursor", assertThrows<RtsGenericException> { decode(it) }.message)
+      assertEquals("Malformed cursor", assertThrows<LibertyGenericException> { decode(it) }.message)
     }
   }
 
@@ -48,7 +48,7 @@ class ProductSalesReportCursorTest {
     val parts = String(Base64.getDecoder().decode(cursor(BigDecimal.ONE).encode())).split("|")
     listOf(0 to "x", 1 to "NaN", 4 to "not-a-uuid", 5 to "NOPE", 6 to "SIDEWAYS").forEach { (index, tamperedValue) ->
       val tampered = parts.toMutableList().also { it[index] = tamperedValue }
-      assertThrows<RtsGenericException> { decode(Base64.getEncoder().encodeToString(tampered.joinToString("|").toByteArray())) }
+      assertThrows<LibertyGenericException> { decode(Base64.getEncoder().encodeToString(tampered.joinToString("|").toByteArray())) }
     }
   }
 
@@ -56,7 +56,7 @@ class ProductSalesReportCursorTest {
   fun `a cursor issued for another sort field or direction is rejected`() {
     val encoded = cursor(BigDecimal.TEN).encode()
 
-    assertThrows<RtsGenericException> { ProductSalesReportCursor.decode(encoded, ProductSalesSortField.COGS, sortDirection) }
-    assertThrows<RtsGenericException> { ProductSalesReportCursor.decode(encoded, sortField, ProductSalesSortDirection.DESC) }
+    assertThrows<LibertyGenericException> { ProductSalesReportCursor.decode(encoded, ProductSalesSortField.COGS, sortDirection) }
+    assertThrows<LibertyGenericException> { ProductSalesReportCursor.decode(encoded, sortField, ProductSalesSortDirection.DESC) }
   }
 }

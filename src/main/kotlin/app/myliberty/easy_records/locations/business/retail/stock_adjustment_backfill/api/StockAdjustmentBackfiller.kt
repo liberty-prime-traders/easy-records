@@ -9,7 +9,7 @@ import app.myliberty.easy_records.organizations.business.core.location.api.Locat
 import app.myliberty.easy_records.organizations.business.core.location.api.LocationService
 import app.myliberty.easy_records.util.async.AsyncExecutor
 import app.myliberty.easy_records.util.enums.ServiceAccount
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import java.util.concurrent.atomic.AtomicBoolean
@@ -27,7 +27,7 @@ class StockAdjustmentBackfiller(
     private val backfillRunning = AtomicBoolean(false)
 
     fun startBackfillAllLocations() {
-        if (!backfillRunning.compareAndSet(false, true)) throw RtsGenericException(
+        if (!backfillRunning.compareAndSet(false, true)) throw LibertyGenericException(
             "The stock adjustment backfill is already running."
         )
         try {

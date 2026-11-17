@@ -10,7 +10,7 @@ import app.myliberty.easy_records.messaging.kafka.common.DltReader
 import app.myliberty.easy_records.messaging.kafka.common.KafkaConstants
 import app.myliberty.easy_records.messaging.kafka.transaction.EventReissueHandler
 import app.myliberty.easy_records.messaging.kafka.transaction.events.TransactionEvent
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.slf4j.LoggerFactory
 import org.springframework.kafka.core.KafkaTemplate
@@ -31,7 +31,7 @@ class EventRetryService(
     @TransactionalOnOrganizationSchema
     fun retry(logId: UUID) {
         val entry = repository.findById(logId).orElseThrow {
-            RtsGenericException("Event log entry $logId not found")
+            LibertyGenericException("Event log entry $logId not found")
         }
 
         val dltRecord = if (entry.consumerGroup != null) findOnDlt(entry) else null
@@ -44,7 +44,7 @@ class EventRetryService(
         val handler = reissueHandlers.find { it.eventType.simpleName == entry.eventType }
         if (handler == null) {
             log.error("No reissue handler for event type '${entry.eventType}' — manual intervention required for log entry $logId")
-            throw RtsGenericException("No reissue handler registered for event type '${entry.eventType}'")
+            throw LibertyGenericException("No reissue handler registered for event type '${entry.eventType}'")
         }
         val sourceLocation = entry.sourceLocationId?.let { locationService.getById(it) }
         withLocationSession(sourceLocation) { handler.reissue(entry.sourceDocumentId) }

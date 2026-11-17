@@ -4,7 +4,7 @@ import app.myliberty.easy_records.organizations.business.retail.product_category
 import app.myliberty.easy_records.organizations.business.retail.product_group.api.ProductGroupInsertDto
 import app.myliberty.easy_records.organizations.business.retail.product_group.api.ProductGroupUpdateDto
 import app.myliberty.easy_records.util.business.StringUtils
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Component
 import java.util.UUID
 
@@ -18,7 +18,7 @@ class ProductGroupValidator(
     val name = StringUtils.getValueOrException(dto.groupName, NAME_IS_REQUIRED)
     productGroupCache.findAllProductGroups()
       .find { StringUtils.isEquivalent(it.groupName, name) && it.id != dto.id }?.let {
-        throw RtsGenericException(String.format(NAME_ALREADY_EXISTS, name))
+        throw LibertyGenericException(String.format(NAME_ALREADY_EXISTS, name))
     }
     validateProductGroupCategory(dto.categoryId?.get())
   }
@@ -27,7 +27,7 @@ class ProductGroupValidator(
     val name = StringUtils.getValueOrException(productGroupInsertDto.groupName, NAME_IS_REQUIRED)
     productGroupCache.findAllProductGroups()
       .find { StringUtils.isEquivalent(it.groupName, productGroupInsertDto.groupName) }
-      ?.let { throw RtsGenericException(String.format(NAME_ALREADY_EXISTS, name))
+      ?.let { throw LibertyGenericException(String.format(NAME_ALREADY_EXISTS, name))
     }
     validateProductGroupCategory(productGroupInsertDto.categoryId)
   }
@@ -35,7 +35,7 @@ class ProductGroupValidator(
   private fun validateProductGroupCategory(categoryId: UUID?) {
     categoryId?.let {
       productCategoryService.getAllCategoryDtos().find { it.id == categoryId }
-        ?: throw RtsGenericException(INVALID_CATEGORY_ID)
+        ?: throw LibertyGenericException(INVALID_CATEGORY_ID)
     }
   }
 

@@ -122,7 +122,7 @@ You never call this class directly — it is called by `InventoryEventConsumer` 
 
 ## EventProcessingLog
 
-**Org-scoped** table (`event_processing_log`, `organizations/business/core/kafka_log/`) that tracks every `TransactionEvent` delivery per consumer group — regardless of whether the event itself is `OrgLevel` or `LocationLevel`. It lives at org level (not location) because a location-scoped event has no location in session by the time an `OrgLevel` event needs the same log path; putting it under `@TransactionalOnLocationSchema` silently swallowed all `OrgLevel` event logging (`RtsGenericException`/"Location schema not found in session" caught and logged, never surfaced) until `OpeningBalanceUpsertedEvent` exposed it.
+**Org-scoped** table (`event_processing_log`, `organizations/business/core/kafka_log/`) that tracks every `TransactionEvent` delivery per consumer group — regardless of whether the event itself is `OrgLevel` or `LocationLevel`. It lives at org level (not location) because a location-scoped event has no location in session by the time an `OrgLevel` event needs the same log path; putting it under `@TransactionalOnLocationSchema` silently swallowed all `OrgLevel` event logging (`LibertyGenericException`/"Location schema not found in session" caught and logged, never surfaced) until `OpeningBalanceUpsertedEvent` exposed it.
 
 Each log entry carries:
 

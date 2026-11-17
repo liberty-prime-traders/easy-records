@@ -16,7 +16,7 @@ import app.myliberty.easy_records.cross_tier.core.expense.request.StandaloneExpe
 import app.myliberty.easy_records.cross_tier.core.expense.response.ExpenseResponseBuilder
 import app.myliberty.easy_records.cross_tier.core.expense.response.ExpenseSummaryResponse
 import app.myliberty.easy_records.util.business.StringUtils
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 
 class ExpenseOperations(
     private val expenseTier: ExpenseTier,
@@ -69,7 +69,7 @@ class ExpenseOperations(
         val expenseAggregate = expenseStore.loadForExpenses(listOf(expenseDto.id))
         expenseLookup.requireNotVoided(expenseAggregate, expenseDto)
         if (expenseAggregate.hasActivePayments(expenseDto.id)) {
-            throw RtsGenericException("Void every payment on expense ${expenseDto.referenceNumber} before voiding it")
+            throw LibertyGenericException("Void every payment on expense ${expenseDto.referenceNumber} before voiding it")
         }
         val expenseVoidDto = expenseStore.saveExpenseVoid(expenseDto.id, voidReason)
         expenseEvents.publishVoided(expenseVoidDto, expenseDto)

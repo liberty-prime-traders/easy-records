@@ -8,7 +8,7 @@ import app.myliberty.easy_records.messaging.kafka.transaction.EventReissueHandle
 import app.myliberty.easy_records.messaging.kafka.transaction.events.SaleVoidedEvent
 import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.business.Money
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Component
 import java.time.Instant
@@ -28,7 +28,7 @@ class SaleVoidHandlerForKafka(
     override fun reissue(sourceDocumentId: UUID) {
         val sale = saleRepository.getReferenceById(sourceDocumentId)
         val voidEntity = saleVoidRepository.findBySaleId(sourceDocumentId)
-            ?: throw RtsGenericException("No sale_void record for sale $sourceDocumentId — cannot reissue SaleVoidedEvent")
+            ?: throw LibertyGenericException("No sale_void record for sale $sourceDocumentId — cannot reissue SaleVoidedEvent")
         publishVoids(listOf(VoidedSale(sale, voidEntity)))
     }
 

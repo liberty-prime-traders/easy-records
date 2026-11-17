@@ -5,7 +5,7 @@ import app.myliberty.easy_records.configuration.session.SessionContextProvider
 import app.myliberty.easy_records.messaging.kafka.common.EventSourceContext
 import app.myliberty.easy_records.organizations.business.core.ledger.LedgerEntryGroupRepository
 import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerSourceType
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Component
 
 @Component
@@ -27,7 +27,7 @@ class LedgerPostingGate(
     @TransactionalOnOrganizationSchema(readOnly = true)
     fun requirePosted(sourceContext: EventSourceContext, reference: String, originalSourceType: LedgerSourceType) {
         if (!isPosted(sourceContext, reference, originalSourceType)) {
-            throw RtsGenericException("Cannot post the void of $reference: its ${originalSourceType.name} posting does not exist")
+            throw LibertyGenericException("Cannot post the void of $reference: its ${originalSourceType.name} posting does not exist")
         }
     }
 
@@ -39,5 +39,5 @@ class LedgerPostingGate(
     private fun requireSessionLocationId(locationLevel: EventSourceContext.LocationLevel) =
         SessionContextProvider.getLocationIdOrNull()
             ?.takeIf { SessionContextProvider.getLocationSchema() == locationLevel.locationSchema }
-            ?: throw RtsGenericException("Location-level event for ${locationLevel.locationSchema} processed outside that location's session")
+            ?: throw LibertyGenericException("Location-level event for ${locationLevel.locationSchema} processed outside that location's session")
 }

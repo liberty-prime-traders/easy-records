@@ -5,7 +5,7 @@ import app.myliberty.easy_records.locations.business.retail.location_product.api
 import app.myliberty.easy_records.locations.business.retail.location_product.api.ProductStockBreakdownProvider
 import app.myliberty.easy_records.locations.business.retail.purchase.api.PurchaseLineDto
 import app.myliberty.easy_records.util.exceptions.BlockingProblem
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.quantity.ExactQuantity
 import app.myliberty.easy_records.util.quantity.QuantityBreakdown
 import org.springframework.stereotype.Component
@@ -19,15 +19,15 @@ class PurchaseDeliveryValidator(
 
   fun validate(purchaseDeliveryCreateDto: PurchaseDeliveryCreateDto, purchaseLineById: Map<UUID, PurchaseLineDto>) {
     if (purchaseDeliveryCreateDto.lines.isEmpty())
-      throw RtsGenericException("Delivery must have at least one line.")
+      throw LibertyGenericException("Delivery must have at least one line.")
 
     val lineIds = purchaseDeliveryCreateDto.lines.map { it.purchaseLineId }
     if (lineIds.size != lineIds.toSet().size)
-      throw RtsGenericException("Duplicate purchase line IDs in delivery request.")
+      throw LibertyGenericException("Duplicate purchase line IDs in delivery request.")
 
     purchaseDeliveryCreateDto.lines.forEach { lineDto ->
       if (lineDto.purchaseLineId !in purchaseLineById)
-        throw RtsGenericException("Purchase line ${lineDto.purchaseLineId} does not belong to this purchase.")
+        throw LibertyGenericException("Purchase line ${lineDto.purchaseLineId} does not belong to this purchase.")
     }
   }
 
@@ -49,7 +49,7 @@ class PurchaseDeliveryValidator(
         storageUnitsPerUserProvidedUnitByPurchaseLineId.getValue(lineDto.purchaseLineId)
       )
       if (delivered > purchaseLine.storageQuantityRemaining) {
-        throw RtsGenericException(
+        throw LibertyGenericException(
           maximumQuantityMessageOf(
             locationProducts.getValue(purchaseLine.locationProductId).label,
             breakdownByLocationProductId.getValue(purchaseLine.locationProductId),

@@ -18,7 +18,7 @@ import app.myliberty.easy_records.organizations.business.core.ledger.helpers.Sal
 import app.myliberty.easy_records.organizations.business.core.ledger.processors.SaleVoidedEventProcessor
 import app.myliberty.easy_records.util.business.Money
 import app.myliberty.easy_records.util.business.PositiveMoney
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
@@ -112,7 +112,7 @@ class SaleCogsLedgerEntriesTest {
 
     @Test
     fun `negative cost fails loudly instead of posting or being skipped`() {
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             saleConfirmedProcessor.prepareLedgerRequest(saleConfirmedEvent(BigDecimal("-1.0000")))
         }
     }

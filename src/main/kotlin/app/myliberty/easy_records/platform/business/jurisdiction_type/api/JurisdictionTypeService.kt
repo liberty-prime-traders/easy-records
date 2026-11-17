@@ -4,7 +4,7 @@ import app.myliberty.easy_records.configuration.datasource.TransactionalOnPlatfo
 import app.myliberty.easy_records.platform.business.jurisdiction_type.JurisdictionTypeCache
 import app.myliberty.easy_records.platform.business.jurisdiction_type.JurisdictionTypeMapper
 import app.myliberty.easy_records.util.business.StringUtils
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException
 import org.springframework.stereotype.Service
 import java.util.UUID
@@ -23,7 +23,7 @@ class JurisdictionTypeService(
     fun create(dto: JurisdictionTypeInsertDto): JurisdictionTypeResponseDto {
         StringUtils.requireHasValue(dto.name, "Name must not be blank")
         if (jurisdictionTypeCache.getAll().any { StringUtils.isEquivalent(it.name, dto.name) })
-            throw RtsGenericException("A jurisdiction type named '${dto.name}' already exists")
+            throw LibertyGenericException("A jurisdiction type named '${dto.name}' already exists")
         val saved = jurisdictionTypeCache.create(dto)
         return jurisdictionTypeMapper.toResponseDto(saved)
     }
@@ -34,7 +34,7 @@ class JurisdictionTypeService(
         val updated = dto.applyTo(existing)
         StringUtils.requireHasValue(updated.name, "Name must not be blank")
         if (jurisdictionTypeCache.getAll().any { StringUtils.isEquivalent(it.name, updated.name) && it.id != updated.id })
-            throw RtsGenericException("A jurisdiction type named '${updated.name}' already exists")
+            throw LibertyGenericException("A jurisdiction type named '${updated.name}' already exists")
         val saved = jurisdictionTypeCache.save(updated)
         return jurisdictionTypeMapper.toResponseDto(saved)
     }

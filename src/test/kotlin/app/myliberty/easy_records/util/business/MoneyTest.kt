@@ -2,7 +2,7 @@ package app.myliberty.easy_records.util.business
 
 import com.fasterxml.jackson.databind.JsonMappingException
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertInstanceOf
 import org.junit.jupiter.api.Assertions.assertThrows
@@ -15,7 +15,7 @@ class MoneyTest {
 
     @Test
     fun `more decimals than the money scale is rejected, never rounded`() {
-        val exception = assertThrows(RtsGenericException::class.java) { Money.of(BigDecimal("1.255")) }
+        val exception = assertThrows(LibertyGenericException::class.java) { Money.of(BigDecimal("1.255")) }
         assertEquals("Amount can have at most 2 decimal places", exception.message)
     }
 
@@ -32,7 +32,7 @@ class MoneyTest {
 
     @Test
     fun `a negative amount is rejected and zero is accepted`() {
-        val exception = assertThrows(RtsGenericException::class.java) { Money.of(BigDecimal("-0.01")) }
+        val exception = assertThrows(LibertyGenericException::class.java) { Money.of(BigDecimal("-0.01")) }
         assertEquals("Amount must not be negative", exception.message)
         assertEquals(0, Money.of(BigDecimal.ZERO).toBigDecimal().signum())
     }
@@ -40,7 +40,7 @@ class MoneyTest {
     @Test
     fun `a sum is validated against the transaction maximum like any other amount`() {
         assertEquals(Money.of(BigDecimal("3.50")), Money.of(BigDecimal("1.25")) + Money.of(BigDecimal("2.25")))
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             Money.of(Decimals.MAXIMUM_TRANSACTION_AMOUNT) + Money.of(BigDecimal("0.01"))
         }
     }
@@ -48,7 +48,7 @@ class MoneyTest {
     @Test
     fun `a magnitude above the transaction maximum is rejected and the maximum itself is accepted`() {
         assertEquals(Decimals.MAXIMUM_TRANSACTION_AMOUNT, Money.of(Decimals.MAXIMUM_TRANSACTION_AMOUNT).toBigDecimal())
-        val exception = assertThrows(RtsGenericException::class.java) {
+        val exception = assertThrows(LibertyGenericException::class.java) {
             Money.of(Decimals.MAXIMUM_TRANSACTION_AMOUNT.add(BigDecimal("0.01")))
         }
         assertEquals("Amount must not exceed 999999999999.99", exception.message)
@@ -68,13 +68,13 @@ class MoneyTest {
 
     @Test
     fun `a huge exponent is rejected as above the maximum instead of being expanded`() {
-        val exception = assertThrows(RtsGenericException::class.java) { Money.of(BigDecimal("1e999999999")) }
+        val exception = assertThrows(LibertyGenericException::class.java) { Money.of(BigDecimal("1e999999999")) }
         assertEquals("Amount must not exceed 999999999999.99", exception.message)
     }
 
     @Test
     fun `a JSON huge exponent fails binding with the business exception as its cause`() {
         val exception = assertThrows(JsonMappingException::class.java) { objectMapper.readValue("1e999999999", Money::class.java) }
-        assertInstanceOf(RtsGenericException::class.java, exception.cause)
+        assertInstanceOf(LibertyGenericException::class.java, exception.cause)
     }
 }

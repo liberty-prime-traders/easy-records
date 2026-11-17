@@ -5,7 +5,7 @@ import app.myliberty.easy_records.organizations.business.core.tag.TagCache
 import app.myliberty.easy_records.organizations.business.core.tag.TagRepository
 import app.myliberty.easy_records.organizations.business.core.tag.mapping.TagMapper
 import app.myliberty.easy_records.util.business.StringUtils
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException
 import org.springframework.stereotype.Service
 import java.util.Objects
@@ -31,7 +31,7 @@ class TagService(
         val tagName = StringUtils.getValueOrException(tagInsertDto.tagName, NAME_IS_REQUIRED)
 
         tagCache.getAllTags().find { StringUtils.isEquivalent(it.tagName, tagName) }
-            ?.let { throw RtsGenericException(String.format(NAME_ALREADY_EXISTS, tagName))}
+            ?.let { throw LibertyGenericException(String.format(NAME_ALREADY_EXISTS, tagName))}
 
         val similarTags = tagRepository.findSimilarTags(tagName, SIMILARITY_THRESHOLD)
             .map { tagMapper.toResponseDto(tagMapper.toDomainDto(it)) }
@@ -46,7 +46,7 @@ class TagService(
 
     private fun throwTagSimilarityException(attemptedName: String, similarTags: List<TagResponseDto>) {
         val tagNames = similarTags.joinToString(", ") { "'${it.tagName}'" }
-        throw RtsGenericException(
+        throw LibertyGenericException(
             "Cannot create tag '$attemptedName'. Similar tag(s) already exist: $tagNames." +
                     "Please use an existing tag or choose a more distinct name."
         )
@@ -66,7 +66,7 @@ class TagService(
 
         tagCache.getAllTags()
             .find { StringUtils.isEquivalent(it.tagName, name) && it.id != tagUpdateDto.id }
-            ?.let { throw RtsGenericException(String.format(NAME_ALREADY_EXISTS, name)) }
+            ?.let { throw LibertyGenericException(String.format(NAME_ALREADY_EXISTS, name)) }
 
         val similarTags = tagRepository.findSimilarTags(name, SIMILARITY_THRESHOLD)
             .filter { it.id != tagUpdateDto.id }

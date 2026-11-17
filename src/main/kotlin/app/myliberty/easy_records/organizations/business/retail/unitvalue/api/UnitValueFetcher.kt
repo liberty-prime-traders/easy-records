@@ -2,7 +2,7 @@ package app.myliberty.easy_records.organizations.business.retail.unitvalue.api
 
 import app.myliberty.easy_records.organizations.business.retail.unitvalue.UnitValueCache
 import app.myliberty.easy_records.organizations.business.retail.unitvalue.UnitValueMapper
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Component
 import java.util.UUID
 
@@ -13,7 +13,7 @@ class UnitValueFetcher(
 ) {
 
     fun requiredUnitName(unitValueId: UUID): String = getUnitNamesById()[unitValueId]
-        ?: throw RtsGenericException("Unit name not found for id $unitValueId")
+        ?: throw LibertyGenericException("Unit name not found for id $unitValueId")
 
     fun getUnitNamesById(): Map<UUID, String> = unitValueCache.getUnitNamesById()
 

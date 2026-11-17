@@ -7,7 +7,7 @@ import app.myliberty.easy_records.locations.business.retail.sale_adjustment.api.
 import app.myliberty.easy_records.locations.business.retail.stock.api.updater.SaleStockUpdater
 import app.myliberty.easy_records.locations.business.retail.stock_reservation.api.StockReserver
 import app.myliberty.easy_records.organizations.business.core.fiscal_period.api.FiscalPeriodService
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.mock
@@ -50,7 +50,7 @@ class ConfirmedSalePersisterPreAllocatedReferenceTest {
             preAllocatedReferenceNumber = "SALE0009",
         )
 
-        assertThrows(RtsGenericException::class.java) { confirmedSalePersister.confirm(saleSaveRequest) }
+        assertThrows(LibertyGenericException::class.java) { confirmedSalePersister.confirm(saleSaveRequest) }
 
         verifyNoInteractions(saleRepository, saleLocker)
     }

@@ -4,7 +4,7 @@ import app.myliberty.easy_records.support.WithDefaultOrganizationSession
 import app.myliberty.easy_records.locations.business.retail.stock.api.fifo.FifoLayer
 import app.myliberty.easy_records.locations.business.retail.stock.api.fifo.StockEntryFifoDto
 import app.myliberty.easy_records.util.business.Decimals
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.quantity.BreakdownUnit
 import app.myliberty.easy_records.util.quantity.QuantityBreakdown
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -86,7 +86,7 @@ class StockTransferDispatchLineEntityTest {
 
     @Test
     fun `a transfer needing more than the layers hold is rejected with breakdown figures`() {
-        val exception = assertThrows(RtsGenericException::class.java) {
+        val exception = assertThrows(LibertyGenericException::class.java) {
             allocate(draftLine("2", 18L), listOf(layer("35", "70.0000")))
         }
 

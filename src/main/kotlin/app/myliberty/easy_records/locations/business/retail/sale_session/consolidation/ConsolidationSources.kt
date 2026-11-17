@@ -4,7 +4,7 @@ import app.myliberty.easy_records.locations.business.retail.sale.api.SaleDataFet
 import app.myliberty.easy_records.locations.business.retail.sale.api.SaleHeaderDto
 import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionValidator
 import app.myliberty.easy_records.locations.business.retail.sale_session.api.ConsolidationSourceSale
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Component
 import java.util.UUID
 
@@ -33,7 +33,7 @@ class ConsolidationSources(
         val lockedHeaderBySaleId = lockedHeaders.associateBy { it.id }
         sourceSales.forEach { sourceSale ->
             if (lockedHeaderBySaleId.getValue(sourceSale.saleId).version != sourceSale.saleVersion) {
-                throw RtsGenericException(
+                throw LibertyGenericException(
                     "Sale ${sourceSale.referenceNumber} changed after it was selected. Select the sales again"
                 )
             }

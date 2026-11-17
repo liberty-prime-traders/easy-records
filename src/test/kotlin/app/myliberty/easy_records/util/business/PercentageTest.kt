@@ -2,7 +2,7 @@ package app.myliberty.easy_records.util.business
 
 import com.fasterxml.jackson.databind.JsonMappingException
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertInstanceOf
 import org.junit.jupiter.api.Assertions.assertThrows
@@ -23,7 +23,7 @@ class PercentageTest {
     @Test
     fun `a negative percentage, one above one hundred and one with three decimals are rejected, never rounded`() {
         listOf("-0.01", "100.01", "7.125").forEach { rejected ->
-            assertThrows(RtsGenericException::class.java) { Percentage.of(BigDecimal(rejected)) }
+            assertThrows(LibertyGenericException::class.java) { Percentage.of(BigDecimal(rejected)) }
         }
     }
 
@@ -40,12 +40,12 @@ class PercentageTest {
     @Test
     fun `a JSON percentage above one hundred fails binding with the business exception as its cause`() {
         val exception = assertThrows(JsonMappingException::class.java) { objectMapper.readValue("100.01", Percentage::class.java) }
-        assertInstanceOf(RtsGenericException::class.java, exception.cause)
+        assertInstanceOf(LibertyGenericException::class.java, exception.cause)
     }
 
     @Test
     fun `a JSON percentage with three decimals fails binding with the business exception as its cause`() {
         val exception = assertThrows(JsonMappingException::class.java) { objectMapper.readValue("7.125", Percentage::class.java) }
-        assertInstanceOf(RtsGenericException::class.java, exception.cause)
+        assertInstanceOf(LibertyGenericException::class.java, exception.cause)
     }
 }

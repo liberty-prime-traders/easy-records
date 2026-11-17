@@ -1,6 +1,6 @@
 package app.myliberty.easy_records.organizations.business.core.loan
 
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Component
 
 @Component
@@ -11,11 +11,11 @@ class LoanVoidValidator(
 
     fun requireVoidable(loanDto: LoanDto) {
         if (loanVoidRepository.existsByLoanId(loanDto.id)) {
-            throw RtsGenericException("Loan ${loanDto.referenceNumber} is already voided")
+            throw LibertyGenericException("Loan ${loanDto.referenceNumber} is already voided")
         }
         val activeRepaymentReferences = activeLoanRepaymentRepository.findByLoanIdOrderByCreatedOnAscIdAsc(loanDto.id).map { it.referenceNumber }
         if (activeRepaymentReferences.isNotEmpty()) {
-            throw RtsGenericException(
+            throw LibertyGenericException(
                 "Loan ${loanDto.referenceNumber} cannot be voided while it has repayments: ${activeRepaymentReferences.joinToString()}"
             )
         }

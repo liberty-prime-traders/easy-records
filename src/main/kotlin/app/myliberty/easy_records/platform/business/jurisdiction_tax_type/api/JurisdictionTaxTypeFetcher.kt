@@ -8,7 +8,7 @@ import app.myliberty.easy_records.platform.business.tax_type.api.PlatformTaxType
 import app.myliberty.easy_records.platform.business.tax_type.api.TaxApplicationLevel
 import app.myliberty.easy_records.platform.business.tax_type.api.TaxTypeDto
 import app.myliberty.easy_records.platform.business.tax_type.api.TaxTypeFetcher
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Service
 import java.util.UUID
 
@@ -31,7 +31,7 @@ class JurisdictionTaxTypeFetcher(
     fun getTaxType(jurisdictionTaxTypeId: UUID): TaxTypeDto {
         val link = getLink(jurisdictionTaxTypeId)
         return taxTypeFetcher.getAllDtos().find { it.id == link.taxTypeId }
-            ?: throw RtsGenericException("Tax type not found for jurisdiction link")
+            ?: throw LibertyGenericException("Tax type not found for jurisdiction link")
     }
 
     fun getNames(jurisdictionTaxTypeIds: Collection<UUID>): Map<UUID, JurisdictionTaxTypeNames> {
@@ -43,16 +43,16 @@ class JurisdictionTaxTypeFetcher(
             .filter { it.id in idSet }
             .associate { link ->
                 val jurisdictionName = jurisdictionIndex[link.jurisdictionId]?.name
-                    ?: throw RtsGenericException("Jurisdiction not found for jurisdiction link")
+                    ?: throw LibertyGenericException("Jurisdiction not found for jurisdiction link")
                 val taxTypeName = taxTypeIndex[link.taxTypeId]?.name
-                    ?: throw RtsGenericException("Tax type not found for jurisdiction link")
+                    ?: throw LibertyGenericException("Tax type not found for jurisdiction link")
                 link.id to JurisdictionTaxTypeNames(jurisdictionName, taxTypeName)
             }
     }
 
     private fun getLink(jurisdictionTaxTypeId: UUID): JurisdictionTaxTypeDto {
         return jurisdictionTaxTypeCache.getAll().find { it.id == jurisdictionTaxTypeId }
-            ?: throw RtsGenericException("Jurisdiction tax type not found for link id: $jurisdictionTaxTypeId")
+            ?: throw LibertyGenericException("Jurisdiction tax type not found for link id: $jurisdictionTaxTypeId")
     }
 
     fun isInUse(taxTypeId: UUID): Boolean =

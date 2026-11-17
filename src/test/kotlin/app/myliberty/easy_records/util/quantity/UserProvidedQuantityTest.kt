@@ -1,7 +1,7 @@
 package app.myliberty.easy_records.util.quantity
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -14,7 +14,7 @@ class UserProvidedQuantityTest {
 
     @Test
     fun `more than two significant decimals is rejected, never rounded`() {
-        assertThrows(RtsGenericException::class.java) { UserProvidedQuantity.of(BigDecimal("1.255")) }
+        assertThrows(LibertyGenericException::class.java) { UserProvidedQuantity.of(BigDecimal("1.255")) }
     }
 
     @Test
@@ -32,7 +32,7 @@ class UserProvidedQuantityTest {
 
     @Test
     fun `a negative quantity is rejected and zero is accepted`() {
-        val exception = assertThrows(RtsGenericException::class.java) { UserProvidedQuantity.of(BigDecimal("-0.5")) }
+        val exception = assertThrows(LibertyGenericException::class.java) { UserProvidedQuantity.of(BigDecimal("-0.5")) }
         assertEquals("Quantity must not be negative", exception.message)
         assertTrue(UserProvidedQuantity.of(BigDecimal("0.00")).isZero())
     }
@@ -41,7 +41,7 @@ class UserProvidedQuantityTest {
     fun `a magnitude above the maximum is rejected, including an enormous exponent, and the maximum itself is accepted`() {
         assertEquals(QuantityLimits.MAX_USER_QUANTITY, UserProvidedQuantity.of(QuantityLimits.MAX_USER_QUANTITY).toBigDecimal())
         listOf(QuantityLimits.MAX_USER_QUANTITY.add(BigDecimal("0.01")), BigDecimal("1e999999999")).forEach { outOfRange ->
-            val exception = assertThrows(RtsGenericException::class.java) { UserProvidedQuantity.of(outOfRange) }
+            val exception = assertThrows(LibertyGenericException::class.java) { UserProvidedQuantity.of(outOfRange) }
             assertEquals("Quantity must not exceed 999999999999.99", exception.message)
         }
     }

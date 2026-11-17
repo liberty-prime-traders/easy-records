@@ -1,7 +1,7 @@
 package app.myliberty.easy_records.locations.business.retail.stock_transfer
 
 import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferStatus
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Component
 
 @Component
@@ -11,9 +11,9 @@ class StockTransferDraftDispatchFetcher(
 
     fun requireDraftDispatch(orderReferenceNumber: String): StockTransferDispatchEntity {
         val dispatchEntity = stockTransferDispatchRepository.findByStockTransferOrderRef(orderReferenceNumber)
-            ?: throw RtsGenericException("Dispatch not found for order $orderReferenceNumber")
+            ?: throw LibertyGenericException("Dispatch not found for order $orderReferenceNumber")
         if (dispatchEntity.status != StockTransferStatus.DRAFT) {
-            throw RtsGenericException("Operation only allowed in DRAFT status. Current: ${dispatchEntity.status}")
+            throw LibertyGenericException("Operation only allowed in DRAFT status. Current: ${dispatchEntity.status}")
         }
         return dispatchEntity
     }

@@ -3,7 +3,7 @@ package app.myliberty.easy_records.organizations.business.retail.stock_movement_
 import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.MovementType
 import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.StockMovementReasonService
 import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.StockMovementReasonUpdateDto
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
@@ -33,8 +33,8 @@ class StockMovementReasonServiceTest {
 
     @Test
     fun `a reason is mandatory on a required movement type`() {
-        assertThrows(RtsGenericException::class.java) { service.guardReason(MovementType.STOCK_ADJUSTMENT_DECREASE, null) }
-        assertThrows(RtsGenericException::class.java) { service.guardReason(MovementType.STOCK_ADJUSTMENT_INCREASE, null) }
+        assertThrows(LibertyGenericException::class.java) { service.guardReason(MovementType.STOCK_ADJUSTMENT_DECREASE, null) }
+        assertThrows(LibertyGenericException::class.java) { service.guardReason(MovementType.STOCK_ADJUSTMENT_INCREASE, null) }
     }
 
     @Test
@@ -50,18 +50,18 @@ class StockMovementReasonServiceTest {
 
     @Test
     fun `a reason is rejected on a movement type it does not list`() {
-        assertThrows(RtsGenericException::class.java) { service.guardReason(MovementType.CUSTOMER_RETURN, theftReason.id) }
+        assertThrows(LibertyGenericException::class.java) { service.guardReason(MovementType.CUSTOMER_RETURN, theftReason.id) }
     }
 
     @Test
     fun `any reason is rejected on a movement type no reason lists`() {
-        assertThrows(RtsGenericException::class.java) { service.guardReason(MovementType.PURCHASE_RECEIVED, theftReason.id) }
-        assertThrows(RtsGenericException::class.java) { service.guardReason(MovementType.OPENING_STOCK, customReason.id) }
+        assertThrows(LibertyGenericException::class.java) { service.guardReason(MovementType.PURCHASE_RECEIVED, theftReason.id) }
+        assertThrows(LibertyGenericException::class.java) { service.guardReason(MovementType.OPENING_STOCK, customReason.id) }
     }
 
     @Test
     fun `an unknown reason id is rejected`() {
-        assertThrows(RtsGenericException::class.java) { service.guardReason(MovementType.STOCK_ADJUSTMENT_DECREASE, UUID.randomUUID()) }
+        assertThrows(LibertyGenericException::class.java) { service.guardReason(MovementType.STOCK_ADJUSTMENT_DECREASE, UUID.randomUUID()) }
     }
 
     @Test
@@ -72,13 +72,13 @@ class StockMovementReasonServiceTest {
             movementTypes = setOf(MovementType.STOCK_ADJUSTMENT_INCREASE)
         )
 
-        assertThrows(RtsGenericException::class.java) { service.update(updateDto) }
+        assertThrows(LibertyGenericException::class.java) { service.update(updateDto) }
         assertTrue(mockingDetails(cache).invocations.none { it.method.name == "save" })
     }
 
     @Test
     fun `deleting a system reason is rejected`() {
-        assertThrows(RtsGenericException::class.java) { service.delete(theftReason.id) }
+        assertThrows(LibertyGenericException::class.java) { service.delete(theftReason.id) }
         assertTrue(mockingDetails(cache).invocations.none { it.method.name == "delete" })
     }
 

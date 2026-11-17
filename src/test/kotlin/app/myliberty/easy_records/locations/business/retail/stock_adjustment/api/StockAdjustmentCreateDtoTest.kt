@@ -3,7 +3,7 @@ package app.myliberty.easy_records.locations.business.retail.stock_adjustment.ap
 import app.myliberty.easy_records.locations.business.retail.stock.api.StockAdjustmentCategory
 import app.myliberty.easy_records.support.WithDefaultOrganizationSession
 import app.myliberty.easy_records.util.business.PositiveMoney
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.quantity.PositiveUserProvidedQuantity
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
@@ -23,7 +23,7 @@ class StockAdjustmentCreateDtoTest {
 
     @Test
     fun `a missing unit cost is a business error naming the rule`() {
-        val exception = assertThrows(RtsGenericException::class.java) { stockAdjustmentCreateDto(null).requiredUnitCost() }
+        val exception = assertThrows(LibertyGenericException::class.java) { stockAdjustmentCreateDto(null).requiredUnitCost() }
 
         assertEquals("Unit cost is required for a stock increase", exception.message)
     }

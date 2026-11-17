@@ -1,6 +1,6 @@
 package app.myliberty.easy_records.util.business
 
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import java.text.Normalizer
 import java.util.Optional
 
@@ -34,7 +34,7 @@ object StringUtils {
         if (hasValue(str)) {
             return str!!.get().trim()
         }
-        throw RtsGenericException(exceptionMessage)
+        throw LibertyGenericException(exceptionMessage)
     }
 
     fun hasValue(str: String?): Boolean {

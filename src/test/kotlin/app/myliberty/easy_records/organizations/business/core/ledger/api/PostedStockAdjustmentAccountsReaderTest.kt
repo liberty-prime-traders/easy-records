@@ -9,7 +9,7 @@ import app.myliberty.easy_records.organizations.business.core.ledger.LedgerEntry
 import app.myliberty.easy_records.organizations.business.core.ledger.LedgerEntryGroupEntity
 import app.myliberty.easy_records.organizations.business.core.ledger.LedgerEntryGroupRepository
 import app.myliberty.easy_records.organizations.business.core.ledger.LedgerEntryRepository
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
@@ -128,7 +128,7 @@ class PostedStockAdjustmentAccountsReaderTest {
             )
         )
 
-        val exception = assertThrows(RtsGenericException::class.java) {
+        val exception = assertThrows(LibertyGenericException::class.java) {
             postedStockAdjustmentAccountsReader.getByAdjustmentReferenceNumber(setOf("ADJ1", "ADJ2"))
         }
 

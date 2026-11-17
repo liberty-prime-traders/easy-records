@@ -11,7 +11,7 @@ import app.myliberty.easy_records.organizations.business.retail.stock_movement_r
 import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.UnitConversionGraph
 import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.UnitConversionGraphFacade
 import app.myliberty.easy_records.util.business.lock.LockNamespaces
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.quantity.ExactQuantity
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
@@ -116,7 +116,7 @@ class StockTransferReceiptStockUpdaterTest {
     fun `a destination product counted in a different storage unit rejects the receipt before any stock is recorded`() {
         givenDestinationProducts(destinationBaseUnitId = UUID.randomUUID())
 
-        val exception = assertThrows(RtsGenericException::class.java) {
+        val exception = assertThrows(LibertyGenericException::class.java) {
             stockTransferReceiptStockUpdater.recordTransferReceipt(
                 "DISPATCH-1", listOf(line(firstOrgProductId, "DL-1", "1", "1.0000", "1", 1L))
             )
@@ -130,7 +130,7 @@ class StockTransferReceiptStockUpdaterTest {
     fun `a line whose product does not exist at the destination rejects the receipt`() {
         `when`(locationProductDataFetcher.findIdentitiesByOrgProductIds(anyCollection())).thenReturn(emptyMap())
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             stockTransferReceiptStockUpdater.recordTransferReceipt(
                 "DISPATCH-1", listOf(line(firstOrgProductId, "DL-1", "1", "1.0000", "1", 1L))
             )

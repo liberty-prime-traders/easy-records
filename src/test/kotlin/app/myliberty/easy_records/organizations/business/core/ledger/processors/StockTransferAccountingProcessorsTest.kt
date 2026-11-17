@@ -16,7 +16,7 @@ import app.myliberty.easy_records.organizations.business.retail.stock_transfer.a
 import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferOrderDomainDto
 import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferStatus
 import app.myliberty.easy_records.util.business.Money
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertThrows
@@ -179,7 +179,7 @@ class StockTransferAccountingProcessorsTest {
         givenOrderDispatchedFromSource()
         givenDispatchPostedAtSource(false)
 
-        val exception = assertThrows(RtsGenericException::class.java) {
+        val exception = assertThrows(LibertyGenericException::class.java) {
             receiptProcessor.prepareLedgerRequest(receiptCompletedEvent())
         }
 
@@ -217,11 +217,11 @@ class StockTransferAccountingProcessorsTest {
 
     @Test
     fun `a cancel requires the dispatch posting and fails when the gate reports it missing`() {
-        doThrow(RtsGenericException("dispatch posting missing"))
+        doThrow(LibertyGenericException("dispatch posting missing"))
             .`when`(ledgerPostingGate)
             .requirePosted(sourceContext, "DISPATCH-1", LedgerSourceType.STOCK_TRANSFER_DISPATCH)
 
-        assertThrows(RtsGenericException::class.java) { cancelProcessor.prepareLedgerRequest(cancelledEvent()) }
+        assertThrows(LibertyGenericException::class.java) { cancelProcessor.prepareLedgerRequest(cancelledEvent()) }
     }
 
     @Test

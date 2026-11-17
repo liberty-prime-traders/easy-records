@@ -7,7 +7,7 @@ import app.myliberty.easy_records.messaging.kafka.transaction.EventReissueHandle
 import app.myliberty.easy_records.messaging.kafka.transaction.events.StockAdjustmentRecordedEvent
 import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.business.Money
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Component
 import java.time.Instant
@@ -24,7 +24,7 @@ class StockAdjustmentHandlerForKafka(
 
     override fun reissue(sourceDocumentId: UUID) {
         val stockAdjustment = stockAdjustmentRepository.findById(sourceDocumentId)
-            .orElseThrow { RtsGenericException("Stock adjustment $sourceDocumentId not found") }
+            .orElseThrow { LibertyGenericException("Stock adjustment $sourceDocumentId not found") }
         publish(stockAdjustment)
     }
 

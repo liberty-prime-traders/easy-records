@@ -5,13 +5,13 @@ import app.myliberty.easy_records.organizations.business.core.account.api.Accoun
 import app.myliberty.easy_records.organizations.business.core.manual_journal.api.ManualJournalLineResponseDto
 import app.myliberty.easy_records.organizations.business.core.manual_journal.api.ManualJournalResponseDto
 import app.myliberty.easy_records.platform.business.sysuser.api.CreatorFullName
-import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.util.business.mappers.LibertyMapperConfig
 import org.mapstruct.Context
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 import org.mapstruct.Named
 
-@Mapper(config = RtsMapperConfig::class)
+@Mapper(config = LibertyMapperConfig::class)
 abstract class ManualJournalResponseMapper {
 
     @Mapping(source = "manualJournal.createdById", target = "postedBy", qualifiedBy = [CreatorFullName::class])

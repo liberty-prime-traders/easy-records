@@ -2,7 +2,7 @@ package app.myliberty.easy_records.platform.business.db_migration
 
 import app.myliberty.easy_records.platform.business.db_version.api.DbVersionDto
 import app.myliberty.easy_records.platform.business.organization.api.OrganizationService
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Component
 import java.util.UUID
 
@@ -21,7 +21,7 @@ class MigrationRetryHandler(
     locationIds: Set<UUID>
   ): OrganizationLocationsMigration {
     val organization = organizationService.getAllOrganizationDtos().find { it.id == originalMigration.schemaOwnerId }
-      ?: throw RtsGenericException("Organization not found")
+      ?: throw LibertyGenericException("Organization not found")
 
     val retryMigration = migrationInitializer.createRetryMigration(originalMigration, targetDbVersion)
 
@@ -55,7 +55,7 @@ class MigrationRetryHandler(
       OrganizationLocationsMigration(retryMigration, consolidatedResults)
     } catch (e: Exception) {
       migrationStatusUpdater.markFailure(retryMigration, e)
-      throw RtsGenericException("Locations retry failed: ${e.message}")
+      throw LibertyGenericException("Locations retry failed: ${e.message}")
     }
   }
 

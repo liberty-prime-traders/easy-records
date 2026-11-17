@@ -14,7 +14,7 @@ import app.myliberty.easy_records.organizations.business.retail.stock_transfer.a
 import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferOrderService
 import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferStatus
 import app.myliberty.easy_records.util.business.Money
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Service
 
 @Service
@@ -43,7 +43,7 @@ class StockTransferService(
     fun cancelTransfer(orderReferenceNumber: String): StockTransferResponse {
         val order = stockTransferOrderLocker.lockThenFetch(orderReferenceNumber)
         if (order.status != StockTransferStatus.DRAFT && order.status != StockTransferStatus.DISPATCHED) {
-            throw RtsGenericException("Cannot cancel a transfer in status ${order.status}")
+            throw LibertyGenericException("Cannot cancel a transfer in status ${order.status}")
         }
         val sourceSchema = locationService.getSchemaByLocationId(order.sourceLocationId)
         val wasDispatched = order.status == StockTransferStatus.DISPATCHED

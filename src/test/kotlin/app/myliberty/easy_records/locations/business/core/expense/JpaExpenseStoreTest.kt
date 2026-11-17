@@ -12,7 +12,7 @@ import app.myliberty.easy_records.cross_tier.core.expense.model.NewExpense
 import app.myliberty.easy_records.cross_tier.core.expense.model.NewExpenseBatch
 import app.myliberty.easy_records.cross_tier.core.expense.model.ResolvedSettlement
 import app.myliberty.easy_records.cross_tier.core.expense.store.JpaExpenseStore
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.model.ImmutableEntity
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
@@ -118,7 +118,7 @@ class JpaExpenseStoreTest {
         val missingExpenseId = UUID.randomUUID()
         `when`(expenseRepository.findAllById(listOf(missingExpenseId))).thenReturn(emptyList())
 
-        assertThrows(RtsGenericException::class.java) { expenseStore.loadForExpenses(listOf(missingExpenseId)) }
+        assertThrows(LibertyGenericException::class.java) { expenseStore.loadForExpenses(listOf(missingExpenseId)) }
     }
 
     @Test
@@ -126,7 +126,7 @@ class JpaExpenseStoreTest {
         val missingBatchId = UUID.randomUUID()
         `when`(expenseBatchRepository.findById(missingBatchId)).thenReturn(Optional.empty())
 
-        assertThrows(RtsGenericException::class.java) { expenseStore.loadForBatch(missingBatchId) }
+        assertThrows(LibertyGenericException::class.java) { expenseStore.loadForBatch(missingBatchId) }
     }
 
     @Test

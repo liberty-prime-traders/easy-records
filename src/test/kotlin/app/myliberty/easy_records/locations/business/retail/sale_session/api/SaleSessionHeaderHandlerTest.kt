@@ -8,7 +8,7 @@ import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSes
 import app.myliberty.easy_records.organizations.business.retail.adjustment_reason.api.AdjustmentReasonService
 import app.myliberty.easy_records.organizations.business.core.contact.api.ContactService
 import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductService
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.clearInvocations
@@ -84,7 +84,7 @@ class SaleSessionHeaderHandlerTest {
             SaleSessionHeaderUpdateDto(soldById = Optional.of(UUID.randomUUID())),
             SaleSessionHeaderUpdateDto(dateSold = Optional.of(OffsetDateTime.now())),
         ).forEach { headerUpdateDto ->
-            assertThrows(RtsGenericException::class.java) {
+            assertThrows(LibertyGenericException::class.java) {
                 saleSessionHeaderHandler.update(sessionId, headerUpdateDto)
             }
         }
@@ -132,7 +132,7 @@ class SaleSessionHeaderHandlerTest {
     fun `a read-only sale still refuses a contact change`() {
         session(SaleSessionKind.SALE, SaleStatus.CONFIRMED, savedSaleId)
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             saleSessionHeaderHandler.update(
                 sessionId, SaleSessionHeaderUpdateDto(contactId = Optional.of(UUID.randomUUID()))
             )

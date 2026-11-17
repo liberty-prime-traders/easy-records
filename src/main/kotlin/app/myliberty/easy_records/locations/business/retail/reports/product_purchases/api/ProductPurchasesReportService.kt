@@ -9,7 +9,7 @@ import app.myliberty.easy_records.organizations.business.core.contact.api.Contac
 import app.myliberty.easy_records.organizations.business.retail.product_category.api.ProductCategoryService
 import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.QuantityBreakdownFactory
 import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.UnitConversionGraphFacade
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.paging.PageRequest
 import app.myliberty.easy_records.util.paging.PageResponse
 import app.myliberty.easy_records.util.queries.KeysetSearchCursor
@@ -65,7 +65,7 @@ class ProductPurchasesReportService(
     val cursor = KeysetSearchCursor.decode(pageRequest.previousCursor)
 
     val summary = locationProductDataFetcher.findSummaryByIds(listOf(locationProductId))[locationProductId]
-      ?: throw RtsGenericException("Location product not found: $locationProductId")
+      ?: throw LibertyGenericException("Location product not found: $locationProductId")
     val quantityBreakdown = quantityBreakdownFactory.forBaseUnits(listOf(summary.baseUnitId)).getValue(summary.baseUnitId)
     val storageUnitsPerBaseUnit = unitConversionGraphFacade.getOrLoad().getSizeInRoot(summary.baseUnitId)
 

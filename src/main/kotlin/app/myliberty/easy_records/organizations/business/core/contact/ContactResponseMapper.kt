@@ -4,11 +4,11 @@ import app.myliberty.easy_records.organizations.business.core.contact.api.Contac
 import app.myliberty.easy_records.organizations.business.core.contact.api.ContactResponseDto
 import app.myliberty.easy_records.organizations.business.core.ledger.api.SubledgerBalanceDto
 import app.myliberty.easy_records.platform.business.sysuser.api.CreatorFullName
-import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.util.business.mappers.LibertyMapperConfig
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 
-@Mapper(config = RtsMapperConfig::class)
+@Mapper(config = LibertyMapperConfig::class)
 interface ContactResponseMapper {
 
     @Mapping(source = "contactDto.createdById", target = "createdBy", qualifiedBy = [CreatorFullName::class])

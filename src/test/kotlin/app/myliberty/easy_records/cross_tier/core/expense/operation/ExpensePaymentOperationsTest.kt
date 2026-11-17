@@ -24,7 +24,7 @@ import app.myliberty.easy_records.messaging.kafka.transaction.events.ExpensePaym
 import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.business.PositiveMoney
 import app.myliberty.easy_records.util.enums.PaymentStatus
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
@@ -83,7 +83,7 @@ class ExpensePaymentOperationsTest {
     fun `a payment larger than the remaining balance is rejected`() {
         val expenseDto = stubExpense(amount = "100", activePayments = listOf("60"))
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             expensePaymentOperations.recordPayments(
                 listOf(ExpensePaymentCreateRequest(expenseDto.referenceNumber, settlementInstruction, PositiveMoney.of(BigDecimal("50"))))
             )
@@ -96,7 +96,7 @@ class ExpensePaymentOperationsTest {
         val expenseDto = stubExpense(amount = "100", activePayments = emptyList())
         val sixtyEach = ExpensePaymentCreateRequest(expenseDto.referenceNumber, settlementInstruction, PositiveMoney.of(BigDecimal("60")))
 
-        val exception = assertThrows(RtsGenericException::class.java) {
+        val exception = assertThrows(LibertyGenericException::class.java) {
             expensePaymentOperations.recordPayments(listOf(sixtyEach, sixtyEach))
         }
         assertTrue(exception.message.contains("120.00"), exception.message)
@@ -125,7 +125,7 @@ class ExpensePaymentOperationsTest {
 
     @Test
     fun `an empty payment collection is rejected`() {
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             expensePaymentOperations.recordPayments(emptyList())
         }
         verifyNoInteractions(eventPublisher)
@@ -159,7 +159,7 @@ class ExpensePaymentOperationsTest {
 
     @Test
     fun `voiding a payment requires a reason`() {
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             expensePaymentOperations.voidPayment(ExpensePaymentVoidRequest("EXPY01", ""))
         }
     }
@@ -179,7 +179,7 @@ class ExpensePaymentOperationsTest {
             )
         )
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             expensePaymentOperations.voidPayment(ExpensePaymentVoidRequest("EXPY01", "wrong method"))
         }
         verify(expenseStore, never()).savePaymentVoid(paymentDto.id, "wrong method")
@@ -293,7 +293,7 @@ class ExpensePaymentOperationsTest {
     fun `a rejected payment leaves the payment state untouched`() {
         val expenseDto = stubExpense(amount = "100", activePayments = listOf("60"))
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             expensePaymentOperations.recordPayments(
                 listOf(ExpensePaymentCreateRequest(expenseDto.referenceNumber, settlementInstruction, PositiveMoney.of(BigDecimal("50"))))
             )

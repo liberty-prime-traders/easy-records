@@ -8,7 +8,7 @@ import app.myliberty.easy_records.locations.business.retail.purchase.api.deliver
 import app.myliberty.easy_records.messaging.kafka.common.EventSourceContext
 import app.myliberty.easy_records.messaging.kafka.transaction.EventReissueHandler
 import app.myliberty.easy_records.messaging.kafka.transaction.events.PurchaseDeliveredEvent
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Component
 import java.util.UUID
@@ -26,7 +26,7 @@ class DeliveryHandlerForKafka(
 
     override fun reissue(sourceDocumentId: UUID) {
         val delivery = deliveryRepository.findById(sourceDocumentId)
-            .orElseThrow { RtsGenericException("Delivery $sourceDocumentId not found") }
+            .orElseThrow { LibertyGenericException("Delivery $sourceDocumentId not found") }
         val lines = deliveryLineRepository.findByPurchaseDeliveryIdIn(listOf(sourceDocumentId))
             .filter { it.status == PurchaseDeliveryLineStatus.ACTIVE }
         val context = deliveryHandlerForPurchase.getDeliveryContext(delivery.purchaseId)

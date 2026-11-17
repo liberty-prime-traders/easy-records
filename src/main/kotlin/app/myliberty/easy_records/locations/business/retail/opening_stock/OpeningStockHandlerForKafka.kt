@@ -7,7 +7,7 @@ import app.myliberty.easy_records.messaging.kafka.transaction.EventReissueHandle
 import app.myliberty.easy_records.messaging.kafka.transaction.events.OpeningStockDeclaredEvent
 import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.business.Money
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Component
 import java.time.Instant
@@ -24,7 +24,7 @@ class OpeningStockHandlerForKafka(
 
     override fun reissue(sourceDocumentId: UUID) {
         val row = openingStockRepository.findById(sourceDocumentId)
-            .orElseThrow { RtsGenericException("Opening stock $sourceDocumentId not found") }
+            .orElseThrow { LibertyGenericException("Opening stock $sourceDocumentId not found") }
         publish(row)
     }
 

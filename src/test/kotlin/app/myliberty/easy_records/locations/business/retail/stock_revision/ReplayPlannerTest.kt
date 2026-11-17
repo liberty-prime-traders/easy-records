@@ -6,7 +6,7 @@ import app.myliberty.easy_records.locations.business.retail.stock.api.fifo.FifoL
 import app.myliberty.easy_records.locations.business.retail.stock.api.read.StockEntryFetcher
 import app.myliberty.easy_records.locations.business.retail.stock.api.fifo.StockEntryFifoDto
 import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.MovementType
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.quantity.BreakdownUnit
 import app.myliberty.easy_records.util.quantity.ExactQuantity
 import app.myliberty.easy_records.util.quantity.QuantityAsEntered
@@ -117,7 +117,7 @@ class ReplayPlannerTest {
     fun `when any consumer cannot be covered the whole replay is refused with every problem listed`() {
         givenLayerWithStockLeft("5", "60.00")
 
-        val exception = assertThrows(RtsGenericException::class.java) {
+        val exception = assertThrows(LibertyGenericException::class.java) {
             replayPlanner.planReplayForExecution(
                 listOf(consumption("SAL1", "4", "40.00"), consumption("SAL2", "4", "40.00")),
                 "STRV000001",

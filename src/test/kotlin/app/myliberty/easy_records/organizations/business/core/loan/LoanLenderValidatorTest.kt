@@ -4,7 +4,7 @@ import app.myliberty.easy_records.organizations.business.core.contact.api.Contac
 import app.myliberty.easy_records.organizations.business.core.contact.api.ContactService
 import app.myliberty.easy_records.organizations.business.core.contact.api.ContactStatus
 import app.myliberty.easy_records.organizations.business.core.contact.api.ContactType
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
@@ -31,7 +31,7 @@ class LoanLenderValidatorTest {
         `when`(contactService.findContactByReferenceNumber("CT000001")).thenReturn(contact("CT000001", setOf(ContactType.LENDER)))
 
         listOf(null, "", "  ", "CT999999").forEach { reference ->
-            assertThrows(RtsGenericException::class.java) { loanLenderValidator.requireActiveLender(reference) }
+            assertThrows(LibertyGenericException::class.java) { loanLenderValidator.requireActiveLender(reference) }
         }
     }
 
@@ -40,7 +40,7 @@ class LoanLenderValidatorTest {
         listOf(ContactStatus.SUSPENDED, ContactStatus.INACTIVE).forEach { status ->
             `when`(contactService.findContactByReferenceNumber("CT000001")).thenReturn(contact("CT000001", setOf(ContactType.LENDER), status))
 
-            assertThrows(RtsGenericException::class.java) { loanLenderValidator.requireActiveLender("CT000001") }
+            assertThrows(LibertyGenericException::class.java) { loanLenderValidator.requireActiveLender("CT000001") }
         }
     }
 
@@ -48,7 +48,7 @@ class LoanLenderValidatorTest {
     fun `an active contact without the lender type is rejected`() {
         `when`(contactService.findContactByReferenceNumber("CT000001")).thenReturn(contact("CT000001", setOf(ContactType.SUPPLIER, ContactType.CUSTOMER)))
 
-        assertThrows(RtsGenericException::class.java) { loanLenderValidator.requireActiveLender("CT000001") }
+        assertThrows(LibertyGenericException::class.java) { loanLenderValidator.requireActiveLender("CT000001") }
     }
 
     private fun contact(referenceNumber: String, contactTypes: Set<ContactType>, status: ContactStatus = ContactStatus.ACTIVE) = ContactDto(

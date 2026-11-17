@@ -3,7 +3,7 @@ package app.myliberty.easy_records.locations.business.retail.sale_session.consol
 import app.myliberty.easy_records.locations.business.retail.sale.api.SaleHeaderDto
 import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionStore
 import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSession
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 import org.springframework.transaction.support.TransactionSynchronization
@@ -44,7 +44,7 @@ class ConsolidationSessionCleanup(private val saleSessionStore: SaleSessionStore
             saleSessionStore.save(newSession)
         } catch (exception: Exception) {
             log.error("Could not save the session of consolidated sale ${newSession.saleId}", exception)
-            throw RtsGenericException(
+            throw LibertyGenericException(
                 "The sales were consolidated, but something went wrong opening the new draft. " +
                     "Refresh the page and open the new draft from the sales grid."
             )

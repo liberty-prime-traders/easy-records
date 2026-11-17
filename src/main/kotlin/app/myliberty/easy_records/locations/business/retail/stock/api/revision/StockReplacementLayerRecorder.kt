@@ -4,7 +4,7 @@ import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocati
 import app.myliberty.easy_records.locations.business.retail.stock.StockEntryRepository
 import app.myliberty.easy_records.locations.business.retail.stock.StockIncreaseRecorder
 import app.myliberty.easy_records.locations.business.retail.stock.StockReplacementLayerSpecs
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Service
 import java.util.UUID
 import org.springframework.transaction.annotation.Propagation
@@ -21,7 +21,7 @@ class StockReplacementLayerRecorder(
         val revisedStockEntry = stockEntryRepository.findById(
             stockReplacementLayerRequest.revisedStockEntryId
         ).orElseThrow {
-            RtsGenericException(
+            LibertyGenericException(
                 "The stock of this delivery could not be found. Please contact support."
             )
         }

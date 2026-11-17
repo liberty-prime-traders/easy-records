@@ -1,6 +1,6 @@
 package app.myliberty.easy_records.locations.business.retail.sale_session.api
 
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import java.util.UUID
 
 data class SessionIdentity(
@@ -10,7 +10,7 @@ data class SessionIdentity(
 
     init {
         if ((id == null) == (transientId == null)) {
-            throw RtsGenericException("SessionIdentity requires exactly one of id or transientId")
+            throw LibertyGenericException("SessionIdentity requires exactly one of id or transientId")
         }
     }
 

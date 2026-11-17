@@ -4,7 +4,7 @@ import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrgani
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
 import app.myliberty.easy_records.organizations.business.retail.stock_transfer.StockTransferOrderEntity
 import app.myliberty.easy_records.organizations.business.retail.stock_transfer.StockTransferOrderRepository
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Component
 import java.util.UUID
@@ -17,12 +17,12 @@ class StockTransferOrderDataFetcher(
 
     fun getById(id: UUID): StockTransferOrderDomainDto =
         stockTransferOrderRepository.findById(id)
-            .orElseThrow { RtsGenericException("Stock transfer order $id not found") }
+            .orElseThrow { LibertyGenericException("Stock transfer order $id not found") }
             .toDomainDto()
 
     fun getByReferenceNumber(referenceNumber: String): StockTransferOrderDomainDto =
         stockTransferOrderRepository.findByReferenceNumber(referenceNumber)?.toDomainDto()
-            ?: throw RtsGenericException("Stock transfer order $referenceNumber not found")
+            ?: throw LibertyGenericException("Stock transfer order $referenceNumber not found")
 
     fun getTopByLocationId(limit: Int): List<StockTransferOrderDomainDto> {
         val locationId = SessionContextProvider.getLocationId()

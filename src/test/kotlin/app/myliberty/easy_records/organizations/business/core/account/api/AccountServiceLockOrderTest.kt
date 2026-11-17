@@ -4,7 +4,7 @@ import app.myliberty.easy_records.organizations.business.core.account.AccountCac
 import app.myliberty.easy_records.organizations.business.core.account.AccountRepository
 import app.myliberty.easy_records.organizations.business.core.account.AccountResponseBuilder
 import app.myliberty.easy_records.organizations.business.core.account.ChildAccountCreator
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.doThrow
@@ -45,10 +45,10 @@ class AccountServiceLockOrderTest {
 
     @Test
     fun `deactivating an account that a payment method, tax type or expense type uses is refused`() {
-        doThrow(RtsGenericException("Account is in use and cannot be deactivated"))
+        doThrow(LibertyGenericException("Account is in use and cannot be deactivated"))
             .`when`(accountUsagesFinder).failOnUsagesForCode(userAccountDto.code, "be deactivated")
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             accountService.toggleActive(userAccountDto.id, setActive = false)
         }
     }

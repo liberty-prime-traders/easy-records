@@ -4,12 +4,12 @@ import app.myliberty.easy_records.platform.business.db_version.api.DbVersionNumb
 import app.myliberty.easy_records.platform.business.db_version.api.DbVersionService
 import app.myliberty.easy_records.platform.business.table_registry.api.TableRegistryDto
 import app.myliberty.easy_records.platform.business.table_registry.api.TableRegistryResponseDto
-import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.util.business.mappers.LibertyMapperConfig
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 
 @Mapper(
-    config = RtsMapperConfig::class,
+    config = LibertyMapperConfig::class,
     uses = [DbVersionService::class]
 )
 interface TableRegistryMapper {

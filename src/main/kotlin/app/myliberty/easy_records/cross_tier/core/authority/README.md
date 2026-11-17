@@ -122,7 +122,7 @@ Two things enforce this, redundantly on purpose:
    membership id via `OrganizationUserService.getActiveMembershipId` /
    `LocationUserService.getActiveMembershipId` *before* calling
    `Org/LocationRoleAssignmentService.assign(...)`. Both throw
-   `RtsGenericException` if the user has no active (`endOn == null`)
+   `LibertyGenericException` if the user has no active (`endOn == null`)
    membership row — this is the actual enforcement point; a failed
    role grant here never reaches the database.
 2. **The FK constraint itself** is the backstop if that check is ever

@@ -2,11 +2,11 @@ package app.myliberty.easy_records.organizations.business.core.contact
 
 import app.myliberty.easy_records.organizations.business.core.contact.api.ContactDto
 import app.myliberty.easy_records.organizations.business.core.contact.api.ContactInsertDto
-import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.util.business.mappers.LibertyMapperConfig
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 
-@Mapper(config = RtsMapperConfig::class)
+@Mapper(config = LibertyMapperConfig::class)
 interface ContactMapper {
 
     @Mapping(target = "id", ignore = true)

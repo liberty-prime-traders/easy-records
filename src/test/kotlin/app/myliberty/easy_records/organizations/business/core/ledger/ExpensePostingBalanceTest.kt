@@ -22,7 +22,7 @@ import app.myliberty.easy_records.organizations.business.core.ledger.processors.
 import app.myliberty.easy_records.organizations.business.core.ledger.processors.ExpenseVoidedAccountingProcessor
 import app.myliberty.easy_records.organizations.business.core.ledger.helpers.LedgerPostingGate
 import app.myliberty.easy_records.util.business.PositiveMoney
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
@@ -148,10 +148,10 @@ class ExpensePostingBalanceTest {
 
     @Test
     fun `a void whose original is not posted fails instead of being dropped`() {
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             expenseVoidedProcessor.prepareLedgerRequest(expenseVoidedEvent(SystemAccount.RENT_EXPENSE))
         }
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             expensePaymentVoidedProcessor.prepareLedgerRequest(expensePaymentVoidedEvent(SystemAccount.RENT_EXPENSE))
         }
     }
@@ -172,7 +172,7 @@ class ExpensePostingBalanceTest {
     fun `a location-level event outside its location session is rejected rather than keyed to the org`() {
         setOrgOnlySession()
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             expenseRecordedProcessor.shouldProcess(expenseRecordedEvent(SystemAccount.RENT_EXPENSE, locationLevelContext))
         }
     }
@@ -181,7 +181,7 @@ class ExpensePostingBalanceTest {
     fun `an org void whose org original is not posted fails`() {
         setOrgOnlySession()
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             expenseVoidedProcessor.prepareLedgerRequest(expenseVoidedEvent(SystemAccount.RENT_EXPENSE, orgLevelContext))
         }
 

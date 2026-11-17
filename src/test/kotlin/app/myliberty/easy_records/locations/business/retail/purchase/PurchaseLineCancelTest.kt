@@ -1,7 +1,7 @@
 package app.myliberty.easy_records.locations.business.retail.purchase
 
 import app.myliberty.easy_records.support.WithDefaultOrganizationSession
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.quantity.BreakdownUnit
 import app.myliberty.easy_records.util.quantity.ExactQuantity
 import app.myliberty.easy_records.util.quantity.PositiveUserProvidedQuantity
@@ -79,7 +79,7 @@ class PurchaseLineCancelTest {
     fun `a cancel that makes delivered plus canceled exceed ordered in storage units is rejected`() {
         val line = oneBaleLineWith5PiecesDelivered()
 
-        val exception = assertThrows(RtsGenericException::class.java) { cancel(line, "14", storageUnitsPerUserProvidedUnit = 1L) }
+        val exception = assertThrows(LibertyGenericException::class.java) { cancel(line, "14", storageUnitsPerUserProvidedUnit = 1L) }
 
         assertTrue(exception.message.contains("Max cancelable: 13 Pieces"), exception.message)
     }

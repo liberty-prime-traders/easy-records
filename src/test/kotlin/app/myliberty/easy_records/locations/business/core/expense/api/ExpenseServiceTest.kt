@@ -23,7 +23,7 @@ import app.myliberty.easy_records.locations.business.retail.sale.api.SaleStatus
 import app.myliberty.easy_records.organizations.business.core.expense_type.api.ExpenseTypeService
 import app.myliberty.easy_records.util.business.PositiveMoney
 import app.myliberty.easy_records.util.enums.PaymentStatus
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.*
@@ -57,7 +57,7 @@ class ExpenseServiceTest {
     fun `a draft purchase cannot carry expenses`() {
         stubPurchase(PurchaseStatus.DRAFT)
 
-        assertThrows(RtsGenericException::class.java) { expenseService.createForPurchase(purchaseRequest()) }
+        assertThrows(LibertyGenericException::class.java) { expenseService.createForPurchase(purchaseRequest()) }
 
         verifyNoInteractions(expenseOperations)
     }
@@ -85,10 +85,10 @@ class ExpenseServiceTest {
     @Test
     fun `a draft or discarded sale cannot carry expenses but a voided one can`() {
         stubSale(SaleStatus.DRAFT)
-        assertThrows(RtsGenericException::class.java) { expenseService.createForSale(saleRequest()) }
+        assertThrows(LibertyGenericException::class.java) { expenseService.createForSale(saleRequest()) }
 
         stubSale(SaleStatus.DISCARDED)
-        assertThrows(RtsGenericException::class.java) { expenseService.createForSale(saleRequest()) }
+        assertThrows(LibertyGenericException::class.java) { expenseService.createForSale(saleRequest()) }
         verifyNoInteractions(expenseOperations)
 
         val saleId = stubSale(SaleStatus.VOIDED)

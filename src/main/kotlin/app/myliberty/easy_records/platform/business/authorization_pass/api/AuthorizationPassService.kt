@@ -7,7 +7,7 @@ import app.myliberty.easy_records.platform.business.authorization_pass.Authoriza
 import app.myliberty.easy_records.platform.business.authorization_pass.AuthorizationPassMapper
 import app.myliberty.easy_records.platform.business.authorization_pass.AuthorizationPassRepository
 import app.myliberty.easy_records.util.enums.ServiceAccount
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException
 import org.springframework.stereotype.Service
 import java.time.OffsetDateTime
@@ -50,11 +50,11 @@ class AuthorizationPassService(
             .orElseThrow { UpdatingNonExistingRecordException() }
 
         if (pass.passStatus != PassStatus.ACTIVE) {
-            throw RtsGenericException("Only active passes can be updated")
+            throw LibertyGenericException("Only active passes can be updated")
         }
         dto.maxUseCount?.ifPresent { newMax ->
             if (newMax < pass.usedCount) {
-                throw RtsGenericException("max_use_count cannot be less than current used count (${pass.usedCount})")
+                throw LibertyGenericException("max_use_count cannot be less than current used count (${pass.usedCount})")
             }
             pass.maxUseCount = newMax
             if (pass.usedCount >= newMax) pass.passStatus = PassStatus.EXHAUSTED
@@ -70,7 +70,7 @@ class AuthorizationPassService(
         val pass = authorizationPassRepository.findById(id)
             .orElseThrow { UpdatingNonExistingRecordException() }
         if (pass.passStatus != PassStatus.ACTIVE) {
-            throw RtsGenericException("Only active passes can be revoked")
+            throw LibertyGenericException("Only active passes can be revoked")
         }
         pass.passStatus = PassStatus.REVOKED
         authorizationPassRepository.save(pass)
@@ -81,31 +81,31 @@ class AuthorizationPassService(
         val requestingUserId = SessionContextProvider.getUserId()
 
         val pass = authorizationPassRepository.findByCode(code)
-            ?: throw RtsGenericException("Invalid pass code")
+            ?: throw LibertyGenericException("Invalid pass code")
 
         if (pass.passType != passType) {
-            throw RtsGenericException("Pass is not valid for this operation")
+            throw LibertyGenericException("Pass is not valid for this operation")
         }
 
         if (pass.passStatus != PassStatus.ACTIVE) {
-            throw RtsGenericException("Pass is no longer active")
+            throw LibertyGenericException("Pass is no longer active")
         }
 
         if (pass.expiresOn != null && pass.expiresOn!!.isBefore(OffsetDateTime.now())) {
             pass.passStatus = PassStatus.EXPIRED
             authorizationPassRepository.save(pass)
-            throw RtsGenericException("Pass has expired")
+            throw LibertyGenericException("Pass has expired")
         }
 
         if (pass.assignedToId != requestingUserId) {
             revokeAndReissue(pass)
-            throw RtsGenericException("Pass is not assigned to requesting user.")
+            throw LibertyGenericException("Pass is not assigned to requesting user.")
         }
 
         if (pass.usedCount >= pass.maxUseCount) {
             pass.passStatus = PassStatus.EXHAUSTED
             authorizationPassRepository.save(pass)
-            throw RtsGenericException("Maximum use count for this pass has been reached")
+            throw LibertyGenericException("Maximum use count for this pass has been reached")
         }
 
         pass.usedCount++

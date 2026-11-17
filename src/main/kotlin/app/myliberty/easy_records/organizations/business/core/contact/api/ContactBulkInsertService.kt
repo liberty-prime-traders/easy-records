@@ -7,7 +7,7 @@ import app.myliberty.easy_records.organizations.business.core.contact.ContactVal
 import app.myliberty.easy_records.organizations.business.core.ledger.api.SubledgerBalanceDto
 import app.myliberty.easy_records.organizations.business.core.ledger.api.SubledgerService
 import app.myliberty.easy_records.util.business.StringUtils
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Service
 
 @Service
@@ -30,15 +30,15 @@ class ContactBulkInsertService(
                 contactValidator.validateUniquenessAgainst(contactInsertDto.identity, existingNormalizedKeys)
                 val identityKey = contactInsertDto.identity.normalizedKey
                 if (identityKey.isNotBlank() && !identityKeysInRequest.add(identityKey)) {
-                    throw RtsGenericException("A Contact with ${contactInsertDto.identity.description()} appears more than once in the request")
+                    throw LibertyGenericException("A Contact with ${contactInsertDto.identity.description()} appears more than once in the request")
                 }
                 validatedInsertDtos.add(contactInsertDto)
-            } catch (rtsGenericException: RtsGenericException) {
-                errors.add("Row ${index + 1}: ${rtsGenericException.message}")
+            } catch (libertyGenericException: LibertyGenericException) {
+                errors.add("Row ${index + 1}: ${libertyGenericException.message}")
             }
         }
         if (errors.isNotEmpty()) {
-            throw RtsGenericException("Bulk contact import validation failed", errors)
+            throw LibertyGenericException("Bulk contact import validation failed", errors)
         }
         val createdContactDtos = contactCache.createAll(validatedInsertDtos)
         subledgerService.openBalances(createdContactDtos.map { it.referenceNumber })
@@ -74,7 +74,7 @@ class ContactBulkInsertService(
             .map { it.trim().uppercase() }
             .filter { it.isNotEmpty() }
             .map { code ->
-                contactTypesByCode[code] ?: throw RtsGenericException("Unknown contact type '$code'")
+                contactTypesByCode[code] ?: throw LibertyGenericException("Unknown contact type '$code'")
             }
             .toSet()
     }

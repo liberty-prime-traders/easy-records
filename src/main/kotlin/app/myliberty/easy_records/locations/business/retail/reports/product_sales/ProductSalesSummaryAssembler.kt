@@ -5,7 +5,7 @@ import app.myliberty.easy_records.locations.business.retail.reports.product_sale
 import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.QuantityBreakdownFactory
 import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.UnitConversionGraphFacade
 import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueFetcher
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Component
 import java.util.UUID
 
@@ -21,7 +21,7 @@ class ProductSalesSummaryAssembler(
     val summariesById = locationProductDataFetcher.findSummaryByIds(locationProductIds)
     val missingLocationProductIds = locationProductIds.filter { it !in summariesById }
     if (missingLocationProductIds.isNotEmpty()) {
-      throw RtsGenericException("Location products not found: ${missingLocationProductIds.joinToString()}")
+      throw LibertyGenericException("Location products not found: ${missingLocationProductIds.joinToString()}")
     }
 
     val rawRowsByLocationProductId = rawRows.associateBy { it.locationProductId }

@@ -6,7 +6,7 @@ import app.myliberty.easy_records.organizations.business.core.expense_type.Expen
 import app.myliberty.easy_records.organizations.business.core.expense_type.ExpenseTypeRepository
 import app.myliberty.easy_records.organizations.business.core.expense_type.ExpenseTypeValidator
 import app.myliberty.easy_records.util.business.StringUtils
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException
 import org.springframework.stereotype.Service
 import java.util.UUID
@@ -22,14 +22,14 @@ class ExpenseTypeService(
     @TransactionalOnOrganizationSchema(readOnly = true)
     fun getById(id: UUID): ExpenseTypeDto {
         val expenseTypeEntity = expenseTypeRepository.findById(id)
-            .orElseThrow { RtsGenericException("Expense type not found") }
+            .orElseThrow { LibertyGenericException("Expense type not found") }
         return expenseTypeMapper.toDomainDto(expenseTypeEntity)
     }
 
     @TransactionalOnOrganizationSchema(readOnly = true)
     fun getBySystemExpenseType(systemExpenseType: SystemExpenseType): ExpenseTypeDto {
         val expenseTypeEntity = expenseTypeRepository.findByCode(systemExpenseType.code)
-            ?: throw RtsGenericException("System expense type ${systemExpenseType.displayName} has not been seeded")
+            ?: throw LibertyGenericException("System expense type ${systemExpenseType.displayName} has not been seeded")
         return expenseTypeMapper.toDomainDto(expenseTypeEntity)
     }
 
@@ -56,7 +56,7 @@ class ExpenseTypeService(
             .orElseThrow { UpdatingNonExistingRecordException() }
         val existingExpenseTypeDto = expenseTypeMapper.toDomainDto(expenseTypeEntity)
         if (existingExpenseTypeDto.systemDefined) {
-            throw RtsGenericException("System-defined expense types can only be renamed; use the rename endpoint")
+            throw LibertyGenericException("System-defined expense types can only be renamed; use the rename endpoint")
         }
         val updatedExpenseTypeDto = trimmedExpenseTypeUpdateDto.applyTo(existingExpenseTypeDto)
         expenseTypeValidator.guardNameAvailable(updatedExpenseTypeDto.name, updatedExpenseTypeDto.id)

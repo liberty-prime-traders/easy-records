@@ -2,14 +2,14 @@ package app.myliberty.easy_records.locations.business.retail.sale_payment.api
 
 import app.myliberty.easy_records.locations.business.retail.sale.api.SaleStatus
 import app.myliberty.easy_records.util.business.DisplayFormatters
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import java.math.BigDecimal
 
 object SalePaymentValidator {
 
     fun guardNotExceedingSaleTotal(totalSubmitted: BigDecimal, receivableTotal: BigDecimal) {
         if (totalSubmitted > receivableTotal)
-            throw RtsGenericException(
+            throw LibertyGenericException(
                 "Payments of ${DisplayFormatters.formatCurrency(totalSubmitted)} exceed " +
                         "sale total of ${DisplayFormatters.formatCurrency(receivableTotal)}"
             )
@@ -17,7 +17,7 @@ object SalePaymentValidator {
 
     fun guardNotExceedingBalance(amount: BigDecimal, remainingBalance: BigDecimal) {
         if (amount > remainingBalance)
-            throw RtsGenericException(
+            throw LibertyGenericException(
                 "Payment of ${DisplayFormatters.formatCurrency(amount)} would exceed remaining" +
                         " balance of ${DisplayFormatters.formatCurrency(remainingBalance)}"
             )
@@ -25,22 +25,22 @@ object SalePaymentValidator {
 
     fun guardNotAlreadyVoided(alreadyVoided: Boolean, referenceNumber: String) {
         if (alreadyVoided) {
-            throw RtsGenericException("Payment $referenceNumber has already been voided")
+            throw LibertyGenericException("Payment $referenceNumber has already been voided")
         }
     }
 
     fun guardSaleNotVoided(saleStatus: SaleStatus) {
         if (saleStatus == SaleStatus.VOIDED)
-            throw RtsGenericException("Cannot void a payment on a voided sale")
+            throw LibertyGenericException("Cannot void a payment on a voided sale")
     }
 
     fun guardOpenForPayment(saleStatus: SaleStatus) {
         when (saleStatus) {
-            SaleStatus.DRAFT -> throw RtsGenericException(
+            SaleStatus.DRAFT -> throw LibertyGenericException(
                 "Draft sales do not accept standalone payments; submit payments with the draft itself"
             )
-            SaleStatus.VOIDED -> throw RtsGenericException("Cannot pay a voided sale")
-            SaleStatus.DISCARDED -> throw RtsGenericException("Cannot pay a discarded sale")
+            SaleStatus.VOIDED -> throw LibertyGenericException("Cannot pay a voided sale")
+            SaleStatus.DISCARDED -> throw LibertyGenericException("Cannot pay a discarded sale")
             SaleStatus.CONFIRMED -> Unit
         }
     }

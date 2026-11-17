@@ -8,7 +8,7 @@ import app.myliberty.easy_records.cross_tier.core.expense.store.ExpenseStore
 import app.myliberty.easy_records.util.enums.PaymentStatus
 import app.myliberty.easy_records.organizations.business.core.expense_type.api.ExpenseTypeResponseDto
 import app.myliberty.easy_records.organizations.business.core.expense_type.api.ExpenseTypeService
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.paging.PageRequest
 import app.myliberty.easy_records.util.queries.KeysetSearchCursor
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -115,8 +115,8 @@ class ExpenseSearchOperationsTest {
 
     @Test
     fun `an invalid page size or malformed cursor is rejected before any query runs`() {
-        assertThrows(RtsGenericException::class.java) { expenseSearchOperations.search(PageRequest("", 501, rangedParameters)) }
-        assertThrows(RtsGenericException::class.java) { expenseSearchOperations.search(PageRequest("not-a-cursor", 10, rangedParameters)) }
+        assertThrows(LibertyGenericException::class.java) { expenseSearchOperations.search(PageRequest("", 501, rangedParameters)) }
+        assertThrows(LibertyGenericException::class.java) { expenseSearchOperations.search(PageRequest("not-a-cursor", 10, rangedParameters)) }
 
         verifyNoInteractions(expenseSearchFetcher)
     }
@@ -125,8 +125,8 @@ class ExpenseSearchOperationsTest {
     fun `a search or summary without a created range is rejected before any query runs`() {
         val unranged = ExpenseSearchParameters(voided = false)
 
-        assertThrows(RtsGenericException::class.java) { expenseSearchOperations.search(PageRequest("", 10, unranged)) }
-        assertThrows(RtsGenericException::class.java) { expenseSearchOperations.summarize(unranged) }
+        assertThrows(LibertyGenericException::class.java) { expenseSearchOperations.search(PageRequest("", 10, unranged)) }
+        assertThrows(LibertyGenericException::class.java) { expenseSearchOperations.summarize(unranged) }
 
         verifyNoInteractions(expenseSearchFetcher)
     }

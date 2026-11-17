@@ -3,12 +3,12 @@ package app.myliberty.easy_records.organizations.business.core.payment_method
 import app.myliberty.easy_records.organizations.business.core.payment_method.api.PaymentMethodInsertDto
 import app.myliberty.easy_records.organizations.business.core.payment_method.api.PaymentMethodResponseDto
 import app.myliberty.easy_records.platform.business.sysuser.api.CreatorFullName
-import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.util.business.mappers.LibertyMapperConfig
 import org.mapstruct.Context
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 
-@Mapper(config = RtsMapperConfig::class)
+@Mapper(config = LibertyMapperConfig::class)
 interface PaymentMethodMapper {
 
     @Mapping(target = "id", ignore = true)

@@ -15,7 +15,7 @@ import app.myliberty.easy_records.util.enums.RtsPermission
 import app.myliberty.easy_records.util.enums.RtsRole
 import app.myliberty.easy_records.util.enums.SchemaLevel
 import app.myliberty.easy_records.util.exceptions.AuthException
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import java.security.SecureRandom
@@ -44,7 +44,7 @@ class IdentityService(
 
         val systemUserId = resolveSystemUserId(authenticatedIdentity)
         val user = sysUserService.findById(systemUserId)
-            ?: throw RtsGenericException("System user $systemUserId was resolved during login but no longer exists")
+            ?: throw LibertyGenericException("System user $systemUserId was resolved during login but no longer exists")
         if (user.disabledAt != null) throw AuthException.AccountDisabled()
         val sessionToken = sessionTokenService.mint(systemUserId)
         val verifiedRoles = verifyRequestedRoles(systemUserId, loginRequest.rolesToVerify)

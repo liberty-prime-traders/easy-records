@@ -3,7 +3,7 @@ package app.myliberty.easy_records.organizations.business.retail.adjustment_reas
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
 import app.myliberty.easy_records.organizations.business.retail.adjustment_reason.AdjustmentReasonCache
 import app.myliberty.easy_records.organizations.business.retail.adjustment_reason.AdjustmentReasonDto
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Service
 import java.util.UUID
 
@@ -16,14 +16,14 @@ class AdjustmentReasonService(
     @TransactionalOnOrganizationSchema(readOnly = true)
     fun getById(id: UUID): AdjustmentReasonDto =
         adjustmentReasonCache.getAll().firstOrNull { it.id == id }
-            ?: throw RtsGenericException("Adjustment reason $id does not exist")
+            ?: throw LibertyGenericException("Adjustment reason $id does not exist")
 
     fun canApply(reason: AdjustmentReasonDto, direction: AdjustmentDirection): Boolean =
         reason.direction == AdjustmentDirection.BOTH || reason.direction == direction
 
     fun requireCanApply(reason: AdjustmentReasonDto, direction: AdjustmentDirection) {
         if (!canApply(reason, direction)) {
-            throw RtsGenericException(
+            throw LibertyGenericException(
                 "Adjustment reason '${reason.name}' cannot be applied as a ${direction.code} adjustment"
             )
         }
@@ -41,11 +41,11 @@ class AdjustmentReasonService(
     @TransactionalOnOrganizationSchema(readOnly = true)
     fun getSystemReasonId(systemAdjustmentReason: SystemAdjustmentReason): UUID =
         adjustmentReasonCache.getAll().firstOrNull { it.code == systemAdjustmentReason.code }?.id
-            ?: throw RtsGenericException("System adjustment reason ${systemAdjustmentReason.code} not seeded")
+            ?: throw LibertyGenericException("System adjustment reason ${systemAdjustmentReason.code} not seeded")
 
     fun create(dto: AdjustmentReasonInsertDto): AdjustmentReasonDto {
         if (dto.direction == AdjustmentDirection.BOTH) {
-            throw RtsGenericException(
+            throw LibertyGenericException(
                 "Direction BOTH is reserved for system-defined adjustment reasons"
             )
         }

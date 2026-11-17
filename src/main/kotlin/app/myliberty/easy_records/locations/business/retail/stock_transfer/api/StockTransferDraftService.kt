@@ -11,7 +11,7 @@ import app.myliberty.easy_records.locations.business.retail.stock_transfer.Stock
 import app.myliberty.easy_records.locations.business.retail.stock_transfer.StockTransferDraftLineRepository
 import app.myliberty.easy_records.locations.business.retail.stock_transfer.StockTransferResponseAssembler
 import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferOrderDataFetcher
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Service
 import java.util.UUID
 
@@ -96,7 +96,7 @@ class StockTransferDraftService(
         val missingReferenceNumbers = updates.map { it.lineRef }
             .filterNot { existingLinesByReferenceNumber.containsKey(it) }
         if (missingReferenceNumbers.isNotEmpty()) {
-            throw RtsGenericException("Line(s) not found on this draft: ${missingReferenceNumbers.joinToString()}")
+            throw LibertyGenericException("Line(s) not found on this draft: ${missingReferenceNumbers.joinToString()}")
         }
     }
 
@@ -111,7 +111,7 @@ class StockTransferDraftService(
             val locationProductId = addition.locationProductId
             if (locationProductId in existingProductIds || !seenAdditionProductIds.add(locationProductId)) {
                 val label = locationProductSummariesById.getValue(locationProductId).label
-                throw RtsGenericException("Product $label already exists on this draft")
+                throw LibertyGenericException("Product $label already exists on this draft")
             }
         }
     }
@@ -134,9 +134,9 @@ class StockTransferDraftService(
 
     private fun requireDraftLine(lineRef: String, dispatchId: UUID): StockTransferDraftLineEntity {
         val draftLine = stockTransferDraftLineRepository.findByReferenceNumber(lineRef)
-            ?: throw RtsGenericException("Draft line $lineRef not found")
+            ?: throw LibertyGenericException("Draft line $lineRef not found")
         if (draftLine.stockTransferDispatchId != dispatchId) {
-            throw RtsGenericException("Line $lineRef does not belong to the specified dispatch")
+            throw LibertyGenericException("Line $lineRef does not belong to the specified dispatch")
         }
         return draftLine
     }

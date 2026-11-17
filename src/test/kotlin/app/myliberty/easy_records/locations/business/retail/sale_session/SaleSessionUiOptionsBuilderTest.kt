@@ -13,7 +13,7 @@ import app.myliberty.easy_records.locations.business.retail.sale_session.api.Ses
 import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductService
 import app.myliberty.easy_records.organizations.business.retail.adjustment_reason.api.AdjustmentReasonService
 import app.myliberty.easy_records.util.enums.SystemContact
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertNull
@@ -117,9 +117,9 @@ class SaleSessionUiOptionsBuilderTest {
         )
         val overpaid = session(lines = listOf(line()), totals = totalsOfTenPaid("12"))
 
-        assertThrows(RtsGenericException::class.java) { saleSessionValidator.guardNonEmptyLines(emptySale) }
-        assertThrows(RtsGenericException::class.java) { saleSessionValidator.guardWalkInFullyCovered(unpaidWalkIn) }
-        assertThrows(RtsGenericException::class.java) { saleSessionValidator.guardPaymentsWithinTotal(overpaid) }
+        assertThrows(LibertyGenericException::class.java) { saleSessionValidator.guardNonEmptyLines(emptySale) }
+        assertThrows(LibertyGenericException::class.java) { saleSessionValidator.guardWalkInFullyCovered(unpaidWalkIn) }
+        assertThrows(LibertyGenericException::class.java) { saleSessionValidator.guardPaymentsWithinTotal(overpaid) }
         listOf(emptySale, unpaidWalkIn, overpaid).forEach { blockedSession ->
             assertFalse(build(blockedSession).confirmBlockers.isEmpty())
         }

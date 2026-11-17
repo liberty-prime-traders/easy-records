@@ -6,7 +6,7 @@ import app.myliberty.easy_records.organizations.business.core.fund_movement.api.
 import app.myliberty.easy_records.organizations.business.core.fund_movement.search.FundMovementSearchParameterNames
 import app.myliberty.easy_records.organizations.business.core.fund_movement.search.FundMovementSearchQueryBuilder
 import app.myliberty.easy_records.organizations.business.core.fund_movement.search.FundMovementSearchValidator
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.queries.KeysetSearchCursor
 import app.myliberty.easy_records.util.queries.QueryParameterNames
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -26,10 +26,10 @@ class FundMovementSearchTest {
 
     @Test
     fun `both created bounds are required and may span at most one year`() {
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             FundMovementSearchValidator.guardValidParameters(FundMovementSearchParameters(createdFrom = createdFrom))
         }
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             FundMovementSearchValidator.guardValidParameters(
                 FundMovementSearchParameters(createdFrom = createdFrom, createdBefore = createdFrom.plusYears(1).plusDays(1))
             )

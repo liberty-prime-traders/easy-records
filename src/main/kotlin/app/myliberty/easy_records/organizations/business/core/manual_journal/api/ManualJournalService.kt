@@ -11,7 +11,7 @@ import app.myliberty.easy_records.organizations.business.core.manual_journal.Man
 import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.business.StringUtils
 import app.myliberty.easy_records.util.business.lock.LockNamespaces
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Service
 
 @Service
@@ -37,7 +37,7 @@ class ManualJournalService(
             addAll(ManualJournalValidator.createErrors(manualJournalCreateDto.summary, manualJournalLineCreateDtos, candidatesByCode))
             if (fiscalPeriodService.findOpenForDate(postingDate) == null) add("No open fiscal period for $postingDate.")
         }
-        if (errors.isNotEmpty()) throw RtsGenericException(errors.joinToString(" "), payload = errors)
+        if (errors.isNotEmpty()) throw LibertyGenericException(errors.joinToString(" "), payload = errors)
         return manualJournalRecorder.recordCreate(
             summary = manualJournalCreateDto.summary,
             details = StringUtils.getValueOrNull(manualJournalCreateDto.details),
@@ -48,14 +48,14 @@ class ManualJournalService(
 
     fun reverse(referenceNumber: String, manualJournalReversalCreateDto: ManualJournalReversalCreateDto): ManualJournalResponseDto {
         val original = manualJournalRepository.findByReferenceNumber(referenceNumber)
-            ?: throw RtsGenericException("Manual journal $referenceNumber not found")
+            ?: throw LibertyGenericException("Manual journal $referenceNumber not found")
         orgEntityAdvisoryLock.acquire(LockNamespaces.MANUAL_JOURNAL, original.requiredId().toString())
         val errors = ManualJournalValidator.reversalErrors(
             reason = manualJournalReversalCreateDto.reason,
             isReversal = original.reversalOfManualJournalId != null,
             alreadyReversed = manualJournalRepository.existsByReversalOfManualJournalId(original.requiredId())
         )
-        if (errors.isNotEmpty()) throw RtsGenericException(errors.joinToString(" "), payload = errors)
+        if (errors.isNotEmpty()) throw LibertyGenericException(errors.joinToString(" "), payload = errors)
         return manualJournalRecorder.recordReversal(original, manualJournalReversalCreateDto.reason)
     }
 }

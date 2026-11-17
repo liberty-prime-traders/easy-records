@@ -3,7 +3,7 @@ package app.myliberty.easy_records.organizations.business.retail.product.search
 import app.myliberty.easy_records.cross_tier.retail.product.search.common.ProductSearchParameters
 import app.myliberty.easy_records.cross_tier.retail.product.search.common.ProductSearchValidator
 import app.myliberty.easy_records.organizations.business.retail.product.api.ProductStatus
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
@@ -31,7 +31,7 @@ class ProductSearchValidatorTest {
       categoryIds = (1..51).map { UUID.randomUUID() }.toSet()
     )
 
-    val exception = assertThrows<RtsGenericException> {
+    val exception = assertThrows<LibertyGenericException> {
       ProductSearchValidator.validateArraySizes(params.categoryIds, params.statusList, params.tagIds)
     }
     assertEquals(exception.message.contains("categoryIds exceeds maximum size of 50"), true)
@@ -43,7 +43,7 @@ class ProductSearchValidatorTest {
       tagIds = (1..51).map { UUID.randomUUID() }.toSet()
     )
 
-    val exception = assertThrows<RtsGenericException> {
+    val exception = assertThrows<LibertyGenericException> {
       ProductSearchValidator.validateArraySizes(params.categoryIds, params.statusList, params.tagIds)
     }
     assertEquals(exception.message.contains("tagIds exceeds maximum size of 50"), true)

@@ -3,7 +3,7 @@ package app.myliberty.easy_records.platform.business.db_version.api
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnPlatformSchema
 import app.myliberty.easy_records.platform.business.db_version.DbVersionCache
 import app.myliberty.easy_records.platform.business.db_version.DbVersionMapper
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException
 import org.springframework.stereotype.Service
 import java.time.OffsetDateTime
@@ -48,12 +48,12 @@ class DbVersionService(
     private fun verifyDbVersionForActivation(dbVersion: DbVersionDto, allDbVersions: Collection<DbVersionDto>) {
         dbVersion.prevVersionId?.let { prevVersionId ->
             if (prevVersionId == dbVersion.id) {
-                throw RtsGenericException("A DB version cannot point to itself as previous version.")
+                throw LibertyGenericException("A DB version cannot point to itself as previous version.")
             }
             val prevVersionDto = allDbVersions.find { it.id == prevVersionId }
-                ?: throw RtsGenericException("Previous DB version does not exist.")
+                ?: throw LibertyGenericException("Previous DB version does not exist.")
             if (prevVersionDto.activatedOn == null) {
-                throw RtsGenericException("Previous version (${prevVersionDto.versionNumber}) must be activated first")
+                throw LibertyGenericException("Previous version (${prevVersionDto.versionNumber}) must be activated first")
             }
         }
     }

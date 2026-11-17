@@ -22,7 +22,7 @@ import app.myliberty.easy_records.organizations.business.retail.stock_transfer.a
 import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferStatus
 import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.business.Money
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Service
 
 @Service
@@ -44,7 +44,7 @@ class StockTransferReceiptService(
     fun confirmLine(orderReferenceNumber: String, dispatchLineReferenceNumber: String): StockTransferResponse {
         val order = stockTransferOrderLocker.lockThenFetch(orderReferenceNumber)
         if (order.status != StockTransferStatus.DISPATCHED) {
-            throw RtsGenericException("Can only confirm lines on a DISPATCHED transfer. Current: ${order.status}")
+            throw LibertyGenericException("Can only confirm lines on a DISPATCHED transfer. Current: ${order.status}")
         }
 
         val sourceSchema = locationService.getSchemaByLocationId(order.sourceLocationId)
@@ -62,7 +62,7 @@ class StockTransferReceiptService(
             )
 
         if (receipt.status != StockTransferReceiptStatus.PENDING) {
-            throw RtsGenericException("Cannot confirm lines on a completed receipt")
+            throw LibertyGenericException("Cannot confirm lines on a completed receipt")
         }
 
         if (!stockTransferReceiptLineRepository.existsByStockTransferDispatchLineRef(dispatchLineReferenceNumber)) {
@@ -82,15 +82,15 @@ class StockTransferReceiptService(
     fun unconfirmLine(orderReferenceNumber: String, dispatchLineReferenceNumber: String): StockTransferResponse {
         val order = stockTransferOrderLocker.lockThenFetch(orderReferenceNumber)
         val receipt = stockTransferReceiptRepository.findByStockTransferOrderRef(orderReferenceNumber)
-            ?: throw RtsGenericException("No receipt found for order $orderReferenceNumber")
+            ?: throw LibertyGenericException("No receipt found for order $orderReferenceNumber")
 
         if (receipt.status != StockTransferReceiptStatus.PENDING) {
-            throw RtsGenericException("Cannot unconfirm lines on a completed receipt")
+            throw LibertyGenericException("Cannot unconfirm lines on a completed receipt")
         }
 
         val receiptLine = stockTransferReceiptLineRepository
             .findByStockTransferDispatchLineRef(dispatchLineReferenceNumber)
-            ?: throw RtsGenericException("Receipt line for dispatch line $dispatchLineReferenceNumber not found")
+            ?: throw LibertyGenericException("Receipt line for dispatch line $dispatchLineReferenceNumber not found")
 
         stockTransferReceiptLineRepository.delete(receiptLine)
         return buildReceiptResponse(order, receipt)
@@ -99,17 +99,17 @@ class StockTransferReceiptService(
     fun completeTransfer(receiptReferenceNumber: String): StockTransferResponse {
         val orderReferenceNumber = stockTransferReceiptRepository
             .findStockTransferOrderRefByReferenceNumber(receiptReferenceNumber)
-            ?: throw RtsGenericException("Receipt $receiptReferenceNumber not found")
+            ?: throw LibertyGenericException("Receipt $receiptReferenceNumber not found")
         val order = stockTransferOrderLocker.lockThenFetch(orderReferenceNumber)
         // A COMPLETED order with a PENDING receipt is a completion whose credit never committed: the order and the dispatch
         // commit before the credit does. The credit is idempotent, so running it again finishes the transfer.
         if (order.status != StockTransferStatus.DISPATCHED && order.status != StockTransferStatus.COMPLETED) {
-            throw RtsGenericException("Can only complete a DISPATCHED transfer. Current: ${order.status}")
+            throw LibertyGenericException("Can only complete a DISPATCHED transfer. Current: ${order.status}")
         }
         val receipt = stockTransferReceiptRepository.findByReferenceNumber(receiptReferenceNumber)
-            ?: throw RtsGenericException("Receipt $receiptReferenceNumber not found")
+            ?: throw LibertyGenericException("Receipt $receiptReferenceNumber not found")
         if (receipt.status != StockTransferReceiptStatus.PENDING) {
-            throw RtsGenericException("Receipt is already ${receipt.status}")
+            throw LibertyGenericException("Receipt is already ${receipt.status}")
         }
         val sourceSchema = locationService.getSchemaByLocationId(order.sourceLocationId)
 
@@ -117,7 +117,7 @@ class StockTransferReceiptService(
             stockTransferSchemaGateway.readDispatchAndLines(orderReferenceNumber)
         }
         if (dispatchWithLines.dispatch.status == StockTransferStatus.CANCELLED) {
-            throw RtsGenericException(
+            throw LibertyGenericException(
                 "The dispatch of transfer $orderReferenceNumber was cancelled, so it cannot be completed"
             )
         }
@@ -128,7 +128,7 @@ class StockTransferReceiptService(
             it.requiredReference() !in confirmedDispatchLineReferenceNumbers
         }
         if (unconfirmedCount > 0) {
-            throw RtsGenericException("Cannot complete transfer #$orderReferenceNumber: $unconfirmedCount dispatch line(s) not yet confirmed")
+            throw LibertyGenericException("Cannot complete transfer #$orderReferenceNumber: $unconfirmedCount dispatch line(s) not yet confirmed")
         }
 
         stockTransferReceiptStockUpdater.recordTransferReceipt(

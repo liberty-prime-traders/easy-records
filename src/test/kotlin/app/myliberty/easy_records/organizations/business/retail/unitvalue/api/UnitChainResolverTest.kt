@@ -1,6 +1,6 @@
 package app.myliberty.easy_records.organizations.business.retail.unitvalue.api
 
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
@@ -39,15 +39,15 @@ class UnitChainResolverTest {
         val first = UnitChainNode(UUID.randomUUID(), null, 2L)
         val second = UnitChainNode(UUID.randomUUID(), first.id, 2L)
 
-        assertThrows(RtsGenericException::class.java) { UnitChainResolver.resolvePlacements(listOf(selfReferencing)) }
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) { UnitChainResolver.resolvePlacements(listOf(selfReferencing)) }
+        assertThrows(LibertyGenericException::class.java) {
             UnitChainResolver.resolvePlacements(listOf(first.copy(baseUnitId = second.id), second))
         }
     }
 
     @Test
     fun `a base unit that does not exist is rejected`() {
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             UnitChainResolver.resolvePlacements(listOf(UnitChainNode(UUID.randomUUID(), UUID.randomUUID(), 2L)))
         }
     }
@@ -58,7 +58,7 @@ class UnitChainResolverTest {
         val overLimit = UnitChainNode(UUID.randomUUID(), gram.id, UnitChainResolver.MAX_SIZE_IN_ROOT + 1)
 
         assertEquals(UnitChainResolver.MAX_SIZE_IN_ROOT, UnitChainResolver.resolvePlacements(listOf(gram, atLimit)).getValue(atLimit.id).sizeInRoot)
-        assertThrows(RtsGenericException::class.java) { UnitChainResolver.resolvePlacements(listOf(gram, overLimit)) }
+        assertThrows(LibertyGenericException::class.java) { UnitChainResolver.resolvePlacements(listOf(gram, overLimit)) }
     }
 
     @Test
@@ -66,7 +66,7 @@ class UnitChainResolverTest {
         val huge = UnitChainNode(UUID.randomUUID(), gram.id, Long.MAX_VALUE)
         val hugerStill = UnitChainNode(UUID.randomUUID(), huge.id, 3L)
 
-        assertThrows(RtsGenericException::class.java) { UnitChainResolver.resolvePlacements(listOf(gram, huge, hugerStill)) }
+        assertThrows(LibertyGenericException::class.java) { UnitChainResolver.resolvePlacements(listOf(gram, huge, hugerStill)) }
     }
 
     @Test

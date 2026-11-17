@@ -3,7 +3,7 @@ package app.myliberty.easy_records.util.business.reference_number
 import app.myliberty.easy_records.organizations.business.core.org_table_registry.api.OrgTableRegistryService
 import app.myliberty.easy_records.platform.business.table_registry.api.TableRegistryService
 import app.myliberty.easy_records.util.enums.SchemaLevel
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.model.TableName
 import org.springframework.stereotype.Service
 
@@ -40,7 +40,7 @@ class ReferenceNumberGenerator(
     private fun getSchemaLevel(tableName: TableName): SchemaLevel {
         val table = tableRegistryService.getAllTableDtos()
             .firstOrNull { it.tableName == tableName.tableName }
-            ?: throw RtsGenericException("Table ${tableName.tableName} not found in registry")
+            ?: throw LibertyGenericException("Table ${tableName.tableName} not found in registry")
 
         return table.schemaLevel
     }
@@ -48,10 +48,10 @@ class ReferenceNumberGenerator(
     private fun getPrefix(tableName: TableName, schemaLevel: SchemaLevel): String {
         val platformTable = tableRegistryService.getAllTableDtos()
             .firstOrNull { it.tableName == tableName.tableName }
-            ?: throw RtsGenericException("Table ${tableName.tableName} not found in platform registry")
+            ?: throw LibertyGenericException("Table ${tableName.tableName} not found in platform registry")
 
         if (!platformTable.validated) {
-            throw RtsGenericException("Table ${tableName.tableName} is not validated hence cannot generate reference number")
+            throw LibertyGenericException("Table ${tableName.tableName} is not validated hence cannot generate reference number")
         }
         if (schemaLevel != SchemaLevel.PLATFORM) {
             orgTableRegistryService.getAllOrgTableDtos()

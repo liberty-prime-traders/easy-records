@@ -3,11 +3,11 @@ package app.myliberty.easy_records.organizations.business.core.jobtitle
 import app.myliberty.easy_records.organizations.business.core.jobtitle.api.JobTitleInsertDto
 import app.myliberty.easy_records.organizations.business.core.jobtitle.api.JobTitleResponseDto
 import app.myliberty.easy_records.platform.business.sysuser.api.CreatorFullName
-import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.util.business.mappers.LibertyMapperConfig
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 
-@Mapper(config = RtsMapperConfig::class)
+@Mapper(config = LibertyMapperConfig::class)
 interface JobTitleMapper {
 
     @Mapping(target = "id", ignore = true)

@@ -3,7 +3,7 @@ package app.myliberty.easy_records.organizations.business.core.contact
 import app.myliberty.easy_records.organizations.business.core.contact.api.ContactIdentity
 import app.myliberty.easy_records.organizations.business.core.contact.api.ContactType
 import app.myliberty.easy_records.organizations.business.core.contact.api.IdentityType
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Component
 import java.util.UUID
 
@@ -14,11 +14,11 @@ class ContactValidator(
 
     fun validateContactTypes(types: Set<ContactType>) {
         if(types.isEmpty()) {
-            throw RtsGenericException("At least one contact type required")
+            throw LibertyGenericException("At least one contact type required")
         }
         if (ContactType.OTHER in types) {
             if(types.size > 1) {
-                throw RtsGenericException("OTHER cannot be combined with other contact types")
+                throw LibertyGenericException("OTHER cannot be combined with other contact types")
             }
         }
     }
@@ -31,12 +31,12 @@ class ContactValidator(
         when (identityType) {
             IdentityType.ORGANIZATION -> {
                 if (companyName.isNullOrBlank()) {
-                    throw RtsGenericException("Identity type ORGANIZATION requires company name")
+                    throw LibertyGenericException("Identity type ORGANIZATION requires company name")
                 }
             }
             IdentityType.INDIVIDUAL -> {
                 if (firstName.isNullOrBlank()) {
-                    throw RtsGenericException("Identity type INDIVIDUAL requires first name")
+                    throw LibertyGenericException("Identity type INDIVIDUAL requires first name")
                 }
             }
         }
@@ -45,7 +45,7 @@ class ContactValidator(
     fun validateUniquenessAgainst(identity: ContactIdentity, existingNormalizedKeys: Set<String>) {
         if (identity.normalizedKey.isBlank()) return
         if (identity.normalizedKey in existingNormalizedKeys) {
-            throw RtsGenericException("A Contact with ${identity.description()} already exists")
+            throw LibertyGenericException("A Contact with ${identity.description()} already exists")
         }
     }
 
@@ -58,7 +58,7 @@ class ContactValidator(
             }
 
         if (existingContact != null) {
-            throw RtsGenericException("A Contact with ${identity.description()} already exists")
+            throw LibertyGenericException("A Contact with ${identity.description()} already exists")
         }
     }
 }

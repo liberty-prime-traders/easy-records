@@ -9,7 +9,7 @@ import app.myliberty.easy_records.organizations.business.core.account.AccountRep
 import app.myliberty.easy_records.organizations.business.core.account.AccountResponseBuilder
 import app.myliberty.easy_records.organizations.business.core.account.ChildAccountCreator
 import app.myliberty.easy_records.util.business.StringUtils
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 import java.time.Instant
@@ -61,11 +61,11 @@ class AccountService(
     fun createRoot(dto: AccountRootCreateRequest): AccountResponseDto {
         val accountType = dto.accountType
         if (accountType.canBeRoot().not()) {
-            throw RtsGenericException("Only certain account types can be created as root accounts and $accountType is not one of them")
+            throw LibertyGenericException("Only certain account types can be created as root accounts and $accountType is not one of them")
         }
         val accounts = accountCache.getAll()
         accounts.find { it.parentAccountCode == null && StringUtils.isEquivalent(it.name, dto.name) }
-            ?.let { throw RtsGenericException("A root account with the same name already exists") }
+            ?.let { throw LibertyGenericException("A root account with the same name already exists") }
 
         val code = AccountCodeGenerator.generateRootCode(accounts)
         val insertDto = AccountInsertDto(
@@ -88,7 +88,7 @@ class AccountService(
     fun rename(dto: AccountUpdateDto): AccountResponseDto {
         val existing = lockAndGetFresh(dto.id)
         if (existing.accountIsSystemMaintained) {
-            throw RtsGenericException("System accounts cannot be renamed")
+            throw LibertyGenericException("System accounts cannot be renamed")
         }
         val saved = accountCache.update(dto.applyTo(existing))
         return accountResponseBuilder.buildResponse(saved)
@@ -97,7 +97,7 @@ class AccountService(
     fun toggleActive(id: UUID, setActive: Boolean): AccountResponseDto {
         val existing = lockAndGetFresh(id)
         if (existing.accountIsSystemMaintained) {
-            throw RtsGenericException("System accounts cannot be activated or deactivated")
+            throw LibertyGenericException("System accounts cannot be activated or deactivated")
         }
         if (existing.accountIsActive == setActive) {
             return accountResponseBuilder.buildResponse(existing)
@@ -112,7 +112,7 @@ class AccountService(
     // The code is immutable per id, so the cached lookup is safe; the row itself is re-read once the lock is held.
     private fun lockAndGetFresh(id: UUID): AccountDto {
         val accountCode = accountCache.getAll().firstOrNull { it.id == id }?.code
-            ?: throw RtsGenericException("Account not found")
+            ?: throw LibertyGenericException("Account not found")
         accountStructureLock.acquire(accountCode)
         return accountCache.getAllFresh().first { it.id == id }
     }

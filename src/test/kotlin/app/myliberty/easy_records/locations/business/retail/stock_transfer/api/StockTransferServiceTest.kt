@@ -16,7 +16,7 @@ import app.myliberty.easy_records.organizations.business.retail.stock_transfer.a
 import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferStatus
 import app.myliberty.easy_records.util.business.Money
 import app.myliberty.easy_records.util.business.lock.LockNamespaces
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.BeforeEach
@@ -120,7 +120,7 @@ class StockTransferServiceTest {
         `when`(stockTransferOrderDataFetcher.getByReferenceNumber(orderReferenceNumber))
             .thenReturn(order(StockTransferStatus.CANCELLED))
 
-        assertThrows(RtsGenericException::class.java) { stockTransferService.cancelTransfer(orderReferenceNumber) }
+        assertThrows(LibertyGenericException::class.java) { stockTransferService.cancelTransfer(orderReferenceNumber) }
 
         verifyNoInteractions(stockTransferCancelledHandlerForKafka, stockTransferOrderService)
     }
@@ -130,7 +130,7 @@ class StockTransferServiceTest {
         `when`(stockTransferOrderDataFetcher.getByReferenceNumber(orderReferenceNumber))
             .thenReturn(order(StockTransferStatus.DISPATCHED), order(StockTransferStatus.COMPLETED))
 
-        assertThrows(RtsGenericException::class.java) { stockTransferService.cancelTransfer(orderReferenceNumber) }
+        assertThrows(LibertyGenericException::class.java) { stockTransferService.cancelTransfer(orderReferenceNumber) }
 
         verifyNoInteractions(stockTransferSchemaGateway, stockTransferCancelledHandlerForKafka, stockTransferOrderService)
     }
@@ -140,7 +140,7 @@ class StockTransferServiceTest {
         `when`(stockTransferOrderDataFetcher.getByReferenceNumber(orderReferenceNumber))
             .thenReturn(order(StockTransferStatus.DISPATCHED), order(StockTransferStatus.COMPLETED))
 
-        assertThrows(RtsGenericException::class.java) { stockTransferService.cancelTransfer(orderReferenceNumber) }
+        assertThrows(LibertyGenericException::class.java) { stockTransferService.cancelTransfer(orderReferenceNumber) }
 
         val inOrder = inOrder(stockTransferOrderDataFetcher, entityAdvisoryLock)
         inOrder.verify(stockTransferOrderDataFetcher).getByReferenceNumber(orderReferenceNumber)

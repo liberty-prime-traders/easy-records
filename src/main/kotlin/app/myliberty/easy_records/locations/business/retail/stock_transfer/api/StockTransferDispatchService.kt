@@ -33,7 +33,7 @@ import app.myliberty.easy_records.organizations.business.retail.stock_transfer.a
 import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.business.Money
 import app.myliberty.easy_records.util.business.mappers.UserQualifier
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Service
 import java.util.UUID
 
@@ -64,7 +64,7 @@ class StockTransferDispatchService(
         val orderBeforeDispatch = stockTransferOrderLocker.lockThenFetch(orderReferenceNumber)
         val dispatchEntity = stockTransferDraftDispatchFetcher.requireDraftDispatch(orderReferenceNumber)
         val draftLines = stockTransferDraftLineRepository.findByStockTransferDispatchId(dispatchEntity.id!!)
-        if (draftLines.isEmpty()) throw RtsGenericException("Cannot dispatch a transfer with no lines")
+        if (draftLines.isEmpty()) throw LibertyGenericException("Cannot dispatch a transfer with no lines")
 
         val locationProductIds = draftLines.map { it.locationProductId }
         entityAdvisoryLock.acquire(LockNamespaces.PRODUCT, locationProductIds.toSet())
@@ -193,9 +193,9 @@ class StockTransferDispatchService(
             val sourceStorageUnitId = unitConversionGraph.getStorageUnitId(summariesByLocationProductId.getValue(draftLine.locationProductId).baseUnitId)
             val orgProductId = orgProductIdByLocationProductId.getValue(draftLine.locationProductId)
             val destinationBaseUnitId = destinationBaseUnitIdByOrgProductId[orgProductId]
-                ?: throw RtsGenericException("The destination location does not stock product $orgProductId")
+                ?: throw LibertyGenericException("The destination location does not stock product $orgProductId")
             if (unitConversionGraph.getStorageUnitId(destinationBaseUnitId) != sourceStorageUnitId) {
-                throw RtsGenericException(SOURCE_AND_DESTINATION_STORAGE_UNITS_DIFFER)
+                throw LibertyGenericException(SOURCE_AND_DESTINATION_STORAGE_UNITS_DIFFER)
             }
         }
     }

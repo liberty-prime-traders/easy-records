@@ -3,12 +3,12 @@ package app.myliberty.easy_records.platform.business.jurisdiction
 import app.myliberty.easy_records.platform.business.jurisdiction.api.JurisdictionDto
 import app.myliberty.easy_records.platform.business.jurisdiction.api.JurisdictionInsertDto
 import app.myliberty.easy_records.platform.business.jurisdiction.api.JurisdictionResponseDto
-import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.util.business.mappers.LibertyMapperConfig
 import org.mapstruct.Context
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 
-@Mapper(config = RtsMapperConfig::class, uses = [JurisdictionQualifier::class])
+@Mapper(config = LibertyMapperConfig::class, uses = [JurisdictionQualifier::class])
 interface JurisdictionMapper {
 
     @Mapping(target = "id", ignore = true)

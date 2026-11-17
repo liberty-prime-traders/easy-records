@@ -1,9 +1,9 @@
 package app.myliberty.easy_records.organizations.business.core.loan
 
-import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.util.business.mappers.LibertyMapperConfig
 import org.mapstruct.Mapper
 
-@Mapper(config = RtsMapperConfig::class)
+@Mapper(config = LibertyMapperConfig::class)
 interface LoanMapper {
 
     fun toDto(loanEntity: LoanEntity): LoanDto

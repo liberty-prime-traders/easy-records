@@ -1,7 +1,7 @@
 package app.myliberty.easy_records.locations.business.retail.sale_session
 
 import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSession
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 import java.util.UUID
@@ -20,7 +20,7 @@ class SaleSessionInMemoryStore : SaleSessionStore {
     }
 
     override fun load(sessionId: UUID): SaleSession =
-        loadOrNull(sessionId) ?: throw RtsGenericException("Sale session $sessionId not found or expired")
+        loadOrNull(sessionId) ?: throw LibertyGenericException("Sale session $sessionId not found or expired")
 
     override fun loadOrNull(sessionId: UUID): SaleSession? = sessions[sessionId]
 

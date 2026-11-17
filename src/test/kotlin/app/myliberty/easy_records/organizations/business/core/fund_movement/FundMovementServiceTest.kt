@@ -19,7 +19,7 @@ import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.business.Decimals
 import app.myliberty.easy_records.util.business.PositiveMoney
 import app.myliberty.easy_records.util.business.lock.LockNamespaces
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
@@ -89,7 +89,7 @@ class FundMovementServiceTest {
 
     @Test
     fun `a transfer to the same account is rejected before anything is saved or posted`() {
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             fundMovementService.createTransfer(FundMovementTransferRequest(cashCode, cashCode, PositiveMoney.of(BigDecimal("10")), movementDate))
         }
 
@@ -136,7 +136,7 @@ class FundMovementServiceTest {
     @Test
     fun `zero, negative and amounts that round to zero are rejected`() {
         listOf("0", "-5", "0.00004").forEach { amount ->
-            assertThrows(RtsGenericException::class.java) {
+            assertThrows(LibertyGenericException::class.java) {
                 fundMovementService.createCapital(FundMovementCapitalRequest(cashCode, PositiveMoney.of(BigDecimal(amount)), movementDate))
             }
         }
@@ -163,7 +163,7 @@ class FundMovementServiceTest {
     fun `a movement dated after today in the organization zone is rejected before anything is saved or posted`() {
         val tomorrow = DateTimes.Local.Now.organization().plusDays(1)
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             fundMovementService.createCapital(FundMovementCapitalRequest(cashCode, PositiveMoney.of(BigDecimal("10")), tomorrow))
         }
 
@@ -173,9 +173,9 @@ class FundMovementServiceTest {
 
     @Test
     fun `an account the selection rule rejects stops the movement before it is saved`() {
-        doThrow(RtsGenericException("Fund movement account is inactive")).`when`(fundMovementAccountValidator).requireSelectable(listOf(cashCode))
+        doThrow(LibertyGenericException("Fund movement account is inactive")).`when`(fundMovementAccountValidator).requireSelectable(listOf(cashCode))
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             fundMovementService.createCapital(FundMovementCapitalRequest(cashCode, PositiveMoney.of(BigDecimal("10")), movementDate))
         }
 
@@ -184,9 +184,9 @@ class FundMovementServiceTest {
 
     @Test
     fun `a ledger posting failure reaches the caller and the service rolls back on any exception`() {
-        doThrow(RtsGenericException("No open fiscal period")).`when`(ledgerPostingService).post(anyNonNull(LedgerPostingRequest::class.java))
+        doThrow(LibertyGenericException("No open fiscal period")).`when`(ledgerPostingService).post(anyNonNull(LedgerPostingRequest::class.java))
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             fundMovementService.createDraw(FundMovementDrawRequest(cashCode, PositiveMoney.of(BigDecimal("10")), movementDate))
         }
 
@@ -221,10 +221,10 @@ class FundMovementServiceTest {
         `when`(fundMovementRepository.findById(entity.id!!)).thenReturn(Optional.of(entity))
         `when`(fundMovementVoidRepository.existsByFundMovementId(entity.id!!)).thenReturn(true)
 
-        assertThrows(RtsGenericException::class.java) { fundMovementService.voidFundMovement(FundMovementVoidRequest(entity.id!!)) }
+        assertThrows(LibertyGenericException::class.java) { fundMovementService.voidFundMovement(FundMovementVoidRequest(entity.id!!)) }
         val unknownId = UUID.randomUUID()
         `when`(fundMovementRepository.findById(unknownId)).thenReturn(Optional.empty())
-        assertThrows(RtsGenericException::class.java) { fundMovementService.voidFundMovement(FundMovementVoidRequest(unknownId)) }
+        assertThrows(LibertyGenericException::class.java) { fundMovementService.voidFundMovement(FundMovementVoidRequest(unknownId)) }
 
         verify(fundMovementVoidRepository, never()).save(any(FundMovementVoidEntity::class.java))
         assertTrue(postedRequests.isEmpty())

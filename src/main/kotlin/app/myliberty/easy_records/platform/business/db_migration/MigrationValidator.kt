@@ -6,7 +6,7 @@ import app.myliberty.easy_records.platform.business.db_migration.api.MigrationSt
 import app.myliberty.easy_records.platform.business.db_version.api.DbVersionDto
 import app.myliberty.easy_records.platform.business.db_version.api.DbVersionService
 import app.myliberty.easy_records.util.enums.SchemaOwnerType
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Component
 import java.util.UUID
 
@@ -30,16 +30,16 @@ class MigrationValidator(
 
   private fun getActiveTargetVersion(versionId: UUID): DbVersionDto {
     val version = dbVersionService.getAllDbVersionDtos().find { it.id == versionId }
-      ?: throw RtsGenericException("Target DB version not found")
+      ?: throw LibertyGenericException("Target DB version not found")
 
-    version.activatedOn ?: throw RtsGenericException("Target DB version is inactive")
+    version.activatedOn ?: throw LibertyGenericException("Target DB version is inactive")
 
     return version
   }
 
   private fun getTargetVersion(versionId: UUID): DbVersionDto {
     return dbVersionService.getAllDbVersionDtos().find { it.id == versionId }
-      ?: throw RtsGenericException("Target DB version not found")
+      ?: throw LibertyGenericException("Target DB version not found")
   }
 
   private fun validatePreviousMigrationCompleted(organizationId: UUID, targetVersion: DbVersionDto) {
@@ -55,10 +55,10 @@ class MigrationValidator(
     )
 
     when {
-      previousMigration == null -> throw RtsGenericException(
+      previousMigration == null -> throw LibertyGenericException(
         "Organization must first migrate to version ${prevVersion.versionNumber}"
       )
-      previousMigration.status != MigrationStatus.SUCCESS -> throw RtsGenericException(
+      previousMigration.status != MigrationStatus.SUCCESS -> throw LibertyGenericException(
         "Previous migration attempt (Version: ${prevVersion.versionNumber}) was not successful."
       )
     }
@@ -66,15 +66,15 @@ class MigrationValidator(
 
   private fun getOriginalMigration(migrationId: UUID): DbMigrationDto {
     return dbMigrationCache.getAllDbMigrations().find { it.id == migrationId }
-      ?: throw RtsGenericException("Original DB migration not found")
+      ?: throw LibertyGenericException("Original DB migration not found")
   }
 
   private fun validateRetryEligibility(migration: DbMigrationDto) {
     if (migration.schemaOwnerType != SchemaOwnerType.ORGANIZATION) {
-      throw RtsGenericException("Only organization-level migrations can be retried")
+      throw LibertyGenericException("Only organization-level migrations can be retried")
     }
     if (migration.status != MigrationStatus.PARTIAL) {
-      throw RtsGenericException("Only partially completed migrations can be retried")
+      throw LibertyGenericException("Only partially completed migrations can be retried")
     }
   }
 }

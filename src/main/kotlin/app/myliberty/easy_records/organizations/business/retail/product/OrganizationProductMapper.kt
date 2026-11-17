@@ -4,13 +4,13 @@ import app.myliberty.easy_records.organizations.business.retail.product.api.Orga
 import app.myliberty.easy_records.organizations.business.retail.product.api.OrganizationProductResponseDto
 import app.myliberty.easy_records.organizations.business.retail.product_tag.api.ActiveProductTags
 import app.myliberty.easy_records.platform.business.sysuser.api.CreatorFullName
-import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.util.business.mappers.LibertyMapperConfig
 import org.mapstruct.Context
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 
 @Mapper(
-    config = RtsMapperConfig::class,
+    config = LibertyMapperConfig::class,
     uses = [OrganizationProductCategoryQualifier::class, ProductTagQualifier::class]
 )
 interface OrganizationProductMapper {

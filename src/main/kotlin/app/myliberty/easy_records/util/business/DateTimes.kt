@@ -1,7 +1,7 @@
 package app.myliberty.easy_records.util.business
 
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import java.time.LocalDate
 import java.time.OffsetDateTime
 import java.time.ZoneId
@@ -17,7 +17,7 @@ object DateTimes {
 
     fun validateTimezone(timezone: String?) {
         if (timezone != null && !isValidTimezone(timezone))
-            throw RtsGenericException("'$timezone' is not a valid timezone")
+            throw LibertyGenericException("'$timezone' is not a valid timezone")
     }
 
     fun isValidTimezone(tz: String): Boolean = runCatching { ZoneId.of(tz) }.isSuccess
@@ -34,7 +34,7 @@ object DateTimes {
 
         fun requireNotInFuture(date: LocalDate, label: String) {
             if (date.isAfter(Now.organization())) {
-                throw RtsGenericException("$label cannot be in the future")
+                throw LibertyGenericException("$label cannot be in the future")
             }
         }
     }

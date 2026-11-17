@@ -4,7 +4,7 @@ import app.myliberty.easy_records.organizations.business.core.lock.api.OrgEntity
 import app.myliberty.easy_records.organizations.business.retail.unitgroup.api.SystemUnitGroup
 import app.myliberty.easy_records.organizations.business.retail.unitgroup.api.UnitGroupDto
 import app.myliberty.easy_records.util.business.lock.LockNamespaces
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.BeforeEach
@@ -58,7 +58,7 @@ class UnitGroupSeederTest {
     fun `a custom group already holding a system group's name stops the seed instead of duplicating it`() {
         `when`(unitGroupCache.getAllUnitGroups()).thenReturn(listOf(unitGroupDto("Miscellaneous", code = null)))
 
-        assertThrows(RtsGenericException::class.java) { unitGroupSeeder.seed() }
+        assertThrows(LibertyGenericException::class.java) { unitGroupSeeder.seed() }
 
         verify(unitGroupCache, never()).saveAll(anyCollection())
     }

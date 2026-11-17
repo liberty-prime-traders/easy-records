@@ -5,7 +5,7 @@ import app.myliberty.easy_records.platform.business.jurisdiction_tax_type.api.Ju
 import app.myliberty.easy_records.platform.business.tax_type.TaxTypeCache
 import app.myliberty.easy_records.platform.business.tax_type.TaxTypeMapper
 import app.myliberty.easy_records.util.business.StringUtils
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException
 import org.springframework.stereotype.Service
 import java.util.UUID
@@ -24,9 +24,9 @@ class TaxTypeService(
 
     fun create(dto: TaxTypeInsertDto): TaxTypeResponseDto {
         StringUtils.requireHasValue(dto.name, "Name must not be blank")
-        if (dto.taxTriggers.isEmpty()) throw RtsGenericException("At least one tax trigger is required")
+        if (dto.taxTriggers.isEmpty()) throw LibertyGenericException("At least one tax trigger is required")
         if (taxTypeCache.getAll().any { StringUtils.isEquivalent(it.name, dto.name) })
-            throw RtsGenericException("A tax type named '${dto.name}' already exists")
+            throw LibertyGenericException("A tax type named '${dto.name}' already exists")
         val saved = taxTypeCache.create(dto)
         return taxTypeMapper.toResponseDto(saved)
     }
@@ -37,9 +37,9 @@ class TaxTypeService(
         val effectiveName = dto.name?.orElse(existing.name) ?: existing.name
         StringUtils.requireHasValue(effectiveName, "Name must not be blank")
         if (dto.taxTriggers != null && dto.taxTriggers.orElse(emptySet())?.isEmpty() == true)
-            throw RtsGenericException("At least one tax trigger is required")
+            throw LibertyGenericException("At least one tax trigger is required")
         if (taxTypeCache.getAll().any { StringUtils.isEquivalent(it.name, effectiveName) && it.id != existing.id })
-            throw RtsGenericException("A tax type named '$effectiveName' already exists")
+            throw LibertyGenericException("A tax type named '$effectiveName' already exists")
         val updated = dto.applyTo(existing)
         val saved = taxTypeCache.save(updated)
         return taxTypeMapper.toResponseDto(saved)
@@ -47,7 +47,7 @@ class TaxTypeService(
 
     fun delete(id: UUID) {
         if (jurisdictionTaxTypeFetcher.isInUse(id))
-            throw RtsGenericException("Tax type is in use and cannot be deleted")
+            throw LibertyGenericException("Tax type is in use and cannot be deleted")
         taxTypeCache.delete(id)
     }
 }

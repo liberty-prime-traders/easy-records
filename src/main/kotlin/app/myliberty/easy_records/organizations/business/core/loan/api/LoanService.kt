@@ -16,7 +16,7 @@ import app.myliberty.easy_records.organizations.business.core.loan.LoanVoidRepos
 import app.myliberty.easy_records.organizations.business.core.loan.LoanVoidValidator
 import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.business.StringUtils
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Service
 
 @Service
@@ -76,7 +76,7 @@ class LoanService(
     @TransactionalOnOrganizationSchema(readOnly = true)
     fun getLoan(loanReference: String): LoanResponse {
         val loanEntity = loanRepository.findByReferenceNumber(loanReference)
-            ?: throw RtsGenericException("Loan not found: $loanReference")
+            ?: throw LibertyGenericException("Loan not found: $loanReference")
         val loanDto = loanMapper.toDto(loanEntity)
         val lenderContactDto = loanFinder.findLender(loanDto)
         return loanResponseBuilder.buildResponses(listOf(loanDto), mapOf(lenderContactDto.id to lenderContactDto)).single()

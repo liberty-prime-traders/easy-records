@@ -1,6 +1,6 @@
 package app.myliberty.easy_records.util.business
 
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import java.math.BigDecimal
 import java.math.MathContext
 import java.math.RoundingMode
@@ -55,25 +55,25 @@ object Decimals {
 
     fun requireMaxDecimalPlaces(value: BigDecimal, maxDecimalPlaces: Int, label: String) {
         if (value.stripTrailingZeros().scale() > maxDecimalPlaces) {
-            throw RtsGenericException("$label can have at most $maxDecimalPlaces decimal places")
+            throw LibertyGenericException("$label can have at most $maxDecimalPlaces decimal places")
         }
     }
 
     fun requireWithinMaximum(value: BigDecimal, maximum: BigDecimal, label: String) {
         if (value.abs() > maximum) {
-            throw RtsGenericException("$label must not exceed ${maximum.toPlainString()}")
+            throw LibertyGenericException("$label must not exceed ${maximum.toPlainString()}")
         }
     }
 
     fun requireNonNegative(value: BigDecimal, label: String) {
         if (value.signum() < 0) {
-            throw RtsGenericException("$label must not be negative")
+            throw LibertyGenericException("$label must not be negative")
         }
     }
 
     fun requirePositive(value: BigDecimal, label: String) {
         if (value.signum() <= 0) {
-            throw RtsGenericException("$label must be greater than zero")
+            throw LibertyGenericException("$label must be greater than zero")
         }
     }
 

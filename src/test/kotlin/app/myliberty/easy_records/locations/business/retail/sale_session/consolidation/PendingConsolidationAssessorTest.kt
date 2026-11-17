@@ -12,7 +12,7 @@ import app.myliberty.easy_records.locations.business.retail.sale_session.api.Sal
 import app.myliberty.easy_records.locations.business.retail.sale_session.api.SessionIdentity
 import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.UnitConversionGraph
 import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitPlacement
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.quantity.BreakdownUnit
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
@@ -129,7 +129,7 @@ class PendingConsolidationAssessorTest {
             pendingConsolidation = null,
         )
 
-        assertThrows(RtsGenericException::class.java) { assess(ordinarySession) }
+        assertThrows(LibertyGenericException::class.java) { assess(ordinarySession) }
     }
 
     private fun saleLine(quantity: String, lineTotal: String, defaultSalePrice: String) = SaleSessionLine(

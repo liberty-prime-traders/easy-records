@@ -14,7 +14,7 @@ first, which returns a `List<String>` of every problem in the payload
 (missing names, within-payload duplicates, a `categoryName`/`groupName`/
 `unitCode` that resolves to nothing) instead of throwing on the first one.
 If that list is non-empty, `bulkImport` throws
-`RtsGenericException("Bulk product import validation failed", errors)`
+`LibertyGenericException("Bulk product import validation failed", errors)`
 before anything is saved. Only once validation is fully clean does phase
 two run: categories, then product groups, then products, in that order,
 since each depends on the previous step's saved ids. Categories and groups

@@ -2,11 +2,11 @@ package app.myliberty.easy_records.platform.business.jurisdiction_tax_type
 
 import app.myliberty.easy_records.platform.business.jurisdiction_tax_type.api.JurisdictionTaxTypeDto
 import app.myliberty.easy_records.platform.business.jurisdiction_tax_type.api.JurisdictionTaxTypeInsertDto
-import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.util.business.mappers.LibertyMapperConfig
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 
-@Mapper(config = RtsMapperConfig::class)
+@Mapper(config = LibertyMapperConfig::class)
 interface JurisdictionTaxTypeMapper {
 
     fun toDomainDto(jurisdictionTaxTypeEntity: JurisdictionTaxTypeEntity): JurisdictionTaxTypeDto

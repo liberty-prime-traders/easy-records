@@ -4,7 +4,7 @@ import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrgani
 import app.myliberty.easy_records.organizations.business.core.jobtitle.JobTitleCache
 import app.myliberty.easy_records.organizations.business.core.jobtitle.JobTitleMapper
 import app.myliberty.easy_records.util.business.StringUtils
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException
 import org.springframework.stereotype.Service
 import java.util.Objects
@@ -25,7 +25,7 @@ class JobTitleService(
     fun createJobTitle(titleInsertDto: JobTitleInsertDto): JobTitleResponseDto {
         val value = StringUtils.getValueOrException(titleInsertDto.value, VALUE_IS_REQUIRED)
         jobTitleCache.getAllJobTitles().find { StringUtils.isEquivalent(it.value, value) }
-            ?.let { throw RtsGenericException(String.format(VALUE_ALREADY_EXISTS, value)) }
+            ?.let { throw LibertyGenericException(String.format(VALUE_ALREADY_EXISTS, value)) }
 
         val dto = jobTitleCache.create(titleInsertDto)
         return jobTitleMapper.toDto(dto)
@@ -43,7 +43,7 @@ class JobTitleService(
     private fun validateJobTitleUpdate(jobTitleUpdateDto: JobTitleUpdateDto) {
         val value = StringUtils.getValueOrException(jobTitleUpdateDto.value, VALUE_IS_REQUIRED)
         jobTitleCache.getAllJobTitles().find { it.value.equals(value, ignoreCase = true) && it.id != jobTitleUpdateDto.id }
-            ?.let{ throw RtsGenericException(String.format(VALUE_ALREADY_EXISTS, value)) }
+            ?.let{ throw LibertyGenericException(String.format(VALUE_ALREADY_EXISTS, value)) }
     }
 
     fun deleteJobTitle(id: UUID) {

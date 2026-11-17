@@ -3,7 +3,7 @@ package app.myliberty.easy_records.platform.business.db_migration
 import app.myliberty.easy_records.platform.business.db_version.api.DbVersionDto
 import app.myliberty.easy_records.platform.business.db_version.api.DbVersionService
 import app.myliberty.easy_records.platform.business.organization.api.OrganizationService
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Component
 import java.util.UUID
 
@@ -23,10 +23,10 @@ class OrganizationMigrationHandler(
     locationIds: Set<UUID>
   ): OrganizationLocationsMigration {
     val organization = organizationService.getAllOrganizationDtos().find { it.id == organizationId }
-      ?: throw RtsGenericException("Organization not found")
+      ?: throw LibertyGenericException("Organization not found")
 
     val schemaName = organization.schemaName
-      ?: throw RtsGenericException("Organization ${organization.name} has no schema name")
+      ?: throw LibertyGenericException("Organization ${organization.name} has no schema name")
 
     val migrationType = if (locationIds.isEmpty()) MigrationType.ORG_ONLY else MigrationType.ORG_WITH_LOCATIONS
     val message = if (locationIds.isEmpty()) {
@@ -69,7 +69,7 @@ class OrganizationMigrationHandler(
       OrganizationLocationsMigration(migration, locationResults.getAllResults())
     } catch (e: Exception) {
       migrationStatusUpdater.markFailure(migration, e)
-      throw RtsGenericException("Organization migration failed: ${e.message}")
+      throw LibertyGenericException("Organization migration failed: ${e.message}")
     }
   }
 }

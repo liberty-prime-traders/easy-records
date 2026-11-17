@@ -4,7 +4,7 @@ import app.myliberty.easy_records.organizations.business.core.contact.ContactCac
 import app.myliberty.easy_records.organizations.business.core.contact.ContactResponseMapper
 import app.myliberty.easy_records.organizations.business.core.contact.ContactValidator
 import app.myliberty.easy_records.organizations.business.core.ledger.api.SubledgerService
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -33,7 +33,7 @@ class ContactBulkInsertServiceTest {
     fun `reports every failing row together with its row number and creates nothing`() {
         `when`(contactCache.getAllContacts()).thenReturn(emptyList())
 
-        val exception = assertThrows(RtsGenericException::class.java) {
+        val exception = assertThrows(LibertyGenericException::class.java) {
             contactBulkInsertService.bulkCreateContacts(
                 listOf(
                     ContactBulkInsertDto(contactTypes = "CUS", firstName = "Ann"),
@@ -58,7 +58,7 @@ class ContactBulkInsertServiceTest {
     fun `rejects a row with no contact types`() {
         `when`(contactCache.getAllContacts()).thenReturn(emptyList())
 
-        val exception = assertThrows(RtsGenericException::class.java) {
+        val exception = assertThrows(LibertyGenericException::class.java) {
             contactBulkInsertService.bulkCreateContacts(listOf(ContactBulkInsertDto(contactTypes = " , ", firstName = "Ann")))
         }
 
@@ -69,7 +69,7 @@ class ContactBulkInsertServiceTest {
     fun `rejects an identity that appears twice in the request`() {
         `when`(contactCache.getAllContacts()).thenReturn(emptyList())
 
-        val exception = assertThrows(RtsGenericException::class.java) {
+        val exception = assertThrows(LibertyGenericException::class.java) {
             contactBulkInsertService.bulkCreateContacts(
                 listOf(
                     ContactBulkInsertDto(contactTypes = "CUS", companyName = "Acme Ltd"),
@@ -87,7 +87,7 @@ class ContactBulkInsertServiceTest {
     fun `rejects an identity that already exists`() {
         `when`(contactCache.getAllContacts()).thenReturn(listOf(existingContact(companyName = "Acme Ltd")))
 
-        val exception = assertThrows(RtsGenericException::class.java) {
+        val exception = assertThrows(LibertyGenericException::class.java) {
             contactBulkInsertService.bulkCreateContacts(listOf(ContactBulkInsertDto(contactTypes = "CUS", companyName = "Acme Ltd")))
         }
 
@@ -112,7 +112,7 @@ class ContactBulkInsertServiceTest {
         verify(subledgerService).openBalances(listOf("CON000007"))
     }
 
-    private fun rowMessages(exception: RtsGenericException): List<*> = exception.payload as List<*>
+    private fun rowMessages(exception: LibertyGenericException): List<*> = exception.payload as List<*>
 
     private fun existingContact(
         companyName: String? = null,

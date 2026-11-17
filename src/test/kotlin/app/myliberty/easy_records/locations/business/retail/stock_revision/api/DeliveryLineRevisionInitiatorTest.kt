@@ -40,7 +40,7 @@ import app.myliberty.easy_records.util.business.Money
 import app.myliberty.easy_records.util.enums.PaymentStatus
 import app.myliberty.easy_records.util.business.lock.LockNamespaces
 import app.myliberty.easy_records.util.business.reference_number.ReferenceNumberGenerator
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.model.TableName
 import app.myliberty.easy_records.util.quantity.BreakdownUnit
 import app.myliberty.easy_records.util.quantity.ExactQuantity
@@ -376,7 +376,7 @@ class DeliveryLineRevisionInitiatorTest {
         )
         `when`(netConsumptionCalculator.calculateNetConsumptions(revisedStockEntryId)).thenReturn(listOf(transferOut))
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             deliveryLineRevisionInitiator.initiateDeliveryLineRevision(request())
         }
 
@@ -385,7 +385,7 @@ class DeliveryLineRevisionInitiatorTest {
 
     @Test
     fun `a blank reason is refused before anything is read or locked`() {
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             deliveryLineRevisionInitiator.initiateDeliveryLineRevision(request(reason = "  "))
         }
 

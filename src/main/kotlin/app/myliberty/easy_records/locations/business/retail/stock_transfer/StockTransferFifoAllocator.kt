@@ -4,7 +4,7 @@ import app.myliberty.easy_records.locations.business.retail.stock.api.fifo.FifoT
 import app.myliberty.easy_records.locations.business.retail.stock.api.fifo.PlannedTake
 import app.myliberty.easy_records.locations.business.retail.stock.api.fifo.StockEntryFifoDto
 import app.myliberty.easy_records.util.business.Decimals
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.quantity.ExactQuantity
 import app.myliberty.easy_records.util.quantity.QuantityBreakdown
 import java.math.BigDecimal
@@ -71,7 +71,7 @@ object StockTransferFifoAllocator {
     ) {
         val available = plannedTakes.fold(ExactQuantity.ZERO) { sum, plannedTake -> sum + plannedTake.storageQuantity }
         if (available >= storageQuantityNeeded) return
-        throw RtsGenericException(
+        throw LibertyGenericException(
             "Insufficient stock for $productLabel. Available: ${quantityBreakdown.render(available)}, " +
                 "Requested: ${quantityBreakdown.render(storageQuantityNeeded)}"
         )

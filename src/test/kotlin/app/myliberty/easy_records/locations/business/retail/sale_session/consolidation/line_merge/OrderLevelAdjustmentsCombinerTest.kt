@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import java.math.BigDecimal
 import java.util.UUID
 
@@ -65,14 +65,14 @@ class OrderLevelAdjustmentsCombinerTest {
 
     @Test
     fun `a percentage that cannot be reproduced exactly is refused`() {
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             combine(
                 orderLevelAdjustment(loyaltyReasonId, "10") to "10.00",
                 orderLevelAdjustment(loyaltyReasonId, "5") to "10.00",
                 combinedSubtotal = "300.00",
             )
         }
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             combine(orderLevelAdjustment(loyaltyReasonId, "1") to "1.00", combinedSubtotal = "3.00")
         }
     }

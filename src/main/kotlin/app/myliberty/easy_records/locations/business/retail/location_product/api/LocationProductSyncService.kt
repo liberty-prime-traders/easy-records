@@ -8,7 +8,7 @@ import app.myliberty.easy_records.locations.business.retail.location_product.Loc
 import app.myliberty.easy_records.locations.business.retail.location_product.LocationProductRepository
 import app.myliberty.easy_records.organizations.business.retail.product.api.ProductStatus
 import app.myliberty.easy_records.util.business.StringUtils
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Service
 import java.time.OffsetDateTime
 
@@ -25,7 +25,7 @@ class LocationProductSyncService(
 
         if (existing != null) {
             // Stock is counted in the storage unit of the base unit's group, so a different base unit would re-meaning every stored quantity.
-            if (existing.baseUnitId != syncDto.baseUnitId) throw RtsGenericException(BASE_UNIT_CANNOT_CHANGE)
+            if (existing.baseUnitId != syncDto.baseUnitId) throw LibertyGenericException(BASE_UNIT_CANNOT_CHANGE)
             if (fieldsMatch(existing, syncDto)) return false
 
             val dto = locationProductMapper.toDomainDto(existing)

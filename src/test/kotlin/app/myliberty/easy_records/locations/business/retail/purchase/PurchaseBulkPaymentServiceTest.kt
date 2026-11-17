@@ -14,7 +14,7 @@ import app.myliberty.easy_records.locations.business.retail.supplier_payment.api
 import app.myliberty.easy_records.locations.business.retail.supplier_payment.api.SupplierPaymentService
 import app.myliberty.easy_records.util.business.PositiveMoney
 import app.myliberty.easy_records.util.enums.PaymentStatus
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
@@ -184,7 +184,7 @@ class PurchaseBulkPaymentServiceTest {
       listOf(BigDecimal("80.00"), BigDecimal("70.00")),
       response.map { it.appliedAmount }
     )
-    assertThrows<RtsGenericException> { record(listOf(partiallyDelivered, delivered), "180.01") }
+    assertThrows<LibertyGenericException> { record(listOf(partiallyDelivered, delivered), "180.01") }
   }
 
   @Test
@@ -193,7 +193,7 @@ class PurchaseBulkPaymentServiceTest {
     val second = stubPurchase(january.plusDays(1))
     givenFetched(first, second)
 
-    val exception = assertThrows<RtsGenericException> { record(listOf(first, second), "160.01") }
+    val exception = assertThrows<LibertyGenericException> { record(listOf(first, second), "160.01") }
 
     assertTrue(exception.message.contains("160.00"))
     verifyNothingRecorded()
@@ -205,7 +205,7 @@ class PurchaseBulkPaymentServiceTest {
     val foreign = stubPurchase(january, ownerSupplierId = UUID.randomUUID())
     givenFetched(own, foreign)
 
-    val exception = assertThrows<RtsGenericException> { record(listOf(own, foreign), "50.00") }
+    val exception = assertThrows<LibertyGenericException> { record(listOf(own, foreign), "50.00") }
 
     assertTrue(exception.message.contains(foreign.id!!.toString()))
     verifyNothingRecorded()
@@ -217,7 +217,7 @@ class PurchaseBulkPaymentServiceTest {
     val missingPurchaseId = UUID.randomUUID()
     givenFetched(existing)
 
-    val exception = assertThrows<RtsGenericException> {
+    val exception = assertThrows<LibertyGenericException> {
       record(listOf(existing), "50.00", selectedPurchaseIds = setOf(existing.id!!, missingPurchaseId))
     }
 
@@ -229,7 +229,7 @@ class PurchaseBulkPaymentServiceTest {
     val draft = stubPurchase(january, purchaseStatus = PurchaseStatus.DRAFT)
     givenFetched(draft)
 
-    val exception = assertThrows<RtsGenericException> { record(listOf(draft), "10.00") }
+    val exception = assertThrows<LibertyGenericException> { record(listOf(draft), "10.00") }
 
     assertTrue(exception.message.contains(draft.id!!.toString()))
     verifyNothingRecorded()
@@ -293,7 +293,7 @@ class PurchaseBulkPaymentServiceTest {
     val purchases = (1..21).map { stubPurchase(january.plusDays(it.toLong())) }
     givenFetched(*purchases.toTypedArray())
 
-    val exception = assertThrows<RtsGenericException> { record(purchases, "10.00") }
+    val exception = assertThrows<LibertyGenericException> { record(purchases, "10.00") }
 
     assertTrue(exception.message.contains("20"))
     verifyNothingRecorded()

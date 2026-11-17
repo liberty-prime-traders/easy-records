@@ -39,7 +39,7 @@ import app.myliberty.easy_records.locations.business.retail.sale_session.consoli
 import app.myliberty.easy_records.locations.business.retail.sale_session.consolidation.line_merge.ConsolidationProblemKind
 import app.myliberty.easy_records.locations.business.retail.sale_session.consolidation.line_merge.SaleLineMergeResult
 import app.myliberty.easy_records.support.WithDefaultOrganizationSession
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
@@ -147,7 +147,7 @@ class SaleConsolidationGeneratorTest {
             pendingSessionId = null,
         )
 
-        val refusal = assertThrows(RtsGenericException::class.java) { saleConsolidationGenerator.generate(staleInput) }
+        val refusal = assertThrows(LibertyGenericException::class.java) { saleConsolidationGenerator.generate(staleInput) }
 
         assertTrue(refusal.message.contains("SALE02"))
         verifyNothingWasChanged()
@@ -163,7 +163,7 @@ class SaleConsolidationGeneratorTest {
         `when`(mergeOfTheCopyWithNothingHeld())
             .thenReturn(mergeResult().copy(problems = listOf(problem)))
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             saleConsolidationGenerator.generate(input(*sources.toTypedArray()))
         }
 

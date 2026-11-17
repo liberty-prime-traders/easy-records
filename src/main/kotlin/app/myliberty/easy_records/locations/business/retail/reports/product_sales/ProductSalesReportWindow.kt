@@ -1,7 +1,7 @@
 package app.myliberty.easy_records.locations.business.retail.reports.product_sales
 
 import app.myliberty.easy_records.util.business.DateTimes
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import java.time.LocalDate
 
 // Whole organization-zone days, so the day buckets combine into any range. before is the day after the last day.
@@ -18,13 +18,13 @@ data class ProductSalesReportWindow(val from: LocalDate, val before: LocalDate) 
 
     fun ofInclusiveDates(from: LocalDate?, to: LocalDate?): ProductSalesReportWindow {
       if (from == null || to == null) {
-        throw RtsGenericException("from and to are required")
+        throw LibertyGenericException("from and to are required")
       }
       if (from.isAfter(to)) {
-        throw RtsGenericException("from must not be after to")
+        throw LibertyGenericException("from must not be after to")
       }
       if (!to.isBefore(from.plusYears(1))) {
-        throw RtsGenericException("from and to must be less than one year apart")
+        throw LibertyGenericException("from and to must be less than one year apart")
       }
       return ProductSalesReportWindow(from, to.plusDays(1))
     }

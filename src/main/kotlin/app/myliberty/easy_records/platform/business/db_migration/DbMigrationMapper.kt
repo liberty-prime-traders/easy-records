@@ -5,12 +5,12 @@ import app.myliberty.easy_records.platform.business.db_migration.api.LocationMig
 import app.myliberty.easy_records.platform.business.db_migration.api.OrganizationMigrationResponseDto
 import app.myliberty.easy_records.platform.business.db_version.api.DbVersionNumber
 import app.myliberty.easy_records.platform.business.db_version.api.DbVersionService
-import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.util.business.mappers.LibertyMapperConfig
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 
 @Mapper(
-    config = RtsMapperConfig::class,
+    config = LibertyMapperConfig::class,
     uses = [DbVersionService::class, DbMigrationQualifier::class]
 )
 interface DbMigrationMapper {

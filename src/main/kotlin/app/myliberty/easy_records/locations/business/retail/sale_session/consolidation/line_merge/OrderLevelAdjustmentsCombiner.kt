@@ -6,7 +6,7 @@ import app.myliberty.easy_records.locations.business.retail.sale_session.api.Ses
 import app.myliberty.easy_records.organizations.business.retail.adjustment_reason.api.AdjustmentDirection
 import app.myliberty.easy_records.util.business.Decimals
 import app.myliberty.easy_records.util.business.StringUtils
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import java.math.BigDecimal
 import java.util.UUID
 
@@ -60,7 +60,7 @@ object OrderLevelAdjustmentsCombiner {
     }
 
     private fun exactPercentage(sourceAmountTotal: BigDecimal, combinedSubtotal: BigDecimal): BigDecimal =
-        exactPercentageOrNull(sourceAmountTotal, combinedSubtotal) ?: throw RtsGenericException(
+        exactPercentageOrNull(sourceAmountTotal, combinedSubtotal) ?: throw LibertyGenericException(
             "The sale-wide discounts or surcharges of these sales cannot be added into one exactly. " +
                 "Remove them from the sales, or consolidate fewer sales"
         )

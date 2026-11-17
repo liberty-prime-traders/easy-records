@@ -1,6 +1,6 @@
 package app.myliberty.easy_records.organizations.business.core.loan
 
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Component
 import java.math.BigDecimal
 import java.time.LocalDate
@@ -18,13 +18,13 @@ class LoanRepaymentValidator(
         repaymentAmount: BigDecimal
     ) {
         if (loanVoidRepository.existsByLoanId(loanDto.id)) {
-            throw RtsGenericException("Loan ${loanDto.referenceNumber} is voided")
+            throw LibertyGenericException("Loan ${loanDto.referenceNumber} is voided")
         }
         if (repaymentDate.isBefore(loanDto.loanDate)) {
-            throw RtsGenericException("Repayment date cannot be before the loan date ${loanDto.loanDate}")
+            throw LibertyGenericException("Repayment date cannot be before the loan date ${loanDto.loanDate}")
         }
         if (repaymentAmount > loanStatusFiguresBeforeRepayment.outstanding) {
-            throw RtsGenericException(
+            throw LibertyGenericException(
                 "Repayment of $repaymentAmount exceeds the outstanding ${loanStatusFiguresBeforeRepayment.outstanding} on loan ${loanDto.referenceNumber}"
             )
         }
@@ -32,7 +32,7 @@ class LoanRepaymentValidator(
 
     fun requireVoidable(loanRepaymentDto: LoanRepaymentDto) {
         if (loanRepaymentVoidRepository.existsByLoanRepaymentId(loanRepaymentDto.id)) {
-            throw RtsGenericException("Loan repayment ${loanRepaymentDto.referenceNumber} is already voided")
+            throw LibertyGenericException("Loan repayment ${loanRepaymentDto.referenceNumber} is already voided")
         }
     }
 }

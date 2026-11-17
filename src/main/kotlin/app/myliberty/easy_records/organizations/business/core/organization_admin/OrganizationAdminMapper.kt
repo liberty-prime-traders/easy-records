@@ -3,11 +3,11 @@ package app.myliberty.easy_records.organizations.business.core.organization_admi
 import app.myliberty.easy_records.organizations.business.core.organization_admin.api.OrganizationAdminInsertDto
 import app.myliberty.easy_records.organizations.business.core.organization_admin.api.OrganizationAdminResponseDto
 import app.myliberty.easy_records.platform.business.sysuser.api.NullableFullName
-import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.util.business.mappers.LibertyMapperConfig
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 
-@Mapper(config = RtsMapperConfig::class)
+@Mapper(config = LibertyMapperConfig::class)
 interface OrganizationAdminMapper {
 
     fun toDomainDto(organizationAdminEntity: OrganizationAdminEntity): OrganizationAdminDto

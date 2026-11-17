@@ -2,7 +2,7 @@ package app.myliberty.easy_records.util.quantity
 
 import com.fasterxml.jackson.databind.JsonMappingException
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -16,14 +16,14 @@ class PositiveUserProvidedQuantityTest {
     @Test
     fun `zero and negative quantities are rejected`() {
         listOf(BigDecimal.ZERO, BigDecimal("-1")).forEach { nonPositive ->
-            assertThrows(RtsGenericException::class.java) { PositiveUserProvidedQuantity.of(nonPositive) }
+            assertThrows(LibertyGenericException::class.java) { PositiveUserProvidedQuantity.of(nonPositive) }
         }
     }
 
     @Test
     fun `the quantity rules still apply on top of positivity`() {
-        assertThrows(RtsGenericException::class.java) { PositiveUserProvidedQuantity.of(BigDecimal("1.255")) }
-        assertThrows(RtsGenericException::class.java) { PositiveUserProvidedQuantity.of(QuantityLimits.MAX_USER_QUANTITY.add(BigDecimal("0.01"))) }
+        assertThrows(LibertyGenericException::class.java) { PositiveUserProvidedQuantity.of(BigDecimal("1.255")) }
+        assertThrows(LibertyGenericException::class.java) { PositiveUserProvidedQuantity.of(QuantityLimits.MAX_USER_QUANTITY.add(BigDecimal("0.01"))) }
     }
 
     @Test
@@ -31,6 +31,6 @@ class PositiveUserProvidedQuantityTest {
         assertEquals("2.5", objectMapper.writeValueAsString(PositiveUserProvidedQuantity.of(BigDecimal("2.5"))))
         assertEquals(PositiveUserProvidedQuantity.of(BigDecimal("2.5")), objectMapper.readValue("2.5", PositiveUserProvidedQuantity::class.java))
         val bindFailure = assertThrows(JsonMappingException::class.java) { objectMapper.readValue("0", PositiveUserProvidedQuantity::class.java) }
-        assertTrue(bindFailure.cause is RtsGenericException)
+        assertTrue(bindFailure.cause is LibertyGenericException)
     }
 }

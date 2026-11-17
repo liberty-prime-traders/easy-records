@@ -3,11 +3,11 @@ package app.myliberty.easy_records.organizations.business.core.expense_type
 import app.myliberty.easy_records.organizations.business.core.expense_type.api.ExpenseTypeDto
 import app.myliberty.easy_records.organizations.business.core.expense_type.api.ExpenseTypeInsertDto
 import app.myliberty.easy_records.organizations.business.core.expense_type.api.ExpenseTypeResponseDto
-import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.util.business.mappers.LibertyMapperConfig
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 
-@Mapper(config = RtsMapperConfig::class)
+@Mapper(config = LibertyMapperConfig::class)
 interface ExpenseTypeMapper {
 
     fun toDomainDto(expenseTypeEntity: ExpenseTypeEntity): ExpenseTypeDto

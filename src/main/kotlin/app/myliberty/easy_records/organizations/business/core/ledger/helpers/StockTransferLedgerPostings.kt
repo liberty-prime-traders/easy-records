@@ -7,7 +7,7 @@ import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerE
 import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerSourceType
 import app.myliberty.easy_records.organizations.business.retail.stock_transfer.api.StockTransferOrderDataFetcher
 import app.myliberty.easy_records.util.business.Money
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Component
 
 @Component
@@ -25,7 +25,7 @@ class StockTransferLedgerPostings(
             dispatchReferenceNumber, LedgerSourceType.STOCK_TRANSFER_DISPATCH, sourceLocationId
         )
         if (!dispatchPosted) {
-            throw RtsGenericException(
+            throw LibertyGenericException(
                 "Cannot clear in transit for $dispatchReferenceNumber: its " +
                     "${LedgerSourceType.STOCK_TRANSFER_DISPATCH.name} posting does not exist"
             )

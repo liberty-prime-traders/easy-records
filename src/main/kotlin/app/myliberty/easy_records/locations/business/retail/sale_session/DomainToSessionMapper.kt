@@ -9,13 +9,13 @@ import app.myliberty.easy_records.locations.business.retail.sale_session.api.Sal
 import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionLine
 import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionPayment
 import app.myliberty.easy_records.locations.business.retail.sale_session.api.SessionIdentity
-import app.myliberty.easy_records.util.business.mappers.RtsMapperConfig
+import app.myliberty.easy_records.util.business.mappers.LibertyMapperConfig
 import org.mapstruct.Context
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 import java.util.UUID
 
-@Mapper(config = RtsMapperConfig::class, uses = [SaleSessionQualifierUtil::class])
+@Mapper(config = LibertyMapperConfig::class, uses = [SaleSessionQualifierUtil::class])
 interface DomainToSessionMapper {
 
     fun toSaleSessionHeader(saleHeaderDto: SaleHeaderDto): SaleSessionHeader

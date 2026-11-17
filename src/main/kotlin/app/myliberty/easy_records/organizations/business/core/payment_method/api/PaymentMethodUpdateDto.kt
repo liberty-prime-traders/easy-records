@@ -2,7 +2,7 @@ package app.myliberty.easy_records.organizations.business.core.payment_method.ap
 
 import app.myliberty.easy_records.organizations.business.core.payment_method.PaymentMethodDto
 import app.myliberty.easy_records.util.business.StringUtils
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import java.io.Serializable
 import java.util.Optional
 import java.util.UUID
@@ -18,6 +18,6 @@ data class PaymentMethodUpdateDto(
         name = name?.orElse(existing.name) ?: existing.name,
         description = StringUtils.useIfProvided(description, existing.description),
         accountCode = StringUtils.useIfProvided(accountCode, existing.accountCode)
-            ?: throw RtsGenericException("A Payment Method must have an account")
+            ?: throw LibertyGenericException("A Payment Method must have an account")
     )
 }

@@ -22,7 +22,7 @@ import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.business.MoneyDisplay
 import app.myliberty.easy_records.util.business.PositiveMoney
 import app.myliberty.easy_records.util.business.lock.LockNamespaces
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
@@ -123,7 +123,7 @@ class ContactOpeningSettlementServiceTest {
 
     @Test
     fun `a settlement above the outstanding opening balance is rejected and nothing is saved or posted`() {
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             contactOpeningSettlementService.recordSettlement(createRequest(ContactSubledgerDirection.PAYABLE, "100.01"))
         }
 
@@ -135,7 +135,7 @@ class ContactOpeningSettlementServiceTest {
     fun `an inactive contact cannot be settled`() {
         givenContact(ContactStatus.INACTIVE)
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             contactOpeningSettlementService.recordSettlement(createRequest(ContactSubledgerDirection.RECEIVABLE, "10.00"))
         }
         assertTrue(savedSettlementEntities.isEmpty())
@@ -145,7 +145,7 @@ class ContactOpeningSettlementServiceTest {
     fun `a settlement dated in the future is rejected`() {
         val tomorrow = DateTimes.Local.Now.organization().plusDays(1)
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             contactOpeningSettlementService.recordSettlement(
                 createRequest(ContactSubledgerDirection.RECEIVABLE, "10.00").copy(settlementDate = tomorrow)
             )
@@ -173,7 +173,7 @@ class ContactOpeningSettlementServiceTest {
         val settlementEntity = givenStoredSettlement()
         alreadyVoided = true
 
-        assertThrows(RtsGenericException::class.java) {
+        assertThrows(LibertyGenericException::class.java) {
             contactOpeningSettlementService.voidSettlement(
                 ContactOpeningSettlementVoidRequest(settlementEntity.requiredId())
             )

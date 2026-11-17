@@ -1,6 +1,6 @@
 package app.myliberty.easy_records.util.queries
 
-import app.myliberty.easy_records.util.exceptions.RtsGenericException
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import java.time.OffsetDateTime
 import java.time.format.DateTimeParseException
 import java.util.Base64
@@ -22,9 +22,9 @@ data class KeysetSearchCursor(val createdOn: OffsetDateTime, val id: UUID) {
         if (parts.size != 2) throw IllegalArgumentException()
         return KeysetSearchCursor(OffsetDateTime.parse(parts[0]), UUID.fromString(parts[1]))
       } catch (_: IllegalArgumentException) {
-        throw RtsGenericException("Malformed cursor")
+        throw LibertyGenericException("Malformed cursor")
       } catch (_: DateTimeParseException) {
-        throw RtsGenericException("Malformed cursor")
+        throw LibertyGenericException("Malformed cursor")
       }
     }
   }
