@@ -86,9 +86,9 @@ class SaleSessionCopierContentTest {
             )
         )
 
-        val consolidatedSession = saleSessionCopier.copyFromSalesForConsolidation(
+        val consolidatedSession = saleSessionCopier.copyFromSalesWithSourceReferences(
             UUID.randomUUID(), listOf(firstSaleHeader, secondSaleHeader)
-        )
+        ).saleSession
 
         val copiedFirstLine = consolidatedSession.saleLines.single { it.locationProductId == firstProductId }
         val copiedSecondLine = consolidatedSession.saleLines.single { it.locationProductId == secondProductId }
@@ -145,7 +145,8 @@ class SaleSessionCopierContentTest {
             saleHeaders.associate { it.id to emptyList() }
         )
 
-        val consolidatedSession = saleSessionCopier.copyFromSalesForConsolidation(UUID.randomUUID(), saleHeaders)
+        val consolidatedSession = saleSessionCopier
+            .copyFromSalesWithSourceReferences(UUID.randomUUID(), saleHeaders).saleSession
 
         assertEquals(
             listOf("Apple" to "1.00", "zinc" to "2.00", "zinc" to "2.01"),

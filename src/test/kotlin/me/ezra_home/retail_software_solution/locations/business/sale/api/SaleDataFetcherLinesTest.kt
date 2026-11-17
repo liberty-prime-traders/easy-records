@@ -8,7 +8,7 @@ import me.ezra_home.retail_software_solution.locations.business.sale.SaleLineEnt
 import me.ezra_home.retail_software_solution.locations.business.sale.SaleLineRepository
 import me.ezra_home.retail_software_solution.locations.business.sale.SaleRepository
 import me.ezra_home.retail_software_solution.locations.business.sale.SaleVoidRepository
-import me.ezra_home.retail_software_solution.locations.business.lock.api.EntityAdvisoryLock
+import me.ezra_home.retail_software_solution.locations.business.sale.SaleLocker
 import me.ezra_home.retail_software_solution.util.business.mappers.UserQualifier
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
@@ -37,7 +37,7 @@ class SaleDataFetcherLinesTest {
         mock(SaleLineCogsRepository::class.java),
         mock(SaleAssembler::class.java),
         locationProductDataFetcher,
-        mock(EntityAdvisoryLock::class.java),
+        mock(SaleLocker::class.java),
         mock(SaleVoidRepository::class.java),
         mock(UserQualifier::class.java),
     )

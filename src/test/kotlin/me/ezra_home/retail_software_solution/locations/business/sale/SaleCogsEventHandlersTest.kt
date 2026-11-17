@@ -5,7 +5,6 @@ import me.ezra_home.retail_software_solution.configuration.session.OrgSession
 import me.ezra_home.retail_software_solution.configuration.session.SessionContext
 import me.ezra_home.retail_software_solution.configuration.session.SessionContextProvider
 import me.ezra_home.retail_software_solution.locations.business.location_product.api.LocationProductDataFetcher
-import me.ezra_home.retail_software_solution.locations.business.lock.api.EntityAdvisoryLock
 import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleDataFetcher
 import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleLineCogsStatus
 import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleStatus
@@ -44,7 +43,7 @@ class SaleCogsEventHandlersTest {
         saleLineCogsRepository = saleLineCogsRepository,
         saleAssembler = mock(SaleAssembler::class.java),
         locationProductDataFetcher = mock(LocationProductDataFetcher::class.java),
-        entityAdvisoryLock = mock(EntityAdvisoryLock::class.java),
+        saleLocker = mock(SaleLocker::class.java),
         saleVoidRepository = saleVoidRepository,
         userQualifier = mock(UserQualifier::class.java),
     )
@@ -66,7 +65,11 @@ class SaleCogsEventHandlersTest {
                 it.dateSold = OffsetDateTime.of(2026, 1, 15, 10, 0, 0, 0, ZoneOffset.UTC)
             }
         `when`(saleRepository.getReferenceById(saleId)).thenReturn(saleEntity)
-        `when`(saleLineCogsRepository.sumCogsTotalBySaleIdAndStatus(saleId, SaleLineCogsStatus.ACTIVE)).thenReturn(BigDecimal("30.0000"))
+        `when`(saleLineCogsRepository.sumCogsTotalsBySaleIdsAndStatus(listOf(saleId), SaleLineCogsStatus.ACTIVE))
+            .thenReturn(listOf(object : SaleCogsTotalRow {
+                override val saleId = this@SaleCogsEventHandlersTest.saleId
+                override val cogsTotal = BigDecimal("30.0000")
+            }))
         `when`(saleLineRepository.findBySaleId(saleId)).thenReturn(
             listOf(
                 saleLine(firstProductId, quantity = "1.0000", storageUnitsPerUserProvidedUnit = 12L, cogsTotal = BigDecimal("30.0000")),

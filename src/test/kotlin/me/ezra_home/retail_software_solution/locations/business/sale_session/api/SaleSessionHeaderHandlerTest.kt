@@ -1,6 +1,7 @@
 package me.ezra_home.retail_software_solution.locations.business.sale_session.api
 
 import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleStatus
+import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleUpdater
 import me.ezra_home.retail_software_solution.locations.business.sale_session.SaleSessionStore
 import me.ezra_home.retail_software_solution.locations.business.sale_session.SaleSessionUpdateFinalizer
 import me.ezra_home.retail_software_solution.locations.business.sale_session.SaleSessionValidator
@@ -10,7 +11,9 @@ import me.ezra_home.retail_software_solution.locations.business.location_product
 import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
+import org.mockito.Mockito.clearInvocations
 import org.mockito.Mockito.mock
+import org.mockito.Mockito.verify
 import org.mockito.Mockito.verifyNoInteractions
 import org.mockito.Mockito.`when`
 import java.time.OffsetDateTime
@@ -22,6 +25,7 @@ class SaleSessionHeaderHandlerTest {
     private val sessionId = UUID.randomUUID()
     private val saleSessionStore = mock(SaleSessionStore::class.java)
     private val saleSessionUpdateFinalizer = mock(SaleSessionUpdateFinalizer::class.java)
+    private val saleUpdater = mock(SaleUpdater::class.java)
     private val saleSessionHeaderHandler = SaleSessionHeaderHandler(
         saleSessionStore = saleSessionStore,
         saleSessionValidator = SaleSessionValidator(
@@ -29,13 +33,20 @@ class SaleSessionHeaderHandlerTest {
         ),
         contactService = mock(ContactService::class.java),
         saleSessionUpdateFinalizer = saleSessionUpdateFinalizer,
+        saleUpdater = saleUpdater,
     )
 
-    private fun session(kind: SaleSessionKind, originalStatus: SaleStatus = SaleStatus.DRAFT): SaleSession {
+    private val savedSaleId = UUID.randomUUID()
+
+    private fun session(
+        kind: SaleSessionKind,
+        originalStatus: SaleStatus = SaleStatus.DRAFT,
+        saleId: UUID? = null,
+    ): SaleSession {
         val saleSession = SaleSession(
             sessionId = sessionId,
             locationId = UUID.randomUUID(),
-            saleId = null,
+            saleId = saleId,
             saleVersion = null,
             productsVersion = 0L,
             productsReservedAtVersion = 0L,
@@ -96,11 +107,35 @@ class SaleSessionHeaderHandlerTest {
     }
 
     @Test
-    fun `an empty update on a read-only sale is refused like any other change`() {
-        session(SaleSessionKind.SALE, originalStatus = SaleStatus.CONFIRMED)
+    fun `notes on a draft stay in the session until it is saved`() {
+        session(SaleSessionKind.SALE, SaleStatus.DRAFT, savedSaleId)
+
+        saleSessionHeaderHandler.update(sessionId, SaleSessionHeaderUpdateDto(notes = Optional.of("gate")))
+
+        verifyNoInteractions(saleUpdater)
+    }
+
+    @Test
+    fun `notes on a confirmed, voided or discarded sale are written to the sale at once`() {
+        listOf(SaleStatus.CONFIRMED, SaleStatus.VOIDED, SaleStatus.DISCARDED).forEach { status ->
+            session(SaleSessionKind.SALE, status, savedSaleId)
+
+            saleSessionHeaderHandler.update(sessionId, SaleSessionHeaderUpdateDto(notes = Optional.of("gate")))
+
+            verify(saleUpdater).updateNotes(savedSaleId, "gate")
+            clearInvocations(saleUpdater)
+        }
+    }
+
+    @Test
+    fun `a read-only sale still refuses a contact change`() {
+        session(SaleSessionKind.SALE, SaleStatus.CONFIRMED, savedSaleId)
 
         assertThrows(RtsGenericException::class.java) {
-            saleSessionHeaderHandler.update(sessionId, SaleSessionHeaderUpdateDto())
+            saleSessionHeaderHandler.update(
+                sessionId, SaleSessionHeaderUpdateDto(contactId = Optional.of(UUID.randomUUID()))
+            )
         }
+        verifyNoInteractions(saleUpdater)
     }
 }

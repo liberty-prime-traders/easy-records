@@ -42,8 +42,10 @@ class SaleSessionAssembler(
     fun buildResponse(saleSession: SaleSession): SaleSessionResponseDto {
         val saleVoidInfo: SaleVoidInfoDto? = requireSaleVoidInfoIfVoided(saleSession)
         val unitConversionGraph = unitConversionGraphFacade.getOrLoad()
+        val cleanLocationProductIds = saleSession.pendingConsolidation?.cleanProducts.orEmpty()
+            .map { it.locationProductId }
         val inactiveLocationProductIds = locationProductDataFetcher.findInactiveIds(
-            saleSession.saleLines.map { it.locationProductId }.toSet()
+            (saleSession.saleLines.map { it.locationProductId } + cleanLocationProductIds).toSet()
         )
         val pendingConsolidationAssessment =
             assessIfPending(saleSession, inactiveLocationProductIds, unitConversionGraph)

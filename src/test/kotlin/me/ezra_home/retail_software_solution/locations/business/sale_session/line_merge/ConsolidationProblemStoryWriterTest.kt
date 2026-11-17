@@ -12,7 +12,7 @@ class ConsolidationProblemStoryWriterTest {
 
     private val locationProductId = UUID.randomUUID()
     private val boxUnitId = UUID.randomUUID()
-    private val unitNameByUnitId = mapOf(boxUnitId to "box")
+    private val unitNameByUnitId = mapOf(boxUnitId to "packet")
 
     private fun saleLine(quantity: String): SaleSessionLine = SaleSessionLine(
         identity = SessionIdentity.mintFreshIdentity(),
@@ -35,6 +35,7 @@ class ConsolidationProblemStoryWriterTest {
                 ConsolidationProblem(locationProductId, kind, listOf(firstLine.identity, secondLine.identity))
             ),
             problemSaleLines = listOf(firstLine, secondLine),
+            problemSaleAdjustments = emptyList(),
             sourceSaleReferenceByLineKey = mapOf(firstLine.lineKey to "S2", secondLine.lineKey to "S1"),
             unitNameByUnitId = unitNameByUnitId,
         ).single()
@@ -45,10 +46,10 @@ class ConsolidationProblemStoryWriterTest {
             val blockingProblem = storyFor(kind)
             assertEquals("S2, S1", blockingProblem.documentReference, kind.name)
             assertTrue(blockingProblem.description.contains("Cement"), kind.name)
-            assertTrue(
-                blockingProblem.effect.startsWith("Lines: 2 box at KES 10.00 from S2; 3.5 box at KES 10.00 from S1."),
-                kind.name
-            )
+            val priceSource = if (kind == ConsolidationProblemKind.OVERRIDE_ON_SOME_LINES_ONLY) " (normal price)" else ""
+            val expectedLinesText = "Lines: 2 packets at KES 10.00 per packet$priceSource from S2; " +
+                "3.5 packets at KES 10.00 per packet$priceSource from S1."
+            assertTrue(blockingProblem.effect.startsWith(expectedLinesText), kind.name)
         }
     }
 
@@ -79,6 +80,7 @@ class ConsolidationProblemStoryWriterTest {
                 )
             ),
             problemSaleLines = listOf(firstLine, secondLine),
+            problemSaleAdjustments = emptyList(),
             sourceSaleReferenceByLineKey = mapOf(firstLine.lineKey to "S1", secondLine.lineKey to "S1"),
             unitNameByUnitId = unitNameByUnitId,
         ).single()
@@ -99,6 +101,7 @@ class ConsolidationProblemStoryWriterTest {
                 ),
             ),
             problemSaleLines = listOf(laterLine, earlierLine),
+            problemSaleAdjustments = emptyList(),
             sourceSaleReferenceByLineKey = mapOf(laterLine.lineKey to "S9", earlierLine.lineKey to "S3"),
             unitNameByUnitId = unitNameByUnitId,
         )

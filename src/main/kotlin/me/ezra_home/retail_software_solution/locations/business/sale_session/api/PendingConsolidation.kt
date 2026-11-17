@@ -9,6 +9,9 @@ data class PendingConsolidation(
     val removedSaleLines: List<RemovedSaleLine> = emptyList(),
     // A snapshot from selection: what the source sales hold per product, which Generate frees by voiding them.
     val stockHeldBySourceSalesByLocationProductId: Map<UUID, StockHeldBySales> = emptyMap(),
+    // Products that combined cleanly at selection and are not held on the form. Generate merges them again, so one
+    // that turns inactive afterwards blocks it and has to be listed as an issue.
+    val cleanProducts: List<PendingCleanProduct> = emptyList(),
 ) {
 
     fun removedSaleLineResponses(): List<RemovedSaleLineResponse> = removedSaleLines.map { removedSaleLine ->

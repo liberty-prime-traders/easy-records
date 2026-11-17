@@ -1,5 +1,6 @@
 package me.ezra_home.retail_software_solution.locations.business.sale_session
 
+import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleConsolidationEligibility
 import me.ezra_home.retail_software_solution.locations.business.location_product.api.LocationProductService
 import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleHeaderDto
 import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleStatus
@@ -123,6 +124,19 @@ class SaleSessionValidator(
         val distinctContactIds = sourceSaleHeaders.map { it.contactId }.toSet()
         if (distinctContactIds.size > 1) {
             throw RtsGenericException("Sales for different customers cannot be consolidated")
+        }
+    }
+
+    fun guardSourceSalesConsolidatable(sourceSaleHeaders: List<SaleHeaderDto>) {
+        sourceSaleHeaders.firstOrNull { !SaleSessionRules.isConsolidatable(it.status) }
+            ?.let { saleHeader ->
+                throw RtsGenericException(
+                    "Sale ${saleHeader.referenceNumber} is ${saleHeader.status.name.lowercase()}; " +
+                        "only draft and confirmed sales can be consolidated"
+                )
+            }
+        if (sourceSaleHeaders.any { SaleConsolidationEligibility.isWalkInSale(it.contactId) }) {
+            throw RtsGenericException("Walk-in sales cannot be consolidated")
         }
     }
 

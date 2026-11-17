@@ -37,25 +37,27 @@ class SalePaymentFetcher(
     }
 
 
-    fun getPaymentSnapshots(saleId: UUID): List<SalePaymentSnapshot> {
-        val payments = salePaymentRepository.findBySaleId(saleId)
-        if (payments.isEmpty()) return emptyList()
-        val voidReasonsById = salePaymentVoidRepository
+    fun getPaymentSnapshots(saleId: UUID): List<SalePaymentSnapshot> =
+        getPaymentSnapshotsBySaleId(listOf(saleId)).getValue(saleId)
+
+    fun getPaymentSnapshotsBySaleId(saleIds: List<UUID>): Map<UUID, List<SalePaymentSnapshot>> {
+        val payments = salePaymentRepository.findBySaleIdIn(saleIds)
+        val voidReasonsByPaymentId = if (payments.isEmpty()) emptyMap() else salePaymentVoidRepository
             .findBySalePaymentIdIn(payments.map { it.id!! })
             .associate { it.salePaymentId to it.reason }
-        return payments.map { entity ->
+        val snapshotsBySaleId = payments.groupBy({ it.saleId }, { entity ->
             SalePaymentSnapshot(
                 id = entity.id!!,
                 paymentMethodId = entity.paymentMethodId,
                 amount = entity.amount,
                 reference = entity.reference,
                 paymentDate = entity.paymentDate,
-                voidedReason = voidReasonsById[entity.id!!],
+                voidedReason = voidReasonsByPaymentId[entity.id!!],
             )
-        }
+        })
+        return saleIds.associateWith { snapshotsBySaleId[it].orEmpty() }
     }
 
-    fun hasActivePayments(saleId: UUID): Boolean {
-        return activeSalePaymentRepository.existsBySaleId(saleId)
-    }
+    fun saleIdsWithActivePayments(saleIds: List<UUID>): Set<UUID> =
+        activeSalePaymentRepository.findSaleIdsWithActivePayments(saleIds)
 }

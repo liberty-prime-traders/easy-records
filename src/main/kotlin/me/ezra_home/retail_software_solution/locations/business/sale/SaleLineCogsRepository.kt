@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param
 import org.springframework.stereotype.Repository
-import java.math.BigDecimal
 import java.util.UUID
 
 @Repository
@@ -15,14 +14,15 @@ interface SaleLineCogsRepository : JpaRepository<SaleLineCogsEntity, UUID> {
 
     @Query(
         """
-        SELECT COALESCE(SUM(saleLineCogs.cogsTotal), 0)
+        SELECT saleLine.saleId AS saleId, SUM(saleLineCogs.cogsTotal) AS cogsTotal
         FROM SaleLineCogsEntity saleLineCogs
         JOIN SaleLineEntity saleLine ON saleLine.id = saleLineCogs.saleLineId
-        WHERE saleLine.saleId = :saleId AND saleLineCogs.status = :status
+        WHERE saleLine.saleId IN :saleIds AND saleLineCogs.status = :status
+        GROUP BY saleLine.saleId
         """
     )
-    fun sumCogsTotalBySaleIdAndStatus(
-        @Param("saleId") saleId: UUID,
+    fun sumCogsTotalsBySaleIdsAndStatus(
+        @Param("saleIds") saleIds: Collection<UUID>,
         @Param("status") status: SaleLineCogsStatus,
-    ): BigDecimal
+    ): List<SaleCogsTotalRow>
 }

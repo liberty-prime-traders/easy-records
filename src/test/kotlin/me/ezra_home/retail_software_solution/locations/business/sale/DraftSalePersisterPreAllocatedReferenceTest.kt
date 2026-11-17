@@ -2,7 +2,6 @@ package me.ezra_home.retail_software_solution.locations.business.sale
 
 import me.ezra_home.retail_software_solution.locations.business.location_product.api.LocationProductDataFetcher
 import me.ezra_home.retail_software_solution.locations.business.sale.api.DraftSalePersister
-import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleDataFetcher
 import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleSaveRequest
 import me.ezra_home.retail_software_solution.locations.business.sale_adjustment.api.RetainedSaleAdjustments
 import me.ezra_home.retail_software_solution.locations.business.sale_adjustment.api.SaleAdjustmentSyncer
@@ -23,7 +22,7 @@ import java.util.UUID
 class DraftSalePersisterPreAllocatedReferenceTest {
 
     private val saleRepository = mock(SaleRepository::class.java)
-    private val saleDataFetcher = mock(SaleDataFetcher::class.java)
+    private val saleLocker = mock(SaleLocker::class.java)
     private var referenceNumberWhenSaved: String? = "NOT SAVED"
     private val saleAdjustmentSyncer = mock(SaleAdjustmentSyncer::class.java)
     private val saleSaveFinalizer = mock(SaleSaveFinalizer::class.java) {
@@ -35,7 +34,7 @@ class DraftSalePersisterPreAllocatedReferenceTest {
         saleLineRepository = mock(SaleLineRepository::class.java),
         stockReserver = mock(StockReserver::class.java),
         saleValidator = mock(SaleValidator::class.java),
-        saleDataFetcher = saleDataFetcher,
+        saleLocker = saleLocker,
         locationProductDataFetcher = mock(LocationProductDataFetcher::class.java),
         fiscalPeriodService = mock(FiscalPeriodService::class.java),
         saleSaveFinalizer = saleSaveFinalizer,

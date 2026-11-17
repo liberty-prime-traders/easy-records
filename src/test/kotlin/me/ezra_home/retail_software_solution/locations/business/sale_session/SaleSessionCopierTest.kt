@@ -66,7 +66,8 @@ class SaleSessionCopierTest {
         )
         stubEmptyContent(sourceSaleHeaders)
 
-        val consolidatedSession = saleSessionCopier.copyFromSalesForConsolidation(UUID.randomUUID(), sourceSaleHeaders)
+        val consolidatedSession = saleSessionCopier
+            .copyFromSalesWithSourceReferences(UUID.randomUUID(), sourceSaleHeaders).saleSession
 
         assertEquals("SALE01 - deliver Monday\nSALE04 - fragile", consolidatedSession.header.notes)
         assertEquals(contactId, consolidatedSession.header.contactId)
@@ -81,7 +82,8 @@ class SaleSessionCopierTest {
         val sourceSaleHeaders = listOf(saleHeader("SALE01", contactId, null), saleHeader("SALE02", contactId, null))
         stubEmptyContent(sourceSaleHeaders)
 
-        val consolidatedSession = saleSessionCopier.copyFromSalesForConsolidation(UUID.randomUUID(), sourceSaleHeaders)
+        val consolidatedSession = saleSessionCopier
+            .copyFromSalesWithSourceReferences(UUID.randomUUID(), sourceSaleHeaders).saleSession
 
         assertNull(consolidatedSession.header.notes)
     }
@@ -91,7 +93,7 @@ class SaleSessionCopierTest {
         val sourceSaleHeaders = listOf(saleHeader("SALE01", UUID.randomUUID(), null))
 
         assertThrows(RtsGenericException::class.java) {
-            saleSessionCopier.copyFromSalesForConsolidation(UUID.randomUUID(), sourceSaleHeaders)
+            saleSessionCopier.copyFromSalesWithSourceReferences(UUID.randomUUID(), sourceSaleHeaders)
         }
         verify(saleDataFetcher, never()).getSaleLinesBySaleId(sourceSaleHeaders.map { it.id })
     }
@@ -104,7 +106,7 @@ class SaleSessionCopierTest {
         )
 
         assertThrows(RtsGenericException::class.java) {
-            saleSessionCopier.copyFromSalesForConsolidation(UUID.randomUUID(), sourceSaleHeaders)
+            saleSessionCopier.copyFromSalesWithSourceReferences(UUID.randomUUID(), sourceSaleHeaders)
         }
     }
 

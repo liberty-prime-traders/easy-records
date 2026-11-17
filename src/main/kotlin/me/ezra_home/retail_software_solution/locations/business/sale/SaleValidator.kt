@@ -50,14 +50,19 @@ class SaleValidator(
         }
     }
 
-    fun guardCanVoid(sale: SaleEntity) {
+    fun guardCanVoid(sales: List<SaleEntity>) {
+        val saleIdsWithActivePayments = salePaymentFetcher.saleIdsWithActivePayments(sales.map { it.id!! })
+        sales.forEach { guardCanVoid(it, it.id!! in saleIdsWithActivePayments) }
+    }
+
+    private fun guardCanVoid(sale: SaleEntity, hasActivePayments: Boolean) {
         if (sale.status == SaleStatus.VOIDED) {
             throw RtsGenericException("Sale ${sale.referenceNumber} is already voided")
         }
         if (sale.status == SaleStatus.DISCARDED) {
             throw RtsGenericException("Sale ${sale.referenceNumber} is discarded and cannot be voided")
         }
-        if (salePaymentFetcher.hasActivePayments(sale.id!!)) {
+        if (hasActivePayments) {
             throw RtsGenericException("Cannot void a sale with active payments")
         }
         if (sale.status != SaleStatus.DRAFT && sale.taxTotal == null) {

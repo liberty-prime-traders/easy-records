@@ -1,5 +1,6 @@
 package me.ezra_home.retail_software_solution.locations.business.sale_session.api
 
+import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleUpdater
 import me.ezra_home.retail_software_solution.locations.business.sale_session.SaleSessionUpdateFinalizer
 import me.ezra_home.retail_software_solution.locations.business.sale_session.SaleSessionStore
 import me.ezra_home.retail_software_solution.locations.business.sale_session.SaleSessionValidator
@@ -16,9 +17,10 @@ class SaleSessionHeaderHandler(
     private val saleSessionValidator: SaleSessionValidator,
     private val contactService: ContactService,
     private val saleSessionUpdateFinalizer: SaleSessionUpdateFinalizer,
+    private val saleUpdater: SaleUpdater,
 ) {
 
-    // A request that changes nothing still has to find the sale mutable, so it is held to the notes rule.
+    // A request that changes nothing is held to the notes rule, which every sale allows.
     private fun headerActions(headerUpdateDto: SaleSessionHeaderUpdateDto): List<SaleSessionAction> =
         listOfNotNull(
             SaleSessionAction.UPDATE_CONTACT.takeIf { headerUpdateDto.contactId != null },
@@ -41,6 +43,21 @@ class SaleSessionHeaderHandler(
         if (updatedHeader.contactId != SystemContact.WALK_IN.id) {
             contactService.guardExists(updatedHeader.contactId)
         }
-        return saleSessionUpdateFinalizer.finalize(session.copy(header = updatedHeader))
+        val updatedSaleVersion = persistNotesOfSavedSale(session, headerUpdateDto, updatedHeader.notes)
+        return saleSessionUpdateFinalizer.finalize(
+            session.copy(header = updatedHeader, saleVersion = updatedSaleVersion ?: session.saleVersion)
+        )
+    }
+
+    // A draft keeps its notes in the session until it is saved; any other sale is not saved again, so they are
+    // written to the sale at once.
+    private fun persistNotesOfSavedSale(
+        session: SaleSession,
+        headerUpdateDto: SaleSessionHeaderUpdateDto,
+        notes: String?,
+    ): Long? {
+        val saleId = session.saleId ?: return null
+        if (headerUpdateDto.notes == null || session.mutable()) return null
+        return saleUpdater.updateNotes(saleId, notes)
     }
 }

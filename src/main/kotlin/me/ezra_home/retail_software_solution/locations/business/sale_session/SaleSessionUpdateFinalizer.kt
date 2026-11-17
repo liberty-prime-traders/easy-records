@@ -13,11 +13,16 @@ class SaleSessionUpdateFinalizer(
 ) {
 
     fun finalize(updated: SaleSession): SaleSessionResponseDto {
+        val withTotals = prepare(updated)
+        saleSessionStore.save(withTotals)
+        return saleSessionAssembler.buildResponse(withTotals)
+    }
+
+    fun prepare(updated: SaleSession): SaleSession {
         val touched = updated.markTouched(SessionContextProvider.getUserId())
         val rankedSession = touched.copy(saleLines = touched.saleLines.sortedBy { it.rank })
         val withTotals = SaleSessionTotalsCalculator.recompute(rankedSession)
         saleSessionValidator.validate(withTotals)
-        saleSessionStore.save(withTotals)
-        return saleSessionAssembler.buildResponse(withTotals)
+        return withTotals
     }
 }

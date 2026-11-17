@@ -9,12 +9,14 @@ import me.ezra_home.retail_software_solution.locations.business.sale_payment.Sal
 import me.ezra_home.retail_software_solution.locations.business.sale_payment.SalePaymentVoidHandlerForKafka
 import me.ezra_home.retail_software_solution.locations.business.sale_payment.SalePaymentVoidRepository
 import me.ezra_home.retail_software_solution.locations.business.sale_payment.SalePaymentWriter
+import me.ezra_home.retail_software_solution.locations.business.sale_payment.VoidedSalePayment
 import me.ezra_home.retail_software_solution.organizations.business.fiscal_period.api.FiscalPeriodService
 import me.ezra_home.retail_software_solution.organizations.business.payment_method.api.PaymentMethodDataFetcher
 import me.ezra_home.retail_software_solution.util.business.DateTimes
 import me.ezra_home.retail_software_solution.util.business.PaymentStatusResolver
 import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
 import org.springframework.stereotype.Service
+import java.math.BigDecimal
 
 @Service
 @TransactionalOnLocationSchema
@@ -62,29 +64,57 @@ class SalePaymentService(
         )
     }
 
-    fun voidPayment(salePaymentVoidCreateDto: SalePaymentVoidCreateDto): SalePaymentResponseDto {
+    fun voidPayment(salePaymentVoidCreateDto: SalePaymentVoidCreateDto): SalePaymentResponseDto =
+        voidPayments(listOf(salePaymentVoidCreateDto)).single()
+
+    fun voidPayments(salePaymentVoidCreateDtos: List<SalePaymentVoidCreateDto>): List<SalePaymentResponseDto> {
         fiscalPeriodService.requireOpenForDate(DateTimes.Local.Now.organization())
-        val payment = salePaymentRepository.getReferenceById(salePaymentVoidCreateDto.salePaymentId)
-        val (contactId, receivableTotal, saleStatus) = saleDataFetcher.lockAndGetSaleContext(payment.saleId)
-        SalePaymentValidator.guardNotAlreadyVoided(
-            salePaymentVoidRepository.existsBySalePaymentId(salePaymentVoidCreateDto.salePaymentId),
-            payment.requiredReference()
-        )
-        SalePaymentValidator.guardSaleNotVoided(saleStatus)
+        val reasonBySalePaymentId = salePaymentVoidCreateDtos.associate { it.salePaymentId to it.reason }
+        if (reasonBySalePaymentId.size != salePaymentVoidCreateDtos.size) {
+            throw RtsGenericException("The same payment was selected to void more than once")
+        }
+        val payments = salePaymentRepository.findAllById(reasonBySalePaymentId.keys)
+        if (payments.size != reasonBySalePaymentId.size) {
+            throw RtsGenericException("Some payments to void no longer exist")
+        }
+        val paymentsBySaleId = payments.groupBy { it.saleId }
+        val saleContextBySaleId = saleDataFetcher.lockAndGetSaleContexts(paymentsBySaleId.keys.toList())
+        val alreadyVoidedPaymentIds = salePaymentVoidRepository
+            .findBySalePaymentIdIn(payments.map { it.id!! })
+            .map { it.salePaymentId }
+            .toSet()
+        payments.forEach {
+            SalePaymentValidator.guardNotAlreadyVoided(it.id!! in alreadyVoidedPaymentIds, it.requiredReference())
+        }
+        saleContextBySaleId.values.forEach { SalePaymentValidator.guardSaleNotVoided(it.status) }
 
-        val totalPaidAfterVoid = PaymentStatusResolver.paidTotalAfterVoid(salePaymentFetcher.calculatePaidAmount(payment.saleId), payment.amount)
-        val voidEntity = SalePaymentVoidEntity(salePaymentId = salePaymentVoidCreateDto.salePaymentId, reason = salePaymentVoidCreateDto.reason)
-        salePaymentVoidRepository.save(voidEntity)
-
-        val newStatus = PaymentStatusResolver.resolve(totalPaidAfterVoid, receivableTotal)
-        val updatedSaleVersion = saleUpdater.updatePaymentStatus(payment.saleId, newStatus)
-        salePaymentVoidHandlerForKafka.publish(payment, voidEntity, contactId)
-        return SalePaymentMapper.toResponseDto(
-            payment,
-            voidEntity.reason,
-            paymentMethodDataFetcher.getNamesById(),
-            newStatus,
-            updatedSaleVersion,
-        )
+        val paidBySaleId = salePaymentFetcher.calculatePaidAmounts(saleContextBySaleId.keys.toList())
+        val voidEntityByPaymentId = salePaymentVoidRepository
+            .saveAll(payments.map { SalePaymentVoidEntity(it.id!!, reasonBySalePaymentId.getValue(it.id!!)) })
+            .associateBy { it.salePaymentId }
+        val paymentMethodNamesById = paymentMethodDataFetcher.getNamesById()
+        val paymentStatusBySaleId = saleContextBySaleId.mapValues { (saleId, saleContext) ->
+            val totalPaidAfterVoid = PaymentStatusResolver.paidTotalAfterVoid(
+                paidBySaleId[saleId] ?: BigDecimal.ZERO, paymentsBySaleId.getValue(saleId).sumOf { it.amount }
+            )
+            PaymentStatusResolver.resolve(totalPaidAfterVoid, saleContext.receivableTotal)
+        }
+        val updatedSaleVersionBySaleId = saleUpdater.updatePaymentStatuses(paymentStatusBySaleId)
+        return saleContextBySaleId.flatMap { (saleId, saleContext) ->
+            val salePayments = paymentsBySaleId.getValue(saleId)
+            salePaymentVoidHandlerForKafka.publish(
+                saleContext.contactId,
+                salePayments.map { VoidedSalePayment(it, voidEntityByPaymentId.getValue(it.id!!)) },
+            )
+            salePayments.map {
+                SalePaymentMapper.toResponseDto(
+                    it,
+                    reasonBySalePaymentId.getValue(it.id!!),
+                    paymentMethodNamesById,
+                    paymentStatusBySaleId.getValue(saleId),
+                    updatedSaleVersionBySaleId.getValue(saleId),
+                )
+            }
+        }
     }
 }

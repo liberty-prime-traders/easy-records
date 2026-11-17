@@ -19,6 +19,7 @@ import me.ezra_home.retail_software_solution.organizations.business.adjustment_r
 import me.ezra_home.retail_software_solution.organizations.business.adjustment_reason.api.SystemAdjustmentReason
 import me.ezra_home.retail_software_solution.support.WithDefaultOrganizationSession
 import me.ezra_home.retail_software_solution.util.business.Decimals
+import me.ezra_home.retail_software_solution.util.enums.SystemContact
 import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
@@ -44,6 +45,39 @@ class SaleSessionValidatorTest {
     init {
         `when`(adjustmentReasonService.getSystemReasonId(SystemAdjustmentReason.PRICE_OVERRIDE)).thenReturn(priceOverrideReasonId)
     }
+
+    @Test
+    fun `only draft and confirmed sales can be consolidated, and never a walk-in sale`() {
+        val contactId = UUID.randomUUID()
+        saleSessionValidator.guardSourceSalesConsolidatable(
+            listOf(
+                consolidationHeader(SaleStatus.DRAFT, contactId),
+                consolidationHeader(SaleStatus.CONFIRMED, contactId),
+            )
+        )
+
+        listOf(SaleStatus.VOIDED, SaleStatus.DISCARDED).forEach { refusedStatus ->
+            val refusal = assertThrows(RtsGenericException::class.java) {
+                saleSessionValidator.guardSourceSalesConsolidatable(
+                    listOf(
+                        consolidationHeader(SaleStatus.DRAFT, contactId),
+                        consolidationHeader(refusedStatus, contactId),
+                    )
+                )
+            }
+            assertTrue(refusal.message.contains("SALE-$refusedStatus"))
+        }
+        assertThrows(RtsGenericException::class.java) {
+            saleSessionValidator.guardSourceSalesConsolidatable(
+                listOf(consolidationHeader(SaleStatus.DRAFT, SystemContact.WALK_IN.id))
+            )
+        }
+    }
+
+    private fun consolidationHeader(status: SaleStatus, contactId: UUID) = SaleHeaderDto(
+        id = UUID.randomUUID(), referenceNumber = "SALE-$status", version = 0, status = status,
+        contactId = contactId, soldById = null, dateSold = null, notes = null,
+    )
 
     @Test
     fun `the system price override reason is not accepted for an added adjustment, any other reason is`() {

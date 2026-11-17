@@ -4,23 +4,24 @@ import me.ezra_home.retail_software_solution.configuration.datasource.Transactio
 import me.ezra_home.retail_software_solution.util.enums.PaymentStatus
 import me.ezra_home.retail_software_solution.locations.business.sale.SaleAssembler
 import me.ezra_home.retail_software_solution.locations.business.sale.SaleEntity
+import me.ezra_home.retail_software_solution.locations.business.sale.SaleLocker
 import me.ezra_home.retail_software_solution.locations.business.sale.SaleRepository
 import me.ezra_home.retail_software_solution.locations.business.sale.SaleTaxFinalizer
 import me.ezra_home.retail_software_solution.locations.business.sale.SaleValidator
 import me.ezra_home.retail_software_solution.locations.business.sale.SaleVoidEntity
+import me.ezra_home.retail_software_solution.locations.business.sale.VoidedSale
 import me.ezra_home.retail_software_solution.locations.business.sale.SaleVoidHandlerForKafka
 import me.ezra_home.retail_software_solution.locations.business.sale.SaleVoidRepository
 import me.ezra_home.retail_software_solution.locations.business.stock.api.updater.SaleStockUpdater
 import me.ezra_home.retail_software_solution.locations.business.stock_reservation.api.StockReserver
 import me.ezra_home.retail_software_solution.organizations.business.fiscal_period.api.FiscalPeriodService
-import me.ezra_home.retail_software_solution.util.business.DateTimes
 import org.springframework.stereotype.Service
 import java.util.UUID
 
 @Service
 @TransactionalOnLocationSchema
 class SaleUpdater(
-    private val saleDataFetcher: SaleDataFetcher,
+    private val saleLocker: SaleLocker,
     private val saleRepository: SaleRepository,
     private val stockReserver: StockReserver,
     private val saleAssembler: SaleAssembler,
@@ -32,44 +33,54 @@ class SaleUpdater(
     private val saleTaxFinalizer: SaleTaxFinalizer,
 ) {
 
-    fun updatePaymentStatus(id: UUID, status: PaymentStatus): Long {
-        val sale = saleDataFetcher.lockAndGetSale(id)
-        sale.paymentStatus = status
+    fun updatePaymentStatus(id: UUID, status: PaymentStatus): Long =
+        updatePaymentStatuses(mapOf(id to status)).getValue(id)
+
+    fun updatePaymentStatuses(paymentStatusBySaleId: Map<UUID, PaymentStatus>): Map<UUID, Long> {
+        val sales = saleLocker.lockAndGetSales(paymentStatusBySaleId.keys.toList())
+        sales.forEach { it.paymentStatus = paymentStatusBySaleId.getValue(it.id!!) }
+        return saleRepository.saveAllAndFlush(sales).associate { it.id!! to it.version }
+    }
+
+    fun updateNotes(id: UUID, notes: String?): Long {
+        val sale = saleLocker.lockAndGetSale(id)
+        sale.notes = notes
         return saleRepository.saveAndFlush(sale).version
     }
 
-    fun updateNotes(id: UUID, notes: String?) {
-        val sale = saleDataFetcher.lockAndGetSale(id)
-        sale.notes = notes
-        saleRepository.save(sale)
+    fun voidSourcesOfConsolidation(sourceSaleIds: List<UUID>, consolidatedSaleReferenceNumber: String) {
+        val sourceSales = saleLocker.lockAndGetSales(sourceSaleIds)
+        voidLockedSales(sourceSales, consolidationVoidReason(consolidatedSaleReferenceNumber))
     }
 
-    fun voidSourceOfConsolidation(sourceSaleId: UUID, consolidatedSaleReferenceNumber: String): SaleSummary {
-        val sourceSale = saleDataFetcher.lockAndGetSale(sourceSaleId)
-        if (sourceSale.status == SaleStatus.DISCARDED) return saleAssembler.buildSummary(sourceSale)
-        return voidLockedSale(sourceSale, consolidationVoidReason(consolidatedSaleReferenceNumber))
+    fun voidSale(saleVoidCreateDto: SaleVoidCreateDto): SaleSummary {
+        val sale = saleLocker.lockAndGetSale(saleVoidCreateDto.saleId)
+        voidLockedSales(listOf(sale), saleVoidCreateDto.reason)
+        return saleAssembler.buildSummary(sale)
     }
 
-    fun voidSale(saleVoidCreateDto: SaleVoidCreateDto): SaleSummary =
-        voidLockedSale(saleDataFetcher.lockAndGetSale(saleVoidCreateDto.saleId), saleVoidCreateDto.reason)
+    private fun voidLockedSales(sales: List<SaleEntity>, reason: String) {
+        if (sales.isEmpty()) return
+        saleValidator.guardCanVoid(sales)
+        val (draftSales, confirmedSales) = sales.partition { it.status == SaleStatus.DRAFT }
+        stockReserver.clearBySales(draftSales.map { it.id!! })
+        draftSales.forEach { it.status = SaleStatus.DISCARDED }
+        if (confirmedSales.isNotEmpty()) voidConfirmedSales(confirmedSales, reason)
+        saleRepository.saveAll(sales)
+    }
 
-    private fun voidLockedSale(sale: SaleEntity, reason: String): SaleSummary {
-        saleValidator.guardCanVoid(sale)
-        val saleId = sale.id!!
-        if (sale.status == SaleStatus.DRAFT) {
-            stockReserver.clearBySale(saleId)
-            sale.status = SaleStatus.DISCARDED
-        } else {
-            val saleVoidEntity = saleVoidRepository.save(SaleVoidEntity(saleId = saleId, reason = reason))
-            val voidDate = DateTimes.Local.atOrganizationZone(saleVoidEntity.requiredCreatedOn())
-            fiscalPeriodService.requireOpenForDate(voidDate)
+    private fun voidConfirmedSales(confirmedSales: List<SaleEntity>, reason: String) {
+        val saleVoidEntityBySaleId = saleVoidRepository
+            .saveAll(confirmedSales.map { SaleVoidEntity(it.id!!, reason) })
+            .associateBy { it.saleId }
+        val voidedSales = confirmedSales.map { VoidedSale(it, saleVoidEntityBySaleId.getValue(it.id!!)) }
+        voidedSales.map { it.voidDate }.distinct().forEach { fiscalPeriodService.requireOpenForDate(it) }
+        confirmedSales.forEach { sale ->
             saleStockUpdater.restoreStock(sale.requiredReference())
             sale.status = SaleStatus.VOIDED
-            saleTaxFinalizer.finalizeTaxForVoid(sale, voidDate)
-            saleVoidHandlerForKafka.publishVoid(sale, saleVoidEntity)
         }
-        saleRepository.save(sale)
-        return saleAssembler.buildSummary(sale)
+        saleTaxFinalizer.finalizeTaxForVoids(voidedSales)
+        saleVoidHandlerForKafka.publishVoids(voidedSales)
     }
 
     companion object {

@@ -14,5 +14,6 @@ data class SaleSummary(
     val status: SaleStatus,
     val paymentStatus: PaymentStatus,
     val arrearsTotal: BigDecimal,
-    val totalPaid: BigDecimal
+    val totalPaid: BigDecimal,
+    val canConsolidate: Boolean,
 )

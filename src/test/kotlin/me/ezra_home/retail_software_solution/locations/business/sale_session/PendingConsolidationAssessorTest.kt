@@ -1,5 +1,6 @@
 package me.ezra_home.retail_software_solution.locations.business.sale_session
 
+import me.ezra_home.retail_software_solution.locations.business.sale_session.api.PendingCleanProduct
 import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleStatus
 import me.ezra_home.retail_software_solution.locations.business.sale_session.api.ConsolidationSourceSale
 import me.ezra_home.retail_software_solution.locations.business.sale_session.api.PendingConsolidation
@@ -61,7 +62,9 @@ class PendingConsolidationAssessorTest {
         val consolidationIssue = assessment.consolidationIssues.single()
         assertEquals("S1, S2", consolidationIssue.saleReferences)
         assertTrue(consolidationIssue.description.contains("different list prices"))
-        assertTrue(consolidationIssue.fix.contains("2 piece at KES 15.00 from S1; 3 piece at KES 20.00 from S2"))
+        val expectedLinesText = "2 pieces at KES 15.00 per piece from S1; " +
+            "3 pieces at KES 20.00 per piece from S2"
+        assertTrue(consolidationIssue.fix.contains(expectedLinesText))
         assertFalse(assessment.canGenerateConsolidatedSale)
     }
 
@@ -103,6 +106,28 @@ class PendingConsolidationAssessorTest {
 
         assertTrue(assessment.consolidationIssues.single().description.contains("no longer active"))
         assertFalse(assessment.canGenerateConsolidatedSale)
+    }
+
+    @Test
+    fun `a product that combined cleanly is an issue once it turns inactive, and blocks generation`() {
+        val riceProductId = UUID.randomUUID()
+        val heldLine = saleLine("1", "15.00", "15.00")
+        val heldSession = pendingSession(listOf(heldLine), mapOf(heldLine.lineKey to "S1"))
+        val sessionWithCleanRice = heldSession.copy(
+            pendingConsolidation = heldSession.requiredPendingConsolidation().copy(
+                cleanProducts = listOf(PendingCleanProduct(riceProductId, "Rice", listOf("S1", "S2")))
+            )
+        )
+
+        val whileActive = assess(sessionWithCleanRice)
+        val afterDeactivation = assess(sessionWithCleanRice, inactiveLocationProductIds = setOf(riceProductId))
+
+        assertTrue(whileActive.consolidationIssues.isEmpty())
+        assertTrue(whileActive.canGenerateConsolidatedSale)
+        val consolidationIssue = afterDeactivation.consolidationIssues.single()
+        assertEquals("S1, S2", consolidationIssue.saleReferences)
+        assertTrue(consolidationIssue.description.contains("Rice is no longer active"))
+        assertFalse(afterDeactivation.canGenerateConsolidatedSale)
     }
 
     @Test

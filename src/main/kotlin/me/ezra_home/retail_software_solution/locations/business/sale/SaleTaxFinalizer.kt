@@ -63,10 +63,14 @@ class SaleTaxFinalizer(
         saleRepository.save(saleEntity)
     }
 
-    fun finalizeTaxForVoid(saleEntity: SaleEntity, voidDate: LocalDate) {
-        val originals = taxEntryService.findBySourceReference(saleEntity.requiredReference(), TaxSourceType.SALE)
+    fun finalizeTaxForVoids(voidedSales: List<VoidedSale>) {
+        val voidDateByReference = voidedSales.associate { it.sale.requiredReference() to it.voidDate }
+        val originals = taxEntryService.findBySourceReferences(voidDateByReference.keys, TaxSourceType.SALE)
         if (originals.isEmpty()) return
-        val fiscalPeriodId = fiscalPeriodService.requireOpenForDate(voidDate)
+        val fiscalPeriodIdByVoidDate = originals
+            .map { voidDateByReference.getValue(it.sourceReferenceNumber) }
+            .distinct()
+            .associateWith { fiscalPeriodService.requireOpenForDate(it) }
         val reversals = originals.map { original ->
             TaxEntryCreateDto(
                 sourceReferenceNumber = original.sourceReferenceNumber,
@@ -75,7 +79,8 @@ class SaleTaxFinalizer(
                 taxTypeId = original.taxTypeId,
                 taxTypeName = original.taxTypeName,
                 jurisdictionName = original.jurisdictionName,
-                fiscalPeriodId = fiscalPeriodId,
+                fiscalPeriodId = fiscalPeriodIdByVoidDate
+                    .getValue(voidDateByReference.getValue(original.sourceReferenceNumber)),
                 calculationMethod = original.calculationMethod,
                 rate = original.rate,
                 taxIsBilledToCustomerSeparately = original.taxIsBilledToCustomerSeparately,

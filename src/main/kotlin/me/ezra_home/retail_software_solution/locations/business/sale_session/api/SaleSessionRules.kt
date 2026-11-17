@@ -1,5 +1,6 @@
 package me.ezra_home.retail_software_solution.locations.business.sale_session.api
 
+import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleConsolidationEligibility
 import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleStatus
 
 object SaleSessionRules {
@@ -19,6 +20,9 @@ object SaleSessionRules {
 
     fun isCopyable(sourceSaleStatus: SaleStatus): Boolean = sourceSaleStatus != SaleStatus.CONFIRMED
 
+    fun isConsolidatable(sourceSaleStatus: SaleStatus): Boolean =
+        SaleConsolidationEligibility.statusAllows(sourceSaleStatus)
+
     fun reservesStock(kind: SaleSessionKind): Boolean = when (kind) {
         SaleSessionKind.SALE -> true
         SaleSessionKind.PENDING_CONSOLIDATION -> false
@@ -31,6 +35,7 @@ object SaleSessionRules {
 
     private fun saleRefusalOrNull(action: SaleSessionAction): String? = when (action) {
         SaleSessionAction.RESTORE_REMOVED_LINE -> "Only a pending consolidation keeps removed lines"
+        SaleSessionAction.GENERATE_CONSOLIDATED_SALE -> "Only a pending consolidation can be generated"
         SaleSessionAction.UPDATE_CONTACT,
         SaleSessionAction.UPDATE_SOLD_BY,
         SaleSessionAction.UPDATE_DATE_SOLD,
@@ -63,6 +68,7 @@ object SaleSessionRules {
         SaleSessionAction.UPDATE_NOTES,
         SaleSessionAction.EDIT_LINES,
         SaleSessionAction.RESTORE_REMOVED_LINE,
+        SaleSessionAction.GENERATE_CONSOLIDATED_SALE,
         SaleSessionAction.ADD_LINE_ADJUSTMENT,
         SaleSessionAction.REMOVE_ADJUSTMENT,
         SaleSessionAction.VOID_SALE -> null

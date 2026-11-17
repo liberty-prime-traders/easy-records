@@ -4,7 +4,7 @@ A draft sale holds stock for its lines without consuming it: one reservation per
 (`StockReservationEntity`, table `sale_line_stock_reservation`, `storage_quantity_reserved`). Reservations are per product, not per
 layer, and a draw never reads them; only the availability guard does.
 
-- `StockReserver` (`api/`) is the only way in: `reserve(NewStockReservation)` writes reservations, `clearBySale` and
+- `StockReserver` (`api/`) is the only way in: `reserve(NewStockReservation)` writes reservations, `clearBySales` and
   `clearBySaleLineIds` remove them, and `loadReservationBreakdown` answers how much of each product is reserved, in total and per
   sale (`ProductReservations.total`, `forSale`, `excludingSale`).
 - The domain depends on nothing in `stock`. The availability guard (`StockAvailabilityValidator`) and fetcher

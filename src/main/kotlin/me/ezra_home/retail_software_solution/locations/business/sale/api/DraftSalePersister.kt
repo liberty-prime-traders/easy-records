@@ -6,6 +6,7 @@ import me.ezra_home.retail_software_solution.locations.business.sale.SaleSaveFin
 import me.ezra_home.retail_software_solution.locations.business.sale.SaleLineSync
 import me.ezra_home.retail_software_solution.locations.business.sale.SaleEntity
 import me.ezra_home.retail_software_solution.locations.business.sale.SaleLineRepository
+import me.ezra_home.retail_software_solution.locations.business.sale.SaleLocker
 import me.ezra_home.retail_software_solution.locations.business.sale.SaleRepository
 import me.ezra_home.retail_software_solution.locations.business.sale.SaleValidator
 import me.ezra_home.retail_software_solution.locations.business.sale_adjustment.api.SaleAdjustmentSyncer
@@ -22,7 +23,7 @@ class DraftSalePersister(
     private val saleLineRepository: SaleLineRepository,
     private val stockReserver: StockReserver,
     private val saleValidator: SaleValidator,
-    private val saleDataFetcher: SaleDataFetcher,
+    private val saleLocker: SaleLocker,
     private val locationProductDataFetcher: LocationProductDataFetcher,
     private val fiscalPeriodService: FiscalPeriodService,
     private val saleSaveFinalizer: SaleSaveFinalizer,
@@ -90,7 +91,7 @@ class DraftSalePersister(
                 it.referenceNumber = saleSaveRequest.preAllocatedReferenceNumber
             }
         SaleValidator.guardNoPreAllocatedReferenceOnExistingSale(saleSaveRequest)
-        return saleDataFetcher.loadDraftAtVersion(saleId, saleSaveRequest.expectedVersion)
+        return saleLocker.loadDraftAtVersion(saleId, saleSaveRequest.expectedVersion)
     }
 
     private fun guardFiscalIfPayments(saleSaveRequest: SaleSaveRequest) {

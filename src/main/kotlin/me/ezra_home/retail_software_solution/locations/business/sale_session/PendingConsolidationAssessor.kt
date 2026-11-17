@@ -21,9 +21,10 @@ object PendingConsolidationAssessor {
             inactiveLocationProductIds = inactiveLocationProductIds,
             unitConversionGraph = unitConversionGraph,
         )
-        val consolidationIssues = ConsolidationProblemStoryWriter.write(
+        val heldProductIssues = ConsolidationProblemStoryWriter.write(
             consolidationProblems = mergeResult.problems,
             problemSaleLines = mergeResult.problemSaleLines,
+            problemSaleAdjustments = mergeResult.problemSaleAdjustments,
             sourceSaleReferenceByLineKey = pendingConsolidation.sourceSaleReferenceByLineKey,
             unitNameByUnitId = unitConversionGraph.getBreakdownUnits().associate { it.id to it.name },
         ).map { blockingProblem ->
@@ -33,6 +34,21 @@ object PendingConsolidationAssessor {
                 fix = blockingProblem.effect,
             )
         }
+        val inactiveCleanProductIssues = pendingConsolidation.cleanProducts
+            .filter { it.locationProductId in inactiveLocationProductIds }
+            .map { cleanProduct ->
+                ConsolidationProblemStoryWriter
+                    .writeInactiveCleanProduct(cleanProduct.productLabel, cleanProduct.sourceSaleReferences)
+                    .let { blockingProblem ->
+                        ConsolidationIssueResponse(
+                            saleReferences = blockingProblem.documentReference,
+                            description = blockingProblem.description,
+                            fix = blockingProblem.effect,
+                        )
+                    }
+            }
+        val consolidationIssues = (heldProductIssues + inactiveCleanProductIssues)
+            .sortedWith(compareBy({ it.saleReferences }, { it.description }))
         return PendingConsolidationAssessment(consolidationIssues)
     }
 }

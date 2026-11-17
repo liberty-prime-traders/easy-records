@@ -13,14 +13,16 @@ enum class SaleSessionAction {
     REMOVE_ADJUSTMENT,
     SAVE_DRAFT,
     CONFIRM,
+    GENERATE_CONSOLIDATED_SALE,
     ADD_PAYMENT,
     REMOVE_PAYMENT,
     VOID_SALE;
 
-    // A confirmed sale still takes payments and voids, so those skip the draft check; every other action needs it.
+    // Payments, voids and notes stay open on a confirmed, voided or discarded sale, so they skip the draft check;
+    // every other action needs it.
     fun needsMutableSale(): Boolean = this !in actionsWithTheirOwnStatusRule
 
     companion object {
-        private val actionsWithTheirOwnStatusRule = setOf(ADD_PAYMENT, REMOVE_PAYMENT, VOID_SALE)
+        private val actionsWithTheirOwnStatusRule = setOf(ADD_PAYMENT, REMOVE_PAYMENT, VOID_SALE, UPDATE_NOTES)
     }
 }

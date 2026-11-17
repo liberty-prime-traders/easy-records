@@ -2,20 +2,21 @@ package me.ezra_home.retail_software_solution.locations.business.sale.api
 
 import me.ezra_home.retail_software_solution.locations.business.sale.SaleAssembler
 import me.ezra_home.retail_software_solution.locations.business.sale.SaleEntity
+import me.ezra_home.retail_software_solution.locations.business.sale.SaleLocker
 import me.ezra_home.retail_software_solution.locations.business.sale.SaleRepository
 import me.ezra_home.retail_software_solution.locations.business.sale.SaleTaxFinalizer
 import me.ezra_home.retail_software_solution.locations.business.sale.SaleValidator
 import me.ezra_home.retail_software_solution.locations.business.sale.SaleVoidEntity
 import me.ezra_home.retail_software_solution.locations.business.sale.SaleVoidHandlerForKafka
 import me.ezra_home.retail_software_solution.locations.business.sale.SaleVoidRepository
+import me.ezra_home.retail_software_solution.locations.business.sale.VoidedSale
 import me.ezra_home.retail_software_solution.locations.business.stock.api.updater.SaleStockUpdater
 import me.ezra_home.retail_software_solution.locations.business.stock_reservation.api.StockReserver
 import me.ezra_home.retail_software_solution.organizations.business.fiscal_period.api.FiscalPeriodService
 import me.ezra_home.retail_software_solution.support.WithDefaultOrganizationSession
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import org.mockito.ArgumentCaptor
-import org.mockito.ArgumentMatchers.any
+import org.mockito.ArgumentMatchers.anyList
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.never
 import org.mockito.Mockito.verify
@@ -28,7 +29,7 @@ import java.util.UUID
 class SaleUpdaterConsolidationVoidTest {
 
     private val sourceSaleId = UUID.randomUUID()
-    private val saleDataFetcher = mock(SaleDataFetcher::class.java)
+    private val saleLocker = mock(SaleLocker::class.java)
     private val saleRepository = mock(SaleRepository::class.java)
     private val stockReserver = mock(StockReserver::class.java)
     private val saleAssembler = mock(SaleAssembler::class.java)
@@ -36,10 +37,9 @@ class SaleUpdaterConsolidationVoidTest {
     private val saleVoidHandlerForKafka = mock(SaleVoidHandlerForKafka::class.java)
     private val saleVoidRepository = mock(SaleVoidRepository::class.java)
     private val saleTaxFinalizer = mock(SaleTaxFinalizer::class.java)
-    private val saleSummary = mock(SaleSummary::class.java)
 
     private val saleUpdater = SaleUpdater(
-        saleDataFetcher = saleDataFetcher,
+        saleLocker = saleLocker,
         saleRepository = saleRepository,
         stockReserver = stockReserver,
         saleAssembler = saleAssembler,
@@ -51,53 +51,74 @@ class SaleUpdaterConsolidationVoidTest {
         saleTaxFinalizer = saleTaxFinalizer,
     )
 
-    private fun sourceSale(status: SaleStatus): SaleEntity {
+    private fun sourceSale(
+        status: SaleStatus,
+        saleId: UUID = sourceSaleId,
+        reference: String = "SALE0001",
+    ): SaleEntity {
         val sourceSale = SaleEntity(contactId = UUID.randomUUID(), status = status)
-        sourceSale.id = sourceSaleId
-        sourceSale.referenceNumber = "SALE0001"
-        `when`(saleDataFetcher.lockAndGetSale(sourceSaleId)).thenReturn(sourceSale)
-        `when`(saleAssembler.buildSummary(sourceSale)).thenReturn(saleSummary)
+        sourceSale.id = saleId
+        sourceSale.referenceNumber = reference
         return sourceSale
     }
 
-    @Test
-    fun `a discarded source is left as it is, nothing is voided or released`() {
-        val discardedSale = sourceSale(SaleStatus.DISCARDED)
+    private fun lockReturns(vararg sourceSales: SaleEntity) {
+        `when`(saleLocker.lockAndGetSales(sourceSales.map { it.id!! })).thenReturn(sourceSales.toList())
+    }
 
-        val summary = saleUpdater.voidSourceOfConsolidation(sourceSaleId, "SALE0009")
+    private val savedSaleVoidEntities = mutableListOf<SaleVoidEntity>()
 
-        assertEquals(saleSummary, summary)
-        assertEquals(SaleStatus.DISCARDED, discardedSale.status)
-        verifyNoInteractions(saleVoidRepository, stockReserver, saleStockUpdater, saleTaxFinalizer)
-        verify(saleRepository, never()).save(any(SaleEntity::class.java))
+    private fun voidRepositoryStampsCreatedOn() {
+        `when`(saleVoidRepository.saveAll(anyList<SaleVoidEntity>())).thenAnswer { invocation ->
+            invocation.getArgument<List<SaleVoidEntity>>(0)
+                .onEach { it.createdOn = OffsetDateTime.now() }
+                .also { savedSaleVoidEntities.addAll(it) }
+        }
     }
 
     @Test
     fun `a draft source is discarded and its reservations released without a void record`() {
         val draftSale = sourceSale(SaleStatus.DRAFT)
+        lockReturns(draftSale)
 
-        saleUpdater.voidSourceOfConsolidation(sourceSaleId, "SALE0009")
+        saleUpdater.voidSourcesOfConsolidation(listOf(sourceSaleId), "SALE0009")
 
         assertEquals(SaleStatus.DISCARDED, draftSale.status)
-        verify(stockReserver).clearBySale(sourceSaleId)
+        verify(stockReserver).clearBySales(listOf(sourceSaleId))
         verifyNoInteractions(saleVoidRepository)
     }
 
     @Test
     fun `a confirmed source is voided with a reason that names the new sale`() {
         val confirmedSale = sourceSale(SaleStatus.CONFIRMED)
-        `when`(saleVoidRepository.save(any(SaleVoidEntity::class.java))).thenAnswer { invocation ->
-            invocation.getArgument<SaleVoidEntity>(0).also { it.createdOn = OffsetDateTime.now() }
-        }
+        lockReturns(confirmedSale)
+        voidRepositoryStampsCreatedOn()
 
-        saleUpdater.voidSourceOfConsolidation(sourceSaleId, "SALE0009")
+        saleUpdater.voidSourcesOfConsolidation(listOf(sourceSaleId), "SALE0009")
 
-        val saleVoidEntityCaptor = ArgumentCaptor.forClass(SaleVoidEntity::class.java)
-        verify(saleVoidRepository).save(saleVoidEntityCaptor.capture())
-        assertEquals("Consolidated into SALE0009", saleVoidEntityCaptor.value.reason)
-        assertEquals(sourceSaleId, saleVoidEntityCaptor.value.saleId)
+        val saleVoidEntity = savedSaleVoidEntities.single()
+        assertEquals("Consolidated into SALE0009", saleVoidEntity.reason)
+        assertEquals(sourceSaleId, saleVoidEntity.saleId)
         assertEquals(SaleStatus.VOIDED, confirmedSale.status)
         verify(saleStockUpdater).restoreStock("SALE0001")
+    }
+
+    @Test
+    fun `several sources are voided together and tax is finalized in one call`() {
+        val draftSale = sourceSale(SaleStatus.DRAFT, UUID.randomUUID(), "SALE0002")
+        val confirmedSale = sourceSale(SaleStatus.CONFIRMED, UUID.randomUUID(), "SALE0003")
+        lockReturns(draftSale, confirmedSale)
+        voidRepositoryStampsCreatedOn()
+
+        saleUpdater.voidSourcesOfConsolidation(listOf(draftSale.id!!, confirmedSale.id!!), "SALE0009")
+
+        assertEquals(SaleStatus.DISCARDED, draftSale.status)
+        assertEquals(SaleStatus.VOIDED, confirmedSale.status)
+        verify(stockReserver).clearBySales(listOf(draftSale.id!!))
+        verify(saleStockUpdater).restoreStock("SALE0003")
+        verify(saleStockUpdater, never()).restoreStock("SALE0002")
+        verify(saleRepository).saveAll(listOf(draftSale, confirmedSale))
+        verify(saleTaxFinalizer).finalizeTaxForVoids(anyList<VoidedSale>())
     }
 
     @Test

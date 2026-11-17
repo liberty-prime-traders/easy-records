@@ -140,3 +140,11 @@ memory files: `feedback_datetimes`, `feedback_checkpoint_discipline`, `feedback_
 Each skill file is a Markdown prompt under `.claude/commands/rtss-<name>.md`.
 When invoked, it prints the relevant rules as a reminder and identifies which
 project files to read next.
+
+---
+
+## Skill — `rtss-unit-tests`
+
+**Trigger**: any task that writes or edits a test.
+
+**Covers**: tests compile with no warnings (no unnecessary `!!`), refusal messages are asserted, `BigDecimal` is compared with `compareTo`, mocks are limited to collaborators.

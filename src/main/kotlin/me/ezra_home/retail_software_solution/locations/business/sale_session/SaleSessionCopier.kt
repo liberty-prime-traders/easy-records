@@ -42,7 +42,10 @@ class SaleSessionCopier(
         )
     }
 
-    fun copyFromSalesForConsolidation(sessionId: UUID, sourceSaleHeaders: List<SaleHeaderDto>): SaleSession {
+    fun copyFromSalesWithSourceReferences(
+        sessionId: UUID,
+        sourceSaleHeaders: List<SaleHeaderDto>,
+    ): ConsolidationCopy {
         saleSessionValidator.guardConsolidationSelectionSize(sourceSaleHeaders)
         saleSessionValidator.guardSingleContactAcrossSales(sourceSaleHeaders)
         val sourceSaleIds = sourceSaleHeaders.map { it.id }
@@ -69,11 +72,23 @@ class SaleSessionCopier(
             notes = consolidatedNotes,
             referenceNumber = null,
         )
-        return buildCopiedSession(
+        val consolidationSession = buildCopiedSession(
             sessionId,
             copiedHeader,
             SaleLineRanker.alphabeticalWithLikeProductsTogether(copiedContents.flatMap { it.saleLines }),
             copiedContents.flatMap { it.saleAdjustments },
+        )
+        val sourceSaleReferenceByLineKey = sourceSaleHeaders.indices.flatMap { sourceIndex ->
+            val sourceSaleReference = sourceSaleHeaders[sourceIndex].referenceNumber
+            copiedContents[sourceIndex].saleLines.map { it.lineKey to sourceSaleReference }
+        }.toMap()
+        val orderLevelAmountByAdjustmentKey = copiedContents.flatMap { copiedContent ->
+            copiedContent.saleAdjustments
+                .filter { it.relatedSaleLineIdentity == null }
+                .map { it.identity.key() to SaleSessionTotalsCalculator.calculateAdjustmentAmount(it, copiedContent.saleLines) }
+        }.toMap()
+        return ConsolidationCopy(
+            consolidationSession, sourceSaleReferenceByLineKey, sourceSaleLinesBySaleId, orderLevelAmountByAdjustmentKey
         )
     }
 

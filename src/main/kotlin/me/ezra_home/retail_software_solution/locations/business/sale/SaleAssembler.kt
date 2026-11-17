@@ -1,5 +1,6 @@
 package me.ezra_home.retail_software_solution.locations.business.sale
 
+import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleConsolidationEligibility
 import me.ezra_home.retail_software_solution.locations.business.sale.api.SaleSummary
 import me.ezra_home.retail_software_solution.locations.business.sale_payment.api.SalePaymentFetcher
 import me.ezra_home.retail_software_solution.util.business.mappers.NameResolution
@@ -45,7 +46,8 @@ class SaleAssembler(
             status = saleEntity.status,
             paymentStatus = saleEntity.paymentStatus,
             arrearsTotal = SaleArrears.arrearsTotal(saleEntity.status, saleEntity.receivableTotal(), totalPaid),
-            totalPaid = totalPaid
+            totalPaid = totalPaid,
+            canConsolidate = SaleConsolidationEligibility.canConsolidate(saleEntity.status, saleEntity.contactId),
         )
     }
 }

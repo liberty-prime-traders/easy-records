@@ -1,9 +1,12 @@
 package me.ezra_home.retail_software_solution.locations.business.sale_session.line_merge
 
+import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionAdjustment
 import me.ezra_home.retail_software_solution.locations.business.sale_session.api.SaleSessionLine
+import me.ezra_home.retail_software_solution.locations.business.sale_adjustment.api.PriceAdjustmentMethod
 import me.ezra_home.retail_software_solution.util.business.DisplayFormatters
 import me.ezra_home.retail_software_solution.util.exceptions.BlockingProblem
 import me.ezra_home.retail_software_solution.util.quantity.QuantityLimits
+import java.math.BigDecimal
 import java.util.UUID
 
 object ConsolidationProblemStoryWriter {
@@ -11,10 +14,14 @@ object ConsolidationProblemStoryWriter {
     fun write(
         consolidationProblems: List<ConsolidationProblem>,
         problemSaleLines: List<SaleSessionLine>,
+        problemSaleAdjustments: List<SaleSessionAdjustment>,
         sourceSaleReferenceByLineKey: Map<UUID, String>,
         unitNameByUnitId: Map<UUID, String>,
     ): List<BlockingProblem> {
         val problemSaleLineByLineKey = problemSaleLines.associateBy { it.lineKey }
+        val cashierPriceByLineKey = problemSaleAdjustments
+            .filter { it.calculationMethod == PriceAdjustmentMethod.UNIT_PRICE_OVERRIDE }
+            .associate { it.requiredRelatedSaleLineKey() to it.value }
         return consolidationProblems.map { consolidationProblem ->
             val saleLines = consolidationProblem.saleLineIdentities.map { problemSaleLineByLineKey.getValue(it.key()) }
             val sourceSaleReferences = saleLines
@@ -26,10 +33,27 @@ object ConsolidationProblemStoryWriter {
                 description = description(consolidationProblem.kind, productLabel),
                 effect = effect(
                     consolidationProblem.kind,
-                    linesText(saleLines, sourceSaleReferenceByLineKey, unitNameByUnitId)
+                    linesText(
+                        saleLines = saleLines,
+                        cashierPriceByLineKey = cashierPriceByLineKey,
+                        sourceSaleReferenceByLineKey = sourceSaleReferenceByLineKey,
+                        unitNameByUnitId = unitNameByUnitId,
+                        explainPriceSource = consolidationProblem.kind ==
+                            ConsolidationProblemKind.OVERRIDE_ON_SOME_LINES_ONLY,
+                    )
                 ),
             )
         }.sortedWith(compareBy({ it.documentReference }, { it.description }))
+    }
+
+    fun writeInactiveCleanProduct(productLabel: String, sourceSaleReferences: List<String>): BlockingProblem {
+        val referencesText = sourceSaleReferences.joinToString(", ")
+        return BlockingProblem(
+            documentReference = referencesText,
+            description = description(ConsolidationProblemKind.INACTIVE_PRODUCT, productLabel),
+            effect = "$productLabel is on $referencesText but is not shown here, because it would have combined " +
+                "without trouble. Reactivate it to continue, or discard this and take it off those sales first.",
+        )
     }
 
     private fun description(kind: ConsolidationProblemKind, productLabel: String): String = when (kind) {
@@ -46,11 +70,12 @@ object ConsolidationProblemStoryWriter {
             "Adding up $productLabel would go above the largest allowed quantity of " +
                 "${DisplayFormatters.formatQuantity(QuantityLimits.MAX_USER_QUANTITY)}."
         ConsolidationProblemKind.OVERRIDE_ON_SOME_LINES_ONLY ->
-            "$productLabel has a typed price on some of its lines but not on others."
+            "$productLabel was sold at the normal price on some lines and at a price changed by the cashier on " +
+                "others."
         ConsolidationProblemKind.TYPED_PRICES_DIFFER ->
-            "$productLabel has different typed prices on its lines."
+            "$productLabel was sold at different prices."
         ConsolidationProblemKind.TYPED_PRICE_NOT_TYPEABLE ->
-            "The typed price of $productLabel cannot be carried onto the combined line exactly."
+            "The price changed by the cashier on $productLabel cannot be carried onto the combined line exactly."
         ConsolidationProblemKind.APPROVERS_DIFFER ->
             "The price changes on $productLabel were approved by different people."
         ConsolidationProblemKind.OTHER_ADJUSTMENTS_DIFFER ->
@@ -73,11 +98,11 @@ object ConsolidationProblemStoryWriter {
             ConsolidationProblemKind.QUANTITY_TOO_LARGE ->
                 "Reduce the quantities, or replace these lines with smaller ones."
             ConsolidationProblemKind.OVERRIDE_ON_SOME_LINES_ONLY ->
-                "Give every one of these lines the same typed price, or clear it from all of them."
+                "Make the price per unit the same on every one of these lines, or replace them with one line."
             ConsolidationProblemKind.TYPED_PRICES_DIFFER ->
-                "Type the same unit price on every one of these lines, or replace them with one line."
+                "Make the price per unit the same on every one of these lines, or replace them with one line."
             ConsolidationProblemKind.TYPED_PRICE_NOT_TYPEABLE ->
-                "Clear the typed price from these lines, or replace them with one line priced as you want it."
+                "Set these lines back to the normal price, or replace them with one line priced as you want it."
             ConsolidationProblemKind.APPROVERS_DIFFER ->
                 "Have one person approve the price on every one of these lines, or replace them with one line."
             ConsolidationProblemKind.OTHER_ADJUSTMENTS_DIFFER ->
@@ -92,12 +117,22 @@ object ConsolidationProblemStoryWriter {
 
     private fun linesText(
         saleLines: List<SaleSessionLine>,
+        cashierPriceByLineKey: Map<UUID, BigDecimal>,
         sourceSaleReferenceByLineKey: Map<UUID, String>,
         unitNameByUnitId: Map<UUID, String>,
+        explainPriceSource: Boolean,
     ): String = saleLines.joinToString("; ") { saleLine ->
         val quantityText = DisplayFormatters.formatQuantity(saleLine.userProvidedQuantity)
         val unitName = unitNameByUnitId.getValue(saleLine.unitId)
-        val listPriceText = DisplayFormatters.formatCurrency(saleLine.defaultSalePrice)
-        "$quantityText $unitName at $listPriceText from ${sourceSaleReferenceByLineKey.getValue(saleLine.lineKey)}"
+        val pluralUnitName = DisplayFormatters.pluralize(unitName, saleLine.userProvidedQuantity)
+        val cashierPrice = cashierPriceByLineKey[saleLine.lineKey]
+        val unitPrice = cashierPrice ?: saleLine.defaultSalePrice
+        val priceSource = when {
+            !explainPriceSource -> ""
+            cashierPrice != null -> " (changed by the cashier)"
+            else -> " (normal price)"
+        }
+        val priceText = "${DisplayFormatters.formatCurrency(unitPrice)} per $unitName$priceSource"
+        "$quantityText $pluralUnitName at $priceText from ${sourceSaleReferenceByLineKey.getValue(saleLine.lineKey)}"
     }
 }

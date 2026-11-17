@@ -39,7 +39,7 @@ Internal collaborators (do not call from outside `sale_session`):
   the session shape via `DomainToSessionMapper`; `newSession` mints a fresh
   empty session
 - `SaleSessionCopier` — `copyFromSale` mints a new unsaved session from one source sale;
-  `copyFromSalesForConsolidation` copies the lines and adjustments of 2 to 20 distinct sales of one contact
+  `copyFromSalesWithSourceReferences` copies the lines and adjustments of 2 to 20 distinct sales of one contact
   (`guardConsolidationSelectionSize`, `guardSingleContactAcrossSales`) under fresh identities, each adjustment pointed at
   the copy of its own sale's line, with `<reference> - <notes>` lines for sources that have notes. The copy keeps every
   line as it was, so a product can appear on several lines; `line_merge` (section 11) is what folds them together
@@ -165,7 +165,7 @@ so the transient drop branch is only reachable on DRAFT.
 The single `DELETE /payments` endpoint handles both removal cases: when the
 payment's `SessionIdentity` is `transient` the handler drops it from the
 session in-place; when it's `persisted` the handler forwards to
-`SalePaymentService.voidPayment` (a `voidReason` is required in that case),
+`SalePaymentService.voidPayments` (a `voidReason` is required in that case),
 which in turn calls `SalePaymentValidator.guardSaleNotVoided`. That keeps the
 frontend wire-protocol uniform — server decides which side to take based on
 the payment's identity. Note `guardSaleNotVoided` only checks the VOIDED
@@ -180,7 +180,7 @@ payment back into the session so the cashier's view stays in sync. There is no
 separate commit step — every CONFIRMED-session payment exists in the DB the
 moment the handler returns. DRAFT sessions still buffer payments (the sale may
 not yet exist) and flush them at `saveDraft` / `confirm`. Removing a persisted
-payment from a CONFIRMED session routes through `SalePaymentService.voidPayment`
+payment from a CONFIRMED session routes through `SalePaymentService.voidPayments`
 with a `voidReason`.
 
 ---
@@ -221,7 +221,7 @@ SessionIdentity
     inserts new (`existingId == null`) payments; persisted payments are
     neither updated nor deleted at commit. The supported way to reverse a
     posted payment is `DELETE /payments` with a `voidReason`, which goes
-    through `SalePaymentService.voidPayment` and marks the row voided
+    through `SalePaymentService.voidPayments` and marks the row voided
     in-place — the session keeps the payment with `voidedReason` set rather
     than removing it from its list.
 
@@ -317,7 +317,7 @@ product gets deactivated).
      - load-or-create SaleEntity (`loadDraftAtVersion` for existing —
        rejects non-DRAFT or version mismatch; new sales start at CONFIRMED)
      - assign header, save sale
-     - clear reservations for this sale (`clearBySale`) — before sync, same
+     - clear reservations for this sale (`clearBySales`) — before sync, same
        FK-ordering reason as the draft path
      - sync lines (`SaleLineSync.sync`)
      - guard stock availability (`SaleValidator.guardSufficientStockForSale`
@@ -386,7 +386,7 @@ Mid-session operations that hit the sale row out-of-band must refresh
 that means `SaleSessionPaymentHandler.add` (when `originalStatus == CONFIRMED`
 and `SalePaymentService.recordPayment` runs) and `SaleSessionPaymentHandler.remove`
 (when the payment was already persisted and routes through
-`SalePaymentService.voidPayment`). Both bump `SaleEntity.version` via
+`SalePaymentService.voidPayments`). Both bump `SaleEntity.version` via
 `SaleUpdater.updatePaymentStatus`; the new version rides back on
 `SalePaymentResponseDto.updatedSaleVersion` and the handlers copy it onto the
 session before finalize.
@@ -400,7 +400,7 @@ session before finalize.
   it does not update, delete, or validate the persisted payments already on
   the sale. The supported way to reverse a posted payment is `DELETE /payments`
   with a `voidReason`, which routes through `SaleSessionPaymentHandler.remove`
-  → `SalePaymentService.voidPayment` and marks the payment row voided in
+  → `SalePaymentService.voidPayments` and marks the payment row voided in
   place. The session keeps the payment with `voidedReason` set, so it stays
   visible to the cashier rather than disappearing from the list.
 - **One session per sale.** `SaleSessionHandler.start({saleId})` returns the
@@ -553,10 +553,13 @@ rests on `MergedQuantityCalculator`.
 | `OTHER_ADJUSTMENTS_DIFFER`    | adjustments | the lines carry different percentage adjustments                                 |
 | `TOTAL_DRIFT`                 | total       | the merged effective total would differ from the sources' sum                    |
 
-**Story.** `ConsolidationProblemStoryWriter.write(consolidationProblems, problemSaleLines, sourceSaleReferenceByLineKey,
-unitNameByUnitId)` turns each `ConsolidationProblem` into a `BlockingProblem`: `documentReference` is the source sale
+**Story.** `ConsolidationProblemStoryWriter.write(consolidationProblems, problemSaleLines, problemSaleAdjustments,
+sourceSaleReferenceByLineKey, unitNameByUnitId)` turns each `ConsolidationProblem` into a `BlockingProblem`: `documentReference` is the source sale
 references involved (each once, in line order, joined by ", "), `description` says what is wrong with the product, and
-`effect` lists the lines (quantity, unit, list price, source sale) and says how to fix it. It switches exhaustively on
+`effect` lists the lines (quantity with the unit pluralized, the price per unit, source sale) and says how to fix it. The
+price shown is the one on the form: the cashier's price when the line has an override, otherwise the list price, with no
+label, because a typed price equal to the list price is saved as no override and a label would contradict the form. Only
+`OVERRIDE_ON_SOME_LINES_ONLY` labels lines "(changed by the cashier)" or "(normal price)". Texts never say "typed price". It switches exhaustively on
 `ConsolidationProblemKind`, so a new kind will not compile until it has text. The caller supplies the sale reference per
 line key and the unit names; the writer fetches nothing.
 
@@ -572,10 +575,12 @@ No sale exists for it until a consolidation is generated, which is why it has no
 **One rules table.** `SaleSessionRules` (api) answers, per kind, which `SaleSessionAction` is allowed and why not:
 `refusalOrNull(kind, action)` is an exhaustive `when` per kind, so adding an action or a kind does not compile (and
 `SaleSessionRulesTest` fails) until every pairing is decided. Every mutating handler starts with
-`SaleSessionValidator.guardAllowed(session, action)`, which applies the table and then, for every action except payments and
-void, the status rule (`SaleSessionAction.needsMutableSale()`: the sale must still be a DRAFT). The header handler maps each
+`SaleSessionValidator.guardAllowed(session, action)`, which applies the table and then, for every action except payments,
+void and notes, the status rule (`SaleSessionAction.needsMutableSale()`: the sale must still be a DRAFT). The header handler maps each
 provided field to its own action (`UPDATE_CONTACT`, `UPDATE_SOLD_BY`, `UPDATE_DATE_SOLD`, `UPDATE_NOTES`); an empty update is
-held to the notes rule. `validate` reads the same table for content: `allowsDuplicateProducts` and the
+held to the notes rule, which every sale allows. Notes are open on a confirmed, voided or discarded sale too: the header
+handler writes them to the sale at once through `SaleUpdater.updateNotes` (a draft keeps them in the session until it is
+saved) and takes the new sale version into the session. `validate` reads the same table for content: `allowsDuplicateProducts` and the
 `ADD_ORDER_LEVEL_ADJUSTMENT` answer. A pending consolidation allows notes, line edits and removals, restoring a removed
 line, line-level adjustments, removing adjustments and discarding (void). It refuses adding a line (`ADD_LINE`: the
 cashier fixes or removes what is shown and adds products to the generated draft), contact, sold-by, date-sold, order-level
@@ -585,7 +590,10 @@ must.
 **Issues.** `PendingConsolidationAssessor.assess(session, inactiveLocationProductIds, unitConversionGraph)` runs
 `SaleLineMerger.merge` on the held lines and passes the problems to `ConsolidationProblemStoryWriter`. The assembler loads
 the inactive product ids and the unit graph once per response and hands them to the assessor and to the line mapping.
-The response carries `kind`, `consolidationIssues` (`saleReferences`, `description`, `fix`) and
+The pending session also records `cleanProducts` (what combined cleanly at selection, with its source sales, not held on the form);
+Generate merges them again, so a clean product that turns inactive afterwards is listed as an issue too
+(`ConsolidationProblemStoryWriter.writeInactiveCleanProduct`) and blocks Generate. The assembler includes their ids when it looks up
+inactive products. The response carries `kind`, `consolidationIssues` (`saleReferences`, `description`, `fix`) and
 `uiOptions.canGenerateConsolidatedSale`, true when no problem remains. The flag only drives the button; Generate re-runs
 the check on the server. Every held line has a source sale, since lines cannot be added.
 
@@ -608,7 +616,7 @@ source line.
 
 **Stock figures.** A pending session has no sale id, so the overlay cannot discount a reservation of its own. Instead
 `PendingConsolidation.stockHeldBySourceSalesByLocationProductId` holds, per product, what the source sales hold
-(`StockHeldBySales`: reserved by DRAFT sources, taken by CONFIRMED ones, nothing for a DISCARDED one), calculated in
+(`StockHeldBySales`: reserved by DRAFT sources, taken by CONFIRMED ones, nothing for a DISCARDED or VOIDED one, which cannot be selected), calculated in
 storage units by `PendingConsolidationSourceStock.calculate` when the consolidation is selected. The overlay
 (`SaleSessionStockOverlay`) shows the stock as if those sales were already gone: on-hand plus the taken amount, reserved
 minus the reserved amount, available plus both. A saved draft gets the same treatment for its own reservation, which is
@@ -633,6 +641,53 @@ never reserves stock (`SaleSessionRules.reservesStock`), so `showUnreservedChang
 
 **Starting a session.** `SaleSessionLoader` and `SaleSessionCopier` return a new session with its stock figures filled
 in and its totals not yet computed; `SaleSessionUpdateFinalizer.finalize` computes them, so a caller must finalize what
-it starts. Creating a pending consolidation from a selection of sales, generating the consolidated
-draft and the source version check are not part of the session code: the session holds the data they need, and nothing
-in this package starts or finishes a consolidation.
+it starts. Selecting sales and generating the draft are described in section 13.
+
+## 13. Selecting sales and generating the consolidated draft
+
+Two endpoints, both thin delegators to `SaleConsolidationHandler` (one location-schema transaction each):
+`POST /secured/sale-sessions/consolidate` with `{ saleIds }`, and
+`POST /secured/sale-sessions/{sessionId}/generate-consolidated-sale` (`GENERATE_CONSOLIDATED_SALE`, allowed only for a
+pending consolidation).
+
+**Which sales qualify.** Only DRAFT and CONFIRMED sales (`SaleSessionRules.isConsolidatable`). The rule differs from Copy
+Sale (`isCopyable`, which refuses CONFIRMED) on purpose: a copy is only a Redis session, so nothing makes a cashier void the
+original afterwards and a confirmed original would leave two live sales; a consolidation voids its sources itself, with their
+payments, so that risk does not exist. DISCARDED and VOIDED sales are refused because consolidation would have nothing to void
+and they carry no live work.
+
+**Selection** (`SaleConsolidationStarter`). Takes the SALE advisory locks of the selected sales first, in id order
+(`ConsolidationSources.lock`), then reads their headers, because a header read before the locks would come from the
+persistence context and could not show a change made in between. It then guards the selection: 2 to 20 distinct sales, one
+contact, none walk-in, all qualifying. It copies the sales raw (`SaleSessionCopier.copyFromSalesWithSourceReferences`, which
+also names the source sale of every line and returns the lines it loaded) and runs `SaleConsolidationMerger`. With no problem
+it hands the copy and the merge to `SaleConsolidationGenerator.generateFromMerged`, so nothing is locked, copied or merged a
+second time, and the response is the saved new draft. With problems it opens a pending session holding only the problem
+products' lines (and their line-level adjustments), with the source ids, the versions read at selection and the stock snapshot
+(built from the lines the copy already loaded), in Redis only. No source is touched.
+
+**Generate** (`SaleConsolidationGenerator`, runs in the caller's transaction). For a pending session `generate` locks every
+source (`ConsolidationSources.lock`), refuses if any version differs from the one recorded at selection, re-runs the selection
+guards, copies the sources again and merges the clean products' lines recomputed from the sources together with the lines the
+cashier reviewed (`ReviewedProductLines`: the lines left in the pending session, fixed or not, and the products whose lines
+were all removed, which are dropped rather than recomputed). Both paths then run `generateFromMerged`: refuse if a problem
+remains; combine the order-level adjustments (`OrderLevelAdjustmentsCombiner`); validate; allocate the reference
+(`SaleReferenceAllocator`); void the active payments of the sources with the reason "Consolidated into <ref>"
+(`ConsolidationSourcePayments`); void the sources together (`SaleUpdater.voidSourcesOfConsolidation`); save the draft with
+`preAllocatedReferenceNumber` and the payments re-recorded with a new identity and no payment date, so each is dated when it is
+saved, not at the source payment's date (the void of the source payment is dated the same day); load the saved draft as the
+new session. A stock shortage fails the save, which rolls the whole transaction back, so the sources and the pending session
+are as they were.
+
+**After the commit only.** `ConsolidationSessionCleanup` saves the new session to Redis and deletes the open sessions of the
+source sales and the pending session in a `TransactionSynchronization.afterCommit`, so a rolled-back Generate never leaves Redis pointing at
+a sale that does not exist.
+
+**Order-level adjustments.** Adjustments of the same reason, direction, method and approver become one. An order-level
+percentage is money on its own sale (`ConsolidationCopy.orderLevelAmountByAdjustmentKey`, the percentage of that sale's
+goods total), so the sources' amounts are added as money and turned back into one percentage of the combined goods total,
+only when that percentage is exact (at most 4 decimal places, and it reproduces the same amount). Two 5% discounts on
+equal sales stay 5%; a 5% discount on one of two equal sales becomes 2.5%. When it is not exact, Generate is refused and
+nothing is voided. One with a different approver stays separate, so an approval is never attributed to an amount its
+approver did not see. Notes are joined with "; " without repeats.
+

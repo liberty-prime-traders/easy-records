@@ -21,6 +21,7 @@ class SaleSessionRulesTest {
         SaleSessionAction.REMOVE_ADJUSTMENT to true,
         SaleSessionAction.SAVE_DRAFT to false,
         SaleSessionAction.CONFIRM to false,
+        SaleSessionAction.GENERATE_CONSOLIDATED_SALE to true,
         SaleSessionAction.ADD_PAYMENT to false,
         SaleSessionAction.REMOVE_PAYMENT to false,
         SaleSessionAction.VOID_SALE to true,
@@ -39,10 +40,13 @@ class SaleSessionRulesTest {
     }
 
     @Test
-    fun `a sale allows every action except restoring a removed line, the status rules decide the rest`() {
+    fun `a sale allows every action except the two only a pending consolidation has`() {
+        val pendingConsolidationOnlyActions = setOf(
+            SaleSessionAction.RESTORE_REMOVED_LINE, SaleSessionAction.GENERATE_CONSOLIDATED_SALE
+        )
         SaleSessionAction.entries.forEach { action ->
             assertEquals(
-                action != SaleSessionAction.RESTORE_REMOVED_LINE,
+                action !in pendingConsolidationOnlyActions,
                 SaleSessionRules.allows(SaleSessionKind.SALE, action),
                 action.name
             )
@@ -50,9 +54,10 @@ class SaleSessionRulesTest {
     }
 
     @Test
-    fun `actions that need a mutable sale are exactly the ones that change the draft`() {
+    fun `actions that need a mutable sale are exactly the ones that change the draft, apart from payments, voids and notes`() {
         val actionsWithTheirOwnStatusRule = setOf(
-            SaleSessionAction.ADD_PAYMENT, SaleSessionAction.REMOVE_PAYMENT, SaleSessionAction.VOID_SALE
+            SaleSessionAction.ADD_PAYMENT, SaleSessionAction.REMOVE_PAYMENT, SaleSessionAction.VOID_SALE,
+            SaleSessionAction.UPDATE_NOTES
         )
         SaleSessionAction.entries.forEach { action ->
             assertEquals(action !in actionsWithTheirOwnStatusRule, action.needsMutableSale(), action.name)

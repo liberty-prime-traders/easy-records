@@ -7,4 +7,5 @@ import java.util.UUID
 @Repository
 interface SalePaymentRepository : JpaRepository<SalePaymentEntity, UUID> {
     fun findBySaleId(saleId: UUID): List<SalePaymentEntity>
+    fun findBySaleIdIn(saleIds: List<UUID>): List<SalePaymentEntity>
 }

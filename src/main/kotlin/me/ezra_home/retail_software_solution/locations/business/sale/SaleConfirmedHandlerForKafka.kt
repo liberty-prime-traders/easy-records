@@ -10,6 +10,7 @@ import me.ezra_home.retail_software_solution.util.business.DateTimes
 import me.ezra_home.retail_software_solution.util.business.Money
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Component
+import java.math.BigDecimal
 import java.time.Instant
 import java.util.UUID
 
@@ -24,10 +25,17 @@ class SaleConfirmedHandlerForKafka(
     override val eventType = SaleConfirmedEvent::class
 
     override fun reissue(sourceDocumentId: UUID) {
-        publish(saleRepository.getReferenceById(sourceDocumentId))
+        publish(listOf(saleRepository.getReferenceById(sourceDocumentId)))
     }
 
-    fun publish(sale: SaleEntity) {
+    fun publish(sale: SaleEntity) = publish(listOf(sale))
+
+    fun publish(sales: List<SaleEntity>) {
+        val cogsTotalBySaleId = saleDataFetcher.getSaleCogsTotals(sales.map { it.id!! })
+        sales.forEach { publishEvent(it, cogsTotalBySaleId.getValue(it.id!!)) }
+    }
+
+    private fun publishEvent(sale: SaleEntity, cogsTotal: BigDecimal) {
         eventPublisher.publishEvent(
             SaleConfirmedEvent(
                 eventId = UUID.randomUUID(),
@@ -44,7 +52,7 @@ class SaleConfirmedHandlerForKafka(
                 taxBilled = Money.of(sale.taxBilled),
                 discountTotal = Money.of(sale.discountTotal()),
                 dateSold = DateTimes.Local.atOrganizationZone(sale.dateSold!!),
-                cogsTotal = Money.of(saleDataFetcher.getSaleCogsTotal(sale.id!!))
+                cogsTotal = Money.of(cogsTotal)
             )
         )
     }
