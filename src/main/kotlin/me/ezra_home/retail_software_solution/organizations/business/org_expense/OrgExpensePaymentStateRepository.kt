@@ -1,21 +1,7 @@
 package me.ezra_home.retail_software_solution.organizations.business.org_expense
 
 import me.ezra_home.retail_software_solution.cross_tier.expense.repository.ExpensePaymentStateRepositoryBase
-import org.springframework.data.jpa.repository.Query
-import org.springframework.data.repository.query.Param
 import org.springframework.stereotype.Repository
-import java.util.UUID
 
 @Repository
-interface OrgExpensePaymentStateRepository : ExpensePaymentStateRepositoryBase<OrgExpensePaymentStateEntity> {
-
-    @Query(
-        """
-        select p.expenseId as expenseId, sum(p.amount) as amountPaid
-        from ActiveOrgExpensePaymentEntity p
-        where p.expenseId in :expenseIds
-        group by p.expenseId
-        """
-    )
-    override fun sumActivePaidByExpenseId(@Param("expenseIds") expenseIds: Collection<UUID>): List<ExpensePaymentStateRepositoryBase.ActivePaidAmount>
-}
+interface OrgExpensePaymentStateRepository : ExpensePaymentStateRepositoryBase<OrgExpensePaymentStateEntity>

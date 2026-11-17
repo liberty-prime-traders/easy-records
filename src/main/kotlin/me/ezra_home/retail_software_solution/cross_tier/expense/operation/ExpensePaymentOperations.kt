@@ -13,8 +13,10 @@ import me.ezra_home.retail_software_solution.cross_tier.expense.response.Expense
 import me.ezra_home.retail_software_solution.cross_tier.expense.response.ExpenseSummaryResponse
 import me.ezra_home.retail_software_solution.util.business.DateTimes
 import me.ezra_home.retail_software_solution.util.business.DisplayFormatters
+import me.ezra_home.retail_software_solution.util.business.PaymentStatusResolver
 import me.ezra_home.retail_software_solution.util.business.StringUtils
 import me.ezra_home.retail_software_solution.util.exceptions.RtsGenericException
+import java.math.BigDecimal
 import java.time.LocalDate
 import java.util.UUID
 
@@ -40,7 +42,13 @@ class ExpensePaymentOperations(
             planPayments(expenseDto, expenseAggregatesById.getValue(expenseDto.id), resolvedPaymentRequests)
         }
         saveAndPublish(expensePaymentDrafts, expenseDtosByReference.values)
-        expenseStore.refreshPaymentStates(expenseDtosByReference.values)
+        val paidTotalsByExpenseId = expenseDtosByReference.values.associate { expenseDto ->
+            val recordedAmounts = expensePaymentDrafts.filter { it.expenseId == expenseDto.id }.map { it.amount }
+            expenseDto.id to PaymentStatusResolver.paidTotalAfterRecording(
+                expenseAggregatesById.getValue(expenseDto.id).activePaidAmount(expenseDto.id), recordedAmounts
+            )
+        }
+        expenseStore.refreshPaymentStates(expenseDtosByReference.values, paidTotalsByExpenseId)
         val summariesByReference = expenseResponseBuilder
             .buildSummaries(expenseStore.loadForExpenses(expenseDtosByReference.values.map { it.id }))
             .associateBy { it.reference }
@@ -108,7 +116,10 @@ class ExpensePaymentOperations(
         }
         val expenseDtos = settledExpenses.map { it.expenseDto }
         publishRecorded(expenseStore.savePayments(expensePaymentDrafts), expenseDtos)
-        expenseStore.refreshPaymentStates(expenseDtos)
+        val paidTotalsByExpenseId = settledExpenses.associate {
+            it.expenseDto.id to PaymentStatusResolver.paidTotalAfterRecording(BigDecimal.ZERO, listOf(it.expenseDto.amount))
+        }
+        expenseStore.refreshPaymentStates(expenseDtos, paidTotalsByExpenseId)
     }
 
     private fun publishRecorded(savedPaymentDtos: List<ExpensePaymentDto>, expenseDtos: Collection<ExpenseDto>) {
@@ -130,7 +141,10 @@ class ExpensePaymentOperations(
         }
         val expenseDto = expenseAggregate.expenses.single()
         val expensePaymentVoidDto = expenseStore.savePaymentVoid(expensePaymentDto.id, voidReason)
-        expenseStore.refreshPaymentStates(listOf(expenseDto))
+        val paidTotalAfterVoid = PaymentStatusResolver.paidTotalAfterVoid(
+            expenseAggregate.activePaidAmount(expenseDto.id), expensePaymentDto.amount
+        )
+        expenseStore.refreshPaymentStates(listOf(expenseDto), mapOf(expenseDto.id to paidTotalAfterVoid))
         expenseEvents.publishPaymentVoided(expensePaymentVoidDto, expensePaymentDto, expenseDto)
         return expenseResponseBuilder.buildSummary(expenseStore.loadForExpenses(listOf(expenseDto.id)), expenseDto.id)
     }

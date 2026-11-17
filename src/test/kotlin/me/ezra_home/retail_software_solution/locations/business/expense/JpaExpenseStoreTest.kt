@@ -59,7 +59,7 @@ class JpaExpenseStoreTest {
         override fun saveNewExpenseVoid(expenseId: UUID, reason: String): ExpenseVoidBase =
             persisted(ExpenseVoidEntity(expenseId, reason))
 
-        override fun refreshPaymentStates(expenseDtos: Collection<ExpenseDto>) = Unit
+        override fun refreshPaymentStates(expenseDtos: Collection<ExpenseDto>, paidTotalsByExpenseId: Map<UUID, BigDecimal>) = Unit
     }
 
     private val batchEntity = persisted(ExpenseBatchEntity("Wages", ExpenseSourceType.WAGES, null))

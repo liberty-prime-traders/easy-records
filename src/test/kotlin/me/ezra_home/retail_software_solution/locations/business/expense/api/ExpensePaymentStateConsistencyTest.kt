@@ -14,7 +14,6 @@ import me.ezra_home.retail_software_solution.cross_tier.expense.model.ExpenseDto
 import me.ezra_home.retail_software_solution.locations.business.expense.ExpenseBatchRepository
 import me.ezra_home.retail_software_solution.locations.business.expense.ExpensePaymentRepository
 import me.ezra_home.retail_software_solution.locations.business.expense.ExpensePaymentStateEntity
-import me.ezra_home.retail_software_solution.cross_tier.expense.repository.ExpensePaymentStateRepositoryBase
 import me.ezra_home.retail_software_solution.locations.business.expense.ExpensePaymentStateRepository
 import me.ezra_home.retail_software_solution.locations.business.expense.ExpensePaymentVoidRepository
 import me.ezra_home.retail_software_solution.locations.business.expense.ExpenseRepository
@@ -103,21 +102,14 @@ class ExpensePaymentStateConsistencyTest {
 
     private data class PaymentScenario(val amount: String, val voided: Boolean)
 
-    // Models the sumActivePaidByExpenseId JPQL: a payment counts unless a void row points at it.
+    // Independent derivation of the paid total: a payment counts unless a void row points at it.
     private fun refreshedState(expenseDto: ExpenseDto, expenseAggregate: ExpenseAggregate): ExpensePaymentStateEntity {
         val voidedPaymentIds = expenseAggregate.paymentVoids.map { it.paymentId }.toSet()
         val activePaid = expenseAggregate.payments.filter { it.id !in voidedPaymentIds }.sumOf { it.amount }
-        val activePaidAmounts = if (activePaid.signum() == 0) emptyList() else listOf(
-            object : ExpensePaymentStateRepositoryBase.ActivePaidAmount {
-                override val expenseId = expenseDto.id
-                override val amountPaid = activePaid
-            }
-        )
         val storedState = ExpensePaymentStateEntity(expenseDto.id)
-        `when`(expensePaymentStateRepository.sumActivePaidByExpenseId(anyCollection())).thenReturn(activePaidAmounts)
         `when`(expensePaymentStateRepository.findByExpenseIdIn(anyCollection())).thenReturn(listOf(storedState))
 
-        locationExpenseStore.refreshPaymentStates(listOf(expenseDto))
+        locationExpenseStore.refreshPaymentStates(listOf(expenseDto), mapOf(expenseDto.id to activePaid))
         return storedState
     }
 

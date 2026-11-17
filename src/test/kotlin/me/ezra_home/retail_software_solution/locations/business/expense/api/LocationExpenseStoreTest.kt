@@ -11,7 +11,6 @@ import me.ezra_home.retail_software_solution.locations.business.expense.ExpenseB
 import me.ezra_home.retail_software_solution.locations.business.expense.ExpenseEntity
 import me.ezra_home.retail_software_solution.locations.business.expense.ExpensePaymentRepository
 import me.ezra_home.retail_software_solution.locations.business.expense.ExpensePaymentStateEntity
-import me.ezra_home.retail_software_solution.cross_tier.expense.repository.ExpensePaymentStateRepositoryBase
 import me.ezra_home.retail_software_solution.locations.business.expense.ExpensePaymentStateRepository
 import me.ezra_home.retail_software_solution.locations.business.expense.ExpensePaymentVoidRepository
 import me.ezra_home.retail_software_solution.locations.business.expense.ExpenseRepository
@@ -66,10 +65,12 @@ class LocationExpenseStoreTest {
         val fullyPaidExpense = expenseDto("50")
         val partiallyPaidState = ExpensePaymentStateEntity(partiallyPaidExpense.id)
         val fullyPaidState = ExpensePaymentStateEntity(fullyPaidExpense.id)
-        stubActivePaid(partiallyPaidExpense.id to "40", fullyPaidExpense.id to "50")
         stubStates(partiallyPaidState, fullyPaidState)
 
-        locationExpenseStore.refreshPaymentStates(listOf(partiallyPaidExpense, fullyPaidExpense))
+        locationExpenseStore.refreshPaymentStates(
+            listOf(partiallyPaidExpense, fullyPaidExpense),
+            mapOf(partiallyPaidExpense.id to BigDecimal("40"), fullyPaidExpense.id to BigDecimal("50"))
+        )
 
         assertEquals(PaymentStatus.PARTIALLY_SETTLED, partiallyPaidState.paymentStatus)
         assertEquals(0, BigDecimal("40").compareTo(partiallyPaidState.amountPaid))
@@ -84,10 +85,9 @@ class LocationExpenseStoreTest {
             paymentStatus = PaymentStatus.FULLY_SETTLED
             amountPaid = BigDecimal("100")
         }
-        stubActivePaid()
         stubStates(paidState)
 
-        locationExpenseStore.refreshPaymentStates(listOf(expenseDto))
+        locationExpenseStore.refreshPaymentStates(listOf(expenseDto), mapOf(expenseDto.id to BigDecimal.ZERO))
 
         assertEquals(PaymentStatus.UNPAID, paidState.paymentStatus)
         assertEquals(0, BigDecimal.ZERO.compareTo(paidState.amountPaid))
@@ -95,19 +95,9 @@ class LocationExpenseStoreTest {
 
     @Test
     fun `refreshing nothing does not touch the database`() {
-        locationExpenseStore.refreshPaymentStates(emptyList())
+        locationExpenseStore.refreshPaymentStates(emptyList(), emptyMap())
 
         verify(expensePaymentStateRepository, never()).findByExpenseIdIn(anyCollection())
-    }
-
-    private fun stubActivePaid(vararg activePaidByExpenseId: Pair<UUID, String>) {
-        val activePaidAmounts = activePaidByExpenseId.map { (expenseId, amount) ->
-            object : ExpensePaymentStateRepositoryBase.ActivePaidAmount {
-                override val expenseId = expenseId
-                override val amountPaid = BigDecimal(amount)
-            }
-        }
-        `when`(expensePaymentStateRepository.sumActivePaidByExpenseId(anyCollection())).thenReturn(activePaidAmounts)
     }
 
     private fun stubStates(vararg states: ExpensePaymentStateEntity) {
