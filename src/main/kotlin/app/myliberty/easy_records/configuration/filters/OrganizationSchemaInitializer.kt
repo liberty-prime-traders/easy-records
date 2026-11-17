@@ -2,7 +2,7 @@ package app.myliberty.easy_records.configuration.filters
 
 import jakarta.servlet.http.HttpServletRequest
 import app.myliberty.easy_records.configuration.datasource.DataSourceBeanNames
-import app.myliberty.easy_records.configuration.security.RtsHeaders.ORGANIZATION_ID_HEADER
+import app.myliberty.easy_records.configuration.security.TenantHeaders.ORGANIZATION_ID_HEADER
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
 import app.myliberty.easy_records.platform.business.organization.api.OrganizationService
 import app.myliberty.easy_records.util.business.StringUtils

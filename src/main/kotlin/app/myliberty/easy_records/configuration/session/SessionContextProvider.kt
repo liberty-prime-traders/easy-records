@@ -1,10 +1,10 @@
 package app.myliberty.easy_records.configuration.session
 
-import app.myliberty.easy_records.configuration.security.RtsHeaders
+import app.myliberty.easy_records.configuration.security.TenantHeaders
 import app.myliberty.easy_records.organizations.business.core.location.api.LocationDto
 import app.myliberty.easy_records.platform.business.organization.api.OrganizationDto
 import app.myliberty.easy_records.util.exceptions.LibertyGenericException
-import app.myliberty.easy_records.util.exceptions.RtsMissingHeaderException
+import app.myliberty.easy_records.util.exceptions.TenantMissingHeaderException
 import java.util.UUID
 
 object SessionContextProvider {
@@ -27,7 +27,7 @@ object SessionContextProvider {
     }
 
     fun getOrganizationId(): UUID {
-        return getSession().organization?.id ?: throw RtsMissingHeaderException(RtsHeaders.ORGANIZATION_ID_HEADER)
+        return getSession().organization?.id ?: throw TenantMissingHeaderException(TenantHeaders.ORGANIZATION_ID_HEADER)
     }
 
     fun getOrganizationIdOrNull(): UUID? {
@@ -35,7 +35,7 @@ object SessionContextProvider {
     }
 
     fun getLocationId(): UUID {
-        return getSession().location?.id ?: throw RtsMissingHeaderException(RtsHeaders.LOCATION_ID_HEADER)
+        return getSession().location?.id ?: throw TenantMissingHeaderException(TenantHeaders.LOCATION_ID_HEADER)
     }
 
     fun getLocationIdOrNull(): UUID? {

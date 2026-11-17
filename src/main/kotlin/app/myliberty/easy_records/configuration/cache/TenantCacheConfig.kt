@@ -17,7 +17,7 @@ import java.time.OffsetDateTime
 
 @Configuration
 @EnableCaching
-class RtsCacheConfig : CachingConfigurer {
+class TenantCacheConfig : CachingConfigurer {
 
     companion object {
         private val GSON: Gson = GsonBuilder()

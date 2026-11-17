@@ -12,17 +12,17 @@ class TenantConnectionProviders {
     fun organizationConnectionProvider(
         @Qualifier(DataSourceBeanNames.ORGANIZATION_SCHEMA_DATA_SOURCE)
         dataSource: DataSource
-    ): RtsMultiTenantConnectionProvider {
+    ): TenantConnectionProvider {
 
-        return RtsMultiTenantConnectionProvider(dataSource)
+        return TenantConnectionProvider(dataSource)
     }
 
     @Bean(value = [DataSourceBeanNames.LOCATION_SCHEMA_CONNECTION_PROVIDER])
     fun locationConnectionProvider(
         @Qualifier(DataSourceBeanNames.LOCATION_SCHEMA_DATA_SOURCE)
         dataSource: DataSource
-    ): RtsMultiTenantConnectionProvider {
+    ): TenantConnectionProvider {
 
-        return RtsMultiTenantConnectionProvider(dataSource)
+        return TenantConnectionProvider(dataSource)
     }
 }

@@ -4,7 +4,7 @@ import org.hibernate.engine.jdbc.connections.spi.MultiTenantConnectionProvider
 import java.sql.Connection
 import javax.sql.DataSource
 
-class RtsMultiTenantConnectionProvider(private val dataSource: DataSource): MultiTenantConnectionProvider<String> {
+class TenantConnectionProvider(private val dataSource: DataSource): MultiTenantConnectionProvider<String> {
 
     override fun getAnyConnection(): Connection = dataSource.connection
 

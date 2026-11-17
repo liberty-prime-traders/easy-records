@@ -3,7 +3,7 @@ package app.myliberty.easy_records.cucumber.support
 import io.restassured.RestAssured.given
 import io.restassured.http.ContentType
 import io.restassured.specification.RequestSpecification
-import app.myliberty.easy_records.configuration.security.RtsHeaders
+import app.myliberty.easy_records.configuration.security.TenantHeaders
 import app.myliberty.easy_records.cucumber.support.context.AuthContext
 import app.myliberty.easy_records.cucumber.support.context.InjectContext
 import app.myliberty.easy_records.cucumber.support.context.PersistentKey
@@ -26,8 +26,8 @@ class AuthenticatedRequestFactory(
       .contentType(ContentType.JSON)
 
     authContext.authToken?.let { request.header(TestConstants.Tokens.TOKEN_HEADER, it) }
-    injectContext.find(PersistentKey.ORGANIZATION)?.let { request.header(RtsHeaders.ORGANIZATION_ID_HEADER, it.toString()) }
-    injectContext.find(PersistentKey.LOCATION)?.let { request.header(RtsHeaders.LOCATION_ID_HEADER, it.toString()) }
+    injectContext.find(PersistentKey.ORGANIZATION)?.let { request.header(TenantHeaders.ORGANIZATION_ID_HEADER, it.toString()) }
+    injectContext.find(PersistentKey.LOCATION)?.let { request.header(TenantHeaders.LOCATION_ID_HEADER, it.toString()) }
     return request
   }
 }
