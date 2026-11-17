@@ -15,8 +15,8 @@ and update it when the rule changes.
 The sale package lives at:
 
 ```
-locations/business/sale/
-locations/business/sale/api/
+locations/business/retail/sale/
+locations/business/retail/sale/api/
 ```
 
 Only the `api/` sub-package is considered the public surface. Other packages
@@ -861,7 +861,7 @@ run** — i.e. as soon as the data it needs is in scope.
 | Save primitives           | `SaleSaveRequest`, `DraftSalePersister`, `ConfirmedSalePersister`, `SaleSaveFinalizer`                                                                                              |
 | Stock reservation         | `StockReserver`, `StockReservationEntity`, `StockReservationDtos` (`stock_reservation/` package)                                                                                    |
 | Adjustments (disc + srch) | `sale_adjustment/` package (`SaleAdjustmentEntity`, `SaleAdjustmentRepository`, `SaleAdjustmentSyncer`, `SaleAdjustmentFetcher`, `AdjustmentAmountCalculator`)                      |
-| Adjustment reasons        | `organizations/business/adjustment_reason/` (org schema lookup; seeded via `AdjustmentReasonSeeder`)                                                                                |
+| Adjustment reasons        | `organizations/business/retail/adjustment_reason/` (org schema lookup; seeded via `AdjustmentReasonSeeder`)                                                                                |
 | Payments                  | `sale_payment/` package (`SalePaymentWriter` — shared write primitive; `SalePaymentAppender` — commit-time wrapper)                                                                 |
 | Taxes (synchronous)       | `SaleTaxFinalizer`, `organizations/business/tax_rate/api/TaxAmountCalculator`, `tax_entry/` package                                                                                 |
 | Kafka publish/republish   | `SaleConfirmedHandlerForKafka`, `SaleVoidHandlerForKafka`                                                                                                                           |

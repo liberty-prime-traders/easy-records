@@ -39,7 +39,7 @@ Build a skill for a package when **any two** of these are true:
 
 #### `esrc-sale`
 
-**Trigger**: any task in `locations/business/sale/` or `locations/business/sale_session/`
+**Trigger**: any task in `locations/business/retail/sale/` or `locations/business/retail/sale_session/`
 
 **Covers**
 - Sale lifecycle: `DRAFT → CONFIRMED → VOIDED / DISCARDED`
@@ -56,7 +56,7 @@ memory: `project_sale_readme`, `feedback_readmes_must_match`, `feedback_verifyin
 
 #### `esrc-purchase`
 
-**Trigger**: any task in `locations/business/purchase/`
+**Trigger**: any task in `locations/business/retail/purchase/`
 
 **Covers**
 - Purchase lifecycle and public `api/` surface

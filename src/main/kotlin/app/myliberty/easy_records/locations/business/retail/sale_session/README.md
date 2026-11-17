@@ -13,8 +13,8 @@ and update it when the rule changes.
 The package lives at:
 
 ```
-locations/business/sale_session/
-locations/business/sale_session/api/
+locations/business/retail/sale_session/
+locations/business/retail/sale_session/api/
 ```
 
 Public surface (everything else in this package is internal):

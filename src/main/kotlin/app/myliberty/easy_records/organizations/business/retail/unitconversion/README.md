@@ -1,9 +1,9 @@
 # Unit Conversion Package — Rules & Expectations
 
 This package owns the **per-organization unit index and conversion graph**. It is derived entirely from
-`unit_value` rows (`organizations/business/unitvalue`); nothing about conversion is stored here.
+`unit_value` rows (`organizations/business/retail/unitvalue`); nothing about conversion is stored here.
 
-Read `organizations/business/unitvalue/README.md` first: it defines the one-root-per-group model this package
+Read `organizations/business/retail/unitvalue/README.md` first: it defines the one-root-per-group model this package
 indexes.
 
 ---
@@ -11,8 +11,8 @@ indexes.
 ## 1. Scope & Public Surface
 
 ```
-organizations/business/unitconversion/       — graph builder
-organizations/business/unitconversion/api/   — public surface (facade, graph, DTO)
+organizations/business/retail/unitconversion/       — graph builder
+organizations/business/retail/unitconversion/api/   — public surface (facade, graph, DTO)
 ```
 
 | Class                        | Purpose                                                                                       |

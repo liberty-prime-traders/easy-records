@@ -20,10 +20,10 @@ first and update it when the rule changes.
 The purchase domain spans several packages:
 
 ```
-locations/business/purchase/          — purchase orders & lines
-locations/business/delivery/          — deliveries against a purchase
-locations/business/supplier_payment/  — payments to the supplier
-locations/business/supplier_return/   — returns to the supplier (entity only)
+locations/business/retail/purchase/          — purchase orders & lines
+locations/business/retail/delivery/          — deliveries against a purchase
+locations/business/retail/supplier_payment/  — payments to the supplier
+locations/business/retail/supplier_return/   — returns to the supplier (entity only)
 ```
 
 The public surface is the `api/` sub-package of each domain. Within `purchase/api/`, `bulk_payment/`, `search/`,

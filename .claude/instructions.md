@@ -138,7 +138,7 @@ The backend system is organized into the following main components:
 		- inventory management
 		- sales transactions
 
-Some packages have README like @app/myliberty/easy_records/locations/business/sale/README.md
+Some packages have README like @app/myliberty/easy_records/locations/business/retail/sale/README.md
 Use them when scanning in their vicinity. When we make changes, the relevant README should be updated 
 to reflect the current state of the code and any important details about the implementation.
 This is not a change log, but a current state document.

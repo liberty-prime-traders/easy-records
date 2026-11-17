@@ -300,7 +300,7 @@ each is dated today, in the current period. The postings are skipped when their 
 | `SALE_COGS_RESTATEMENT`         | `SaleCogsRestatementAccountingProcessor`       | Dr Cost of goods sold, Cr Inventory when the sales' cost rises; reversed when it falls |
 | `STOCK_ADJUSTMENT_RESTATEMENT`  | `StockAdjustmentRestatementAccountingProcessor`| Each restated adjustment's own legs for a rise, reversed for a fall, netted by account |
 
-The entries are built by `RevisionLedgerEntries` (`locations/business/stock_revision/api`), which the processors and
+The entries are built by `RevisionLedgerEntries` (`locations/business/retail/stock_revision/api`), which the processors and
 the delivery revision preview both call, so the preview shows what will post. The supplier subledger is additive and never negative, so a cheaper line posts to the receivable side, not a negative
 payable. The adjustment restatement takes its accounts from the original `STOCK_ADJUSTMENT` posting
 (`api/PostedStockAdjustmentAccountsReader`), so a later change to the category rules cannot split an adjustment across

@@ -1,7 +1,7 @@
 # util/quantity — exact quantities
 
 Stock is counted in the **storage unit**: the root of the product's unit group (see
-`organizations/business/unitvalue/README.md`). Every conversion into stock is a multiplication by a whole number, so
+`organizations/business/retail/unitvalue/README.md`). Every conversion into stock is a multiplication by a whole number, so
 nothing rounds on the way in and there is no rounding policy to manage.
 
 ## Rules

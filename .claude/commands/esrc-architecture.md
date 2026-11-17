@@ -23,12 +23,13 @@ Three independent datasources — `platform`, `organization`, `location` — eac
 
 ## Product tags
 
-The platform hosts products on a shared core. Every domain package (`<tier>/business/<domain>` and `cross_tier/<domain>`)
-carries exactly one tag, `core`, `retail` or `billing`, listed in `ProductTags` in the test sources next to
-`ArchitectureTest`.
+The platform hosts products on a shared core. A domain under a product folder is tagged by its path: `retail` for
+`*/business/retail/<domain>/` and `cross_tier/retail/<domain>/`, and a later billing product gets its own folder the same way.
+Every other domain is `core` and must be listed in `ProductTags.coreDomains`, in the test sources next to `ArchitectureTest`.
 
-- `core` depends on neither `retail` nor `billing`; `retail` and `billing` never depend on each other; `billing` may depend on `core`.
-- A new domain package fails `ArchitectureTest` until it is added to `ProductTags`.
+- A new retail domain goes under the `retail` folder of its tier; a new core domain goes beside `expense/`, `ledger/` and the rest, and into `coreDomains`.
+- `core` depends on no product; products never depend on each other.
+- A domain that is neither under a product folder nor in `coreDomains` fails `ArchitectureTest`.
 - `configuration/`, `messaging/`, `util/` and the `rest/` packages are infrastructure and carry no tag.
 - `ProductTags.allowedCoreToRetailDependencies` holds the existing core-to-retail dependencies. Never add an entry for new code; remove
   an entry when its dependency goes.

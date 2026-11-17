@@ -5,15 +5,15 @@ consumed by humans browsing the codebase **and** by RAG agents that need to answ
 stock counted in?"* without re-reading every class.
 
 This package defines the org-scoped catalog of units (`unit_value`) and each unit's place in its group's chain. The
-index and graph built from it live in `organizations/business/unitconversion/README.md`.
+index and graph built from it live in `organizations/business/retail/unitconversion/README.md`.
 
 ---
 
 ## 1. Scope & Public Surface
 
 ```
-organizations/business/unitvalue/       — unit catalog, hierarchy, seeding
-organizations/business/unitvalue/api/   — public surface (UnitValueFetcher, UnitValueService, UnitChainResolver, DTOs)
+organizations/business/retail/unitvalue/       — unit catalog, hierarchy, seeding
+organizations/business/retail/unitvalue/api/   — public surface (UnitValueFetcher, UnitValueService, UnitChainResolver, DTOs)
 ```
 
 Cross-domain callers **MUST** go through `api/` (enforced by `ArchitectureTest`). `UnitValueCache`,

@@ -54,7 +54,7 @@ concrete instance of this pattern.
 
 ## Product tags
 
-- Tag every new domain package in `ProductTags`, and keep dependencies pointing at `core`: see `esrc-architecture`'s "Product tags" section.
+- Place every new domain package under its product folder or in `ProductTags.coreDomains`, and keep dependencies pointing at `core`: see `esrc-architecture`'s "Product tags" section.
 
 ## Source of truth
 
