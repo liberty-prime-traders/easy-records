@@ -31,6 +31,11 @@ class ArchitectureTest {
         .should(notDependOnDomainsTaggedAs(ProductTag.RETAIL))
 
     @ArchTest
+    val coreShouldNotDependOnBilling: ArchRule = classes()
+        .that(areTaggedAs(ProductTag.CORE))
+        .should(notDependOnDomainsTaggedAs(ProductTag.BILLING))
+
+    @ArchTest
     val retailShouldNotDependOnBilling: ArchRule = classes()
         .that(areTaggedAs(ProductTag.RETAIL))
         .should(notDependOnDomainsTaggedAs(ProductTag.BILLING))
