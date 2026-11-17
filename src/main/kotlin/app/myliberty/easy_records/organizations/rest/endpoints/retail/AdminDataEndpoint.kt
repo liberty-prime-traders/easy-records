@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController
 @CrossOrigin
 @RestController
 @RequestMapping("secured/admin-data")
-@PreAuthorize("@rtsPermissions.isOrganizationAdmin()")
+@PreAuthorize("@esrPermissions.isOrganizationAdmin()")
 class AdminDataEndpoint(
     private val orgProfileService: OrgProfileService,
     private val saleLineCogsBackfiller: SaleLineCogsBackfiller,

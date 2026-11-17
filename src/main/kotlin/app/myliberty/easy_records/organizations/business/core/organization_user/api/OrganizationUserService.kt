@@ -12,8 +12,8 @@ import app.myliberty.easy_records.organizations.business.core.permission_assignm
 import app.myliberty.easy_records.organizations.business.core.role_assignment.api.OrgRoleAssignmentService
 import app.myliberty.easy_records.platform.business.organization_join_request.api.OrganizationAdminJoinRequestResponseDto
 import app.myliberty.easy_records.platform.business.sysuser.api.SysUserService
-import app.myliberty.easy_records.util.enums.RtsPermission
-import app.myliberty.easy_records.util.enums.RtsRole
+import app.myliberty.easy_records.util.enums.EsrPermission
+import app.myliberty.easy_records.util.enums.EsrRole
 import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Service
 import java.time.OffsetDateTime
@@ -99,7 +99,7 @@ class OrganizationUserService(
         val membership = organizationUserCache.create(OrganizationUserInsertDto(userId = userId))
         val assignedById = SessionContextProvider.getUserId()
         val membershipIdByUserId = mapOf(userId to membership.id)
-        orgRoleAssignmentService.assignAll(membershipIdByUserId, RtsRole.MANAGE_ORGANIZATION_USERS, assignedById)
-        orgPermissionAssignmentService.assignAll(membershipIdByUserId, RtsPermission.MANAGE_ORGANIZATION_ACCESS, assignedById)
+        orgRoleAssignmentService.assignAll(membershipIdByUserId, EsrRole.MANAGE_ORGANIZATION_USERS, assignedById)
+        orgPermissionAssignmentService.assignAll(membershipIdByUserId, EsrPermission.MANAGE_ORGANIZATION_ACCESS, assignedById)
     }
 }

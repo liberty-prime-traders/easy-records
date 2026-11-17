@@ -61,7 +61,7 @@ account — can approve the merge instead.
 ## 3. `rolesToVerify` on login is platform-tier only, by design
 
 `IdentityService.verifyRequestedRoles` filters `loginRequest.rolesToVerify`
-down to names that (a) parse as a real `RtsRole`, (b) are
+down to names that (a) parse as a real `EsrRole`, (b) are
 `SchemaLevel.PLATFORM`, and (c) the user actually holds — silently
 dropping everything else, including a syntactically valid but
 unrecognized name and a real role the user simply doesn't have. This

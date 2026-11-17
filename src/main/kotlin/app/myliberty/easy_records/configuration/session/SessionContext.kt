@@ -1,7 +1,7 @@
 package app.myliberty.easy_records.configuration.session
 
-import app.myliberty.easy_records.util.enums.RtsPermission
-import app.myliberty.easy_records.util.enums.RtsRole
+import app.myliberty.easy_records.util.enums.EsrPermission
+import app.myliberty.easy_records.util.enums.EsrRole
 import java.util.UUID
 
 data class SessionContext(
@@ -9,6 +9,6 @@ data class SessionContext(
     var tenantFilterIsComplete: Boolean = false,
     var organization: OrgSession? = null,
     var location: LocationSession? = null,
-    var roles: Set<RtsRole> = emptySet(),
-    var permissions: Set<RtsPermission> = emptySet()
+    var roles: Set<EsrRole> = emptySet(),
+    var permissions: Set<EsrPermission> = emptySet()
 )

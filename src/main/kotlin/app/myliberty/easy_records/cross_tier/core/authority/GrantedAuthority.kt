@@ -1,15 +1,15 @@
 package app.myliberty.easy_records.cross_tier.core.authority
 
-import app.myliberty.easy_records.util.enums.RtsPermission
-import app.myliberty.easy_records.util.enums.RtsRole
+import app.myliberty.easy_records.util.enums.EsrPermission
+import app.myliberty.easy_records.util.enums.EsrRole
 import java.time.OffsetDateTime
 
 data class GrantedRole(
-    val role: RtsRole,
+    val role: EsrRole,
     val grantedAt: OffsetDateTime
 )
 
 data class GrantedPermission(
-    val permission: RtsPermission,
+    val permission: EsrPermission,
     val grantedAt: OffsetDateTime
 )

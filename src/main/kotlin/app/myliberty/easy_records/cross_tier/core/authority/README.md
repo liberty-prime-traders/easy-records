@@ -42,18 +42,18 @@ package `assign()` resolves against) and
 `platform/business/identity/README.md` (login and the per-request
 authority refresh that consumes this package) as companion reading.
 
-## 1. Two enums: `RtsRole` (grantable bundle) and `RtsPermission` (atomic, checked)
+## 1. Two enums: `EsrRole` (grantable bundle) and `EsrPermission` (atomic, checked)
 
-`RtsRole` is what actually gets assigned to a user (via the
+`EsrRole` is what actually gets assigned to a user (via the
 `<tier>_role_assignment` tables) — a named bundle with a `permissions:
-Set<RtsPermission>` field. `RtsPermission` (`util/enums/RtsPermission.kt`)
+Set<EsrPermission>` field. `EsrPermission` (`util/enums/EsrPermission.kt`)
 is the atomic thing `@PreAuthorize` actually checks — `ADD_USER_TO_LOCATION`,
-`VIEW_USERS_OF_ORG`, etc. **A user is never granted an `RtsPermission`
+`VIEW_USERS_OF_ORG`, etc. **A user is never granted an `EsrPermission`
 directly through a role** — permissions arrive either bundled inside a
 role (§5) or as an independent add-on (§6). `PLATFORM_ADMIN` bundles
 exactly one permission, `CREATE_ORGANIZATION` — moved from being its
-own `RtsRole` (it used to be, unbundled) to a platform-tier
-`RtsPermission` once it became clear a platform user might reasonably
+own `EsrRole` (it used to be, unbundled) to a platform-tier
+`EsrPermission` once it became clear a platform user might reasonably
 need *just* the ability to create an organization, granted as an
 add-on (§6), without full `PLATFORM_ADMIN`. Not every role needs a
 non-empty `permissions` set — `PLATFORM_ADMIN` is still also checked
@@ -64,27 +64,27 @@ corresponding permission of their own.
 Each enum has a `code` (short DB persistence code, unrelated to
 Kotlin's `.name`) and `tier` (`SchemaLevel.PLATFORM`/`ORGANIZATION`/
 `LOCATION` — which `<Tier>RoleAssignmentService`/permission-assignment
-table a grant's rows live in). `RtsRole` additionally has
+table a grant's rows live in). `EsrRole` additionally has
 `requiredRoles` (§2).
 
-**`RtsRoleNames`/`RtsPermissionNames`** are plain `const val` string
+**`EsrRoleNames`/`EsrPermissionNames`** are plain `const val` string
 mirrors of the two enums, existing **only** because a Kotlin
 annotation argument (`@PreAuthorize("hasRole('...')")`,
 `hasAuthority('...')`) must be a compile-time constant —
-`RtsRole.SOME_ROLE.name` is a property/method call and will not
+`EsrRole.SOME_ROLE.name` is a property/method call and will not
 compile inside an annotation, so there is no way to have
 `@PreAuthorize` reference the enum type directly. This mirrors
 `util/model/TableNames.kt` next to `util/model/TableName.kt` — same
 kind of split, same reason.
 
 **Nothing enforces the enum/const-object pairs stay in sync except
-`RtsRoleNamesTest`/`RtsPermissionNamesTest`**
+`EsrRoleNamesTest`/`EsrPermissionNamesTest`**
 (`src/test/.../util/enums/`), which each assert the const object's
 values match the corresponding enum's entry names exactly, both
 directions. Add an entry in one file without the other and one of
 these tests — not the compiler — is what catches it.
-`RtsRoleBundleCoverageTest` (same directory) is a third, different
-guard: every `RtsPermission` must appear in at least one `RtsRole`'s
+`EsrRoleBundleCoverageTest` (same directory) is a third, different
+guard: every `EsrPermission` must appear in at least one `EsrRole`'s
 `permissions` set, so a permission that can only ever be granted as an
 add-on (§6) — never through any role — fails loudly instead of
 quietly becoming impossible to bundle. `TableNames`/`TableName` has no
@@ -96,11 +96,11 @@ A role can declare other roles that must already be held before it can
 be granted (`RoleGrantService.assignRole`: throws if any
 `role.requiredRoles` entry isn't held). Nothing in this codebase
 currently populates `requiredRoles` with anything — the mechanism
-exists and is enforced, but every `RtsRole` entry today has an empty
+exists and is enforced, but every `EsrRole` entry today has an empty
 list. When you do use it: removing a role cascades to remove every
 *other* role currently held that lists it as required
 (`RoleGrantService.removeRoleAndDependents`, recursive) — this is
-the only cascade that crosses `RtsRole` entries; it says nothing about
+the only cascade that crosses `EsrRole` entries; it says nothing about
 membership (§3 is a separate, unrelated cascade).
 
 ## 3. Org/location roles require an active membership row — structurally
@@ -171,7 +171,7 @@ never carries either.
 
 ## 5. Roles batch-grant/revoke their bundled permissions — for free
 
-Because a role's permission set is code-defined on the `RtsRole` entry
+Because a role's permission set is code-defined on the `EsrRole` entry
 itself, there is no per-permission bookkeeping when a role is
 granted or revoked. Assigning `MANAGE_ORGANIZATION_USERS` is **one row**
 insert into `org_role_assignment`; every permission in its bundle
@@ -188,8 +188,8 @@ vanish as a unit when the role goes, while an add-on grant must not.
 `MANAGE_ORGANIZATION_USERS`/`VIEW_ORGANIZATION_USERS`/`LIBERTY_ADMIN` (`ORGANIZATION` tier,
 `LIBERTY_ADMIN` bundling only the `LIBERTY_ADMIN` permission) and
 `PLATFORM_ADMIN` (`PLATFORM` tier, bundling only `CREATE_ORGANIZATION`
-— see §1) are the only `RtsRole` entries with a non-empty `permissions`
-set today. There is currently no `RtsRole` at `LOCATION` tier at all, so
+— see §1) are the only `EsrRole` entries with a non-empty `permissions`
+set today. There is currently no `EsrRole` at `LOCATION` tier at all, so
 `location_role_assignment` is fully scaffolded (mirrors the org/platform
 shape, including the `location_user_id` membership FK from §3) but
 has no live entry to grant through it yet.
@@ -199,7 +199,7 @@ has no live entry to grant through it yet.
 `org_permission_assignment` is a second table, structurally identical
 to `org_role_assignment` (same membership-FK pattern from §3, same
 `@Audited`, same cascade-delete-on-membership-termination), except it
-stores an `RtsPermission` directly rather than an `RtsRole`. This is
+stores an `EsrPermission` directly rather than an `EsrRole`. This is
 the mechanism for granting one specific permission to a user *without*
 promoting them to whichever role happens to bundle it —
 `PermissionGrantService.assignPermission`/`removePermission`.
@@ -232,7 +232,7 @@ rule for anything still missing — nothing else currently needs it.
 These two permissions gate who can call the assignment endpoints for their
 respective tier (§8) — i.e. who can grant/revoke *other* roles and
 permissions within that org or location. They are deliberately **add-on
-only**: `RtsRoleBundleCoverageTest` (§1) exempts them by name, with a
+only**: `EsrRoleBundleCoverageTest` (§1) exempts them by name, with a
 comment explaining why — bundling a privilege-escalation-shaped permission
 into a general-purpose role (e.g. folding it into `MANAGE_ORGANIZATION_USERS`) would
 make escalation implicit and unreviewable at grant time. Anyone who should
@@ -259,8 +259,8 @@ after the new location's schema and row are created — same pattern `Organizati
 uses to switch into the freshly created org schema before calling `organizationUserService.registerFounder`
 — then calls `locationUserService.registerFounder(locationDto.createdById)`. That creates a
 `location_user` membership for whoever created the location (today gated by
-`@rtsPermissions.isOrganizationAdmin()` on `LocationEndpoint.createLocation` — a legacy
-admin-history check, not an `RtsPermission`/`RtsRole` grant) and grants them
+`@esrPermissions.isOrganizationAdmin()` on `LocationEndpoint.createLocation` — a legacy
+admin-history check, not an `EsrPermission`/`EsrRole` grant) and grants them
 `MANAGE_LOCATION_ACCESS` as an add-on permission, the same way the org founder gets
 `MANAGE_ORGANIZATION_ACCESS`. Unlike the org founder, the location founder is **not** also
 auto-granted a view permission today — `MANAGE_LOCATION_ACCESS` alone is enough to reach the
@@ -353,8 +353,8 @@ lookup, below) goes through a separate platform-tier service instead:
 
 - `GET secured/authorities/per-role?role=X` — **open to any
   authenticated user**, no `@PreAuthorize` at all. Returns a
-  `List<PermissionResponse>` (`permission: RtsPermission`,
-  `role: RtsRole`) — one entry per permission that role bundles, each
+  `List<PermissionResponse>` (`permission: EsrPermission`,
+  `role: EsrRole`) — one entry per permission that role bundles, each
   tagged with the role so a UI calling this per-role over time can
   accumulate and group a combined dataset without losing which role
   each permission came from. Knowing what a named role bundles isn't
@@ -402,8 +402,8 @@ so it doesn't belong in the shared, cross-tier class any more than
 mirror `Authority.name`/`Authority.type` — the same two fields the
 platform catalog (`getPlatformCatalog`) already returns per row — so a
 caller can go straight from a row in that list to this lookup without
-reshaping anything. Resolving the pair into an actual `RtsRole` or
-`RtsPermission` (by `valueOf`, rejecting an unknown name or one that
+reshaping anything. Resolving the pair into an actual `EsrRole` or
+`EsrPermission` (by `valueOf`, rejecting an unknown name or one that
 isn't `PLATFORM`-tier) happens in `PlatformAuthorityLookup.of`, a
 private sealed interface (`ByRole`/`ByPermission`) living in the same
 file as `PlatformAuthorityHolderService`, that turns "exactly one of

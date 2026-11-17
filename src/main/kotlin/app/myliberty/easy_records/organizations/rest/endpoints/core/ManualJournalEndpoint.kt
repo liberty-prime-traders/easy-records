@@ -7,7 +7,7 @@ import app.myliberty.easy_records.organizations.business.core.manual_journal.api
 import app.myliberty.easy_records.organizations.business.core.manual_journal.api.ManualJournalService
 import app.myliberty.easy_records.platform.business.feature.api.Feature
 import app.myliberty.easy_records.util.annotations.RequiresFeature
-import app.myliberty.easy_records.util.enums.RtsPermissionNames
+import app.myliberty.easy_records.util.enums.EsrPermissionNames
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -25,18 +25,18 @@ class ManualJournalEndpoint(
 ) {
 
     @PostMapping
-    @PreAuthorize("hasAuthority('${RtsPermissionNames.CREATE_MANUAL_JOURNAL}')")
+    @PreAuthorize("hasAuthority('${EsrPermissionNames.CREATE_MANUAL_JOURNAL}')")
     fun create(@RequestBody manualJournalCreateDto: ManualJournalCreateDto): ManualJournalResponseDto =
         manualJournalService.create(manualJournalCreateDto)
 
     @PostMapping("{referenceNumber}/reversal")
-    @PreAuthorize("hasAuthority('${RtsPermissionNames.REVERSE_MANUAL_JOURNAL}')")
+    @PreAuthorize("hasAuthority('${EsrPermissionNames.REVERSE_MANUAL_JOURNAL}')")
     fun reverse(
         @PathVariable referenceNumber: String,
         @RequestBody manualJournalReversalCreateDto: ManualJournalReversalCreateDto
     ): ManualJournalResponseDto = manualJournalService.reverse(referenceNumber, manualJournalReversalCreateDto)
 
     @GetMapping
-    @PreAuthorize("hasAuthority('${RtsPermissionNames.VIEW_MANUAL_JOURNAL}')")
+    @PreAuthorize("hasAuthority('${EsrPermissionNames.VIEW_MANUAL_JOURNAL}')")
     fun getAll(): List<ManualJournalResponseDto> = manualJournalDataFetcher.getAll()
 }

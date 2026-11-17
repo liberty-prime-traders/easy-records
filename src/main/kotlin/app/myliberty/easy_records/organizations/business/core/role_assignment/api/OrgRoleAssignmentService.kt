@@ -5,7 +5,7 @@ import app.myliberty.easy_records.cross_tier.core.authority.GrantedRole
 import app.myliberty.easy_records.organizations.business.core.role_assignment.OrgRoleAssignmentEntity
 import app.myliberty.easy_records.organizations.business.core.role_assignment.OrgRoleCache
 import app.myliberty.easy_records.util.business.DateTimes
-import app.myliberty.easy_records.util.enums.RtsRole
+import app.myliberty.easy_records.util.enums.EsrRole
 import org.springframework.stereotype.Service
 import java.util.UUID
 
@@ -13,16 +13,16 @@ import java.util.UUID
 class OrgRoleAssignmentService(private val orgRoleCache: OrgRoleCache) {
 
     @TransactionalOnOrganizationSchema(readOnly = true)
-    fun getRoles(userId: UUID): Set<RtsRole> = orgRoleCache.getOrgRoles(userId)
+    fun getRoles(userId: UUID): Set<EsrRole> = orgRoleCache.getOrgRoles(userId)
 
     @TransactionalOnOrganizationSchema(readOnly = true)
     fun getGrantedRoles(userId: UUID): List<GrantedRole> = orgRoleCache.getGrantedRoles(userId)
 
     @TransactionalOnOrganizationSchema(readOnly = true)
-    fun holds(userId: UUID, role: RtsRole): Boolean = getRoles(userId).contains(role)
+    fun holds(userId: UUID, role: EsrRole): Boolean = getRoles(userId).contains(role)
 
     @TransactionalOnOrganizationSchema
-    fun assignAll(orgUserIdsByUserId: Map<UUID, UUID>, role: RtsRole, assignedById: UUID) {
+    fun assignAll(orgUserIdsByUserId: Map<UUID, UUID>, role: EsrRole, assignedById: UUID) {
         val entities = orgUserIdsByUserId.filterKeys { userId -> !holds(userId, role) }
             .map { (userId, orgUserId) ->
                 OrgRoleAssignmentEntity(
@@ -39,12 +39,12 @@ class OrgRoleAssignmentService(private val orgRoleCache: OrgRoleCache) {
     }
 
     @TransactionalOnOrganizationSchema
-    fun remove(userId: UUID, role: RtsRole) {
+    fun remove(userId: UUID, role: EsrRole) {
         orgRoleCache.remove(userId, role)
     }
 
     @TransactionalOnOrganizationSchema
-    fun removeAll(userIds: Collection<UUID>, role: RtsRole) {
+    fun removeAll(userIds: Collection<UUID>, role: EsrRole) {
         orgRoleCache.removeAllHoldingRole(userIds, role)
     }
 

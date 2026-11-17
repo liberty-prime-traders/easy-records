@@ -5,7 +5,7 @@ import app.myliberty.easy_records.cross_tier.core.authority.GrantedRole
 import app.myliberty.easy_records.locations.business.core.role_assignment.LocationRoleAssignmentEntity
 import app.myliberty.easy_records.locations.business.core.role_assignment.LocationRoleCache
 import app.myliberty.easy_records.util.business.DateTimes
-import app.myliberty.easy_records.util.enums.RtsRole
+import app.myliberty.easy_records.util.enums.EsrRole
 import org.springframework.stereotype.Service
 import java.util.UUID
 
@@ -13,16 +13,16 @@ import java.util.UUID
 class LocationRoleAssignmentService(private val locationRoleCache: LocationRoleCache) {
 
     @TransactionalOnLocationSchema(readOnly = true)
-    fun getRoles(userId: UUID): Set<RtsRole> = locationRoleCache.getLocationRoles(userId)
+    fun getRoles(userId: UUID): Set<EsrRole> = locationRoleCache.getLocationRoles(userId)
 
     @TransactionalOnLocationSchema(readOnly = true)
     fun getGrantedRoles(userId: UUID): List<GrantedRole> = locationRoleCache.getGrantedRoles(userId)
 
     @TransactionalOnLocationSchema(readOnly = true)
-    fun holds(userId: UUID, role: RtsRole): Boolean = getRoles(userId).contains(role)
+    fun holds(userId: UUID, role: EsrRole): Boolean = getRoles(userId).contains(role)
 
     @TransactionalOnLocationSchema
-    fun assignAll(locationUserIdsByUserId: Map<UUID, UUID>, role: RtsRole, assignedById: UUID) {
+    fun assignAll(locationUserIdsByUserId: Map<UUID, UUID>, role: EsrRole, assignedById: UUID) {
         val entities = locationUserIdsByUserId.filterKeys { userId -> !holds(userId, role) }
             .map { (userId, locationUserId) ->
                 LocationRoleAssignmentEntity(
@@ -39,12 +39,12 @@ class LocationRoleAssignmentService(private val locationRoleCache: LocationRoleC
     }
 
     @TransactionalOnLocationSchema
-    fun remove(userId: UUID, role: RtsRole) {
+    fun remove(userId: UUID, role: EsrRole) {
         locationRoleCache.remove(userId, role)
     }
 
     @TransactionalOnLocationSchema
-    fun removeAll(userIds: Collection<UUID>, role: RtsRole) {
+    fun removeAll(userIds: Collection<UUID>, role: EsrRole) {
         locationRoleCache.removeAllHoldingRole(userIds, role)
     }
 

@@ -1,7 +1,7 @@
 package app.myliberty.easy_records.organizations.rest.endpoints.core
 
 import app.myliberty.easy_records.organizations.business.core.liberty_access.api.LibertyAccessService
-import app.myliberty.easy_records.util.enums.RtsPermission
+import app.myliberty.easy_records.util.enums.EsrPermission
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -13,6 +13,6 @@ class LibertyAccessEndpoint(private val libertyAccessService: LibertyAccessServi
 
     @GetMapping
     @PreAuthorize("permitAll()")
-    fun getLibertyPermissionsOfCurrentUser(): List<RtsPermission> =
+    fun getLibertyPermissionsOfCurrentUser(): List<EsrPermission> =
         libertyAccessService.getLibertyPermissionsOfCurrentUser()
 }

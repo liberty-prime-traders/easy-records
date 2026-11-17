@@ -3,8 +3,8 @@ package app.myliberty.easy_records.util.model
 import jakarta.persistence.Column
 import jakarta.persistence.Convert
 import jakarta.persistence.MappedSuperclass
-import app.myliberty.easy_records.util.enums.RtsRole
-import app.myliberty.easy_records.util.enums.RtsRoleConverter
+import app.myliberty.easy_records.util.enums.EsrRole
+import app.myliberty.easy_records.util.enums.EsrRoleConverter
 import java.time.OffsetDateTime
 import java.util.UUID
 
@@ -15,8 +15,8 @@ abstract class RoleAssignmentEntity(
     var userId: UUID,
 
     @Column(name = "role", nullable = false, length = 5)
-    @Convert(converter = RtsRoleConverter::class)
-    var role: RtsRole,
+    @Convert(converter = EsrRoleConverter::class)
+    var role: EsrRole,
 
     @Column(name = "assigned_at", nullable = false)
     var assignedAt: OffsetDateTime,

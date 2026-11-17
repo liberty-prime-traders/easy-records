@@ -7,8 +7,8 @@ import app.myliberty.easy_records.organizations.business.core.permission_assignm
 import app.myliberty.easy_records.organizations.business.core.role_assignment.api.OrgRoleAssignmentService
 import app.myliberty.easy_records.platform.business.permission_assignment.api.PlatformPermissionAssignmentService
 import app.myliberty.easy_records.platform.business.role_assignment.api.PlatformRoleAssignmentService
-import app.myliberty.easy_records.util.enums.RtsPermission
-import app.myliberty.easy_records.util.enums.RtsRole
+import app.myliberty.easy_records.util.enums.EsrPermission
+import app.myliberty.easy_records.util.enums.EsrRole
 import org.springframework.stereotype.Service
 import java.util.UUID
 
@@ -22,8 +22,8 @@ class EffectiveAuthorizationService(
     private val locationPermissionAssignmentService: LocationPermissionAssignmentService
 ) {
 
-    fun getEffectiveRoles(userId: UUID): Set<RtsRole> {
-        val roles = mutableSetOf<RtsRole>()
+    fun getEffectiveRoles(userId: UUID): Set<EsrRole> {
+        val roles = mutableSetOf<EsrRole>()
         roles += platformRoleAssignmentService.getRoles(userId)
         if (SessionContextProvider.getOrganizationIdOrNull() != null) {
             roles += orgRoleAssignmentService.getRoles(userId)
@@ -34,7 +34,7 @@ class EffectiveAuthorizationService(
         return roles
     }
 
-    fun getEffectivePermissions(userId: UUID): Set<RtsPermission> {
+    fun getEffectivePermissions(userId: UUID): Set<EsrPermission> {
         val fromRoles = getEffectiveRoles(userId).flatMap { it.permissions }
         val directPlatform = platformPermissionAssignmentService.getPermissions(userId)
         val directOrg = if (SessionContextProvider.getOrganizationIdOrNull() != null) {

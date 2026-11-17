@@ -1,6 +1,6 @@
 package app.myliberty.easy_records.util.enums
 
-enum class RtsPermission(
+enum class EsrPermission(
     override val code: String,
     val tier: SchemaLevel
 ) : HasCode {

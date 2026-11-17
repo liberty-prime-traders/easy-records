@@ -4,7 +4,7 @@ import app.myliberty.easy_records.platform.business.authorization_pass.api.Autho
 import app.myliberty.easy_records.platform.business.authorization_pass.api.AuthorizationPassResponseDto
 import app.myliberty.easy_records.platform.business.authorization_pass.api.AuthorizationPassService
 import app.myliberty.easy_records.platform.business.authorization_pass.api.AuthorizationPassUpdateDto
-import app.myliberty.easy_records.util.enums.RtsRoleNames
+import app.myliberty.easy_records.util.enums.EsrRoleNames
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -17,7 +17,7 @@ import java.util.UUID
 
 @RestController
 @RequestMapping("secured/authorization-passes")
-@PreAuthorize("hasRole('${RtsRoleNames.PLATFORM_ADMIN}')")
+@PreAuthorize("hasRole('${EsrRoleNames.PLATFORM_ADMIN}')")
 class AuthorizationPassEndpoint(private val authorizationPassService: AuthorizationPassService) {
 
     @GetMapping

@@ -5,7 +5,7 @@ import app.myliberty.easy_records.cross_tier.core.authority.AuthorityGrant
 import app.myliberty.easy_records.platform.business.role_assignment.PlatformRoleAssignmentEntity
 import app.myliberty.easy_records.platform.business.role_assignment.PlatformRoleCache
 import app.myliberty.easy_records.util.business.DateTimes
-import app.myliberty.easy_records.util.enums.RtsRole
+import app.myliberty.easy_records.util.enums.EsrRole
 import org.springframework.stereotype.Service
 import java.util.UUID
 
@@ -13,16 +13,16 @@ import java.util.UUID
 class PlatformRoleAssignmentService(private val platformRoleCache: PlatformRoleCache) {
 
     @TransactionalOnPlatformSchema(readOnly = true)
-    fun getRoles(userId: UUID): Set<RtsRole> = platformRoleCache.getPlatformRoles(userId)
+    fun getRoles(userId: UUID): Set<EsrRole> = platformRoleCache.getPlatformRoles(userId)
 
     @TransactionalOnPlatformSchema(readOnly = true)
-    fun holds(userId: UUID, role: RtsRole): Boolean = getRoles(userId).contains(role)
+    fun holds(userId: UUID, role: EsrRole): Boolean = getRoles(userId).contains(role)
 
     @TransactionalOnPlatformSchema(readOnly = true)
-    fun getHolders(role: RtsRole): List<AuthorityGrant> = platformRoleCache.getHolders(role)
+    fun getHolders(role: EsrRole): List<AuthorityGrant> = platformRoleCache.getHolders(role)
 
     @TransactionalOnPlatformSchema
-    fun assignAll(userIds: Collection<UUID>, role: RtsRole, assignedById: UUID) {
+    fun assignAll(userIds: Collection<UUID>, role: EsrRole, assignedById: UUID) {
         val entities = userIds.filterNot { holds(it, role) }
             .map { userId ->
                 PlatformRoleAssignmentEntity(
@@ -38,12 +38,12 @@ class PlatformRoleAssignmentService(private val platformRoleCache: PlatformRoleC
     }
 
     @TransactionalOnPlatformSchema
-    fun remove(userId: UUID, role: RtsRole) {
+    fun remove(userId: UUID, role: EsrRole) {
         platformRoleCache.remove(userId, role)
     }
 
     @TransactionalOnPlatformSchema
-    fun removeAll(userIds: Collection<UUID>, role: RtsRole) {
+    fun removeAll(userIds: Collection<UUID>, role: EsrRole) {
         platformRoleCache.removeAllHoldingRole(userIds, role)
     }
 }

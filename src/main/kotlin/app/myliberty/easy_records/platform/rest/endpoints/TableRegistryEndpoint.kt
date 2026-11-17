@@ -3,7 +3,7 @@ package app.myliberty.easy_records.platform.rest.endpoints
 import app.myliberty.easy_records.platform.business.table_registry.api.TableRegistryResponseDto
 import app.myliberty.easy_records.platform.business.table_registry.api.TableRegistryService
 import app.myliberty.easy_records.platform.business.table_registry.api.TableRegistryUpdateDto
-import app.myliberty.easy_records.util.enums.RtsRoleNames
+import app.myliberty.easy_records.util.enums.EsrRoleNames
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -16,7 +16,7 @@ import java.util.UUID
 
 @RestController
 @RequestMapping("secured/table-registries")
-@PreAuthorize("hasRole('${RtsRoleNames.PLATFORM_ADMIN}')")
+@PreAuthorize("hasRole('${EsrRoleNames.PLATFORM_ADMIN}')")
 class TableRegistryEndpoint(private val tableRegistryService: TableRegistryService) {
 
     @GetMapping

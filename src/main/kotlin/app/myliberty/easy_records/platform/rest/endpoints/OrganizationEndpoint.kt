@@ -6,8 +6,8 @@ import app.myliberty.easy_records.platform.business.organization.api.Organizatio
 import app.myliberty.easy_records.platform.business.organization.api.OrganizationService
 import app.myliberty.easy_records.platform.business.organization.api.OrganizationUpdateDto
 import app.myliberty.easy_records.platform.business.organization_join_request.api.OrganizationLaunchResponseDto
-import app.myliberty.easy_records.util.enums.RtsPermissionNames
-import app.myliberty.easy_records.util.enums.RtsRoleNames
+import app.myliberty.easy_records.util.enums.EsrPermissionNames
+import app.myliberty.easy_records.util.enums.EsrRoleNames
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
@@ -28,21 +28,21 @@ import java.util.UUID
 class OrganizationEndpoint(private val organizationService: OrganizationService) {
 
     @GetMapping
-    @PreAuthorize("hasRole('${RtsRoleNames.PLATFORM_ADMIN}')")
+    @PreAuthorize("hasRole('${EsrRoleNames.PLATFORM_ADMIN}')")
     fun getAllOrganizations(): Collection<OrganizationResponseDto> = organizationService.getAllOrganizations()
 
     @PostMapping
-    @PreAuthorize("hasAuthority('${RtsPermissionNames.CREATE_ORGANIZATION}')")
+    @PreAuthorize("hasAuthority('${EsrPermissionNames.CREATE_ORGANIZATION}')")
     fun createOrganization(@RequestBody dto: OrganizationInsertDto): OrganizationResponseDto =
         organizationService.createOrganization(dto)
 
     @PutMapping
-    @PreAuthorize("@rtsPermissions.isOrganizationAdmin()")
+    @PreAuthorize("@esrPermissions.isOrganizationAdmin()")
     fun updateOrganization(@RequestBody dto: OrganizationUpdateDto): OrganizationResponseDto =
         organizationService.updateOrganization(dto)
 
     @DeleteMapping
-    @PreAuthorize("@rtsPermissions.isOrganizationAdmin()")
+    @PreAuthorize("@esrPermissions.isOrganizationAdmin()")
     fun deleteOrganization(): ResponseEntity<HttpStatus> {
         organizationService.deleteOrganization()
         return ResponseEntity(HttpStatus.NO_CONTENT)
@@ -53,7 +53,7 @@ class OrganizationEndpoint(private val organizationService: OrganizationService)
         organizationService.attemptOrganizationLaunch(domain)
 
     @GetMapping("/{organizationId}/locations")
-    @PreAuthorize("hasRole('${RtsRoleNames.PLATFORM_ADMIN}')")
+    @PreAuthorize("hasRole('${EsrRoleNames.PLATFORM_ADMIN}')")
     fun getOrganizationLocations(
         @PathVariable organizationId: UUID,
     ): Collection<LocationResponseDto> {

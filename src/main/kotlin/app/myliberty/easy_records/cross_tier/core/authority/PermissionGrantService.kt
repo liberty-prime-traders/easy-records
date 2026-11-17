@@ -6,7 +6,7 @@ import app.myliberty.easy_records.locations.business.core.permission_assignment.
 import app.myliberty.easy_records.organizations.business.core.organization_user.api.OrganizationUserService
 import app.myliberty.easy_records.organizations.business.core.permission_assignment.api.OrgPermissionAssignmentService
 import app.myliberty.easy_records.platform.business.permission_assignment.api.PlatformPermissionAssignmentService
-import app.myliberty.easy_records.util.enums.RtsPermission
+import app.myliberty.easy_records.util.enums.EsrPermission
 import app.myliberty.easy_records.util.enums.SchemaLevel
 import org.springframework.stereotype.Service
 import java.util.UUID
@@ -21,11 +21,11 @@ class PermissionGrantService(
     private val locationPermissionAssignmentService: LocationPermissionAssignmentService
 ) {
 
-    fun assignPermission(userId: UUID, permission: RtsPermission) {
+    fun assignPermission(userId: UUID, permission: EsrPermission) {
         assignPermissions(listOf(userId), listOf(permission))
     }
 
-    fun assignPermissions(userIds: Collection<UUID>, permissions: Collection<RtsPermission>) {
+    fun assignPermissions(userIds: Collection<UUID>, permissions: Collection<EsrPermission>) {
         if (userIds.isEmpty() || permissions.isEmpty()) return
         val assignedById = SessionContextProvider.getUserId()
         permissions.forEach { permission ->
@@ -43,11 +43,11 @@ class PermissionGrantService(
         }
     }
 
-    fun removePermission(userId: UUID, permission: RtsPermission) {
+    fun removePermission(userId: UUID, permission: EsrPermission) {
         removePermissions(listOf(userId), listOf(permission))
     }
 
-    fun removePermissions(userIds: Collection<UUID>, permissions: Collection<RtsPermission>) {
+    fun removePermissions(userIds: Collection<UUID>, permissions: Collection<EsrPermission>) {
         if (userIds.isEmpty() || permissions.isEmpty()) return
         permissions.forEach { permission ->
             when (permission.tier) {

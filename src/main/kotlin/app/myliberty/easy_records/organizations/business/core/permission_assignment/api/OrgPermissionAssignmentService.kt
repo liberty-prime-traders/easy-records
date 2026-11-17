@@ -5,7 +5,7 @@ import app.myliberty.easy_records.cross_tier.core.authority.GrantedPermission
 import app.myliberty.easy_records.organizations.business.core.permission_assignment.OrgPermissionAssignmentEntity
 import app.myliberty.easy_records.organizations.business.core.permission_assignment.OrgPermissionCache
 import app.myliberty.easy_records.util.business.DateTimes
-import app.myliberty.easy_records.util.enums.RtsPermission
+import app.myliberty.easy_records.util.enums.EsrPermission
 import org.springframework.stereotype.Service
 import java.util.UUID
 
@@ -13,16 +13,16 @@ import java.util.UUID
 class OrgPermissionAssignmentService(private val orgPermissionCache: OrgPermissionCache) {
 
     @TransactionalOnOrganizationSchema(readOnly = true)
-    fun getPermissions(userId: UUID): Set<RtsPermission> = orgPermissionCache.getOrgPermissions(userId)
+    fun getPermissions(userId: UUID): Set<EsrPermission> = orgPermissionCache.getOrgPermissions(userId)
 
     @TransactionalOnOrganizationSchema(readOnly = true)
     fun getGrantedPermissions(userId: UUID): List<GrantedPermission> = orgPermissionCache.getGrantedPermissions(userId)
 
     @TransactionalOnOrganizationSchema(readOnly = true)
-    fun holds(userId: UUID, permission: RtsPermission): Boolean = getPermissions(userId).contains(permission)
+    fun holds(userId: UUID, permission: EsrPermission): Boolean = getPermissions(userId).contains(permission)
 
     @TransactionalOnOrganizationSchema
-    fun assignAll(orgUserIdsByUserId: Map<UUID, UUID>, permission: RtsPermission, assignedById: UUID) {
+    fun assignAll(orgUserIdsByUserId: Map<UUID, UUID>, permission: EsrPermission, assignedById: UUID) {
         val entities = orgUserIdsByUserId.filterKeys { userId -> !holds(userId, permission) }
             .map { (userId, orgUserId) ->
                 OrgPermissionAssignmentEntity(
@@ -39,12 +39,12 @@ class OrgPermissionAssignmentService(private val orgPermissionCache: OrgPermissi
     }
 
     @TransactionalOnOrganizationSchema
-    fun remove(userId: UUID, permission: RtsPermission) {
+    fun remove(userId: UUID, permission: EsrPermission) {
         orgPermissionCache.remove(userId, permission)
     }
 
     @TransactionalOnOrganizationSchema
-    fun removeAll(userIds: Collection<UUID>, permission: RtsPermission) {
+    fun removeAll(userIds: Collection<UUID>, permission: EsrPermission) {
         orgPermissionCache.removeAllHoldingPermission(userIds, permission)
     }
 

@@ -19,7 +19,7 @@ import java.util.UUID
 
 @RestController
 @RequestMapping("secured/jurisdictions")
-@PreAuthorize("@rtsPermissions.isPlatformAdmin()")
+@PreAuthorize("@esrPermissions.isPlatformAdmin()")
 class JurisdictionEndpoint(
     private val jurisdictionService: JurisdictionService
 ) {

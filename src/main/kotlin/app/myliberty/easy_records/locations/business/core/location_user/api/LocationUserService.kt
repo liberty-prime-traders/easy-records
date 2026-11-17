@@ -12,7 +12,7 @@ import app.myliberty.easy_records.locations.business.core.permission_assignment.
 import app.myliberty.easy_records.locations.business.core.role_assignment.api.LocationRoleAssignmentService
 import app.myliberty.easy_records.platform.business.sysuser.api.SysUserService
 import app.myliberty.easy_records.platform.business.sysuser.api.SysUserWithProfileDto
-import app.myliberty.easy_records.util.enums.RtsPermission
+import app.myliberty.easy_records.util.enums.EsrPermission
 import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Service
 import java.time.OffsetDateTime
@@ -76,7 +76,7 @@ class LocationUserService(
         val assignedById = SessionContextProvider.getUserId()
         locationPermissionAssignmentService.assignAll(
             mapOf(userId to membership.id),
-            RtsPermission.MANAGE_LOCATION_ACCESS,
+            EsrPermission.MANAGE_LOCATION_ACCESS,
             assignedById
         )
     }

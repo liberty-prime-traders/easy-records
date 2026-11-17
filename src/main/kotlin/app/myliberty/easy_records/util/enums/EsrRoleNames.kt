@@ -1,6 +1,6 @@
 package app.myliberty.easy_records.util.enums
 
-object RtsRoleNames {
+object EsrRoleNames {
     const val LIBERTY_ADMIN = "LIBERTY_ADMIN"
     const val MANAGE_ORGANIZATION_USERS = "MANAGE_ORGANIZATION_USERS"
     const val VIEW_ORGANIZATION_USERS = "VIEW_ORGANIZATION_USERS"

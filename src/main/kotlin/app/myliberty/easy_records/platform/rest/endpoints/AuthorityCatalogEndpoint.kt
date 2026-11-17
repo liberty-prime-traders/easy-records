@@ -6,9 +6,9 @@ import app.myliberty.easy_records.cross_tier.core.authority.AuthorityType
 import app.myliberty.easy_records.cross_tier.core.authority.AuthorizationCatalogService
 import app.myliberty.easy_records.cross_tier.core.authority.PermissionResponse
 import app.myliberty.easy_records.platform.business.authority.api.PlatformAuthorityHolderService
-import app.myliberty.easy_records.util.enums.RtsPermissionNames
-import app.myliberty.easy_records.util.enums.RtsRole
-import app.myliberty.easy_records.util.enums.RtsRoleNames
+import app.myliberty.easy_records.util.enums.EsrPermissionNames
+import app.myliberty.easy_records.util.enums.EsrRole
+import app.myliberty.easy_records.util.enums.EsrRoleNames
 import app.myliberty.easy_records.util.enums.SchemaLevel
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.GetMapping
@@ -24,16 +24,16 @@ class AuthorityCatalogEndpoint(
 ) {
 
     @GetMapping("per-role")
-    fun getPermissionsForRole(@RequestParam role: RtsRole): List<PermissionResponse> {
+    fun getPermissionsForRole(@RequestParam role: EsrRole): List<PermissionResponse> {
         return authorizationCatalogService.getPermissionsForRole(role)
     }
 
     @GetMapping("platform")
-    @PreAuthorize("hasRole('${RtsRoleNames.PLATFORM_ADMIN}')")
+    @PreAuthorize("hasRole('${EsrRoleNames.PLATFORM_ADMIN}')")
     fun getPlatformCatalog(): List<Authority> = authorizationCatalogService.getCatalogForTier(SchemaLevel.PLATFORM)
 
     @GetMapping("platform/holders")
-    @PreAuthorize("hasRole('${RtsRoleNames.PLATFORM_ADMIN}')")
+    @PreAuthorize("hasRole('${EsrRoleNames.PLATFORM_ADMIN}')")
     fun getPlatformAuthorityHolders(
         @RequestParam authorityName: String,
         @RequestParam authorityType: AuthorityType
@@ -41,10 +41,10 @@ class AuthorityCatalogEndpoint(
         platformAuthorityHolderService.getHolders(authorityName, authorityType)
 
     @GetMapping("organization")
-    @PreAuthorize("hasAuthority('${RtsPermissionNames.MANAGE_ORGANIZATION_ACCESS}')")
+    @PreAuthorize("hasAuthority('${EsrPermissionNames.MANAGE_ORGANIZATION_ACCESS}')")
     fun getOrgCatalog(): List<Authority> = authorizationCatalogService.getCatalogForTier(SchemaLevel.ORGANIZATION)
 
     @GetMapping("location")
-    @PreAuthorize("hasAuthority('${RtsPermissionNames.MANAGE_LOCATION_ACCESS}')")
+    @PreAuthorize("hasAuthority('${EsrPermissionNames.MANAGE_LOCATION_ACCESS}')")
     fun getLocationCatalog(): List<Authority> = authorizationCatalogService.getCatalogForTier(SchemaLevel.LOCATION)
 }

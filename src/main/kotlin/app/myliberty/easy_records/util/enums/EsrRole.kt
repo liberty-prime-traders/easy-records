@@ -1,21 +1,21 @@
 package app.myliberty.easy_records.util.enums
 
-enum class RtsRole(
+enum class EsrRole(
     override val code: String,
     val tier: SchemaLevel,
-    val permissions: Set<RtsPermission> = emptySet(),
-    val requiredRoles: List<RtsRole> = emptyList()
+    val permissions: Set<EsrPermission> = emptySet(),
+    val requiredRoles: List<EsrRole> = emptyList()
 ) : HasCode {
 
     MANAGE_ORGANIZATION_USERS(
         "MOGU",
         SchemaLevel.ORGANIZATION,
         permissions = setOf(
-            RtsPermission.ADD_USER_TO_LOCATION,
-            RtsPermission.REMOVE_USER_FROM_LOCATION,
-            RtsPermission.REMOVE_USER_FROM_ORG,
-            RtsPermission.VIEW_USERS_OF_LOCATION,
-            RtsPermission.VIEW_USERS_OF_ORG
+            EsrPermission.ADD_USER_TO_LOCATION,
+            EsrPermission.REMOVE_USER_FROM_LOCATION,
+            EsrPermission.REMOVE_USER_FROM_ORG,
+            EsrPermission.VIEW_USERS_OF_LOCATION,
+            EsrPermission.VIEW_USERS_OF_ORG
         )
     ),
 
@@ -23,8 +23,8 @@ enum class RtsRole(
         "VOGU",
         SchemaLevel.ORGANIZATION,
         permissions = setOf(
-            RtsPermission.VIEW_USERS_OF_LOCATION,
-            RtsPermission.VIEW_USERS_OF_ORG
+            EsrPermission.VIEW_USERS_OF_LOCATION,
+            EsrPermission.VIEW_USERS_OF_ORG
         )
     ),
 
@@ -32,17 +32,17 @@ enum class RtsRole(
         "MMJR",
         SchemaLevel.ORGANIZATION,
         permissions = setOf(
-            RtsPermission.CREATE_MANUAL_JOURNAL,
-            RtsPermission.REVERSE_MANUAL_JOURNAL,
-            RtsPermission.VIEW_MANUAL_JOURNAL
+            EsrPermission.CREATE_MANUAL_JOURNAL,
+            EsrPermission.REVERSE_MANUAL_JOURNAL,
+            EsrPermission.VIEW_MANUAL_JOURNAL
         )
     ),
 
     LIBERTY_ADMIN(
         "LBAR",
         SchemaLevel.ORGANIZATION,
-        permissions = setOf(RtsPermission.LIBERTY_ADMIN)
+        permissions = setOf(EsrPermission.LIBERTY_ADMIN)
     ),
 
-    PLATFORM_ADMIN("PLAD", SchemaLevel.PLATFORM, permissions = setOf(RtsPermission.CREATE_ORGANIZATION))
+    PLATFORM_ADMIN("PLAD", SchemaLevel.PLATFORM, permissions = setOf(EsrPermission.CREATE_ORGANIZATION))
 }

@@ -4,13 +4,13 @@ import app.myliberty.easy_records.platform.business.startup_checks.api.StartupCh
 import org.springframework.stereotype.Component
 
 @Component
-class RtsNameConsistencyCheck : StartupCheck {
+class EsrNameConsistencyCheck : StartupCheck {
 
-    override val name = "rts-role-and-permission-name-consistency"
+    override val name = "esr-role-and-permission-name-consistency"
 
     override fun check() {
-        requireNamesMatch("RtsRoleNames", RtsRoleNames::class.java, RtsRole.entries.map { it.name })
-        requireNamesMatch("RtsPermissionNames", RtsPermissionNames::class.java, RtsPermission.entries.map { it.name })
+        requireNamesMatch("EsrRoleNames", EsrRoleNames::class.java, EsrRole.entries.map { it.name })
+        requireNamesMatch("EsrPermissionNames", EsrPermissionNames::class.java, EsrPermission.entries.map { it.name })
     }
 
     private fun requireNamesMatch(label: String, constantsClass: Class<*>, enumNames: List<String>) {

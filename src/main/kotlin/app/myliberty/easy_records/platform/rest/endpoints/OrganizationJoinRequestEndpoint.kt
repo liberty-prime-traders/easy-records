@@ -22,18 +22,18 @@ class OrganizationJoinRequestEndpoint(private val organizationJoinRequestService
         organizationJoinRequestService.getUserJoinRequests()
 
     @GetMapping
-    @PreAuthorize("@rtsPermissions.isOrganizationAdmin()")
+    @PreAuthorize("@esrPermissions.isOrganizationAdmin()")
     fun getJoinRequests(): Collection<OrganizationAdminJoinRequestResponseDto> =
         organizationJoinRequestService.getOrganizationJoinRequests()
 
     @PostMapping("admit")
-    @PreAuthorize("@rtsPermissions.isOrganizationAdmin()")
+    @PreAuthorize("@esrPermissions.isOrganizationAdmin()")
     fun admitUsers(@RequestBody joinRequestIds: Collection<UUID>): Collection<OrganizationAdminJoinRequestResponseDto> {
         return organizationJoinRequestService.admitUsers(joinRequestIds)
     }
 
     @PostMapping("deny")
-    @PreAuthorize("@rtsPermissions.isOrganizationAdmin()")
+    @PreAuthorize("@esrPermissions.isOrganizationAdmin()")
     fun denyUsers(@RequestBody joinRequestIds: Collection<UUID>): Collection<OrganizationAdminJoinRequestResponseDto> {
         return organizationJoinRequestService.denyUsers(joinRequestIds)
     }

@@ -6,7 +6,7 @@ import app.myliberty.easy_records.platform.business.db_migration.api.DbMigration
 import app.myliberty.easy_records.platform.business.db_migration.api.DbMigrationService
 import app.myliberty.easy_records.platform.business.db_migration.api.OrganizationMigrationResponseDto
 import org.springframework.format.annotation.DateTimeFormat
-import app.myliberty.easy_records.util.enums.RtsRoleNames
+import app.myliberty.easy_records.util.enums.EsrRoleNames
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
@@ -18,7 +18,7 @@ import java.time.OffsetDateTime
 
 @RestController
 @RequestMapping("/secured/db-migrations")
-@PreAuthorize("hasRole('${RtsRoleNames.PLATFORM_ADMIN}')")
+@PreAuthorize("hasRole('${EsrRoleNames.PLATFORM_ADMIN}')")
 class DbMigrationEndpoint(
     private val dbMigrationService: DbMigrationService,
     private val dbMigrationHistoryService: DbMigrationHistoryService

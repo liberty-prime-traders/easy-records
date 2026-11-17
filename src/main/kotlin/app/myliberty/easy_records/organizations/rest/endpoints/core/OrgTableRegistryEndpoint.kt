@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("secured/org-table-registries")
-@PreAuthorize("@rtsPermissions.isOrganizationAdmin()")
+@PreAuthorize("@esrPermissions.isOrganizationAdmin()")
 class OrgTableRegistryEndpoint(private val orgTableRegistryService: OrgTableRegistryService) {
 
     @GetMapping

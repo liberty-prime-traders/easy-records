@@ -3,7 +3,7 @@ package app.myliberty.easy_records.organizations.business.core.permission_assign
 import app.myliberty.easy_records.configuration.cache.CacheNames
 import app.myliberty.easy_records.configuration.cache.CacheSchemaLevel
 import app.myliberty.easy_records.cross_tier.core.authority.GrantedPermission
-import app.myliberty.easy_records.util.enums.RtsPermission
+import app.myliberty.easy_records.util.enums.EsrPermission
 import app.myliberty.easy_records.util.enums.SchemaLevel
 import org.springframework.cache.annotation.CacheConfig
 import org.springframework.cache.annotation.CacheEvict
@@ -17,7 +17,7 @@ import java.util.UUID
 class OrgPermissionCache(private val orgPermissionAssignmentRepository: OrgPermissionAssignmentRepository) {
 
     @Cacheable
-    fun getOrgPermissions(userId: UUID): Set<RtsPermission> {
+    fun getOrgPermissions(userId: UUID): Set<EsrPermission> {
         return orgPermissionAssignmentRepository.findAllByUserId(userId).map { it.permission }.toSet()
     }
 
@@ -32,13 +32,13 @@ class OrgPermissionCache(private val orgPermissionAssignmentRepository: OrgPermi
     }
 
     @CacheEvict(allEntries = true)
-    fun remove(userId: UUID, permission: RtsPermission) {
+    fun remove(userId: UUID, permission: EsrPermission) {
         orgPermissionAssignmentRepository.findByUserIdAndPermission(userId, permission)
             ?.let { orgPermissionAssignmentRepository.delete(it) }
     }
 
     @CacheEvict(allEntries = true)
-    fun removeAllHoldingPermission(userIds: Collection<UUID>, permission: RtsPermission) {
+    fun removeAllHoldingPermission(userIds: Collection<UUID>, permission: EsrPermission) {
         orgPermissionAssignmentRepository.deleteAll(
             orgPermissionAssignmentRepository.findAllByUserIdInAndPermission(userIds, permission)
         )

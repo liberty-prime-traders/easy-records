@@ -2,7 +2,7 @@ package app.myliberty.easy_records.platform.rest.endpoints
 
 import app.myliberty.easy_records.platform.business.db_version.api.DbVersionResponseDto
 import app.myliberty.easy_records.platform.business.db_version.api.DbVersionService
-import app.myliberty.easy_records.util.enums.RtsRoleNames
+import app.myliberty.easy_records.util.enums.EsrRoleNames
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -13,7 +13,7 @@ import java.util.UUID
 
 @RestController
 @RequestMapping("/secured/db-versions")
-@PreAuthorize("hasRole('${RtsRoleNames.PLATFORM_ADMIN}')")
+@PreAuthorize("hasRole('${EsrRoleNames.PLATFORM_ADMIN}')")
 class DbVersionEndpoint(private val dbVersionService: DbVersionService) {
 
     @GetMapping

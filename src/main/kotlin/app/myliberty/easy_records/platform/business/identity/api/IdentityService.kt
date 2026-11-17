@@ -11,8 +11,8 @@ import app.myliberty.easy_records.platform.business.permission_assignment.api.Pl
 import app.myliberty.easy_records.platform.business.role_assignment.api.PlatformRoleAssignmentService
 import app.myliberty.easy_records.platform.business.sysuser.api.SysUserService
 import app.myliberty.easy_records.util.business.DateTimes
-import app.myliberty.easy_records.util.enums.RtsPermission
-import app.myliberty.easy_records.util.enums.RtsRole
+import app.myliberty.easy_records.util.enums.EsrPermission
+import app.myliberty.easy_records.util.enums.EsrRole
 import app.myliberty.easy_records.util.enums.SchemaLevel
 import app.myliberty.easy_records.util.exceptions.AuthException
 import app.myliberty.easy_records.util.exceptions.LibertyGenericException
@@ -124,20 +124,20 @@ class IdentityService(
     private fun verifyRequestedRoles(
         userId: UUID,
         requestedRoleNames: List<String>
-    ): List<RtsRole> {
+    ): List<EsrRole> {
         val heldPlatformRoles = platformRoleAssignmentService.getRoles(userId)
         return requestedRoleNames
-            .mapNotNull { name -> runCatching { RtsRole.valueOf(name) }.getOrNull() }
+            .mapNotNull { name -> runCatching { EsrRole.valueOf(name) }.getOrNull() }
             .filter { it.tier == SchemaLevel.PLATFORM && it in heldPlatformRoles }
     }
 
     private fun verifyRequestedPermissions(
         userId: UUID,
         requestedPermissionNames: List<String>
-    ): List<RtsPermission> {
+    ): List<EsrPermission> {
         val heldPlatformPermissions = platformPermissionAssignmentService.getPermissions(userId)
         return requestedPermissionNames
-            .mapNotNull { name -> runCatching { RtsPermission.valueOf(name) }.getOrNull() }
+            .mapNotNull { name -> runCatching { EsrPermission.valueOf(name) }.getOrNull() }
             .filter { it.tier == SchemaLevel.PLATFORM && it in heldPlatformPermissions }
     }
 }

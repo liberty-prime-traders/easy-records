@@ -1,6 +1,6 @@
 package app.myliberty.easy_records.util.enums
 
-object RtsPermissionNames {
+object EsrPermissionNames {
     const val ADD_USER_TO_LOCATION = "ADD_USER_TO_LOCATION"
     const val CREATE_ORGANIZATION = "CREATE_ORGANIZATION"
     const val MANAGE_LOCATION_ACCESS = "MANAGE_LOCATION_ACCESS"

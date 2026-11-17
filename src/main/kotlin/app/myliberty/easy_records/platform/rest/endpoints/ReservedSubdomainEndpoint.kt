@@ -2,8 +2,8 @@ package app.myliberty.easy_records.platform.rest.endpoints
 
 import app.myliberty.easy_records.platform.business.reserved_subdomain.api.ReservedSubdomainDto
 import app.myliberty.easy_records.platform.business.reserved_subdomain.api.ReservedSubdomainService
-import app.myliberty.easy_records.util.enums.RtsPermissionNames
-import app.myliberty.easy_records.util.enums.RtsRoleNames
+import app.myliberty.easy_records.util.enums.EsrPermissionNames
+import app.myliberty.easy_records.util.enums.EsrRoleNames
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
@@ -22,16 +22,16 @@ import java.util.UUID
 class ReservedSubdomainEndpoint(private val reservedSubdomainService: ReservedSubdomainService) {
 
     @GetMapping("verify")
-    @PreAuthorize("hasAuthority('${RtsPermissionNames.CREATE_ORGANIZATION}')")
+    @PreAuthorize("hasAuthority('${EsrPermissionNames.CREATE_ORGANIZATION}')")
     fun sanitizeThenReserveSubdomain(@RequestParam("suggestedSubdomain") suggestedSubdomain: String): ReservedSubdomainDto =
         reservedSubdomainService.sanitizeThenReserveSubdomain(suggestedSubdomain)
 
     @GetMapping
-    @PreAuthorize("hasRole('${RtsRoleNames.PLATFORM_ADMIN}')")
+    @PreAuthorize("hasRole('${EsrRoleNames.PLATFORM_ADMIN}')")
     fun getAllReservedSubdomains(): Collection<ReservedSubdomainDto> = reservedSubdomainService.getReservedSubdomains()
 
     @DeleteMapping("{id}")
-    @PreAuthorize("hasRole('${RtsRoleNames.PLATFORM_ADMIN}')")
+    @PreAuthorize("hasRole('${EsrRoleNames.PLATFORM_ADMIN}')")
     fun releaseSubdomain(@PathVariable id: UUID): ResponseEntity<HttpStatus> {
         reservedSubdomainService.releaseSubdomain(id)
         return ResponseEntity(HttpStatus.NO_CONTENT)

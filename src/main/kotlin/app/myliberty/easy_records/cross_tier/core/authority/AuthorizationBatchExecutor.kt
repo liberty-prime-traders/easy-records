@@ -3,8 +3,8 @@ package app.myliberty.easy_records.cross_tier.core.authority
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnPlatformSchema
-import app.myliberty.easy_records.util.enums.RtsPermission
-import app.myliberty.easy_records.util.enums.RtsRole
+import app.myliberty.easy_records.util.enums.EsrPermission
+import app.myliberty.easy_records.util.enums.EsrRole
 import org.springframework.stereotype.Service
 import java.util.UUID
 
@@ -40,8 +40,8 @@ class AuthorizationBatchExecutor(
 
     private fun apply(
         request: AuthorizationAssignmentRequest,
-        roleAction: (Collection<UUID>, Collection<RtsRole>) -> Unit,
-        permissionAction: (Collection<UUID>, Collection<RtsPermission>) -> Unit
+        roleAction: (Collection<UUID>, Collection<EsrRole>) -> Unit,
+        permissionAction: (Collection<UUID>, Collection<EsrPermission>) -> Unit
     ) {
         roleAction(request.userIds, request.roles)
         permissionAction(request.userIds, request.permissions)

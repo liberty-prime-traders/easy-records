@@ -5,8 +5,8 @@ import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import app.myliberty.easy_records.cucumber.support.TestUserRegistry
 import app.myliberty.easy_records.support.TestConstants
-import app.myliberty.easy_records.util.enums.RtsPermissionNames
-import app.myliberty.easy_records.util.enums.RtsRoleNames
+import app.myliberty.easy_records.util.enums.EsrPermissionNames
+import app.myliberty.easy_records.util.enums.EsrRoleNames
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.oauth2.jwt.Jwt
@@ -37,8 +37,8 @@ class TestAuthenticationFilter : OncePerRequestFilter() {
       TestConstants.Tokens.PLATFORM_ADMIN -> TestUserRegistry.platformAdminUserId?.let {
         TestPrincipal(
           systemUserId = it.toString(),
-          roles = listOf(RtsRoleNames.PLATFORM_ADMIN),
-          permissions = listOf(RtsPermissionNames.CREATE_ORGANIZATION)
+          roles = listOf(EsrRoleNames.PLATFORM_ADMIN),
+          permissions = listOf(EsrPermissionNames.CREATE_ORGANIZATION)
         )
       }
       TestConstants.Tokens.ORG_USER -> TestUserRegistry.organizationUserId?.let {

@@ -19,17 +19,17 @@ import org.springframework.web.bind.annotation.RestController
 class LocationEndpoint(private val locationService: LocationService) {
 
     @GetMapping
-    @PreAuthorize("@rtsPermissions.isOrganizationMember()")
+    @PreAuthorize("@esrPermissions.isOrganizationMember()")
     fun getForOrganization(): Collection<LocationResponseDto> =
         locationService.getAllLocations()
 
     @PostMapping
-    @PreAuthorize("@rtsPermissions.isOrganizationAdmin()")
+    @PreAuthorize("@esrPermissions.isOrganizationAdmin()")
     fun createLocation(@RequestBody locationInsertDto: LocationInsertDto): LocationResponseDto =
         locationService.createLocation(locationInsertDto)
 
     @PutMapping
-    @PreAuthorize("@rtsPermissions.isOrganizationAdmin()")
+    @PreAuthorize("@esrPermissions.isOrganizationAdmin()")
     fun updateLocation(@RequestBody locationUpdateDto: LocationUpdateDto): LocationResponseDto =
         locationService.updateLocation(locationUpdateDto)
 

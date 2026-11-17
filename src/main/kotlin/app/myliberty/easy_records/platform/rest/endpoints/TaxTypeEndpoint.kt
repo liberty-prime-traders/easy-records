@@ -19,7 +19,7 @@ import java.util.UUID
 
 @RestController
 @RequestMapping("secured/tax-types")
-@PreAuthorize("@rtsPermissions.isPlatformAdmin()")
+@PreAuthorize("@esrPermissions.isPlatformAdmin()")
 class TaxTypeEndpoint(private val taxTypeService: TaxTypeService) {
 
     @GetMapping

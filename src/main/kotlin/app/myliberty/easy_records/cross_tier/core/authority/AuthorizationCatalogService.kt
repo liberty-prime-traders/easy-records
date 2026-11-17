@@ -2,8 +2,8 @@ package app.myliberty.easy_records.cross_tier.core.authority
 
 import app.myliberty.easy_records.platform.business.permission_assignment.api.PlatformPermissionAssignmentService
 import app.myliberty.easy_records.platform.business.role_assignment.api.PlatformRoleAssignmentService
-import app.myliberty.easy_records.util.enums.RtsPermission
-import app.myliberty.easy_records.util.enums.RtsRole
+import app.myliberty.easy_records.util.enums.EsrPermission
+import app.myliberty.easy_records.util.enums.EsrRole
 import app.myliberty.easy_records.util.enums.SchemaLevel
 import org.springframework.stereotype.Service
 
@@ -15,14 +15,14 @@ class AuthorizationCatalogService(
 
     fun getCatalogForTier(tier: SchemaLevel): List<Authority> = catalogFor(
         tier,
-        RtsRole.entries.filter { it.tier == tier },
-        RtsPermission.entries.filter { it.tier == tier }
+        EsrRole.entries.filter { it.tier == tier },
+        EsrPermission.entries.filter { it.tier == tier }
     )
 
-    fun getPermissionsForRole(role: RtsRole): List<PermissionResponse> =
+    fun getPermissionsForRole(role: EsrRole): List<PermissionResponse> =
         role.permissions.map { PermissionResponse(it, role) }
 
-    private fun catalogFor(tier: SchemaLevel, roles: List<RtsRole>, permissions: List<RtsPermission>): List<Authority> {
+    private fun catalogFor(tier: SchemaLevel, roles: List<EsrRole>, permissions: List<EsrPermission>): List<Authority> {
         val roleAuthorities = roles.map {
             Authority(it.name, it.tier, AuthorityType.ROLE, holderCountOf(tier, it))
         }
@@ -32,10 +32,10 @@ class AuthorizationCatalogService(
         return roleAuthorities + permissionAuthorities
     }
 
-    private fun holderCountOf(tier: SchemaLevel, role: RtsRole): Int? =
+    private fun holderCountOf(tier: SchemaLevel, role: EsrRole): Int? =
         if (tier == SchemaLevel.PLATFORM) platformRoleAssignmentService.getHolders(role).size else null
 
-    private fun holderCountOf(tier: SchemaLevel, permission: RtsPermission): Int? =
+    private fun holderCountOf(tier: SchemaLevel, permission: EsrPermission): Int? =
         if (tier == SchemaLevel.PLATFORM) {
             platformPermissionAssignmentService.getHolders(permission).size
         } else {

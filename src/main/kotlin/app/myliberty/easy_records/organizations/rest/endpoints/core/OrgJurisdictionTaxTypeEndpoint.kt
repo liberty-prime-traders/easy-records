@@ -20,7 +20,7 @@ import java.util.UUID
 
 @RestController
 @RequestMapping("secured/org-tax-types")
-@PreAuthorize("@rtsPermissions.isOrganizationAdmin()")
+@PreAuthorize("@esrPermissions.isOrganizationAdmin()")
 @RequiresFeature(Feature.TAX_CONFIGURATION)
 class OrgJurisdictionTaxTypeEndpoint(
     private val orgJurisdictionTaxTypeService: OrgJurisdictionTaxTypeService,

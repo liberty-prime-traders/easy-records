@@ -86,7 +86,7 @@ Reversal also reports "A reversal cannot be reversed." and "This manual journal 
 
 ## Permission
 
-`RtsPermission.CREATE_MANUAL_JOURNAL` (`CMJ`) gates create, and `RtsPermission.REVERSE_MANUAL_JOURNAL` (`RMJ`) gates reverse. Both are organization tier. `RtsRole.MANAGE_MANUAL_JOURNALS` (`MMJR`) bundles both. The GET requires `RtsPermission.VIEW_MANUAL_JOURNAL` (`VMJ`).
+`EsrPermission.CREATE_MANUAL_JOURNAL` (`CMJ`) gates create, and `EsrPermission.REVERSE_MANUAL_JOURNAL` (`RMJ`) gates reverse. Both are organization tier. `EsrRole.MANAGE_MANUAL_JOURNALS` (`MMJR`) bundles both. The GET requires `EsrPermission.VIEW_MANUAL_JOURNAL` (`VMJ`).
 
 ## Known gaps
 

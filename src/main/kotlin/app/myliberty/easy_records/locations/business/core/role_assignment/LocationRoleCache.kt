@@ -3,7 +3,7 @@ package app.myliberty.easy_records.locations.business.core.role_assignment
 import app.myliberty.easy_records.configuration.cache.CacheNames
 import app.myliberty.easy_records.configuration.cache.CacheSchemaLevel
 import app.myliberty.easy_records.cross_tier.core.authority.GrantedRole
-import app.myliberty.easy_records.util.enums.RtsRole
+import app.myliberty.easy_records.util.enums.EsrRole
 import app.myliberty.easy_records.util.enums.SchemaLevel
 import org.springframework.cache.annotation.CacheConfig
 import org.springframework.cache.annotation.CacheEvict
@@ -17,7 +17,7 @@ import java.util.UUID
 class LocationRoleCache(private val locationRoleAssignmentRepository: LocationRoleAssignmentRepository) {
 
     @Cacheable
-    fun getLocationRoles(userId: UUID): Set<RtsRole> {
+    fun getLocationRoles(userId: UUID): Set<EsrRole> {
         return locationRoleAssignmentRepository.findAllByUserId(userId).map { it.role }.toSet()
     }
 
@@ -32,13 +32,13 @@ class LocationRoleCache(private val locationRoleAssignmentRepository: LocationRo
     }
 
     @CacheEvict(allEntries = true)
-    fun remove(userId: UUID, role: RtsRole) {
+    fun remove(userId: UUID, role: EsrRole) {
         locationRoleAssignmentRepository.findByUserIdAndRole(userId, role)
             ?.let { locationRoleAssignmentRepository.delete(it) }
     }
 
     @CacheEvict(allEntries = true)
-    fun removeAllHoldingRole(userIds: Collection<UUID>, role: RtsRole) {
+    fun removeAllHoldingRole(userIds: Collection<UUID>, role: EsrRole) {
         locationRoleAssignmentRepository.deleteAll(locationRoleAssignmentRepository.findAllByUserIdInAndRole(userIds, role))
     }
 

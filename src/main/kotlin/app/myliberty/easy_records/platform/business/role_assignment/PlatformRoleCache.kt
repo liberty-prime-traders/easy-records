@@ -2,7 +2,7 @@ package app.myliberty.easy_records.platform.business.role_assignment
 
 import app.myliberty.easy_records.configuration.cache.CacheNames
 import app.myliberty.easy_records.cross_tier.core.authority.AuthorityGrant
-import app.myliberty.easy_records.util.enums.RtsRole
+import app.myliberty.easy_records.util.enums.EsrRole
 import org.springframework.cache.annotation.CacheConfig
 import org.springframework.cache.annotation.CacheEvict
 import org.springframework.cache.annotation.Cacheable
@@ -14,12 +14,12 @@ import java.util.UUID
 class PlatformRoleCache(private val platformRoleAssignmentRepository: PlatformRoleAssignmentRepository) {
 
     @Cacheable
-    fun getPlatformRoles(userId: UUID): Set<RtsRole> {
+    fun getPlatformRoles(userId: UUID): Set<EsrRole> {
         return platformRoleAssignmentRepository.findAllByUserId(userId).map { it.role }.toSet()
     }
 
     @Cacheable
-    fun getHolders(role: RtsRole): List<AuthorityGrant> {
+    fun getHolders(role: EsrRole): List<AuthorityGrant> {
         return platformRoleAssignmentRepository.findAllByRole(role).map { AuthorityGrant(it.userId, it.assignedAt) }
     }
 
@@ -29,13 +29,13 @@ class PlatformRoleCache(private val platformRoleAssignmentRepository: PlatformRo
     }
 
     @CacheEvict(allEntries = true)
-    fun remove(userId: UUID, role: RtsRole) {
+    fun remove(userId: UUID, role: EsrRole) {
         platformRoleAssignmentRepository.findByUserIdAndRole(userId, role)
             ?.let { platformRoleAssignmentRepository.delete(it) }
     }
 
     @CacheEvict(allEntries = true)
-    fun removeAllHoldingRole(userIds: Collection<UUID>, role: RtsRole) {
+    fun removeAllHoldingRole(userIds: Collection<UUID>, role: EsrRole) {
         platformRoleAssignmentRepository.deleteAll(platformRoleAssignmentRepository.findAllByUserIdInAndRole(userIds, role))
     }
 }
