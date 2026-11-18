@@ -21,8 +21,8 @@ for c in "$SRC" "$DST"; do
 done
 
 # The target must opt in via ALLOW_DB_OVERWRITE=true in its env file.
-[[ "$(label "$DST" rtss.allow-db-overwrite)" == "true" ]] \
-  || die "$DST does not have rtss.allow-db-overwrite=true"
+[[ "$(label "$DST" esr.allow-db-overwrite)" == "true" ]] \
+  || die "$DST does not have esr.allow-db-overwrite=true"
 
 DST_PROJECT="$(label "$DST" com.docker.compose.project)"
 
