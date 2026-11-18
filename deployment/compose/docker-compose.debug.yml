@@ -1,4 +1,0 @@
-services:
-  esr-server:
-    ports:
-      - "${PORT}:${PORT}"
