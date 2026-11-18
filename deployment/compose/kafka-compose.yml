@@ -47,13 +47,13 @@ services:
       AUTH_OAUTH2_CLIENT_AUTH0_SCOPE: openid,profile,email
       AUTH_OAUTH2_CLIENT_AUTH0_CLIENTNAME: Auth0
       AUTH_OAUTH2_CLIENT_AUTH0_PROVIDER: auth0
-      AUTH_OAUTH2_CLIENT_AUTH0_REDIRECTURI: https://esr-kafka-${ENV}.ezra-home.me/login/oauth2/code/auth0
+      AUTH_OAUTH2_CLIENT_AUTH0_REDIRECTURI: https://easy-records-kafka-${ENV}.myliberty.app/login/oauth2/code/auth0
       AUTH_OAUTH2_CLIENT_AUTH0_ISSUERURI: https://${OAUTH_DOMAIN}/
       AUTH_OAUTH2_CLIENT_AUTH0_CUSTOMPARAMS_TYPE: oauth
 
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.esr-kafka-ui-${ENV}.rule=Host(`esr-kafka-${ENV}.ezra-home.me`)"
+      - "traefik.http.routers.esr-kafka-ui-${ENV}.rule=Host(`easy-records-kafka-${ENV}.myliberty.app`)"
       - "traefik.http.routers.esr-kafka-ui-${ENV}.entrypoints=websecure"
       - "traefik.http.routers.esr-kafka-ui-${ENV}.tls=true"
       - "traefik.http.routers.esr-kafka-ui-${ENV}.tls.certresolver=acme-cert-resolver"
