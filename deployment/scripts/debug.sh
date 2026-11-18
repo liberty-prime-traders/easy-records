@@ -7,5 +7,5 @@ COMPOSE=(docker compose -f deployment/compose/docker-compose.yml -f deployment/c
 if [[ "$ACTION" == "down" ]]; then
   "${COMPOSE[@]}" down
 else
-  "${COMPOSE[@]}" up -d --no-deps rtss-server
+  "${COMPOSE[@]}" up -d --no-deps esr-server
 fi

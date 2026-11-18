@@ -1,5 +1,5 @@
 services:
-  rtss-postgres:
+  esr-postgres:
     image: postgres:${POSTGRES_VERSION}
     restart: unless-stopped
     environment:

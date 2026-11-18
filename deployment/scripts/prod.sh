@@ -14,7 +14,7 @@ fi
 if [[ "$ACTION" == "down" ]]; then
   "${COMPOSE[@]}" down
 elif [[ "$ACTION" == "server" ]]; then
-  "${COMPOSE[@]}" up -d --no-deps rtss-server
+  "${COMPOSE[@]}" up -d --no-deps esr-server
 else
   "${COMPOSE[@]}" up -d
 fi

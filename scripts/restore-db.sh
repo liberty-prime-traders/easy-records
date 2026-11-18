@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 # Usage: ./restore-db.sh <source-postgres-container> <target-postgres-container>
 # Copies the whole source database over the target. Stops/restarts only the
-# target stack's rtss-server container (if it is running in Docker).
+# target stack's esr-server container (if it is running in Docker).
 set -euo pipefail
 
-PG_SERVICE=rtss-postgres
-SERVER_SERVICE=rtss-server
+PG_SERVICE=esr-postgres
+SERVER_SERVICE=esr-server
 
 SRC="${1:?usage: restore-db.sh <source-container> <target-container>}"
 DST="${2:?usage: restore-db.sh <source-container> <target-container>}"

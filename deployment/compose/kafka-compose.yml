@@ -1,5 +1,5 @@
 services:
-  rtss-kafka:
+  esr-kafka:
     image: confluentinc/cp-kafka:${KAFKA_VERSION}
     restart: unless-stopped
     ports:
@@ -11,14 +11,14 @@ services:
       KAFKA_NODE_ID: 1
 
       KAFKA_PROCESS_ROLES: broker,controller
-      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@rtss-kafka:9093
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@esr-kafka:9093
 
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
 
       KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093,EXTERNAL://0.0.0.0:9094
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://rtss-kafka:9092,EXTERNAL://${KAFKA_HOST}:${KAFKA_PORT}
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://esr-kafka:9092,EXTERNAL://${KAFKA_HOST}:${KAFKA_PORT}
       KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
 
       KAFKA_LOG_DIRS: /var/lib/kafka/data
@@ -33,12 +33,12 @@ services:
       retries: 8
       start_period: 90s
 
-  rtss-kafka-ui:
+  esr-kafka-ui:
     image: provectuslabs/kafka-ui:${KAFKA_UI_VERSION}
     restart: unless-stopped
     environment:
       KAFKA_CLUSTERS_0_NAME: ${ENV}
-      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: rtss-kafka:9092
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: esr-kafka:9092
       DYNAMIC_CONFIG_ENABLED: 'true'
 
       AUTH_TYPE: OAUTH2
@@ -53,11 +53,11 @@ services:
 
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.rtss-kafka-ui-${ENV}.rule=Host(`rtss-kafka-${ENV}.ezra-home.me`)"
-      - "traefik.http.routers.rtss-kafka-ui-${ENV}.entrypoints=websecure"
-      - "traefik.http.routers.rtss-kafka-ui-${ENV}.tls=true"
-      - "traefik.http.routers.rtss-kafka-ui-${ENV}.tls.certresolver=acme-cert-resolver"
-      - "traefik.http.services.rtss-kafka-ui-${ENV}.loadbalancer.server.port=8080"
+      - "traefik.http.routers.esr-kafka-ui-${ENV}.rule=Host(`rtss-kafka-${ENV}.ezra-home.me`)"
+      - "traefik.http.routers.esr-kafka-ui-${ENV}.entrypoints=websecure"
+      - "traefik.http.routers.esr-kafka-ui-${ENV}.tls=true"
+      - "traefik.http.routers.esr-kafka-ui-${ENV}.tls.certresolver=acme-cert-resolver"
+      - "traefik.http.services.esr-kafka-ui-${ENV}.loadbalancer.server.port=8080"
 
     networks:
       - ezra-home
@@ -71,7 +71,7 @@ services:
       start_period: 15s
 
     depends_on:
-      rtss-kafka:
+      esr-kafka:
         condition: service_healthy
 
 networks:

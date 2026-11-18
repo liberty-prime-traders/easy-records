@@ -1,4 +1,4 @@
 services:
-  rtss-server:
+  esr-server:
     ports:
       - "${PORT}:${PORT}"

@@ -4,7 +4,7 @@ include:
   - kafka-compose.yml
 
 services:
-  rtss-server:
+  esr-server:
     image: ezraorina834/rtss-server:${APP_VERSION}
     restart: unless-stopped
     environment:
@@ -34,11 +34,11 @@ services:
 
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.rtss-server-${ENV}.rule=Host(`rtss-server-${ENV}.ezra-home.me`)"
-      - "traefik.http.routers.rtss-server-${ENV}.entrypoints=websecure"
-      - "traefik.http.routers.rtss-server-${ENV}.tls=true"
-      - "traefik.http.routers.rtss-server-${ENV}.tls.certresolver=acme-cert-resolver"
-      - "traefik.http.services.rtss-server-${ENV}.loadbalancer.server.port=${PORT}"
+      - "traefik.http.routers.esr-server-${ENV}.rule=Host(`rtss-server-${ENV}.ezra-home.me`)"
+      - "traefik.http.routers.esr-server-${ENV}.entrypoints=websecure"
+      - "traefik.http.routers.esr-server-${ENV}.tls=true"
+      - "traefik.http.routers.esr-server-${ENV}.tls.certresolver=acme-cert-resolver"
+      - "traefik.http.services.esr-server-${ENV}.loadbalancer.server.port=${PORT}"
 
     networks:
       - ezra-home
@@ -52,9 +52,9 @@ services:
       start_period: 90s
 
     depends_on:
-      rtss-postgres:
+      esr-postgres:
         condition: service_healthy
-      rtss-redis:
+      esr-redis:
         condition: service_healthy
-      rtss-kafka:
+      esr-kafka:
         condition: service_healthy
