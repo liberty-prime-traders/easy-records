@@ -1,0 +1,107 @@
+# Easy Records — Database Patterns
+
+Apply these rules to every Liquibase, entity, or repository change.
+
+## Changeset management (live)
+
+- The app is live. A changeset that has run in a live environment is immutable: never edit or delete it.
+- All changes ship under version `2.0.0` until the product is declared stable. Each changeset gets label `2.0.0`.
+- A new changeset is warranted only for a change to something already deployed live: ALTER-style additions for columns,
+  constraints and indexes, and drops as new changesets too.
+- A changeset that touches existing rows carries its data migration and rollback in the same changeset. A column drop's rollback restores the column and its data.
+- A changeset that has not reached a live environment (new on the branch, only dev databases ran it) is edited in place.
+  Clean the dev databases with `/pre-deploy-migrate`.
+- Blank lines between changesets and between column definitions.
+
+## Constraint naming
+
+- Unique constraints: `uq_<tblname>_<colname>`
+- Foreign keys: `fk_<tblname>_<colname>`
+- Not-null on table create: `<tblname>_<colname>_notnull`
+- Full pattern: `tblname_colname_constrainttype`
+- Postgres silently truncates identifiers past 63 bytes. When a generated name would exceed that, replace `<tblname>`
+  with the table's registry code (`default_prefix` in `platform/seeded_tables/registry_entries/`), lowercased:
+  `stdpl_storage_units_per_user_provided_unit_notnull`, `idx_cob_contact_subledger_direction_created_on`.
+  Use the full table name whenever it fits.
+
+## Quantity and reference column naming
+
+- Every quantity column is labelled, native or not. `user_provided_` marks what the user typed;
+  `storage_` marks a quantity in the storage unit (the root of the product's unit group). No
+  quantity column is unmarked.
+  - Document lines: `user_provided_quantity`, `user_provided_quantity_ordered`.
+  - Storage counters on a document line: `storage_quantity_delivered`, `storage_quantity_canceled`.
+  - `stock_entry`: `storage_quantity_remaining`.
+  - `stock_movement`: `storage_moved_quantity`, `storage_remaining_quantity`; `whole_line_quantity_text` is the rendered line quantity as text (`varchar`), not a quantity column.
+  - Reservations: `storage_quantity_reserved`.
+- A line's captured ratio to the storage unit is one `BIGINT` column, `storage_units_per_user_provided_unit`
+  (a whole number, at least 1) — not a numerator/denominator pair.
+- "Base" names only the product's base unit; never use it for a storage quantity.
+- Reference columns spell out "reference", never `ref`: `document_reference` (the document that
+  created or moved the stock) and `detail_reference` (its line, nullable).
+
+## Dense tables
+
+- No mostly-null columns. Optional or subtype data goes in its own table keyed by the parent ID.
+- Entities and repositories follow the product dependency direction in `esrc-architecture`'s "Product tags" section.
+
+## Changelog load order (within each layer)
+
+```
+tables/ → views/ → sequences/ → foreign_keys/ → triggers/ → indexes/ → audit/
+```
+Platform layer adds after audit: `version-entries/ → registry-entries/`
+
+## New tables
+
+1. Add sequence for the reference number column.
+2. Reference number = prefix (from registry) + zero-padded number to ≥6 chars total (e.g. `OR000042`).
+3. Register in `registry-entries/` and in `TableNames` constants.
+4. Add audit table + register it in `TableNames` + registry — unless the table is append-only or
+   otherwise deliberately not `@Audited` (see "What NOT to audit"), in which case there is no
+   audit table and nothing to register for it.
+5. Audit table indexes: one on `rev`, one on `(id, rev)`.
+6. Create sequences, triggers, extensions, FKs, indexes in their own subfolders.
+
+### Registry completeness is enforced, not just convention
+
+Step 3 is a real invariant, not a style preference — most tables never exercise the registry
+lookup at runtime (no `@HasReference`, no `reference_number` column), so a missing entry is
+otherwise silent until someone happens to hit it. `TableName` (the enum, distinct from the
+`TableNames` constants object) mirrors `TableNames` 1:1 for the same reason — it's not scoped to
+tables that generate reference numbers, `TableRegistryService.validateName` calls
+`TableName.exists(name)` against every table_registry row regardless. Three guards exist, all in
+`TableRegistryCompletenessTest`, diffing in both directions (missing + orphaned/stale-rename) with
+no DB or Spring context needed:
+
+- `TableNames` constants vs. `table_name` seeded under `registry-entries/`.
+- `TableNames` constants vs. `TableName` enum entries.
+
+Only the first relationship also gets a runtime guard,
+`TableRegistryCompletenessStartupCheck` (`platform/business/table_registry/`, wired through the
+`StartupCheck` plugin interface in `startup_checks/api/`) — it re-checks the missing-entry half
+against the live `table_registry` table on every boot and refuses to start if anything is missing.
+The `TableNames`/`TableName` relationship doesn't need one: both sides are compiled into the app,
+so they can only drift at code-review time, never at runtime — a unit test is the complete guard.
+
+## `TableNames` / `TableName` ordering
+
+Both files group entries under the same comment headers (`Platform tables`, `Organization tables`,
+`Location tables`, and their `*audit tables` counterparts). Within each section, keep entries
+alphabetical by constant/enum name — insert a new entry in sorted position, don't just append it
+to the end of the section. Don't reorder across sections or move an entry to a "more correct"
+section to fix a pre-existing miscategorization (e.g. a table's `SchemaLevel` disagreeing with
+which comment block it sits under) — that's a separate, deliberate change, not a byproduct of
+alphabetizing.
+
+## Entity / JPA rules
+
+- No migration info on entities — column names and insert/update restrictions only.
+- Use `TableNames` constants for all table name strings.
+- All tables get `created_by_id` and `created_on` auditing columns.
+- No `@Enumerated`. Use a converter class. Column size defaults to 5 characters.
+- Envers `@Audited` on mutable domain entities. Do NOT audit: lookup tables, `created_on`, `created_by_id`, `reference_number`.
+
+## What NOT to audit
+
+Lookup/reference tables and immutable columns (`created_on`, `created_by_id`, `reference_number`).

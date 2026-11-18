@@ -1,0 +1,11 @@
+package app.myliberty.easy_records.locations.business.retail.sale_payment
+
+import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.stereotype.Repository
+import java.util.UUID
+
+@Repository
+interface SalePaymentRepository : JpaRepository<SalePaymentEntity, UUID> {
+    fun findBySaleId(saleId: UUID): List<SalePaymentEntity>
+    fun findBySaleIdIn(saleIds: List<UUID>): List<SalePaymentEntity>
+}

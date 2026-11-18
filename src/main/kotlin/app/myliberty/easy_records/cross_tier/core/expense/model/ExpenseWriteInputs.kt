@@ -1,0 +1,68 @@
+package app.myliberty.easy_records.cross_tier.core.expense.model
+
+import app.myliberty.easy_records.cross_tier.core.expense.ExpenseSourceType
+import app.myliberty.easy_records.organizations.business.core.contact.api.ContactDto
+import app.myliberty.easy_records.organizations.business.core.expense_type.api.ExpenseTypeDto
+import java.math.BigDecimal
+import java.time.LocalDate
+import java.util.UUID
+
+data class ExpenseRowCommand(
+    val expenseTypeId: UUID,
+    val payeeContactId: UUID,
+    val amount: BigDecimal,
+    val description: String?,
+    val expenseDateOverride: LocalDate?,
+    val settlement: PaymentInstruction?
+)
+
+data class ResolvedSettlement(
+    val paymentMethodId: UUID,
+    val paymentMethodAccountCode: String,
+    val providerReference: String?,
+    val paymentDate: LocalDate
+)
+
+data class ExpensePaymentDraft(
+    val expenseId: UUID,
+    val amount: BigDecimal,
+    val resolvedSettlement: ResolvedSettlement
+)
+
+data class ResolvedExpenseRow(
+    val expenseType: ExpenseTypeDto,
+    val payee: ContactDto,
+    val amount: BigDecimal,
+    val description: String?,
+    val expenseDate: LocalDate,
+    val settlement: ResolvedSettlement?
+)
+
+data class ExpenseSource(
+    val type: ExpenseSourceType,
+    val reference: String?
+)
+
+data class SourceDocument(
+    val type: ExpenseSourceType,
+    val reference: String,
+    val id: UUID
+) {
+    val source = ExpenseSource(type, reference)
+}
+
+data class ExpenseSubmission(
+    val expenseDate: LocalDate,
+    val rowCommands: List<ExpenseRowCommand>
+)
+
+data class NewExpenseBatch(
+    val description: String,
+    val source: ExpenseSource
+)
+
+data class NewExpense(
+    val batchId: UUID,
+    val source: ExpenseSource,
+    val resolvedExpenseRow: ResolvedExpenseRow
+)

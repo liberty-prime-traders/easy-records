@@ -1,0 +1,42 @@
+package app.myliberty.easy_records.organizations.business.core.account.api
+
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.organizations.business.core.account.AccountCache
+import app.myliberty.easy_records.organizations.business.core.account.AccountRepository
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
+import org.springframework.stereotype.Component
+
+@Component
+@TransactionalOnOrganizationSchema(readOnly = true)
+class AccountDataFetcher(
+    private val accountRepository: AccountRepository,
+    private val accountCache: AccountCache
+) {
+
+    fun getSelectionCandidates(): List<AccountSelectionCandidate> =
+        AccountSelectionCandidate.fromAccounts(accountCache.getAll())
+
+    fun getFreshSelectionCandidates(): List<AccountSelectionCandidate> =
+        AccountSelectionCandidate.fromAccounts(accountCache.getAllFresh())
+
+    fun getLabelsByCodes(accountCodes: Set<String>): Map<String, String> =
+        accountCache.getAll()
+            .filter { it.code in accountCodes }
+            .associate { it.code to it.label }
+
+    fun getNamesAndTypesByCodes(accountCodes: Set<String>): Map<String, AccountNameAndTypeDto> =
+        accountCache.getAll()
+            .filter { it.code in accountCodes }
+            .associate { it.code to AccountNameAndTypeDto(code = it.code, name = it.name, accountType = it.accountType) }
+
+    fun getByCode(accountCode: String): AccountLookupDto {
+        val account = accountCache.getAll().firstOrNull { it.code == accountCode }
+            ?: throw LibertyGenericException("Account $accountCode does not exist")
+        return AccountLookupDto(
+            code = account.code,
+            accountIsActive = account.accountIsActive,
+            hasChildren = accountRepository.existsByParentAccountCode(accountCode),
+            normalBalanceEntryType = account.accountType.normalBalance
+        )
+    }
+}

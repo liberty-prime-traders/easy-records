@@ -24,7 +24,7 @@ jib {
 		}
 	}
 	to {
-		image = "ezraorina834/rtss-server:${project.findProperty("imageTag") ?: "latest"}"
+		image = "ezraorina834/easy-records:${project.findProperty("imageTag") ?: "latest"}"
 		tags = setOf(version.toString())
 	}
 }

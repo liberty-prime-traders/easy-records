@@ -1,0 +1,107 @@
+package app.myliberty.easy_records.locations.business.retail.sale_adjustment.api
+
+import app.myliberty.easy_records.locations.business.retail.location_product.api.ProductLineWithPrice
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleAdjustmentSaveRequest
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleSaveRequest
+import app.myliberty.easy_records.locations.business.retail.sale_adjustment.SaleAdjustmentEntity
+import app.myliberty.easy_records.locations.business.retail.sale_adjustment.SaleAdjustmentRepository
+import org.springframework.stereotype.Service
+import java.math.BigDecimal
+import java.util.UUID
+
+data class PersistedSaleLine(
+    val id: UUID,
+    override val locationProductId: UUID,
+    override val userProvidedQuantity: BigDecimal,
+    override val lineTotal: BigDecimal,
+) : ProductLineWithPrice {
+
+    override val lineKey: UUID = id
+}
+
+class RetainedSaleAdjustments internal constructor(internal val entities: List<SaleAdjustmentEntity>)
+
+@Service
+class SaleAdjustmentSyncer(
+    private val saleAdjustmentRepository: SaleAdjustmentRepository,
+) {
+
+    // Must run before SaleLineSync.sync: fk_sale_adjustment_sale_line rejects deleting a line that an adjustment still references.
+    fun deleteRemoved(saleId: UUID, saleSaveRequest: SaleSaveRequest): RetainedSaleAdjustments {
+        val incomingSaleAdjustmentIds = saleSaveRequest.saleAdjustments.mapNotNull { it.existingId }.toHashSet()
+        val existingSaleAdjustments = saleAdjustmentRepository.findBySaleId(saleId)
+        val saleAdjustmentsToDelete = existingSaleAdjustments.filter { it.id !in incomingSaleAdjustmentIds }
+        if (saleAdjustmentsToDelete.isNotEmpty()) {
+            saleAdjustmentRepository.deleteAll(saleAdjustmentsToDelete)
+        }
+        return RetainedSaleAdjustments(existingSaleAdjustments - saleAdjustmentsToDelete.toSet())
+    }
+
+    fun sync(
+        saleId: UUID,
+        saleSaveRequest: SaleSaveRequest,
+        persistedSaleLines: List<PersistedSaleLine>,
+        saleLineIdsByClientKey: Map<UUID, UUID>,
+        retainedSaleAdjustments: RetainedSaleAdjustments,
+    ): Map<UUID, UUID> {
+        val existingSaleAdjustmentsById = retainedSaleAdjustments.entities.associateBy { it.id!! }
+
+        val saleAdjustmentIdsByClientKey = mutableMapOf<UUID, UUID>()
+        val saleAdjustmentsToUpdate = mutableListOf<SaleAdjustmentEntity>()
+        val saleAdjustmentsToCreate = mutableListOf<Pair<UUID, SaleAdjustmentEntity>>()
+
+        saleSaveRequest.saleAdjustments.forEach { saleAdjustmentSaveRequest ->
+            val saleLineId = saleAdjustmentSaveRequest.relatedSaleLineClientKey?.let { relatedSaleLineClientKey ->
+                saleLineIdsByClientKey.getValue(relatedSaleLineClientKey)
+            }
+            val saleAdjustmentCreateDto = toCreatableAdjustment(saleAdjustmentSaveRequest, saleLineId)
+            val calculatedAmount = AdjustmentAmountCalculator.calculateAmount(saleAdjustmentCreateDto, persistedSaleLines)
+            if (saleAdjustmentSaveRequest.existingId != null) {
+                val keptSaleAdjustmentEntity = existingSaleAdjustmentsById[saleAdjustmentSaveRequest.existingId]
+                    ?: throw IllegalStateException("Sale adjustment ${saleAdjustmentSaveRequest.existingId} no longer exists")
+                keptSaleAdjustmentEntity.saleLineId = saleLineId
+                keptSaleAdjustmentEntity.calculatedAmount = calculatedAmount
+                saleAdjustmentsToUpdate.add(keptSaleAdjustmentEntity)
+                saleAdjustmentIdsByClientKey[saleAdjustmentSaveRequest.clientKey] = saleAdjustmentSaveRequest.existingId
+            } else {
+                saleAdjustmentsToCreate.add(
+                    saleAdjustmentSaveRequest.clientKey to SaleAdjustmentEntity(
+                        saleId = saleId,
+                        saleLineId = saleLineId,
+                        direction = saleAdjustmentSaveRequest.direction,
+                        calculationMethod = saleAdjustmentSaveRequest.calculationMethod,
+                        value = saleAdjustmentSaveRequest.value,
+                        calculatedAmount = calculatedAmount,
+                        adjustmentReasonId = saleAdjustmentSaveRequest.adjustmentReasonId,
+                        note = saleAdjustmentSaveRequest.note,
+                        approvedById = saleAdjustmentSaveRequest.approvedById,
+                    )
+                )
+            }
+        }
+
+        if (saleAdjustmentsToUpdate.isNotEmpty()) saleAdjustmentRepository.saveAll(saleAdjustmentsToUpdate)
+        if (saleAdjustmentsToCreate.isNotEmpty()) {
+            val savedSaleAdjustments = saleAdjustmentRepository.saveAll(saleAdjustmentsToCreate.map { it.second }).toList()
+            saleAdjustmentsToCreate.forEachIndexed { saleAdjustmentIndex, (clientKey, _) ->
+                saleAdjustmentIdsByClientKey[clientKey] = savedSaleAdjustments[saleAdjustmentIndex].id!!
+            }
+        }
+        return saleAdjustmentIdsByClientKey
+    }
+
+    private fun toCreatableAdjustment(
+        saleAdjustmentSaveRequest: SaleAdjustmentSaveRequest,
+        saleLineId: UUID?,
+    ): SaleAdjustmentCreateDto {
+        return SaleAdjustmentCreateDto(
+            saleLineKey = saleLineId,
+            direction = saleAdjustmentSaveRequest.direction,
+            calculationMethod = saleAdjustmentSaveRequest.calculationMethod,
+            value = saleAdjustmentSaveRequest.value,
+            adjustmentReasonId = saleAdjustmentSaveRequest.adjustmentReasonId,
+            note = saleAdjustmentSaveRequest.note,
+            approvedById = saleAdjustmentSaveRequest.approvedById,
+        )
+    }
+}

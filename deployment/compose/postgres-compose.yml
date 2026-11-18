@@ -1,5 +1,5 @@
 services:
-  rtss-postgres:
+  esr-postgres:
     image: postgres:${POSTGRES_VERSION}
     restart: unless-stopped
     environment:
@@ -9,7 +9,7 @@ services:
     volumes:
       - db-data:/var/lib/postgresql/data
     labels:
-      - "rtss.allow-db-overwrite=${ALLOW_DB_OVERWRITE:-false}"
+      - "esr.allow-db-overwrite=${ALLOW_DB_OVERWRITE:-false}"
     ports:
       - "${DB_EXTERNAL_PORT}:${DB_INTERNAL_PORT}"
     healthcheck:

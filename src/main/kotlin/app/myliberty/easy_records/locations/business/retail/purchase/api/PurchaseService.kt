@@ -1,0 +1,90 @@
+package app.myliberty.easy_records.locations.business.retail.purchase.api
+
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductDataFetcher
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductService
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductUnitRequestDto
+import app.myliberty.easy_records.locations.business.retail.purchase.LineUpdateResult
+import app.myliberty.easy_records.locations.business.retail.purchase.PurchaseAssembler
+import app.myliberty.easy_records.locations.business.retail.purchase.PurchaseLineRepository
+import app.myliberty.easy_records.locations.business.retail.purchase.PurchaseLinesResolver
+import app.myliberty.easy_records.locations.business.retail.purchase.PurchaseMapper
+import app.myliberty.easy_records.locations.business.retail.purchase.PurchaseRepository
+import app.myliberty.easy_records.locations.business.retail.purchase.PurchaseValidator
+import org.springframework.stereotype.Service
+import java.util.UUID
+
+@Service
+@TransactionalOnLocationSchema
+class PurchaseService(
+  private val purchaseRepository: PurchaseRepository,
+  private val purchaseLineRepository: PurchaseLineRepository,
+  private val locationProductService: LocationProductService,
+  private val locationProductDataFetcher: LocationProductDataFetcher,
+  private val purchaseAssembler: PurchaseAssembler,
+  private val purchaseLinesResolver: PurchaseLinesResolver,
+  private val purchaseDataFetcher: PurchaseDataFetcher,
+) {
+
+  fun createDraft(purchaseCreateDto: PurchaseCreateDto): PurchaseResponseDto {
+    PurchaseValidator.guardNoDuplicateProducts(purchaseCreateDto.linesToAdd)
+    locationProductService.guardAllActive(purchaseCreateDto.linesToAdd.map { it.locationProductId })
+    val purchase = PurchaseMapper.toDraftEntity(purchaseCreateDto).also { purchaseRepository.save(it) }
+    val lines = PurchaseMapper.toLineEntities(
+      purchase.id!!,
+      purchaseCreateDto.linesToAdd,
+      resolveStorageUnitsPerUserProvidedUnit(purchaseCreateDto.linesToAdd)
+    )
+    purchaseLineRepository.saveAll(lines)
+    return purchaseAssembler.buildResponse(purchase, lines)
+  }
+
+  private fun resolveStorageUnitsPerUserProvidedUnit(lines: List<PurchaseLineCreateDto>): Map<UUID, Long> {
+    val productUnitRequests = lines.map { LocationProductUnitRequestDto(it.locationProductId, it.unitId) }
+    return locationProductDataFetcher.getStorageUnitsPerUserProvidedUnit(productUnitRequests)
+  }
+
+  fun updateDraft(purchaseUpdateDto: PurchaseUpdateDto): PurchaseResponseDto {
+    val purchase = purchaseDataFetcher.lockAndGetPurchase(purchaseUpdateDto.id)
+    PurchaseValidator.guardIsDraft(purchase)
+    PurchaseMapper.applyDraftUpdate(purchase, purchaseUpdateDto)
+    val lineUpdates = purchaseLinesResolver.detanglePurchaseLines(purchase.id!!, purchaseUpdateDto)
+    PurchaseValidator.guardNoDuplicateProducts(lineUpdates.resultingLines)
+    purchaseRepository.save(purchase)
+    persistLineUpdates(lineUpdates)
+    return purchaseAssembler.buildResponse(purchase, lineUpdates.resultingLines)
+  }
+
+  fun createOrder(purchaseCreateDto: PurchaseCreateDto): PurchaseResponseDto {
+    PurchaseValidator.guardHasLines(purchaseCreateDto.linesToAdd)
+    PurchaseValidator.guardNoDuplicateProducts(purchaseCreateDto.linesToAdd)
+    PurchaseValidator.guardPositiveUnitCosts(purchaseCreateDto.linesToAdd.map { it.unitCost.toBigDecimal() })
+    locationProductService.guardAllActive(purchaseCreateDto.linesToAdd.map { it.locationProductId })
+    val purchase = PurchaseMapper.toOrderEntity(purchaseCreateDto).also { purchaseRepository.save(it) }
+    val lines = PurchaseMapper.toLineEntities(
+      purchase.id!!,
+      purchaseCreateDto.linesToAdd,
+      resolveStorageUnitsPerUserProvidedUnit(purchaseCreateDto.linesToAdd)
+    )
+    purchaseLineRepository.saveAll(lines)
+    return purchaseAssembler.buildResponse(purchase, lines)
+  }
+
+  fun convertDraftToOrder(purchaseUpdateDto: PurchaseUpdateDto): PurchaseResponseDto {
+    val purchase = purchaseDataFetcher.lockAndGetPurchase(purchaseUpdateDto.id)
+    PurchaseValidator.guardIsDraft(purchase)
+    PurchaseMapper.convertDraftToOrder(purchase, purchaseUpdateDto)
+    val lineUpdates = purchaseLinesResolver.detanglePurchaseLines(purchase.id!!, purchaseUpdateDto)
+    PurchaseValidator.guardHasLines(lineUpdates.resultingLines)
+    PurchaseValidator.guardNoDuplicateProducts(lineUpdates.resultingLines)
+    PurchaseValidator.guardPositiveUnitCosts(lineUpdates.resultingLines.map { it.unitCost })
+    purchaseRepository.save(purchase)
+    persistLineUpdates(lineUpdates)
+    return purchaseAssembler.buildResponse(purchase, lineUpdates.resultingLines)
+  }
+
+  private fun persistLineUpdates(result: LineUpdateResult) {
+    purchaseLineRepository.deleteAll(result.toDelete)
+    purchaseLineRepository.saveAll(result.toUpdate + result.toCreate)
+  }
+}

@@ -1,0 +1,21 @@
+package app.myliberty.easy_records.locations.business.retail.purchase
+
+import app.myliberty.easy_records.locations.business.retail.purchase.api.PurchaseStatus
+import java.math.BigDecimal
+
+object PurchaseStatusResolver {
+
+    fun resolveAfterQuantityChange(
+        purchaseLines: List<PurchaseLineEntity>,
+        statusWhenLinesOpenAndNothingDelivered: () -> PurchaseStatus = { PurchaseStatus.ORDERED }
+    ): PurchaseStatus {
+        val allAccountedFor = purchaseLines.none { it.storageQuantityRemaining().isPositive() }
+        val anyDelivered = purchaseLines.any { it.storageQuantityDelivered > BigDecimal.ZERO }
+        return when {
+            allAccountedFor && !anyDelivered -> PurchaseStatus.CANCELED
+            allAccountedFor -> PurchaseStatus.FULLY_DELIVERED
+            anyDelivered -> PurchaseStatus.PARTIALLY_DELIVERED
+            else -> statusWhenLinesOpenAndNothingDelivered()
+        }
+    }
+}

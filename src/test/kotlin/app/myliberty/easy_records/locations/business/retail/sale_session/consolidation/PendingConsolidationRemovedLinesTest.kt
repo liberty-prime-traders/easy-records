@@ -1,0 +1,152 @@
+package app.myliberty.easy_records.locations.business.retail.sale_session.consolidation
+
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleStatus
+import app.myliberty.easy_records.locations.business.retail.sale_adjustment.api.PriceAdjustmentMethod
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.PendingConsolidation
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.RemovedSaleLine
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSession
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionAdjustment
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionHeader
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionKind
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionLine
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionTotals
+import app.myliberty.easy_records.locations.business.retail.sale_session.api.SessionIdentity
+import app.myliberty.easy_records.organizations.business.retail.adjustment_reason.api.AdjustmentDirection
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertThrows
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
+import java.math.BigDecimal
+import java.time.OffsetDateTime
+import java.util.UUID
+
+class PendingConsolidationRemovedLinesTest {
+
+    private val firstLine = saleLine("2")
+    private val secondLine = saleLine("3")
+    private val firstLineDiscount = adjustmentOn(firstLine)
+
+    @Test
+    fun `removing a line from a pending consolidation keeps it with its adjustments`() {
+        val pendingSession = session(SaleSessionKind.PENDING_CONSOLIDATION)
+
+        val afterRemoval = PendingConsolidationRemovedLines.remove(pendingSession, firstLine.lineKey)
+
+        assertEquals(listOf(secondLine), afterRemoval.saleLines)
+        assertTrue(afterRemoval.saleAdjustments.isEmpty())
+        assertEquals(
+            listOf(RemovedSaleLine(firstLine, listOf(firstLineDiscount))),
+            afterRemoval.pendingConsolidation!!.removedSaleLines
+        )
+        assertEquals("S1", afterRemoval.pendingConsolidation.sourceSaleReferenceByLineKey.getValue(firstLine.lineKey))
+    }
+
+    @Test
+    fun `a restored line comes back with its adjustments and leaves the removed list`() {
+        val pendingSession = session(SaleSessionKind.PENDING_CONSOLIDATION)
+        val afterRemoval = PendingConsolidationRemovedLines.remove(pendingSession, firstLine.lineKey)
+
+        val afterRestore = PendingConsolidationRemovedLines.restore(afterRemoval, firstLine.lineKey)
+
+        assertEquals(setOf(firstLine, secondLine), afterRestore.saleLines.toSet())
+        assertEquals(firstLine.rank, afterRestore.saleLines.single { it.lineKey == firstLine.lineKey }.rank)
+        assertEquals(listOf(firstLineDiscount), afterRestore.saleAdjustments)
+        assertTrue(afterRestore.pendingConsolidation!!.removedSaleLines.isEmpty())
+    }
+
+    @Test
+    fun `a line that is not on the session cannot be removed, and one that was not removed cannot be restored`() {
+        val pendingSession = session(SaleSessionKind.PENDING_CONSOLIDATION)
+
+        assertThrows(LibertyGenericException::class.java) {
+            PendingConsolidationRemovedLines.remove(pendingSession, UUID.randomUUID())
+        }
+        assertThrows(LibertyGenericException::class.java) {
+            PendingConsolidationRemovedLines.restore(pendingSession, firstLine.lineKey)
+        }
+    }
+
+    @Test
+    fun `a sale has no removed lines to keep or restore`() {
+        val saleSession = session(SaleSessionKind.SALE)
+
+        assertThrows(LibertyGenericException::class.java) {
+            PendingConsolidationRemovedLines.remove(saleSession, firstLine.lineKey)
+        }
+        assertThrows(LibertyGenericException::class.java) {
+            PendingConsolidationRemovedLines.restore(saleSession, firstLine.lineKey)
+        }
+    }
+
+    @Test
+    fun `removing a line from a sale deletes it and its adjustments`() {
+        val afterRemoval = session(SaleSessionKind.SALE).withoutLine(firstLine.lineKey)
+
+        assertEquals(listOf(secondLine), afterRemoval.saleLines)
+        assertTrue(afterRemoval.saleAdjustments.isEmpty())
+        assertEquals(null, afterRemoval.pendingConsolidation)
+    }
+
+    @Test
+    fun `a line that is not on a sale cannot be removed from it`() {
+        assertThrows(LibertyGenericException::class.java) {
+            session(SaleSessionKind.SALE).withoutLine(UUID.randomUUID())
+        }
+    }
+
+    private fun saleLine(quantity: String) = SaleSessionLine(
+        identity = SessionIdentity.mintFreshIdentity(),
+        locationProductId = UUID.randomUUID(),
+        productLabel = "Sugar",
+        productPrintLabel = "Sugar",
+        userProvidedQuantity = BigDecimal(quantity),
+        unitId = UUID.randomUUID(),
+        baseUnitId = UUID.randomUUID(),
+        storageUnitsPerUserProvidedUnit = 1L,
+        lineTotal = BigDecimal("30.00"),
+        defaultSalePrice = BigDecimal("15.00"),
+    )
+
+    private fun adjustmentOn(saleLine: SaleSessionLine) = SaleSessionAdjustment(
+        identity = SessionIdentity.mintFreshIdentity(),
+        relatedSaleLineIdentity = saleLine.identity,
+        adjustmentReasonId = UUID.randomUUID(),
+        direction = AdjustmentDirection.DISCOUNT,
+        calculationMethod = PriceAdjustmentMethod.PERCENTAGE,
+        value = BigDecimal("5"),
+        note = null,
+        approvedById = null,
+    )
+
+    private fun session(kind: SaleSessionKind) = SaleSession(
+        sessionId = UUID.randomUUID(),
+        locationId = UUID.randomUUID(),
+        saleId = null,
+        saleVersion = null,
+        productsVersion = 0L,
+        productsReservedAtVersion = 0L,
+        originalStatus = SaleStatus.DRAFT,
+        createdById = UUID.randomUUID(),
+        createdAt = OffsetDateTime.now(),
+        lastUpdatedAt = OffsetDateTime.now(),
+        lastAccessedById = UUID.randomUUID(),
+        lastAccessedAt = OffsetDateTime.now(),
+        header = SaleSessionHeader(
+            referenceNumber = null, contactId = UUID.randomUUID(), soldById = null, dateSold = null, notes = null
+        ),
+        saleLines = listOf(firstLine, secondLine),
+        saleAdjustments = listOf(firstLineDiscount),
+        salePayments = emptyList(),
+        totals = SaleSessionTotals.ZERO,
+        kind = kind,
+        pendingConsolidation = if (kind == SaleSessionKind.PENDING_CONSOLIDATION) {
+            PendingConsolidation(
+                sourceSales = emptyList(),
+                sourceSaleReferenceByLineKey = mapOf(firstLine.lineKey to "S1", secondLine.lineKey to "S2"),
+            )
+        } else {
+            null
+        },
+    )
+}

@@ -1,0 +1,57 @@
+package app.myliberty.easy_records.organizations.business.core.jobtitle.api
+
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.organizations.business.core.jobtitle.JobTitleCache
+import app.myliberty.easy_records.organizations.business.core.jobtitle.JobTitleMapper
+import app.myliberty.easy_records.util.business.StringUtils
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
+import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException
+import org.springframework.stereotype.Service
+import java.util.Objects
+import java.util.UUID
+
+@Service
+@TransactionalOnOrganizationSchema
+class JobTitleService(
+    private val jobTitleMapper: JobTitleMapper,
+    private val jobTitleCache: JobTitleCache,
+) {
+
+    @TransactionalOnOrganizationSchema(readOnly = true)
+    fun getAllJobTitles(): Collection<JobTitleResponseDto> {
+        return jobTitleCache.getAllJobTitles().map { jobTitleMapper.toDto(it) }
+    }
+
+    fun createJobTitle(titleInsertDto: JobTitleInsertDto): JobTitleResponseDto {
+        val value = StringUtils.getValueOrException(titleInsertDto.value, VALUE_IS_REQUIRED)
+        jobTitleCache.getAllJobTitles().find { StringUtils.isEquivalent(it.value, value) }
+            ?.let { throw LibertyGenericException(String.format(VALUE_ALREADY_EXISTS, value)) }
+
+        val dto = jobTitleCache.create(titleInsertDto)
+        return jobTitleMapper.toDto(dto)
+    }
+
+    fun updateJobTitle(titleDto: JobTitleUpdateDto): JobTitleResponseDto {
+        validateJobTitleUpdate(titleDto)
+        val existing = jobTitleCache.getAllJobTitles().find { Objects.equals(titleDto.id, it.id) }
+            ?: throw UpdatingNonExistingRecordException()
+        val updated = titleDto.applyTo(existing)
+        val saved = jobTitleCache.save(updated)
+        return jobTitleMapper.toDto(saved)
+    }
+
+    private fun validateJobTitleUpdate(jobTitleUpdateDto: JobTitleUpdateDto) {
+        val value = StringUtils.getValueOrException(jobTitleUpdateDto.value, VALUE_IS_REQUIRED)
+        jobTitleCache.getAllJobTitles().find { it.value.equals(value, ignoreCase = true) && it.id != jobTitleUpdateDto.id }
+            ?.let{ throw LibertyGenericException(String.format(VALUE_ALREADY_EXISTS, value)) }
+    }
+
+    fun deleteJobTitle(id: UUID) {
+        jobTitleCache.deleteJobTitle(id)
+    }
+
+    companion object {
+        const val VALUE_IS_REQUIRED = "A job title must have a value"
+        const val VALUE_ALREADY_EXISTS = "A job title with the value %s already exists."
+    }
+}

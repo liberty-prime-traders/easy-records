@@ -1,0 +1,64 @@
+package app.myliberty.easy_records.locations.business.retail.purchase.search
+
+import app.myliberty.easy_records.locations.business.retail.purchase.api.search.PurchaseSearchParameters
+import app.myliberty.easy_records.util.queries.SearchGuards
+import java.time.OffsetDateTime
+
+object PurchaseSearchValidator {
+
+  private const val MAX_PURCHASE_REFERENCE_NUMBERS = 20
+  private const val MAX_SUPPLIER_IDS = 100
+  private const val MIN_PAGE_SIZE = 1
+  private const val MAX_PAGE_SIZE = 200
+
+  fun guardValidParameters(purchaseSearchParameters: PurchaseSearchParameters) {
+    SearchGuards.guardBoundedRange(
+      purchaseSearchParameters.recordedFrom,
+      purchaseSearchParameters.recordedBefore,
+      "recordedFrom",
+      "recordedBefore"
+    )
+    SearchGuards.guardMaxSize(
+      purchaseSearchParameters.purchaseReferenceNumbers.size,
+      MAX_PURCHASE_REFERENCE_NUMBERS,
+      "purchase reference numbers"
+    )
+
+    SearchGuards.guardMaxSize(
+      purchaseSearchParameters.supplierIds.size,
+      MAX_SUPPLIER_IDS,
+      "supplier ids"
+    )
+
+    SearchGuards.guardRangeOrder(
+      purchaseSearchParameters.minAmount,
+      purchaseSearchParameters.maxAmount,
+      "minAmount must not be greater than maxAmount"
+    ) { min, max -> min > max }
+    SearchGuards.guardNonNegative(purchaseSearchParameters.minAmount, "minAmount")
+    SearchGuards.guardNonNegative(purchaseSearchParameters.maxAmount, "maxAmount")
+
+    SearchGuards.guardRangeOrder(
+      purchaseSearchParameters.recordedFrom,
+      purchaseSearchParameters.recordedBefore,
+      "recordedFrom must not be after recordedBefore"
+    ) { from, before -> from.isAfter(before) }
+
+    SearchGuards.guardRangeOrder(
+      purchaseSearchParameters.purchaseDateFrom,
+      purchaseSearchParameters.purchaseDateBefore,
+      "purchaseDateFrom must not be after purchaseDateBefore"
+    ) { from, before -> from.isAfter(before) }
+  }
+
+  fun guardValidPayableRange(orderedFrom: OffsetDateTime, orderedBefore: OffsetDateTime) {
+    SearchGuards.guardBoundedRange(orderedFrom, orderedBefore, "orderedFrom", "orderedBefore")
+    SearchGuards.guardRangeOrder(
+      orderedFrom, orderedBefore, "orderedFrom must not be after orderedBefore"
+    ) { from, before -> from.isAfter(before) }
+  }
+
+  fun guardValidPageSize(requestedSize: Int) {
+    SearchGuards.guardPageSize(requestedSize, MIN_PAGE_SIZE, MAX_PAGE_SIZE)
+  }
+}

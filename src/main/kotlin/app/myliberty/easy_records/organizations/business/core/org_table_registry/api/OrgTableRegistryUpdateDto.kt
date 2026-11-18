@@ -1,0 +1,16 @@
+package app.myliberty.easy_records.organizations.business.core.org_table_registry.api
+
+import java.util.Optional
+import java.util.UUID
+
+data class OrgTableRegistryUpdateDto(
+    val id: UUID,
+    val defaultPrefix: Optional<String>?,
+    val displayName: Optional<String>?
+) {
+
+    fun applyTo(existing: OrgTableRegistryDto): OrgTableRegistryDto = existing.copy(
+        defaultPrefix = defaultPrefix?.orElse(existing.defaultPrefix) ?: existing.defaultPrefix,
+        displayName = displayName?.orElse(existing.displayName) ?: existing.displayName
+    )
+}

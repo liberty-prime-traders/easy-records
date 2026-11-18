@@ -39,7 +39,7 @@ The `seq_<table>_reference_number` sequence of every truncated table is restarte
 - **Missing tables are skipped** (`to_regclass`), so the script survives changelog drift between environments.
 - **Dry run first**: leave the final `ROLLBACK;` in place, check the `NOTICE` output and the verification result, then swap it for `COMMIT;`.
 - **Not touched**: Kafka topics/consumer offsets and Redis. After the restore, stale Kafka events for removed sales/purchases can still arrive. Use a fresh consumer group (or reset the topics) in the target stack, and `FLUSHALL` the target Redis if it caches anything per org.
-- Run with the target's `rtss-server` stopped (the restore script already does that when the server runs in Docker; restart it afterwards).
+- Run with the target's `esr-server` stopped (the restore script already does that when the server runs in Docker; restart it afterwards).
 
 ## Script
 
@@ -51,7 +51,7 @@ docker exec -i <target-postgres-container> psql -U <user> -d <db> -v ON_ERROR_ST
 
 ## After committing
 
-1. Restart `rtss-server` (the app's context tests/dev DB expect Liquibase to be current, so run it on the target as usual).
+1. Restart `esr-server` (the app's context tests/dev DB expect Liquibase to be current, so run it on the target as usual).
 2. Spot-check: `SELECT count(*) FROM org_liberty.account WHERE current_balance <> 0;` should return 0.
 3. Re-enter opening stock/balances through the normal flows; they will post fresh ledger and subledger rows.
 

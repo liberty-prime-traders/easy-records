@@ -1,4 +1,4 @@
-# RTSS — Update restore-clean table lists
+# Easy Records — Update restore-clean table lists
 
 Keep `scripts/clean-restored-db.sql` and `scripts/restore-db-shells-only.md` in sync with the Liquibase changelogs. Run after any table or denormalized column is added, renamed, or dropped.
 

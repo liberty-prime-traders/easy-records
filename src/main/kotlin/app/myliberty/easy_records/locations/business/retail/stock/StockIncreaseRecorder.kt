@@ -1,0 +1,50 @@
+package app.myliberty.easy_records.locations.business.retail.stock
+
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.locations.business.retail.location_product.api.ProductStockBreakdownProvider
+import app.myliberty.easy_records.locations.business.core.lock.api.EntityAdvisoryLock
+import app.myliberty.easy_records.locations.business.retail.stock.api.read.StockBalanceFetcher
+import app.myliberty.easy_records.util.business.lock.LockNamespaces
+import app.myliberty.easy_records.util.quantity.ExactQuantity
+import org.springframework.stereotype.Service
+import java.util.UUID
+
+@Service
+@TransactionalOnLocationSchema
+class StockIncreaseRecorder(
+    private val stockEntryRepository: StockEntryRepository,
+    private val stockMovementRepository: StockMovementRepository,
+    private val stockBalanceFetcher: StockBalanceFetcher,
+    private val productStockBreakdownProvider: ProductStockBreakdownProvider,
+    private val entityAdvisoryLock: EntityAdvisoryLock,
+) {
+
+    fun record(layerSpec: InboundLayerSpec): UUID {
+        return record(listOf(layerSpec)).single()
+    }
+
+    fun record(layerSpecs: List<InboundLayerSpec>): List<UUID> {
+        if (layerSpecs.isEmpty()) return emptyList()
+        val locationProductIds = layerSpecs.map { it.locationProductId }
+        entityAdvisoryLock.acquire(LockNamespaces.PRODUCT, locationProductIds.toSet())
+        val runningBalances = stockBalanceFetcher.getLatestBalances(locationProductIds).toMutableMap()
+        val breakdownByLocationProductId = productStockBreakdownProvider.forLocationProducts(locationProductIds)
+
+        val savedEntryIds = mutableListOf<UUID>()
+        val movements = mutableListOf<StockMovementEntity>()
+        for (layerSpec in layerSpecs) {
+            val entry = stockEntryRepository.save(StockInboundLayers.newLayer(layerSpec))
+            val newBalance = ExactQuantity.ofStorage(runningBalances.getValue(layerSpec.locationProductId)) + layerSpec.storageQuantity
+            runningBalances[layerSpec.locationProductId] = newBalance.toStorageQuantity()
+            movements.add(
+                StockInboundLayers.inboundMovement(
+                    layerSpec, entry, newBalance,
+                    breakdownByLocationProductId.getValue(layerSpec.locationProductId)
+                )
+            )
+            savedEntryIds.add(entry.id!!)
+        }
+        stockMovementRepository.saveAll(movements)
+        return savedEntryIds
+    }
+}

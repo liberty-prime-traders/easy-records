@@ -1,0 +1,138 @@
+package app.myliberty.easy_records.locations.business.retail.purchase
+
+import app.myliberty.easy_records.locations.business.retail.delivery.api.PurchaseDeliveryDataFetcher
+import app.myliberty.easy_records.locations.business.retail.delivery.api.PurchaseDeliveryResponseDto
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductDataFetcher
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductSummaryDto
+import app.myliberty.easy_records.locations.business.retail.location_product.api.ProductStockBreakdownProvider
+import app.myliberty.easy_records.locations.business.retail.purchase.api.PurchaseLineResponseDto
+import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.UnitConversionGraphFacade
+import app.myliberty.easy_records.locations.business.retail.purchase.api.payment.PurchasePaymentCeilingService
+import app.myliberty.easy_records.locations.business.retail.purchase.api.PurchaseResponseDto
+import app.myliberty.easy_records.organizations.business.core.contact.api.ContactService
+import app.myliberty.easy_records.util.business.mappers.UserQualifier
+import app.myliberty.easy_records.util.quantity.BaseUnitDisplay
+import app.myliberty.easy_records.util.quantity.ExactQuantity
+import org.springframework.stereotype.Service
+import java.math.BigDecimal
+import java.math.RoundingMode
+import java.util.UUID
+
+@Service
+class PurchaseAssembler(
+  private val purchaseLineRepository: PurchaseLineRepository,
+  private val locationProductDataFetcher: LocationProductDataFetcher,
+  private val purchaseDeliveryDataFetcher: PurchaseDeliveryDataFetcher,
+  private val purchasePaymentCeilingService: PurchasePaymentCeilingService,
+  private val contactService: ContactService,
+  private val userQualifier: UserQualifier,
+  private val productStockBreakdownProvider: ProductStockBreakdownProvider,
+  private val unitConversionGraphFacade: UnitConversionGraphFacade
+) {
+
+  fun buildResponses(purchases: List<PurchaseEntity>): List<PurchaseResponseDto> {
+    val purchaseIds = purchases.map { it.id!! }
+    val allLines = purchaseLineRepository.findByPurchaseIdIn(purchaseIds)
+    val productSummaries = locationProductDataFetcher.findSummaryByIds(allLines.map { it.locationProductId })
+    val linesByPurchaseId = allLines.groupBy { it.purchaseId }
+    val purchaseLineDtoMap = allLines.associateBy { it.id!! }.mapValues {
+      PurchaseMapper.purchaseLineEntityToDto(it.value)
+    }
+    val deliveryResponsesByPurchaseId = purchaseDeliveryDataFetcher.getDeliveryResponses(
+      purchaseIds, purchaseLineDtoMap, productSummaries
+    )
+    val supplierNameMap = contactService.getAllContactDtos().associateBy(
+      { it.id }, { it.identity.displayName }
+    )
+    return purchases.map { purchase ->
+      val lines = linesByPurchaseId[purchase.id] ?: emptyList()
+      val deliveries = deliveryResponsesByPurchaseId[purchase.id] ?: emptyList()
+      buildResponse(purchase, lines, productSummaries, supplierNameMap, deliveries)
+    }
+  }
+
+  fun buildResponse(purchase: PurchaseEntity, lines: List<PurchaseLineEntity>): PurchaseResponseDto {
+    val productSummaries = locationProductDataFetcher.findSummaryByIds(lines.map { it.locationProductId })
+    val purchaseLineDtoMap = lines.associateBy { it.id!! }.mapValues {
+      PurchaseMapper.purchaseLineEntityToDto(it.value)
+    }
+    val deliveries = purchaseDeliveryDataFetcher.getDeliveryResponses(
+        listOf(purchase.id!!), purchaseLineDtoMap, productSummaries
+    )[purchase.id] ?: emptyList()
+    val supplierNameMap = contactService.getAllContactDtos().associateBy(
+      { it.id }, { it.identity.displayName }
+    )
+    return buildResponse(purchase, lines, productSummaries, supplierNameMap, deliveries)
+  }
+
+  private fun buildResponse(
+    purchase: PurchaseEntity,
+    lines: List<PurchaseLineEntity>,
+    productSummaries: Map<UUID, LocationProductSummaryDto>,
+    supplierNameMap: Map<UUID, String>,
+    deliveries: List<PurchaseDeliveryResponseDto>
+  ): PurchaseResponseDto {
+    val lineDtos = toLinesDto(lines, productSummaries)
+    val deliveredTotal = deliveries.fold(BigDecimal.ZERO) { acc, d -> acc.add(d.deliveryTotal) }
+    return PurchaseResponseDto(
+      id = purchase.id!!,
+      referenceNumber = purchase.requiredReference(),
+      supplierId = purchase.supplierId,
+      supplierName = supplierNameMap[purchase.supplierId],
+      purchaseStatus = purchase.purchaseStatus,
+      paymentStatus = purchase.paymentStatus,
+      notes = purchase.notes,
+      dateOrdered = purchase.dateOrdered,
+      orderedById = purchase.orderedById,
+      orderedBy = userQualifier.getUserFullName(purchase.orderedById),
+      createdBy = userQualifier.getUserFullName(purchase.createdById),
+      createdOn = purchase.createdOn,
+      lines = lineDtos,
+      orderedTotal = lineDtos.fold(BigDecimal.ZERO) { acc, line -> acc.add(line.lineTotal) },
+      deliveredTotal = deliveredTotal,
+      paymentCeiling = purchasePaymentCeilingService.computeCeiling(lines, deliveredTotal).amount,
+      deliveries = deliveries
+    )
+  }
+
+  private fun toLinesDto(
+    lines: List<PurchaseLineEntity>,
+    productSummaries: Map<UUID, LocationProductSummaryDto>
+  ): List<PurchaseLineResponseDto> {
+    val breakdownByLocationProductId = productStockBreakdownProvider.forLocationProducts(
+        lines.map { it.locationProductId }.toSet()
+    )
+    val unitConversionGraph = unitConversionGraphFacade.getOrLoad()
+    return lines.map { line ->
+      val product = productSummaries[line.locationProductId]!!
+      val quantityBreakdown = breakdownByLocationProductId.getValue(line.locationProductId)
+      val storageUnitsPerBaseUnit = unitConversionGraph.getSizeInRoot(product.baseUnitId)
+      val delivered = ExactQuantity.ofStorage(line.storageQuantityDelivered)
+      val canceled = ExactQuantity.ofStorage(line.storageQuantityCanceled)
+      val expected = line.storageQuantityExpected()
+      val remaining = line.storageQuantityRemaining()
+      PurchaseLineResponseDto(
+        id = line.id!!,
+        referenceNumber = line.requiredReference(),
+        userProvidedQuantityOrdered = line.userProvidedQuantityOrdered,
+        unitId = line.unitId,
+        conversionFactor = BaseUnitDisplay.conversionFactor(line.storageUnitsPerUserProvidedUnit, storageUnitsPerBaseUnit),
+        unitCost = line.unitCost,
+        lineTotal = line.getTotalCost(),
+        quantityDelivered = delivered.toDisplayQuantity(line.storageUnitsPerUserProvidedUnit, RoundingMode.HALF_UP),
+        quantityYetToBeDelivered = remaining.toDisplayQuantity(line.storageUnitsPerUserProvidedUnit, RoundingMode.HALF_UP),
+        quantityCanceled = canceled.toDisplayQuantity(line.storageUnitsPerUserProvidedUnit, RoundingMode.HALF_UP),
+        quantityExpected = expected.toDisplayQuantity(line.storageUnitsPerUserProvidedUnit, RoundingMode.HALF_UP),
+        storageQuantityDelivered = delivered.toStorageQuantity(),
+        storageQuantityYetToBeDelivered = remaining.toStorageQuantity(),
+        storageQuantityCanceled = canceled.toStorageQuantity(),
+        storageQuantityExpected = expected.toStorageQuantity(),
+        quantityDeliveredBreakdown = quantityBreakdown.render(delivered),
+        quantityYetToBeDeliveredBreakdown = quantityBreakdown.render(remaining),
+        quantityCanceledBreakdown = quantityBreakdown.render(canceled),
+        quantityExpectedBreakdown = quantityBreakdown.render(expected),
+        locationProduct = product
+      )
+    }
+  }
+}

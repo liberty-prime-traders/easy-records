@@ -1,0 +1,11 @@
+package app.myliberty.easy_records.locations.business.core.permission_assignment
+
+import app.myliberty.easy_records.util.enums.EsrPermission
+import org.springframework.data.jpa.repository.JpaRepository
+import java.util.UUID
+
+interface LocationPermissionAssignmentRepository : JpaRepository<LocationPermissionAssignmentEntity, UUID> {
+    fun findAllByUserId(userId: UUID): List<LocationPermissionAssignmentEntity>
+    fun findByUserIdAndPermission(userId: UUID, permission: EsrPermission): LocationPermissionAssignmentEntity?
+    fun findAllByUserIdInAndPermission(userIds: Collection<UUID>, permission: EsrPermission): List<LocationPermissionAssignmentEntity>
+}

@@ -1,0 +1,68 @@
+package app.myliberty.easy_records.organizations.business.core.ledger.api
+
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.organizations.business.core.account.api.EntryType
+import app.myliberty.easy_records.organizations.business.core.ledger.LedgerEntryRepository
+import app.myliberty.easy_records.util.business.DateTimes
+import org.springframework.stereotype.Component
+import java.time.Instant
+import java.time.LocalDate
+import java.util.UUID
+
+@Component
+@TransactionalOnOrganizationSchema(readOnly = true)
+class LedgerMovementReader(
+    private val ledgerEntryRepository: LedgerEntryRepository
+) {
+
+    fun getMovements(
+        from: LocalDate,
+        before: LocalDate,
+        sources: Set<LedgerSourceType>,
+        locationId: UUID?
+    ): List<LedgerMovement> {
+        val dayStarts = dayStartsFor(from, before)
+        val sourceTypeCodes = sources.map { source -> source.code }.toSet()
+        val rangeStart = dayStarts.first()
+        val rangeEnd = dayStarts.last()
+        val dayStartsLiteral = toDayStartsLiteral(dayStarts)
+        val buckets = if (locationId == null) {
+            ledgerEntryRepository.sumMovementsInRange(dayStartsLiteral, rangeStart, rangeEnd, sourceTypeCodes)
+        } else {
+            ledgerEntryRepository.sumMovementsInRangeForLocation(
+                dayStartsLiteral, rangeStart, rangeEnd, sourceTypeCodes, locationId
+            )
+        }
+        return buckets.map { bucketMovement ->
+            LedgerMovement(
+                localDate = from.plusDays(bucketMovement.bucket - 1L),
+                accountCode = bucketMovement.accountCode,
+                entryType = EntryType.entries.first { entryType -> entryType.code == bucketMovement.entryTypeCode },
+                source = LedgerSourceType.entries.first { sourceType -> sourceType.code == bucketMovement.sourceTypeCode },
+                amount = bucketMovement.amount
+            )
+        }
+    }
+
+    fun getAccountMovementsFrom(from: LocalDate, before: LocalDate, accountCodes: Set<String>): List<LedgerAccountMovement> {
+        val dayStarts = dayStartsFor(from, before)
+        return ledgerEntryRepository.sumAccountMovementsFrom(toDayStartsLiteral(dayStarts), dayStarts.first(), accountCodes)
+            .map { bucketMovement ->
+                LedgerAccountMovement(
+                    localDate = from.plusDays(bucketMovement.bucket - 1L),
+                    accountCode = bucketMovement.accountCode,
+                    entryType = EntryType.entries.first { entryType -> entryType.code == bucketMovement.entryTypeCode },
+                    amount = bucketMovement.amount
+                )
+            }
+    }
+
+    // Use Instant instead of offsetDateTime to avoid timezone issues when converting to Postgres timestamptz[] literal.
+    internal fun dayStartsFor(from: LocalDate, before: LocalDate): List<Instant> =
+        generateSequence(from) { date -> date.plusDays(1) }
+            .takeWhile { date -> !date.isAfter(before) }
+            .map { date -> DateTimes.Offset.atStartOfDayInOrganizationZone(date).toInstant() }
+            .toList()
+
+    fun toDayStartsLiteral(dayStarts: List<Instant>): String = dayStarts.joinToString(",", "{", "}")
+}

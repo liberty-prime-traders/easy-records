@@ -1,0 +1,43 @@
+package app.myliberty.easy_records.platform.business.permission_assignment
+
+import app.myliberty.easy_records.configuration.cache.CacheNames
+import app.myliberty.easy_records.cross_tier.core.authority.AuthorityGrant
+import app.myliberty.easy_records.util.enums.EsrPermission
+import org.springframework.cache.annotation.CacheConfig
+import org.springframework.cache.annotation.CacheEvict
+import org.springframework.cache.annotation.Cacheable
+import org.springframework.stereotype.Component
+import java.util.UUID
+
+@Component
+@CacheConfig(cacheNames = [CacheNames.PLATFORM_PERMISSIONS])
+class PlatformPermissionCache(private val platformPermissionAssignmentRepository: PlatformPermissionAssignmentRepository) {
+
+    @Cacheable
+    fun getPlatformPermissions(userId: UUID): Set<EsrPermission> {
+        return platformPermissionAssignmentRepository.findAllByUserId(userId).map { it.permission }.toSet()
+    }
+
+    @Cacheable
+    fun getHolders(permission: EsrPermission): List<AuthorityGrant> {
+        return platformPermissionAssignmentRepository.findAllByPermission(permission).map { AuthorityGrant(it.userId, it.assignedAt) }
+    }
+
+    @CacheEvict(allEntries = true)
+    fun insertAll(platformPermissionAssignmentEntities: Collection<PlatformPermissionAssignmentEntity>) {
+        platformPermissionAssignmentRepository.saveAll(platformPermissionAssignmentEntities)
+    }
+
+    @CacheEvict(allEntries = true)
+    fun remove(userId: UUID, permission: EsrPermission) {
+        platformPermissionAssignmentRepository.findByUserIdAndPermission(userId, permission)
+            ?.let { platformPermissionAssignmentRepository.delete(it) }
+    }
+
+    @CacheEvict(allEntries = true)
+    fun removeAllHoldingPermission(userIds: Collection<UUID>, permission: EsrPermission) {
+        platformPermissionAssignmentRepository.deleteAll(
+            platformPermissionAssignmentRepository.findAllByUserIdInAndPermission(userIds, permission)
+        )
+    }
+}

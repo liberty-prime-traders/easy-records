@@ -1,0 +1,143 @@
+package app.myliberty.easy_records.locations.business.retail.stock_revision
+
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductDataFetcher
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductSummaryDto
+import app.myliberty.easy_records.locations.business.retail.sale.api.SaleDataFetcher
+import app.myliberty.easy_records.locations.business.retail.stock.api.read.StockBalanceFetcher
+import app.myliberty.easy_records.locations.business.retail.stock_reservation.api.ProductReservations
+import app.myliberty.easy_records.locations.business.retail.stock_reservation.api.StockReserver
+import app.myliberty.easy_records.util.quantity.BreakdownUnit
+import app.myliberty.easy_records.util.quantity.ExactQuantity
+import app.myliberty.easy_records.util.quantity.QuantityBreakdown
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNull
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
+import org.mockito.Mockito.mock
+import org.mockito.Mockito.`when`
+import java.math.BigDecimal
+import java.time.OffsetDateTime
+import java.util.UUID
+
+class ReservationShortfallCheckerTest {
+
+    private val locationProductId = UUID.randomUUID()
+    private val firstSaleId = UUID.randomUUID()
+    private val secondSaleId = UUID.randomUUID()
+    private val unitId = UUID.randomUUID()
+    private val quantityBreakdown = QuantityBreakdown.forBaseUnit(
+        listOf(BreakdownUnit(unitId, "pc", 1L, unitId, OffsetDateTime.parse("2026-11-01T10:00:00Z"))), unitId
+    )
+    private val stockBalanceFetcher = mock(StockBalanceFetcher::class.java)
+    private val stockReserver = mock(StockReserver::class.java)
+    private val reservationShortfallChecker = ReservationShortfallChecker(
+        stockBalanceFetcher,
+        stockReserver,
+        mock(SaleDataFetcher::class.java).also {
+            `when`(it.getReferenceNumbersById(setOf(firstSaleId, secondSaleId)))
+                .thenReturn(mapOf(firstSaleId to "SAL000420", secondSaleId to "SAL000421"))
+            `when`(it.getReferenceNumbersById(setOf(firstSaleId)))
+                .thenReturn(mapOf(firstSaleId to "SAL000420"))
+        },
+        mock(LocationProductDataFetcher::class.java).also {
+            val summary = mock(LocationProductSummaryDto::class.java)
+            `when`(summary.productName).thenReturn("Sugar")
+            `when`(it.findSummaryByIds(listOf(locationProductId))).thenReturn(mapOf(locationProductId to summary))
+        }
+    )
+
+    private fun givenOnHand(onHand: String) {
+        `when`(stockBalanceFetcher.getLatestBalances(listOf(locationProductId)))
+            .thenReturn(mapOf(locationProductId to BigDecimal(onHand)))
+    }
+
+    private fun givenOneDraftSaleHolding(reservedQuantity: String) {
+        `when`(stockReserver.loadReservationBreakdown(listOf(locationProductId))).thenReturn(
+            mapOf(
+                locationProductId to ProductReservations(
+                    total = BigDecimal(reservedQuantity),
+                    bySale = mapOf(firstSaleId to BigDecimal(reservedQuantity)),
+                )
+            )
+        )
+    }
+
+    private fun givenReservedBySale(firstSale: String, secondSale: String) {
+        `when`(stockReserver.loadReservationBreakdown(listOf(locationProductId))).thenReturn(
+            mapOf(
+                locationProductId to ProductReservations(
+                    total = BigDecimal(firstSale) + BigDecimal(secondSale),
+                    bySale = mapOf(firstSaleId to BigDecimal(firstSale), secondSaleId to BigDecimal(secondSale)),
+                )
+            )
+        )
+    }
+
+    @Test
+    fun `a product nobody reserved has no problem`() {
+        givenOnHand("5")
+        `when`(stockReserver.loadReservationBreakdown(listOf(locationProductId))).thenReturn(emptyMap())
+
+        assertNull(
+            reservationShortfallChecker.shortfallAfterPendingChange(
+                locationProductId, ExactQuantity.ZERO, quantityBreakdown
+            )
+        )
+    }
+
+    @Test
+    fun `reservations the stock still covers have no problem`() {
+        givenOnHand("10")
+        givenReservedBySale("4", "6")
+
+        assertNull(
+            reservationShortfallChecker.shortfallAfterPendingChange(
+                locationProductId, ExactQuantity.ZERO, quantityBreakdown
+            )
+        )
+    }
+
+    @Test
+    fun `a pending reduction that leaves reservations short lists every draft sale holding the product`() {
+        givenOnHand("10")
+        givenReservedBySale("4", "6")
+
+        val shortfall = reservationShortfallChecker.shortfallAfterPendingChange(
+            locationProductId, ExactQuantity.ofStorage(BigDecimal("-2")), quantityBreakdown
+        )!!
+        val problems = shortfall.blockingProblems
+
+        assertEquals(listOf("SAL000420 (draft)", "SAL000421 (draft)"), problems.map { it.documentReference })
+        assertEquals("Sugar", shortfall.productName)
+        assertEquals(ExactQuantity.ofStorage(BigDecimal("8")), shortfall.quantityLeftInStock)
+        assertEquals(ExactQuantity.ofStorage(BigDecimal("10")), shortfall.quantityHeld)
+        assertEquals("Draft sale holding 4 pcs of Sugar.", problems.first().description)
+        assertTrue(problems.first().effect.contains("8 pcs"))
+        assertTrue(problems.first().effect.contains("10 pcs between them"))
+    }
+
+    @Test
+    fun `one draft sale holding the product is described as the draft sale, not as sales between them`() {
+        givenOnHand("10")
+        givenOneDraftSaleHolding("9")
+
+        val problems = reservationShortfallChecker.shortfallAfterPendingChange(
+            locationProductId, ExactQuantity.ofStorage(BigDecimal("-2")), quantityBreakdown
+        )!!.blockingProblems
+
+        assertTrue(problems.single().effect.contains("the draft sale holds 9 pcs"))
+        assertTrue(!problems.single().effect.contains("between them"))
+    }
+
+    @Test
+    fun `a pending increase can cover reservations the current stock cannot`() {
+        givenOnHand("8")
+        givenReservedBySale("4", "6")
+
+        assertNull(
+            reservationShortfallChecker.shortfallAfterPendingChange(
+                locationProductId, ExactQuantity.ofStorage(BigDecimal("2")), quantityBreakdown
+            )
+        )
+    }
+}

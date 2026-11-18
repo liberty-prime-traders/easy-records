@@ -1,0 +1,79 @@
+package app.myliberty.easy_records.organizations.business.core.contact_opening_balance
+
+import app.myliberty.easy_records.organizations.business.core.contact_opening_balance.api.ContactSubledgerDirection
+import app.myliberty.easy_records.organizations.business.core.account.api.SystemAccount
+import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerEntryRequest
+import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerPostingRequest
+import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerSourceType
+import app.myliberty.easy_records.organizations.business.core.ledger.api.SubledgerEntryRequest
+import app.myliberty.easy_records.util.business.Money
+import app.myliberty.easy_records.util.business.PositiveMoney
+import java.math.BigDecimal
+import java.time.LocalDate
+
+object ContactOpeningSettlementPostingRequests {
+
+    fun recorded(settlementEntity: ContactOpeningSettlementEntity): LedgerPostingRequest {
+        val positiveAmount = PositiveMoney.of(settlementEntity.amount)
+        return LedgerPostingRequest(
+            sourceReferenceNumber = settlementEntity.requiredReference(),
+            sourceType = LedgerSourceType.CONTACT_OPENING_SETTLEMENT,
+            postingDate = settlementEntity.settlementDate,
+            entries = when (settlementEntity.subledgerDirection) {
+                ContactSubledgerDirection.RECEIVABLE -> listOf(
+                    LedgerEntryRequest.debit(settlementEntity.paymentAccountCode, positiveAmount),
+                    LedgerEntryRequest.credit(SystemAccount.TRADE_RECEIVABLES.code, positiveAmount)
+                )
+                ContactSubledgerDirection.PAYABLE -> listOf(
+                    LedgerEntryRequest.debit(SystemAccount.TRADE_PAYABLES.code, positiveAmount),
+                    LedgerEntryRequest.credit(settlementEntity.paymentAccountCode, positiveAmount)
+                )
+            },
+            subledgerEntries = listOf(
+                subledgerEntry(
+                    settlementEntity.contactReferenceNumber,
+                    settlementEntity.subledgerDirection,
+                    settlementEntity.amount
+                )
+            )
+        )
+    }
+
+    fun voided(settlementEntity: ContactOpeningSettlementEntity, voidDate: LocalDate): LedgerPostingRequest {
+        val positiveAmount = PositiveMoney.of(settlementEntity.amount)
+        return LedgerPostingRequest(
+            sourceReferenceNumber = settlementEntity.requiredReference(),
+            sourceType = LedgerSourceType.CONTACT_OPENING_SETTLEMENT_VOID,
+            postingDate = voidDate,
+            entries = when (settlementEntity.subledgerDirection) {
+                ContactSubledgerDirection.RECEIVABLE -> listOf(
+                    LedgerEntryRequest.debit(SystemAccount.TRADE_RECEIVABLES.code, positiveAmount),
+                    LedgerEntryRequest.credit(settlementEntity.paymentAccountCode, positiveAmount)
+                )
+                ContactSubledgerDirection.PAYABLE -> listOf(
+                    LedgerEntryRequest.debit(settlementEntity.paymentAccountCode, positiveAmount),
+                    LedgerEntryRequest.credit(SystemAccount.TRADE_PAYABLES.code, positiveAmount)
+                )
+            },
+            subledgerEntries = listOf(
+                subledgerEntry(
+                    settlementEntity.contactReferenceNumber,
+                    settlementEntity.subledgerDirection.opposite(),
+                    settlementEntity.amount
+                )
+            ),
+            reversal = true
+        )
+    }
+
+    private fun subledgerEntry(
+        contactReferenceNumber: String,
+        settledDirection: ContactSubledgerDirection,
+        amount: BigDecimal
+    ): SubledgerEntryRequest = when (settledDirection) {
+        ContactSubledgerDirection.RECEIVABLE ->
+            SubledgerEntryRequest(contactReferenceNumber, payableAmount = Money.of(amount), receivableAmount = Money.ZERO)
+        ContactSubledgerDirection.PAYABLE ->
+            SubledgerEntryRequest(contactReferenceNumber, payableAmount = Money.ZERO, receivableAmount = Money.of(amount))
+    }
+}

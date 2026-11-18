@@ -4,8 +4,8 @@ include:
   - kafka-compose.yml
 
 services:
-  rtss-server:
-    image: ezraorina834/rtss-server:${APP_VERSION}
+  esr-server:
+    image: ezraorina834/easy-records:${APP_VERSION}
     restart: unless-stopped
     environment:
       - DB_DOMAIN=${DB_DOMAIN}
@@ -22,9 +22,11 @@ services:
       - REDIS_PORT=${REDIS_INTERNAL_PORT}
       - REDIS_PASSWORD=${REDIS_PASSWORD}
       - SHOW_SQL=${SHOW_SQL}
-      - RTS_JWT_SECRET=${RTS_JWT_SECRET}
-      - RTS_JWT_EXPIRATION_MINUTES=${RTS_JWT_EXPIRATION_MINUTES}
-      - RTS_PENDING_IDENTITY_LINK_EXPIRATION_MINUTES=${RTS_PENDING_IDENTITY_LINK_EXPIRATION_MINUTES}
+      - ESR_JWT_SECRET=${ESR_JWT_SECRET}
+      - ESR_JWT_EXPIRATION_MINUTES=${ESR_JWT_EXPIRATION_MINUTES}
+      - ESR_JWT_MAX_SESSION_MINUTES=${ESR_JWT_MAX_SESSION_MINUTES:-480}
+      - ESR_PENDING_IDENTITY_LINK_EXPIRATION_MINUTES=${ESR_PENDING_IDENTITY_LINK_EXPIRATION_MINUTES}
+      - ESR_CLIENT_SIDE_FILTER_THRESHOLD=${ESR_CLIENT_SIDE_FILTER_THRESHOLD:-1000}
       - GOOGLE_OAUTH_CLIENT_ID=${GOOGLE_OAUTH_CLIENT_ID}
       - HIBERNATE_SQL_LOGGING=${HIBERNATE_SQL_LOGGING}
       - HIBERNATE_ENVERS_LOGGING=${HIBERNATE_ENVERS_LOGGING}
@@ -32,11 +34,11 @@ services:
 
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.rtss-server-${ENV}.rule=Host(`rtss-server-${ENV}.ezra-home.me`)"
-      - "traefik.http.routers.rtss-server-${ENV}.entrypoints=websecure"
-      - "traefik.http.routers.rtss-server-${ENV}.tls=true"
-      - "traefik.http.routers.rtss-server-${ENV}.tls.certresolver=acme-cert-resolver"
-      - "traefik.http.services.rtss-server-${ENV}.loadbalancer.server.port=${PORT}"
+      - "traefik.http.routers.esr-server-${ENV}.rule=Host(`api.${APP_DOMAIN}`)"
+      - "traefik.http.routers.esr-server-${ENV}.entrypoints=websecure"
+      - "traefik.http.routers.esr-server-${ENV}.tls=true"
+      - "traefik.http.routers.esr-server-${ENV}.tls.certresolver=acme-cert-resolver"
+      - "traefik.http.services.esr-server-${ENV}.loadbalancer.server.port=${PORT}"
 
     networks:
       - ezra-home
@@ -50,9 +52,9 @@ services:
       start_period: 90s
 
     depends_on:
-      rtss-postgres:
+      esr-postgres:
         condition: service_healthy
-      rtss-redis:
+      esr-redis:
         condition: service_healthy
-      rtss-kafka:
+      esr-kafka:
         condition: service_healthy

@@ -1,0 +1,38 @@
+package app.myliberty.easy_records.organizations.business.core.location
+
+import app.myliberty.easy_records.configuration.session.SessionContextProvider
+import app.myliberty.easy_records.organizations.business.core.location.api.LocationInsertDto
+import app.myliberty.easy_records.organizations.business.core.location.api.LocationUpdateDto
+import app.myliberty.easy_records.util.business.DateTimes
+import app.myliberty.easy_records.util.business.StringUtils
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
+import org.springframework.stereotype.Component
+import java.util.Objects
+
+@Component
+class LocationValidator(private val locationCache: LocationCache) {
+
+
+    companion object {
+        const val NAME_IS_REQUIRED = "A location must have a name"
+        const val NAME_ALREADY_EXISTS = "A location with the name %s already exists"
+    }
+
+    fun validateLocationInsert(locationInsertDto: LocationInsertDto) {
+        val name = StringUtils.getValueOrException(locationInsertDto.name, NAME_IS_REQUIRED)
+        locationCache.getAllLocations()
+            .find { StringUtils.isEquivalent(it.name, locationInsertDto.name) }
+            ?.let { throw LibertyGenericException(String.format(NAME_ALREADY_EXISTS, name)) }
+        DateTimes.validateTimezone(locationInsertDto.timezone)
+    }
+
+    fun validateLocationUpdate(locationUpdateDto: LocationUpdateDto) {
+        val name = StringUtils.getValueOrException(locationUpdateDto.name, NAME_IS_REQUIRED)
+        val locationId = SessionContextProvider.getLocationId()
+        locationCache.getAllLocations()
+            .find { StringUtils.isEquivalent(it.name, name) && !Objects.equals(it.id, locationId) }
+            ?.let { throw LibertyGenericException(String.format(NAME_ALREADY_EXISTS, name)) }
+        DateTimes.validateTimezone(locationUpdateDto.timezone)
+    }
+
+}

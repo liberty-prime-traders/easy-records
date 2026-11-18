@@ -1,0 +1,27 @@
+package app.myliberty.easy_records.locations.business.retail.stock_adjustment.api
+
+import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import app.myliberty.easy_records.configuration.serializer.StripZeroesAndRound
+import app.myliberty.easy_records.locations.business.retail.stock.api.StockAdjustmentCategory
+import java.math.BigDecimal
+import java.time.OffsetDateTime
+import java.util.UUID
+
+data class StockAdjustmentResponseDto(
+    val referenceNumber: String,
+    val locationProductId: UUID,
+    val productLabel: String,
+    val category: StockAdjustmentCategory,
+    val direction: StockAdjustmentDirection,
+    @get:JsonProperty("quantity")
+    val userProvidedQuantity: BigDecimal,
+    val unitId: UUID,
+    val quantityText: String,
+    @field:JsonSerialize(using = StripZeroesAndRound::class)
+    val totalCost: BigDecimal,
+    val stockMovementReasonId: UUID?,
+    val note: String?,
+    val adjustedBy: String,
+    val adjustedAt: OffsetDateTime
+)

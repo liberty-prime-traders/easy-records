@@ -1,0 +1,47 @@
+package app.myliberty.easy_records.organizations.business.core.fiscal_period
+
+import app.myliberty.easy_records.organizations.business.core.accounting_config.api.OrgAccountingConfigService
+import app.myliberty.easy_records.util.business.DateTimes
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
+import org.springframework.stereotype.Component
+import java.time.LocalDate
+import java.util.UUID
+
+@Component
+class PeriodCloseValidator(
+    private val repository: FiscalPeriodRepository,
+    private val configService: OrgAccountingConfigService
+) {
+
+    fun assertCanClose(period: FiscalPeriodEntity) {
+        if (period.isClosed) throw LibertyGenericException("Period '${period.name}' is already closed")
+        if (!isClosable(period.endDate)) throw LibertyGenericException("Period '${period.name}' has not ended yet and cannot be closed")
+        if (period.yearEnd && hasOpenSiblings(period.id!!, period.endDate)) {
+            throw LibertyGenericException("All periods in the fiscal year must be closed before closing '${period.name}'")
+        }
+    }
+
+    fun isClosable(dto: FiscalPeriodDto): Boolean {
+        if (dto.isClosed || !isClosable(dto.endDate)) return false
+        if (!dto.yearEnd) return true
+        return !hasOpenSiblings(dto.id, dto.endDate)
+    }
+
+    fun isClosable(dto: FiscalPeriodDto, allPeriodsInYear: Collection<FiscalPeriodDto>): Boolean {
+        if (dto.isClosed || !isClosable(dto.endDate)) return false
+        if (!dto.yearEnd) return true
+        return allPeriodsInYear.none { it.id != dto.id && !it.isClosed }
+    }
+
+    private fun hasOpenSiblings(id: UUID, endDate: LocalDate): Boolean {
+        val config = configService.getConfig() ?: throw LibertyGenericException("Accounting configuration has not been initialized")
+        val yearEnd = FiscalPeriodUtils.yearEnd(endDate, config.fiscalYearEndMonth)
+        val yearStart = FiscalPeriodUtils.yearStart(yearEnd)
+        return repository.countOpenInYear(yearStart, yearEnd, id) > 0
+    }
+
+    private fun isClosable(endDate: LocalDate): Boolean {
+        val today = DateTimes.Local.Now.organization()
+        return today.isAfter(endDate)
+    }
+}

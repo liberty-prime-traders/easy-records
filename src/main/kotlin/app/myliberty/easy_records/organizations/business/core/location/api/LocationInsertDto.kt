@@ -1,0 +1,9 @@
+package app.myliberty.easy_records.organizations.business.core.location.api
+
+
+data class LocationInsertDto(
+    val locationType: LocationType? = null,
+    val name: String? = null,
+    val description: String? = null,
+    val timezone: String = "Africa/Addis_Ababa"
+)

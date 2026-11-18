@@ -1,0 +1,48 @@
+package app.myliberty.easy_records.organizations.business.retail.unitgroup
+
+import app.myliberty.easy_records.configuration.cache.CacheNames
+import app.myliberty.easy_records.configuration.cache.CacheSchemaLevel
+import app.myliberty.easy_records.organizations.business.retail.unitgroup.api.UnitGroupDto
+import app.myliberty.easy_records.organizations.business.retail.unitgroup.api.UnitGroupInsertDto
+import app.myliberty.easy_records.util.enums.SchemaLevel
+import org.springframework.cache.annotation.CacheConfig
+import org.springframework.cache.annotation.CacheEvict
+import org.springframework.cache.annotation.Cacheable
+import org.springframework.stereotype.Component
+import java.util.UUID
+
+@Component
+@CacheSchemaLevel(SchemaLevel.ORGANIZATION)
+@CacheConfig(cacheNames = [CacheNames.UNIT_GROUP])
+class UnitGroupCache(
+    private val unitGroupRepository: UnitGroupRepository,
+    private val unitGroupMapper: UnitGroupMapper
+) {
+
+    @Cacheable
+    fun getAllUnitGroups(): Collection<UnitGroupDto> {
+        return unitGroupRepository.findAll().map { unitGroupMapper.toDomainDto(it) }
+    }
+
+    @CacheEvict(allEntries = true)
+    fun create(insertDto: UnitGroupInsertDto): UnitGroupDto {
+        val saved = unitGroupRepository.save(unitGroupMapper.toEntity(insertDto))
+        return unitGroupMapper.toDomainDto(saved)
+    }
+
+    @CacheEvict(allEntries = true)
+    fun save(unitGroupDto: UnitGroupDto): UnitGroupDto {
+        val saved = unitGroupRepository.save(unitGroupMapper.toEntity(unitGroupDto))
+        return unitGroupMapper.toDomainDto(saved)
+    }
+
+    @CacheEvict(allEntries = true)
+    fun saveAll(entities: Collection<UnitGroupEntity>): List<UnitGroupEntity> {
+        return unitGroupRepository.saveAll(entities)
+    }
+
+    @CacheEvict(allEntries = true)
+    fun deleteUnitGroup(id: UUID) {
+        unitGroupRepository.deleteById(id)
+    }
+}

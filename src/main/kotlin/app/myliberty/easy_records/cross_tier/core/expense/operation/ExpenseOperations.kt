@@ -1,0 +1,100 @@
+package app.myliberty.easy_records.cross_tier.core.expense.operation
+
+import app.myliberty.easy_records.cross_tier.core.expense.ExpenseSourceType
+import app.myliberty.easy_records.cross_tier.core.expense.ExpenseTier
+import app.myliberty.easy_records.cross_tier.core.expense.model.ExpenseAggregate
+import app.myliberty.easy_records.cross_tier.core.expense.model.ExpenseBatchDto
+import app.myliberty.easy_records.cross_tier.core.expense.model.ExpenseSource
+import app.myliberty.easy_records.cross_tier.core.expense.model.ExpenseSubmission
+import app.myliberty.easy_records.cross_tier.core.expense.model.NewExpense
+import app.myliberty.easy_records.cross_tier.core.expense.model.NewExpenseBatch
+import app.myliberty.easy_records.cross_tier.core.expense.model.ResolvedExpenseRow
+import app.myliberty.easy_records.cross_tier.core.expense.model.SettledExpense
+import app.myliberty.easy_records.cross_tier.core.expense.model.SourceDocument
+import app.myliberty.easy_records.cross_tier.core.expense.request.ExpenseVoidRequest
+import app.myliberty.easy_records.cross_tier.core.expense.request.StandaloneExpenseBatchRequest
+import app.myliberty.easy_records.cross_tier.core.expense.response.ExpenseResponseBuilder
+import app.myliberty.easy_records.cross_tier.core.expense.response.ExpenseSummaryResponse
+import app.myliberty.easy_records.util.business.StringUtils
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
+
+class ExpenseOperations(
+    private val expenseTier: ExpenseTier,
+    private val expenseEvents: ExpenseEvents,
+    private val expenseRowResolver: ExpenseRowResolver,
+    private val expenseResponseBuilder: ExpenseResponseBuilder,
+    private val expenseLookup: ExpenseLookup,
+    private val expensePaymentOperations: ExpensePaymentOperations
+) {
+
+    private val expenseStore = expenseTier.expenseStore
+
+    fun createStandalone(standaloneExpenseBatchRequest: StandaloneExpenseBatchRequest): List<ExpenseSummaryResponse> {
+        val batchDescription = StringUtils.getValueOrException(
+            standaloneExpenseBatchRequest.description, "Batch description is required"
+        )
+        return createBatch(
+            ExpenseSourceType.ADHOC,
+            batchDescription,
+            ExpenseSubmission(standaloneExpenseBatchRequest.expenseDate, standaloneExpenseBatchRequest.rows.map { it.toRowCommand() })
+        )
+    }
+
+    fun createBatch(
+        sourceType: ExpenseSourceType,
+        description: String,
+        expenseSubmission: ExpenseSubmission
+    ): List<ExpenseSummaryResponse> {
+        val resolvedExpenseRows = expenseRowResolver.resolve(sourceType, expenseSubmission)
+        val expenseSource = ExpenseSource(sourceType, null)
+        val expenseBatchDto = expenseStore.createBatch(NewExpenseBatch(description, expenseSource))
+        return expenseResponseBuilder.buildSummaries(writeRows(expenseBatchDto, expenseSource, resolvedExpenseRows))
+    }
+
+    fun createForSourceDocument(sourceDocument: SourceDocument, expenseSubmission: ExpenseSubmission): List<ExpenseSummaryResponse> {
+        val resolvedExpenseRows = expenseRowResolver.resolve(sourceDocument.type, expenseSubmission)
+        expenseTier.lockSourceDocument(sourceDocument.id)
+        val expenseBatchDto = expenseStore.findBatchBySource(sourceDocument.type, sourceDocument.reference)
+            ?: expenseStore.createBatch(
+                NewExpenseBatch("${sourceDocument.type.batchDescriptionLabel()} ${sourceDocument.reference}", sourceDocument.source)
+            )
+        return expenseResponseBuilder.buildSummaries(writeRows(expenseBatchDto, sourceDocument.source, resolvedExpenseRows))
+    }
+
+    fun voidExpense(expenseVoidRequest: ExpenseVoidRequest): ExpenseSummaryResponse {
+        val voidReason = StringUtils.getValueOrException(expenseVoidRequest.reason, "A void reason is required")
+        expenseRowResolver.requireOpenPeriodToday()
+        val expenseDto = expenseLookup.requireExpense(expenseVoidRequest.expenseReference)
+        expenseTier.lockExpense(expenseDto.id)
+        val expenseAggregate = expenseStore.loadForExpenses(listOf(expenseDto.id))
+        expenseLookup.requireNotVoided(expenseAggregate, expenseDto)
+        if (expenseAggregate.hasActivePayments(expenseDto.id)) {
+            throw LibertyGenericException("Void every payment on expense ${expenseDto.referenceNumber} before voiding it")
+        }
+        val expenseVoidDto = expenseStore.saveExpenseVoid(expenseDto.id, voidReason)
+        expenseEvents.publishVoided(expenseVoidDto, expenseDto)
+        return expenseResponseBuilder.buildSummary(
+            expenseAggregate.copy(expenseVoids = expenseAggregate.expenseVoids + expenseVoidDto), expenseDto.id
+        )
+    }
+
+    private fun writeRows(
+        expenseBatchDto: ExpenseBatchDto,
+        expenseSource: ExpenseSource,
+        resolvedExpenseRows: List<ResolvedExpenseRow>
+    ): ExpenseAggregate {
+        val settledExpenses = ArrayList<SettledExpense>()
+        val expenseDtos = expenseStore.saveExpenses(
+            resolvedExpenseRows.map { NewExpense(expenseBatchDto.id, expenseSource, it) }
+        )
+        expenseDtos.forEachIndexed { rowIndex, expenseDto ->
+            expenseEvents.publishRecorded(expenseDto)
+            resolvedExpenseRows[rowIndex].settlement?.let { settledExpenses.add(SettledExpense(expenseDto, it)) }
+        }
+        val writtenExpenseIds = expenseDtos.map { it.id }
+        expensePaymentOperations.settleNewExpenses(settledExpenses)
+        val writtenAggregate = expenseStore.loadForExpenses(writtenExpenseIds)
+        val writtenOrderByExpenseId = writtenExpenseIds.withIndex().associate { (index, expenseId) -> expenseId to index }
+        return writtenAggregate.copy(expenses = writtenAggregate.expenses.sortedBy { writtenOrderByExpenseId.getValue(it.id) })
+    }
+}

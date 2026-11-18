@@ -1,0 +1,65 @@
+package app.myliberty.easy_records.util.business.reference_number
+
+import app.myliberty.easy_records.organizations.business.core.org_table_registry.api.OrgTableRegistryService
+import app.myliberty.easy_records.platform.business.table_registry.api.TableRegistryService
+import app.myliberty.easy_records.util.enums.SchemaLevel
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
+import app.myliberty.easy_records.util.model.TableName
+import org.springframework.stereotype.Service
+
+@Service
+class ReferenceNumberGenerator(
+    private val sequenceFetcher: SequenceFetcher,
+    private val tableRegistryService: TableRegistryService,
+    private val orgTableRegistryService: OrgTableRegistryService
+) {
+
+    companion object {
+        const val REFERENCE_NUMBER_MIN_LENGTH = 6
+    }
+    fun generateSingle(tableName: TableName): String {
+        return generateBulk(tableName, 1).first()
+    }
+
+    fun generateBulk(tableName: TableName, count: Int): List<String> {
+        require(count > 0) { "Count must be greater than 0" }
+        val schemaLevel = getSchemaLevel(tableName)
+        val sequenceNumbers = if (count == 1) {
+            listOf(sequenceFetcher.getNextSequenceValue(tableName, schemaLevel))
+        } else {
+            sequenceFetcher.getBulkSequenceValues(tableName, schemaLevel, count)
+        }
+        val prefix = getPrefix(tableName, schemaLevel)
+        return sequenceNumbers.map { makeReferenceNumber(prefix, it) }
+    }
+
+    private fun makeReferenceNumber(prefix: String, sequenceNumber: String): String {
+        return prefix + sequenceNumber.padStart(REFERENCE_NUMBER_MIN_LENGTH - prefix.length, '0')
+    }
+
+    private fun getSchemaLevel(tableName: TableName): SchemaLevel {
+        val table = tableRegistryService.getAllTableDtos()
+            .firstOrNull { it.tableName == tableName.tableName }
+            ?: throw LibertyGenericException("Table ${tableName.tableName} not found in registry")
+
+        return table.schemaLevel
+    }
+
+    private fun getPrefix(tableName: TableName, schemaLevel: SchemaLevel): String {
+        val platformTable = tableRegistryService.getAllTableDtos()
+            .firstOrNull { it.tableName == tableName.tableName }
+            ?: throw LibertyGenericException("Table ${tableName.tableName} not found in platform registry")
+
+        if (!platformTable.validated) {
+            throw LibertyGenericException("Table ${tableName.tableName} is not validated hence cannot generate reference number")
+        }
+        if (schemaLevel != SchemaLevel.PLATFORM) {
+            orgTableRegistryService.getAllOrgTableDtos()
+                .firstOrNull { it.registryId == platformTable.id }
+                ?.apply { return this.defaultPrefix }
+        }
+
+        return platformTable.defaultPrefix
+    }
+
+}

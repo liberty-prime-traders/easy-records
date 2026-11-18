@@ -1,0 +1,19 @@
+package app.myliberty.easy_records.platform.business.organization_join_request
+
+import app.myliberty.easy_records.platform.business.organization_join_request.api.JoinRequestStatus
+import org.springframework.data.jpa.repository.JpaRepository
+import java.util.UUID
+
+interface OrganizationJoinRequestRepository : JpaRepository<OrganizationJoinRequestEntity, UUID> {
+
+    fun existsBySubdomainAndCreatedByIdAndStatus(
+        subdomain: String,
+        createdById: UUID,
+        status: JoinRequestStatus
+    ): Boolean
+
+    fun findAllByCreatedById(createdById: UUID): Collection<OrganizationJoinRequestEntity>
+
+    fun findByOrganizationId(organizationId: UUID): Collection<OrganizationJoinRequestEntity>
+
+}

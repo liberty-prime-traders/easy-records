@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 # Usage: ./restore-db.sh <source-postgres-container> <target-postgres-container>
 # Copies the whole source database over the target. Stops/restarts only the
-# target stack's rtss-server container (if it is running in Docker).
+# target stack's esr-server container (if it is running in Docker).
 set -euo pipefail
 
-PG_SERVICE=rtss-postgres
-SERVER_SERVICE=rtss-server
+PG_SERVICE=esr-postgres
+SERVER_SERVICE=esr-server
 
 SRC="${1:?usage: restore-db.sh <source-container> <target-container>}"
 DST="${2:?usage: restore-db.sh <source-container> <target-container>}"
@@ -21,8 +21,8 @@ for c in "$SRC" "$DST"; do
 done
 
 # The target must opt in via ALLOW_DB_OVERWRITE=true in its env file.
-[[ "$(label "$DST" rtss.allow-db-overwrite)" == "true" ]] \
-  || die "$DST does not have rtss.allow-db-overwrite=true"
+[[ "$(label "$DST" esr.allow-db-overwrite)" == "true" ]] \
+  || die "$DST does not have esr.allow-db-overwrite=true"
 
 DST_PROJECT="$(label "$DST" com.docker.compose.project)"
 

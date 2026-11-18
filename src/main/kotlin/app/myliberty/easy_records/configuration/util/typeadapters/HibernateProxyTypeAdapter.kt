@@ -1,0 +1,44 @@
+package app.myliberty.easy_records.configuration.util.typeadapters
+
+import com.google.gson.Gson
+import com.google.gson.TypeAdapter
+import com.google.gson.TypeAdapterFactory
+import com.google.gson.reflect.TypeToken
+import com.google.gson.stream.JsonReader
+import com.google.gson.stream.JsonWriter
+import org.hibernate.Hibernate
+import org.hibernate.proxy.HibernateProxy
+import java.io.IOException
+
+class HibernateProxyTypeAdapter private constructor(private val context: Gson) : TypeAdapter<HibernateProxy?>() {
+
+    companion object {
+        val FACTORY: TypeAdapterFactory = object : TypeAdapterFactory {
+            override fun <T> create(gson: Gson, type: TypeToken<T>): TypeAdapter<T>? {
+                if (HibernateProxy::class.java.isAssignableFrom(type.rawType)){
+                    return HibernateProxyTypeAdapter(gson) as TypeAdapter<T>
+                }
+                return null
+            }
+        }
+    }
+
+    @Throws(IOException::class)
+    override fun read(input: JsonReader): HibernateProxy? {
+        throw UnsupportedOperationException("Not supported")
+    }
+
+    @Throws(IOException::class)
+    override fun write(out: JsonWriter, value: HibernateProxy?) {
+        if (value == null) {
+            out.nullValue()
+            return
+        }
+        val baseType: Class<*> = Hibernate.getClass(value)
+        val delegate: TypeAdapter<*> = context.getAdapter(TypeToken.get(baseType))
+        val deproxiedValue = value.hibernateLazyInitializer.implementation
+        (delegate as TypeAdapter<Any>).write(out, deproxiedValue)
+    }
+
+
+}
