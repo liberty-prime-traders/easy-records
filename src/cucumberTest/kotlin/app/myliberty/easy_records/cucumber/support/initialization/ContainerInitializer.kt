@@ -11,9 +11,9 @@ class ContainerInitializer : ApplicationContextInitializer<ConfigurableApplicati
   companion object {
     private val postgres by lazy {
       PostgreSQLContainer<Nothing>("postgres:16").apply {
-        withDatabaseName("rtss_e2e_test")
-        withUsername("rtss_test_user")
-        withPassword("rtss_test_password")
+        withDatabaseName("esr_e2e_test")
+        withUsername("esr_test_user")
+        withPassword("esr_test_password")
         withReuse(true)
         start()
       }

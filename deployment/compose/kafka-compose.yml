@@ -25,7 +25,7 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,EXTERNAL:PLAINTEXT
 
     volumes:
-      - rtss-kafka-data:/var/lib/kafka/data
+      - kafka-data:/var/lib/kafka/data
     healthcheck:
       test: ["CMD-SHELL", "kafka-broker-api-versions --bootstrap-server localhost:9092 > /dev/null 2>&1"]
       interval: 15s
@@ -47,13 +47,13 @@ services:
       AUTH_OAUTH2_CLIENT_AUTH0_SCOPE: openid,profile,email
       AUTH_OAUTH2_CLIENT_AUTH0_CLIENTNAME: Auth0
       AUTH_OAUTH2_CLIENT_AUTH0_PROVIDER: auth0
-      AUTH_OAUTH2_CLIENT_AUTH0_REDIRECTURI: https://rtss-kafka-${ENV}.ezra-home.me/login/oauth2/code/auth0
+      AUTH_OAUTH2_CLIENT_AUTH0_REDIRECTURI: https://esr-kafka-${ENV}.ezra-home.me/login/oauth2/code/auth0
       AUTH_OAUTH2_CLIENT_AUTH0_ISSUERURI: https://${OAUTH_DOMAIN}/
       AUTH_OAUTH2_CLIENT_AUTH0_CUSTOMPARAMS_TYPE: oauth
 
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.esr-kafka-ui-${ENV}.rule=Host(`rtss-kafka-${ENV}.ezra-home.me`)"
+      - "traefik.http.routers.esr-kafka-ui-${ENV}.rule=Host(`esr-kafka-${ENV}.ezra-home.me`)"
       - "traefik.http.routers.esr-kafka-ui-${ENV}.entrypoints=websecure"
       - "traefik.http.routers.esr-kafka-ui-${ENV}.tls=true"
       - "traefik.http.routers.esr-kafka-ui-${ENV}.tls.certresolver=acme-cert-resolver"
@@ -79,5 +79,5 @@ networks:
       external: true
 
 volumes:
-  rtss-kafka-data:
+  kafka-data:
     driver: local

@@ -5,7 +5,7 @@ include:
 
 services:
   esr-server:
-    image: ezraorina834/rtss-server:${APP_VERSION}
+    image: ezraorina834/easy-records:${APP_VERSION}
     restart: unless-stopped
     environment:
       - DB_DOMAIN=${DB_DOMAIN}
@@ -34,7 +34,7 @@ services:
 
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.esr-server-${ENV}.rule=Host(`rtss-server-${ENV}.ezra-home.me`)"
+      - "traefik.http.routers.esr-server-${ENV}.rule=Host(`esr-server-${ENV}.ezra-home.me`)"
       - "traefik.http.routers.esr-server-${ENV}.entrypoints=websecure"
       - "traefik.http.routers.esr-server-${ENV}.tls=true"
       - "traefik.http.routers.esr-server-${ENV}.tls.certresolver=acme-cert-resolver"
