@@ -34,7 +34,7 @@ services:
 
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.esr-server-${ENV}.rule=Host(`easy-records-server-${ENV}.myliberty.app`)"
+      - "traefik.http.routers.esr-server-${ENV}.rule=Host(`api.${APP_DOMAIN}`)"
       - "traefik.http.routers.esr-server-${ENV}.entrypoints=websecure"
       - "traefik.http.routers.esr-server-${ENV}.tls=true"
       - "traefik.http.routers.esr-server-${ENV}.tls.certresolver=acme-cert-resolver"
