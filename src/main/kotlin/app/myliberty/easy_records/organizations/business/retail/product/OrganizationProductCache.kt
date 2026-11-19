@@ -1,0 +1,55 @@
+package app.myliberty.easy_records.organizations.business.retail.product
+
+import app.myliberty.easy_records.configuration.cache.CacheNames
+import app.myliberty.easy_records.configuration.cache.CacheSchemaLevel
+import app.myliberty.easy_records.organizations.business.retail.product.api.OrganizationProductInsertDto
+import app.myliberty.easy_records.organizations.business.retail.product.api.ProductStatus
+import app.myliberty.easy_records.util.enums.SchemaLevel
+import org.springframework.cache.annotation.CacheConfig
+import org.springframework.cache.annotation.CacheEvict
+import org.springframework.cache.annotation.Cacheable
+import org.springframework.stereotype.Service
+
+@Service
+@CacheSchemaLevel(SchemaLevel.ORGANIZATION)
+@CacheConfig(cacheNames = [CacheNames.PRODUCT])
+class OrganizationProductCache(
+    private val organizationProductRepository: OrganizationProductRepository,
+    private val organizationProductMapper: OrganizationProductMapper
+) {
+
+    @Cacheable
+    fun findAllProducts(): List<OrganizationProductDto> =
+        organizationProductRepository.findAllProducts().map { organizationProductMapper.toDomainDto(it) }
+
+    @Cacheable
+    fun countAllProducts(): Long = organizationProductRepository.count()
+
+    @CacheEvict(allEntries = true)
+    fun create(insertDto: OrganizationProductInsertDto): OrganizationProductDto {
+        val entity = organizationProductMapper.toEntity(insertDto).apply { status = ProductStatus.ACTIVE }
+        val saved = organizationProductRepository.save(entity)
+        // productGroupName is trigger-populated and insertable/updatable = false; Hibernate's
+        // @Generated post-insert refresh doesn't reliably repopulate it on this entity instance,
+        // so read it back explicitly instead of trusting the in-memory field.
+        saved.productGroupName = organizationProductRepository.findProductGroupNameById(checkNotNull(saved.id))
+        return organizationProductMapper.toDomainDto(saved)
+    }
+
+    @CacheEvict(allEntries = true)
+    fun saveAll(entities: Collection<OrganizationProductEntity>): List<OrganizationProductEntity> {
+        if (entities.isEmpty()) return emptyList()
+        entities.forEach { it.status = ProductStatus.ACTIVE }
+        val saved = organizationProductRepository.saveAll(entities)
+        val groupNameById = organizationProductRepository.findProductGroupNamesByIdIn(saved.map { checkNotNull(it.id) })
+            .associate { it.id to it.productGroupName }
+        saved.forEach { it.productGroupName = groupNameById.getValue(it.id!!) }
+        return saved
+    }
+
+    @CacheEvict(allEntries = true)
+    fun save(productDto: OrganizationProductDto): OrganizationProductDto {
+        val saved = organizationProductRepository.save(organizationProductMapper.toEntity(productDto))
+        return organizationProductMapper.toDomainDto(saved)
+    }
+}

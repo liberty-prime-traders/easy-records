@@ -1,0 +1,19 @@
+package app.myliberty.easy_records.platform.business.db_migration.api
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import app.myliberty.easy_records.configuration.serializer.DatesToMillis
+import java.io.Serializable
+import java.time.OffsetDateTime
+import java.util.UUID
+
+data class LocationMigrationResponse(
+    val locationId: UUID,
+    val locationName: String,
+    val versionNumber: String,
+    @field:JsonSerialize(using = DatesToMillis::class)
+    val startOn: OffsetDateTime,
+    @field:JsonSerialize(using = DatesToMillis::class)
+    val endOn: OffsetDateTime?,
+    val status: MigrationStatus,
+    val message: String?
+) : Serializable

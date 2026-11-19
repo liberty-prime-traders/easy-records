@@ -1,0 +1,106 @@
+package app.myliberty.easy_records.locations.business.retail.stock.api.revision
+
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.locations.business.core.lock.api.EntityAdvisoryLock
+import app.myliberty.easy_records.locations.business.retail.stock.FifoStockConsumer
+import app.myliberty.easy_records.locations.business.retail.stock.StockEntryEntity
+import app.myliberty.easy_records.locations.business.retail.stock.StockEntryRepository
+import app.myliberty.easy_records.locations.business.retail.stock.StockMovementCreator
+import app.myliberty.easy_records.locations.business.retail.stock.StockMovementEntity
+import app.myliberty.easy_records.locations.business.retail.stock.StockMovementRepository
+import app.myliberty.easy_records.locations.business.retail.stock.api.StockEntryStatus
+import app.myliberty.easy_records.locations.business.retail.stock.api.read.StockBalanceFetcher
+import app.myliberty.easy_records.locations.business.retail.stock.stockEntryFifoComparator
+import app.myliberty.easy_records.util.business.lock.LockNamespaces
+import app.myliberty.easy_records.util.quantity.ExactQuantity
+import app.myliberty.easy_records.util.quantity.QuantityBreakdown
+import org.springframework.stereotype.Service
+import java.math.BigDecimal
+import java.util.UUID
+import org.springframework.transaction.annotation.Propagation
+
+// Writes the reset and the replay of a revision; the replacement layer between them is written by
+// StockReplacementLayerRecorder.
+@Service
+@TransactionalOnLocationSchema
+class StockRevisionCommitter(
+    private val entityAdvisoryLock: EntityAdvisoryLock,
+    private val stockEntryRepository: StockEntryRepository,
+    private val stockMovementRepository: StockMovementRepository,
+    private val stockBalanceFetcher: StockBalanceFetcher
+) {
+
+    @TransactionalOnLocationSchema(propagation = Propagation.MANDATORY)
+    fun commitReset(stockEntryResetPlan: StockEntryResetPlan, quantityBreakdown: QuantityBreakdown) {
+        val locationProductId = stockEntryResetPlan.locationProductId
+        entityAdvisoryLock.acquire(LockNamespaces.PRODUCT, locationProductId)
+        val stockEntry = stockEntryRepository.getReferenceById(stockEntryResetPlan.stockEntryId)
+
+        val movements = stockEntryResetPlan.movementDrafts.map { movementDraft ->
+            StockMovementCreator.create(movementDraft, stockEntry.id!!, locationProductId, quantityBreakdown)
+        }
+
+        stockEntry.storageQuantityRemaining = ExactQuantity.ZERO.toStorageQuantity()
+        stockEntry.costRemaining = BigDecimal.ZERO
+        stockEntry.status = StockEntryStatus.REPLACED
+        stockEntryRepository.save(stockEntry)
+        stockMovementRepository.saveAll(movements)
+    }
+
+    // Draws from every layer with stock left, so the replacement layer must already be saved.
+    @TransactionalOnLocationSchema(propagation = Propagation.MANDATORY)
+    fun commitReplay(
+        consumerReplayPlans: List<ConsumerReplayPlan>,
+        replacementStockEntryId: UUID,
+        quantityBreakdown: QuantityBreakdown
+    ) {
+        if (consumerReplayPlans.isEmpty()) return
+        val locationProductId = consumerReplayPlans.first().fifoConsumptionRequest.locationProductId
+        entityAdvisoryLock.acquire(LockNamespaces.PRODUCT, locationProductId)
+        requireActiveReplacementOfProduct(replacementStockEntryId, locationProductId)
+
+        val fifoEntries = stockEntryRepository.findFifoEntriesForProducts(
+            listOf(locationProductId)
+        ).sortedWith(stockEntryFifoComparator)
+
+        var runningBalance = stockBalanceFetcher.getLatestBalances(
+            listOf(locationProductId)
+        ).getValue(locationProductId)
+        val touchedEntries = LinkedHashSet<StockEntryEntity>()
+        val movements = mutableListOf<StockMovementEntity>()
+        consumerReplayPlans.forEach { consumerReplayPlan ->
+            val fifoConsumptionRequest = consumerReplayPlan.fifoConsumptionRequest
+            val fifoConsumptionResult = FifoStockConsumer.applyTakes(
+                fifoConsumptionRequest = fifoConsumptionRequest,
+                plannedTakes = consumerReplayPlan.plannedTakes,
+                fifoEntries = fifoEntries,
+                startingBalance = runningBalance,
+                quantityBreakdown = quantityBreakdown
+            )
+            runningBalance = fifoConsumptionResult.endingBalance
+            touchedEntries.addAll(fifoConsumptionResult.touchedEntries)
+            movements.addAll(fifoConsumptionResult.movements)
+        }
+
+        stockEntryRepository.saveAll(touchedEntries)
+        stockMovementRepository.saveAll(movements)
+    }
+
+    // Checked by id because a zero-quantity replacement is legitimate but is not among the layers with stock left.
+    // Without it a replay would be covered by other layers and the replacement saved afterwards would overstate the
+    // stock.
+    private fun requireActiveReplacementOfProduct(replacementStockEntryId: UUID, locationProductId: UUID) {
+        val replacementStockEntry = stockEntryRepository.findById(replacementStockEntryId).orElseThrow {
+            IllegalArgumentException(
+                "Replacement stock entry $replacementStockEntryId must be saved before the consumers are replayed."
+            )
+        }
+        require(replacementStockEntry.status == StockEntryStatus.ACTIVE) {
+            "Replacement stock entry ${replacementStockEntry.requiredReference()} is already replaced."
+        }
+        require(replacementStockEntry.locationProductId == locationProductId) {
+            "Replacement stock entry ${replacementStockEntry.requiredReference()} " +
+                "belongs to another product than the consumers."
+        }
+    }
+}

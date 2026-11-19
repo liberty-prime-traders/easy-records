@@ -1,0 +1,187 @@
+package app.myliberty.easy_records.locations.business.retail.purchase.search
+
+import app.myliberty.easy_records.locations.business.retail.purchase.api.delivery.PurchaseDeliveryLineStatus
+import app.myliberty.easy_records.locations.business.retail.purchase.api.search.PurchaseSearchParameters
+import app.myliberty.easy_records.util.business.Decimals
+import app.myliberty.easy_records.util.model.TableNames
+import app.myliberty.easy_records.util.model.ViewNames
+import app.myliberty.easy_records.util.queries.AnyListFilterStrategy
+import app.myliberty.easy_records.util.queries.DateRangeFilterStrategy
+import app.myliberty.easy_records.util.queries.ExpressionRangeFilterStrategy
+import app.myliberty.easy_records.util.queries.KeysetSearchCursor
+import app.myliberty.easy_records.util.queries.QueryBuilderContext
+import app.myliberty.easy_records.util.queries.QueryParameterNames
+import app.myliberty.easy_records.util.queries.SqlQuery
+
+object PurchaseSearchQueryBuilder {
+
+  // LATERAL and correlated on purchase_id (indexed via idx_purchase_line_purchase_id) so the planner
+  // filters `purchase` first and only sums each surviving row's own lines — not the whole table.
+  // The per-line rounding must match PurchaseLineEntity.getTotalCost(), or the amount filter drifts from the detail total.
+  private fun orderedTotalJoin(): String = """
+    LEFT JOIN LATERAL (
+      SELECT COALESCE(SUM(ROUND(
+        unit_cost * (user_provided_quantity_ordered * storage_units_per_user_provided_unit - storage_quantity_canceled) / storage_units_per_user_provided_unit,
+        ${Decimals.MoneyScale.scale}
+      )), 0) AS ordered_total
+      FROM ${TableNames.PURCHASE_LINE}
+      WHERE purchase_id = ${PurchaseSearchAliases.PURCHASE}.id
+    ) ${PurchaseSearchAliases.ORDERED_TOTAL} ON true
+  """
+
+  // Same LATERAL correlation, via idx_supplier_payment_purchase_id. Excludes voided payments so every
+  // paid/outstanding figure downstream already reflects that.
+  private const val PAID_TOTAL_JOIN = """
+    LEFT JOIN LATERAL (
+      SELECT COALESCE(SUM(sp.amount), 0) AS paid_total
+      FROM ${ViewNames.ACTIVE_SUPPLIER_PAYMENT} sp
+      WHERE sp.purchase_id = ${PurchaseSearchAliases.PURCHASE}.id
+    ) ${PurchaseSearchAliases.PAID_TOTAL} ON true
+  """
+
+  // Revised delivery lines stay in the table, so only ACTIVE ones count. Per-line rounding matches
+  // PurchaseDeliveryLineEntity.lineTotal(), or the summary drifts from PurchaseResponseDto.deliveredTotal.
+  private fun deliveredTotalJoin(): String = """
+    LEFT JOIN LATERAL (
+      SELECT COALESCE(SUM(ROUND(
+        pdl.user_provided_quantity_delivered * pdl.unit_cost,
+        ${Decimals.MoneyScale.scale}
+      )), 0) AS delivered_total
+      FROM ${TableNames.PURCHASE_DELIVERY} pd
+      JOIN ${TableNames.PURCHASE_DELIVERY_LINE} pdl ON pdl.purchase_delivery_id = pd.id
+      WHERE pd.purchase_id = ${PurchaseSearchAliases.PURCHASE}.id
+        AND pdl.status = '${PurchaseDeliveryLineStatus.ACTIVE.code}'
+    ) ${PurchaseSearchAliases.DELIVERED_TOTAL} ON true
+  """
+
+  private const val LIST_FROM_ONLY = "FROM ${TableNames.PURCHASE} ${PurchaseSearchAliases.PURCHASE}"
+
+  private fun listFromWithOrderedTotal(): String = "$LIST_FROM_ONLY ${orderedTotalJoin()}"
+
+  private fun summaryFromAndJoins(): String =
+    "FROM ${TableNames.PURCHASE} ${PurchaseSearchAliases.PURCHASE} ${orderedTotalJoin()} $PAID_TOTAL_JOIN " +
+      deliveredTotalJoin()
+
+  fun buildPredicate(purchaseSearchParameters: PurchaseSearchParameters): QueryBuilderContext {
+    val context = QueryBuilderContext()
+    context.whereClauses.add("1=1")
+
+    DateRangeFilterStrategy(
+      "${PurchaseSearchAliases.PURCHASE}.created_on",
+      PurchaseSearchParameterNames.RECORDED_FROM,
+      purchaseSearchParameters.recordedFrom,
+      PurchaseSearchParameterNames.RECORDED_BEFORE,
+      purchaseSearchParameters.recordedBefore
+    ).apply(context)
+
+    DateRangeFilterStrategy(
+      "${PurchaseSearchAliases.PURCHASE}.date_ordered",
+      PurchaseSearchParameterNames.PURCHASE_DATE_FROM,
+      purchaseSearchParameters.purchaseDateFrom,
+      PurchaseSearchParameterNames.PURCHASE_DATE_BEFORE,
+      purchaseSearchParameters.purchaseDateBefore
+    ).apply(context)
+
+    AnyListFilterStrategy(
+      "${PurchaseSearchAliases.PURCHASE}.supplier_id",
+      PurchaseSearchParameterNames.SUPPLIER_IDS,
+      purchaseSearchParameters.supplierIds.toTypedArray()
+    ).apply(context)
+
+    AnyListFilterStrategy(
+      "${PurchaseSearchAliases.PURCHASE}.purchase_status",
+      PurchaseSearchParameterNames.PURCHASE_STATUSES,
+      purchaseSearchParameters.purchaseStatuses.map { it.code }.toTypedArray()
+    ).apply(context)
+
+    AnyListFilterStrategy(
+      "${PurchaseSearchAliases.PURCHASE}.payment_status",
+      PurchaseSearchParameterNames.PAYMENT_STATUSES,
+      purchaseSearchParameters.paymentStatuses.map { it.code }.toTypedArray()
+    ).apply(context)
+
+    // COALESCE to 0 — a purchase with no lines has no row at all in the ordered-total join,
+    // not a matched row with a zero total, so the raw column is NULL and would fail both bounds.
+    ExpressionRangeFilterStrategy(
+      "COALESCE(${PurchaseSearchAliases.ORDERED_TOTAL}.ordered_total, 0)",
+      PurchaseSearchParameterNames.MIN_AMOUNT,
+      purchaseSearchParameters.minAmount,
+      PurchaseSearchParameterNames.MAX_AMOUNT,
+      purchaseSearchParameters.maxAmount
+    ).apply(context)
+
+    AnyListFilterStrategy(
+      "${PurchaseSearchAliases.PURCHASE}.reference_number",
+      PurchaseSearchParameterNames.PURCHASE_REFERENCE_NUMBERS,
+      purchaseSearchParameters.purchaseReferenceNumbers.toTypedArray()
+    ).apply(context)
+
+    return context
+  }
+
+  fun buildListQuery(
+    predicate: QueryBuilderContext,
+    cursor: KeysetSearchCursor?,
+    oldestFirst: Boolean = false
+  ): SqlQuery {
+    val sortDirection = if (oldestFirst) "ASC" else "DESC"
+    val cursorComparison = if (oldestFirst) ">" else "<"
+    val whereClauses = predicate.whereClauses.toMutableList()
+    val params = predicate.params.toMutableMap()
+
+    if (cursor != null) {
+      whereClauses.add(
+        "(${PurchaseSearchAliases.PURCHASE}.created_on, ${PurchaseSearchAliases.PURCHASE}.id) $cursorComparison " +
+          "(:${QueryParameterNames.CURSOR_CREATED_ON}, :${QueryParameterNames.CURSOR_ID})"
+      )
+      params[QueryParameterNames.CURSOR_CREATED_ON] = cursor.createdOn
+      params[QueryParameterNames.CURSOR_ID] = cursor.id
+    }
+
+    val needsOrderedTotal = PurchaseSearchParameterNames.MIN_AMOUNT in params || PurchaseSearchParameterNames.MAX_AMOUNT in params
+    val fromAndJoins = if (needsOrderedTotal) listFromWithOrderedTotal() else LIST_FROM_ONLY
+
+    val sql = """
+      SELECT ${PurchaseSearchAliases.PURCHASE}.*
+      $fromAndJoins
+      WHERE ${whereClauses.joinToString(" AND ")}
+      ORDER BY ${PurchaseSearchAliases.PURCHASE}.created_on $sortDirection,
+        ${PurchaseSearchAliases.PURCHASE}.id $sortDirection
+      LIMIT :${QueryParameterNames.PAGE_SIZE}
+    """.trimIndent()
+
+    return SqlQuery(sql, params, PurchaseSearchQueryMetadata("purchase_search"))
+  }
+
+  fun buildPaymentStatusSummaryQuery(predicate: QueryBuilderContext): SqlQuery {
+    val sql = """
+      SELECT
+        ${PurchaseSearchAliases.PURCHASE}.payment_status AS payment_status,
+        COUNT(*) AS purchase_count,
+        COALESCE(SUM(${PurchaseSearchAliases.ORDERED_TOTAL}.ordered_total), 0) AS total_ordered,
+        COALESCE(SUM(${PurchaseSearchAliases.DELIVERED_TOTAL}.delivered_total), 0) AS total_delivered,
+        COALESCE(SUM(${PurchaseSearchAliases.PAID_TOTAL}.paid_total), 0) AS total_paid
+      ${summaryFromAndJoins()}
+      WHERE ${predicate.whereClauses.joinToString(" AND ")}
+      GROUP BY ${PurchaseSearchAliases.PURCHASE}.payment_status
+    """.trimIndent()
+
+    return SqlQuery(sql, predicate.params, PurchaseSearchQueryMetadata("purchase_search_summary_by_payment_status"))
+  }
+
+  fun buildSupplierSummaryQuery(predicate: QueryBuilderContext): SqlQuery {
+    val sql = """
+      SELECT
+        ${PurchaseSearchAliases.PURCHASE}.supplier_id AS supplier_id,
+        COUNT(*) AS purchase_count,
+        COALESCE(SUM(${PurchaseSearchAliases.ORDERED_TOTAL}.ordered_total), 0) AS total_ordered,
+        COALESCE(SUM(${PurchaseSearchAliases.DELIVERED_TOTAL}.delivered_total), 0) AS total_delivered,
+        COALESCE(SUM(${PurchaseSearchAliases.PAID_TOTAL}.paid_total), 0) AS total_paid
+      ${summaryFromAndJoins()}
+      WHERE ${predicate.whereClauses.joinToString(" AND ")}
+      GROUP BY ${PurchaseSearchAliases.PURCHASE}.supplier_id
+    """.trimIndent()
+
+    return SqlQuery(sql, predicate.params, PurchaseSearchQueryMetadata("purchase_search_summary_by_supplier"))
+  }
+}

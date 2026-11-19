@@ -1,0 +1,169 @@
+package app.myliberty.easy_records.organizations.business.core.ledger.api
+
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.organizations.business.core.ledger.LedgerEntryGroupRepository
+import app.myliberty.easy_records.organizations.business.core.ledger.LedgerMapper
+import app.myliberty.easy_records.organizations.business.core.ledger.SubledgerBalanceEntity
+import app.myliberty.easy_records.organizations.business.core.ledger.SubledgerBalanceRepository
+import app.myliberty.easy_records.organizations.business.core.ledger.SubledgerEntryEntity
+import app.myliberty.easy_records.organizations.business.core.ledger.SubledgerEntryRepository
+import app.myliberty.easy_records.organizations.business.core.lock.api.OrgEntityAdvisoryLock
+import app.myliberty.easy_records.util.business.MoneyDisplay
+import app.myliberty.easy_records.util.business.lock.LockNamespaces
+import app.myliberty.easy_records.util.paging.PageResponse
+import app.myliberty.easy_records.util.queries.KeysetSearchCursor
+import app.myliberty.easy_records.util.queries.SearchGuards
+import org.slf4j.LoggerFactory
+import org.springframework.stereotype.Service
+import java.math.BigDecimal
+
+@Service
+@TransactionalOnOrganizationSchema(readOnly = true)
+class SubledgerService(
+    private val subledgerEntryRepository: SubledgerEntryRepository,
+    private val subledgerBalanceRepository: SubledgerBalanceRepository,
+    private val ledgerEntryGroupRepository: LedgerEntryGroupRepository,
+    private val ledgerMapper: LedgerMapper,
+    private val orgEntityAdvisoryLock: OrgEntityAdvisoryLock
+) {
+
+    private val log = LoggerFactory.getLogger(javaClass)
+
+    @TransactionalOnOrganizationSchema
+    fun reconcileBalances(contactReferenceNumbers: Set<String>) {
+        if (contactReferenceNumbers.isEmpty()) return
+        orgEntityAdvisoryLock.acquire(LockNamespaces.SUBLEDGER_CONTACT, contactReferenceNumbers)
+        val amountTotalsByContact = subledgerEntryRepository.sumAmountsForContacts(contactReferenceNumbers)
+            .associateBy { it.contactReferenceNumber }
+        val balancesByContact = subledgerBalanceRepository.findByContactReferenceNumberIn(contactReferenceNumbers)
+            .associateBy { it.contactReferenceNumber }
+
+        contactReferenceNumbers.forEach { contactReferenceNumber ->
+            val expectedPayable = amountTotalsByContact[contactReferenceNumber]?.payableTotal ?: BigDecimal.ZERO
+            val expectedReceivable = amountTotalsByContact[contactReferenceNumber]?.receivableTotal ?: BigDecimal.ZERO
+            val subledgerBalanceEntity = balancesByContact[contactReferenceNumber]
+            when {
+                subledgerBalanceEntity == null -> subledgerBalanceRepository.save(
+                    SubledgerBalanceEntity(contactReferenceNumber, expectedPayable, expectedReceivable)
+                )
+                subledgerBalanceEntity.runningPayable.compareTo(expectedPayable) != 0 ||
+                    subledgerBalanceEntity.runningReceivable.compareTo(expectedReceivable) != 0 -> {
+                    log.warn(
+                        "Corrected subledger balance for contact {}: payable {} -> {}, receivable {} -> {}",
+                        contactReferenceNumber,
+                        subledgerBalanceEntity.runningPayable, expectedPayable,
+                        subledgerBalanceEntity.runningReceivable, expectedReceivable
+                    )
+                    subledgerBalanceEntity.runningPayable = expectedPayable
+                    subledgerBalanceEntity.runningReceivable = expectedReceivable
+                }
+            }
+        }
+    }
+
+    @TransactionalOnOrganizationSchema
+    fun openBalance(contactReferenceNumber: String) {
+        subledgerBalanceRepository.save(
+            SubledgerBalanceEntity(
+                contactReferenceNumber = contactReferenceNumber,
+                runningPayable = SubledgerBalanceDto.ZERO.payable,
+                runningReceivable = SubledgerBalanceDto.ZERO.receivable
+            )
+        )
+    }
+
+    @TransactionalOnOrganizationSchema
+    fun openBalances(contactReferenceNumbers: Collection<String>) {
+        subledgerBalanceRepository.saveAll(
+            contactReferenceNumbers.map {
+                SubledgerBalanceEntity(
+                    contactReferenceNumber = it,
+                    runningPayable = SubledgerBalanceDto.ZERO.payable,
+                    runningReceivable = SubledgerBalanceDto.ZERO.receivable
+                )
+            }
+        )
+    }
+
+    fun getCurrentBalances(contactReferenceNumbers: Set<String>): Map<String, SubledgerBalanceDto> {
+        if (contactReferenceNumbers.isEmpty()) return emptyMap()
+        return subledgerBalanceRepository.findByContactReferenceNumberIn(contactReferenceNumbers)
+            .associate { subledgerBalanceEntity ->
+                subledgerBalanceEntity.contactReferenceNumber to SubledgerBalanceDto(
+                    payable = subledgerBalanceEntity.runningPayable,
+                    receivable = subledgerBalanceEntity.runningReceivable
+                )
+            }
+    }
+
+    fun getEntries(
+        contactReferenceNumber: String,
+        previousCursor: String,
+        requestedSize: Int
+    ): PageResponse<SubledgerEntryResponse, String> {
+        SearchGuards.guardPageSize(requestedSize, MIN_PAGE_SIZE, MAX_PAGE_SIZE)
+        val fetchedEntries = fetchPageWithLookahead(contactReferenceNumber, previousCursor, requestedSize)
+        val pageEntries = fetchedEntries.take(requestedSize)
+        val contents = if (pageEntries.isEmpty()) emptyList() else toResponses(pageEntries)
+
+        val currentCursor = contents.lastOrNull()
+            ?.let { KeysetSearchCursor(it.createdOn, it.id).encode() }
+            ?: previousCursor
+
+        return PageResponse(
+            currentCursor = currentCursor,
+            hasMore = fetchedEntries.size > requestedSize,
+            contents = contents
+        )
+    }
+
+    private fun fetchPageWithLookahead(
+        contactReferenceNumber: String,
+        previousCursor: String,
+        requestedSize: Int
+    ): List<SubledgerEntryEntity> {
+        val keysetSearchCursor = KeysetSearchCursor.decode(previousCursor)
+            ?: return subledgerEntryRepository.findFirstPage(contactReferenceNumber, requestedSize + 1)
+        return subledgerEntryRepository.findPageAfter(
+            contactReferenceNumber,
+            keysetSearchCursor.createdOn,
+            keysetSearchCursor.id,
+            requestedSize + 1
+        )
+    }
+
+    private fun toResponses(entryEntities: List<SubledgerEntryEntity>): List<SubledgerEntryResponse> {
+        val groupsByReferenceNumber = ledgerEntryGroupRepository
+            .findByReferenceNumberIn(entryEntities.map { it.groupReferenceNumber }.toSet())
+            .map { ledgerMapper.toGroupDto(it) }
+            .associateBy { it.referenceNumber }
+
+        return entryEntities.map { entryEntity ->
+            val groupDto = groupsByReferenceNumber.getValue(entryEntity.groupReferenceNumber)
+            val transactionDelta = SubledgerBalanceDto(
+                payable = entryEntity.payableAmount,
+                receivable = entryEntity.receivableAmount
+            )
+            val runningBalance = SubledgerBalanceDto(
+                payable = entryEntity.runningPayable,
+                receivable = entryEntity.runningReceivable
+            )
+            SubledgerEntryResponse(
+                id = requireNotNull(entryEntity.id),
+                createdOn = requireNotNull(entryEntity.createdOn),
+                groupReferenceNumber = entryEntity.groupReferenceNumber,
+                sourceType = groupDto.sourceType,
+                sourceReferenceNumber = groupDto.sourceReferenceNumber,
+                transactionAmount = MoneyDisplay.of(transactionDelta.netBalance),
+                transactionBalanceEffect = transactionDelta.balanceEffect,
+                netBalance = MoneyDisplay.of(runningBalance.netBalance),
+                netBalanceEffect = runningBalance.balanceEffect
+            )
+        }
+    }
+
+    private companion object {
+        const val MIN_PAGE_SIZE = 1
+        const val MAX_PAGE_SIZE = 200
+    }
+}

@@ -1,0 +1,9 @@
+package app.myliberty.easy_records.organizations.business.core.payment_method.api
+
+import java.io.Serializable
+
+data class PaymentMethodInsertDto(
+    val name: String? = null,
+    val description: String? = null,
+    val accountCode: String
+): Serializable

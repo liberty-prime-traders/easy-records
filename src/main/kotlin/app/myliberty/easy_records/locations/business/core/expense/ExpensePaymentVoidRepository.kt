@@ -1,0 +1,7 @@
+package app.myliberty.easy_records.locations.business.core.expense
+
+import app.myliberty.easy_records.cross_tier.core.expense.repository.ExpensePaymentVoidRepositoryBase
+import org.springframework.stereotype.Repository
+
+@Repository
+interface ExpensePaymentVoidRepository : ExpensePaymentVoidRepositoryBase<ExpensePaymentVoidEntity>

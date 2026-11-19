@@ -1,0 +1,14 @@
+package app.myliberty.easy_records.locations.business.retail.stock.api.updater
+
+import app.myliberty.easy_records.util.quantity.PositiveUserProvidedQuantity
+import java.math.BigDecimal
+import java.util.UUID
+
+data class OpeningStockLineStockRequest(
+    val locationProductId: UUID,
+    val userProvidedQuantity: PositiveUserProvidedQuantity,
+    val unitId: UUID,
+    val storageUnitsPerUserProvidedUnit: Long,
+    val batchCost: BigDecimal,
+    val documentReference: String
+)

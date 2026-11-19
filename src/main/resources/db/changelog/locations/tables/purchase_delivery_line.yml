@@ -26,7 +26,7 @@ databaseChangeLog:
                     nullable: false
                     notNullConstraintName: purchase_delivery_line_reference_number_notnull
                     unique: true
-                    uniqueConstraintName: purchase_delivery_line_reference_number_unique
+                    uniqueConstraintName: uq_purchase_delivery_line_reference_number
 
               - column:
                   name: purchase_delivery_id
@@ -43,15 +43,15 @@ databaseChangeLog:
                     notNullConstraintName: purchase_delivery_line_purchase_line_id_notnull
 
               - column:
-                  name: quantity_delivered
+                  name: user_provided_quantity_delivered
                   type: numeric(19, 4)
                   constraints:
                     nullable: false
-                    notNullConstraintName: purchase_delivery_line_quantity_delivered_notnull
+                    notNullConstraintName: purchase_delivery_line_user_provided_quantity_delivered_notnull
 
               - column:
                   name: unit_cost
-                  type: decimal(15,2)
+                  type: decimal(19,4)
                   constraints:
                     nullable: false
                     notNullConstraintName: purchase_delivery_line_unit_cost_notnull
@@ -62,6 +62,14 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     notNullConstraintName: purchase_delivery_line_unit_id_notnull
+
+
+              - column:
+                  name: storage_units_per_user_provided_unit
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    notNullConstraintName: pcdll_storage_units_per_user_provided_unit_notnull
 
               - column:
                   name: created_by_id
@@ -78,3 +86,29 @@ databaseChangeLog:
       rollback:
         - dropTable:
             tableName: purchase_delivery_line
+
+  - changeSet:
+      id: add-status-to-purchase-delivery-line
+      author: ezra
+      labels: 2.0.0
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            - columnExists:
+                tableName: purchase_delivery_line
+                columnName: status
+      changes:
+        - addColumn:
+            tableName: purchase_delivery_line
+            columns:
+              - column:
+                  name: status
+                  type: varchar(5)
+                  defaultValue: ACT
+                  constraints:
+                    nullable: false
+                    notNullConstraintName: purchase_delivery_line_status_notnull
+      rollback:
+        - dropColumn:
+            tableName: purchase_delivery_line
+            columnName: status

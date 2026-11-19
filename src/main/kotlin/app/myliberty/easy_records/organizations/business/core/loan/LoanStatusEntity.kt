@@ -1,0 +1,32 @@
+package app.myliberty.easy_records.organizations.business.core.loan
+
+import jakarta.persistence.Column
+import jakarta.persistence.Convert
+import jakarta.persistence.Entity
+import jakarta.persistence.Id
+import jakarta.persistence.Table
+import app.myliberty.easy_records.organizations.business.core.loan.api.LoanStatus
+import app.myliberty.easy_records.util.model.ViewNames
+import org.hibernate.annotations.Immutable
+import java.math.BigDecimal
+import java.util.UUID
+
+@Entity
+@Immutable
+@Table(name = ViewNames.LOAN_STATUS)
+class LoanStatusEntity(
+
+    @Id
+    @Column(name = "loan_id")
+    var loanId: UUID,
+
+    @Column(name = "amount_repaid")
+    var amountRepaid: BigDecimal,
+
+    @Column(name = "outstanding")
+    var outstanding: BigDecimal,
+
+    @Column(name = "status", length = 5)
+    @Convert(converter = LoanStatusConverter::class)
+    var status: LoanStatus
+)

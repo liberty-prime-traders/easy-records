@@ -1,0 +1,342 @@
+package app.myliberty.easy_records.organizations.business.retail.unit_bulk_import.api
+
+import app.myliberty.easy_records.organizations.business.retail.unit_bulk_import.BulkUnitImportValidator
+import app.myliberty.easy_records.organizations.business.retail.unitgroup.api.UnitGroupInsertDto
+import app.myliberty.easy_records.organizations.business.retail.unitgroup.api.UnitGroupResponseDto
+import app.myliberty.easy_records.organizations.business.retail.unitgroup.api.UnitGroupService
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.RootUnitDefinition
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueBulkSaveEntry
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueFetcher
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueResponseDto
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueService
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNull
+import org.junit.jupiter.api.Assertions.assertThrows
+import org.junit.jupiter.api.Test
+import org.mockito.ArgumentMatchers.anyList
+import org.mockito.Mockito.mock
+import org.mockito.Mockito.verifyNoInteractions
+import org.mockito.Mockito.`when`
+import java.time.OffsetDateTime
+import java.util.UUID
+
+class BulkUnitImportServiceTest {
+
+    @Test
+    fun `saveUnitValues auto-inserts Piece once per referencing group and orders parents before children`() {
+        val bulkUnitImportValidator = mock(BulkUnitImportValidator::class.java)
+        val unitGroupService = mock(UnitGroupService::class.java)
+        val unitValueService = mock(UnitValueService::class.java)
+        val unitValueFetcher = mock(UnitValueFetcher::class.java)
+
+        val request = BulkUnitImportRequestDto(
+            unitGroups = listOf(
+                UnitGroupBulkInsertDto(
+                    name = "Eggs",
+                    description = null,
+                    unitValues = listOf(
+                        UnitValueBulkInsertDto(name = "Half Dozen", code = "egg-hdz", description = null, baseUnitCode = "__piece__", unitsOfBasePerUnit = 6L),
+                        UnitValueBulkInsertDto(name = "Dozen", code = "egg-dz", description = null, baseUnitCode = "__piece__", unitsOfBasePerUnit = 12L)
+                    )
+                )
+            )
+        )
+        val eggsGroupId = UUID.randomUUID()
+        val groupInsertDtos = listOf(UnitGroupInsertDto(name = "Eggs", description = null))
+
+        val savedGroups = listOf(unitGroupResponseDto(eggsGroupId, "Eggs"))
+
+        `when`(bulkUnitImportValidator.validate(request)).thenReturn(emptyList())
+        `when`(unitGroupService.bulkCreateValidatedList(groupInsertDtos)).thenReturn(savedGroups)
+        `when`(unitValueFetcher.getUnitValuesForUnitGroup(eggsGroupId)).thenReturn(emptyList())
+        `when`(unitValueFetcher.getAllUnitValues()).thenReturn(emptyList())
+
+        var savedEntries: List<UnitValueBulkSaveEntry> = emptyList()
+        `when`(unitValueService.bulkCreateValidatedList(anyList())).thenAnswer { invocation ->
+            savedEntries = invocation.getArgument(0)
+            emptyList<UnitValueResponseDto>()
+        }
+
+        val service = BulkUnitImportService(
+            bulkUnitImportValidator, unitGroupService, unitValueService, unitValueFetcher
+        )
+
+        val result = service.bulkImport(request)
+
+        assertEquals(savedGroups, result)
+        assertEquals(3, savedEntries.size)
+
+        val pieceEntry = savedEntries.first { it.code == "eggs-base" }
+        assertNull(pieceEntry.baseUnit)
+
+        val pieceIndex = savedEntries.indexOf(pieceEntry)
+        val hdzIndex = savedEntries.indexOfFirst { it.code == "egg-hdz" }
+        val dzIndex = savedEntries.indexOfFirst { it.code == "egg-dz" }
+        assert(pieceIndex < hdzIndex) { "Piece must be saved before Half Dozen" }
+        assert(pieceIndex < dzIndex) { "Piece must be saved before Dozen" }
+
+        assertEquals(pieceEntry.id, savedEntries.first { it.code == "egg-hdz" }.baseUnit)
+        assertEquals(pieceEntry.id, savedEntries.first { it.code == "egg-dz" }.baseUnit)
+    }
+
+    @Test
+    fun `a created group is found by its name key even when the payload name has extra whitespace`() {
+        val bulkUnitImportValidator = mock(BulkUnitImportValidator::class.java)
+        val unitGroupService = mock(UnitGroupService::class.java)
+        val unitValueService = mock(UnitValueService::class.java)
+        val unitValueFetcher = mock(UnitValueFetcher::class.java)
+        val paddedName = "  Egg   Boxes "
+        val request = BulkUnitImportRequestDto(
+            unitGroups = listOf(
+                UnitGroupBulkInsertDto(
+                    name = paddedName,
+                    description = null,
+                    unitValues = listOf(
+                        UnitValueBulkInsertDto(name = "Dozen", code = "egg-dz", description = null, baseUnitCode = "__piece__", unitsOfBasePerUnit = 12L)
+                    )
+                )
+            )
+        )
+        val eggBoxesGroupId = UUID.randomUUID()
+        `when`(bulkUnitImportValidator.validate(request)).thenReturn(emptyList())
+        `when`(unitGroupService.getAllUnitGroups()).thenReturn(emptyList())
+        `when`(unitGroupService.bulkCreateValidatedList(listOf(UnitGroupInsertDto(name = paddedName, description = null))))
+            .thenReturn(listOf(unitGroupResponseDto(eggBoxesGroupId, paddedName)))
+        `when`(unitValueFetcher.getAllUnitValues()).thenReturn(emptyList())
+        var savedEntries: List<UnitValueBulkSaveEntry> = emptyList()
+        `when`(unitValueService.bulkCreateValidatedList(anyList())).thenAnswer { invocation ->
+            savedEntries = invocation.getArgument(0)
+            emptyList<UnitValueResponseDto>()
+        }
+
+        BulkUnitImportService(bulkUnitImportValidator, unitGroupService, unitValueService, unitValueFetcher).bulkImport(request)
+
+        assertEquals(setOf(eggBoxesGroupId), savedEntries.map { it.unitGroupId }.toSet())
+    }
+
+    @Test
+    fun `bulkImport reuses a system-defined group and unit value instead of recreating them`() {
+        val bulkUnitImportValidator = mock(BulkUnitImportValidator::class.java)
+        val unitGroupService = mock(UnitGroupService::class.java)
+        val unitValueService = mock(UnitValueService::class.java)
+        val unitValueFetcher = mock(UnitValueFetcher::class.java)
+
+        val weightGroupId = UUID.randomUUID()
+        val kilogramId = UUID.randomUUID()
+        val request = BulkUnitImportRequestDto(
+            unitGroups = listOf(
+                UnitGroupBulkInsertDto(
+                    name = "Weight",
+                    description = null,
+                    unitValues = listOf(
+                        UnitValueBulkInsertDto(name = "Kilogram", code = "kg", description = null, baseUnitCode = null, unitsOfBasePerUnit = null),
+                        UnitValueBulkInsertDto(name = "Sack", code = "sack", description = null, baseUnitCode = "kg", unitsOfBasePerUnit = 25L)
+                    )
+                )
+            )
+        )
+
+        val existingWeightGroup = unitGroupResponseDto(weightGroupId, "Weight", systemDefined = true)
+        `when`(bulkUnitImportValidator.validate(request)).thenReturn(emptyList())
+        `when`(unitGroupService.getAllUnitGroups()).thenReturn(listOf(existingWeightGroup))
+        `when`(unitGroupService.bulkCreateValidatedList(emptyList())).thenReturn(emptyList())
+        `when`(unitValueFetcher.getUnitValuesForUnitGroup(weightGroupId)).thenReturn(emptyList())
+        `when`(unitValueFetcher.getAllUnitValues()).thenReturn(
+            listOf(unitValueResponseDto(id = kilogramId, code = "kg", unitGroupId = weightGroupId, systemDefined = true))
+        )
+
+        var savedEntries: List<UnitValueBulkSaveEntry> = emptyList()
+        `when`(unitValueService.bulkCreateValidatedList(anyList<UnitValueBulkSaveEntry>())).thenAnswer { invocation ->
+            savedEntries = invocation.getArgument(0)
+            emptyList<UnitValueResponseDto>()
+        }
+
+        val service = BulkUnitImportService(
+            bulkUnitImportValidator, unitGroupService, unitValueService, unitValueFetcher
+        )
+
+        val result = service.bulkImport(request)
+
+        assertEquals(listOf(existingWeightGroup), result)
+        assertEquals(1, savedEntries.size)
+        assertEquals("sack", savedEntries.first().code)
+        assertEquals(kilogramId, savedEntries.first().baseUnit)
+    }
+
+    @Test
+    fun `bulkImport throws with the full error list and saves nothing when validation fails`() {
+        val bulkUnitImportValidator = mock(BulkUnitImportValidator::class.java)
+        val unitGroupService = mock(UnitGroupService::class.java)
+        val unitValueService = mock(UnitValueService::class.java)
+        val unitValueFetcher = mock(UnitValueFetcher::class.java)
+
+        val request = BulkUnitImportRequestDto(unitGroups = emptyList())
+        val validationErrors = listOf("Group at position 1: name is required")
+        `when`(bulkUnitImportValidator.validate(request)).thenReturn(validationErrors)
+
+        val service = BulkUnitImportService(
+            bulkUnitImportValidator, unitGroupService, unitValueService, unitValueFetcher
+        )
+
+        val exception = assertThrows(LibertyGenericException::class.java) { service.bulkImport(request) }
+
+        assertEquals(validationErrors, exception.payload)
+        verifyNoInteractions(unitGroupService, unitValueService)
+    }
+
+    @Test
+    fun `bulkImport creates the system-defined root Piece for a custom group even when no unit references it`() {
+        val bulkUnitImportValidator = mock(BulkUnitImportValidator::class.java)
+        val unitGroupService = mock(UnitGroupService::class.java)
+        val unitValueService = mock(UnitValueService::class.java)
+        val unitValueFetcher = mock(UnitValueFetcher::class.java)
+
+        val request = BulkUnitImportRequestDto(
+            unitGroups = listOf(UnitGroupBulkInsertDto(name = "Eggs", description = null, unitValues = emptyList()))
+        )
+        val eggsGroupId = UUID.randomUUID()
+        `when`(bulkUnitImportValidator.validate(request)).thenReturn(emptyList())
+        `when`(unitGroupService.bulkCreateValidatedList(listOf(UnitGroupInsertDto(name = "Eggs", description = null))))
+            .thenReturn(listOf(unitGroupResponseDto(eggsGroupId, "Eggs")))
+        `when`(unitValueFetcher.getUnitValuesForUnitGroup(eggsGroupId)).thenReturn(emptyList())
+        `when`(unitValueFetcher.getAllUnitValues()).thenReturn(emptyList())
+
+        var savedEntries: List<UnitValueBulkSaveEntry> = emptyList()
+        `when`(unitValueService.bulkCreateValidatedList(anyList())).thenAnswer { invocation ->
+            savedEntries = invocation.getArgument(0)
+            emptyList<UnitValueResponseDto>()
+        }
+
+        BulkUnitImportService(bulkUnitImportValidator, unitGroupService, unitValueService, unitValueFetcher).bulkImport(request)
+
+        assertEquals(listOf("eggs-base"), savedEntries.map { it.code })
+        assertEquals(true, savedEntries.single().systemDefined)
+    }
+
+    @Test
+    fun `bulkImport names the root unit after baseUnitName and codes it with the base suffix`() {
+        val savedEntries = importSingleGroupAndCaptureRootUnit(baseUnitName = "Sachet")
+
+        assertEquals("Sachet", savedEntries.single().name)
+        assertEquals("eggs-base", savedEntries.single().code)
+    }
+
+    @Test
+    fun `bulkImport treats a blank baseUnitName as absent and names the root unit Piece`() {
+        val savedEntries = importSingleGroupAndCaptureRootUnit(baseUnitName = "   ")
+
+        assertEquals("Piece", savedEntries.single().name)
+        assertEquals("eggs-base", savedEntries.single().code)
+    }
+
+    @Test
+    fun `bulkImport names the root unit Piece when baseUnitName is absent`() {
+        val savedEntries = importSingleGroupAndCaptureRootUnit(baseUnitName = null)
+
+        assertEquals("Piece", savedEntries.single().name)
+        assertEquals("eggs-base", savedEntries.single().code)
+    }
+
+    @Test
+    fun `bulkImport provisions exactly the RootUnitDefinition for the group`() {
+        val rootUnitEntry = importSingleGroupAndCaptureRootUnit(baseUnitName = "Sachet").single()
+
+        val rootUnitDefinition = RootUnitDefinition.forGroup(rootUnitEntry.unitGroupId, unitGroupName = "Eggs", baseUnitName = "Sachet", baseUnitCode = null)
+        assertEquals(rootUnitDefinition.name, rootUnitEntry.name)
+        assertEquals(rootUnitDefinition.code, rootUnitEntry.code)
+        assertEquals(rootUnitDefinition.description, rootUnitEntry.description)
+        assertEquals(rootUnitDefinition.systemDefined, rootUnitEntry.systemDefined)
+    }
+
+    @Test
+    fun `bulkImport creates the root unit with the explicit baseUnitCode`() {
+        val savedEntries = importSingleGroupAndCaptureRootUnit(baseUnitName = "Sachet", baseUnitCode = "egg-root")
+
+        assertEquals("egg-root", savedEntries.single().code)
+        val rootUnitDefinition = RootUnitDefinition.forGroup(savedEntries.single().unitGroupId, unitGroupName = "Eggs", baseUnitName = "Sachet", baseUnitCode = "egg-root")
+        assertEquals(rootUnitDefinition.name, savedEntries.single().name)
+        assertEquals(rootUnitDefinition.description, savedEntries.single().description)
+        assertEquals(rootUnitDefinition.systemDefined, savedEntries.single().systemDefined)
+    }
+
+    @Test
+    fun `bulkImport treats a blank baseUnitCode as absent and generates the root unit code`() {
+        val savedEntries = importSingleGroupAndCaptureRootUnit(baseUnitName = null, baseUnitCode = "   ")
+
+        assertEquals("eggs-base", savedEntries.single().code)
+    }
+
+    @Test
+    fun `bulkImport resolves a unit referencing the root by the explicit code and by the piece marker to the same root`() {
+        val savedEntries = importSingleGroupAndCaptureRootUnit(
+            baseUnitName = null,
+            baseUnitCode = "egg-root",
+            unitValues = listOf(
+                UnitValueBulkInsertDto(name = "Half Dozen", code = "egg-hdz", description = null, baseUnitCode = "egg-root", unitsOfBasePerUnit = 6L),
+                UnitValueBulkInsertDto(name = "Dozen", code = "egg-dz", description = null, baseUnitCode = RootUnitDefinition.PIECE_BASE_UNIT_CODE, unitsOfBasePerUnit = 12L)
+            )
+        )
+
+        val rootUnitEntry = savedEntries.first { it.code == "egg-root" }
+        assertEquals(3, savedEntries.size)
+        assertEquals(savedEntries.indexOf(rootUnitEntry), 0)
+        assertEquals(rootUnitEntry.id, savedEntries.first { it.code == "egg-hdz" }.baseUnit)
+        assertEquals(rootUnitEntry.id, savedEntries.first { it.code == "egg-dz" }.baseUnit)
+    }
+
+    private fun importSingleGroupAndCaptureRootUnit(
+        baseUnitName: String?,
+        baseUnitCode: String? = null,
+        unitValues: List<UnitValueBulkInsertDto> = emptyList()
+    ): List<UnitValueBulkSaveEntry> {
+        val bulkUnitImportValidator = mock(BulkUnitImportValidator::class.java)
+        val unitGroupService = mock(UnitGroupService::class.java)
+        val unitValueService = mock(UnitValueService::class.java)
+        val unitValueFetcher = mock(UnitValueFetcher::class.java)
+
+        val request = BulkUnitImportRequestDto(
+            unitGroups = listOf(UnitGroupBulkInsertDto(name = "Eggs", description = null, baseUnitName = baseUnitName, baseUnitCode = baseUnitCode, unitValues = unitValues))
+        )
+        val eggsGroupId = UUID.randomUUID()
+        `when`(bulkUnitImportValidator.validate(request)).thenReturn(emptyList())
+        `when`(unitGroupService.bulkCreateValidatedList(listOf(UnitGroupInsertDto(name = "Eggs", description = null))))
+            .thenReturn(listOf(unitGroupResponseDto(eggsGroupId, "Eggs")))
+        `when`(unitValueFetcher.getUnitValuesForUnitGroup(eggsGroupId)).thenReturn(emptyList())
+        `when`(unitValueFetcher.getAllUnitValues()).thenReturn(emptyList())
+
+        var savedEntries: List<UnitValueBulkSaveEntry> = emptyList()
+        `when`(unitValueService.bulkCreateValidatedList(anyList())).thenAnswer { invocation ->
+            savedEntries = invocation.getArgument(0)
+            emptyList<UnitValueResponseDto>()
+        }
+
+        BulkUnitImportService(bulkUnitImportValidator, unitGroupService, unitValueService, unitValueFetcher).bulkImport(request)
+        return savedEntries
+    }
+
+    private fun unitValueResponseDto(id: UUID, code: String, unitGroupId: UUID, systemDefined: Boolean = false) = UnitValueResponseDto(
+        id = id,
+        name = code,
+        code = code,
+        description = null,
+        baseUnit = null,
+        baseUnitName = null,
+        unitsOfBasePerUnit = null,
+        createdBy = "Someone",
+        createdOn = OffsetDateTime.now(),
+        unitGroupId = unitGroupId,
+        referenceNumber = "REF-$code",
+        systemDefined = systemDefined
+    )
+
+    private fun unitGroupResponseDto(id: UUID, name: String, systemDefined: Boolean = false) = UnitGroupResponseDto(
+        id = id,
+        createdBy = "Someone",
+        createdOn = OffsetDateTime.now(),
+        name = name,
+        description = null,
+        referenceNumber = "REF-1",
+        systemDefined = systemDefined
+    )
+}

@@ -1,0 +1,66 @@
+package app.myliberty.easy_records.organizations.business.core.org_table_registry.api
+
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.organizations.business.core.org_table_registry.OrgTableRegistryCache
+import app.myliberty.easy_records.organizations.business.core.org_table_registry.OrgTableRegistryMapper
+import app.myliberty.easy_records.platform.business.table_registry.api.TableRegistryService
+import app.myliberty.easy_records.util.business.StringUtils
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
+import org.springframework.stereotype.Component
+import java.util.UUID
+
+@Component
+@TransactionalOnOrganizationSchema
+class OrgTableRegistryService(
+    private val orgTableRegistryCache: OrgTableRegistryCache,
+    private val orgTableRegistryMapper: OrgTableRegistryMapper,
+    private val tableRegistryService: TableRegistryService
+) {
+
+    @TransactionalOnOrganizationSchema(readOnly = true)
+    fun getAll(): Collection<OrgTableRegistryResponseDto> =
+        orgTableRegistryCache.getAllTables().map { orgTableRegistryMapper.toDto(it) }
+
+    @TransactionalOnOrganizationSchema(readOnly = true)
+    fun getAllOrgTableDtos(): Collection<OrgTableRegistryDto> = orgTableRegistryCache.getAllTables()
+
+    fun update(updateDto: OrgTableRegistryUpdateDto): OrgTableRegistryResponseDto {
+        val allTables = orgTableRegistryCache.getAllTables()
+        val existing = allTables.find { it.id == updateDto.id } ?: throw LibertyGenericException("Org Table not found")
+        val updated = updateDto.applyTo(existing)
+        validateRequiredFields(updated)
+        validateOrgWideUniqueness(updated.defaultPrefix, updated.displayName, updated.id, allTables)
+        validatePlatformWideUniqueness(updated.defaultPrefix, updated.displayName, allTables)
+        orgTableRegistryCache.upsertTable(updated)
+        return orgTableRegistryMapper.toDto(updated)
+    }
+
+    private fun validateRequiredFields(dto: OrgTableRegistryDto) {
+        StringUtils.requireHasValue(dto.defaultPrefix, "Default prefix is required")
+        StringUtils.requireHasValue(dto.displayName, "Display name is required")
+    }
+
+    private fun validateOrgWideUniqueness(defaultPrefix: String, displayName: String, tableId: UUID?, allOrgTables: Collection<OrgTableRegistryDto>) {
+        allOrgTables
+            .find { StringUtils.isEquivalent(it.defaultPrefix, defaultPrefix) && it.id != tableId }
+            ?.let { throw LibertyGenericException("The default prefix '$defaultPrefix' conflicts with org table '${it.id}'") }
+
+        allOrgTables
+            .find { StringUtils.isEquivalent(it.displayName, displayName) && it.id != tableId }
+            ?.let { throw LibertyGenericException("An Org Table using the display name '$displayName' already exists") }
+    }
+
+    private fun validatePlatformWideUniqueness(defaultPrefix: String, displayName: String, allOrgTables: Collection<OrgTableRegistryDto>) {
+        val overriddenRegistryIds = allOrgTables.map { it.registryId }.toSet()
+        val platformTablesNotOverridden = tableRegistryService.getAllTableDtos()
+            .filter { it.id !in overriddenRegistryIds }
+
+        platformTablesNotOverridden
+            .find { StringUtils.isEquivalent(it.defaultPrefix, defaultPrefix) }
+            ?.let { throw LibertyGenericException("The default prefix '$defaultPrefix' conflicts with platform table '${it.tableName}'") }
+
+        platformTablesNotOverridden
+            .find { StringUtils.isEquivalent(it.displayName, displayName) }
+            ?.let { throw LibertyGenericException("The display name '$displayName' conflicts with platform table '${it.tableName}'") }
+    }
+}

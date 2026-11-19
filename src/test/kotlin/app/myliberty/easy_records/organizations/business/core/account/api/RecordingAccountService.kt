@@ -1,0 +1,77 @@
+package app.myliberty.easy_records.organizations.business.core.account.api
+
+import app.myliberty.easy_records.organizations.business.core.account.AccountCache
+import app.myliberty.easy_records.organizations.business.core.account.AccountDto
+import app.myliberty.easy_records.organizations.business.core.account.AccountRepository
+import app.myliberty.easy_records.organizations.business.core.account.AccountResponseBuilder
+import app.myliberty.easy_records.organizations.business.core.account.ChildAccountCreator
+import org.mockito.Mockito.mock
+import org.mockito.Mockito.`when`
+import java.lang.reflect.Proxy
+import java.math.BigDecimal
+import java.time.OffsetDateTime
+import java.util.UUID
+
+class RecordingAccountService(accountDtos: List<AccountDto> = systemAccountDtos()) {
+
+    private val deltasByAccountCode = mutableMapOf<String, BigDecimal>()
+
+    val accountService: AccountService
+
+    init {
+        val accountCache = mock(AccountCache::class.java)
+        `when`(accountCache.getAll()).thenReturn(accountDtos)
+        `when`(accountCache.getAllFresh()).thenReturn(accountDtos)
+        val recordingAccountRepository = Proxy.newProxyInstance(
+            AccountRepository::class.java.classLoader,
+            arrayOf(AccountRepository::class.java)
+        ) { _, method, arguments ->
+            if (method.name == "incrementBalance") {
+                deltasByAccountCode.merge(arguments[0] as String, arguments[1] as BigDecimal, BigDecimal::add)
+            }
+            null
+        } as AccountRepository
+        accountService = AccountService(
+            accountCache,
+            recordingAccountRepository,
+            mock(AccountResponseBuilder::class.java),
+            mock(ChildAccountCreator::class.java),
+            mock(AccountStructureLock::class.java),
+            mock(AccountUsagesFinder::class.java)
+        )
+    }
+
+    fun balance(systemAccount: SystemAccount): BigDecimal = deltasByAccountCode[systemAccount.code] ?: BigDecimal.ZERO
+
+    companion object {
+        fun systemAccountDtos(): List<AccountDto> = SystemAccount.entries.map { systemAccount ->
+            accountDto(systemAccount, accountIsActive = true)
+        }
+
+        fun accountDto(systemAccount: SystemAccount, accountIsActive: Boolean) = AccountDto(
+            id = UUID.randomUUID(),
+            createdById = UUID.randomUUID(),
+            createdOn = OffsetDateTime.now(),
+            code = systemAccount.code,
+            name = systemAccount.accountName,
+            accountType = systemAccount.type,
+            currencyCode = "USD",
+            accountIsActive = accountIsActive,
+            accountIsSystemMaintained = true,
+            parentAccountCode = systemAccount.parent?.code
+        )
+
+        fun accountTree(extraChildCode: String? = null, parent: SystemAccount = SystemAccount.DIGITAL_PAYMENTS): List<AccountTreeNode> {
+            val childDto = extraChildCode?.let { childCode ->
+                accountDto(parent, accountIsActive = true).copy(
+                    id = UUID.randomUUID(),
+                    code = childCode,
+                    name = "Mobile Wallet",
+                    accountIsSystemMaintained = false,
+                    parentAccountCode = parent.code
+                )
+            }
+            return RecordingAccountService(systemAccountDtos() + listOfNotNull(childDto)).accountService.getAccountTree()
+        }
+    }
+}

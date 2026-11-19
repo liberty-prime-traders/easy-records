@@ -26,7 +26,7 @@ databaseChangeLog:
                     nullable: false
                     notNullConstraintName: supplier_payment_reference_number_notnull
                     unique: true
-                    uniqueConstraintName: supplier_payment_reference_number_unique
+                    uniqueConstraintName: uq_supplier_payment_reference_number
 
               - column:
                   name: purchase_id
@@ -45,6 +45,13 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     notNullConstraintName: supplier_payment_payment_method_id_notnull
+
+              - column:
+                  name: payment_method_account_code
+                  type: varchar(30)
+                  constraints:
+                    nullable: false
+                    notNullConstraintName: supplier_payment_payment_method_account_code_notnull
 
               - column:
                   name: amount

@@ -1,0 +1,9 @@
+package app.myliberty.easy_records.organizations.business.retail.unit_bulk_import.api
+
+data class UnitValueBulkInsertDto(
+    val name: String?,
+    val code: String?,
+    val description: String?,
+    val baseUnitCode: String?,
+    val unitsOfBasePerUnit: Long?
+)

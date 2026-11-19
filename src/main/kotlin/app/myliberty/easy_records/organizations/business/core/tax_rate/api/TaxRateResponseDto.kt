@@ -1,0 +1,23 @@
+package app.myliberty.easy_records.organizations.business.core.tax_rate.api
+
+import java.io.Serializable
+import java.math.BigDecimal
+import java.time.LocalDate
+import java.time.OffsetDateTime
+import java.util.UUID
+
+data class TaxRateResponseDto(
+    val id: UUID,
+    val referenceNumber: String,
+    val createdOn: OffsetDateTime?,
+    val orgJurisdictionTaxTypeId: UUID,
+    val taxLabel: String?,
+    val name: String,
+    val ratePercentage: BigDecimal?,
+    val rateFlatAmount: BigDecimal?,
+    val taxIsBilledToCustomerSeparately: Boolean,
+    val taxIsIncludedInTaxableAmount: Boolean,
+    val startDate: LocalDate,
+    val endDate: LocalDate?,
+    val parentIsActive: Boolean
+) : Serializable

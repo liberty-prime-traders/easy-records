@@ -1,0 +1,130 @@
+package app.myliberty.easy_records.locations.business.retail.stock_revision
+
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductDataFetcher
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductSummaryDto
+import app.myliberty.easy_records.locations.business.retail.stock.api.fifo.FifoLayer
+import app.myliberty.easy_records.locations.business.retail.stock.api.read.StockEntryFetcher
+import app.myliberty.easy_records.locations.business.retail.stock.api.fifo.StockEntryFifoDto
+import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.MovementType
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
+import app.myliberty.easy_records.util.quantity.BreakdownUnit
+import app.myliberty.easy_records.util.quantity.ExactQuantity
+import app.myliberty.easy_records.util.quantity.QuantityAsEntered
+import app.myliberty.easy_records.util.quantity.QuantityBreakdown
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertThrows
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
+import org.mockito.ArgumentMatchers.anyCollection
+import org.mockito.Mockito.mock
+import org.mockito.Mockito.verifyNoInteractions
+import org.mockito.Mockito.`when`
+import java.math.BigDecimal
+import java.time.OffsetDateTime
+import java.util.UUID
+
+class ReplayPlannerTest {
+
+    private val stockEntryFetcher = mock(StockEntryFetcher::class.java)
+    private val locationProductDataFetcher = mock(LocationProductDataFetcher::class.java)
+    private val replayPlanner = ReplayPlanner(stockEntryFetcher, locationProductDataFetcher)
+
+    private val locationProductId = UUID.randomUUID()
+    private val unitId = UUID.randomUUID()
+    private val replacedStockEntryId = UUID.randomUUID()
+    private val quantityBreakdown = QuantityBreakdown.forBaseUnit(
+        listOf(BreakdownUnit(unitId, "pcs", 1L, unitId, OffsetDateTime.parse("2026-11-01T10:00:00Z"))), unitId
+    )
+
+    private fun givenLayerWithStockLeft(quantity: String, batchCost: String) {
+        val fifoLayer = FifoLayer(
+            UUID.randomUUID(),
+            BigDecimal(quantity),
+            BigDecimal(batchCost),
+            BigDecimal(quantity),
+            BigDecimal(batchCost)
+        )
+        `when`(stockEntryFetcher.findWithStockLeftInDrawOrder(locationProductId))
+            .thenReturn(listOf(StockEntryFifoDto("STE2", locationProductId, BigDecimal.ONE, fifoLayer)))
+        `when`(locationProductDataFetcher.findSummaryByIds(anyCollection())).thenReturn(
+            mapOf(
+                locationProductId to LocationProductSummaryDto(
+                    locationProductId,
+                    "LP1",
+                    UUID.randomUUID(),
+                    "Sugar",
+                    "Pantry",
+                    unitId
+                )
+            )
+        )
+    }
+
+    private fun consumption(documentReference: String, quantity: String, cost: String) = StockEntryConsumption(
+        stockEntryId = replacedStockEntryId,
+        locationProductId = locationProductId,
+        consumer = StockConsumer(StockMovementOrigin(documentReference, "SALL1"), MovementType.SALE, null),
+        quantityAsEntered = QuantityAsEntered(unitId, 1L, "whole line of $documentReference"),
+        orderOfConsumption = OrderOfConsumption(null, null),
+        netConsumedStorageQuantity = ExactQuantity.ofStorage(BigDecimal(quantity)),
+        netConsumedCost = BigDecimal(cost)
+    )
+
+    @Test
+    fun `a layer nobody drew from plans nothing and reads nothing`() {
+        assertTrue(replayPlanner.planReplayForExecution(emptyList(), "STRV000001", quantityBreakdown).isEmpty())
+
+        verifyNoInteractions(stockEntryFetcher, locationProductDataFetcher)
+    }
+
+    @Test
+    fun `consumers the later layers can cover are planned at the replacement's cost`() {
+        givenLayerWithStockLeft("10", "120.00")
+
+        val consumerReplayPlans = replayPlanner.planReplayForExecution(
+            listOf(consumption("SAL1", "4", "40.00")),
+            "STRV000001",
+            quantityBreakdown
+        )
+
+        assertEquals(0, BigDecimal("48.00").compareTo(consumerReplayPlans.single().newCost))
+        assertEquals(0, BigDecimal("40.00").compareTo(consumerReplayPlans.single().oldCost))
+    }
+
+    @Test
+    fun `a preview reports a consumer the layers cannot cover as a problem instead of throwing`() {
+        givenLayerWithStockLeft("5", "60.00")
+
+        val replayResult = replayPlanner.planReplayForPreview(
+            listOf(consumption("SAL1", "4", "40.00"), consumption("SAL2", "4", "40.00")),
+            listOf(
+                StockEntryFifoDto(
+                    "STE2", locationProductId, BigDecimal.ONE,
+                    FifoLayer(
+                        UUID.randomUUID(), BigDecimal("5"), BigDecimal("60.00"), BigDecimal("5"), BigDecimal("60.00")
+                    )
+                )
+            ),
+            "PREVIEW",
+            quantityBreakdown
+        )
+
+        assertEquals(1, replayResult.consumerReplayPlans.size)
+        assertEquals("SAL2", replayResult.problems.single().documentReference)
+    }
+
+    @Test
+    fun `when any consumer cannot be covered the whole replay is refused with every problem listed`() {
+        givenLayerWithStockLeft("5", "60.00")
+
+        val exception = assertThrows(LibertyGenericException::class.java) {
+            replayPlanner.planReplayForExecution(
+                listOf(consumption("SAL1", "4", "40.00"), consumption("SAL2", "4", "40.00")),
+                "STRV000001",
+                quantityBreakdown
+            )
+        }
+
+        assertEquals(1, (exception.payload as List<*>).size)
+    }
+}

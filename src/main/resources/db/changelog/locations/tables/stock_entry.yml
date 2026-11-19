@@ -26,11 +26,7 @@ databaseChangeLog:
                     nullable: false
                     notNullConstraintName: stock_entry_reference_number_notnull
                     unique: true
-                    uniqueConstraintName: stock_entry_reference_number_unique
-
-              - column:
-                  name: purchase_delivery_line_id
-                  type: uuid
+                    uniqueConstraintName: uq_stock_entry_reference_number
 
               - column:
                   name: location_product_id
@@ -40,37 +36,58 @@ databaseChangeLog:
                     notNullConstraintName: stock_entry_location_product_id_notnull
 
               - column:
-                  name: source_type_id
-                  type: uuid
-                  constraints:
-                    nullable: false
-                    notNullConstraintName: stock_entry_source_type_id_notnull
+                  name: source_type
+                  type: varchar(5)
 
               - column:
-                  name: source_id
-                  type: uuid
+                  name: document_reference
+                  type: varchar(30)
 
               - column:
-                  name: batch_size
-                  type: decimal(15,3)
-                  constraints:
-                    nullable: false
-                    notNullConstraintName: stock_entry_batch_size_notnull
+                  name: detail_reference
+                  type: varchar(30)
 
               - column:
-                  name: quantity_remaining
-                  type: decimal(15,3)
+                  name: storage_batch_size
+                  type: numeric(28,4)
                   constraints:
                     nullable: false
-                    notNullConstraintName: stock_entry_quantity_remaining_notnull
+                    notNullConstraintName: stock_entry_storage_batch_size_notnull
+
+              - column:
+                  name: storage_quantity_remaining
+                  type: numeric(28,4)
+                  constraints:
+                    nullable: false
+                    notNullConstraintName: stock_entry_storage_quantity_remaining_notnull
 
               - column:
                   name: priority
                   type: integer
+                  constraints:
+                    nullable: false
+                    notNullConstraintName: stock_entry_priority_notnull
 
               - column:
                   name: unit_cost
-                  type: decimal(15,2)
+                  type: decimal(28,10)
+                  constraints:
+                    nullable: false
+                    notNullConstraintName: stock_entry_unit_cost_notnull
+
+              - column:
+                  name: batch_cost
+                  type: numeric(28,4)
+                  constraints:
+                    nullable: false
+                    notNullConstraintName: stock_entry_batch_cost_notnull
+
+              - column:
+                  name: cost_remaining
+                  type: numeric(28,4)
+                  constraints:
+                    nullable: false
+                    notNullConstraintName: stock_entry_cost_remaining_notnull
 
               - column:
                   name: created_by_id
@@ -83,3 +100,58 @@ databaseChangeLog:
                   name: created_on
                   type: timestamptz
                   defaultValueDate: ${now}
+
+  - changeSet:
+      id: add-status-to-stock-entry
+      author: ezra
+      labels: 2.0.0
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            - columnExists:
+                tableName: stock_entry
+                columnName: status
+      changes:
+        - addColumn:
+            tableName: stock_entry
+            columns:
+              - column:
+                  name: status
+                  type: varchar(5)
+                  defaultValue: ACT
+                  constraints:
+                    nullable: false
+                    notNullConstraintName: stock_entry_status_notnull
+      rollback:
+        - dropColumn:
+            tableName: stock_entry
+            columnName: status
+
+  - changeSet:
+      id: add-activated-on-to-stock-entry
+      author: ezra
+      labels: 2.0.0
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            - columnExists:
+                tableName: stock_entry
+                columnName: activated_on
+      changes:
+        - addColumn:
+            tableName: stock_entry
+            columns:
+              - column:
+                  name: activated_on
+                  type: timestamptz
+                  defaultValueDate: ${now}
+                  constraints:
+                    nullable: false
+                    notNullConstraintName: stock_entry_activated_on_notnull
+
+        - sql:
+            sql: UPDATE stock_entry SET activated_on = COALESCE(created_on, activated_on)
+      rollback:
+        - dropColumn:
+            tableName: stock_entry
+            columnName: activated_on

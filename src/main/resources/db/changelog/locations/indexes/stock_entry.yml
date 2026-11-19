@@ -1,45 +1,23 @@
 databaseChangeLog:
   - changeSet:
-      id: create-index-stock-entry-purchase-delivery-line-id
-      author: ezra
-      labels: 1.0.0
-      preConditions:
-        - onFail: MARK_RAN
-        - not:
-            - indexExists:
-                indexName: idx_stock_entry_purchase_delivery_line_id
-      changes:
-        - createIndex:
-            indexName: idx_stock_entry_purchase_delivery_line_id
-            tableName: stock_entry
-            columns:
-              - column:
-                  name: purchase_delivery_line_id
-      rollback:
-        - dropIndex:
-            indexName: idx_stock_entry_purchase_delivery_line_id
-            tableName: stock_entry
-
-  - changeSet:
       id: create-index-stock-entry-location-product-id
       author: ezra
       labels: 1.0.0
       preConditions:
         - onFail: MARK_RAN
-        - not:
-            - indexExists:
-                indexName: idx_stock_entry_location_product_id
+        - indexExists:
+            indexName: idx_stock_entry_location_product_id
       changes:
+        - dropIndex:
+            indexName: idx_stock_entry_location_product_id
+            tableName: stock_entry
+      rollback:
         - createIndex:
             indexName: idx_stock_entry_location_product_id
             tableName: stock_entry
             columns:
               - column:
                   name: location_product_id
-      rollback:
-        - dropIndex:
-            indexName: idx_stock_entry_location_product_id
-            tableName: stock_entry
 
   - changeSet:
       id: create-index-stock-entry-location-product-id-available
@@ -52,8 +30,48 @@ databaseChangeLog:
                 indexName: idx_stock_entry_location_product_id_available
       changes:
         - sql:
-            sql: CREATE INDEX idx_stock_entry_location_product_id_available ON stock_entry (location_product_id, priority, created_on) WHERE quantity_remaining > 0
+            sql: CREATE INDEX idx_stock_entry_location_product_id_available ON stock_entry (location_product_id, priority, created_on) WHERE storage_quantity_remaining > 0
       rollback:
         - dropIndex:
             indexName: idx_stock_entry_location_product_id_available
             tableName: stock_entry
+
+  - changeSet:
+      id: add-unique-index-stock-entry-doc-detail-ref-type-product
+      author: ezra
+      labels: 1.0.0
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            - indexExists:
+                indexName: uq_stock_entry_doc_detail_ref_type_product
+      changes:
+        - sql:
+            sql: >-
+              CREATE UNIQUE INDEX uq_stock_entry_doc_detail_ref_type_product ON stock_entry
+              (document_reference, COALESCE(detail_reference, ''), source_type, location_product_id)
+      rollback:
+        - sql:
+            sql: DROP INDEX IF EXISTS uq_stock_entry_doc_detail_ref_type_product
+
+  - changeSet:
+      id: replace-index-stock-entry-location-product-id-available-with-activated-on
+      author: ezra
+      labels: 2.0.0
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            - indexExists:
+                indexName: idx_stock_entry_location_product_id_available_activated_on
+      changes:
+        - sql:
+            sql: DROP INDEX IF EXISTS idx_stock_entry_location_product_id_available
+
+        - sql:
+            sql: CREATE INDEX idx_stock_entry_location_product_id_available_activated_on ON stock_entry (location_product_id, priority, activated_on) WHERE storage_quantity_remaining > 0
+      rollback:
+        - sql:
+            sql: DROP INDEX IF EXISTS idx_stock_entry_location_product_id_available_activated_on
+
+        - sql:
+            sql: CREATE INDEX idx_stock_entry_location_product_id_available ON stock_entry (location_product_id, priority, created_on) WHERE storage_quantity_remaining > 0

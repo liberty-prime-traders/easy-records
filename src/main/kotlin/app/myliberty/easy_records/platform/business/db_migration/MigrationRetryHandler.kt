@@ -1,0 +1,83 @@
+package app.myliberty.easy_records.platform.business.db_migration
+
+import app.myliberty.easy_records.platform.business.db_version.api.DbVersionDto
+import app.myliberty.easy_records.platform.business.organization.api.OrganizationService
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
+import org.springframework.stereotype.Component
+import java.util.UUID
+
+@Component
+class MigrationRetryHandler(
+  private val organizationService: OrganizationService,
+  private val migrationInitializer: MigrationInitializer,
+  private val migrationStatusUpdater: MigrationStatusUpdater,
+  private val locationBatchProcessor: LocationBatchProcessor,
+  private val migrationFinalizer: MigrationFinalizer,
+  private val dbMigrationCache: DbMigrationCache
+) {
+  fun retryLocationMigrations(
+    originalMigration: DbMigrationDto,
+    targetDbVersion: DbVersionDto,
+    locationIds: Set<UUID>
+  ): OrganizationLocationsMigration {
+    val organization = organizationService.getAllOrganizationDtos().find { it.id == originalMigration.schemaOwnerId }
+      ?: throw LibertyGenericException("Organization not found")
+
+    val retryMigration = migrationInitializer.createRetryMigration(originalMigration, targetDbVersion)
+
+    return try {
+      val eligibleLocationIds = filterEligibleLocations(originalMigration.id, locationIds)
+
+      if (eligibleLocationIds.isEmpty()) {
+        migrationStatusUpdater.markIgnored(
+          retryMigration,
+          "No failed locations to retry or provided locations were already successful"
+        )
+        return OrganizationLocationsMigration(retryMigration, emptyList())
+      }
+
+      val locationResults = locationBatchProcessor.processLocations(
+        organization = organization,
+        targetDbVersion = targetDbVersion,
+        parentMigrationId = retryMigration.id,
+        locationIds = eligibleLocationIds
+      )
+
+      migrationFinalizer.finalizeOrganizationMigration(
+        migration = retryMigration,
+        locationResults = locationResults,
+        includesLocations = true,
+        isRetry = true
+      )
+
+      val consolidatedResults = consolidateResults(originalMigration.id, locationResults.successful)
+
+      OrganizationLocationsMigration(retryMigration, consolidatedResults)
+    } catch (e: Exception) {
+      migrationStatusUpdater.markFailure(retryMigration, e)
+      throw LibertyGenericException("Locations retry failed: ${e.message}")
+    }
+  }
+
+  private fun filterEligibleLocations(originalMigrationId: UUID, requestedIds: Set<UUID>): Set<UUID> {
+    return requestedIds.filterTo(mutableSetOf()) { locationId ->
+      hasFailedMigration(originalMigrationId, locationId)
+    }
+  }
+
+  private fun consolidateResults(
+    originalMigrationId: UUID,
+    newResults: List<DbMigrationDto>
+  ): List<DbMigrationDto> {
+    val previousAttempts = dbMigrationCache.getDbLocationMigrationsByMigrationsParentId(originalMigrationId)
+    val newResultsMap = newResults.associateBy { it.schemaOwnerId }
+
+    return previousAttempts.map { previous ->
+      newResultsMap[previous.schemaOwnerId] ?: previous
+    }
+  }
+
+  private fun hasFailedMigration(parentMigrationId: UUID, locationId: UUID): Boolean {
+    return dbMigrationCache.getLatestFailedLocationMigrationForOrgParent(parentMigrationId, locationId) != null
+  }
+}

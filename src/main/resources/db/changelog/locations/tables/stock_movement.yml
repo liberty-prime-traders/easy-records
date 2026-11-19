@@ -26,7 +26,7 @@ databaseChangeLog:
                     nullable: false
                     notNullConstraintName: stock_movement_reference_number_notnull
                     unique: true
-                    uniqueConstraintName: stock_movement_reference_number_unique
+                    uniqueConstraintName: uq_stock_movement_reference_number
 
               - column:
                   name: stock_entry_id
@@ -54,21 +54,61 @@ databaseChangeLog:
                   type: uuid
 
               - column:
-                  name: moved_quantity
-                  type: decimal(15,3)
-                  constraints:
-                    nullable: false
-                    notNullConstraintName: stock_movement_moved_quantity_notnull
+                  name: category
+                  type: varchar(5)
 
               - column:
-                  name: remaining_quantity
-                  type: decimal(15,3)
-                  constraints:
-                    nullable: false
-                    notNullConstraintName: stock_movement_remaining_quantity_notnull
+                  name: note
+                  type: varchar(500)
 
               - column:
-                  name: external_reference_number
+                  name: storage_moved_quantity
+                  type: numeric(28,4)
+                  constraints:
+                    nullable: false
+                    notNullConstraintName: stock_movement_storage_moved_quantity_notnull
+
+              - column:
+                  name: whole_line_quantity_text
+                  type: varchar(200)
+                  constraints:
+                    nullable: false
+                    notNullConstraintName: stock_movement_whole_line_quantity_text_notnull
+
+              - column:
+                  name: storage_remaining_quantity
+                  type: numeric(28,4)
+                  constraints:
+                    nullable: false
+                    notNullConstraintName: stock_movement_storage_remaining_quantity_notnull
+
+              - column:
+                  name: moved_cost
+                  type: numeric(28,4)
+                  constraints:
+                    nullable: false
+                    notNullConstraintName: stock_movement_moved_cost_notnull
+
+              - column:
+                  name: storage_moved_breakdown_text
+                  type: varchar(200)
+                  constraints:
+                    nullable: false
+                    notNullConstraintName: stock_movement_storage_moved_breakdown_text_notnull
+
+              - column:
+                  name: storage_remaining_breakdown_text
+                  type: varchar(200)
+                  constraints:
+                    nullable: false
+                    notNullConstraintName: stock_movement_storage_remaining_breakdown_text_notnull
+
+              - column:
+                  name: document_reference
+                  type: varchar(30)
+
+              - column:
+                  name: detail_reference
                   type: varchar(30)
 
               - column:
@@ -79,11 +119,11 @@ databaseChangeLog:
                     notNullConstraintName: stock_movement_unit_id_notnull
 
               - column:
-                  name: conversion_factor
-                  type: decimal(19,10)
+                  name: storage_units_per_user_provided_unit
+                  type: bigint
                   constraints:
                     nullable: false
-                    notNullConstraintName: stock_movement_conversion_factor_notnull
+                    notNullConstraintName: stock_movement_storage_units_per_user_provided_unit_notnull
 
               - column:
                   name: created_by_id
@@ -96,3 +136,47 @@ databaseChangeLog:
                   name: created_on
                   type: timestamptz
                   defaultValueDate: ${now}
+
+  - changeSet:
+      id: add-context-to-stock-movement
+      author: ezra
+      labels: 2.0.0
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            - columnExists:
+                tableName: stock_movement
+                columnName: context
+      changes:
+        - addColumn:
+            tableName: stock_movement
+            columns:
+              - column:
+                  name: context
+                  type: varchar(200)
+      rollback:
+        - dropColumn:
+            tableName: stock_movement
+            columnName: context
+
+  - changeSet:
+      id: add-stock-revision-reference-to-stock-movement
+      author: ezra
+      labels: 2.0.0
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            - columnExists:
+                tableName: stock_movement
+                columnName: stock_revision_reference
+      changes:
+        - addColumn:
+            tableName: stock_movement
+            columns:
+              - column:
+                  name: stock_revision_reference
+                  type: varchar(30)
+      rollback:
+        - dropColumn:
+            tableName: stock_movement
+            columnName: stock_revision_reference

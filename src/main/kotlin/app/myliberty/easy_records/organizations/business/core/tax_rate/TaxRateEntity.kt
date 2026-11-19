@@ -1,0 +1,42 @@
+package app.myliberty.easy_records.organizations.business.core.tax_rate
+
+import jakarta.persistence.Column
+import jakarta.persistence.Entity
+import jakarta.persistence.Table
+import app.myliberty.easy_records.util.annotations.HasReference
+import app.myliberty.easy_records.util.model.ExpirableDateAssignmentEntity
+import app.myliberty.easy_records.util.model.TableName
+import app.myliberty.easy_records.util.model.TableNames
+import org.hibernate.envers.Audited
+import java.math.BigDecimal
+import java.time.LocalDate
+import java.util.UUID
+
+@Audited
+@Entity
+@Table(name = TableNames.TAX_RATE)
+@HasReference(tableName = TableName.TAX_RATE)
+class TaxRateEntity(
+
+    @Column(name = "org_jurisdiction_tax_type_id", nullable = false, updatable = false)
+    var orgJurisdictionTaxTypeId: UUID,
+
+    @Column(name = "name", length = 100, nullable = false)
+    var name: String,
+
+    @Column(name = "rate_percentage", precision = 5, scale = 2)
+    var ratePercentage: BigDecimal? = null,
+
+    @Column(name = "rate_flat_amount", precision = 19, scale = 4)
+    var rateFlatAmount: BigDecimal? = null,
+
+    @Column(name = "tax_is_billed_to_customer_separately", nullable = false)
+    var taxIsBilledToCustomerSeparately: Boolean,
+
+    @Column(name = "tax_is_included_in_taxable_amount", nullable = false)
+    var taxIsIncludedInTaxableAmount: Boolean,
+
+    startDate: LocalDate,
+    endDate: LocalDate? = null
+
+) : ExpirableDateAssignmentEntity(startDate, endDate)

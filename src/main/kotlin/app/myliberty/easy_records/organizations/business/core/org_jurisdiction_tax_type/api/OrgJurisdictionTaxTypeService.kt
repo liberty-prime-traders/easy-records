@@ -1,0 +1,87 @@
+package app.myliberty.easy_records.organizations.business.core.org_jurisdiction_tax_type.api
+
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.organizations.business.core.account.api.AccountService
+import app.myliberty.easy_records.organizations.business.core.org_jurisdiction_tax_type.OrgJurisdictionTaxTypeCache
+import app.myliberty.easy_records.organizations.business.core.org_jurisdiction_tax_type.TaxAccountsValidator
+import app.myliberty.easy_records.platform.business.jurisdiction_tax_type.api.JurisdictionTaxTypeFetcher
+import app.myliberty.easy_records.platform.business.tax_type.api.PlatformTaxTypeDto
+import app.myliberty.easy_records.platform.business.tax_type.api.TaxRecoveryType
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
+import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException
+import org.springframework.stereotype.Service
+import java.util.UUID
+
+@Service
+@TransactionalOnOrganizationSchema
+class OrgJurisdictionTaxTypeService(
+    private val orgJurisdictionTaxTypeCache: OrgJurisdictionTaxTypeCache,
+    private val jurisdictionTaxTypeFetcher: JurisdictionTaxTypeFetcher,
+    private val taxAccountsValidator: TaxAccountsValidator,
+    private val accountService: AccountService
+) {
+
+    fun getAll(): List<OrgJurisdictionTaxTypeResponseDto> {
+        val index = jurisdictionTaxTypeFetcher.buildIndex()
+        val accountNamesByCode = accountService.getAccountNamesByCode()
+        return orgJurisdictionTaxTypeCache.getAll().map { toResponseDto(it, index, accountNamesByCode) }
+    }
+
+    fun createAll(dtos: List<OrgJurisdictionTaxTypeInsertDto>): List<OrgJurisdictionTaxTypeResponseDto> {
+        val index = jurisdictionTaxTypeFetcher.buildIndex()
+        val activeIds = jurisdictionTaxTypeFetcher.getActiveIds()
+        val existingJurisdictionIds = orgJurisdictionTaxTypeCache.getAll().mapTo(HashSet()) { it.jurisdictionTaxTypeId }
+        val seen = HashSet<UUID>()
+        dtos.forEach { dto ->
+            val platformTaxType = index[dto.jurisdictionTaxTypeId] ?: throw LibertyGenericException("Jurisdiction tax type not found: ${dto.jurisdictionTaxTypeId}")
+            val taxLabel = platformTaxType.label
+            if (!seen.add(dto.jurisdictionTaxTypeId))
+                throw LibertyGenericException("Duplicate jurisdiction tax type in request: $taxLabel")
+            if (dto.jurisdictionTaxTypeId !in activeIds)
+                throw LibertyGenericException("Jurisdiction tax type not found or is already stopped: $taxLabel")
+            if (dto.jurisdictionTaxTypeId in existingJurisdictionIds)
+                throw LibertyGenericException("$taxLabel is already registered for this organization")
+            taxAccountsValidator.validate(dto.payableAccountCode, dto.recoverableAccountCode, platformTaxType)
+        }
+        val savedDtos = orgJurisdictionTaxTypeCache.createAll(dtos)
+        val accountNamesByCode = accountService.getAccountNamesByCode()
+        return savedDtos.map { toResponseDto(it, index, accountNamesByCode) }
+    }
+
+    fun update(dto: OrgJurisdictionTaxTypeUpdateDto): OrgJurisdictionTaxTypeResponseDto {
+        val existing = orgJurisdictionTaxTypeCache.getAll().find { it.id == dto.id }
+            ?: throw UpdatingNonExistingRecordException()
+        val index = jurisdictionTaxTypeFetcher.buildIndex()
+        val platformTaxType = index[existing.jurisdictionTaxTypeId] ?: throw LibertyGenericException("Jurisdiction tax type not found")
+        val updated = dto.applyTo(existing).let {
+            if (platformTaxType.taxRecoveryType != TaxRecoveryType.RECOVERABLE) {
+                it.copy(recoverableAccountCode = null)
+            } else it
+        }
+        taxAccountsValidator.validate(updated.payableAccountCode, updated.recoverableAccountCode, platformTaxType)
+        orgJurisdictionTaxTypeCache.saveAll(listOf(updated))
+        val accountNamesByCode = accountService.getAccountNamesByCode()
+        return toResponseDto(updated, index, accountNamesByCode)
+    }
+
+    private fun toResponseDto(
+        dto: OrgJurisdictionTaxTypeDto,
+        taxTypeById: Map<UUID, PlatformTaxTypeDto>,
+        accountNamesByCode: Map<String, String>
+    ): OrgJurisdictionTaxTypeResponseDto {
+        val platformTaxType = taxTypeById[dto.jurisdictionTaxTypeId] ?: throw LibertyGenericException("Jurisdiction tax type not found")
+        return OrgJurisdictionTaxTypeResponseDto(
+            id = dto.id,
+            referenceNumber = dto.referenceNumber,
+            createdOn = dto.createdOn,
+            status = dto.status,
+            platformTaxId = platformTaxType.id,
+            taxLabel = platformTaxType.label,
+            taxRecoveryType = platformTaxType.taxRecoveryType,
+            payableAccountCode = dto.payableAccountCode,
+            payableAccount = accountNamesByCode[dto.payableAccountCode],
+            recoverableAccountCode = dto.recoverableAccountCode,
+            recoverableAccount = accountNamesByCode[dto.recoverableAccountCode]
+        )
+    }
+}

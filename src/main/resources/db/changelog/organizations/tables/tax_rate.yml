@@ -39,7 +39,21 @@ databaseChangeLog:
 
               - column:
                   name: rate_flat_amount
-                  type: decimal(15,4)
+                  type: decimal(19,4)
+
+              - column:
+                  name: tax_is_billed_to_customer_separately
+                  type: boolean
+                  constraints:
+                    nullable: false
+                    notNullConstraintName: tax_rate_tax_is_billed_to_customer_separately_notnull
+
+              - column:
+                  name: tax_is_included_in_taxable_amount
+                  type: boolean
+                  constraints:
+                    nullable: false
+                    notNullConstraintName: tax_rate_tax_is_included_in_taxable_amount_notnull
 
               - column:
                   name: start_date
@@ -69,7 +83,7 @@ databaseChangeLog:
                   type: nvarchar2(30)
                   constraints:
                     unique: true
-                    uniqueConstraintName: tax_rate_reference_number_unique
+                    uniqueConstraintName: uq_tax_rate_reference_number
                     nullable: false
                     notNullConstraintName: tax_rate_reference_number_notnull
       rollback:

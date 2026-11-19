@@ -1,0 +1,88 @@
+package app.myliberty.easy_records.locations.business.retail.sale.api
+
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.locations.business.retail.sale.search.SaleSearchFetcher
+import app.myliberty.easy_records.locations.business.retail.sale.search.SaleSearchMapper
+import app.myliberty.easy_records.locations.business.retail.sale.search.SaleSearchValidator
+import app.myliberty.easy_records.locations.business.retail.sale_payment.api.SalePaymentFetcher
+import app.myliberty.easy_records.util.business.mappers.NameResolution
+import app.myliberty.easy_records.util.paging.PageRequest
+import app.myliberty.easy_records.util.paging.PageResponse
+import app.myliberty.easy_records.util.queries.KeysetSearchCursor
+import org.springframework.stereotype.Service
+import java.math.BigDecimal
+
+@Service
+@TransactionalOnLocationSchema(readOnly = true)
+class SaleSearchService(
+  private val saleSearchFetcher: SaleSearchFetcher,
+  private val salePaymentFetcher: SalePaymentFetcher,
+  private val nameResolution: NameResolution
+) {
+
+  fun search(pageRequest: PageRequest<SaleSearchParameters, String>): PageResponse<SaleSummary, String> {
+    val saleSearchParameters = pageRequest.parameters.sanitized()
+    SaleSearchValidator.guardValidParameters(saleSearchParameters)
+    SaleSearchValidator.guardValidPageSize(pageRequest.requestedSize)
+    val cursor = KeysetSearchCursor.decode(pageRequest.previousCursor)
+
+    val rawRows = saleSearchFetcher.search(saleSearchParameters, cursor, pageRequest.requestedSize)
+    val hasMore = rawRows.size > pageRequest.requestedSize
+    val pageRows = if (hasMore) rawRows.take(pageRequest.requestedSize) else rawRows
+
+    val paidAmountBySaleId = salePaymentFetcher.calculatePaidAmounts(pageRows.map { it.id })
+    val contactNamesById = nameResolution.organizationContacts(pageRows.map { it.contactId })
+    val userNamesById = nameResolution.systemUsers(pageRows.mapNotNull { it.soldByUserId })
+    val contents = pageRows.map {
+      SaleSearchMapper.toRowDto(it, contactNamesById, userNamesById, paidAmountBySaleId[it.id] ?: BigDecimal.ZERO)
+    }
+
+    val currentCursor = pageRows.lastOrNull()
+      ?.let { KeysetSearchCursor(it.createdOn, it.id).encode() }
+      ?: pageRequest.previousCursor
+
+    return PageResponse(currentCursor = currentCursor, hasMore = hasMore, contents = contents)
+  }
+
+  fun summarize(saleSearchParameters: SaleSearchParameters): SaleSearchSummaryResponseDto {
+    val sanitizedSaleSearchParameters = saleSearchParameters.sanitized()
+    SaleSearchValidator.guardValidParameters(sanitizedSaleSearchParameters)
+    val rawRowsByStatus = saleSearchFetcher.summarize(sanitizedSaleSearchParameters).associateBy { it.status }
+
+    val statuses = SaleStatus.entries.map { status ->
+      rawRowsByStatus[status]?.let {
+        SaleStatusSummaryDto(
+          status = it.status,
+          saleCount = it.saleCount,
+          receivableTotal = it.receivableTotal,
+          discountTotal = it.discountTotal,
+          paidTotal = it.paidTotal,
+          outstandingTotal = it.outstandingTotal,
+          creditTotal = it.creditTotal
+        )
+      } ?: emptyStatusSummary(status)
+    }
+
+    val confirmed = statuses.first { it.status == SaleStatus.CONFIRMED }
+
+    return SaleSearchSummaryResponseDto(
+      statuses = statuses,
+      confirmedReceivableTotal = confirmed.receivableTotal,
+      confirmedDiscountTotal = confirmed.discountTotal,
+      paidTotal = statuses.sumOf { it.paidTotal },
+      outstandingTotal = confirmed.outstandingTotal,
+      creditTotal = statuses.sumOf { it.creditTotal },
+      saleCount = statuses.sumOf { it.saleCount }
+    )
+  }
+
+  private fun emptyStatusSummary(status: SaleStatus): SaleStatusSummaryDto = SaleStatusSummaryDto(
+    status = status,
+    saleCount = 0,
+    receivableTotal = BigDecimal.ZERO,
+    discountTotal = BigDecimal.ZERO,
+    paidTotal = BigDecimal.ZERO,
+    outstandingTotal = BigDecimal.ZERO,
+    creditTotal = BigDecimal.ZERO
+  )
+}

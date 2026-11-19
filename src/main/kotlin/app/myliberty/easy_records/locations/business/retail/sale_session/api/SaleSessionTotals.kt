@@ -1,0 +1,30 @@
+package app.myliberty.easy_records.locations.business.retail.sale_session.api
+
+import java.math.BigDecimal
+
+data class SaleSessionTotals(
+    val subtotal: BigDecimal,
+    val lineLevelDiscountTotal: BigDecimal,
+    val orderLevelDiscountTotal: BigDecimal,
+    val lineLevelSurchargeTotal: BigDecimal,
+    val orderLevelSurchargeTotal: BigDecimal,
+    val paymentTotal: BigDecimal,
+    val receivableTotal: BigDecimal,
+    val balance: BigDecimal,
+) {
+    val surchargeTotal: BigDecimal = lineLevelSurchargeTotal + orderLevelSurchargeTotal
+    val displaySubtotal: BigDecimal = subtotal + surchargeTotal
+
+    companion object {
+        val ZERO = SaleSessionTotals(
+            subtotal = BigDecimal.ZERO,
+            lineLevelDiscountTotal = BigDecimal.ZERO,
+            orderLevelDiscountTotal = BigDecimal.ZERO,
+            lineLevelSurchargeTotal = BigDecimal.ZERO,
+            orderLevelSurchargeTotal = BigDecimal.ZERO,
+            paymentTotal = BigDecimal.ZERO,
+            receivableTotal = BigDecimal.ZERO,
+            balance = BigDecimal.ZERO,
+        )
+    }
+}
