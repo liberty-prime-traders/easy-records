@@ -16,13 +16,14 @@ Quick rules:
 ## Commands
 
 ```bash
+# Compose files, run scripts and env files live in the sibling repo liberty-ops (applications/easy-records/server/)
 # Start infrastructure (Postgres, Redis), on the dev infra host
-./deployment/scripts/dev.sh          # up
-./deployment/scripts/dev.sh down     # down
+../liberty-ops/applications/easy-records/server/scripts/dev.sh          # up
+../liberty-ops/applications/easy-records/server/scripts/dev.sh down     # down
 
-# Start only the app container, against the infra that dev.sh started (hosts come from deployment/env/dev.env)
-./deployment/scripts/debug.sh        # up
-./deployment/scripts/debug.sh down   # down
+# Start only the app container, against the infra that dev.sh started (hosts come from env/dev.env there)
+../liberty-ops/applications/easy-records/server/scripts/debug.sh        # up
+../liberty-ops/applications/easy-records/server/scripts/debug.sh down   # down
 ```
 
 ## Architecture
