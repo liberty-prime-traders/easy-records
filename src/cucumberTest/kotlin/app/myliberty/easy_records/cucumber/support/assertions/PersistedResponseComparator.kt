@@ -1,14 +1,14 @@
-package me.ezra_home.retail_software_solution.cucumber.support.assertions
+package app.myliberty.easy_records.cucumber.support.assertions
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.TextNode
-import me.ezra_home.retail_software_solution.configuration.session.SessionContextProvider
-import me.ezra_home.retail_software_solution.cucumber.support.context.InjectContext
-import me.ezra_home.retail_software_solution.cucumber.support.context.PersistentKey
-import me.ezra_home.retail_software_solution.platform.business.organization.OrganizationCache
+import app.myliberty.easy_records.configuration.session.SessionContextProvider
+import app.myliberty.easy_records.cucumber.support.context.InjectContext
+import app.myliberty.easy_records.cucumber.support.context.PersistentKey
+import app.myliberty.easy_records.platform.business.organization.OrganizationCache
 import org.springframework.stereotype.Component
 import java.time.OffsetDateTime
 import java.util.UUID

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import io.cucumber.datatable.DataTable
 import io.cucumber.java.en.Then
 import io.restassured.response.Response
+import app.myliberty.easy_records.cucumber.support.assertions.PersistedResponseComparator
 import app.myliberty.easy_records.cucumber.support.context.InjectContext
 import app.myliberty.easy_records.cucumber.support.context.ResponseContext
 import app.myliberty.easy_records.cucumber.support.rest.JsonSubsetMatcher
@@ -13,13 +14,15 @@ import app.myliberty.easy_records.cucumber.support.rest.OrderOption
 import app.myliberty.easy_records.cucumber.support.rest.RestVerificationOption
 import app.myliberty.easy_records.cucumber.support.rest.SubsetOptions
 import org.hamcrest.Matchers.hasSize
+import java.util.UUID
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
 class ResponseSteps(
   private val responseContext: ResponseContext,
-  private val injectContext: InjectContext
+  private val injectContext: InjectContext,
+  private val persistedResponseComparator: PersistedResponseComparator,
 ) {
   private val objectMapper = jacksonObjectMapper()
 
@@ -95,6 +98,29 @@ class ResponseSteps(
   fun verifyErrorField(fieldName: String, expectedValue: String) {
     assertNotNull(responseContext.lastError, "Expected an error response but status was ${responseContext.lastResponse?.statusCode}")
     assertEquals(expectedValue, responseContext.lastResponse?.jsonPath()?.getString(fieldName))
+  }
+
+  @Then("the response should match the persisted {word}")
+  fun verifyResponseMatchesPersisted(alias: String) {
+    val response = checkNotNull(responseContext.lastResponse) { "Expected a response but no response was captured" }
+    val actualNode = objectMapper.readTree(response.asString())
+    persistedResponseComparator.assertBodyMatches(alias, actualNode, ResponseContext.idFromResponse(response))
+  }
+
+  @Then("the response item {int} should match the persisted {word} identified by {string}")
+  fun verifyResponseItemMatchesPersisted(index: Int, alias: String, idReference: String) {
+    val responseBody = checkNotNull(responseContext.lastResponse) {
+      "Expected a response but no response was captured"
+    }.asString()
+    val actualNode = objectMapper.readTree(responseBody)
+    assertTrue(
+      actualNode.isArray,
+      "Expected the response body to be an array but got ${actualNode.nodeType}. Response: $responseBody",
+    )
+    val actualItem = actualNode.get(index)
+    assertNotNull(actualItem, "Expected an item at index $index but response only had ${actualNode.size()} items")
+    val persistedId = UUID.fromString(injectContext.inject(idReference))
+    persistedResponseComparator.assertBodyMatches(alias, actualItem, persistedId)
   }
 
   @Then("response returns with status {int}")

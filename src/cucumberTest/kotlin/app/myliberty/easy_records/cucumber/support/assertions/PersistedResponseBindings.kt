@@ -1,20 +1,20 @@
-package me.ezra_home.retail_software_solution.cucumber.support.assertions
+package app.myliberty.easy_records.cucumber.support.assertions
 
-import me.ezra_home.retail_software_solution.organizations.business.contact.ContactMapper
-import me.ezra_home.retail_software_solution.organizations.business.contact.ContactRepository
-import me.ezra_home.retail_software_solution.organizations.business.jobtitle.JobTitleMapper
-import me.ezra_home.retail_software_solution.organizations.business.jobtitle.JobTitleRepository
-import me.ezra_home.retail_software_solution.organizations.business.product_category.ProductCategoryMapper
-import me.ezra_home.retail_software_solution.organizations.business.product_category.ProductCategoryRepository
-import me.ezra_home.retail_software_solution.organizations.business.unitgroup.UnitGroupMapper
-import me.ezra_home.retail_software_solution.organizations.business.unitgroup.UnitGroupRepository
-import me.ezra_home.retail_software_solution.organizations.business.unitvalue.UnitValueMapper
-import me.ezra_home.retail_software_solution.organizations.business.unitvalue.UnitValueRepository
-import me.ezra_home.retail_software_solution.organizations.business.unitvalue.api.UnitValueFetcher
-import me.ezra_home.retail_software_solution.platform.business.authorization_pass.AuthorizationPassMapper
-import me.ezra_home.retail_software_solution.platform.business.authorization_pass.AuthorizationPassRepository
-import me.ezra_home.retail_software_solution.platform.business.organization.OrganizationMapper
-import me.ezra_home.retail_software_solution.platform.business.organization.OrganizationRepository
+import app.myliberty.easy_records.organizations.business.core.contact.ContactMapper
+import app.myliberty.easy_records.organizations.business.core.contact.ContactRepository
+import app.myliberty.easy_records.organizations.business.core.jobtitle.JobTitleMapper
+import app.myliberty.easy_records.organizations.business.core.jobtitle.JobTitleRepository
+import app.myliberty.easy_records.organizations.business.retail.product_category.ProductCategoryMapper
+import app.myliberty.easy_records.organizations.business.retail.product_category.ProductCategoryRepository
+import app.myliberty.easy_records.organizations.business.retail.unitgroup.UnitGroupMapper
+import app.myliberty.easy_records.organizations.business.retail.unitgroup.UnitGroupRepository
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.UnitValueMapper
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.UnitValueRepository
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueFetcher
+import app.myliberty.easy_records.platform.business.authorization_pass.AuthorizationPassMapper
+import app.myliberty.easy_records.platform.business.authorization_pass.AuthorizationPassRepository
+import app.myliberty.easy_records.platform.business.organization.OrganizationMapper
+import app.myliberty.easy_records.platform.business.organization.OrganizationRepository
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Component
 import java.util.UUID
@@ -59,7 +59,9 @@ class UnitValuePersistedResponseBinding(
   override fun responseDtoFor(id: UUID): Any {
     val entity = requireNotNull(repository.findByIdOrNull(id)) { "Unit value '$id' not found" }
     val dto = mapper.toDomainDto(entity)
-    return mapper.toResponseDto(dto, unitValueFetcher.getUnitName(dto.baseUnit))
+    return mapper.toResponseDto(
+      dto, unitValueFetcher.getUnitNamesById().getValue(dto.baseUnit!!)
+    )
   }
 }
 
@@ -101,7 +103,7 @@ class ContactPersistedResponseBinding(
 
   override fun responseDtoFor(id: UUID): Any {
     val entity = requireNotNull(repository.findByIdOrNull(id)) { "Contact '$id' not found" }
-    return mapper.toResponseDto(mapper.toDomainDto(entity))
+    return mapper. .toResponseDto(mapper.toDomainDto(entity))
   }
 }
 

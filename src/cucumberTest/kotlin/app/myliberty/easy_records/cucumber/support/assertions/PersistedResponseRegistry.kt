@@ -1,4 +1,4 @@
-package me.ezra_home.retail_software_solution.cucumber.support.assertions
+package app.myliberty.easy_records.cucumber.support.assertions
 
 import org.springframework.stereotype.Component
 
