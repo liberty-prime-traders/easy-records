@@ -1,0 +1,54 @@
+package app.myliberty.easy_records.locations.business.retail.catalog_sync.sync_services.product
+
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.locations.business.retail.catalog_sync.SyncCursor
+import app.myliberty.easy_records.locations.business.retail.catalog_sync.api.SyncService
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductSyncService
+import app.myliberty.easy_records.organizations.business.retail.product.api.OrganizationProductFetcher
+import app.myliberty.easy_records.util.model.TableName
+import org.springframework.stereotype.Service
+import java.util.UUID
+
+@Service
+class ProductSyncService(
+  private val productRevisionFetcher: ProductRevisionFetcher,
+  private val locationProductSyncService: LocationProductSyncService,
+  private val organizationProductFetcher: OrganizationProductFetcher
+) : SyncService<ProductSyncData> {
+
+  override val tableName = TableName.PRODUCT
+
+  @TransactionalOnOrganizationSchema(readOnly = true)
+  override fun countAllRecords(): Int {
+    return organizationProductFetcher.countAllProducts().toInt()
+  }
+
+  @TransactionalOnOrganizationSchema(readOnly = true)
+  override fun fetchBatch(cursor: SyncCursor?, batchSize: Int): List<ProductSyncData> {
+    return when (cursor) {
+      is SyncCursor.Reference -> productRevisionFetcher.fetchBatchForFull(cursor.value, batchSize)
+      is SyncCursor.Revision -> productRevisionFetcher.fetchBatchForIncremental(cursor.value, batchSize)
+      null -> productRevisionFetcher.fetchBatchForFull(null, batchSize)
+    }
+  }
+
+  override fun extractCursor(record: ProductSyncData): SyncCursor {
+    return if (record.revision != null) {
+      SyncCursor.Revision(record.revision)
+    } else {
+      SyncCursor.Reference(record.referenceNumber)
+    }
+  }
+
+  @TransactionalOnLocationSchema
+  override fun createLocationRecord(record: ProductSyncData): Boolean {
+    return locationProductSyncService.syncUpsert(LocationProductMapper.toSyncDto(record))
+  }
+
+  @TransactionalOnOrganizationSchema(readOnly = true)
+  override fun syncSingle(entityId: UUID) {
+    val productSyncData = productRevisionFetcher.fetchByOrgProductId(entityId) ?: return
+    createLocationRecord(productSyncData)
+  }
+}

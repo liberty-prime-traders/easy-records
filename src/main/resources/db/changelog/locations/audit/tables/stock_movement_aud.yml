@@ -43,15 +43,43 @@ databaseChangeLog:
                   type: uuid
 
               - column:
-                  name: moved_quantity
-                  type: decimal(15,3)
+                  name: category
+                  type: varchar(5)
 
               - column:
-                  name: remaining_quantity
-                  type: decimal(15,3)
+                  name: note
+                  type: varchar(500)
 
               - column:
-                  name: external_reference_number
+                  name: storage_moved_quantity
+                  type: numeric(28,4)
+
+              - column:
+                  name: whole_line_quantity_text
+                  type: varchar(200)
+
+              - column:
+                  name: storage_remaining_quantity
+                  type: numeric(28,4)
+
+              - column:
+                  name: moved_cost
+                  type: numeric(28,4)
+
+              - column:
+                  name: storage_moved_breakdown_text
+                  type: varchar(200)
+
+              - column:
+                  name: storage_remaining_breakdown_text
+                  type: varchar(200)
+
+              - column:
+                  name: document_reference
+                  type: varchar(30)
+
+              - column:
+                  name: detail_reference
                   type: varchar(30)
 
               - column:
@@ -59,8 +87,8 @@ databaseChangeLog:
                   type: uuid
 
               - column:
-                  name: conversion_factor
-                  type: decimal(19,10)
+                  name: storage_units_per_user_provided_unit
+                  type: bigint
 
               - column:
                   name: revend
@@ -78,3 +106,47 @@ databaseChangeLog:
       rollback:
         - dropTable:
             tableName: stock_movement_aud
+
+  - changeSet:
+      id: add-context-to-stock-movement-aud
+      author: ezra
+      labels: 2.0.0
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            - columnExists:
+                tableName: stock_movement_aud
+                columnName: context
+      changes:
+        - addColumn:
+            tableName: stock_movement_aud
+            columns:
+              - column:
+                  name: context
+                  type: varchar(200)
+      rollback:
+        - dropColumn:
+            tableName: stock_movement_aud
+            columnName: context
+
+  - changeSet:
+      id: add-stock-revision-reference-to-stock-movement-aud
+      author: ezra
+      labels: 2.0.0
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            - columnExists:
+                tableName: stock_movement_aud
+                columnName: stock_revision_reference
+      changes:
+        - addColumn:
+            tableName: stock_movement_aud
+            columns:
+              - column:
+                  name: stock_revision_reference
+                  type: varchar(30)
+      rollback:
+        - dropColumn:
+            tableName: stock_movement_aud
+            columnName: stock_revision_reference

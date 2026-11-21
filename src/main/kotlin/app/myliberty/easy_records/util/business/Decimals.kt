@@ -1,0 +1,85 @@
+package app.myliberty.easy_records.util.business
+
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
+import java.math.BigDecimal
+import java.math.MathContext
+import java.math.RoundingMode
+
+object Decimals {
+    // Why 12 integer digits against a numeric(19,4) column: util/business/README.md rule 8.
+    val MAXIMUM_TRANSACTION_AMOUNT: BigDecimal = BigDecimal("999999999999.99")
+
+    sealed class DecimalScale {
+        abstract val scale: Int
+
+        fun round(value: BigDecimal): BigDecimal = value.setScale(scale, RoundingMode.HALF_UP)
+
+        fun multiply(value: BigDecimal, factor: BigDecimal): BigDecimal =
+            value.multiply(factor).setScale(scale, RoundingMode.HALF_UP)
+
+        fun divide(value: BigDecimal, divisor: BigDecimal): BigDecimal =
+            value.divide(divisor, scale, RoundingMode.HALF_UP)
+
+        fun compare(first: BigDecimal, second: BigDecimal): Int = compareAtScale(first, second, this)
+    }
+
+    // Money columns are numeric(19,4) but round to 2: util/business/README.md rule 8.
+    const val MONEY_SCALE = 2
+
+    sealed class FixedScale(final override val scale: Int) : DecimalScale()
+    object Scale4 : FixedScale(4)
+    object Scale10 : FixedScale(10)
+    object MoneyScale : FixedScale(MONEY_SCALE)
+    object PercentDisplayScale : FixedScale(1)
+
+    private fun compareAtScale(first: BigDecimal, second: BigDecimal, decimalScale: DecimalScale): Int =
+        first.setScale(decimalScale.scale, RoundingMode.HALF_UP).compareTo(second.setScale(decimalScale.scale, RoundingMode.HALF_UP))
+
+    fun stripZeroesAndRound(quantity: BigDecimal): String = stripZeroes(quantity, RoundingMode.HALF_UP)
+
+    fun stripZeroesAndRoundNeverToZero(value: BigDecimal): String =
+        if (value.signum() != 0 && Scale4.round(value).signum() == 0) {
+            value.round(MathContext(1, RoundingMode.HALF_UP)).stripTrailingZeros().toPlainString()
+        } else {
+            stripZeroes(value, RoundingMode.HALF_UP)
+        }
+
+    private fun stripZeroes(quantity: BigDecimal, roundingMode: RoundingMode): String =
+        quantity.setScale(Scale4.scale, roundingMode).stripTrailingZeros().toPlainString()
+
+    // Null when the quotient does not terminate, so a rounded value is never mistaken for an exact one.
+    fun exactQuotientOrNull(dividend: BigDecimal, divisor: BigDecimal): BigDecimal? {
+        val quotient = dividend.divide(divisor, MathContext.DECIMAL128)
+        return if (quotient.multiply(divisor).compareTo(dividend) == 0) quotient else null
+    }
+
+    fun requireMaxDecimalPlaces(value: BigDecimal, maxDecimalPlaces: Int, label: String) {
+        if (value.stripTrailingZeros().scale() > maxDecimalPlaces) {
+            throw LibertyGenericException("$label can have at most $maxDecimalPlaces decimal places")
+        }
+    }
+
+    fun requireWithinMaximum(value: BigDecimal, maximum: BigDecimal, label: String) {
+        if (value.abs() > maximum) {
+            throw LibertyGenericException("$label must not exceed ${maximum.toPlainString()}")
+        }
+    }
+
+    fun requireNonNegative(value: BigDecimal, label: String) {
+        if (value.signum() < 0) {
+            throw LibertyGenericException("$label must not be negative")
+        }
+    }
+
+    fun requirePositive(value: BigDecimal, label: String) {
+        if (value.signum() <= 0) {
+            throw LibertyGenericException("$label must be greater than zero")
+        }
+    }
+
+    fun greatestCommonDivisor(firstValue: Long, secondValue: Long): Long {
+        val firstMagnitude = if (firstValue < 0) -firstValue else firstValue
+        val secondMagnitude = if (secondValue < 0) -secondValue else secondValue
+        return if (secondMagnitude == 0L) firstMagnitude else greatestCommonDivisor(secondMagnitude, firstMagnitude % secondMagnitude)
+    }
+}

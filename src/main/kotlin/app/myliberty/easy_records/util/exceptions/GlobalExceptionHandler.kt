@@ -1,0 +1,72 @@
+package app.myliberty.easy_records.util.exceptions
+
+import jakarta.servlet.http.HttpServletRequest
+import org.slf4j.LoggerFactory
+import org.springframework.dao.DataAccessException
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
+import org.springframework.http.converter.HttpMessageNotReadableException
+import org.springframework.security.authorization.AuthorizationDeniedException
+import org.springframework.web.bind.annotation.ExceptionHandler
+import org.springframework.web.bind.annotation.RestControllerAdvice
+import org.springframework.web.servlet.resource.NoResourceFoundException
+import java.time.Instant
+
+@RestControllerAdvice
+class GlobalExceptionHandler {
+
+    private val log = LoggerFactory.getLogger(GlobalExceptionHandler::class.java)
+
+    @ExceptionHandler(LibertyGenericException::class)
+    fun handleRts(ex: LibertyGenericException, req: HttpServletRequest): ResponseEntity<ApiError> {
+        log.warn("Business error on ${req.method} ${req.requestURI}: ${ex.message}")
+        return ResponseEntity
+            .status(ex.statusCode)
+            .body(ApiError(ex.message, ex.payload))
+    }
+
+    // Jackson wraps an exception thrown from a request class's init block, so the business error is in the cause chain
+    @ExceptionHandler(HttpMessageNotReadableException::class)
+    fun handleUnreadableBody(ex: HttpMessageNotReadableException, req: HttpServletRequest): ResponseEntity<ApiError> {
+        val businessError = generateSequence<Throwable>(ex) { it.cause }.filterIsInstance<LibertyGenericException>().firstOrNull()
+        if (businessError != null) {
+            return handleRts(businessError, req)
+        }
+        log.warn("Unreadable request body on ${req.method} ${req.requestURI}: ${ex.message}")
+        return ResponseEntity
+            .status(HttpStatus.BAD_REQUEST)
+            .body(ApiError("The request body could not be read"))
+    }
+
+    @ExceptionHandler(DataAccessException::class)
+    fun handleDataAccess(ex: DataAccessException, req: HttpServletRequest): ResponseEntity<ApiError> {
+        log.error("DB error on ${req.method} ${req.requestURI}", ex)
+        return ResponseEntity
+            .status(HttpStatus.INTERNAL_SERVER_ERROR)
+            .body(ApiError("A database error occurred"))
+    }
+
+    @ExceptionHandler(Exception::class)
+    fun handleAll(ex: Exception, req: HttpServletRequest): ResponseEntity<ApiError> {
+        log.error("Unhandled exception on ${req.method} ${req.requestURI}", ex)
+        return ResponseEntity
+            .status(HttpStatus.INTERNAL_SERVER_ERROR)
+            .body(ApiError("An unexpected error occurred"))
+    }
+
+    @ExceptionHandler(AuthorizationDeniedException::class)
+    fun handleAuthorizationDenied(): ResponseEntity<Unit> {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).build()
+    }
+
+    @ExceptionHandler(NoResourceFoundException::class)
+    fun handleResourceNotFound(): ResponseEntity<Unit> {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build()
+    }
+}
+
+data class ApiError(
+    val message: String,
+    val body: Any? = null,
+    val timestamp: Instant = Instant.now()
+)

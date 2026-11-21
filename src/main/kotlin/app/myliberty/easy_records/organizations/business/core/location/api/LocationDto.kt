@@ -1,0 +1,16 @@
+package app.myliberty.easy_records.organizations.business.core.location.api
+
+import java.time.OffsetDateTime
+import java.util.UUID
+
+data class LocationDto(
+    val id: UUID,
+    val createdById: UUID,
+    val createdOn: OffsetDateTime,
+    val referenceNumber: String,
+    val locationType: LocationType? = null,
+    val name: String? = null,
+    val description: String? = null,
+    val schemaName: String? = null,
+    val timezone: String? = null
+)

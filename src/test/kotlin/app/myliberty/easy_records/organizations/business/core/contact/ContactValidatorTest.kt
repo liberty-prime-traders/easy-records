@@ -1,0 +1,22 @@
+package app.myliberty.easy_records.organizations.business.core.contact
+
+import app.myliberty.easy_records.organizations.business.core.contact.api.ContactType
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
+import org.junit.jupiter.api.Assertions.assertThrows
+import org.junit.jupiter.api.Test
+import org.mockito.Mockito.mock
+
+class ContactValidatorTest {
+
+    private val contactValidator = ContactValidator(mock(ContactCache::class.java))
+
+    @Test
+    fun `a lender may hold other business types but never other`() {
+        contactValidator.validateContactTypes(setOf(ContactType.LENDER))
+        contactValidator.validateContactTypes(setOf(ContactType.LENDER, ContactType.SUPPLIER))
+
+        assertThrows(LibertyGenericException::class.java) {
+            contactValidator.validateContactTypes(setOf(ContactType.LENDER, ContactType.OTHER))
+        }
+    }
+}

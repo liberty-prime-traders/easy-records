@@ -1,0 +1,73 @@
+package app.myliberty.easy_records.configuration.datasource
+
+import liquibase.integration.spring.SpringLiquibase
+import org.springframework.beans.factory.annotation.Qualifier
+import org.springframework.boot.context.properties.ConfigurationProperties
+import org.springframework.boot.jdbc.DataSourceBuilder
+import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
+import org.springframework.core.env.Environment
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories
+import org.springframework.orm.jpa.JpaTransactionManager
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter
+import javax.sql.DataSource
+
+@Configuration
+@EnableJpaRepositories(
+    basePackages = ["app.myliberty.easy_records.platform"],
+    entityManagerFactoryRef = DataSourceBeanNames.PLATFORM_SCHEMA_ENTITY_MANAGER_FACTORY,
+    transactionManagerRef = DataSourceBeanNames.PLATFORM_SCHEMA_TRANSACTION_MANAGER
+)
+class PlatformSchemaDataSourceConfig(private val environment: Environment) {
+
+    @Bean(name = [DataSourceBeanNames.PLATFORM_SCHEMA_DATA_SOURCE])
+    @ConfigurationProperties(prefix = "spring.datasource.platform")
+    fun platformSchemaDataSource(): DataSource = DataSourceBuilder.create().build()
+
+    @Bean(name = [DataSourceBeanNames.PLATFORM_SCHEMA_ENTITY_MANAGER_FACTORY])
+    fun platformSchemaEntityManagerFactory(
+        @Qualifier(DataSourceBeanNames.PLATFORM_SCHEMA_DATA_SOURCE) dataSource: DataSource
+    ): LocalContainerEntityManagerFactoryBean {
+        val platformProperties = mapOf("hibernate.ddl.auto" to "none")
+
+        val em = LocalContainerEntityManagerFactoryBean()
+        em.dataSource = dataSource
+        em.setPackagesToScan("app.myliberty.easy_records.platform")
+        em.jpaVendorAdapter = HibernateJpaVendorAdapter()
+        em.setJpaPropertyMap(platformProperties + HibernateEnversProperties.enversPropertyMap)
+        return em
+    }
+
+    @Bean(name = [DataSourceBeanNames.PLATFORM_SCHEMA_TRANSACTION_MANAGER])
+    fun platformSchemaTransactionManager(
+        @Qualifier(DataSourceBeanNames.PLATFORM_SCHEMA_ENTITY_MANAGER_FACTORY) emf: LocalContainerEntityManagerFactoryBean
+    ): JpaTransactionManager {
+        return JpaTransactionManager().apply { entityManagerFactory = emf.getObject() }
+    }
+
+    @Bean(name = [DataSourceBeanNames.PLATFORM_SCHEMA_LIQUIBASE])
+    fun platformSchemaLiquibase(
+        @Qualifier(DataSourceBeanNames.PLATFORM_SCHEMA_DATA_SOURCE) dataSource: DataSource
+    ): SpringLiquibase {
+        val profiles = environment.activeProfiles.toSet()
+        val shouldRunLiquibase = !profiles.contains("test") || profiles.contains("cucumber")
+        if (shouldRunLiquibase) {
+            ensurePlatformSchemaExists(dataSource)
+        }
+        return SpringLiquibase().apply {
+            this.dataSource = dataSource
+            changeLog = "classpath:db/changelog/platform/db-changelog-master.yml"
+            defaultSchema = DataSourceBeanNames.PLATFORM_SCHEMA_NAME
+            setShouldRun(shouldRunLiquibase)
+        }
+    }
+
+    private fun ensurePlatformSchemaExists(dataSource: DataSource) {
+        dataSource.connection.use { connection ->
+            connection.createStatement().use { statement ->
+                statement.execute("CREATE SCHEMA IF NOT EXISTS ${DataSourceBeanNames.PLATFORM_SCHEMA_NAME}")
+            }
+        }
+    }
+}

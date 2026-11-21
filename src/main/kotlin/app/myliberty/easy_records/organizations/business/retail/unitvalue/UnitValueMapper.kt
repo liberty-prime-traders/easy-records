@@ -1,0 +1,28 @@
+package app.myliberty.easy_records.organizations.business.retail.unitvalue
+
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueInsertDto
+import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueResponseDto
+import app.myliberty.easy_records.platform.business.sysuser.api.CreatorFullName
+import app.myliberty.easy_records.util.business.mappers.LibertyMapperConfig
+import org.mapstruct.Context
+import org.mapstruct.Mapper
+import org.mapstruct.Mapping
+
+@Mapper(config = LibertyMapperConfig::class)
+abstract class UnitValueMapper {
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "createdById", ignore = true)
+    @Mapping(target = "createdOn", ignore = true)
+    @Mapping(target = "referenceNumber", ignore = true)
+    @Mapping(target = "systemDefined", constant = "false")
+    abstract fun toEntity(unitValueInsertDto: UnitValueInsertDto): UnitValueEntity
+
+    abstract fun toDomainDto(unitValueEntity: UnitValueEntity): UnitValueDto
+
+    abstract fun toEntity(unitValueDto: UnitValueDto): UnitValueEntity
+
+    @Mapping(source = "createdById", target = "createdBy", qualifiedBy = [CreatorFullName::class])
+    @Mapping(target = "baseUnitName", expression = "java(baseUnitName)")
+    abstract fun toResponseDto(unitValueDto: UnitValueDto, @Context baseUnitName: String?): UnitValueResponseDto
+}

@@ -1,0 +1,298 @@
+package app.myliberty.easy_records.locations.business.retail.stock_adjustment
+
+import app.myliberty.easy_records.configuration.session.LocationSession
+import app.myliberty.easy_records.configuration.session.OrgSession
+import app.myliberty.easy_records.configuration.session.SessionContext
+import app.myliberty.easy_records.configuration.session.SessionContextProvider
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductDataFetcher
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductService
+import app.myliberty.easy_records.locations.business.retail.location_product.api.ProductStockBreakdownProvider
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductSummaryDto
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductUnitRequestDto
+import app.myliberty.easy_records.locations.business.core.lock.api.EntityAdvisoryLock
+import app.myliberty.easy_records.locations.business.retail.stock.api.StockAdjustmentCategory
+import app.myliberty.easy_records.locations.business.retail.stock.api.updater.StockAdjustmentDecreaseStockRequest
+import app.myliberty.easy_records.locations.business.retail.stock.api.updater.StockAdjustmentIncreaseStockRequest
+import app.myliberty.easy_records.locations.business.retail.stock.api.updater.StockAdjustmentStockUpdater
+import app.myliberty.easy_records.locations.business.retail.stock_adjustment.api.StockAdjustmentCostStatus
+import app.myliberty.easy_records.locations.business.retail.stock_adjustment.api.StockAdjustmentCreateDto
+import app.myliberty.easy_records.locations.business.retail.stock_adjustment.api.StockAdjustmentDirection
+import app.myliberty.easy_records.locations.business.retail.stock_adjustment.api.StockAdjustmentService
+import app.myliberty.easy_records.organizations.business.core.fiscal_period.api.FiscalPeriodService
+import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.MovementType
+import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.StockMovementReasonService
+import app.myliberty.easy_records.util.business.PositiveMoney
+import app.myliberty.easy_records.util.business.mappers.UserQualifier
+import app.myliberty.easy_records.util.business.reference_number.ReferenceNumberGenerator
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
+import app.myliberty.easy_records.util.model.TableName
+import app.myliberty.easy_records.util.quantity.PositiveUserProvidedQuantity
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertThrows
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
+import app.myliberty.easy_records.util.quantity.QuantityBreakdown
+import org.mockito.ArgumentMatchers.anyList
+import org.mockito.ArgumentCaptor
+import org.mockito.Mockito.verify
+import org.mockito.Mockito.mock
+import org.mockito.Mockito.`when`
+import java.math.BigDecimal
+import java.time.OffsetDateTime
+import java.util.UUID
+
+class StockAdjustmentServiceTest {
+
+    private val locationProductId = UUID.randomUUID()
+    private val boxUnitId = UUID.randomUUID()
+    private val stockMovementReasonId = UUID.randomUUID()
+    private val creatorId = UUID.randomUUID()
+    private val stockAdjustmentId = UUID.randomUUID()
+    private val stockAdjustmentRepository = mock(StockAdjustmentRepository::class.java) { invocation ->
+        if (invocation.method.name == "save") {
+            (invocation.arguments[0] as StockAdjustmentEntity).also {
+                it.id = stockAdjustmentId
+                it.createdById = creatorId
+                it.createdOn = OffsetDateTime.parse("2026-01-01T00:00:00Z")
+            }
+        } else {
+            null
+        }
+    }
+    private val increaseRequests = mutableListOf<StockAdjustmentIncreaseStockRequest>()
+    private val decreaseRequests = mutableListOf<StockAdjustmentDecreaseStockRequest>()
+    private val stockAdjustmentStockUpdater = mock(StockAdjustmentStockUpdater::class.java) { invocation ->
+        when (invocation.method.name.substringBefore("-")) {
+            "increaseStock" -> {
+                increaseRequests.add(invocation.arguments[0] as StockAdjustmentIncreaseStockRequest)
+                null
+            }
+            "decreaseStock" -> {
+                decreaseRequests.add(invocation.arguments[0] as StockAdjustmentDecreaseStockRequest)
+                BigDecimal("12.0000")
+            }
+            else -> null
+        }
+    }
+    private val publishedStockAdjustments = mutableListOf<StockAdjustmentEntity>()
+    private val stockAdjustmentHandlerForKafka = mock(StockAdjustmentHandlerForKafka::class.java) { invocation ->
+        publishedStockAdjustments.add(invocation.arguments[0] as StockAdjustmentEntity)
+        null
+    }
+    private val locationProductDataFetcher = mock(LocationProductDataFetcher::class.java)
+    private val guardedReasons = mutableListOf<Pair<MovementType, UUID?>>()
+    private val stockMovementReasonService = mock(StockMovementReasonService::class.java) { invocation ->
+        if (invocation.method.name == "guardReason") {
+            guardedReasons.add(invocation.arguments[0] as MovementType to invocation.arguments[1] as UUID?)
+        }
+        null
+    }
+    private val referenceNumberGenerator = mock(ReferenceNumberGenerator::class.java)
+    private val userQualifier = mock(UserQualifier::class.java)
+    private val stockAdjustmentCostRepository = mock(StockAdjustmentCostRepository::class.java)
+    private val productStockBreakdownProvider = mock(ProductStockBreakdownProvider::class.java)
+    private val quantityBreakdown = mock(QuantityBreakdown::class.java) { invocation -> "${invocation.arguments[0]} Cartons" }
+    private val stockAdjustmentService = StockAdjustmentService(
+        stockAdjustmentRepository,
+        stockAdjustmentCostRepository,
+        productStockBreakdownProvider,
+        stockAdjustmentStockUpdater,
+        stockAdjustmentHandlerForKafka,
+        mock(LocationProductService::class.java),
+        locationProductDataFetcher,
+        stockMovementReasonService,
+        mock(FiscalPeriodService::class.java),
+        mock(EntityAdvisoryLock::class.java),
+        referenceNumberGenerator,
+        userQualifier
+    )
+
+    @BeforeEach
+    fun setUp() {
+        SessionContextProvider.setSession(
+            SessionContext(
+                organization = OrgSession(id = UUID.randomUUID(), schemaName = "org-a", timezone = "UTC"),
+                location = LocationSession(id = UUID.randomUUID(), schemaName = "loc-1")
+            )
+        )
+        `when`(referenceNumberGenerator.generateSingle(TableName.STOCK_ADJUSTMENT)).thenReturn("STADJ000001")
+        `when`(userQualifier.getCreatorFullName(creatorId)).thenReturn("Test User")
+        `when`(productStockBreakdownProvider.forLocationProduct(locationProductId)).thenReturn(quantityBreakdown)
+        `when`(locationProductDataFetcher.getStorageUnitsPerUserProvidedUnit(anyUnitRequests())).thenReturn(mapOf(locationProductId to 12L))
+        `when`(locationProductDataFetcher.findSummaryByIds(setOf(locationProductId))).thenReturn(
+            mapOf(locationProductId to LocationProductSummaryDto(locationProductId, "LP000001", UUID.randomUUID(), "Rice", "Grains", UUID.randomUUID()))
+        )
+    }
+
+    @AfterEach
+    fun clearSession() {
+        SessionContextProvider.clear()
+    }
+
+    @Test
+    fun `free goods increase prices the layer from the entered unit cost and carries category and note onto the movement`() {
+        val response = stockAdjustmentService.adjust(
+            createDto(StockAdjustmentCategory.FREE_GOODS, "3", unitCost = "10.50", note = "Bonus cartons on PO-12")
+        )
+
+        val increaseRequest = increaseRequests.single()
+        assertEquals(BigDecimal("31.50"), increaseRequest.totalCost)
+        assertEquals(0, BigDecimal("36").compareTo(increaseRequest.storageQuantity.toStorageQuantity()))
+        assertEquals("STADJ000001", increaseRequest.documentReference)
+        assertEquals(StockAdjustmentCategory.FREE_GOODS, increaseRequest.adjustmentDetails.category)
+        assertEquals("Bonus cartons on PO-12", increaseRequest.adjustmentDetails.note)
+        assertEquals(null, increaseRequest.adjustmentDetails.reasonId)
+        assertEquals(StockAdjustmentDirection.INCREASE, response.direction)
+        assertEquals(BigDecimal("31.50"), response.totalCost)
+        assertEquals(BigDecimal("3"), response.userProvidedQuantity)
+        assertEquals("STADJ000001", publishedStockAdjustments.single().referenceNumber)
+        assertEquals(emptyList<Pair<MovementType, UUID?>>(), guardedReasons)
+    }
+
+    @Test
+    fun `the typed quantity is frozen as text on the adjustment and its cost is recorded as the active cost row`() {
+        val response = stockAdjustmentService.adjust(
+            createDto(StockAdjustmentCategory.FREE_GOODS, "3", unitCost = "10.50", note = "Bonus cartons on PO-12")
+        )
+
+        assertEquals("3 Cartons", response.quantityText)
+        assertEquals("3 Cartons", publishedStockAdjustments.single().quantityText)
+        val costCaptor = ArgumentCaptor.forClass(StockAdjustmentCostEntity::class.java)
+        verify(stockAdjustmentCostRepository).save(costCaptor.capture())
+        assertEquals(stockAdjustmentId, costCaptor.value.stockAdjustmentId)
+        assertEquals(BigDecimal("31.50"), costCaptor.value.totalCost)
+        assertEquals(StockAdjustmentCostStatus.ACTIVE, costCaptor.value.status)
+    }
+
+    @Test
+    fun `opening stock increase requires the entered unit cost`() {
+        assertThrows(LibertyGenericException::class.java) {
+            stockAdjustmentService.adjust(createDto(StockAdjustmentCategory.OPENING_STOCK, "3", note = "Count at go-live"))
+        }
+        assertEquals(emptyList<StockAdjustmentIncreaseStockRequest>(), increaseRequests)
+    }
+
+    @Test
+    fun `internal use decrease persists the cost consumed from the layers`() {
+        val response = stockAdjustmentService.adjust(createDto(StockAdjustmentCategory.INTERNAL_USE, "2", note = "Shop supplies"))
+
+        assertEquals(0, BigDecimal("24").compareTo(decreaseRequests.single().storageQuantity.toStorageQuantity()))
+        assertEquals(BigDecimal("12.0000"), response.totalCost)
+        assertEquals(StockAdjustmentDirection.DECREASE, response.direction)
+    }
+
+    @Test
+    fun `internal use rejects a unit cost because the cost comes from stock`() {
+        assertThrows(LibertyGenericException::class.java) {
+            stockAdjustmentService.adjust(createDto(StockAdjustmentCategory.INTERNAL_USE, "3", unitCost = "10", note = "Supplies"))
+        }
+    }
+
+    @Test
+    fun `categories other than other require a note and reject a reason`() {
+        assertThrows(LibertyGenericException::class.java) {
+            stockAdjustmentService.adjust(createDto(StockAdjustmentCategory.INTERNAL_USE, "1"))
+        }
+        assertThrows(LibertyGenericException::class.java) {
+            stockAdjustmentService.adjust(
+                createDto(StockAdjustmentCategory.INTERNAL_USE, "1", note = "Supplies", stockMovementReasonId = stockMovementReasonId)
+            )
+        }
+    }
+
+    @Test
+    fun `a fixed-direction category rejects the opposite direction`() {
+        assertThrows(LibertyGenericException::class.java) {
+            stockAdjustmentService.adjust(
+                createDto(StockAdjustmentCategory.INTERNAL_USE, "1", note = "Supplies", direction = StockAdjustmentDirection.INCREASE)
+            )
+        }
+    }
+
+    @Test
+    fun `other requires a direction and a reason that is guarded against the direction`() {
+        assertThrows(LibertyGenericException::class.java) {
+            stockAdjustmentService.adjust(createDto(StockAdjustmentCategory.OTHER, "1", stockMovementReasonId = stockMovementReasonId))
+        }
+        assertThrows(LibertyGenericException::class.java) {
+            stockAdjustmentService.adjust(createDto(StockAdjustmentCategory.OTHER, "1", direction = StockAdjustmentDirection.DECREASE))
+        }
+
+        stockAdjustmentService.adjust(
+            createDto(
+                StockAdjustmentCategory.OTHER, "1",
+                direction = StockAdjustmentDirection.DECREASE, stockMovementReasonId = stockMovementReasonId
+            )
+        )
+
+        assertEquals(listOf(StockAdjustmentDirection.DECREASE.movementType to stockMovementReasonId), guardedReasons)
+        assertEquals(stockMovementReasonId, decreaseRequests.single().adjustmentDetails.reasonId)
+    }
+
+    @Test
+    fun `other increase is priced at the supplied unit cost per typed unit`() {
+        val response = stockAdjustmentService.adjust(
+            createDto(
+                StockAdjustmentCategory.OTHER, "3", unitCost = "6",
+                direction = StockAdjustmentDirection.INCREASE, stockMovementReasonId = stockMovementReasonId
+            )
+        )
+
+        assertEquals(BigDecimal("18.00"), increaseRequests.single().totalCost)
+        assertEquals(BigDecimal("18.00"), response.totalCost)
+    }
+
+    @Test
+    fun `other increase without a unit cost is rejected before stock changes`() {
+        assertThrows(LibertyGenericException::class.java) {
+            stockAdjustmentService.adjust(
+                createDto(
+                    StockAdjustmentCategory.OTHER, "3",
+                    direction = StockAdjustmentDirection.INCREASE, stockMovementReasonId = stockMovementReasonId
+                )
+            )
+        }
+        assertEquals(emptyList<StockAdjustmentIncreaseStockRequest>(), increaseRequests)
+    }
+
+    @Test
+    fun `other decrease rejects a unit cost because FIFO supplies it`() {
+        assertThrows(LibertyGenericException::class.java) {
+            stockAdjustmentService.adjust(
+                createDto(
+                    StockAdjustmentCategory.OTHER, "3", unitCost = "6",
+                    direction = StockAdjustmentDirection.DECREASE, stockMovementReasonId = stockMovementReasonId
+                )
+            )
+        }
+        assertEquals(emptyList<StockAdjustmentDecreaseStockRequest>(), decreaseRequests)
+    }
+
+    @Test
+    fun `quantity beyond the allowed decimal places is rejected instead of rounded`() {
+        assertThrows(LibertyGenericException::class.java) {
+            createDto(StockAdjustmentCategory.FREE_GOODS, "0.333", unitCost = "10", note = "Bonus")
+        }
+    }
+
+    private fun createDto(
+        category: StockAdjustmentCategory,
+        quantity: String,
+        direction: StockAdjustmentDirection? = null,
+        unitCost: String? = null,
+        note: String? = null,
+        stockMovementReasonId: UUID? = null
+    ) = StockAdjustmentCreateDto(
+        locationProductId = locationProductId,
+        category = category,
+        direction = direction,
+        userProvidedQuantity = PositiveUserProvidedQuantity.of(BigDecimal(quantity)),
+        unitId = boxUnitId,
+        stockMovementReasonId = stockMovementReasonId,
+        note = note,
+        unitCost = unitCost?.let { PositiveMoney.of(BigDecimal(it)) },
+    )
+
+    private fun anyUnitRequests(): List<LocationProductUnitRequestDto> = anyList()
+}

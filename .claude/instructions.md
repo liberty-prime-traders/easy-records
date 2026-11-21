@@ -1,0 +1,206 @@
+About
+------
+This file contains instructions for Claude, an AI language model developed by Anthropic. The instructions guide Claude's behavior and responses during interactions.
+
+Project Requirements:
+----------------------
+- Easy Records is a platform that hosts products on a shared core. The retail product is a comprehensive retail management software designed to streamline operations for small to medium-sized retail businesses.
+- The overall goal is to create a user-friendly, efficient, and scalable solution that integrates various retail functions into a single platform.
+- The software should be modular, allowing organizations to customize features based on their specific needs.
+- The solution must support multi-location management, inventory tracking, sales reporting, customer relationship management, etc.
+
+Database Design:
+----------------
+The database is structured to support multi-tenant architecture, where each organization can have multiple locations.
+Each organization has its own schema, namely org-a, org-b, etc.
+Each location equally has its own schema such as loc-1, loc-2, etc.
+The location table within each organization schema maintains the schema names for its locations.
+
+Liquibase is used for database versioning and migrations to ensure smooth updates and consistency across different environments.
+The files are location under @resources/db/changelogs.
+The order of execution is
+	@resources/db/changelogs/platform/
+	1. tables/*
+	2. version-entries/*
+	3. registry-entries/*
+
+- PostgreSQL is the chosen database system.
+- Admin actions don't require heavy transactional support, so the default isolation level of Read Committed is used.
+
+### Table Registry
+- Insert all new tables in `registry-entries`
+- Register audit tables in `TableNames` and registry as well
+- Prefix limited to 5 characters
+
+### Changeset Management (live)
+- The app is live. A changeset that has run in a live environment is immutable: never edit or delete it.
+- All changes ship under version 2.0.0 until the product is declared stable. Multiple releases stay on 2.0.0.
+- New changesets are only warranted for changes to something already deployed live: ALTER-style additions for columns,
+  constraints and indexes, and drops as new changesets too.
+- A changeset not yet deployed live (new on the branch, run only on dev databases) is edited in place, and the dev
+  databases are cleaned with `/pre-deploy-migrate`.
+- Changes that touch existing rows include their data migration and rollback in the same changeset.
+
+### New Table Creation
+- Add sequence for reference number column
+- Use appropriate sequence to get next reference number
+- reference number has a prefix defined in the registry. Append the next number to it to fill at least 6 characters total
+- For example, if prefix is "OR-" and next number is 42, reference number is "OR000042"
+- Create sequences, triggers, extensions, FKs, indexes in separate folders
+- Add entity, repository, service, controller classes as needed
+
+### Dense Tables
+- No mostly-null columns. Optional or subtype data goes in its own table keyed by the parent ID.
+
+### Mapping
+- Use MapStruct for mapping between entities and DTOs
+- For every entity, there will be a corresponding DTO that abstracts away database details
+- This dto is not necessarily the same as the API request/response objects, which can be defined separately
+- Use `@Context` parameters in mappers to pass additional information needed for mapping. 
+- Context will avoid `O(n)` queries in mappers
+
+### Entity & JPA Rules
+- No migration info in entities — only column names + insert/update restrictions
+- Use `TableNames` constants for table names
+- Add auditing columns (`created_by_id`, `created_on`) on all tables
+- Avoid `@Enumerated`; use converter classes for enums with column sizes defaulted to 5 characters.
+
+### Naming & Formatting
+- Constraint pattern: `tblname_colname_constrainttype`
+- Blank lines between changesets and between column definitions
+- Write plain code. Don't use a construct just because the language allows it: no long `&&`/`||` chains broken across
+  lines, no `.not()` tacked onto a multi-line call, no clever one-liners. Name each condition in a `val`
+  (`val dispatchAlreadyPosted = ...`) and combine the names (`return dispatchCarriesCost && !dispatchAlreadyPosted`).
+  If a reader has to parse it twice, split it.
+- Don't use `zip` to pair two lists. It pairs by position, so correctness silently depends on both lists keeping the
+  same order. Keep ordering explicit: build the result from one list and look the partner up by key
+  (`associateBy`, `getValue`), or map each element to its pair in a single pass.
+- Cut lines at 120 characters. Up to 124 can be argued for; 125 is a no-no.
+- variable and method names should be verbose. For example,
+  - `val ceilingService: PurchasePaymentCeilingService` is bad
+  - `val purchasePaymentCeilingService: PurchasePaymentCeilingService` is good
+
+### Comments
+- Gotchas only — never restate what the code already says.
+- A comment describes the code as it now stands, never the change that produced it. It is read by
+  someone who has no idea what the previous version looked like.
+- Banned: what the code used to do, what the old approach was, how many call sites a migration
+  touched, ticket/PR references, and words that date the comment (`now`, `previously`, `used to`,
+  `no longer`, `recently`, `this change`). That narrative belongs in the commit message.
+- Naming a rejected alternative is allowed only to stop someone reverting to it, and only stated
+  as a durable property of that alternative — `@CreationTimestamp applies at INSERT, so the field
+  is null after save()`, not `we switched off @CreationTimestamp because ~20 call sites needed
+  saveAndFlush`.
+- State a rationale once, at the most relevant spot. Don't repeat the same "why" at every call
+  site; if it spans a package, it goes in that package's README instead.
+- Don't defend against an edit the compiler or type system already prevents (a reordering blocked
+  by a data dependency, an elvis on a non-nullable type).
+- Test comments: name the invariant being guarded and what breaks if it regresses — not the bug
+  or task that prompted writing the test.
+- Prefer a name that carries the invariant over a comment that explains it. A bulk method that
+  deliberately skips per-item validation because the caller already validated the whole batch
+  should say so in its name — `bulkInsertValidatedList(insertDtos: List<UnitConversionInsertDto>)`,
+  not `bulkInsert` with a `// validation already happened upstream` comment above it. The name
+  travels with every call site and autocomplete entry; the comment only helps a reader already
+  looking at the declaration.
+
+### Auditing
+- Add YAML for audit table + expected indexes
+- Register audit table in `TableNames` and registry
+- Create an index on `rev` and `(id, rev)` for audit tables
+- We don't audit lookup tables, and unachangeable columns like created_on, created_by_id, reference_number
+
+Project Structure:
+-------------------
+The backend system is organized into the following main components:
+	- platform
+	- organizations
+	- locations
+
+- The Platform
+	Manages cross-organization metadata and shared resources such as
+		- The table registry
+		- Organization details
+		- Database Versioning and Migrations
+		- User Management
+
+- Organizations
+	Handles organization-specific data and configurations, including
+		- products
+		- categories
+		- locations
+		- organization users
+		- payment methods
+	When making LocalDate related logic, always consider the `app.myliberty.easy_records.util.business.DateTimes` class
+
+- Locations
+	Focuses on location-specific operations and data, such as
+		- inventory management
+		- sales transactions
+
+Some packages have README like @app/myliberty/easy_records/locations/business/retail/sale/README.md
+Use them when scanning in their vicinity. When we make changes, the relevant README should be updated 
+to reflect the current state of the code and any important details about the implementation.
+This is not a change log, but a current state document.
+
+Authorization:
+------------------------
+- Keep authorization checks separate from request validation. Express caller-authority checks
+  declaratively via `@PreAuthorize` on the endpoint — never as an imperative check inside a
+  service method that also validates the request's shape (single tier, required fields, etc.).
+- If one endpoint method would need a dynamic/data-dependent authorization check (e.g. "which
+  permission is required" varies with the request body), split it into multiple routes — one per
+  case — so each route's `@PreAuthorize` stays a static expression. The service layer underneath
+  stays validation-only regardless of how many routes call into it.
+
+Separation of Concerns:
+------------------------
+- Each domain layer is likely to have its own set of entities, repositories, services to manage its specific data and business logic. 
+- The modular design allows for clear separation of concerns and easier maintenance.
+- There will be an api package at each domain layer to handle communication with other areas of the system.
+- `ArchitectureTest` will be used to enforce architectural boundaries and ensure that dependencies flow in the intended direction.
+- Avoid importing from other domain layers except for shared modules like utils, exceptions, etc. 
+- When cross-layer communication is necessary, use classes from the api package of the external domain.
+- For example, if a list of accounts is needed, use the account service instead of the account cache/repository directly.
+- Avoid extension functions when a regular method would suffice.
+
+The piece below could change in some cases, but here is the most common flow:
+
+Insert Flow:
+--------------
+- InsertDto will be mapped straight to entity.
+- The entity will be saved and its result immediately converted to DomainDto.
+- This DomainDto is what will be released to the service layer and rest of codebase. It will have correct types, no unnecessary nullables.
+
+Update Flow
+-------------
+- UpdateDto should have an applyTo(existing: XxxDomainDto): XxxDomainDto method that handles the merge.
+- Only updatable fields are mentioned
+- Decide per field. Where the caller must be able to clear the value to null (e.g. `notes`, `email`), use
+  `Optional<TYPE>? = null`; model it on `ContactUpdateDto`: `email = email?.orElse(existing.email) ?: existing.email`.
+- Where null is not a legal value (line updates, unit conversions, required fields), plain `TYPE? = null` is
+  enough — null already means "not provided".
+- A dedicated single-field endpoint (e.g. `SaleNotesUpdateDto`) that always overwrites needs neither.
+- Before writing a new UpdateDto, open `ContactUpdateDto` for the shape.
+- The nullability allows us to distinguish between "not provided" and "explicitly set to null/empty".
+- We have a generic OptionalQualifier to help, but applyTo can handle it on its own.
+- generated fields(id, referenceNumber, createdOn, createdById) are carried through automatically by copy().
+- Do not use @MappingTarget mappers for partial updates.
+
+----------------
+- When responding to queries about the project, ensure that answers are tailored to the context of retail management software.
+- Provide explanations that are clear and concise, avoiding unnecessary technical jargon unless specifically requested.
+- Emphasize the modularity and scalability of the Easy Records platform in responses.
+- Use utils when available like StringUtils, DateTimes, etc
+- Avoid inline FQNs by using imports and constants everywhere. Do ask me if you ever want to use a FQDN inline
+- Avoid `map[key] ?: default` and similar patterns when the map is expected to contain the key. Use `map.getValue(key)` instead, which throws a clear exception if the key is missing.
+
+KAFKA
+----------------
+- We ensure idempotency by doing `TransactionEventProcessor.shouldProcess`. 
+- For concurrency safety, we need db constraints on entities that can be created by kafka.
+- These are examples of such constraints:
+  - `add-unique-constraint-tax-entry-source-ref-type-tax-type` for `SaleTaxReversalProcessor` and `SaleTaxFinalizationProcessor`
+  - `add-unique-index-stock-movement-doc-detail-type-product-entry-reason` for `PurchaseDeliveryStockUpdater`
+- When adding processors, reason about this idempotency surface and add constraints as needed.
+- If the processor creates a new entity, there should be a unique constraint on the natural key of that entity to prevent duplicates during retries.

@@ -1,0 +1,282 @@
+package app.myliberty.easy_records.organizations.business.core.loan
+
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.configuration.session.OrgSession
+import app.myliberty.easy_records.configuration.session.SessionContext
+import app.myliberty.easy_records.configuration.session.SessionContextProvider
+import app.myliberty.easy_records.organizations.business.core.account.api.SystemAccount
+import app.myliberty.easy_records.organizations.business.core.contact.api.ContactDto
+import app.myliberty.easy_records.organizations.business.core.contact.api.ContactService
+import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerPostingRequest
+import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerPostingService
+import app.myliberty.easy_records.organizations.business.core.loan.LoanTestSupport.anyNonNull
+import app.myliberty.easy_records.organizations.business.core.loan.LoanTestSupport.stamp
+import app.myliberty.easy_records.organizations.business.core.loan.api.LoanCreateRequest
+import app.myliberty.easy_records.organizations.business.core.loan.api.LoanResponse
+import app.myliberty.easy_records.organizations.business.core.loan.api.LoanService
+import app.myliberty.easy_records.organizations.business.core.loan.api.LoanStatus
+import app.myliberty.easy_records.organizations.business.core.loan.api.LoanVoidRequest
+import app.myliberty.easy_records.organizations.business.core.lock.api.OrgEntityAdvisoryLock
+import app.myliberty.easy_records.util.business.DateTimes
+import app.myliberty.easy_records.util.business.Decimals
+import app.myliberty.easy_records.util.business.PositiveMoney
+import app.myliberty.easy_records.util.business.lock.LockNamespaces
+import app.myliberty.easy_records.util.business.mappers.StringQualifier
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertNull
+import org.junit.jupiter.api.Assertions.assertThrows
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
+import org.mockito.ArgumentCaptor
+import org.mockito.ArgumentMatchers.any
+import org.mockito.Mockito.*
+import java.math.BigDecimal
+import java.time.LocalDate
+import java.time.OffsetDateTime
+import java.util.Optional
+import java.util.UUID
+
+class LoanServiceTest {
+
+    private val loanRepository = mock(LoanRepository::class.java)
+    private val activeLoanRepaymentRepository = mock(ActiveLoanRepaymentRepository::class.java)
+    private val loanStatusRepository = mock(LoanStatusRepository::class.java)
+    private val loanVoidRepository = mock(LoanVoidRepository::class.java)
+    private val loanLenderValidator = mock(LoanLenderValidator::class.java)
+    private val loanAccountValidator = mock(LoanAccountValidator::class.java)
+    private val loanResponseBuilder = mock(LoanResponseBuilder::class.java)
+    private val contactService = mock(ContactService::class.java)
+    private val ledgerPostingService = mock(LedgerPostingService::class.java)
+    private val orgEntityAdvisoryLock = mock(OrgEntityAdvisoryLock::class.java)
+
+    private val loanMapper = LoanMapperImpl(StringQualifier)
+
+    private val loanService = LoanService(
+        loanRepository, loanVoidRepository, loanMapper,
+        LoanFinder(loanRepository, loanStatusRepository, loanMapper, contactService, orgEntityAdvisoryLock),
+        loanLenderValidator, loanAccountValidator,
+        LoanVoidValidator(loanVoidRepository, activeLoanRepaymentRepository),
+        loanResponseBuilder, ledgerPostingService
+    )
+
+    private val postedRequests = mutableListOf<LedgerPostingRequest>()
+    private val loanStatusFiguresPassedToBuilder = mutableListOf<LoanStatusFigures>()
+    private val loanDate = LocalDate.of(2026, 3, 1)
+    private val cashCode = SystemAccount.CASH.code
+    private val lenderContactDto = LoanTestSupport.lenderContactDto()
+    private val loanEntity = LoanEntity(lenderContactDto.id, cashCode, BigDecimal("100.0000"), loanDate, null).also { stamp(it, "LOAN000001") }
+    private val loanId = loanEntity.id!!
+
+    @BeforeEach
+    fun setUp() {
+        SessionContextProvider.setSession(SessionContext(organization = OrgSession(id = UUID.randomUUID(), schemaName = "org-a", timezone = "UTC")))
+        doAnswer { invocation -> postedRequests.add(invocation.arguments[0] as LedgerPostingRequest); null }
+            .`when`(ledgerPostingService).post(anyNonNull(LedgerPostingRequest::class.java))
+        `when`(loanLenderValidator.requireActiveLender(lenderContactDto.referenceNumber)).thenReturn(lenderContactDto)
+        `when`(contactService.getContactById(lenderContactDto.id)).thenReturn(lenderContactDto)
+        `when`(loanRepository.save(any(LoanEntity::class.java))).thenAnswer { invocation ->
+            (invocation.arguments[0] as LoanEntity).also { stamp(it, "LOAN000002") }
+        }
+        `when`(loanVoidRepository.save(any(LoanVoidEntity::class.java))).thenAnswer { invocation ->
+            (invocation.arguments[0] as LoanVoidEntity).also { stamp(it, "LNVD000001") }
+        }
+        `when`(loanRepository.findById(loanId)).thenReturn(Optional.of(loanEntity))
+        `when`(activeLoanRepaymentRepository.findByLoanIdOrderByCreatedOnAscIdAsc(loanId)).thenReturn(emptyList())
+        `when`(
+            loanResponseBuilder.buildResponse(
+                anyNonNull(LoanDto::class.java), anyNonNull(ContactDto::class.java), anyNonNull(LoanStatusFigures::class.java)
+            )
+        ).thenAnswer { invocation ->
+            loanStatusFiguresPassedToBuilder.add(invocation.arguments[2] as LoanStatusFigures)
+            mock(LoanResponse::class.java)
+        }
+        `when`(loanStatusRepository.findById(loanId)).thenReturn(
+            Optional.of(LoanStatusEntity(loanId, BigDecimal.ZERO, BigDecimal("100"), LoanStatus.OPEN))
+        )
+    }
+
+    @AfterEach
+    fun clearSession() {
+        SessionContextProvider.clear()
+    }
+
+    @Test
+    fun `a loan is saved with a blank note dropped, then posted from the lender's side`() {
+        loanService.createLoan(LoanCreateRequest(lenderContactDto.referenceNumber, cashCode, PositiveMoney.of(BigDecimal("50.12")), loanDate, "   "))
+
+        val savedLoan = savedLoan()
+        assertEquals(lenderContactDto.id, savedLoan.lenderContactId)
+        assertEquals(cashCode, savedLoan.assetAccountCode)
+        assertEquals(BigDecimal("50.12"), savedLoan.amount)
+        assertNull(savedLoan.note)
+        verify(loanAccountValidator).requireSelectable(cashCode)
+
+        val posted = postedRequests.single()
+        assertEquals("LOAN000002", posted.sourceReferenceNumber)
+        assertEquals(loanDate, posted.postingDate)
+        assertEquals(listOf(cashCode, SystemAccount.LOANS_PAYABLE.code), posted.entries.map { it.accountCode })
+        val subledgerEntry = posted.subledgerEntries.single()
+        assertEquals(lenderContactDto.referenceNumber, subledgerEntry.contactReferenceNumber)
+        assertEquals(BigDecimal("50.12"), subledgerEntry.payableAmount.toBigDecimal())
+        assertEquals(0, BigDecimal.ZERO.compareTo(subledgerEntry.receivableAmount.toBigDecimal()))
+    }
+
+    @Test
+    fun `a new loan is returned open with its whole amount outstanding without reading the view`() {
+        loanService.createLoan(LoanCreateRequest(lenderContactDto.referenceNumber, cashCode, PositiveMoney.of(BigDecimal("50.12")), loanDate))
+
+        val loanStatusFigures = loanStatusFiguresPassedToBuilder.single()
+        assertEquals(0, BigDecimal.ZERO.compareTo(loanStatusFigures.amountRepaid))
+        assertEquals(0, BigDecimal("50.12").compareTo(loanStatusFigures.outstanding))
+        assertEquals(LoanStatus.OPEN, loanStatusFigures.status)
+        verifyNoInteractions(loanStatusRepository)
+    }
+
+    @Test
+    fun `zero, negative and amounts that round to zero are rejected`() {
+        listOf("0", "-5", "0.00004").forEach { amount ->
+            assertThrows(LibertyGenericException::class.java) {
+                loanService.createLoan(LoanCreateRequest(lenderContactDto.referenceNumber, cashCode, PositiveMoney.of(BigDecimal(amount)), loanDate))
+            }
+        }
+
+        verify(loanRepository, never()).save(any(LoanEntity::class.java))
+        assertTrue(postedRequests.isEmpty())
+    }
+
+    @Test
+    fun `the transaction maximum itself is accepted`() {
+        loanService.createLoan(LoanCreateRequest(lenderContactDto.referenceNumber, cashCode, PositiveMoney.of(Decimals.MAXIMUM_TRANSACTION_AMOUNT), loanDate))
+        assertEquals(Decimals.MAXIMUM_TRANSACTION_AMOUNT, savedLoan().amount)
+    }
+
+    @Test
+    fun `a long note and a long void reason are kept in full`() {
+        val longText = "n".repeat(2000)
+        loanService.createLoan(LoanCreateRequest(lenderContactDto.referenceNumber, cashCode, PositiveMoney.of(BigDecimal("10")), loanDate, longText))
+        assertEquals(longText, savedLoan().note)
+
+        loanService.voidLoan(LoanVoidRequest(loanId, longText))
+
+        val voidCaptor = ArgumentCaptor.forClass(LoanVoidEntity::class.java)
+        verify(loanVoidRepository).save(voidCaptor.capture())
+        assertEquals(longText, voidCaptor.value.reason)
+    }
+
+    @Test
+    fun `a lender the validator rejects stops the loan before it is saved`() {
+        doThrow(LibertyGenericException("Contact Acme is not a lender")).`when`(loanLenderValidator).requireActiveLender("CT000009")
+
+        assertThrows(LibertyGenericException::class.java) {
+            loanService.createLoan(LoanCreateRequest("CT000009", cashCode, PositiveMoney.of(BigDecimal("10")), loanDate))
+        }
+
+        verify(loanRepository, never()).save(any(LoanEntity::class.java))
+        assertTrue(postedRequests.isEmpty())
+    }
+
+    @Test
+    fun `an asset account the selection rule rejects stops a loan before it is saved`() {
+        doThrow(LibertyGenericException("Loan account is inactive")).`when`(loanAccountValidator).requireSelectable(cashCode)
+
+        assertThrows(LibertyGenericException::class.java) {
+            loanService.createLoan(LoanCreateRequest(lenderContactDto.referenceNumber, cashCode, PositiveMoney.of(BigDecimal("10")), loanDate))
+        }
+
+        verify(loanRepository, never()).save(any(LoanEntity::class.java))
+    }
+
+    @Test
+    fun `a loan dated in the future is rejected, and today is accepted`() {
+        val tomorrow = DateTimes.Local.Now.organization().plusDays(1)
+
+        assertThrows(LibertyGenericException::class.java) {
+            loanService.createLoan(LoanCreateRequest(lenderContactDto.referenceNumber, cashCode, PositiveMoney.of(BigDecimal("10")), tomorrow))
+        }
+        verify(loanRepository, never()).save(any(LoanEntity::class.java))
+        assertTrue(postedRequests.isEmpty())
+
+        loanService.createLoan(LoanCreateRequest(lenderContactDto.referenceNumber, cashCode, PositiveMoney.of(BigDecimal("10")), DateTimes.Local.Now.organization()))
+        assertEquals(1, postedRequests.size)
+    }
+
+    @Test
+    fun `voiding a loan locks it, reads the original row and posts the reversal dated today`() {
+        loanService.voidLoan(LoanVoidRequest(loanId, "  entered twice "))
+
+        val order = inOrder(orgEntityAdvisoryLock, loanVoidRepository, ledgerPostingService)
+        order.verify(orgEntityAdvisoryLock).acquire(LockNamespaces.LOAN, loanId.toString())
+        order.verify(loanVoidRepository).existsByLoanId(loanId)
+        order.verify(loanVoidRepository).save(any(LoanVoidEntity::class.java))
+        order.verify(ledgerPostingService).post(anyNonNull(LedgerPostingRequest::class.java))
+
+        val voidCaptor = ArgumentCaptor.forClass(LoanVoidEntity::class.java)
+        verify(loanVoidRepository).save(voidCaptor.capture())
+        assertEquals("entered twice", voidCaptor.value.reason)
+        assertEquals(DateTimes.Local.Now.organization(), voidCaptor.value.voidDate)
+
+        val posted = postedRequests.single()
+        assertEquals("LOAN000001", posted.sourceReferenceNumber)
+        assertEquals(voidCaptor.value.voidDate, posted.postingDate)
+        assertEquals(listOf(SystemAccount.LOANS_PAYABLE.code, cashCode), posted.entries.map { it.accountCode })
+        assertEquals(0, BigDecimal("100").compareTo(posted.subledgerEntries.single().receivableAmount.toBigDecimal()))
+    }
+
+    @Test
+    fun `a voided loan is returned voided with nothing outstanding`() {
+        loanService.voidLoan(LoanVoidRequest(loanId, null))
+
+        val loanStatusFigures = loanStatusFiguresPassedToBuilder.single()
+        assertEquals(LoanStatus.VOIDED, loanStatusFigures.status)
+        assertEquals(0, loanStatusFigures.outstanding.signum())
+    }
+
+    @Test
+    fun `a loan with a non-voided repayment cannot be voided and the error names the repayments`() {
+        val activeRepayments = listOf("LNRP000001", "LNRP000002").map { reference -> activeRepayment("10.0000", reference) }
+        `when`(activeLoanRepaymentRepository.findByLoanIdOrderByCreatedOnAscIdAsc(loanId)).thenReturn(activeRepayments)
+
+        val exception = assertThrows(LibertyGenericException::class.java) { loanService.voidLoan(LoanVoidRequest(loanId)) }
+
+        assertTrue(exception.message.contains("LNRP000001") && exception.message.contains("LNRP000002"), exception.message)
+        verify(loanVoidRepository, never()).save(any(LoanVoidEntity::class.java))
+        assertTrue(postedRequests.isEmpty())
+    }
+
+    @Test
+    fun `a loan cannot be voided twice`() {
+        `when`(loanVoidRepository.existsByLoanId(loanId)).thenReturn(true)
+
+        assertThrows(LibertyGenericException::class.java) { loanService.voidLoan(LoanVoidRequest(loanId)) }
+
+        verify(loanVoidRepository, never()).save(any(LoanVoidEntity::class.java))
+        assertTrue(postedRequests.isEmpty())
+    }
+
+    // Rolling the rows back relies on the exception leaving the transactional service; the rollback itself needs a real database.
+    @Test
+    fun `a ledger posting failure reaches the caller and the service rolls back on any exception`() {
+        doThrow(LibertyGenericException("No open fiscal period")).`when`(ledgerPostingService).post(anyNonNull(LedgerPostingRequest::class.java))
+
+        assertThrows(LibertyGenericException::class.java) {
+            loanService.createLoan(LoanCreateRequest(lenderContactDto.referenceNumber, cashCode, PositiveMoney.of(BigDecimal("10")), loanDate))
+        }
+
+        val transactional = LoanService::class.java.getAnnotation(TransactionalOnOrganizationSchema::class.java)
+        assertNotNull(transactional)
+        assertEquals(listOf(Exception::class), transactional.rollbackFor.toList())
+    }
+
+    private fun savedLoan(): LoanEntity {
+        val captor = ArgumentCaptor.forClass(LoanEntity::class.java)
+        verify(loanRepository).save(captor.capture())
+        return captor.value
+    }
+
+    private fun activeRepayment(amount: String, reference: String) =
+        ActiveLoanRepaymentEntity(UUID.randomUUID(), reference, loanId, BigDecimal(amount), OffsetDateTime.now())
+}

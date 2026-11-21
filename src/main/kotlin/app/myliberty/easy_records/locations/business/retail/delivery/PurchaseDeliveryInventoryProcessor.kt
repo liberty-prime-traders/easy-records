@@ -1,0 +1,51 @@
+package app.myliberty.easy_records.locations.business.retail.delivery
+
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LastPurchaseCostUpdateDto
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductService
+import app.myliberty.easy_records.locations.business.retail.purchase.api.delivery.PurchaseDeliveryStatus
+import app.myliberty.easy_records.locations.business.retail.stock.api.updater.PurchaseDeliveryStockUpdater
+import app.myliberty.easy_records.messaging.kafka.transaction.events.PurchaseDeliveredEvent
+import app.myliberty.easy_records.messaging.kafka.transaction.processors.InventoryEventProcessor
+import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException
+import org.slf4j.LoggerFactory
+import org.springframework.stereotype.Service
+import kotlin.reflect.KClass
+
+@Service
+class PurchaseDeliveryInventoryProcessor(
+    private val locationProductService: LocationProductService,
+    private val purchaseDeliveryStockUpdater: PurchaseDeliveryStockUpdater,
+    private val deliveryRepository: PurchaseDeliveryRepository
+) : InventoryEventProcessor<PurchaseDeliveredEvent> {
+
+  private val log = LoggerFactory.getLogger(PurchaseDeliveryInventoryProcessor::class.java)
+
+  override val eventType: KClass<PurchaseDeliveredEvent> = PurchaseDeliveredEvent::class
+
+  @TransactionalOnLocationSchema(readOnly = true)
+  override fun shouldProcess(event: PurchaseDeliveredEvent): Boolean {
+    return deliveryRepository.findById(event.deliveryId)
+      .map { !it.status.isAppliedToStock() }
+      .orElseGet {
+        log.warn("Skipping PurchaseDeliveredEvent: delivery ${event.deliveryId} not found")
+        false
+      }
+  }
+
+  @TransactionalOnLocationSchema
+  override fun handle(event: PurchaseDeliveredEvent) {
+    purchaseDeliveryStockUpdater.recordPurchaseDelivery(event)
+    val lastPurchaseCostUpdateDtos = event.lines.map { deliveredLine ->
+      LastPurchaseCostUpdateDto(
+        locationProductId = deliveredLine.locationProductId,
+        unitCost = deliveredLine.unitCost,
+        storageUnitsPerUserProvidedUnit = deliveredLine.storageUnitsPerUserProvidedUnit,
+      )
+    }
+    locationProductService.updateLastPurchaseCosts(lastPurchaseCostUpdateDtos)
+    val delivery = deliveryRepository.findById(event.deliveryId).orElseThrow { UpdatingNonExistingRecordException() }
+    delivery.status = PurchaseDeliveryStatus.RECEIVED
+    deliveryRepository.save(delivery)
+  }
+}

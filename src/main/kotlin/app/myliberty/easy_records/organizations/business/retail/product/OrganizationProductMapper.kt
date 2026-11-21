@@ -1,0 +1,43 @@
+package app.myliberty.easy_records.organizations.business.retail.product
+
+import app.myliberty.easy_records.organizations.business.retail.product.api.OrganizationProductInsertDto
+import app.myliberty.easy_records.organizations.business.retail.product.api.OrganizationProductResponseDto
+import app.myliberty.easy_records.organizations.business.retail.product_tag.api.ActiveProductTags
+import app.myliberty.easy_records.platform.business.sysuser.api.CreatorFullName
+import app.myliberty.easy_records.util.business.mappers.LibertyMapperConfig
+import org.mapstruct.Context
+import org.mapstruct.Mapper
+import org.mapstruct.Mapping
+
+@Mapper(
+    config = LibertyMapperConfig::class,
+    uses = [OrganizationProductCategoryQualifier::class, ProductTagQualifier::class]
+)
+interface OrganizationProductMapper {
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "createdById", ignore = true)
+    @Mapping(target = "createdOn", ignore = true)
+    @Mapping(target = "referenceNumber", ignore = true)
+    @Mapping(target = "status", ignore = true)
+    @Mapping(target = "productGroupName", ignore = true)
+    fun toEntity(productInsertDto: OrganizationProductInsertDto): OrganizationProductEntity
+
+    fun toDomainDto(productEntity: OrganizationProductEntity): OrganizationProductDto
+
+    fun toEntity(productDto: OrganizationProductDto): OrganizationProductEntity
+
+    @Mapping(source = "createdById", target = "createdBy", qualifiedBy = [CreatorFullName::class])
+    @Mapping(source = "productGroupId", target = "categoryName", qualifiedBy = [ProductCategoryName::class])
+    @Mapping(source = "productGroupId", target = "categoryId", qualifiedBy = [ProductCategoryId::class])
+    @Mapping(target = "baseUnit", expression = "java(baseUnit)")
+    @Mapping(source = "id", target = "activeTags", qualifiedBy = [ActiveProductTags::class])
+    fun toResponseDto(productDto: OrganizationProductDto, @Context baseUnit: String): OrganizationProductResponseDto
+
+    @Mapping(source = "createdById", target = "createdBy", qualifiedBy = [CreatorFullName::class])
+    @Mapping(source = "productGroupId", target = "categoryName", qualifiedBy = [ProductCategoryName::class])
+    @Mapping(source = "productGroupId", target = "categoryId", qualifiedBy = [ProductCategoryId::class])
+    @Mapping(target = "baseUnit", expression = "java(baseUnit)")
+    @Mapping(target = "activeTags", ignore = true)
+    fun toResponseDtoWithoutTags(productDto: OrganizationProductDto, @Context baseUnit: String): OrganizationProductResponseDto
+}

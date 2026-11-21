@@ -1,0 +1,58 @@
+package app.myliberty.easy_records.locations.business.retail.sale_payment
+
+import app.myliberty.easy_records.util.enums.PaymentStatus
+import app.myliberty.easy_records.util.business.PaymentStatusResolver
+import app.myliberty.easy_records.locations.business.retail.sale_payment.api.SalePaymentFetcher
+import app.myliberty.easy_records.organizations.business.core.payment_method.api.PaymentMethodDataFetcher
+import app.myliberty.easy_records.util.business.DateTimes
+import org.springframework.stereotype.Service
+import java.math.BigDecimal
+import java.time.OffsetDateTime
+import java.util.UUID
+
+@Service
+class SalePaymentWriter(
+    private val salePaymentRepository: SalePaymentRepository,
+    private val salePaymentFetcher: SalePaymentFetcher,
+    private val salePaymentHandlerForKafka: SalePaymentHandlerForKafka,
+    private val paymentMethodDataFetcher: PaymentMethodDataFetcher,
+) {
+
+    fun write(
+        saleId: UUID,
+        contactId: UUID,
+        receivableTotal: BigDecimal,
+        newSalePayments: List<NewSalePayment>,
+    ): SalePaymentWriteResult {
+        val alreadyPaid = salePaymentFetcher.calculatePaidAmount(saleId)
+        if (newSalePayments.isEmpty()) {
+            return SalePaymentWriteResult(emptyList(), PaymentStatusResolver.resolve(alreadyPaid, receivableTotal))
+        }
+        val entitiesToSave = newSalePayments.map { newSalePayment ->
+            SalePaymentEntity(
+                saleId = saleId,
+                paymentMethodId = newSalePayment.paymentMethodId,
+                paymentMethodAccountCode = paymentMethodDataFetcher.findAccountCode(newSalePayment.paymentMethodId),
+                amount = newSalePayment.amount,
+                reference = newSalePayment.reference,
+                paymentDate = newSalePayment.paymentDate ?: DateTimes.Offset.Now.organization(),
+            )
+        }
+        val savedSalePayments = salePaymentRepository.saveAll(entitiesToSave).toList()
+        salePaymentHandlerForKafka.publish(saleId, contactId, savedSalePayments)
+        val totalPaid = PaymentStatusResolver.paidTotalAfterRecording(alreadyPaid, savedSalePayments.map { it.amount })
+        return SalePaymentWriteResult(savedSalePayments, PaymentStatusResolver.resolve(totalPaid, receivableTotal))
+    }
+
+    data class NewSalePayment(
+        val paymentMethodId: UUID,
+        val amount: BigDecimal,
+        val reference: String?,
+        val paymentDate: OffsetDateTime?,
+    )
+
+    data class SalePaymentWriteResult(
+        val savedSalePayments: List<SalePaymentEntity>,
+        val newPaymentStatus: PaymentStatus,
+    )
+}

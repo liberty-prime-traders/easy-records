@@ -1,0 +1,53 @@
+package app.myliberty.easy_records.configuration.cache
+
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import app.myliberty.easy_records.configuration.datasource.DataSourceBeanNames
+import app.myliberty.easy_records.configuration.session.SessionContextProvider
+import app.myliberty.easy_records.configuration.util.typeadapters.HibernateProxyTypeAdapter
+import app.myliberty.easy_records.configuration.util.typeadapters.OffsetDateTimeAdapter
+import app.myliberty.easy_records.util.enums.SchemaLevel
+import org.springframework.cache.annotation.CachingConfigurer
+import org.springframework.cache.annotation.EnableCaching
+import org.springframework.cache.interceptor.KeyGenerator
+import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
+import java.time.OffsetDateTime
+
+
+@Configuration
+@EnableCaching
+class TenantCacheConfig : CachingConfigurer {
+
+    companion object {
+        private val GSON: Gson = GsonBuilder()
+            .registerTypeAdapterFactory(HibernateProxyTypeAdapter.FACTORY)
+            .registerTypeAdapter(OffsetDateTime::class.java, OffsetDateTimeAdapter())
+            .create()
+    }
+
+    @Bean
+    override fun keyGenerator(): KeyGenerator {
+        return KeyGenerator { target, method, params ->
+            val schemaName = getSchemaName(target)
+            val jsonParams = GSON.toJson(params)
+            "${schemaName}:${target::class.simpleName ?: "Unknown"}:${method.name}:${jsonParams}"
+        }
+    }
+
+    private fun getSchemaName(target: Any): String {
+        val schemaLevel = target::class.annotations.find { it is CacheSchemaLevel }
+            ?.let {it as CacheSchemaLevel}
+            ?.schemaLevel
+        val default = DataSourceBeanNames.PLATFORM_SCHEMA_NAME
+        if (schemaLevel == null) {
+            return default
+        }
+        val schemaName = when (schemaLevel) {
+            SchemaLevel.PLATFORM -> default
+            SchemaLevel.ORGANIZATION -> SessionContextProvider.getSession().organization?.schemaName
+            SchemaLevel.LOCATION -> SessionContextProvider.getSession().location?.schemaName
+        }
+        return schemaName ?: default
+    }
+}

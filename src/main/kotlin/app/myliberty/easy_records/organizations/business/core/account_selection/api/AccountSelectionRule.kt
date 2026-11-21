@@ -1,0 +1,84 @@
+package app.myliberty.easy_records.organizations.business.core.account_selection.api
+
+import app.myliberty.easy_records.organizations.business.core.account.api.AccountSelectionCandidate
+import app.myliberty.easy_records.organizations.business.core.account.api.SystemAccount
+import app.myliberty.easy_records.organizations.business.core.account_selection.MANUAL_JOURNAL_ACCOUNTS
+import app.myliberty.easy_records.organizations.business.core.account_selection.RESERVED_EXPENSE_ACCOUNTS
+
+
+enum class AccountSelectionRule(val accountDescription: String) {
+
+    PAYMENT_METHOD("Payment method account") {
+        override fun typeAndPlacementRejectionReason(candidate: AccountSelectionCandidate): String? =
+            moneyHoldingAccountRejectionReason(candidate)
+    },
+
+    FUND_MOVEMENT("Fund movement account") {
+        override fun typeAndPlacementRejectionReason(candidate: AccountSelectionCandidate): String? =
+            moneyHoldingAccountRejectionReason(candidate)
+    },
+
+    LOAN("Loan account") {
+        override fun typeAndPlacementRejectionReason(candidate: AccountSelectionCandidate): String? =
+            moneyHoldingAccountRejectionReason(candidate)
+    },
+
+    TAX_PAYABLE("Payable tax account") {
+        override fun typeAndPlacementRejectionReason(candidate: AccountSelectionCandidate): String? = when {
+            candidate.accountIsSystemMaintained -> systemParentRejectionReason(candidate, SystemAccount.TAX_PAYABLE)
+            !candidate.isLiability() -> "Org-defined payable tax account must be of type Liability"
+            else -> null
+        }
+    },
+
+    TAX_RECOVERABLE("Recoverable tax account") {
+        override fun typeAndPlacementRejectionReason(candidate: AccountSelectionCandidate): String? = when {
+            candidate.accountIsSystemMaintained -> systemParentRejectionReason(candidate, SystemAccount.TAX_RECOVERABLE)
+            !candidate.isAsset() -> "Org-defined recoverable tax account must be of type Asset"
+            else -> null
+        }
+    },
+
+    MANUAL_JOURNAL("Manual journal account") {
+        override fun typeAndPlacementRejectionReason(candidate: AccountSelectionCandidate): String? =
+            if (candidate.systemAccount in MANUAL_JOURNAL_ACCOUNTS) null
+            else "Account ${candidate.code} can't be used in a manual journal."
+    },
+
+    EXPENSE_TYPE("Expense account") {
+        override fun typeAndPlacementRejectionReason(candidate: AccountSelectionCandidate): String? {
+            if (!candidate.isExpense()) return "${candidate.label} is not an expense account"
+            if (candidate.systemAccount in RESERVED_EXPENSE_ACCOUNTS) {
+                return "${candidate.label} is reserved for system flows and cannot back an expense type"
+            }
+            return null
+        }
+    };
+
+    protected abstract fun typeAndPlacementRejectionReason(candidate: AccountSelectionCandidate): String?
+
+    // Ledger postings are rejected on a parent account, so every rule offers leaves only.
+    fun rejectionReason(candidate: AccountSelectionCandidate): String? {
+        if (!candidate.isLeaf) return "${candidate.label} has child accounts; $accountDescription must be a leaf account"
+        return typeAndPlacementRejectionReason(candidate)
+    }
+
+    fun isSelectable(candidate: AccountSelectionCandidate): Boolean = rejectionReason(candidate) == null
+
+    // Cash, or an org-defined account, or a child of Digital Payments; shared by every rule that picks where money sits.
+    protected fun moneyHoldingAccountRejectionReason(candidate: AccountSelectionCandidate): String? {
+        if (!candidate.isAsset()) return "$accountDescription must be of type Asset"
+        if (candidate.systemAccount == SystemAccount.CASH) return null
+        val parent = candidate.parent ?: return "$accountDescription has no parent: ${candidate.code}"
+        if (parent.accountIsSystemMaintained && parent.systemAccount != SystemAccount.DIGITAL_PAYMENTS) {
+            return "System-defined ${accountDescription.replaceFirstChar { it.lowercase() }} must be a direct child of Digital Payments"
+        }
+        return null
+    }
+
+    protected fun systemParentRejectionReason(candidate: AccountSelectionCandidate, requiredParent: SystemAccount): String? {
+        val parent = candidate.parent ?: return "$accountDescription has no parent: ${candidate.code}"
+        return if (parent.systemAccount == requiredParent) null
+        else "$accountDescription must be under the ${requiredParent.name} parent account"
+    }
+}

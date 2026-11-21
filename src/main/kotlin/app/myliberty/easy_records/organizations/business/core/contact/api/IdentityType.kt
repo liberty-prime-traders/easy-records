@@ -1,0 +1,11 @@
+package app.myliberty.easy_records.organizations.business.core.contact.api
+
+enum class IdentityType {
+    ORGANIZATION,
+    INDIVIDUAL;
+
+    companion object {
+        fun forCompanyName(companyName: String?): IdentityType =
+            if (companyName.isNullOrBlank()) INDIVIDUAL else ORGANIZATION
+    }
+}

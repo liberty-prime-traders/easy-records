@@ -6,18 +6,25 @@ databaseChangeLog:
       preConditions:
         - onFail: MARK_RAN
         - not:
-            - uniqueConstraintExists:
+            - indexExists:
                 tableName: ledger_entry_group
-                constraintName: uq_ledger_entry_group_source_ref_type
+                indexName: uq_ledger_entry_grp_ref_type_loc
       changes:
-        - addUniqueConstraint:
-            tableName: ledger_entry_group
-            constraintName: uq_ledger_entry_group_source_ref_type
-            columnNames: source_reference_number, source_type
+        # A single addUniqueConstraint on (source_reference_number, source_type, source_location_id)
+        # doesn't work here: Postgres never treats two NULLs as equal in a unique constraint, so it
+        # wouldn't catch duplicates among org-level rows, which always have source_location_id NULL.
+        # Two partial unique indexes instead, split on that column being null or not.
+        - sql:
+            sql: CREATE UNIQUE INDEX uq_ledger_entry_grp_ref_type_loc ON ledger_entry_group (source_reference_number, source_type, source_location_id) WHERE source_location_id IS NOT NULL;
+        - sql:
+            sql: CREATE UNIQUE INDEX uq_ledger_entry_grp_ref_type_org ON ledger_entry_group (source_reference_number, source_type) WHERE source_location_id IS NULL;
       rollback:
-        - dropUniqueConstraint:
+        - dropIndex:
             tableName: ledger_entry_group
-            constraintName: uq_ledger_entry_group_source_ref_type
+            indexName: uq_ledger_entry_grp_ref_type_loc
+        - dropIndex:
+            tableName: ledger_entry_group
+            indexName: uq_ledger_entry_grp_ref_type_org
 
   - changeSet:
       id: create-index-ledger-entry-group-source-ref
@@ -27,18 +34,20 @@ databaseChangeLog:
         - onFail: MARK_RAN
         - not:
             - indexExists:
-                indexName: idx_ledger_entry_group_source_ref
+                indexName: idx_ledger_entry_grp_src_ref_loc
       changes:
         - createIndex:
             tableName: ledger_entry_group
-            indexName: idx_ledger_entry_group_source_ref
+            indexName: idx_ledger_entry_grp_src_ref_loc
             columns:
               - column:
                   name: source_reference_number
+              - column:
+                  name: source_location_id
       rollback:
         - dropIndex:
             tableName: ledger_entry_group
-            indexName: idx_ledger_entry_group_source_ref
+            indexName: idx_ledger_entry_grp_src_ref_loc
 
   - changeSet:
       id: create-index-ledger-entry-group-ref
@@ -105,3 +114,24 @@ databaseChangeLog:
         - dropIndex:
             tableName: subledger_entry
             indexName: idx_subledger_entry_contact_created
+
+  - changeSet:
+      id: create-index-ledger-entry-group-posted-on
+      author: ezra
+      labels: 1.0.0
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            - indexExists:
+                indexName: idx_ledger_entry_grp_posted_on
+      changes:
+        - createIndex:
+            tableName: ledger_entry_group
+            indexName: idx_ledger_entry_grp_posted_on
+            columns:
+              - column:
+                  name: posted_on
+      rollback:
+        - dropIndex:
+            tableName: ledger_entry_group
+            indexName: idx_ledger_entry_grp_posted_on

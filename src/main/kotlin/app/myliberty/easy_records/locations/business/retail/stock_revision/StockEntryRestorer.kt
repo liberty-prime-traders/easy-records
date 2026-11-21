@@ -1,0 +1,79 @@
+package app.myliberty.easy_records.locations.business.retail.stock_revision
+
+import app.myliberty.easy_records.locations.business.retail.stock.api.read.StockEntryDto
+import app.myliberty.easy_records.locations.business.retail.stock.api.StockMovementContexts
+import app.myliberty.easy_records.locations.business.retail.stock.api.revision.StockMovementDraft
+import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.MovementType
+import app.myliberty.easy_records.util.exceptions.BlockedChangeException
+import app.myliberty.easy_records.util.exceptions.BlockingProblem
+import app.myliberty.easy_records.util.quantity.ExactQuantity
+import java.math.BigDecimal
+
+data class StockEntryRestoration(
+    val reversalDrafts: List<StockMovementDraft>,
+    val endingBalance: ExactQuantity,
+    val restoredQuantity: ExactQuantity,
+    val restoredCost: BigDecimal,
+)
+
+object StockEntryRestorer {
+
+    fun restore(
+        stockEntryConsumptions: List<StockEntryConsumption>,
+        stockEntryDto: StockEntryDto,
+        stockRevisionReferenceNumber: String,
+        startingBalance: ExactQuantity,
+    ): StockEntryRestoration {
+        rejectConsumptionsThatCannotBeRestored(stockEntryConsumptions, stockEntryDto)
+        var runningBalance = startingBalance
+        val reversalDrafts = stockEntryConsumptions.map { stockEntryConsumption ->
+            runningBalance += stockEntryConsumption.netConsumedStorageQuantity
+            reversalDraftOf(stockEntryConsumption, stockRevisionReferenceNumber, runningBalance)
+        }
+        return StockEntryRestoration(
+            reversalDrafts = reversalDrafts,
+            endingBalance = runningBalance,
+            restoredQuantity = runningBalance - startingBalance,
+            restoredCost = stockEntryConsumptions.sumOf { it.netConsumedCost },
+        )
+    }
+
+    private fun reversalDraftOf(
+        stockEntryConsumption: StockEntryConsumption,
+        stockRevisionReferenceNumber: String,
+        balanceAfterMovement: ExactQuantity
+    ): StockMovementDraft {
+        val quantityAsEntered = stockEntryConsumption.quantityAsEntered
+        return StockMovementDraft(
+            movementType = MovementType.REVERSED_BY_REVISION,
+            storageMoved = stockEntryConsumption.netConsumedStorageQuantity,
+            balanceAfterMovement = balanceAfterMovement,
+            movedCost = stockEntryConsumption.netConsumedCost,
+            wholeLineQuantityText = quantityAsEntered.userProvidedQuantityText,
+            documentReference = stockEntryConsumption.stockMovementOrigin.documentReference,
+            detailReference = stockEntryConsumption.stockMovementOrigin.detailReference,
+            unitId = quantityAsEntered.unitId,
+            storageUnitsPerUserProvidedUnit = quantityAsEntered.storageUnitsPerUserProvidedUnit,
+            context = StockMovementContexts.restoredForStockRevision(stockRevisionReferenceNumber),
+            stockRevisionReference = stockRevisionReferenceNumber,
+        )
+    }
+
+    private fun rejectConsumptionsThatCannotBeRestored(
+        stockEntryConsumptions: List<StockEntryConsumption>,
+        stockEntryDto: StockEntryDto
+    ) {
+        BlockedChangeException.throwIfAny(
+            stockEntryConsumptions
+                .filter { it.consumer.movementType in MovementType.movementsThatCannotBeReversed }
+                .map { entryConsumption ->
+                    BlockingProblem(
+                        documentReference = entryConsumption.stockMovementOrigin.requiredDocumentReference(),
+                        description = "${StockConsumerLabel.of(entryConsumption.consumer.movementType)} took stock " +
+                            "from this delivery, and returns cannot be undone.",
+                        effect = "This delivery cannot be changed (stock record ${stockEntryDto.referenceNumber})."
+                    )
+                }
+        )
+    }
+}

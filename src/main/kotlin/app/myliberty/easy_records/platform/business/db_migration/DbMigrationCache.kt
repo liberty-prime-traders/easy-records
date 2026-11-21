@@ -1,0 +1,85 @@
+package app.myliberty.easy_records.platform.business.db_migration
+
+import app.myliberty.easy_records.configuration.cache.CacheNames
+import app.myliberty.easy_records.platform.business.db_migration.api.DbMigrationInsertDto
+import app.myliberty.easy_records.platform.business.db_migration.api.MigrationStatus
+import app.myliberty.easy_records.util.enums.SchemaOwnerType
+import org.springframework.cache.annotation.CacheConfig
+import org.springframework.cache.annotation.CacheEvict
+import org.springframework.cache.annotation.Cacheable
+import org.springframework.stereotype.Component
+import java.time.OffsetDateTime
+import java.util.UUID
+
+@Component
+@CacheConfig(cacheNames = [CacheNames.DB_MIGRATION])
+class DbMigrationCache(
+    private val dbMigrationRepository: DbMigrationRepository,
+    private val mapper: DbMigrationMapper
+) {
+
+    @Cacheable
+    fun getAllDbMigrations(): Collection<DbMigrationDto> {
+        return dbMigrationRepository.findAll().map { mapper.toDomainDto(it) }
+    }
+
+    @Cacheable
+    fun getAllDbMigrationsFilteredByDate(
+        start: OffsetDateTime,
+        end: OffsetDateTime
+    ): Collection<DbMigrationDto> {
+        return dbMigrationRepository.findByStartOnBetweenOrderByStartOnDesc(
+            start = start,
+            end = end
+        ).map { mapper.toDomainDto(it) }
+    }
+
+    @Cacheable
+    fun getTopBySchemaOwnerIdAndSchemaOwnerTypeAndDbVersionIdOrderByStartOnDesc(
+        schemaOwnerId: UUID,
+        schemaOwnerType: SchemaOwnerType,
+        dbVersionId: UUID
+    ): DbMigrationDto? {
+        return dbMigrationRepository.findTopBySchemaOwnerIdAndSchemaOwnerTypeAndDbVersionIdOrderByStartOnDesc(
+            schemaOwnerId = schemaOwnerId,
+            schemaOwnerType = schemaOwnerType,
+            dbVersionId = dbVersionId
+        )?.let { mapper.toDomainDto(it) }
+    }
+
+    @Cacheable
+    fun getLatestFailedLocationMigrationForOrgParent(
+        migrationParentId: UUID,
+        locationId: UUID
+    ): DbMigrationDto? {
+        return dbMigrationRepository.findTopBySchemaOwnerIdAndSchemaOwnerTypeAndMigrationParentIdAndStatusOrderByStartOnDesc(
+            schemaOwnerId = locationId,
+            schemaOwnerType = SchemaOwnerType.LOCATION,
+            migrationParentId = migrationParentId,
+            status = MigrationStatus.FAILURE
+        )?.let { mapper.toDomainDto(it) }
+    }
+
+    @Cacheable
+    fun getDbLocationMigrationsByMigrationsParentId(
+        migrationParentId: UUID,
+    ): Collection<DbMigrationDto> {
+        return dbMigrationRepository.findByMigrationParentIdAndSchemaOwnerType(
+            migrationParentId,
+            SchemaOwnerType.LOCATION
+        ).map { mapper.toDomainDto(it) }
+    }
+
+    @CacheEvict(allEntries = true)
+    fun create(insertDto: DbMigrationInsertDto): DbMigrationDto {
+        val saved = dbMigrationRepository.save(mapper.toEntity(insertDto))
+        return mapper.toDomainDto(saved)
+    }
+
+    @CacheEvict(allEntries = true)
+    fun save(dto: DbMigrationDto): DbMigrationDto {
+        val saved = dbMigrationRepository.save(mapper.toEntity(dto))
+        return mapper.toDomainDto(saved)
+    }
+
+}

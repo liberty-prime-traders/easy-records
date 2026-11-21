@@ -1,0 +1,45 @@
+package app.myliberty.easy_records.locations.business.retail.stock.api.availability
+
+import app.myliberty.easy_records.locations.business.retail.location_product.api.ProductStockBreakdownProvider
+import app.myliberty.easy_records.locations.business.core.lock.api.EntityAdvisoryLock
+import app.myliberty.easy_records.locations.business.retail.stock.api.read.StockBalanceFetcher
+import app.myliberty.easy_records.locations.business.retail.stock_reservation.api.StockReserver
+import app.myliberty.easy_records.util.business.lock.LockNamespaces
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
+import app.myliberty.easy_records.util.quantity.ExactQuantity
+import org.springframework.stereotype.Component
+import java.math.BigDecimal
+import java.util.UUID
+
+@Component
+class StockAvailabilityValidator(
+    private val stockBalanceFetcher: StockBalanceFetcher,
+    private val stockReserver: StockReserver,
+    private val productStockBreakdownProvider: ProductStockBreakdownProvider,
+    private val entityAdvisoryLock: EntityAdvisoryLock,
+) {
+
+    fun guardSufficientStock(
+        storageQuantityNeededByLocationProductId: Map<UUID, ExactQuantity>,
+        productLabelByLocationProductId: Map<UUID, String> = emptyMap(),
+    ) {
+        if (storageQuantityNeededByLocationProductId.isEmpty()) return
+        entityAdvisoryLock.acquire(LockNamespaces.PRODUCT, storageQuantityNeededByLocationProductId.keys)
+        val balances = stockBalanceFetcher.getLatestBalances(storageQuantityNeededByLocationProductId.keys)
+        val reservations = stockReserver.loadReservationBreakdown(storageQuantityNeededByLocationProductId.keys)
+        val breakdownByLocationProductId = productStockBreakdownProvider.forLocationProducts(
+            storageQuantityNeededByLocationProductId.keys
+        )
+        storageQuantityNeededByLocationProductId.forEach { (locationProductId, storageQuantityNeeded) ->
+            val reservedTotal = reservations[locationProductId]?.total ?: BigDecimal.ZERO
+            val available = ExactQuantity.ofStorage(balances.getValue(locationProductId)) - ExactQuantity.ofStorage(reservedTotal)
+            if (available < storageQuantityNeeded) {
+                val label = productLabelByLocationProductId[locationProductId] ?: locationProductId.toString()
+                val breakdown = breakdownByLocationProductId.getValue(locationProductId)
+                throw LibertyGenericException(
+                    "Insufficient stock for $label. Available: ${breakdown.render(available)}, Requested: ${breakdown.render(storageQuantityNeeded)}"
+                )
+            }
+        }
+    }
+}

@@ -1,0 +1,47 @@
+package app.myliberty.easy_records.cross_tier.core.expense.store
+
+import app.myliberty.easy_records.cross_tier.core.expense.entities.ExpenseBase
+import app.myliberty.easy_records.cross_tier.core.expense.entities.ExpenseBatchBase
+import app.myliberty.easy_records.cross_tier.core.expense.entities.ExpensePaymentBase
+import app.myliberty.easy_records.cross_tier.core.expense.entities.ExpensePaymentStateBase
+import app.myliberty.easy_records.cross_tier.core.expense.entities.ExpensePaymentVoidBase
+import app.myliberty.easy_records.cross_tier.core.expense.entities.ExpenseVoidBase
+import app.myliberty.easy_records.cross_tier.core.expense.model.ExpenseBatchDto
+import app.myliberty.easy_records.cross_tier.core.expense.model.ExpenseDto
+import app.myliberty.easy_records.cross_tier.core.expense.model.ExpensePaymentDto
+import app.myliberty.easy_records.cross_tier.core.expense.model.ExpensePaymentStateDto
+import app.myliberty.easy_records.cross_tier.core.expense.model.ExpensePaymentVoidDto
+import app.myliberty.easy_records.cross_tier.core.expense.model.ExpenseVoidDto
+
+object ExpenseDtoMapper {
+
+    fun toDto(expenseBatchBase: ExpenseBatchBase) = ExpenseBatchDto(
+        expenseBatchBase.id!!, expenseBatchBase.requiredReference(), expenseBatchBase.description,
+        expenseBatchBase.requiredCreatedOn(), expenseBatchBase.requiredCreatedById()
+    )
+
+    fun toDto(expenseBase: ExpenseBase) = ExpenseDto(
+        expenseBase.id!!, expenseBase.requiredReference(), expenseBase.expenseTypeId, expenseBase.expenseAccountCode,
+        expenseBase.payeeContactId, expenseBase.amount, expenseBase.expenseDate, expenseBase.description, expenseBase.sourceType,
+        expenseBase.sourceReference, expenseBase.batchId, expenseBase.requiredCreatedOn(), expenseBase.requiredCreatedById()
+    )
+
+    fun toDto(expensePaymentBase: ExpensePaymentBase) = ExpensePaymentDto(
+        expensePaymentBase.id!!, expensePaymentBase.expenseId, expensePaymentBase.requiredReference(),
+        expensePaymentBase.paymentMethodId, expensePaymentBase.paymentMethodAccountCode, expensePaymentBase.amount,
+        expensePaymentBase.providerReference, expensePaymentBase.paymentDate, expensePaymentBase.requiredCreatedOn()
+    )
+
+    fun toDto(expensePaymentVoidBase: ExpensePaymentVoidBase) = ExpensePaymentVoidDto(
+        expensePaymentVoidBase.id!!, expensePaymentVoidBase.expensePaymentId, expensePaymentVoidBase.reason,
+        expensePaymentVoidBase.requiredCreatedOn()
+    )
+
+    fun toDto(expensePaymentStateBase: ExpensePaymentStateBase) = ExpensePaymentStateDto(
+        expensePaymentStateBase.expenseId, expensePaymentStateBase.paymentStatus, expensePaymentStateBase.amountPaid
+    )
+
+    fun toDto(expenseVoidBase: ExpenseVoidBase) = ExpenseVoidDto(
+        expenseVoidBase.id!!, expenseVoidBase.expenseId, expenseVoidBase.reason, expenseVoidBase.requiredCreatedOn()
+    )
+}

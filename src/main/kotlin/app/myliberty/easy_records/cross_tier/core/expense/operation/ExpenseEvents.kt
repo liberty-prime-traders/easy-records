@@ -1,0 +1,98 @@
+package app.myliberty.easy_records.cross_tier.core.expense.operation
+
+import app.myliberty.easy_records.cross_tier.core.expense.ExpenseTier
+import app.myliberty.easy_records.cross_tier.core.expense.model.ExpenseDto
+import app.myliberty.easy_records.cross_tier.core.expense.model.ExpensePaymentDto
+import app.myliberty.easy_records.cross_tier.core.expense.model.ExpensePaymentVoidDto
+import app.myliberty.easy_records.cross_tier.core.expense.model.ExpenseVoidDto
+import app.myliberty.easy_records.messaging.kafka.transaction.events.ExpensePaymentRecordedEvent
+import app.myliberty.easy_records.messaging.kafka.transaction.events.ExpensePaymentVoidedEvent
+import app.myliberty.easy_records.messaging.kafka.transaction.events.ExpenseRecordedEvent
+import app.myliberty.easy_records.messaging.kafka.transaction.events.ExpenseVoidedEvent
+import app.myliberty.easy_records.util.business.DateTimes
+import app.myliberty.easy_records.util.business.PositiveMoney
+import org.springframework.context.ApplicationEventPublisher
+import java.time.Instant
+import java.util.UUID
+
+class ExpenseEvents(
+    private val expenseTier: ExpenseTier,
+    private val applicationEventPublisher: ApplicationEventPublisher
+) {
+
+    fun publishRecorded(expenseDto: ExpenseDto) {
+        applicationEventPublisher.publishEvent(
+            ExpenseRecordedEvent(
+                eventId = UUID.randomUUID(),
+                sourceContext = expenseTier.sourceContext(),
+                timestamp = Instant.now(),
+                correlationId = null,
+                expenseId = expenseDto.id,
+                expenseReferenceNumber = expenseDto.referenceNumber,
+                expenseAccountCode = expenseDto.expenseAccountCode,
+                payeeContactId = expenseDto.payeeContactId,
+                amount = PositiveMoney.of(expenseDto.amount),
+                expenseDate = expenseDto.expenseDate
+            )
+        )
+    }
+
+    fun publishVoided(expenseVoidDto: ExpenseVoidDto, expenseDto: ExpenseDto) {
+        applicationEventPublisher.publishEvent(
+            ExpenseVoidedEvent(
+                eventId = UUID.randomUUID(),
+                sourceContext = expenseTier.sourceContext(),
+                timestamp = Instant.now(),
+                correlationId = null,
+                voidId = expenseVoidDto.id,
+                expenseId = expenseDto.id,
+                expenseReferenceNumber = expenseDto.referenceNumber,
+                expenseAccountCode = expenseDto.expenseAccountCode,
+                payeeContactId = expenseDto.payeeContactId,
+                amount = PositiveMoney.of(expenseDto.amount),
+                voidedOn = DateTimes.Local.atOrganizationZone(expenseVoidDto.voidedOn)
+            )
+        )
+    }
+
+    fun publishPaymentRecorded(expensePaymentDto: ExpensePaymentDto, expenseDto: ExpenseDto) {
+        applicationEventPublisher.publishEvent(
+            ExpensePaymentRecordedEvent(
+                eventId = UUID.randomUUID(),
+                sourceContext = expenseTier.sourceContext(),
+                timestamp = Instant.now(),
+                correlationId = null,
+                paymentId = expensePaymentDto.id,
+                paymentReferenceNumber = expensePaymentDto.referenceNumber,
+                expenseAccountCode = expenseDto.expenseAccountCode,
+                payeeContactId = expenseDto.payeeContactId,
+                paymentMethodAccountCode = expensePaymentDto.paymentMethodAccountCode,
+                amount = PositiveMoney.of(expensePaymentDto.amount),
+                paymentDate = expensePaymentDto.paymentDate
+            )
+        )
+    }
+
+    fun publishPaymentVoided(
+        expensePaymentVoidDto: ExpensePaymentVoidDto,
+        expensePaymentDto: ExpensePaymentDto,
+        expenseDto: ExpenseDto
+    ) {
+        applicationEventPublisher.publishEvent(
+            ExpensePaymentVoidedEvent(
+                eventId = UUID.randomUUID(),
+                sourceContext = expenseTier.sourceContext(),
+                timestamp = Instant.now(),
+                correlationId = null,
+                voidId = expensePaymentVoidDto.id,
+                paymentId = expensePaymentDto.id,
+                paymentReferenceNumber = expensePaymentDto.referenceNumber,
+                expenseAccountCode = expenseDto.expenseAccountCode,
+                payeeContactId = expenseDto.payeeContactId,
+                paymentMethodAccountCode = expensePaymentDto.paymentMethodAccountCode,
+                amount = PositiveMoney.of(expensePaymentDto.amount),
+                voidedOn = DateTimes.Local.atOrganizationZone(expensePaymentVoidDto.voidedOn)
+            )
+        )
+    }
+}

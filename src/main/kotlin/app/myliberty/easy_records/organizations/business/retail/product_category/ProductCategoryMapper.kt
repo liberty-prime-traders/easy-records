@@ -1,0 +1,26 @@
+package app.myliberty.easy_records.organizations.business.retail.product_category
+
+import app.myliberty.easy_records.organizations.business.retail.product_category.api.ProductCategoryDto
+import app.myliberty.easy_records.organizations.business.retail.product_category.api.ProductCategoryInsertDto
+import app.myliberty.easy_records.organizations.business.retail.product_category.api.ProductCategoryResponseDto
+import app.myliberty.easy_records.platform.business.sysuser.api.CreatorFullName
+import app.myliberty.easy_records.util.business.mappers.LibertyMapperConfig
+import org.mapstruct.Mapper
+import org.mapstruct.Mapping
+
+@Mapper(config = LibertyMapperConfig::class)
+interface ProductCategoryMapper {
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "createdById", ignore = true)
+    @Mapping(target = "createdOn", ignore = true)
+    @Mapping(target = "referenceNumber", ignore = true)
+    fun toEntity(productCategoryInsertDto: ProductCategoryInsertDto): ProductCategoryEntity
+
+    fun toDomainDto(productCategoryEntity: ProductCategoryEntity): ProductCategoryDto
+
+    fun toEntity(productCategoryDto: ProductCategoryDto): ProductCategoryEntity
+
+    @Mapping(source = "createdById", target = "createdBy", qualifiedBy = [CreatorFullName::class])
+    fun toResponseDto(productCategoryDto: ProductCategoryDto): ProductCategoryResponseDto
+}

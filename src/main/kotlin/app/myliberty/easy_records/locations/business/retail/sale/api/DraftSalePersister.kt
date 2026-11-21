@@ -1,0 +1,103 @@
+package app.myliberty.easy_records.locations.business.retail.sale.api
+
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductDataFetcher
+import app.myliberty.easy_records.locations.business.retail.sale.SaleSaveFinalizer
+import app.myliberty.easy_records.locations.business.retail.sale.SaleLineSync
+import app.myliberty.easy_records.locations.business.retail.sale.SaleEntity
+import app.myliberty.easy_records.locations.business.retail.sale.SaleLineRepository
+import app.myliberty.easy_records.locations.business.retail.sale.SaleLocker
+import app.myliberty.easy_records.locations.business.retail.sale.SaleRepository
+import app.myliberty.easy_records.locations.business.retail.sale.SaleValidator
+import app.myliberty.easy_records.locations.business.retail.sale_adjustment.api.SaleAdjustmentSyncer
+import app.myliberty.easy_records.locations.business.retail.stock_reservation.api.NewStockReservation
+import app.myliberty.easy_records.locations.business.retail.stock_reservation.api.StockReserver
+import app.myliberty.easy_records.organizations.business.core.fiscal_period.api.FiscalPeriodService
+import app.myliberty.easy_records.util.business.DateTimes
+import org.springframework.stereotype.Service
+
+@Service
+@TransactionalOnLocationSchema
+class DraftSalePersister(
+    private val saleRepository: SaleRepository,
+    private val saleLineRepository: SaleLineRepository,
+    private val stockReserver: StockReserver,
+    private val saleValidator: SaleValidator,
+    private val saleLocker: SaleLocker,
+    private val locationProductDataFetcher: LocationProductDataFetcher,
+    private val fiscalPeriodService: FiscalPeriodService,
+    private val saleSaveFinalizer: SaleSaveFinalizer,
+    private val saleAdjustmentSyncer: SaleAdjustmentSyncer,
+) {
+
+    fun saveDraft(saleSaveRequest: SaleSaveRequest): SaleSaveResult {
+        guardFiscalIfPayments(saleSaveRequest)
+
+        val saleEntity = loadOrCreate(saleSaveRequest)
+        saleEntity.contactId = saleSaveRequest.contactId
+        saleEntity.soldById = saleSaveRequest.soldById
+        saleEntity.dateSold = saleSaveRequest.dateSold
+        saleEntity.notes = saleSaveRequest.notes
+        saleEntity.status = SaleStatus.DRAFT
+        saleRepository.save(saleEntity)
+
+        stockReserver.clearBySale(saleEntity.id!!)
+        val retainedSaleAdjustments = saleAdjustmentSyncer.deleteRemoved(saleEntity.id!!, saleSaveRequest)
+        val lineSyncResult = SaleLineSync.sync(saleEntity, saleSaveRequest, saleLineRepository)
+        if (lineSyncResult.persistedSaleLines.isNotEmpty()) {
+            val storageQuantitiesByLocationProductId = lineSyncResult.persistedSaleLines
+                .associate { it.locationProductId to it.storageQuantity() }
+            val productSummariesByLocationProductId = locationProductDataFetcher
+                .findSummaryByIds(storageQuantitiesByLocationProductId.keys)
+            saleValidator.guardSufficientStockForSale(
+                saleEntity.id!!,
+                storageQuantitiesByLocationProductId,
+                productSummariesByLocationProductId,
+            )
+            val newStockReservations = lineSyncResult.persistedSaleLines.map { saleLine ->
+                NewStockReservation(
+                    saleId = saleEntity.id!!,
+                    saleLineId = saleLine.id!!,
+                    locationProductId = saleLine.locationProductId,
+                    storageQuantityReserved = saleLine.storageQuantity().toStorageQuantity(),
+                )
+            }
+            stockReserver.reserve(newStockReservations)
+        }
+
+        val saleUpdateResult = saleSaveFinalizer.finalize(
+            saleEntity = saleEntity,
+            saleSaveRequest = saleSaveRequest,
+            lineSyncResult = lineSyncResult,
+            retainedSaleAdjustments = retainedSaleAdjustments,
+        )
+
+        return SaleSaveResult(
+            saleId = saleEntity.id!!,
+            saleReferenceNumber = saleEntity.requiredReference(),
+            newVersion = saleEntity.version,
+            saleStatus = saleEntity.status,
+            dateSold = saleEntity.dateSold,
+            soldById = saleEntity.soldById,
+            saleLineIdsByClientKey = lineSyncResult.saleLineIdsByClientKey,
+            saleAdjustmentIdsByClientKey = saleUpdateResult.saleAdjustmentIdsByClientKey,
+            persistedSalePaymentsByClientKey = saleUpdateResult.persistedSalePaymentsByClientKey,
+        )
+    }
+
+    private fun loadOrCreate(saleSaveRequest: SaleSaveRequest): SaleEntity {
+        val saleId = saleSaveRequest.saleId
+            ?: return SaleEntity(contactId = saleSaveRequest.contactId, status = SaleStatus.DRAFT).also {
+                it.referenceNumber = saleSaveRequest.preAllocatedReferenceNumber
+            }
+        SaleValidator.guardNoPreAllocatedReferenceOnExistingSale(saleSaveRequest)
+        return saleLocker.loadDraftAtVersion(saleId, saleSaveRequest.expectedVersion)
+    }
+
+    private fun guardFiscalIfPayments(saleSaveRequest: SaleSaveRequest) {
+        if (saleSaveRequest.salePayments.isEmpty()) return
+        val effectiveDateSold = saleSaveRequest.dateSold ?: DateTimes.Offset.Now.organization()
+        SaleValidator.guardDateSoldIsNotFuture(effectiveDateSold)
+        fiscalPeriodService.requireOpenForDate(DateTimes.Local.atOrganizationZone(effectiveDateSold))
+    }
+}

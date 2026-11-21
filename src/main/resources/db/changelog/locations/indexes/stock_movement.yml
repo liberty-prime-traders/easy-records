@@ -1,26 +1,5 @@
 databaseChangeLog:
   - changeSet:
-      id: create-index-stock-movement-location-product-id
-      author: ezra
-      labels: 1.0.0
-      preConditions:
-        - onFail: MARK_RAN
-        - not:
-            - indexExists:
-                indexName: idx_stock_movement_location_product_id
-      changes:
-        - createIndex:
-            indexName: idx_stock_movement_location_product_id
-            tableName: stock_movement
-            columns:
-              - column:
-                  name: location_product_id
-      rollback:
-        - dropIndex:
-            indexName: idx_stock_movement_location_product_id
-            tableName: stock_movement
-
-  - changeSet:
       id: create-index-stock-movement-stock-item-id
       author: ezra
       labels: 1.0.0
@@ -42,45 +21,24 @@ databaseChangeLog:
             tableName: stock_movement
 
   - changeSet:
-      id: create-index-stock-movement-movement-type
+      id: create-index-stock-movement-document-reference
       author: ezra
       labels: 1.0.0
       preConditions:
         - onFail: MARK_RAN
         - not:
             - indexExists:
-                indexName: idx_stock_movement_movement_type
+                indexName: idx_stock_movement_document_reference
       changes:
         - createIndex:
-            indexName: idx_stock_movement_movement_type
+            indexName: idx_stock_movement_document_reference
             tableName: stock_movement
             columns:
               - column:
-                  name: movement_type
+                  name: document_reference
       rollback:
         - dropIndex:
-            indexName: idx_stock_movement_movement_type
-            tableName: stock_movement
-
-  - changeSet:
-      id: create-index-stock-movement-external_reference_number
-      author: ezra
-      labels: 1.0.0
-      preConditions:
-        - onFail: MARK_RAN
-        - not:
-            - indexExists:
-                indexName: idx_stock_movement_external_reference_number
-      changes:
-        - createIndex:
-            indexName: idx_stock_movement_external_reference_number
-            tableName: stock_movement
-            columns:
-              - column:
-                  name: external_reference_number
-      rollback:
-        - dropIndex:
-            indexName: idx_stock_movement_external_reference_number
+            indexName: idx_stock_movement_document_reference
             tableName: stock_movement
 
   - changeSet:
@@ -98,6 +56,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: location_product_id
+
               - column:
                   name: created_on
                   descending: true
@@ -105,3 +64,48 @@ databaseChangeLog:
         - dropIndex:
             indexName: idx_stock_movement_location_product_id_created_on
             tableName: stock_movement
+
+  - changeSet:
+      id: add-unique-index-stock-movement-doc-detail-type-product-entry-reason
+      author: ezra
+      labels: 1.0.0
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            - indexExists:
+                indexName: uq_stock_movement_doc_detail_type_product_entry_reason
+      changes:
+        - sql:
+            sql: >-
+              CREATE UNIQUE INDEX uq_stock_movement_doc_detail_type_product_entry_reason ON stock_movement
+              (document_reference, COALESCE(detail_reference, ''), movement_type, location_product_id, stock_entry_id,
+              COALESCE(reason_id, '00000000-0000-0000-0000-000000000000'::uuid))
+      rollback:
+        - sql:
+            sql: DROP INDEX IF EXISTS uq_stock_movement_doc_detail_type_product_entry_reason
+
+  - changeSet:
+      id: replace-unique-index-stock-movement-doc-detail-type-product-entry-reason-with-stock-revision-reference
+      author: ezra
+      labels: 2.0.0
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            - indexExists:
+                indexName: uq_stkmv_doc_detail_type_product_entry_reason_revision
+      changes:
+        - sql:
+            sql: DROP INDEX IF EXISTS uq_stock_movement_doc_detail_type_product_entry_reason
+        - sql:
+            sql: >-
+              CREATE UNIQUE INDEX uq_stkmv_doc_detail_type_product_entry_reason_revision ON stock_movement
+              (document_reference, COALESCE(detail_reference, ''), movement_type, location_product_id, stock_entry_id,
+              COALESCE(reason_id, '00000000-0000-0000-0000-000000000000'::uuid), COALESCE(stock_revision_reference, ''))
+      rollback:
+        - sql:
+            sql: DROP INDEX IF EXISTS uq_stkmv_doc_detail_type_product_entry_reason_revision
+        - sql:
+            sql: >-
+              CREATE UNIQUE INDEX uq_stock_movement_doc_detail_type_product_entry_reason ON stock_movement
+              (document_reference, COALESCE(detail_reference, ''), movement_type, location_product_id, stock_entry_id,
+              COALESCE(reason_id, '00000000-0000-0000-0000-000000000000'::uuid))

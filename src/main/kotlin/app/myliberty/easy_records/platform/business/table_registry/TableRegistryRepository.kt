@@ -1,0 +1,10 @@
+package app.myliberty.easy_records.platform.business.table_registry
+
+import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.stereotype.Repository
+import java.util.UUID
+
+@Repository
+interface TableRegistryRepository: JpaRepository<TableRegistryEntity, UUID> {
+    fun findByTableName(tableName: String): TableRegistryEntity?
+}

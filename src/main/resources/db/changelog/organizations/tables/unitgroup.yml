@@ -24,7 +24,7 @@ databaseChangeLog:
                   type: nvarchar2(5)
                   constraints:
                     unique: true
-                    uniqueConstraintName: unit_group_code_unique
+                    uniqueConstraintName: uq_unit_group_code
 
               - column:
                   name: name
@@ -32,6 +32,15 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     notNullConstraintName: unit_group_name_notnull
+
+              - column:
+                  name: name_key
+                  type: nvarchar2(400)
+                  constraints:
+                    unique: true
+                    uniqueConstraintName: uq_unit_group_name_key
+                    nullable: false
+                    notNullConstraintName: unit_group_name_key_notnull
 
               - column:
                   name: description
@@ -62,6 +71,6 @@ databaseChangeLog:
                   type: nvarchar2(30)
                   constraints:
                     unique: true
-                    uniqueConstraintName: unit_group_reference_number_unique
+                    uniqueConstraintName: uq_unit_group_reference_number
                     nullable: false
                     notNullConstraintName: unit_group_reference_number_not_null

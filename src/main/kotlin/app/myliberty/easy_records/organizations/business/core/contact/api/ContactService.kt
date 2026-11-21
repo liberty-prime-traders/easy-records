@@ -1,0 +1,136 @@
+package app.myliberty.easy_records.organizations.business.core.contact.api
+
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.organizations.business.core.contact.ContactCache
+import app.myliberty.easy_records.organizations.business.core.contact.ContactResponseMapper
+import app.myliberty.easy_records.organizations.business.core.contact.ContactValidator
+import app.myliberty.easy_records.organizations.business.core.contact_opening_balance.api.ContactOpeningBalanceReader
+import app.myliberty.easy_records.organizations.business.core.ledger.api.SubledgerBalanceDto
+import app.myliberty.easy_records.organizations.business.core.ledger.api.SubledgerEntryResponse
+import app.myliberty.easy_records.organizations.business.core.ledger.api.SubledgerService
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
+import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException
+import app.myliberty.easy_records.util.paging.PageRequest
+import app.myliberty.easy_records.util.paging.PageResponse
+import org.springframework.stereotype.Service
+import java.util.UUID
+
+@Service
+@TransactionalOnOrganizationSchema
+class ContactService(
+    private val contactResponseMapper: ContactResponseMapper,
+    private val contactCache: ContactCache,
+    private val contactValidator: ContactValidator,
+    private val subledgerService: SubledgerService,
+    private val contactOpeningBalanceReader: ContactOpeningBalanceReader
+) {
+
+    @TransactionalOnOrganizationSchema(readOnly = true)
+    fun getAllContactDtos(): Collection<ContactDto> = contactCache.getAllContacts()
+
+    @TransactionalOnOrganizationSchema(readOnly = true)
+    fun findContactByReferenceNumber(referenceNumber: String): ContactDto? =
+        contactCache.getContactsByReferenceNumber()[referenceNumber]
+
+    @TransactionalOnOrganizationSchema(readOnly = true)
+    fun getContactsById(): Map<UUID, ContactDto> = contactCache.getAllContacts().associateBy { it.id }
+
+    @TransactionalOnOrganizationSchema(readOnly = true)
+    fun getContactById(id: UUID): ContactDto {
+        return contactCache.getAllContacts().find { it.id == id }
+            ?: throw UpdatingNonExistingRecordException()
+    }
+
+    @TransactionalOnOrganizationSchema(readOnly = true)
+    fun guardExists(id: UUID) {
+        if (contactCache.getAllContacts().none { it.id == id }) {
+            throw UpdatingNonExistingRecordException()
+        }
+    }
+
+    @TransactionalOnOrganizationSchema(readOnly = true)
+    fun getAllContacts(): Collection<ContactResponseDto> {
+        return toResponseDtos(contactCache.getAllContacts())
+    }
+
+    fun reconcileSubledgerBalances() {
+        subledgerService.reconcileBalances(contactCache.getAllContacts().map { it.referenceNumber }.toSet())
+    }
+
+    @TransactionalOnOrganizationSchema(readOnly = true)
+    fun getLedger(
+        id: UUID,
+        pageRequest: PageRequest<ContactLedgerSearchParameters, String>
+    ): PageResponse<SubledgerEntryResponse, String> {
+        val contactDto = getContactById(id)
+        return subledgerService.getEntries(contactDto.referenceNumber, pageRequest.previousCursor, pageRequest.requestedSize)
+    }
+
+    private fun toResponseDtos(contactDtos: Collection<ContactDto>): List<ContactResponseDto> {
+        val balancesByContactReferenceNumber = subledgerService.getCurrentBalances(
+            contactDtos.map { it.referenceNumber }.toSet()
+        )
+        val openingBalancesByContactReferenceNumber = contactOpeningBalanceReader.getOpeningBalances(
+            contactDtos.map { it.referenceNumber }.toSet()
+        )
+        return contactDtos.map { contactDto ->
+            val subledgerBalanceDto = balancesByContactReferenceNumber[contactDto.referenceNumber]
+                ?: SubledgerBalanceDto.ZERO
+            val openingBalanceDto = openingBalancesByContactReferenceNumber[contactDto.referenceNumber]
+                ?: SubledgerBalanceDto.ZERO
+            contactResponseMapper.toResponseDto(contactDto, subledgerBalanceDto, openingBalanceDto)
+        }
+    }
+
+    fun createContact(contactInsertDto: ContactInsertDto): ContactResponseDto {
+        contactValidator.validateContactTypes(contactInsertDto.contactTypes)
+        contactValidator.validateIdentity(
+            contactInsertDto.identityType,
+            contactInsertDto.firstName,
+            contactInsertDto.companyName
+        )
+        val cleanedInsert = cleanupIncompatibleFields(contactInsertDto)
+        contactValidator.validateUniqueness(cleanedInsert.identity)
+        val dto = contactCache.create(cleanedInsert)
+        subledgerService.openBalance(dto.referenceNumber)
+        return contactResponseMapper.toResponseDto(dto, SubledgerBalanceDto.ZERO, SubledgerBalanceDto.ZERO)
+    }
+
+    private fun cleanupIncompatibleFields(insertDto: ContactInsertDto): ContactInsertDto {
+        return when (insertDto.identityType) {
+            IdentityType.ORGANIZATION -> insertDto.copy(firstName = null, lastName = null)
+            IdentityType.INDIVIDUAL -> insertDto.copy(companyName = null)
+        }
+    }
+
+    private fun cleanupIncompatibleFields(dto: ContactDto, identityType: IdentityType): ContactDto {
+        return when (identityType) {
+            IdentityType.ORGANIZATION -> dto.copy(firstName = null, lastName = null)
+            IdentityType.INDIVIDUAL -> dto.copy(companyName = null)
+        }
+    }
+
+    fun updateContact(contactUpdateDto: ContactUpdateDto): ContactResponseDto {
+        val id = contactUpdateDto.id
+        val existing = contactCache.getAllContacts().find { it.id == id }
+            ?: throw UpdatingNonExistingRecordException()
+        if (existing.systemDefined) throw LibertyGenericException("System-defined contacts cannot be modified")
+
+        var updated = contactUpdateDto.applyTo(existing)
+        contactValidator.validateContactTypes(updated.contactTypes)
+
+        val identityType = contactUpdateDto.identityType
+            ?.let { it.orElseGet { updated.identity.identityType } }
+            ?: updated.identity.identityType
+
+        contactValidator.validateIdentity(
+            identityType,
+            updated.firstName,
+            updated.companyName
+        )
+        updated = cleanupIncompatibleFields(updated, identityType)
+        contactValidator.validateUniqueness(updated.identity, id)
+        val saved = contactCache.save(updated)
+        return toResponseDtos(listOf(saved)).single()
+    }
+}

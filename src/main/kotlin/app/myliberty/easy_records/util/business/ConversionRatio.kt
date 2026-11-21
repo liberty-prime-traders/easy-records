@@ -1,0 +1,24 @@
+package app.myliberty.easy_records.util.business
+
+import java.math.BigDecimal
+
+data class ConversionRatio(val numerator: Long, val denominator: Long) {
+
+    init {
+        require(numerator > 0) { "numerator must be positive" }
+        require(denominator > 0) { "denominator must be positive" }
+    }
+
+    fun factor(): BigDecimal = Decimals.Scale10.divide(BigDecimal.valueOf(numerator), BigDecimal.valueOf(denominator))
+
+    fun reduced(): ConversionRatio {
+        val greatestCommonDivisor = Decimals.greatestCommonDivisor(numerator, denominator)
+        return ConversionRatio(numerator / greatestCommonDivisor, denominator / greatestCommonDivisor)
+    }
+
+    fun <T> buildFromParts(builder: (numerator: Long, denominator: Long) -> T): T = builder(numerator, denominator)
+
+    companion object {
+        val IDENTITY = ConversionRatio(1L, 1L)
+    }
+}

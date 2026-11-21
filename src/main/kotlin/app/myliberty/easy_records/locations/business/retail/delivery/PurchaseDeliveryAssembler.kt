@@ -1,0 +1,59 @@
+package app.myliberty.easy_records.locations.business.retail.delivery
+
+import app.myliberty.easy_records.locations.business.retail.delivery.api.PurchaseDeliveryLineResponseDto
+import app.myliberty.easy_records.locations.business.retail.delivery.api.PurchaseDeliveryResponseDto
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductSummaryDto
+import app.myliberty.easy_records.locations.business.retail.purchase.api.PurchaseLineDto
+import org.springframework.stereotype.Service
+import java.util.UUID
+
+@Service
+class PurchaseDeliveryAssembler(
+  private val purchaseDeliveryLineRepository: PurchaseDeliveryLineRepository,
+) {
+
+  fun buildResponses(
+    deliveries: List<PurchaseDeliveryEntity>,
+    purchaseLines: Map<UUID, PurchaseLineDto>,
+    productSummaries: Map<UUID, LocationProductSummaryDto>
+  ): List<PurchaseDeliveryResponseDto> {
+    if (deliveries.isEmpty()) return emptyList()
+    val deliveryIds = deliveries.map { it.id!! }
+    val allDeliveryLines = purchaseDeliveryLineRepository.findByPurchaseDeliveryIdIn(deliveryIds)
+    val deliveryLinesByDeliveryId = allDeliveryLines.groupBy { it.purchaseDeliveryId }
+    return deliveries.map { delivery ->
+      val deliveryLines = deliveryLinesByDeliveryId[delivery.id] ?: emptyList()
+      toDto(delivery, deliveryLines, purchaseLines, productSummaries)
+    }
+  }
+
+  private fun toDto(
+    delivery: PurchaseDeliveryEntity,
+    deliveryLines: List<PurchaseDeliveryLineEntity>,
+    purchaseLineById: Map<UUID, PurchaseLineDto>,
+    productSummaries: Map<UUID, LocationProductSummaryDto>
+  ): PurchaseDeliveryResponseDto {
+    return PurchaseDeliveryResponseDto(
+      id = delivery.id!!,
+      referenceNumber = delivery.requiredReference(),
+      purchaseId = delivery.purchaseId,
+      status = delivery.status,
+      deliveredAt = delivery.deliveredAt,
+      notes = delivery.notes,
+      lines = deliveryLines.map { dl ->
+        val purchaseLine = purchaseLineById[dl.purchaseLineId]!!
+        val product = productSummaries[purchaseLine.locationProductId]!!
+        PurchaseDeliveryLineResponseDto(
+          id = dl.id!!,
+          referenceNumber = dl.requiredReference(),
+          userProvidedQuantityDelivered = dl.userProvidedQuantityDelivered,
+          unitId = dl.unitId,
+          unitCost = dl.unitCost,
+          purchaseLineId = dl.purchaseLineId,
+          locationProduct = product,
+          status = dl.status
+        )
+      }
+    )
+  }
+}

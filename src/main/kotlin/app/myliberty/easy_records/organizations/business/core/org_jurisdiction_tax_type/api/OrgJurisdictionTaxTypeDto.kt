@@ -1,0 +1,15 @@
+package app.myliberty.easy_records.organizations.business.core.org_jurisdiction_tax_type.api
+
+import java.time.OffsetDateTime
+import java.util.UUID
+
+data class OrgJurisdictionTaxTypeDto(
+    val id: UUID,
+    val createdById: UUID,
+    val createdOn: OffsetDateTime,
+    val referenceNumber: String,
+    val jurisdictionTaxTypeId: UUID,
+    val status: OrgJurisdictionTaxTypeStatus = OrgJurisdictionTaxTypeStatus.ACTIVE,
+    val payableAccountCode: String,
+    val recoverableAccountCode: String? = null
+)

@@ -1,0 +1,26 @@
+package app.myliberty.easy_records.organizations.business.retail.stock_transfer.api
+
+import java.math.BigDecimal
+import java.time.OffsetDateTime
+import java.util.UUID
+
+data class StockTransferOrderDomainDto(
+    val id: UUID,
+    val referenceNumber: String,
+    val sourceLocationId: UUID,
+    val destinationLocationId: UUID,
+    val status: StockTransferStatus,
+    val notes: String?,
+    val lineCount: Int?,
+    val totalDispatchedCost: BigDecimal?,
+    val dispatchedAt: OffsetDateTime?,
+    val dispatchedByName: String?,
+    val createdById: UUID,
+    val createdOn: OffsetDateTime
+) {
+    fun requiredDispatchedAt(): OffsetDateTime =
+        requireNotNull(dispatchedAt) { "Stock transfer order $referenceNumber has no dispatch time" }
+
+    fun requiredTotalDispatchedCost(): BigDecimal =
+        requireNotNull(totalDispatchedCost) { "Stock transfer order $referenceNumber has no dispatched cost" }
+}

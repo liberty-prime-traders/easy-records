@@ -1,0 +1,13 @@
+package app.myliberty.easy_records.locations.business.retail.location_product.api
+
+import java.math.BigDecimal
+import java.util.UUID
+
+data class LocationProductForPurchaseDto(
+    val id: UUID,
+    val referenceNumber: String,
+    val productName: String,
+    val productGroupName: String,
+    val baseUnitId: UUID,
+    val lastPurchasePrice: BigDecimal,
+)

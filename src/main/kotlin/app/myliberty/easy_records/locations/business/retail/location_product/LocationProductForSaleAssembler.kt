@@ -1,0 +1,46 @@
+package app.myliberty.easy_records.locations.business.retail.location_product
+
+import app.myliberty.easy_records.locations.business.retail.location_product.api.LocationProductWithAvailability
+import app.myliberty.easy_records.locations.business.retail.stock.api.availability.StockAvailabilityFetcher
+import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.QuantityBreakdownFactory
+import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.UnitConversionGraphFacade
+import app.myliberty.easy_records.util.quantity.BaseUnitDisplay
+import app.myliberty.easy_records.util.quantity.ExactQuantity
+import org.springframework.stereotype.Component
+import java.math.RoundingMode
+
+@Component
+class LocationProductForSaleAssembler(
+    private val stockAvailabilityFetcher: StockAvailabilityFetcher,
+    private val quantityBreakdownFactory: QuantityBreakdownFactory,
+    private val unitConversionGraphFacade: UnitConversionGraphFacade,
+) {
+
+    fun assemble(sellableProducts: List<LocationProductDto>): List<LocationProductWithAvailability> {
+        val availabilityByLocationProductId = stockAvailabilityFetcher.fetch(sellableProducts.map { it.id })
+        val breakdownByBaseUnitId = quantityBreakdownFactory.forBaseUnits(sellableProducts.map { it.baseUnitId })
+        val unitConversionGraph = unitConversionGraphFacade.getOrLoad()
+        return sellableProducts.map { locationProductDto ->
+            val availability = availabilityByLocationProductId.getValue(locationProductDto.id)
+            val storageUnitsPerBaseUnit = unitConversionGraph.getSizeInRoot(locationProductDto.baseUnitId)
+            val quantityBreakdown = breakdownByBaseUnitId.getValue(locationProductDto.baseUnitId)
+            LocationProductWithAvailability(
+                id = locationProductDto.id,
+                referenceNumber = locationProductDto.referenceNumber,
+                productName = locationProductDto.productName,
+                productGroupName = locationProductDto.productGroupName,
+                quantityOnHand = BaseUnitDisplay.storageQuantityInBaseUnit(availability.quantityOnHand, storageUnitsPerBaseUnit, RoundingMode.DOWN),
+                quantityReserved = BaseUnitDisplay.storageQuantityInBaseUnit(availability.quantityReserved, storageUnitsPerBaseUnit, RoundingMode.UP),
+                quantityAvailable = BaseUnitDisplay.storageQuantityInBaseUnit(availability.quantityAvailable, storageUnitsPerBaseUnit, RoundingMode.DOWN),
+                defaultSalePrice = checkNotNull(locationProductDto.defaultSalePrice) {
+                    "Location product ${locationProductDto.id} reached the sale assembler without a default sale price"
+                },
+                storageQuantityOnHand = availability.quantityOnHand,
+                storageQuantityReserved = availability.quantityReserved,
+                storageQuantityAvailable = availability.quantityAvailable,
+                quantityOnHandBreakdown = quantityBreakdown.render(ExactQuantity.ofStorage(availability.quantityOnHand)),
+                quantityAvailableBreakdown = quantityBreakdown.render(ExactQuantity.ofStorage(availability.quantityAvailable)),
+            )
+        }
+    }
+}

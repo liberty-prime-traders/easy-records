@@ -1,0 +1,23 @@
+package app.myliberty.easy_records.organizations.business.retail.unitgroup.api
+
+import app.myliberty.easy_records.util.business.StringUtils
+import app.myliberty.easy_records.util.enums.HasCode
+
+enum class SystemUnitGroup(override val code: String, val groupName: String, val description: String) : HasCode {
+    MISC("MSC", "Miscellaneous", "General purpose units that do not fit other categories"),
+    WEIGHT("WGT", "Weight", "Units of mass or weight"),
+    VOLUME("VLM", "Volume", "Units of liquid or dry volume"),
+    COUNTABLE("CNT", "Count", "Units based on discrete countable items");
+
+    companion object {
+        // Weight, Volume and Count are seeded with a real root (Gram, Millilitre, Piece) and Miscellaneous with
+        // a standalone Piece (see SystemUnitValue / UnitValueSeeder). Auto-insert exists only to give a custom
+        // org group its root Piece, so every system group is excluded.
+        private val EXCLUDED_FROM_ROOT_AUTO_INSERT = setOf(MISC, WEIGHT, VOLUME, COUNTABLE)
+
+        fun isMiscellaneous(groupName: String?): Boolean = StringUtils.isEquivalent(MISC.groupName, groupName)
+
+        fun isExcludedFromRootAutoInsert(groupName: String?): Boolean =
+            EXCLUDED_FROM_ROOT_AUTO_INSERT.any { StringUtils.isEquivalent(it.groupName, groupName) }
+    }
+}
