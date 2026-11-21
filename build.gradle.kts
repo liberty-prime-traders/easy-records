@@ -18,6 +18,10 @@ jib {
 		image = "eclipse-temurin:25-jre"
 		platforms {
 			platform {
+				architecture = "amd64"
+				os = "linux"
+			}
+			platform {
 				architecture = "arm64"
 				os = "linux"
 			}

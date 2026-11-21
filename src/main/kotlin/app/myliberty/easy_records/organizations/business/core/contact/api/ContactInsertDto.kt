@@ -1,6 +1,7 @@
 package app.myliberty.easy_records.organizations.business.core.contact.api
 
 import app.myliberty.easy_records.util.business.Money
+import com.fasterxml.jackson.annotation.JsonIgnore
 import java.io.Serializable
 
 data class ContactInsertDto(
@@ -16,6 +17,8 @@ data class ContactInsertDto(
     val notes: String? = null,
     val status: ContactStatus = ContactStatus.ACTIVE
 ): Serializable {
+
+    @get:JsonIgnore
     val identity: ContactIdentity = when (IdentityType.forCompanyName(companyName)) {
         IdentityType.ORGANIZATION -> ContactIdentity.Organization(requireNotNull(companyName))
         IdentityType.INDIVIDUAL -> ContactIdentity.Individual(firstName.orEmpty(), lastName)

@@ -7,7 +7,7 @@ import io.restassured.response.Response
 import app.myliberty.easy_records.cucumber.support.ApiClient
 import app.myliberty.easy_records.cucumber.support.AuthenticatedRequestFactory
 import app.myliberty.easy_records.cucumber.support.context.ResponseContext
-import app.myliberty.easy_records.cucumber.support.database.LoanTestDatabase
+import app.myliberty.easy_records.temp.LoanTestDatabase
 import app.myliberty.easy_records.organizations.business.core.contact.api.ContactInsertDto
 import app.myliberty.easy_records.organizations.business.core.contact.api.ContactType
 import app.myliberty.easy_records.organizations.business.core.contact.api.IdentityType
@@ -56,7 +56,6 @@ class LoanSteps(
     nonLenderReference = createContact(ContactType.CUSTOMER, "Plain Customer")
   }
 
-  @Given("I record a loan of {string} from the lender into cash dated today")
   @When("I record a loan of {string} from the lender into cash dated today")
   fun recordLoanToday(amount: String) = recordLoan(lenderReference, cashCode, amount, today())
 
@@ -72,20 +71,17 @@ class LoanSteps(
   @When("I record a loan of {string} from an unknown lender into cash dated today")
   fun recordLoanFromUnknownLender(amount: String) = recordLoan("CT999999", cashCode, amount, today())
 
-  @Given("I repay {string} of the loan from cash")
   @When("I repay {string} of the loan from cash")
   fun repayToday(amount: String) = repay(amount, today())
 
   @When("I repay {string} of the loan from cash dated {string}")
   fun repayOnDate(amount: String, repaymentDate: String) = repay(amount, LocalDate.parse(repaymentDate))
 
-  @Given("I void the loan")
   @When("I void the loan")
   fun voidLoan() {
     remember(apiClient.post("/secured/loans/void", mapOf("loanId" to loanId, "reason" to "test")))
   }
 
-  @Given("I void the latest repayment of the loan")
   @When("I void the latest repayment of the loan")
   fun voidLatestRepayment() {
     remember(apiClient.post("/secured/loans/repayments/void", mapOf("repaymentId" to repaymentIds.last(), "reason" to "test")))
@@ -250,7 +246,7 @@ class LoanSteps(
     val loanJson = response.jsonPath()
     loanId = loanJson.getString("id")
     loanReference = loanJson.getString("referenceNumber")
-    repaymentIds = loanJson.getList<String>("repayments.findAll { it.void == null }.id")
+    repaymentIds = loanJson.getList("repayments.findAll { it.void == null }.id")
   }
 
   private fun search(parameters: Map<String, Any>) {
