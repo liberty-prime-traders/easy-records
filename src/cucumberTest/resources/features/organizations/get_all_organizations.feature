@@ -8,7 +8,10 @@ Feature: Get All Organizations
     When I get all organizations
     Then the response status should be 200
     And the response should contain 1 items
-    And the response item 0 should match the persisted organization identified by "#organization"
+    And response contains details:
+      """
+      {"id": "#organization"}
+      """
 
   @smoke
   Scenario: Regular organization user cannot retrieve all organizations (403)

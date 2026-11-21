@@ -36,6 +36,7 @@ class TestDatabaseCleaner(
 
       TableNames.DB_VERSION,
       TableNames.SYS_USER,
+      TableNames.PLATFORM_ROLE_ASSIGNMENT,
       TableNames.RESERVED_SUBDOMAIN,
       TableNames.TABLE_REGISTRY,
       TableNames.ORGANIZATION,

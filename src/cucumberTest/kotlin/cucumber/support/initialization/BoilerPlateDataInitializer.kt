@@ -1,6 +1,7 @@
 package app.myliberty.easy_records.cucumber.support.initialization
 
 import app.myliberty.easy_records.configuration.datasource.DataSourceBeanNames
+import app.myliberty.easy_records.configuration.session.ServiceAccountContext
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
 import app.myliberty.easy_records.cucumber.support.ApiClient
 import app.myliberty.easy_records.cucumber.support.TestUserRegistry
@@ -15,9 +16,12 @@ import app.myliberty.easy_records.platform.business.authorization_pass.api.Autho
 import app.myliberty.easy_records.platform.business.authorization_pass.api.PassType
 import app.myliberty.easy_records.platform.business.organization.OrganizationCache
 import app.myliberty.easy_records.platform.business.organization.api.OrganizationInsertDto
+import app.myliberty.easy_records.platform.business.role_assignment.api.PlatformRoleAssignmentService
 import app.myliberty.easy_records.platform.business.sysuser.api.SysUserService
 import app.myliberty.easy_records.platform.business.table_registry.TableRegistryCache
 import app.myliberty.easy_records.support.TestConstants
+import app.myliberty.easy_records.util.enums.EsrRole
+import app.myliberty.easy_records.util.enums.ServiceAccount
 import app.myliberty.easy_records.util.model.ReferenceNumberEntityListener
 import org.springframework.boot.context.event.ApplicationReadyEvent
 import org.springframework.context.annotation.DependsOn
@@ -37,11 +41,14 @@ class BoilerPlateDataInitializer(
   private val organizationCache: OrganizationCache,
   private val locationCache: LocationCache,
   private val tableRegistryCache: TableRegistryCache,
-  private val sysUserService: SysUserService
+  private val sysUserService: SysUserService,
+  private val platformRoleAssignmentService: PlatformRoleAssignmentService
 ) {
 
   companion object {
     const val SUBDOMAIN = "test"
+    private const val PLATFORM_ADMIN_EMAIL = "platform-admin@test.local"
+    private const val ORGANIZATION_USER_EMAIL = "org-user@test.local"
   }
 
   @EventListener(ApplicationReadyEvent::class)
@@ -51,13 +58,15 @@ class BoilerPlateDataInitializer(
       validateAllTables()
       authContext.authToken = TestConstants.Tokens.PLATFORM_ADMIN
       val platformUserId = createPlatformUser()
+      grantPlatformAdminRole(platformUserId)
       val passRecordId = issuePass(platformUserId)
       reserveSubdomain()
       createOrganization(passRecordId)
       createLocation()
       createOrgUser()
-
     } else {
+      registerExistingUsers()
+      TestUserRegistry.platformAdminUserId?.let { grantPlatformAdminRole(it) }
       existingOrganization.find { it.subdomain == SUBDOMAIN }?.let { organization ->
         injectContext.persist(PersistentKey.ORGANIZATION, organization.id)
         SessionContextProvider.initOrganization(organization)
@@ -70,8 +79,8 @@ class BoilerPlateDataInitializer(
   }
 
   private fun createPlatformUser(): UUID {
-    val platformUserId = sysUserService.createUser(
-      email = "platform-admin@test.local",
+    val platformUserId = findOrCreateUser(
+      email = PLATFORM_ADMIN_EMAIL,
       localFirstName = "Fake",
       localLastName = "Platform Admin"
     )
@@ -80,12 +89,30 @@ class BoilerPlateDataInitializer(
   }
 
   private fun createOrgUser() {
-    val orgUserId = sysUserService.createUser(
-      email = "org-user@test.local",
+    TestUserRegistry.organizationUserId = findOrCreateUser(
+      email = ORGANIZATION_USER_EMAIL,
       localFirstName = "Fake",
       localLastName = "Organization User"
     )
-    TestUserRegistry.organizationUserId = orgUserId
+  }
+
+  // TenantFilter replaces the request's authorities with the roles stored for the user, so the role must exist in the
+  // database. assignAll skips a user who already holds it.
+  private fun grantPlatformAdminRole(platformUserId: UUID) {
+    ServiceAccountContext.runWithServiceAccount<Unit>(ServiceAccount.RECORD_INITIALIZER) {
+      platformRoleAssignmentService.assignAll(listOf(platformUserId), EsrRole.PLATFORM_ADMIN, platformUserId)
+    }
+  }
+
+  private fun registerExistingUsers() {
+    TestUserRegistry.platformAdminUserId = sysUserService.findByEmail(PLATFORM_ADMIN_EMAIL)?.id
+    TestUserRegistry.organizationUserId = sysUserService.findByEmail(ORGANIZATION_USER_EMAIL)?.id
+  }
+
+  private fun findOrCreateUser(email: String, localFirstName: String, localLastName: String): UUID {
+    val existingUser = sysUserService.findByEmail(email)
+    if (existingUser != null) return existingUser.id
+    return sysUserService.createUser(email = email, localFirstName = localFirstName, localLastName = localLastName)
   }
 
   private fun reserveSubdomain() {

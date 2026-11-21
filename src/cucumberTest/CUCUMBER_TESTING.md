@@ -60,7 +60,7 @@ Given I am authenticated as an organization user    # org-level access, no platf
 Given I am not authenticated                        # clears token, expects 403 on secured endpoints
 ```
 
-No real Okta involved — `TestAuthenticationFilter` maps tokens to principals and roles directly.
+No real Okta involved — `TestAuthenticationFilter` maps tokens to the seeded users only. Roles come from the database: `BoilerPlateDataInitializer` assigns `PLATFORM_ADMIN` to the platform admin user, and `TenantFilter` loads them per request.
 
 ---
 
