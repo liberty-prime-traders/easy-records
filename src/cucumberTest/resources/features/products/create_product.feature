@@ -4,8 +4,7 @@ Feature: Create Product
   So that it can be used in inventory flows
 
   Background:
-    Given I am authenticated as an organization user
-    And a category exists
+    Given a category exists
     And a product group exists
     And a unit group exists
     And a unit exists

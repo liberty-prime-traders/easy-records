@@ -15,6 +15,7 @@ import app.myliberty.easy_records.organizations.business.core.fund_movement.api.
 import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerPostingRequest
 import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerPostingService
 import app.myliberty.easy_records.organizations.business.core.lock.api.OrgEntityAdvisoryLock
+import app.myliberty.easy_records.support.anyNonNull
 import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.business.Decimals
 import app.myliberty.easy_records.util.business.PositiveMoney
@@ -230,11 +231,6 @@ class FundMovementServiceTest {
         assertTrue(postedRequests.isEmpty())
     }
 
-    @Suppress("UNCHECKED_CAST")
-    private fun <T> anyNonNull(type: Class<T>): T {
-        any(type)
-        return null as T
-    }
 
     private fun savedEntity(): FundMovementEntity {
         val captor = ArgumentCaptor.forClass(FundMovementEntity::class.java)

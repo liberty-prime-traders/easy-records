@@ -50,8 +50,9 @@ touched. Fix the type or the call, never suppress the warning.
 ## Mocks and matchers
 
 - Mock collaborators with `mock(X::class.java)`. Never mock the class under test or a plain data class; build a real one.
-- Mockito matchers return null, which Kotlin rejects for non-null parameters, so use `anyNonNull` and `eqNonNull`. Use the
-  ones in the domain's `*TestSupport` when it has them; otherwise a private helper in the file is the norm.
+- Mockito matchers return null, which Kotlin rejects for non-null parameters. Import `anyNonNull` (typed or no-argument)
+  from `app.myliberty.easy_records.support` (`MockitoMatchers.kt`). Never paste a private copy into a test class. A
+  non-generic cast helper throws an NPE and leaves Mockito in a misused-matcher state that fails the next test.
 
 ## Test data
 

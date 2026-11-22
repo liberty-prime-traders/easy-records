@@ -5,6 +5,7 @@ Feature: Get All Organizations
 
   @smoke
   Scenario: Platform administrator can retrieve all organizations
+    Given I am authenticated as a platform admin
     When I get all organizations
     Then the response status should be 200
     And the response should contain 1 items
@@ -15,7 +16,6 @@ Feature: Get All Organizations
 
   @smoke
   Scenario: Regular organization user cannot retrieve all organizations (403)
-    Given I am authenticated as an organization user
     When I get all organizations
     Then the response status should be 403
 

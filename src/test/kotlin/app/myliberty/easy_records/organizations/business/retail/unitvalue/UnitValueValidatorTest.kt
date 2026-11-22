@@ -139,6 +139,66 @@ class UnitValueValidatorTest {
         validator.validateRootUnitCode("egg-root")
     }
 
+    @Test
+    fun `an insert missing its name, code or unit group is rejected`() {
+        assertRejected { validator.validateUnitValueInsert(UnitValueInsertDto(code = "lb", unitGroupId = weightGroupId, baseUnit = gram.id, unitsOfBasePerUnit = 454L)) }
+        assertRejected { validator.validateUnitValueInsert(insert("   ", "lb", weightGroupId, baseUnit = gram.id, unitsOfBasePerUnit = 454L)) }
+        assertRejected { validator.validateUnitValueInsert(UnitValueInsertDto(name = "Pound", unitGroupId = weightGroupId, baseUnit = gram.id, unitsOfBasePerUnit = 454L)) }
+        assertRejected { validator.validateUnitValueInsert(UnitValueInsertDto(name = "Pound", code = "lb", baseUnit = gram.id, unitsOfBasePerUnit = 454L)) }
+    }
+
+    @Test
+    fun `an insert into a unit group that does not exist is rejected`() {
+        assertRejected { validator.validateUnitValueInsert(insert("Pound", "lb", UUID.randomUUID(), baseUnit = gram.id, unitsOfBasePerUnit = 454L)) }
+    }
+
+    @Test
+    fun `an insert reusing the code of a unit in another group is rejected`() {
+        assertRejected { validator.validateUnitValueInsert(insert("Pound", "ml", weightGroupId, baseUnit = gram.id, unitsOfBasePerUnit = 454L)) }
+    }
+
+    @Test
+    fun `an insert whose units of base per unit is below one is rejected`() {
+        assertRejected { validator.validateUnitValueInsert(insert("Pound", "lb", weightGroupId, baseUnit = gram.id, unitsOfBasePerUnit = 0L)) }
+        assertRejected { validator.validateUnitValueInsert(insert("Pound", "lb", weightGroupId, baseUnit = gram.id, unitsOfBasePerUnit = -5L)) }
+    }
+
+    @Test
+    fun `an update that sets only one half of the base unit pair is rejected`() {
+        assertRejected {
+            validator.validateUnitValueUpdate(
+                UnitValueUpdateDto(id = kilogram.id, name = Optional.of("Kilogram"), code = Optional.of("kg"), baseUnit = Optional.of(gram.id))
+            )
+        }
+        assertRejected {
+            validator.validateUnitValueUpdate(
+                UnitValueUpdateDto(id = kilogram.id, name = Optional.of("Kilogram"), code = Optional.of("kg"), unitsOfBasePerUnit = Optional.of(500L))
+            )
+        }
+    }
+
+    @Test
+    fun `an update cannot move a unit onto a base unit from another group`() {
+        assertRejected { validator.validateUnitValueUpdate(update(kilogram, baseUnit = millilitre.id, unitsOfBasePerUnit = 2L)) }
+    }
+
+    @Test
+    fun `an update cannot take another unit's name or code`() {
+        assertRejected {
+            validator.validateUnitValueUpdate(UnitValueUpdateDto(id = kilogram.id, name = Optional.of("gram"), code = Optional.of("kg")))
+        }
+        assertRejected {
+            validator.validateUnitValueUpdate(UnitValueUpdateDto(id = kilogram.id, name = Optional.of("Kilogram"), code = Optional.of("g")))
+        }
+    }
+
+    @Test
+    fun `an update naming a unit that does not exist is rejected`() {
+        assertRejected {
+            validator.validateUnitValueUpdate(UnitValueUpdateDto(id = UUID.randomUUID(), name = Optional.of("Pound"), code = Optional.of("lb")))
+        }
+    }
+
     private fun assertRejected(action: () -> Unit) {
         assertThrows(LibertyGenericException::class.java, action)
     }

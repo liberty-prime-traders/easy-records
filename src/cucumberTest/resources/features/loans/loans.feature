@@ -5,8 +5,7 @@ Feature: Loans
   So that loans payable always equals what the business still owes
 
   Background:
-    Given I am authenticated as an organization user
-    And the chart of accounts is active with open fiscal periods
+    Given the chart of accounts is active with open fiscal periods
     And a lender exists
 
   Scenario: Recording a loan raises loans payable and the lender's payable balance

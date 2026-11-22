@@ -17,6 +17,7 @@ import app.myliberty.easy_records.locations.business.retail.supplier_payment.api
 import app.myliberty.easy_records.locations.business.retail.supplier_payment.api.SupplierPaymentService
 import app.myliberty.easy_records.organizations.business.core.fiscal_period.api.FiscalPeriodService
 import app.myliberty.easy_records.organizations.business.core.payment_method.api.PaymentMethodDataFetcher
+import app.myliberty.easy_records.support.anyNonNull
 import app.myliberty.easy_records.util.business.PositiveMoney
 import app.myliberty.easy_records.util.enums.PaymentStatus
 import app.myliberty.easy_records.util.exceptions.LibertyGenericException
@@ -25,7 +26,6 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import org.mockito.ArgumentMatchers
 import org.mockito.Mockito.doAnswer
 import org.mockito.Mockito.inOrder
 import org.mockito.Mockito.mock
@@ -73,11 +73,6 @@ class SupplierPaymentBatchRecordingTest {
         mock(FiscalPeriodService::class.java)
     )
 
-    @Suppress("UNCHECKED_CAST")
-    private fun <T> anyNonNull(): T {
-        ArgumentMatchers.any<T>()
-        return null as T
-    }
 
     @BeforeEach
     fun setUp() {

@@ -70,7 +70,7 @@ class UnitGroupService(
         val existing = unitGroupCache.getAllUnitGroups().find { it.id == unitGroupUpdateDto.id }
             ?: throw UpdatingNonExistingRecordException()
         if (existing.systemDefined) throw LibertyGenericException("System-defined unit groups cannot be modified")
-        validateNameOnSave(unitGroupUpdateDto.name, unitGroupUpdateDto.id)
+        unitGroupUpdateDto.name?.let { validateNameOnSave(it, unitGroupUpdateDto.id) }
         val updated = unitGroupUpdateDto.applyTo(existing)
         val saved = unitGroupCache.save(updated)
         return unitGroupMapper.toResponseDto(saved)

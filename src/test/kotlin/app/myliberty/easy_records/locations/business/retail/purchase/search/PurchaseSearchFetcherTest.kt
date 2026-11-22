@@ -1,6 +1,7 @@
 package app.myliberty.easy_records.locations.business.retail.purchase.search
 
 import app.myliberty.easy_records.locations.business.retail.purchase.api.search.PurchaseSearchParameters
+import app.myliberty.easy_records.support.anyNonNull
 import app.myliberty.easy_records.util.queries.SqlQuery
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -18,11 +19,6 @@ class PurchaseSearchFetcherTest {
   private val executedQueries = mutableListOf<SqlQuery>()
   private val executedPageSizes = mutableListOf<Int>()
 
-  @Suppress("UNCHECKED_CAST")
-  private fun <T> anyNonNull(): T {
-    ArgumentMatchers.any<T>()
-    return null as T
-  }
 
   private fun givenEmptyResults() {
     doAnswer { invocation ->

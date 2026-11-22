@@ -1,6 +1,7 @@
 package app.myliberty.easy_records.organizations.business.retail.unitvalue.api
 
 import app.myliberty.easy_records.organizations.business.retail.unitvalue.UnitValueDto
+import app.myliberty.easy_records.util.business.StringUtils
 import java.io.Serializable
 import java.util.Optional
 import java.util.UUID
@@ -17,7 +18,7 @@ data class UnitValueUpdateDto(
     fun applyTo(existing: UnitValueDto): UnitValueDto = existing.copy(
         name = name?.orElse(existing.name) ?: existing.name,
         code = code?.orElse(existing.code) ?: existing.code,
-        description = description?.orElse(existing.description) ?: existing.description,
+        description = StringUtils.useIfProvided(description, existing.description),
         baseUnit = baseUnit?.orElse(existing.baseUnit) ?: existing.baseUnit,
         unitsOfBasePerUnit = unitsOfBasePerUnit?.orElse(existing.unitsOfBasePerUnit) ?: existing.unitsOfBasePerUnit
     )

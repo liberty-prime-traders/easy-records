@@ -3,18 +3,11 @@ package app.myliberty.easy_records.organizations.business.core.loan
 import app.myliberty.easy_records.organizations.business.core.contact.api.ContactDto
 import app.myliberty.easy_records.organizations.business.core.contact.api.ContactType
 import app.myliberty.easy_records.util.model.HasReferenceEntity
-import org.mockito.ArgumentMatchers.any
 import java.time.OffsetDateTime
 import java.util.UUID
 
 object LoanTestSupport {
 
-    // Mockito's any() returns null, which Kotlin rejects for non-null parameters.
-    @Suppress("UNCHECKED_CAST")
-    fun <T> anyNonNull(type: Class<T>): T {
-        any(type)
-        return null as T
-    }
 
     fun stamp(entity: HasReferenceEntity, reference: String) {
         entity.id = UUID.randomUUID()
