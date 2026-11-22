@@ -20,3 +20,27 @@ databaseChangeLog:
         - dropIndex:
             tableName: stock_adjustment
             indexName: idx_stock_adjustment_location_product_id
+
+  - changeSet:
+      id: create-index-stock-adjustment-created-on-id
+      author: ezra
+      labels: 2.0.0
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            - indexExists:
+                tableName: stock_adjustment
+                indexName: idx_stock_adjustment_created_on_id
+      changes:
+        - createIndex:
+            tableName: stock_adjustment
+            indexName: idx_stock_adjustment_created_on_id
+            columns:
+              - column:
+                  name: created_on
+              - column:
+                  name: id
+      rollback:
+        - dropIndex:
+            tableName: stock_adjustment
+            indexName: idx_stock_adjustment_created_on_id

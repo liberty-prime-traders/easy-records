@@ -75,6 +75,7 @@ class OrgJurisdictionTaxTypeService(
             referenceNumber = dto.referenceNumber,
             createdOn = dto.createdOn,
             status = dto.status,
+            jurisdictionTaxTypeId = dto.jurisdictionTaxTypeId,
             platformTaxId = platformTaxType.id,
             taxLabel = platformTaxType.label,
             taxRecoveryType = platformTaxType.taxRecoveryType,

@@ -9,6 +9,7 @@ data class OrgJurisdictionTaxTypeResponseDto(
     val id: UUID,
     val referenceNumber: String,
     val createdOn: OffsetDateTime?,
+    val jurisdictionTaxTypeId: UUID,
     val platformTaxId: UUID,
     val taxLabel: String,
     val taxRecoveryType: TaxRecoveryType,

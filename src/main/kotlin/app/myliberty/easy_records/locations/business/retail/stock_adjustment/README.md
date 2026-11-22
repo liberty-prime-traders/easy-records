@@ -87,7 +87,26 @@ category and direction. `StockAdjustmentAccountingProcessor` posts them under `L
 idempotent on the adjustment's reference number. A zero-cost adjustment publishes nothing. `totalCost` travels as
 `Money`, so a total above the ceiling fails at publish, inside the adjustment's transaction.
 
+## Search (`StockAdjustmentSearchService`)
+
+`POST secured/stock-adjustments/search` takes a `PageRequest<StockAdjustmentSearchParameters, String>` and returns a
+`PageResponse<StockAdjustmentResponseDto, String>`, newest first, keyset-paged on `(created_on, id)`; page size 1..200.
+Same shape as the purchase search (`search/` holds the query builder, fetcher, validator and list executor).
+`idx_stock_adjustment_created_on_id` backs the date filter and the keyset order.
+
+Parameters, all combined with AND; an empty list adds no filter:
+
+- `adjustedFrom` (required): `created_on >=`.
+- `adjustedBefore` (required): `created_on <`. The pair may span at most one year (`SearchGuards.guardBoundedRange`).
+- `locationProductIds`: at most 100.
+- `categories`: `StockAdjustmentCategory` values.
+- `adjustedByIds`: matched on `created_by_id`, at most 100.
+
+`StockAdjustmentDataFetcher` (`api/`) owns reads: the paged `search` and the response row (`buildResponse`, also used by
+`adjust`), so the active cost, product label and adjusted-by name come from one place. `StockAdjustmentSearchService`
+only validates the parameters and page size; the fetcher decodes the cursor and holds the read-only transaction.
+
 ## REST surface
 
-`StockAdjustmentEndpoint` (`secured/stock-adjustments`): `POST` → `adjust`, `GET` → `getAll`, `GET categories` →
-`getCategoryDescriptors`. All are thin delegators.
+`StockAdjustmentEndpoint` (`secured/stock-adjustments`): `POST` → `adjust`, `POST search` → `search`,
+`GET categories` → `getCategoryDescriptors`. All are thin delegators.
