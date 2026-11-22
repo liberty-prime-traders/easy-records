@@ -4,6 +4,7 @@ import app.myliberty.easy_records.locations.business.retail.purchase.api.Purchas
 import app.myliberty.easy_records.locations.business.retail.purchase.api.bulk_payment.PurchaseBulkPaymentSearchDto
 import app.myliberty.easy_records.locations.business.retail.purchase.api.search.PurchaseSearchParameters
 import app.myliberty.easy_records.locations.business.retail.purchase.search.PurchaseSearchFetcher
+import app.myliberty.easy_records.support.anyNonNull
 import app.myliberty.easy_records.util.enums.PaymentStatus
 import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.queries.KeysetSearchCursor
@@ -30,11 +31,6 @@ class PayablePurchaseFinderTest {
   private val supplierId = UUID.randomUUID()
   private val january = OffsetDateTime.of(2026, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC)
 
-  @Suppress("UNCHECKED_CAST")
-  private fun <T> anyNonNull(): T {
-    ArgumentMatchers.any<T>()
-    return null as T
-  }
 
   private fun noCursor(): KeysetSearchCursor? = ArgumentMatchers.isNull<KeysetSearchCursor>()
 

@@ -17,11 +17,11 @@ import app.myliberty.easy_records.locations.business.retail.sale_session.api.Sal
 import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionLine
 import app.myliberty.easy_records.locations.business.retail.sale_session.api.SaleSessionKind
 import app.myliberty.easy_records.locations.business.retail.sale_session.api.SessionIdentity
+import app.myliberty.easy_records.support.anyNonNull
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertSame
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.verifyNoInteractions
 import org.mockito.Mockito.`when`
@@ -125,10 +125,4 @@ class PendingConsolidationPromoterTest {
         assertSame(ordinarySession, pendingConsolidationPromoter.promote(ordinarySession))
     }
 
-    // Mockito's any() returns null, which Kotlin rejects for a non-null parameter.
-    private fun <T> anyNonNull(type: Class<T>): T {
-        any(type)
-        @Suppress("UNCHECKED_CAST")
-        return null as T
-    }
 }

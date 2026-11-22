@@ -8,6 +8,10 @@ class AuthContext {
   var authToken: String? = null
 
   fun initialize() {
+    authToken = TestConstants.Tokens.ORG_USER
+  }
+
+  fun authenticateAsPlatformAdmin() {
     authToken = TestConstants.Tokens.PLATFORM_ADMIN
   }
 }

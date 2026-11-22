@@ -5,8 +5,7 @@ Feature: Contact opening balance
   So that the contact list reports the latest revision per subledger direction
 
   Background:
-    Given I am authenticated as an organization user
-    And a contact exists
+    Given a contact exists
 
   Scenario: The listed opening balance follows the latest revision of each direction
     When I set the contact's opening balances to payable "40.00" and receivable "100.00"

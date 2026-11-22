@@ -12,6 +12,7 @@ import app.myliberty.easy_records.locations.business.retail.supplier_payment.api
 import app.myliberty.easy_records.locations.business.retail.supplier_payment.api.SupplierPaymentDataFetcher
 import app.myliberty.easy_records.locations.business.retail.supplier_payment.api.SupplierPaymentResponseDto
 import app.myliberty.easy_records.locations.business.retail.supplier_payment.api.SupplierPaymentService
+import app.myliberty.easy_records.support.anyNonNull
 import app.myliberty.easy_records.util.business.PositiveMoney
 import app.myliberty.easy_records.util.enums.PaymentStatus
 import app.myliberty.easy_records.util.exceptions.LibertyGenericException
@@ -19,7 +20,6 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import org.mockito.ArgumentMatchers
 import org.mockito.Mockito.doAnswer
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.inOrder
@@ -57,11 +57,6 @@ class PurchaseBulkPaymentServiceTest {
     purchasePaymentCeilingService
   )
 
-  @Suppress("UNCHECKED_CAST")
-  private fun <T> anyNonNull(): T {
-    ArgumentMatchers.any<T>()
-    return null as T
-  }
 
   private fun stubPurchase(
     dateOrdered: OffsetDateTime,

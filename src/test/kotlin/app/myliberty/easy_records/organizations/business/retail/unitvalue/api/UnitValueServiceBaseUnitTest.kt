@@ -7,12 +7,12 @@ import app.myliberty.easy_records.organizations.business.retail.unitvalue.UnitVa
 import app.myliberty.easy_records.organizations.business.retail.unitvalue.UnitValueEntity
 import app.myliberty.easy_records.organizations.business.retail.unitvalue.UnitValueMapper
 import app.myliberty.easy_records.organizations.business.retail.unitvalue.UnitValueValidator
+import app.myliberty.easy_records.support.anyNonNull
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
-import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.`when`
 import java.util.UUID
@@ -86,9 +86,4 @@ class UnitValueServiceBaseUnitTest {
         return savedEntity!!
     }
 
-    @Suppress("UNCHECKED_CAST")
-    private fun <T> anyNonNull(type: Class<T>): T {
-        any(type)
-        return null as T
-    }
 }

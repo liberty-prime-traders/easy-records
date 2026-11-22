@@ -5,6 +5,7 @@ import app.myliberty.easy_records.organizations.business.core.account.api.System
 import app.myliberty.easy_records.organizations.business.core.contact.api.ContactDto
 import app.myliberty.easy_records.organizations.business.core.contact.api.ContactType
 import app.myliberty.easy_records.organizations.business.core.loan.api.LoanStatus
+import app.myliberty.easy_records.support.anyNonNull
 import app.myliberty.easy_records.util.business.mappers.StringQualifier
 import app.myliberty.easy_records.util.business.mappers.UserQualifier
 import app.myliberty.easy_records.util.model.HasReferenceEntity
@@ -188,11 +189,6 @@ class LoanResponseBuilderTest {
         entity.createdOn = OffsetDateTime.now()
     }
 
-    @Suppress("UNCHECKED_CAST")
-    private fun <T> anyNonNull(type: Class<T>): T {
-        any(type)
-        return null as T
-    }
 
     private fun anyNonNullCollection(): Collection<UUID> {
         any(Collection::class.java)

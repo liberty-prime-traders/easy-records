@@ -1,5 +1,6 @@
 package app.myliberty.easy_records.locations.business.retail.sale_session.consolidation
 
+import app.myliberty.easy_records.support.anyNonNull
 import java.math.BigDecimal
 import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionBuilder
 import app.myliberty.easy_records.locations.business.retail.sale_session.SaleSessionCopier
@@ -34,7 +35,6 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.mockito.ArgumentMatchers.any
 import org.mockito.ArgumentMatchers.eq
 import org.mockito.ArgumentMatchers.isNull
 import org.mockito.Mockito.inOrder
@@ -217,12 +217,6 @@ class SaleConsolidationStarterTest {
         contactId = contactId, soldById = null, dateSold = null, notes = null,
     )
 
-    // Mockito's any() returns null, which Kotlin rejects for non-null parameters.
-    @Suppress("UNCHECKED_CAST")
-    private fun <T> anyNonNull(type: Class<T>): T {
-        any(type)
-        return null as T
-    }
 
     private fun <T> eqNonNull(value: T): T {
         eq(value)
