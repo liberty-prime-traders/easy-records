@@ -16,7 +16,9 @@ import app.myliberty.easy_records.locations.business.retail.stock.api.updater.St
 import app.myliberty.easy_records.locations.business.retail.stock.api.updater.StockAdjustmentStockUpdater
 import app.myliberty.easy_records.locations.business.retail.stock_adjustment.api.StockAdjustmentCostStatus
 import app.myliberty.easy_records.locations.business.retail.stock_adjustment.api.StockAdjustmentCreateDto
+import app.myliberty.easy_records.locations.business.retail.stock_adjustment.api.StockAdjustmentDataFetcher
 import app.myliberty.easy_records.locations.business.retail.stock_adjustment.api.StockAdjustmentDirection
+import app.myliberty.easy_records.locations.business.retail.stock_adjustment.search.StockAdjustmentSearchFetcher
 import app.myliberty.easy_records.locations.business.retail.stock_adjustment.api.StockAdjustmentService
 import app.myliberty.easy_records.organizations.business.core.fiscal_period.api.FiscalPeriodService
 import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.MovementType
@@ -105,7 +107,12 @@ class StockAdjustmentServiceTest {
         mock(FiscalPeriodService::class.java),
         mock(EntityAdvisoryLock::class.java),
         referenceNumberGenerator,
-        userQualifier
+        StockAdjustmentDataFetcher(
+            stockAdjustmentCostRepository,
+            mock(StockAdjustmentSearchFetcher::class.java),
+            locationProductDataFetcher,
+            userQualifier
+        )
     )
 
     @BeforeEach

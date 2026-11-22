@@ -24,7 +24,6 @@ import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.business.Decimals
 import app.myliberty.easy_records.util.business.StringUtils
 import app.myliberty.easy_records.util.business.lock.LockNamespaces
-import app.myliberty.easy_records.util.business.mappers.UserQualifier
 import app.myliberty.easy_records.util.business.reference_number.ReferenceNumberGenerator
 import app.myliberty.easy_records.util.model.TableName
 import app.myliberty.easy_records.util.quantity.ExactQuantity
@@ -45,7 +44,7 @@ class StockAdjustmentService(
     private val fiscalPeriodService: FiscalPeriodService,
     private val entityAdvisoryLock: EntityAdvisoryLock,
     private val referenceNumberGenerator: ReferenceNumberGenerator,
-    private val userQualifier: UserQualifier
+    private val stockAdjustmentDataFetcher: StockAdjustmentDataFetcher
 ) {
 
     fun adjust(stockAdjustmentCreateDto: StockAdjustmentCreateDto): StockAdjustmentResponseDto {
@@ -109,25 +108,7 @@ class StockAdjustmentService(
             StockAdjustmentCostEntity(stockAdjustmentId = savedStockAdjustment.id!!, totalCost = totalCost)
         )
         stockAdjustmentHandlerForKafka.publish(savedStockAdjustment)
-        return toResponseDto(savedStockAdjustment, productLabel, totalCost)
-    }
-
-    @TransactionalOnLocationSchema(readOnly = true)
-    fun getAll(): List<StockAdjustmentResponseDto> {
-        val stockAdjustments = stockAdjustmentRepository.findAll()
-        val activeTotalCostByStockAdjustmentId = stockAdjustmentCostRepository
-            .findByStockAdjustmentIdInAndStatus(stockAdjustments.map { it.id!! }, StockAdjustmentCostStatus.ACTIVE)
-            .associate { it.stockAdjustmentId to it.totalCost }
-        val labelsByLocationProductId = locationProductDataFetcher
-            .findSummaryByIds(stockAdjustments.map { stockAdjustment -> stockAdjustment.locationProductId }.toSet())
-            .mapValues { locationProductSummary -> locationProductSummary.value.printLabel }
-        return stockAdjustments.map { stockAdjustment ->
-            toResponseDto(
-                stockAdjustment,
-                labelsByLocationProductId[stockAdjustment.locationProductId] ?: stockAdjustment.locationProductId.toString(),
-                activeTotalCostByStockAdjustmentId.getValue(stockAdjustment.id!!)
-            )
-        }
+        return stockAdjustmentDataFetcher.buildResponse(savedStockAdjustment, productLabel, totalCost)
     }
 
     @TransactionalOnLocationSchema(readOnly = true)
@@ -174,24 +155,4 @@ class StockAdjustmentService(
         )
         return totalCost
     }
-
-    private fun toResponseDto(
-        stockAdjustmentEntity: StockAdjustmentEntity,
-        productLabel: String,
-        activeTotalCost: BigDecimal
-    ) = StockAdjustmentResponseDto(
-        referenceNumber = stockAdjustmentEntity.requiredReference(),
-        locationProductId = stockAdjustmentEntity.locationProductId,
-        productLabel = productLabel,
-        category = stockAdjustmentEntity.category,
-        direction = stockAdjustmentEntity.direction,
-        userProvidedQuantity = stockAdjustmentEntity.userProvidedQuantity,
-        unitId = stockAdjustmentEntity.unitId,
-        quantityText = stockAdjustmentEntity.quantityText,
-        totalCost = activeTotalCost,
-        stockMovementReasonId = stockAdjustmentEntity.stockMovementReasonId,
-        note = stockAdjustmentEntity.note,
-        adjustedBy = userQualifier.getCreatorFullName(stockAdjustmentEntity.requiredCreatedById()),
-        adjustedAt = stockAdjustmentEntity.requiredCreatedOn()
-    )
 }

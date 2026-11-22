@@ -10,14 +10,14 @@ object SaleLineRanker {
 
     fun alphabetical(saleLines: List<SaleSessionLine>): List<SaleSessionLine> =
         saleLines
-            .sortedWith(compareBy(productLabelOrder) { it.productLabel })
+            .sortedWith(compareBy(productLabelOrder) { it.productPrintLabel })
             .mapIndexed { lineIndex, saleLine -> saleLine.copy(rank = BigDecimal(lineIndex + 1)) }
 
     // Hundredths leave room for 99 lines of one product before they would spill into the next rank.
     fun alphabeticalWithLikeProductsTogether(saleLines: List<SaleSessionLine>): List<SaleSessionLine> {
         val saleLinesPerProduct = saleLines
             .groupBy { it.locationProductId }.values
-            .sortedWith(compareBy(productLabelOrder) { productLines -> productLines.first().productLabel })
+            .sortedWith(compareBy(productLabelOrder) { productLines -> productLines.first().productPrintLabel })
         return saleLinesPerProduct.flatMapIndexed { productIndex, productLines ->
             productLines.mapIndexed { lineIndex, saleLine ->
                 saleLine.copy(
