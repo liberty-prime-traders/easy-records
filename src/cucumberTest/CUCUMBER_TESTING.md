@@ -53,10 +53,10 @@ Every scenario starts with a real organization and location already in place. Re
 
 ## Authentication
 
-The default token before every scenario is `PLATFORM_ADMIN` (set by `TestHooks`). Steps override it:
+The default token before every scenario is the organization user (`TestHooks`). The reset itself runs as `PLATFORM_ADMIN`. Steps override the default:
 
 ```gherkin
-Given I am authenticated as an organization user    # org-level access, no platform roles
+Given I am authenticated as a platform admin        # platform-level access
 Given I am not authenticated                        # clears token, expects 403 on secured endpoints
 ```
 
@@ -71,8 +71,8 @@ Fixture steps create prerequisite data through the real API and store the result
 ```gherkin
 Given a category exists
 Given a product group exists      # requires: category
-Given a unit group exists
-Given a unit exists               # requires: unit group
+Given a unit group exists         # also stores the group's root unit as #rootUnit
+Given a unit exists               # requires: unit group; based on #rootUnit
 ```
 
 Products can be created individually or in bulk:
@@ -99,7 +99,7 @@ Both resolve `PRODUCT_GROUP` and `UNIT_VALUE` from `InjectContext`. Feature file
 
 When a step creates something, it stores the resulting ID under its key. Later steps reference it with `#keyname` (last added) or `#keyname->index` (0-based).
 
-**TransientKey names:** `product`, `category`, `productGroup`, `unitGroup`, `unitValue`
+**TransientKey names:** `product`, `category`, `productGroup`, `unitGroup`, `unitValue`, `rootUnit` (root of the latest unit group), `contact`
 
 **PersistentKey names:** `organization`, `location`
 
@@ -208,6 +208,8 @@ Then Subledger_Entry table should have no records in database
 
 Matching uses the same `JsonSubsetMatcher` as REST — same regex, numeric tolerance, subset semantics, and path-aware failure messages.
 
+The entity's package decides the schema: `organizations` entities run on the organization schema, `locations` entities on the location schema (both with the persisted organization and location in the session, through `SchemaScopedRunner`), everything else on the platform schema.
+
 Only simple IDs are supported (UUID, Long, Int, String). Composite IDs not yet supported.
 
 For repositories whose auto-derived key is ambiguous or verbose, register an alias:
@@ -229,10 +231,13 @@ dataAccessHelper.alias("Product", OrganizationProductRepository::class)
 ## Scenario Lifecycle
 
 Before every scenario:
-1. All test tables truncated (`RESTART IDENTITY CASCADE`) — Liquibase tables, `organization`, `location`, `authorization_pass`, `reserved_subdomain`, and `table_registry` are excluded
-2. Transient `InjectContext`, `ResponseContext`, and `KafkaContext` reset
-3. Organization/location-scoped caches cleared
-4. `AuthContext` initialized to `PLATFORM_ADMIN`
+1. All test tables truncated (`RESTART IDENTITY CASCADE`) — Liquibase tables, `organization`, `location`, `authorization_pass`, `reserved_subdomain`, `platform_role_assignment` and `table_registry` are excluded
+2. Organization/location-scoped caches cleared
+3. `CHART_OF_ACCOUNTS` activated, an open fiscal period generated, and every `OrgDataSeeder` run through `POST /secured/admin-data/seed-defaults`, so a scenario starts like a real organization
+4. Transient `InjectContext`, `ResponseContext`, and `KafkaContext` reset
+5. `AuthContext` initialized to the organization user
+
+Steps 1–3 are the expensive part. A feature tagged `@shared-state` runs them only before its first scenario, so its scenarios must not depend on each other or collide on fixed-name data. Steps 4–5 always run.
 
 For `@publishes-to-kafka` — before: subscribes a consumer to `CATALOG_EVENTS` from latest offset. After: closes that consumer.
 

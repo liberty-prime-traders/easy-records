@@ -2,6 +2,7 @@ package app.myliberty.easy_records.cucumber.hooks
 
 import io.cucumber.java.After
 import io.cucumber.java.Before
+import io.cucumber.java.Scenario
 import app.myliberty.easy_records.cucumber.support.ApiClient
 import app.myliberty.easy_records.cucumber.support.KafkaConsumerTestSupport
 import app.myliberty.easy_records.cucumber.support.cleanup.CacheCleaner
@@ -11,6 +12,7 @@ import app.myliberty.easy_records.cucumber.support.context.InjectContext
 import app.myliberty.easy_records.cucumber.support.context.KafkaContext
 import app.myliberty.easy_records.cucumber.support.context.ResponseContext
 import app.myliberty.easy_records.platform.business.feature.api.Feature
+import java.net.URI
 
 class TestHooks(
   private val responseContext: ResponseContext,
@@ -24,15 +26,25 @@ class TestHooks(
 ) {
 
   @Before
-  fun beforeScenario() {
-    testDatabaseCleaner.clean()
+  fun beforeScenario(scenario: Scenario) {
+    val continuesSharedState = SHARED_STATE_TAG in scenario.sourceTagNames && scenario.uri == featureWithFreshState
+    if (!continuesSharedState) {
+      resetDatabaseState()
+      featureWithFreshState = scenario.uri
+    }
     injectContext.clear()
     kafkaContext.reset()
-    cacheCleaner.clearAllCaches()
     authContext.initialize()
+    responseContext.reset()
+  }
+
+  private fun resetDatabaseState() {
+    testDatabaseCleaner.clean()
+    cacheCleaner.clearAllCaches()
+    authContext.authenticateAsPlatformAdmin()
     activateDefaultFeatures()
     generateOpenFiscalPeriod()
-    responseContext.reset()
+    seedOrganizationDefaults()
   }
 
   @Before("@publishes-to-kafka")
@@ -61,9 +73,22 @@ class TestHooks(
     check(response.statusCode == 200) { "Failed to activate default features: ${response.asString()}" }
   }
 
+  // Runs every OrgDataSeeder. The test AsyncExecutor is inline, so the data exists when the call returns.
+  private fun seedOrganizationDefaults() {
+    val response = apiClient.post("/secured/admin-data/seed-defaults")
+    check(response.statusCode == 200) { "Failed to seed organization defaults: ${response.asString()}" }
+  }
+
   // Generation starts from yesterday on an empty calendar, so the period covering today is open.
   private fun generateOpenFiscalPeriod() {
     val response = apiClient.post("/secured/fiscal-periods/nudge")
     check(response.statusCode == 200) { "Failed to generate fiscal periods: ${response.asString()}" }
+  }
+
+  companion object {
+    private const val SHARED_STATE_TAG = "@shared-state"
+
+    // Hooks are built per scenario, so the feature that last got clean data is kept here.
+    private var featureWithFreshState: URI? = null
   }
 }

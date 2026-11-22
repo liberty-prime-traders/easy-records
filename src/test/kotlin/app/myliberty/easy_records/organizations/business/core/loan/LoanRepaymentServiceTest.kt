@@ -9,7 +9,6 @@ import app.myliberty.easy_records.organizations.business.core.contact.api.Contac
 import app.myliberty.easy_records.organizations.business.core.contact.api.ContactService
 import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerPostingRequest
 import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerPostingService
-import app.myliberty.easy_records.organizations.business.core.loan.LoanTestSupport.anyNonNull
 import app.myliberty.easy_records.organizations.business.core.loan.LoanTestSupport.stamp
 import app.myliberty.easy_records.organizations.business.core.loan.api.LoanRepaymentCreateRequest
 import app.myliberty.easy_records.organizations.business.core.loan.api.LoanRepaymentService
@@ -17,6 +16,7 @@ import app.myliberty.easy_records.organizations.business.core.loan.api.LoanRepay
 import app.myliberty.easy_records.organizations.business.core.loan.api.LoanResponse
 import app.myliberty.easy_records.organizations.business.core.loan.api.LoanStatus
 import app.myliberty.easy_records.organizations.business.core.lock.api.OrgEntityAdvisoryLock
+import app.myliberty.easy_records.support.anyNonNull
 import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.business.PositiveMoney
 import app.myliberty.easy_records.util.business.lock.LockNamespaces

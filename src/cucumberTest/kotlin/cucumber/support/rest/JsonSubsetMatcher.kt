@@ -62,7 +62,7 @@ object JsonSubsetMatcher {
   }
 
   private fun verifyObject(expected: ObjectNode, actual: ObjectNode, options: SubsetOptions): Boolean =
-    expected.fields().asSequence().all { (key, expectedValue) ->
+    expected.properties().all { (key, expectedValue) ->
       val actualValue = actual.get(key) ?: return@all false
       verify(expectedValue, actualValue, options)
     }
@@ -124,7 +124,7 @@ object JsonSubsetMatcher {
     options: SubsetOptions,
     path: String,
   ): String? {
-    for ((key, expectedValue) in expected.fields()) {
+    for ((key, expectedValue) in expected.properties()) {
       val actualValue = actual.get(key) ?: return "$path.$key: missing in actual"
       val childMismatch = findMismatch(expectedValue, actualValue, options, "$path.$key")
       if (childMismatch != null) return childMismatch

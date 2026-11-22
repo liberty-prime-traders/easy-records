@@ -10,18 +10,18 @@ import io.cucumber.java.en.Then
 import app.myliberty.easy_records.cucumber.support.context.InjectContext
 import app.myliberty.easy_records.cucumber.support.database.DataAccessHelper
 import app.myliberty.easy_records.cucumber.support.database.DataSourcePackage
+import app.myliberty.easy_records.cucumber.support.database.SchemaScopedRunner
 import app.myliberty.easy_records.cucumber.support.rest.JsonSubsetMatcher
-import org.springframework.transaction.annotation.Transactional
 import java.util.UUID
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
-@Transactional
 class DatabaseSteps(
   private val dataAccessHelper: DataAccessHelper,
   private val injectContext: InjectContext,
+  private val schemaScopedRunner: SchemaScopedRunner,
 ) {
   private val objectMapper: ObjectMapper = jacksonObjectMapper()
     .registerKotlinModule()
@@ -37,7 +37,7 @@ class DatabaseSteps(
   fun databaseId(raw: String): String = injectContext.inject(raw)
 
   @Then("{dataSourcePackage} {should} exist in database with id {databaseId}")
-  fun checkIfExists(pkg: DataSourcePackage, should: Boolean, id: String) {
+  fun checkIfExists(pkg: DataSourcePackage, should: Boolean, id: String) = inSchema(pkg) {
     val entity = pkg.findById(id)
     if (should)
       assertNotNull(entity, "Expected ${pkg.displayName} with id $id to exist")
@@ -46,7 +46,7 @@ class DatabaseSteps(
   }
 
   @Then("{dataSourcePackage} {should} exist in database with id {databaseId} and options:")
-  fun checkDatabase(pkg: DataSourcePackage, should: Boolean, id: String, detail: String) {
+  fun checkDatabase(pkg: DataSourcePackage, should: Boolean, id: String, detail: String) = inSchema(pkg) {
     val entity = pkg.findById(id) ?: error("${pkg.displayName} with id $id not found in database")
     val expected = readTree(detail)
     val actual = objectMapper.valueToTree<JsonNode>(entity)
@@ -60,7 +60,7 @@ class DatabaseSteps(
   }
 
   @Then("{dataSourcePackage} {should} match example:")
-  fun checkMatchExample(pkg: DataSourcePackage, should: Boolean, detail: String) {
+  fun checkMatchExample(pkg: DataSourcePackage, should: Boolean, detail: String) = inSchema(pkg) {
     val expected = readTree(detail)
     val matched = pkg.repository.findAll().any { entity ->
       JsonSubsetMatcher.isJsonSubset(expected, objectMapper.valueToTree(entity))
@@ -73,13 +73,17 @@ class DatabaseSteps(
   }
 
   @Then("{dataSourcePackage} table should have exactly {int} records in database")
-  fun checkRecordCount(pkg: DataSourcePackage, expectedCount: Int) {
+  fun checkRecordCount(pkg: DataSourcePackage, expectedCount: Int) = inSchema(pkg) {
     assertEquals(expectedCount.toLong(), pkg.repository.count(), "${pkg.displayName} record count mismatch")
   }
 
   @Then("{dataSourcePackage} table should have no records in database")
   fun checkEmpty(pkg: DataSourcePackage) {
     checkRecordCount(pkg, 0)
+  }
+
+  private fun inSchema(pkg: DataSourcePackage, assertions: () -> Unit) {
+    schemaScopedRunner.run(pkg.entityClass, assertions)
   }
 
   private fun DataSourcePackage.findById(rawId: String): Any? {
