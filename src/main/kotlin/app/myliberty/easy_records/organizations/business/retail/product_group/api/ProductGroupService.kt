@@ -1,11 +1,13 @@
 package app.myliberty.easy_records.organizations.business.retail.product_group.api
 
 import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
+import app.myliberty.easy_records.organizations.business.retail.product.api.OrganizationProductDataFetcher
 import app.myliberty.easy_records.organizations.business.retail.product_category.api.ProductCategoryService
 import app.myliberty.easy_records.organizations.business.retail.product_group.ProductGroupCache
 import app.myliberty.easy_records.organizations.business.retail.product_group.ProductGroupMapper
 import app.myliberty.easy_records.organizations.business.retail.product_group.ProductGroupRepository
 import app.myliberty.easy_records.organizations.business.retail.product_group.ProductGroupValidator
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException
 import org.springframework.stereotype.Service
 import java.util.UUID
@@ -17,7 +19,8 @@ class ProductGroupService(
     private val productGroupCache: ProductGroupCache,
     private val productGroupRepository: ProductGroupRepository,
     private val productGroupValidator: ProductGroupValidator,
-    private val productCategoryService: ProductCategoryService
+    private val productCategoryService: ProductCategoryService,
+    private val organizationProductDataFetcher: OrganizationProductDataFetcher
 ) {
 
     @TransactionalOnOrganizationSchema(readOnly = true)
@@ -50,6 +53,7 @@ class ProductGroupService(
     }
 
     fun deleteProductGroup(productGroupId: UUID) {
+        if (organizationProductDataFetcher.isProductGroupInUse(productGroupId)) throw LibertyGenericException(GROUP_IN_USE)
         productGroupCache.deleteProductGroupById(productGroupId)
     }
 
@@ -58,6 +62,13 @@ class ProductGroupService(
         val entities = insertDtos.map { productGroupMapper.toEntity(it) }
         val saved = productGroupCache.saveAll(entities)
         val categoriesById = productCategoryService.getCategoryNamesById()
-        return saved.map { productGroupMapper.toDomainDto(it) }.map { productGroupMapper.toResponseDto(it, categoriesById[it.categoryId]) }
+        return saved.map { savedEntity ->
+            val savedDto = productGroupMapper.toDomainDto(savedEntity)
+            productGroupMapper.toResponseDto(savedDto, categoriesById[savedDto.categoryId])
+        }
+    }
+
+    companion object {
+        const val GROUP_IN_USE = "A product group with products cannot be deleted; move those products to another group first"
     }
 }

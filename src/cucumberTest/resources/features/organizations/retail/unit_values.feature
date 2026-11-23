@@ -1,4 +1,3 @@
-@unit-values
 Feature: Unit values
   As an authenticated organization user
   I want to manage the units of measure inside a unit group
@@ -225,7 +224,7 @@ Feature: Unit values
       """
     When I DELETE to /secured/unitvalues/#unitValue
     Then the response status should be 400
-    And the response error message should be "A unit that is the base of another unit cannot be deleted"
+    And the response error message should be "A unit that is the base unit of another unit cannot be deleted"
     And Unit_Value should exist in database with id #unitValue
 
   Scenario: Listing units can be narrowed to one group

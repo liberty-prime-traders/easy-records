@@ -1,12 +1,10 @@
-@loans
 Feature: Loans
   As an authenticated organization user
   I want to record money borrowed from a lender and the repayments against it
   So that loans payable always equals what the business still owes
 
   Background:
-    Given the chart of accounts is active with open fiscal periods
-    And a lender exists
+    Given a lender exists
 
   Scenario: Recording a loan raises loans payable and the lender's payable balance
     When I record a loan of "100.00" from the lender into cash dated today

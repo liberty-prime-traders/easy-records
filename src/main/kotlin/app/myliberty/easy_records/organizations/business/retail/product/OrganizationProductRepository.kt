@@ -10,7 +10,9 @@ interface OrganizationProductRepository: JpaRepository<OrganizationProductEntity
     @Query("SELECT p FROM OrganizationProductEntity p ORDER BY lower(p.productName) ASC")
     fun findAllProducts(): List<OrganizationProductEntity>
 
-    fun findFirstByProductNameIgnoreCase(productName: String): OrganizationProductEntity?
+    fun findFirstByNameKey(nameKey: String): OrganizationProductEntity?
+
+    fun existsByProductGroupId(productGroupId: UUID): Boolean
 
     @Query("SELECT p.productGroupName FROM OrganizationProductEntity p WHERE p.id = :productId")
     fun findProductGroupNameById(productId: UUID): String

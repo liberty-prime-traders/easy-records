@@ -50,6 +50,8 @@ class OrganizationProductCache(
     @CacheEvict(allEntries = true)
     fun save(productDto: OrganizationProductDto): OrganizationProductDto {
         val saved = organizationProductRepository.save(organizationProductMapper.toEntity(productDto))
+        // productGroupName is trigger-populated, so a move to another group leaves the in-memory value stale.
+        saved.productGroupName = organizationProductRepository.findProductGroupNameById(checkNotNull(saved.id))
         return organizationProductMapper.toDomainDto(saved)
     }
 }

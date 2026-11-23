@@ -27,6 +27,15 @@ databaseChangeLog:
                     notNullConstraintName: product_name_notnull
 
               - column:
+                  name: name_key
+                  type: nvarchar2(400)
+                  constraints:
+                    unique: true
+                    uniqueConstraintName: uq_product_name_key
+                    nullable: false
+                    notNullConstraintName: product_name_key_notnull
+
+              - column:
                   name: description
                   type: nvarchar2(1000)
 

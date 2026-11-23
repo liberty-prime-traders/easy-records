@@ -1,6 +1,7 @@
 package app.myliberty.easy_records.organizations.business.retail.product.api
 
 import app.myliberty.easy_records.organizations.business.retail.product.OrganizationProductDto
+import app.myliberty.easy_records.util.business.StringUtils
 import java.io.Serializable
 import java.util.Optional
 import java.util.UUID
@@ -16,7 +17,7 @@ data class OrganizationProductUpdateDto(
 
     fun applyTo(existing: OrganizationProductDto): OrganizationProductDto = existing.copy(
         productName = productName?.orElse(existing.productName) ?: existing.productName,
-        description = description?.orElse(existing.description) ?: existing.description,
+        description = StringUtils.useIfProvided(description, existing.description),
         productGroupId = productGroupId?.orElse(existing.productGroupId) ?: existing.productGroupId
     )
 }

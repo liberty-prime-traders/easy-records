@@ -37,6 +37,12 @@ object StringUtils {
         throw LibertyGenericException(exceptionMessage)
     }
 
+    fun requireLetterOrDigit(str: String, exceptionMessage: String) {
+        if (alphanumericKey(str).isEmpty()) {
+            throw LibertyGenericException(exceptionMessage)
+        }
+    }
+
     fun hasValue(str: String?): Boolean {
         return hasValue(Optional.ofNullable(str))
     }

@@ -73,6 +73,10 @@ Given a category exists
 Given a product group exists      # requires: category
 Given a unit group exists         # also stores the group's root unit as #rootUnit
 Given a unit exists               # requires: unit group; based on #rootUnit
+Given the system unit "pc" is selected   # a seeded unit as #unitValue, enough for a product's base unit
+Given a category named "Dairy" exists
+Given a product group named "Milk" exists    # in the latest category
+Given a product named "Whole Milk" exists    # in the latest group, based on the latest #unitValue
 ```
 
 Products can be created individually or in bulk:
@@ -181,7 +185,7 @@ Then response contains details with exact lists in order:
 - Numbers compare as `BigDecimal` floored to scale 7 (so `100` matches `100.00`).
 - Failure messages include the JSON path of the mismatch (`at $.lines[2].quantity: expected "5" but got "3"`).
 
-Domain-specific steps live in `steps/organizations`, `steps/locations`, and `steps/platform`. Add them only when behavior cannot be expressed via generic grammar (e.g. multi-call orchestration).
+Domain-specific steps live under `steps/<tier>/<product>` (mirroring the main source tree, e.g. `steps/organizations/retail`), plus `steps/locations` and `steps/platform`. Add them only when behavior cannot be expressed via generic grammar (e.g. multi-call orchestration).
 
 ---
 

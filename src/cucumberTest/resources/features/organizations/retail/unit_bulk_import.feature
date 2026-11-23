@@ -1,4 +1,3 @@
-@unit-bulk-import
 Feature: Bulk import of unit groups and their units
   As an authenticated organization user
   I want to load unit groups and their units in one request

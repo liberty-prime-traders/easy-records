@@ -1,4 +1,3 @@
-@unit-group-base-unit-code
 Feature: Unit group base unit code
   As an authenticated organization user
   I want to choose the code of a custom unit group's base unit

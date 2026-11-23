@@ -1,9 +1,9 @@
-package app.myliberty.easy_records.cucumber.steps.organizations
+package app.myliberty.easy_records.cucumber.steps.organizations.core
 
 import io.cucumber.java.en.Given
 import io.cucumber.java.en.Then
 import io.cucumber.java.en.When
-import app.myliberty.easy_records.cucumber.fixtures.organizations.ContactFixtureBuilder
+import app.myliberty.easy_records.cucumber.fixtures.organizations.core.ContactFixtureBuilder
 import app.myliberty.easy_records.cucumber.support.ApiClient
 import app.myliberty.easy_records.cucumber.support.context.InjectContext
 import app.myliberty.easy_records.cucumber.support.context.TransientKey

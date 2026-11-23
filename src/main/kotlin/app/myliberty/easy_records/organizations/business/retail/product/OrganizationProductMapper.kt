@@ -21,10 +21,12 @@ interface OrganizationProductMapper {
     @Mapping(target = "referenceNumber", ignore = true)
     @Mapping(target = "status", ignore = true)
     @Mapping(target = "productGroupName", ignore = true)
+    @Mapping(target = "nameKey", ignore = true)
     fun toEntity(productInsertDto: OrganizationProductInsertDto): OrganizationProductEntity
 
     fun toDomainDto(productEntity: OrganizationProductEntity): OrganizationProductDto
 
+    @Mapping(target = "nameKey", ignore = true)
     fun toEntity(productDto: OrganizationProductDto): OrganizationProductEntity
 
     @Mapping(source = "createdById", target = "createdBy", qualifiedBy = [CreatorFullName::class])

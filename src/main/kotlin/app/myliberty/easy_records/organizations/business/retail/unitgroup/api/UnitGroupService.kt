@@ -55,9 +55,7 @@ class UnitGroupService(
 
     private fun validateNameOnSave(optionalName: Optional<String>?, id: UUID? = null) {
         val name = StringUtils.getValueOrException(optionalName, "An UnitGroup must have a name")
-        if (name.none { it.isLetterOrDigit() }) {
-            throw LibertyGenericException("A unit group name must contain at least one letter or digit")
-        }
+        StringUtils.requireLetterOrDigit(name, "A unit group name must contain at least one letter or digit")
         requireNamesAvailable(listOf(name), id)
     }
 
