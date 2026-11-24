@@ -216,6 +216,32 @@ class SubledgerServiceTest {
         assertEquals(0, BigDecimal.ZERO.compareTo(settled.netBalance))
     }
 
+    @Test
+    fun `a payable entry shows its own amount and reads as subtracting from the running net`() {
+        val payableEntry = SubledgerEntryEntity(
+            groupReferenceNumber = "LG000001",
+            contactReferenceNumber = contactReferenceNumber,
+            payableAmount = BigDecimal("5.0000"),
+            receivableAmount = BigDecimal.ZERO,
+            runningPayable = BigDecimal("20.0000"),
+            runningReceivable = BigDecimal("0.0000")
+        ).also {
+            it.id = UUID.randomUUID()
+            it.createdOn = OffsetDateTime.parse("2026-01-01T10:00:00Z")
+            it.createdById = UUID.randomUUID()
+        }
+        `when`(subledgerEntryRepository.findFirstPage(contactReferenceNumber, 2)).thenReturn(listOf(payableEntry))
+        stubGroups("LG000001")
+
+        val pageResponse = subledgerService.getEntries(contactReferenceNumber, "", 1)
+
+        val pageEntry = pageResponse.contents.single()
+        assertEquals(MoneyDisplay.of(BigDecimal("5")), pageEntry.transactionAmount)
+        assertEquals(BalanceEffect.SUBTRACTS, pageEntry.transactionBalanceEffect)
+        assertEquals(MoneyDisplay.of(BigDecimal("20")), pageEntry.netBalance)
+        assertEquals(BalanceEffect.SUBTRACTS, pageEntry.netBalanceEffect)
+    }
+
     private fun stubGroups(vararg groupReferenceNumbers: String) {
         `when`(ledgerEntryGroupRepository.findByReferenceNumberIn(groupReferenceNumbers.toSet())).thenReturn(
             groupReferenceNumbers.map { groupReferenceNumber ->
