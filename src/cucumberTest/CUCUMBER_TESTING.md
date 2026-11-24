@@ -144,7 +144,7 @@ No quotes around paths; `#injectionKey` and `<exampleVar>` resolve before the re
 When I GET from secured/products
 When I GET from secured/products/#productId
 When I POST to secured/products with payload:
-  """
+  """json
   { "productName": "Widget", "productGroupId": "#productGroup" }
   """
 When I GET from secured/products with query parameters:
@@ -162,19 +162,19 @@ Then response returns with status 200
 Then response returns with status 400 with message: Product name already in use
 Then response list size is 3
 Then response contains details:
-  """
+  """json
   { "productName": "Widget", "active": true }
   """
 Then response contains item with details:
-  """
+  """json
   { "productName": "Widget" }
   """
 Then response contains no item with details:
-  """
+  """json
   { "productName": "Deleted" }
   """
 Then response contains details with exact lists in order:
-  """
+  """json
   { "lines": [ {"productId": "#product->0"}, {"productId": "#product->1"} ] }
   """
 ```
@@ -199,11 +199,11 @@ Entity names in features use snake_case with capitalized words (`Organization_Pr
 Then Organization_Product should exist in database with id #productId
 Then Organization_Product should not exist in database with id #productId
 Then Organization_Product should exist in database with id #productId and options:
-  """
+  """json
   { "productName": "Widget", "isActive": true }
   """
 Then Sale should match example:
-  """
+  """json
   { "totalAmount": "100.00", "status": "CONFIRMED" }
   """
 Then Subledger_Entry table should have exactly 3 records in database

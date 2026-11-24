@@ -36,15 +36,15 @@ class BulkProductImportService(
 
     private fun saveOrReuseCategories(categories: List<ProductCategoryBulkInsertDto>): Map<String, UUID> {
         val categoryIdByNormalizedName = productCategoryService.getAllCategoryDtos()
-            .associateTo(mutableMapOf()) { StringUtils.normalizeForComparison(it.categoryName!!) to it.id }
+            .associateTo(mutableMapOf()) { StringUtils.alphanumericKey(it.categoryName!!) to it.id }
 
         val newCategories = categories.filter {
-            !categoryIdByNormalizedName.containsKey(StringUtils.normalizeForComparison(it.name!!))
+            !categoryIdByNormalizedName.containsKey(StringUtils.alphanumericKey(it.name!!))
         }
         val saved = productCategoryService.bulkCreateValidatedList(
             newCategories.map { ProductCategoryInsertDto(categoryName = it.name, description = it.description) }
         )
-        saved.forEach { categoryIdByNormalizedName[StringUtils.normalizeForComparison(it.categoryName!!)] = it.id }
+        saved.forEach { categoryIdByNormalizedName[StringUtils.alphanumericKey(it.categoryName!!)] = it.id }
 
         return categoryIdByNormalizedName
     }
@@ -54,21 +54,21 @@ class BulkProductImportService(
         categoryIdByNormalizedName: Map<String, UUID>
     ): Map<String, UUID> {
         val groupIdByNormalizedName = productGroupService.getAllGroupDtos()
-            .associateTo(mutableMapOf()) { StringUtils.normalizeForComparison(it.groupName) to it.id }
+            .associateTo(mutableMapOf()) { StringUtils.alphanumericKey(it.groupName) to it.id }
 
         val newProductGroups = productGroups.filter {
-            !groupIdByNormalizedName.containsKey(StringUtils.normalizeForComparison(it.name!!))
+            !groupIdByNormalizedName.containsKey(StringUtils.alphanumericKey(it.name!!))
         }
         val saved = productGroupService.bulkCreateValidatedList(
             newProductGroups.map {
                 ProductGroupInsertDto(
                     groupName = it.name!!,
                     description = it.description,
-                    categoryId = categoryIdByNormalizedName.getValue(StringUtils.normalizeForComparison(it.categoryName!!))
+                    categoryId = categoryIdByNormalizedName.getValue(StringUtils.alphanumericKey(it.categoryName!!))
                 )
             }
         )
-        saved.forEach { groupIdByNormalizedName[StringUtils.normalizeForComparison(it.groupName!!)] = it.id }
+        saved.forEach { groupIdByNormalizedName[StringUtils.alphanumericKey(it.groupName!!)] = it.id }
 
         return groupIdByNormalizedName
     }
@@ -81,7 +81,7 @@ class BulkProductImportService(
             OrganizationProductInsertDto(
                 productName = product.name!!,
                 description = product.description,
-                productGroupId = groupIdByNormalizedName.getValue(StringUtils.normalizeForComparison(product.groupName!!)),
+                productGroupId = groupIdByNormalizedName.getValue(StringUtils.alphanumericKey(product.groupName!!)),
                 baseUnitId = unitIdByNormalizedCode.getValue(StringUtils.normalizeForComparison(product.unitCode!!))
             )
         }

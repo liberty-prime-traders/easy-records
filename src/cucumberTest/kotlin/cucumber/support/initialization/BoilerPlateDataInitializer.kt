@@ -15,6 +15,7 @@ import app.myliberty.easy_records.organizations.business.core.location.api.Locat
 import app.myliberty.easy_records.platform.business.authorization_pass.api.AuthorizationPassInsertDto
 import app.myliberty.easy_records.platform.business.authorization_pass.api.PassType
 import app.myliberty.easy_records.platform.business.organization.OrganizationCache
+import app.myliberty.easy_records.platform.business.organization.api.OrganizationDto
 import app.myliberty.easy_records.platform.business.organization.api.OrganizationInsertDto
 import app.myliberty.easy_records.platform.business.role_assignment.api.PlatformRoleAssignmentService
 import app.myliberty.easy_records.platform.business.sysuser.api.SysUserService
@@ -42,7 +43,8 @@ class BoilerPlateDataInitializer(
   private val locationCache: LocationCache,
   private val tableRegistryCache: TableRegistryCache,
   private val sysUserService: SysUserService,
-  private val platformRoleAssignmentService: PlatformRoleAssignmentService
+  private val platformRoleAssignmentService: PlatformRoleAssignmentService,
+  private val organizationMembershipSeeder: OrganizationMembershipSeeder
 ) {
 
   companion object {
@@ -64,6 +66,7 @@ class BoilerPlateDataInitializer(
       createOrganization(passRecordId)
       createLocation()
       createOrgUser()
+      organizationCache.getAllOrganizations().find { it.subdomain == SUBDOMAIN }?.let { ensureOrganizationUserIsMember(it) }
     } else {
       registerExistingUsers()
       TestUserRegistry.platformAdminUserId?.let { grantPlatformAdminRole(it) }
@@ -73,6 +76,20 @@ class BoilerPlateDataInitializer(
         locationCache.getAllLocations().firstOrNull()?.let { location ->
           injectContext.persist(PersistentKey.LOCATION, location.id)
         }
+        SessionContextProvider.clear()
+        ensureOrganizationUserIsMember(organization)
+      }
+    }
+  }
+
+  // Membership is protected from the per-scenario reset, so the default user stays a member and can call member-gated endpoints.
+  private fun ensureOrganizationUserIsMember(organization: OrganizationDto) {
+    val userId = checkNotNull(TestUserRegistry.organizationUserId) { "Organization user was not registered" }
+    ServiceAccountContext.runWithServiceAccount<Unit>(ServiceAccount.RECORD_INITIALIZER) {
+      SessionContextProvider.initOrganization(organization)
+      try {
+        organizationMembershipSeeder.ensureMember(userId)
+      } finally {
         SessionContextProvider.clear()
       }
     }

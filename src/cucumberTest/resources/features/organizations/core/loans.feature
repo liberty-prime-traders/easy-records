@@ -129,7 +129,7 @@ Feature: Loans
 
   Scenario: Loans payable takes no manual opening balance
     When I POST to /secured/opening-balances with payload:
-      """
+      """json
       { "accountCode": "002.004", "newAmount": 10 }
       """
     Then the response status should be 400

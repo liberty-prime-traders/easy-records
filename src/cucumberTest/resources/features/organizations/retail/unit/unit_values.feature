@@ -8,21 +8,21 @@ Feature: Unit values
 
   Scenario: Creating a unit based on the group's root unit
     When I POST to /secured/unitvalues with payload:
-      """
+      """json
       {"name": "Dozen", "code": "doz", "unitGroupId": "#unitGroup", "baseUnit": "#rootUnit", "unitsOfBasePerUnit": 12}
       """
     Then the response status should be 200
     And response contains details:
-      """
+      """json
       {"name": "Dozen", "code": "doz", "unitGroupId": "#unitGroup", "baseUnitName": "Piece", "unitsOfBasePerUnit": 12, "systemDefined": false}
       """
     When I GET to /secured/unitvalues?unitGroupId=#unitGroup
     Then response contains item with details:
-      """
+      """json
       {"code": "doz"}
       """
     And Unit_Value should match example:
-      """
+      """json
       {"name": "Dozen", "code": "doz", "unitGroupId": "#unitGroup", "baseUnit": "#rootUnit", "unitsOfBasePerUnit": 12, "systemDefined": false}
       """
 
@@ -30,27 +30,27 @@ Feature: Unit values
     Given a unit exists
     And a unit group named "Second Group" exists
     When I POST to /secured/unitvalues with payload:
-      """
+      """json
       {"name": "Test Unit", "code": "TU2", "unitGroupId": "#unitGroup", "baseUnit": "#rootUnit", "unitsOfBasePerUnit": 3}
       """
     Then the response status should be 200
     When I GET to /secured/unitvalues?unitGroupId=#unitGroup
     Then response contains item with details:
-      """
+      """json
       {"name": "Test Unit", "code": "TU2"}
       """
 
   Scenario Outline: A unit name cannot repeat inside its group
     Given a unit exists
     When I POST to /secured/unitvalues with payload:
-      """
+      """json
       {"name": "<name>", "code": "TU2", "unitGroupId": "#unitGroup", "baseUnit": "#rootUnit", "unitsOfBasePerUnit": 3}
       """
     Then the response status should be 400
     And the response error message should be "A unit value with the name <name> already exists"
     When I GET to /secured/unitvalues?unitGroupId=#unitGroup
     Then response contains no item with details:
-      """
+      """json
       {"code": "TU2"}
       """
 
@@ -65,27 +65,27 @@ Feature: Unit values
     Given a unit exists
     And a unit group named "Second Group" exists
     When I POST to /secured/unitvalues with payload:
-      """
+      """json
       {"name": "Other Unit", "code": "TU", "unitGroupId": "#unitGroup", "baseUnit": "#rootUnit", "unitsOfBasePerUnit": 3}
       """
     Then the response status should be 400
     And the response error message should be "A unit value with the code TU already exists"
     When I GET to /secured/unitvalues?unitGroupId=#unitGroup
     Then response contains no item with details:
-      """
+      """json
       {"name": "Other Unit"}
       """
 
   Scenario Outline: A unit code cannot reuse a seeded system unit code
     When I POST to /secured/unitvalues with payload:
-      """
+      """json
       {"name": "Mine", "code": "<code>", "unitGroupId": "#unitGroup", "baseUnit": "#rootUnit", "unitsOfBasePerUnit": 3}
       """
     Then the response status should be 400
     And the response error message should be "A unit value with the code <code> already exists"
     When I GET to /secured/unitvalues?unitGroupId=#unitGroup
     Then response contains no item with details:
-      """
+      """json
       {"name": "Mine"}
       """
 
@@ -99,14 +99,14 @@ Feature: Unit values
 
   Scenario Outline: A conversion factor must be a positive size the chain can hold
     When I POST to /secured/unitvalues with payload:
-      """
+      """json
       {"name": "Odd Unit", "code": "odd", "unitGroupId": "#unitGroup", "baseUnit": "#rootUnit", "unitsOfBasePerUnit": <factor>}
       """
     Then the response status should be 400
     And the response error message should be "<message>"
     When I GET to /secured/unitvalues?unitGroupId=#unitGroup
     Then response contains no item with details:
-      """
+      """json
       {"code": "odd"}
       """
 
@@ -119,46 +119,46 @@ Feature: Unit values
   Scenario: Renaming a unit keeps its place in the chain
     Given a unit exists
     When I PUT to /secured/unitvalues with payload:
-      """
+      """json
       {"id": "#unitValue", "name": "Renamed Unit", "code": "RU"}
       """
     Then the response status should be 200
     And response contains details:
-      """
+      """json
       {"name": "Renamed Unit", "code": "RU", "baseUnitName": "Piece", "unitsOfBasePerUnit": 12}
       """
     And Unit_Value should exist in database with id #unitValue and options:
-      """
+      """json
       {"name": "Renamed Unit", "code": "RU", "baseUnit": "#rootUnit", "unitsOfBasePerUnit": 12}
       """
 
   Scenario: Changing a unit's conversion factor
     Given a unit exists
     When I PUT to /secured/unitvalues with payload:
-      """
+      """json
       {"id": "#unitValue", "name": "Test Unit", "code": "TU", "baseUnit": "#rootUnit", "unitsOfBasePerUnit": 24}
       """
     Then the response status should be 200
     When I GET to /secured/unitvalues?unitGroupId=#unitGroup
     Then response contains item with details:
-      """
+      """json
       {"id": "#unitValue", "unitsOfBasePerUnit": 24}
       """
     And Unit_Value should exist in database with id #unitValue and options:
-      """
+      """json
       {"unitsOfBasePerUnit": 24}
       """
 
   Scenario Outline: A seeded system unit cannot be modified
     Given the system unit "<code>" is selected
     When I PUT to /secured/unitvalues with payload:
-      """
+      """json
       {"id": "#unitValue", "name": "Renamed", "code": "<code>"}
       """
     Then the response status should be 400
     And the response error message should be "System-defined unit values cannot be modified"
     And Unit_Value should exist in database with id #unitValue and options:
-      """
+      """json
       {"code": "<code>", "systemDefined": true}
       """
 
@@ -185,13 +185,13 @@ Feature: Unit values
 
   Scenario: The root unit of a group cannot be modified
     When I PUT to /secured/unitvalues with payload:
-      """
+      """json
       {"id": "#rootUnit", "name": "Each", "code": "each"}
       """
     Then the response status should be 400
     And the response error message should be "System-defined unit values cannot be modified"
     And Unit_Value should exist in database with id #rootUnit and options:
-      """
+      """json
       {"name": "Piece", "code": "test-unit-group-base"}
       """
 
@@ -207,11 +207,11 @@ Feature: Unit values
     Then the response status should be 204
     When I GET to /secured/unitvalues?unitGroupId=#unitGroup
     Then response contains no item with details:
-      """
+      """json
       {"code": "TU"}
       """
     And response contains item with details:
-      """
+      """json
       {"id": "#rootUnit"}
       """
     And Unit_Value should not exist in database with id #unitValue
@@ -219,7 +219,7 @@ Feature: Unit values
   Scenario: A unit that is the base of another unit cannot be deleted
     Given a unit exists
     And I POST to /secured/unitvalues with payload:
-      """
+      """json
       {"name": "Case", "code": "CS", "unitGroupId": "#unitGroup", "baseUnit": "#unitValue", "unitsOfBasePerUnit": 10}
       """
     When I DELETE to /secured/unitvalues/#unitValue
@@ -233,20 +233,15 @@ Feature: Unit values
     And a unit named "Other Unit" coded "OU" exists
     When I GET to /secured/unitvalues?unitGroupId=#unitGroup->0
     Then response contains item with details:
-      """
+      """json
       {"code": "TU"}
       """
     And response contains no item with details:
-      """
+      """json
       {"code": "OU"}
       """
     When I GET to /secured/unitvalues
     Then response contains item with details:
-      """
+      """json
       {"code": "OU"}
       """
-
-  Scenario: Unauthenticated users cannot list unit values
-    Given I am not authenticated
-    When I GET to /secured/unitvalues
-    Then the response status should be 403

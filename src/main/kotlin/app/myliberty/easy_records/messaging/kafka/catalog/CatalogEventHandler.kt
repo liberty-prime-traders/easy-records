@@ -8,6 +8,7 @@ import app.myliberty.easy_records.messaging.kafka.common.EventSourceContext
 import app.myliberty.easy_records.organizations.business.core.location.api.LocationService
 import app.myliberty.easy_records.util.enums.ServiceAccount
 import app.myliberty.easy_records.util.model.TableName
+import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Component
 import java.time.Instant
 import java.util.UUID
@@ -17,7 +18,7 @@ class CatalogEventHandler(
     private val eventSessionSetup: EventSessionSetup,
     private val locationService: LocationService,
     private val syncServiceRegistry: SyncServiceRegistry,
-    private val catalogEventProducer: CatalogEventProducer
+    private val applicationEventPublisher: ApplicationEventPublisher
 ) {
 
     fun consume(event: CatalogChangedEvent) {
@@ -34,7 +35,7 @@ class CatalogEventHandler(
     fun publish(tableName: TableName, entityId: UUID) {
         val orgSchema = SessionContextProvider.getOrganizationSchema()
 
-        catalogEventProducer.publish(
+        applicationEventPublisher.publishEvent(
             CatalogChangedEvent(
                 eventId = UUID.randomUUID(),
                 sourceContext = EventSourceContext.OrgLevel(orgSchema),

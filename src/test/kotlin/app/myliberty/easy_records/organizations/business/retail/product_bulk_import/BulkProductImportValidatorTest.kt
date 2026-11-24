@@ -289,4 +289,58 @@ class BulkProductImportValidatorTest {
         assertTrue(errors.any { it.contains("Product at position 1: name is required") })
         assertEquals(3, errors.size)
     }
+
+    @Test
+    fun `names that differ only in punctuation or case are duplicates within the payload`() {
+        `when`(unitValueFetcher.getAllUnitValues()).thenReturn(listOf(unitValueDto("pc")))
+        val request = BulkProductImportRequestDto(
+            categories = listOf(ProductCategoryBulkInsertDto(name = "Fresh Dairy"), ProductCategoryBulkInsertDto(name = "fresh-dairy")),
+            productGroups = listOf(
+                ProductGroupBulkInsertDto(name = "Soft Drinks", categoryName = "Fresh Dairy"),
+                ProductGroupBulkInsertDto(name = "soft_drinks", categoryName = "Fresh Dairy")
+            ),
+            products = listOf(
+                ProductBulkInsertDto(name = "Whole Milk", groupName = "Soft Drinks", unitCode = "pc"),
+                ProductBulkInsertDto(name = "Whole-Milk!", groupName = "Soft Drinks", unitCode = "pc")
+            )
+        )
+
+        val errors = validator.validate(request)
+
+        assertTrue(errors.any { it.startsWith("Category at position 2: duplicates category name") })
+        assertTrue(errors.any { it.startsWith("Product group at position 2: duplicates product group name") })
+        assertTrue(errors.any { it.startsWith("Product at position 2: duplicates product name") })
+    }
+
+    @Test
+    fun `names without a letter or digit are reported`() {
+        `when`(unitValueFetcher.getAllUnitValues()).thenReturn(listOf(unitValueDto("pc")))
+        val request = BulkProductImportRequestDto(
+            categories = listOf(ProductCategoryBulkInsertDto(name = "---")),
+            productGroups = listOf(ProductGroupBulkInsertDto(name = "***", categoryName = "---")),
+            products = listOf(ProductBulkInsertDto(name = "!!!", groupName = "***", unitCode = "pc"))
+        )
+
+        val errors = validator.validate(request)
+
+        assertTrue(errors.contains("Category at position 1: name must contain at least one letter or digit"))
+        assertTrue(errors.contains("Product group at position 1: name must contain at least one letter or digit"))
+        assertTrue(errors.contains("Product at position 1: name must contain at least one letter or digit"))
+    }
+
+    @Test
+    fun `a group and a category resolve against existing rows that differ only in punctuation`() {
+        val existingCategory = categoryDto("Fresh Dairy")
+        `when`(productCategoryService.getAllCategoryDtos()).thenReturn(listOf(existingCategory))
+        `when`(productGroupService.getAllGroupDtos()).thenReturn(listOf(groupDto("Soft Drinks", existingCategory.id)))
+        `when`(unitValueFetcher.getAllUnitValues()).thenReturn(listOf(unitValueDto("pc")))
+        val request = BulkProductImportRequestDto(
+            productGroups = listOf(ProductGroupBulkInsertDto(name = "Other Group", categoryName = "fresh-dairy")),
+            products = listOf(ProductBulkInsertDto(name = "Whole Milk", groupName = "soft_drinks", unitCode = "pc"))
+        )
+
+        val errors = validator.validate(request)
+
+        assertEquals(emptyList<String>(), errors)
+    }
 }
