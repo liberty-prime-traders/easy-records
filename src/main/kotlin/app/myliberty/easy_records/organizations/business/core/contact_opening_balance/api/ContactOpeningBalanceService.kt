@@ -13,6 +13,7 @@ import app.myliberty.easy_records.organizations.business.core.ledger.api.Subledg
 import app.myliberty.easy_records.organizations.business.core.lock.api.OrgEntityAdvisoryLock
 import app.myliberty.easy_records.util.business.DateTimes
 import app.myliberty.easy_records.util.business.DisplayFormatters
+import app.myliberty.easy_records.util.business.MoneyDisplay
 import app.myliberty.easy_records.util.business.lock.LockNamespaces
 import app.myliberty.easy_records.util.business.mappers.UserQualifier
 import app.myliberty.easy_records.util.exceptions.LibertyGenericException
@@ -125,7 +126,7 @@ class ContactOpeningBalanceService(
                     referenceNumber = revisionRow.requiredReference(),
                     contactReferenceNumber = revisionRow.contactReferenceNumber,
                     subledgerDirection = revisionRow.subledgerDirection,
-                    amount = revisionRow.amount,
+                    amount = MoneyDisplay.of(revisionRow.amount),
                     balanceEffect = claimedBalanceEffect(revisionRow),
                     changedAt = revisionRow.requiredCreatedOn(),
                     changedBy = userQualifier.getUserFullName(revisionRow.createdById) ?: ""
