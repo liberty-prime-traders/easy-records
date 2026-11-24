@@ -9,6 +9,7 @@ import app.myliberty.easy_records.organizations.business.retail.product.Organiza
 import app.myliberty.easy_records.organizations.business.retail.product.OrganizationProductValidator
 import app.myliberty.easy_records.organizations.business.retail.product_tag.api.ProductTagService
 import app.myliberty.easy_records.organizations.business.retail.unitvalue.api.UnitValueFetcher
+import app.myliberty.easy_records.util.business.StringUtils
 import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException
 import app.myliberty.easy_records.util.model.TableName
@@ -29,7 +30,7 @@ class OrganizationProductService(
 
     @TransactionalOnOrganizationSchema(readOnly = true)
     fun isDuplicateProductName(productName: String): Boolean =
-        organizationProductRepository.findFirstByProductNameIgnoreCase(productName) != null
+        organizationProductRepository.findFirstByNameKey(StringUtils.alphanumericKey(productName)) != null
 
     fun bulkCreateValidatedList(insertDtos: List<OrganizationProductInsertDto>): List<OrganizationProductResponseDto> {
         if (insertDtos.isEmpty()) return emptyList()

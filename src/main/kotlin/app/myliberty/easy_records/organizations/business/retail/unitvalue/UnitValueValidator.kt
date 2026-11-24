@@ -98,7 +98,7 @@ class UnitValueValidator(
             throw LibertyGenericException(ROOT_UNIT_CANNOT_HAVE_BASE_UNIT)
         }
         if (unitsOfBasePerUnitIsProvided) {
-            requireFactorWithinBounds(unitValueUpdateDto.unitsOfBasePerUnit?.get()!!)
+            requireFactorWithinBounds(unitValueUpdateDto.unitsOfBasePerUnit.get())
         }
 
         val updated = unitValueUpdateDto.applyTo(existing)
@@ -114,9 +114,7 @@ class UnitValueValidator(
         UnitChainNode(unitValueDto.id, unitValueDto.baseUnit, unitValueDto.unitsOfBasePerUnit)
 
     private fun requireNameIsFreeInGroup(name: String, unitGroupId: UUID?, excludedUnitId: UUID?) {
-        if (StringUtils.alphanumericKey(name).isEmpty()) {
-            throw LibertyGenericException(NAME_MUST_CONTAIN_LETTER_OR_DIGIT)
-        }
+        StringUtils.requireLetterOrDigit(name, NAME_MUST_CONTAIN_LETTER_OR_DIGIT)
         unitValueCache.getByUnitGroupId(unitGroupId)
             .find { it.id != excludedUnitId && StringUtils.isEquivalentOnAlphanumerics(it.name, name) }
             ?.let { throw LibertyGenericException(String.format(NAME_ALREADY_EXISTS, name)) }

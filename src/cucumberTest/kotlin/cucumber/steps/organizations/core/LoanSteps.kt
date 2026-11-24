@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.cucumber.steps.organizations
+package app.myliberty.easy_records.cucumber.steps.organizations.core
 
 import io.cucumber.java.en.Given
 import io.cucumber.java.en.Then
@@ -39,12 +39,6 @@ class LoanSteps(
   private var repaymentIds = emptyList<String>()
   private var concurrentRoundOutcomes = emptyList<List<Int>>()
   private lateinit var lastSearchResponse: Response
-
-  @Given("the chart of accounts is active with open fiscal periods")
-  fun activateChartOfAccounts() {
-    check(apiClient.post("/secured/org-features/activate", listOf("CHART_OF_ACCOUNTS")).statusCode == 200) { responseContext.lastError.orEmpty() }
-    check(apiClient.post("/secured/fiscal-periods/nudge").statusCode == 200) { responseContext.lastError.orEmpty() }
-  }
 
   @Given("a lender exists")
   fun createLender() {

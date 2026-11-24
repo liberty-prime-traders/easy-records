@@ -1,4 +1,3 @@
-@unit-groups
 Feature: Unit groups
   As an authenticated organization user
   I want to manage the unit groups that hold my units of measure

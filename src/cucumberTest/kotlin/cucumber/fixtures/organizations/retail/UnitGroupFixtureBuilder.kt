@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.cucumber.fixtures.organizations
+package app.myliberty.easy_records.cucumber.fixtures.organizations.retail
 
 import app.myliberty.easy_records.cucumber.fixtures.FixtureBuilder
 import app.myliberty.easy_records.cucumber.support.ApiClient

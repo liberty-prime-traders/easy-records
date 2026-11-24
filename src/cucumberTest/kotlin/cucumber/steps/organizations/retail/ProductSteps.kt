@@ -1,10 +1,10 @@
-package app.myliberty.easy_records.cucumber.steps.organizations
+package app.myliberty.easy_records.cucumber.steps.organizations.retail
 
 import io.cucumber.datatable.DataTable
 import io.cucumber.java.en.Given
 import io.cucumber.java.en.When
 import app.myliberty.easy_records.cross_tier.retail.product.search.common.ProductSearchParameters
-import app.myliberty.easy_records.cucumber.fixtures.organizations.ProductFixtureBuilder
+import app.myliberty.easy_records.cucumber.fixtures.organizations.retail.ProductFixtureBuilder
 import app.myliberty.easy_records.cucumber.support.ApiClient
 import app.myliberty.easy_records.cucumber.support.context.InjectContext
 import app.myliberty.easy_records.cucumber.support.context.TransientKey
@@ -22,6 +22,11 @@ class ProductSteps(
     dataTable.asMaps().forEach { row ->
       injectContext.store(TransientKey.PRODUCT, productFixtureBuilder.createFromRow(row))
     }
+  }
+
+  @Given("a product named {string} exists")
+  fun createNamedProduct(name: String) {
+    injectContext.store(TransientKey.PRODUCT, productFixtureBuilder.createNamed(name))
   }
 
   @When("I create a product with name {string} and description {string}")

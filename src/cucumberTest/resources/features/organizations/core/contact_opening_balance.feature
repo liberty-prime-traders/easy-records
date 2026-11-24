@@ -1,4 +1,3 @@
-@contact-opening-balance
 Feature: Contact opening balance
   As an authenticated organization user
   I want to declare a contact's opening receivable and payable
