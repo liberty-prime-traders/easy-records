@@ -91,7 +91,8 @@ Reversal also reports "A reversal cannot be reversed." and "This manual journal 
 ## Known gaps
 
 - Each create posts a new journal. Two submissions of the same entry are two valid journals; a duplicate is corrected by reversing it.
-- Not yet covered by tests beyond `ArchitectureTest`, and not yet run against a database. All manual journal changesets are
+- The validator rules are unit tested (`ManualJournalValidatorTest`), and the HTTP flow is described by
+  `manual_journals.feature`. The feature has not been run against a database yet. All manual journal changesets are
   version 2 (`labels: 2.0.0`).
 - Not a delivery fix. A bad delivery needs a document-level reversal, because purchase counters, payment status, and
   stock layers all derive from the delivery lines.
