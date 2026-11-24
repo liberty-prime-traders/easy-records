@@ -121,7 +121,7 @@ organization user by default.
 
 ## Score before running
 
-Read `.claude-local/integration-tests/gotchas.md`: it holds the gotchas learned so far and a 10-point score. Run
+Read `.claude/instructions.md` before any Kotlin, then `.claude-local/integration-tests/gotchas.md`: it holds the gotchas learned so far and a 10-point score. Run
 `.claude-local/integration-tests/score-feature.sh <feature>`, score each touched feature by hand for the rest, and fix anything under
 8/10 before it runs. An expected status or message that does not match the code fails the run, so those two items gate
 the score. When a scenario fails for a reason that applies beyond it, add a line to that file and grep the suite for the

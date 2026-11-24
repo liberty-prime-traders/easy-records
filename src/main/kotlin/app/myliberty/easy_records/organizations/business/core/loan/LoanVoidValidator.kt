@@ -1,7 +1,9 @@
 package app.myliberty.easy_records.organizations.business.core.loan
 
+import app.myliberty.easy_records.util.business.DisplayFormatters
 import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Component
+import java.math.BigDecimal
 
 @Component
 class LoanVoidValidator(
@@ -13,10 +15,13 @@ class LoanVoidValidator(
         if (loanVoidRepository.existsByLoanId(loanDto.id)) {
             throw LibertyGenericException("Loan ${loanDto.referenceNumber} is already voided")
         }
-        val activeRepaymentReferences = activeLoanRepaymentRepository.findByLoanIdOrderByCreatedOnAscIdAsc(loanDto.id).map { it.referenceNumber }
+        val activeRepayments = activeLoanRepaymentRepository.findByLoanIdOrderByCreatedOnAscIdAsc(loanDto.id)
+        val activeRepaymentReferences = activeRepayments.map { activeRepayment -> activeRepayment.referenceNumber }
         if (activeRepaymentReferences.isNotEmpty()) {
+            val repaymentWord = DisplayFormatters.pluralize("repayment", BigDecimal(activeRepaymentReferences.size))
             throw LibertyGenericException(
-                "Loan ${loanDto.referenceNumber} cannot be voided while it has repayments: ${activeRepaymentReferences.joinToString()}"
+                "Loan ${loanDto.referenceNumber} cannot be voided while it has $repaymentWord: " +
+                    activeRepaymentReferences.joinToString()
             )
         }
     }

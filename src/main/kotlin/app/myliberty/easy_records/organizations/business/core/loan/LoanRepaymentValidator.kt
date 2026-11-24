@@ -1,5 +1,6 @@
 package app.myliberty.easy_records.organizations.business.core.loan
 
+import app.myliberty.easy_records.util.business.DisplayFormatters
 import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Component
 import java.math.BigDecimal
@@ -24,8 +25,11 @@ class LoanRepaymentValidator(
             throw LibertyGenericException("Repayment date cannot be before the loan date ${loanDto.loanDate}")
         }
         if (repaymentAmount > loanStatusFiguresBeforeRepayment.outstanding) {
+            val repaymentDisplay = DisplayFormatters.formatCurrency(repaymentAmount)
+            val outstandingDisplay = DisplayFormatters.formatCurrency(loanStatusFiguresBeforeRepayment.outstanding)
             throw LibertyGenericException(
-                "Repayment of $repaymentAmount exceeds the outstanding ${loanStatusFiguresBeforeRepayment.outstanding} on loan ${loanDto.referenceNumber}"
+                "Repayment of $repaymentDisplay exceeds the outstanding $outstandingDisplay " +
+                    "on loan ${loanDto.referenceNumber}"
             )
         }
     }
