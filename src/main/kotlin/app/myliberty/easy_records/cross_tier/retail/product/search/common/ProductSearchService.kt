@@ -42,7 +42,7 @@ abstract class ProductSearchService<DTO>(
   }
 
   private fun shouldUseClientSideFiltering(): Boolean {
-    return countAllProducts() <= clientSideFilterThreshold
+    return clientSideFilterThreshold > 0 && countAllProducts() <= clientSideFilterThreshold
   }
 
   private fun loadAllProductsForClientFiltering(parameters: ProductSearchParameters): PageResponse<DTO, String> {

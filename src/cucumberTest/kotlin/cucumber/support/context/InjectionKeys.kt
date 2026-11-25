@@ -17,4 +17,9 @@ enum class TransientKey(override val key: String) : ContextKey {
   UNIT_VALUE("unitValue"),
   ROOT_UNIT("rootUnit"),
   CONTACT("contact"),
+  CONTACT_REFERENCE("contactReference"),
+  LOAN("loan"),
+  LOAN_REFERENCE("loanReference"),
+  REPAYMENT("repayment"),
+  REPAYMENT_REFERENCE("repaymentReference"),
 }

@@ -25,7 +25,7 @@ enum class OrderOption {
   fun inOrder(): Boolean = this == IN_ORDER
 
   companion object {
-    const val REGEX = "( in order|\\s)"
+    const val REGEX = "( in order|)"
 
     fun fromToken(raw: String): OrderOption =
       if (raw.trim() == "in order") IN_ORDER else DEFAULT

@@ -43,7 +43,12 @@ class ContainerInitializer : ApplicationContextInitializer<ConfigurableApplicati
       "spring.datasource.organization.jdbc-url=$jdbcUrl",
       "spring.datasource.organization.username=${postgres.username}",
       "spring.datasource.organization.password=${postgres.password}",
-      "spring.kafka.bootstrap-servers=${kafka.bootstrapServers}"
+      "spring.kafka.bootstrap-servers=${kafka.bootstrapServers}",
+      "esr.kafka.enabled=true",
+      "spring.kafka.admin.auto-create=true",
+      "spring.kafka.listener.auto-startup=false",
+      // Below the threshold the search endpoints return every product and ignore the text, so scenarios would not reach the SQL.
+      "esr.product-search.client-side-filter-threshold=0"
     )
   }
 }

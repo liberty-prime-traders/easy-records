@@ -4,38 +4,43 @@ Feature: Organization products
   So that every product sits in a group and is measured in a base unit
 
   Background:
-    Given a category exists
-    And a product group exists
+    Given a category named "Grocery" exists
+    And a product group named "Dairy" exists
     And the system unit "pc" is selected
 
   Scenario: Creating a product stores it with its group, category and base unit
     When I POST to /secured/products with payload:
-      """
-      {"productName": "Whole Milk", "description": "One litre", "productGroupId": "#productGroup", "baseUnitId": "#unitValue"}
-      """
-    Then the response status should be 200
-    And response contains details:
-      """
+      """json
       {
         "productName": "Whole Milk",
         "description": "One litre",
         "productGroupId": "#productGroup",
-        "productGroupName": "Test Group",
+        "baseUnitId": "#unitValue"
+      }
+      """
+    Then the response status should be 200
+    And response contains details:
+      """json
+      {
+        "productName": "Whole Milk",
+        "description": "One litre",
+        "productGroupId": "#productGroup",
+        "productGroupName": "Dairy",
         "categoryId": "#category",
-        "categoryName": "Test Category",
+        "categoryName": "Grocery",
         "baseUnitId": "#unitValue",
         "baseUnit": "Piece",
         "status": "ACTIVE"
       }
       """
     And Organization_Product should match example:
-      """
+      """json
       {"productName": "Whole Milk", "nameKey": "wholemilk", "productGroupId": "#productGroup", "baseUnitId": "#unitValue"}
       """
 
   Scenario Outline: A product needs a name, a group and a base unit
     When I POST to /secured/products with payload:
-      """
+      """json
       <payload>
       """
     Then the response status should be 400
@@ -43,15 +48,15 @@ Feature: Organization products
     And Organization_Product table should have no records in database
 
     Examples:
-      | payload                                                                              | message                            |
-      | {"productName": "  ", "productGroupId": "#productGroup", "baseUnitId": "#unitValue"} | A product must have a name         |
-      | {"productGroupId": "#productGroup", "baseUnitId": "#unitValue"}                      | The request body could not be read |
-      | {"productName": "Whole Milk", "baseUnitId": "#unitValue"}                            | The request body could not be read |
-      | {"productName": "Whole Milk", "productGroupId": "#productGroup"}                     | The request body could not be read |
+      | payload                                                                         | message                            |
+      | {"productName":"  ","productGroupId":"#productGroup","baseUnitId":"#unitValue"} | A product must have a name         |
+      | {"productGroupId":"#productGroup","baseUnitId":"#unitValue"}                    | The request body could not be read |
+      | {"productName":"Whole Milk","baseUnitId":"#unitValue"}                          | The request body could not be read |
+      | {"productName":"Whole Milk","productGroupId":"#productGroup"}                   | The request body could not be read |
 
   Scenario Outline: A product must point at an existing group and base unit
     When I POST to /secured/products with payload:
-      """
+      """json
       {"productName": "Whole Milk", "productGroupId": <productGroupId>, "baseUnitId": <baseUnitId>}
       """
     Then the response status should be 400
@@ -66,7 +71,7 @@ Feature: Organization products
   Scenario Outline: Product names are unique on their letters and digits alone
     Given a product named "Whole Milk" exists
     When I POST to /secured/products with payload:
-      """
+      """json
       {"productName": "<name>", "productGroupId": "#productGroup", "baseUnitId": "#unitValue"}
       """
     Then the response status should be 400
@@ -83,7 +88,7 @@ Feature: Organization products
 
   Scenario Outline: A product name needs a letter or digit
     When I POST to /secured/products with payload:
-      """
+      """json
       {"productName": "<name>", "productGroupId": "#productGroup", "baseUnitId": "#unitValue"}
       """
     Then the response status should be 400
@@ -101,7 +106,7 @@ Feature: Organization products
     Given a product named "Whole Milk" exists
     And a product group named "Other Group" exists
     When I POST to /secured/products with payload:
-      """
+      """json
       {"productName": "Whole Milk", "productGroupId": "#productGroup", "baseUnitId": "#unitValue"}
       """
     Then the response status should be 400
@@ -110,16 +115,16 @@ Feature: Organization products
   Scenario: Renaming a product frees its old name
     Given a product named "Whole Milk" exists
     When I PUT to /secured/products with payload:
-      """
+      """json
       {"id": "#product", "productName": "Skim Milk"}
       """
     Then the response status should be 200
     And Organization_Product should exist in database with id #product and options:
-      """
+      """json
       {"productName": "Skim Milk", "nameKey": "skimmilk"}
       """
     When I POST to /secured/products with payload:
-      """
+      """json
       {"productName": "Whole Milk", "productGroupId": "#productGroup", "baseUnitId": "#unitValue"}
       """
     Then the response status should be 200
@@ -127,28 +132,28 @@ Feature: Organization products
   Scenario: An update that only carries a description keeps the name and group
     Given a product named "Whole Milk" exists
     When I PUT to /secured/products with payload:
-      """
+      """json
       {"id": "#product", "description": "One litre"}
       """
     Then the response status should be 200
     And Organization_Product should exist in database with id #product and options:
-      """
+      """json
       {"productName": "Whole Milk", "description": "One litre", "productGroupId": "#productGroup"}
       """
 
   Scenario: A null description clears the product's description
     Given a product named "Whole Milk" exists
     And I PUT to /secured/products with payload:
-      """
+      """json
       {"id": "#product", "description": "Temporary"}
       """
     When I PUT to /secured/products with payload:
-      """
+      """json
       {"id": "#product", "description": null}
       """
     Then the response status should be 200
     And Organization_Product should exist in database with id #product and options:
-      """
+      """json
       {"productName": "Whole Milk", "description": null}
       """
 
@@ -156,29 +161,29 @@ Feature: Organization products
     Given a product named "Whole Milk" exists
     And a product group named "Other Group" exists
     When I PUT to /secured/products with payload:
-      """
+      """json
       {"id": "#product", "productGroupId": "#productGroup"}
       """
     Then the response status should be 200
     And response contains details:
-      """
+      """json
       {"productName": "Whole Milk", "productGroupName": "Other Group"}
       """
     And Organization_Product should exist in database with id #product and options:
-      """
+      """json
       {"productGroupId": "#productGroup"}
       """
 
   Scenario Outline: A product cannot be moved to a missing or empty group
     Given a product named "Whole Milk" exists
     When I PUT to /secured/products with payload:
-      """
+      """json
       {"id": "#product", "productGroupId": <productGroupId>}
       """
     Then the response status should be 400
     And the response error message should be "<message>"
     And Organization_Product should exist in database with id #product and options:
-      """
+      """json
       {"productGroupId": "#productGroup"}
       """
 
@@ -191,13 +196,13 @@ Feature: Organization products
     Given a product named "Whole Milk" exists
     And a product named "Skim Milk" exists
     When I PUT to /secured/products with payload:
-      """
+      """json
       {"id": "#product", "productName": "<name>"}
       """
     Then the response status should be 400
     And the response error message should be "A product with the name <name> already exists."
     And Organization_Product should exist in database with id #product and options:
-      """
+      """json
       {"productName": "Skim Milk"}
       """
 
@@ -212,26 +217,26 @@ Feature: Organization products
     Given a product named "Whole Milk" exists
     And the system unit "kg" is selected
     When I PUT to /secured/products with payload:
-      """
+      """json
       {"id": "#product", "description": "Changed", "baseUnitId": "#unitValue"}
       """
     Then the response status should be 200
     And response contains details:
-      """
+      """json
       {"baseUnit": "Piece"}
       """
     And Organization_Product should exist in database with id #product and options:
-      """
+      """json
       {"description": "Changed"}
       """
     And Organization_Product should match example:
-      """
+      """json
       {"productName": "Whole Milk", "baseUnitId": "#unitValue->0"}
       """
 
   Scenario: Updating a product that does not exist is rejected
     When I PUT to /secured/products with payload:
-      """
+      """json
       {"id": "00000000-0000-0000-0000-000000000001", "productName": "Ghost"}
       """
     Then the response status should be 400
@@ -242,13 +247,13 @@ Feature: Organization products
     When I PUT to /secured/products/#product/deactivate
     Then the response status should be 200
     And response contains details:
-      """
+      """json
       {"id": "#product", "status": "DISCONTINUED"}
       """
     When I PUT to /secured/products/#product/reactivate
     Then the response status should be 200
     And response contains details:
-      """
+      """json
       {"id": "#product", "status": "ACTIVE"}
       """
 
@@ -261,3 +266,13 @@ Feature: Organization products
       | action     |
       | deactivate |
       | reactivate |
+
+  @publishes-to-kafka
+  Scenario: Creating a product publishes a catalog event for it
+    When I POST to /secured/products with payload:
+      """json
+      {"productName": "Whole Milk", "productGroupId": "#productGroup", "baseUnitId": "#unitValue"}
+      """
+    Then the response status should be 200
+    And a catalog event should be published for table "PRODUCT"
+    And the catalog event should reference the created resource

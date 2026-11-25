@@ -8,27 +8,27 @@ Feature: Product groups
 
   Scenario: Creating a group stores it under its category
     When I POST to /secured/product-groups with payload:
-      """
+      """json
       {"groupName": "Milk", "description": "Fresh milk", "categoryId": "#category"}
       """
     Then the response status should be 200
     And response contains details:
-      """
+      """json
       {"groupName": "Milk", "description": "Fresh milk", "categoryId": "#category", "categoryName": "Test Category"}
       """
     When I GET to /secured/product-groups
     Then response contains item with details:
-      """
+      """json
       {"groupName": "Milk", "categoryName": "Test Category"}
       """
     And Product_Group should match example:
-      """
+      """json
       {"groupName": "Milk", "description": "Fresh milk", "categoryId": "#category"}
       """
 
   Scenario Outline: A group needs a name and a category
     When I POST to /secured/product-groups with payload:
-      """
+      """json
       <payload>
       """
     Then the response status should be 400
@@ -45,7 +45,7 @@ Feature: Product groups
 
   Scenario: A group cannot point at a category that does not exist
     When I POST to /secured/product-groups with payload:
-      """
+      """json
       {"groupName": "Milk", "categoryId": "00000000-0000-0000-0000-000000000001"}
       """
     Then the response status should be 400
@@ -56,7 +56,7 @@ Feature: Product groups
   Scenario Outline: Group names are unique on their letters and digits alone
     Given a product group named "Fresh Milk" exists
     When I POST to /secured/product-groups with payload:
-      """
+      """json
       {"groupName": "<name>", "categoryId": "#category"}
       """
     Then the response status should be 400
@@ -74,7 +74,7 @@ Feature: Product groups
 
   Scenario Outline: A group name needs a letter or digit
     When I POST to /secured/product-groups with payload:
-      """
+      """json
       {"groupName": "<name>", "categoryId": "#category"}
       """
     Then the response status should be 400
@@ -93,7 +93,7 @@ Feature: Product groups
     Given a product group named "Milk" exists
     And a category named "Other" exists
     When I POST to /secured/product-groups with payload:
-      """
+      """json
       {"groupName": "Milk", "categoryId": "#category"}
       """
     Then the response status should be 400
@@ -102,16 +102,16 @@ Feature: Product groups
   Scenario: Renaming a group frees its old name
     Given a product group named "Milk" exists
     When I PUT to /secured/product-groups with payload:
-      """
+      """json
       {"id": "#productGroup", "groupName": "Cold Milk"}
       """
     Then the response status should be 200
     And Product_Group should exist in database with id #productGroup and options:
-      """
+      """json
       {"groupName": "Cold Milk"}
       """
     When I POST to /secured/product-groups with payload:
-      """
+      """json
       {"groupName": "Milk", "categoryId": "#category"}
       """
     Then the response status should be 200
@@ -119,28 +119,28 @@ Feature: Product groups
   Scenario: An update that only carries a description keeps the name and category
     Given a product group named "Milk" exists
     When I PUT to /secured/product-groups with payload:
-      """
+      """json
       {"id": "#productGroup", "description": "Fresh milk"}
       """
     Then the response status should be 200
     And Product_Group should exist in database with id #productGroup and options:
-      """
+      """json
       {"groupName": "Milk", "description": "Fresh milk", "categoryId": "#category"}
       """
 
   Scenario: A null description clears the group's description
     Given a product group named "Milk" exists
     And I PUT to /secured/product-groups with payload:
-      """
+      """json
       {"id": "#productGroup", "description": "Temporary"}
       """
     When I PUT to /secured/product-groups with payload:
-      """
+      """json
       {"id": "#productGroup", "description": null}
       """
     Then the response status should be 200
     And Product_Group should exist in database with id #productGroup and options:
-      """
+      """json
       {"groupName": "Milk", "description": null}
       """
 
@@ -148,29 +148,29 @@ Feature: Product groups
     Given a product group named "Milk" exists
     And a category named "Other" exists
     When I PUT to /secured/product-groups with payload:
-      """
+      """json
       {"id": "#productGroup", "categoryId": "#category"}
       """
     Then the response status should be 200
     And response contains details:
-      """
+      """json
       {"groupName": "Milk", "categoryName": "Other"}
       """
     And Product_Group should exist in database with id #productGroup and options:
-      """
+      """json
       {"categoryId": "#category"}
       """
 
   Scenario Outline: A group cannot be moved to a missing or empty category
     Given a product group named "Milk" exists
     When I PUT to /secured/product-groups with payload:
-      """
+      """json
       {"id": "#productGroup", "categoryId": <categoryId>}
       """
     Then the response status should be 400
     And the response error message should be "<message>"
     And Product_Group should exist in database with id #productGroup and options:
-      """
+      """json
       {"categoryId": "#category"}
       """
 
@@ -183,13 +183,13 @@ Feature: Product groups
     Given a product group named "Milk" exists
     And a product group named "Cheese" exists
     When I PUT to /secured/product-groups with payload:
-      """
+      """json
       {"id": "#productGroup", "groupName": "<name>"}
       """
     Then the response status should be 400
     And the response error message should be "A product group with the name <name> already exists."
     And Product_Group should exist in database with id #productGroup and options:
-      """
+      """json
       {"groupName": "Cheese"}
       """
 
@@ -202,7 +202,7 @@ Feature: Product groups
 
   Scenario: Updating a group that does not exist is rejected
     When I PUT to /secured/product-groups with payload:
-      """
+      """json
       {"id": "00000000-0000-0000-0000-000000000001", "groupName": "Ghost"}
       """
     Then the response status should be 400

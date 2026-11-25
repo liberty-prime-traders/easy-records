@@ -30,8 +30,9 @@ an audit trail of what was processed, when, and by whom.
 
 For catalog changes (product, pricing, etc.) that every location's read model needs to pick up.
 
-- Published via `CatalogEventProducer`/`CatalogEventHandler.publish` — no `AFTER_COMMIT` binding,
-  no `event_processing_log` entry, no DLT, no retry.
+- `CatalogEventHandler.publish` hands the event to `ApplicationEventPublisher`; `CatalogEventProducer` sends it
+  `AFTER_COMMIT` (`fallbackExecution`, so a publish outside a transaction still sends). The consumer re-reads the
+  row, so a send before commit would sync the old version. No `event_processing_log` entry, no DLT, no retry.
 - `CatalogEventHandler.consume` loops `locationService.getAllLocationDtos()` and re-runs the sync
   for every location in the org, unconditionally, on every event.
 - There's no natural-key uniqueness guard here, so a redelivered event just re-syncs — cheap and

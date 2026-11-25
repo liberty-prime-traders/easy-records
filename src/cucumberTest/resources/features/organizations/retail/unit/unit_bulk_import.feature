@@ -5,7 +5,7 @@ Feature: Bulk import of unit groups and their units
 
   Scenario: Units are saved in chain order even when the payload lists them child first
     When I POST to /secured/unitgroups/bulk with payload:
-      """
+      """json
       {
         "unitGroups": [
           {
@@ -24,25 +24,25 @@ Feature: Bulk import of unit groups and their units
     And response list size is 2
     When I GET to /secured/unitvalues
     Then response contains item with details:
-      """
+      """json
       {"code": "pal", "baseUnitName": "Crate", "unitsOfBasePerUnit": 20}
       """
     And response contains item with details:
-      """
+      """json
       {"code": "crt", "baseUnitName": "Box", "unitsOfBasePerUnit": 10}
       """
     And response contains item with details:
-      """
+      """json
       {"code": "box", "baseUnitName": "Piece", "unitsOfBasePerUnit": 6}
       """
     And response contains item with details:
-      """
+      """json
       {"code": "fabric-base", "name": "Piece", "systemDefined": true}
       """
 
   Scenario: A payload that restates seeded system data reuses it
     When I POST to /secured/unitgroups/bulk with payload:
-      """
+      """json
       {
         "unitGroups": [
           {
@@ -61,13 +61,13 @@ Feature: Bulk import of unit groups and their units
     When I GET to /secured/unitvalues
     Then the response field "findAll { it.code == 'kg' }.size()" should be "1"
     And response contains item with details:
-      """
+      """json
       {"code": "t", "baseUnitName": "Kilogram", "unitsOfBasePerUnit": 1000}
       """
 
   Scenario: A rejected payload saves nothing and reports every problem
     When I POST to /secured/unitgroups/bulk with payload:
-      """
+      """json
       {
         "unitGroups": [
           {
@@ -87,7 +87,7 @@ Feature: Bulk import of unit groups and their units
     Then the response status should be 400
     And the response error message should be "Bulk unit import validation failed"
     And response contains details:
-      """
+      """json
       {
         "body": [
           "Unit value 'fine': duplicates another unit value code in the same payload",
@@ -97,35 +97,35 @@ Feature: Bulk import of unit groups and their units
       """
     When I GET to /secured/unitgroups
     Then response contains no item with details:
-      """
+      """json
       {"name": "Good Group"}
       """
     And response contains no item with details:
-      """
+      """json
       {"name": "Bad Group"}
       """
     When I GET to /secured/unitvalues
     Then response contains no item with details:
-      """
+      """json
       {"code": "fine"}
       """
     And response contains no item with details:
-      """
+      """json
       {"code": "loose"}
       """
 
   Scenario: Importing the same payload twice is rejected the second time
     Given I POST to /secured/unitgroups/bulk with payload:
-      """
+      """json
       {"unitGroups": [{"name": "Eggs", "unitValues": [{"name": "Dozen", "code": "egg-dz", "baseUnitCode": "__piece__", "unitsOfBasePerUnit": 12}]}]}
       """
     When I POST to /secured/unitgroups/bulk with payload:
-      """
+      """json
       {"unitGroups": [{"name": "Eggs", "unitValues": [{"name": "Dozen", "code": "egg-dz", "baseUnitCode": "__piece__", "unitsOfBasePerUnit": 12}]}]}
       """
     Then the response status should be 400
     And response contains details:
-      """
+      """json
       {"body": ["Group 'Eggs': name already exists in the database", "Unit value 'egg-dz': code already exists in the database"]}
       """
     When I GET to /secured/unitgroups
@@ -136,17 +136,17 @@ Feature: Bulk import of unit groups and their units
   Scenario Outline: A bulk group name cannot match an existing group on letters and digits
     Given a unit group named "Pack Size" exists
     When I POST to /secured/unitgroups/bulk with payload:
-      """
+      """json
       {"unitGroups": [{"name": "<name>"}]}
       """
     Then the response status should be 400
     And response contains details:
-      """
+      """json
       {"body": ["Group '<name>': name already exists in the database"]}
       """
     When I GET to /secured/unitgroups
     Then response contains no item with details:
-      """
+      """json
       {"name": "<name>"}
       """
 
@@ -160,17 +160,17 @@ Feature: Bulk import of unit groups and their units
 
   Scenario Outline: Two groups in one payload cannot share a name on letters and digits
     When I POST to /secured/unitgroups/bulk with payload:
-      """
+      """json
       {"unitGroups": [{"name": "Pack Size"}, {"name": "<name>"}]}
       """
     Then the response status should be 400
     And response contains details:
-      """
+      """json
       {"body": ["Group '<name>': duplicates another group name in the same payload"]}
       """
     When I GET to /secured/unitgroups
     Then response contains no item with details:
-      """
+      """json
       {"name": "Pack Size"}
       """
 
@@ -184,7 +184,7 @@ Feature: Bulk import of unit groups and their units
 
   Scenario Outline: A payload naming a seeded system group in any spelling reuses it
     When I POST to /secured/unitgroups/bulk with payload:
-      """
+      """json
       {"unitGroups": [{"name": "<name>"}]}
       """
     Then the response status should be 200

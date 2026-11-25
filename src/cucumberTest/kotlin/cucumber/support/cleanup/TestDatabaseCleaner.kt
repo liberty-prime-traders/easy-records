@@ -45,7 +45,9 @@ class TestDatabaseCleaner(
       TableNames.AUTHORIZATION_PASS_AUDIT,
 
       TableNames.LOCATION,
-      TableNames.LOCATION_AUDIT
+      TableNames.LOCATION_AUDIT,
+
+      TableNames.ORGANIZATION_USER
     )
   }
 

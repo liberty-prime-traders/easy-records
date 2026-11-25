@@ -1,7 +1,7 @@
-package app.myliberty.easy_records.cucumber.steps.organizations.retail
+package app.myliberty.easy_records.cucumber.steps.organizations.retail.unit
 
-import app.myliberty.easy_records.cucumber.fixtures.organizations.retail.UnitGroupFixtureBuilder
-import app.myliberty.easy_records.cucumber.fixtures.organizations.retail.UnitValueFixtureBuilder
+import app.myliberty.easy_records.cucumber.fixtures.organizations.retail.unit.UnitGroupFixtureBuilder
+import app.myliberty.easy_records.cucumber.fixtures.organizations.retail.unit.UnitValueFixtureBuilder
 import app.myliberty.easy_records.cucumber.support.ApiClient
 import app.myliberty.easy_records.cucumber.support.context.InjectContext
 import app.myliberty.easy_records.cucumber.support.context.TransientKey

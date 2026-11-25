@@ -2,6 +2,7 @@ package app.myliberty.easy_records.cucumber.steps.database
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
@@ -26,6 +27,7 @@ class DatabaseSteps(
   private val objectMapper: ObjectMapper = jacksonObjectMapper()
     .registerKotlinModule()
     .registerModule(JavaTimeModule())
+    .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
 
   @ParameterType(".*")
   fun dataSourcePackage(raw: String): DataSourcePackage = dataAccessHelper.get(raw)

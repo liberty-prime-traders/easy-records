@@ -33,7 +33,11 @@ class BulkProductImportValidator(
                 errors.add("Category at position ${index + 1}: name is required")
                 return@forEachIndexed
             }
-            val duplicateIndex = categories.take(index).indexOfFirst { StringUtils.isEquivalent(it.name, category.name) }
+            if (StringUtils.alphanumericKey(category.name!!).isEmpty()) {
+                errors.add("Category at position ${index + 1}: name must contain at least one letter or digit")
+                return@forEachIndexed
+            }
+            val duplicateIndex = categories.take(index).indexOfFirst { StringUtils.isEquivalentOnAlphanumerics(it.name, category.name) }
             if (duplicateIndex != -1) {
                 errors.add("Category at position ${index + 1}: duplicates category name '${category.name}' at position ${duplicateIndex + 1}")
             }
@@ -55,12 +59,16 @@ class BulkProductImportValidator(
                 errors.add("Product group at position ${index + 1}: categoryName is required")
                 return@forEachIndexed
             }
-            val duplicateIndex = productGroups.take(index).indexOfFirst { StringUtils.isEquivalent(it.name, productGroup.name) }
+            if (StringUtils.alphanumericKey(productGroup.name!!).isEmpty()) {
+                errors.add("Product group at position ${index + 1}: name must contain at least one letter or digit")
+                return@forEachIndexed
+            }
+            val duplicateIndex = productGroups.take(index).indexOfFirst { StringUtils.isEquivalentOnAlphanumerics(it.name, productGroup.name) }
             if (duplicateIndex != -1) {
                 errors.add("Product group at position ${index + 1}: duplicates product group name '${productGroup.name}' at position ${duplicateIndex + 1}")
             }
-            val categoryResolvable = payloadCategories.any { StringUtils.isEquivalent(it.name, productGroup.categoryName) } ||
-                existingCategories.any { StringUtils.isEquivalent(it.categoryName, productGroup.categoryName) }
+            val categoryResolvable = payloadCategories.any { StringUtils.isEquivalentOnAlphanumerics(it.name, productGroup.categoryName) } ||
+                existingCategories.any { StringUtils.isEquivalentOnAlphanumerics(it.categoryName, productGroup.categoryName) }
             if (!categoryResolvable) {
                 errors.add("Product group at position ${index + 1}: categoryName '${productGroup.categoryName}' does not match any category in this payload or in the organization")
             }
@@ -89,15 +97,19 @@ class BulkProductImportValidator(
                 return@forEachIndexed
             }
 
-            val duplicateIndex = products.take(index).indexOfFirst { StringUtils.isEquivalent(it.name, product.name) }
+            if (StringUtils.alphanumericKey(product.name!!).isEmpty()) {
+                errors.add("Product at position ${index + 1}: name must contain at least one letter or digit")
+                return@forEachIndexed
+            }
+            val duplicateIndex = products.take(index).indexOfFirst { StringUtils.isEquivalentOnAlphanumerics(it.name, product.name) }
             if (duplicateIndex != -1) {
                 errors.add("Product at position ${index + 1}: duplicates product name '${product.name}' at position ${duplicateIndex + 1}")
-            } else if (organizationProductService.isDuplicateProductName(product.name!!)) {
+            } else if (organizationProductService.isDuplicateProductName(product.name)) {
                 errors.add("Product at position ${index + 1}: a product with the name '${product.name}' already exists")
             }
 
-            val groupResolvable = payloadProductGroups.any { StringUtils.isEquivalent(it.name, product.groupName) } ||
-                existingGroups.any { StringUtils.isEquivalent(it.groupName, product.groupName) }
+            val groupResolvable = payloadProductGroups.any { StringUtils.isEquivalentOnAlphanumerics(it.name, product.groupName) } ||
+                existingGroups.any { StringUtils.isEquivalentOnAlphanumerics(it.groupName, product.groupName) }
             if (!groupResolvable) {
                 errors.add("Product at position ${index + 1}: groupName '${product.groupName}' does not match any product group in this payload or in the organization")
             }
