@@ -16,7 +16,7 @@ Feature: Tax rates
     And the organization has registered "Kenya - VAT" with payable "VAT Payable" and recoverable "VAT Recoverable"
 
   Scenario: An organization starts with no tax rates
-    When I GET to secured/tax-rates
+    When I GET to /secured/tax-rates
     Then the response status should be 200
     And response list size is 0
 
@@ -35,18 +35,11 @@ Feature: Tax rates
     Then the response status should be 200
     And response contains details:
       """json
-      {
-        "taxLabel": "Kenya - VAT",
-        "name": "Standard",
-        "ratePercentage": 16,
-        "startDate": "2030-01-01",
-        "parentIsActive": true
-      }
+      {"taxLabel": "Kenya - VAT", "name": "Standard", "ratePercentage": 16}
       """
-    And Tax_Rate table should have exactly 1 records in database
-    And Tax_Rate should match example:
+    And Tax_Rate table should contain exactly these records:
       """json
-      {"name": "Standard", "ratePercentage": 16}
+      [{"name": "Standard", "ratePercentage": 16}]
       """
 
   Scenario: A listed rate shows its tax label and that its registration is active
@@ -61,14 +54,17 @@ Feature: Tax rates
         "startDate": "2030-01-01"
       }
       """
-    When I GET to secured/tax-rates
+    When I GET to /secured/tax-rates
     Then the response status should be 200
     And response list size is 1
-    And response contains item with details:
+    And response contains details:
       """json
-      {"taxLabel": "Kenya - VAT", "name": "Standard", "parentIsActive": true}
+      [{"taxLabel": "Kenya - VAT", "name": "Standard", "parentIsActive": true}]
       """
-    And Tax_Rate table should have exactly 1 records in database
+    And Tax_Rate table should contain exactly these records:
+      """json
+      [{"name": "Standard"}]
+      """
 
   Scenario: A rate reports its registration as inactive once the registration is stopped
     Given the tax rate "Standard" is created with payload:
@@ -86,13 +82,16 @@ Feature: Tax rates
       """json
       {"id": "{{orgTaxType:Kenya - VAT}}", "status": "INACTIVE"}
       """
-    And I GET to secured/tax-rates
+    And I GET to /secured/tax-rates
     Then the response status should be 200
-    And response contains item with details:
+    And response contains details:
       """json
-      {"name": "Standard", "parentIsActive": false}
+      [{"name": "Standard", "parentIsActive": false}]
       """
-    And Tax_Rate table should have exactly 1 records in database
+    And Tax_Rate table should contain exactly these records:
+      """json
+      [{"name": "Standard"}]
+      """
 
   Scenario: A rate cannot be created under a registration that is inactive
     When I PUT the organization tax path /secured/org-tax-types with payload:
@@ -219,12 +218,11 @@ Feature: Tax rates
     Then the response status should be 200
     And response contains details:
       """json
-      {"taxLabel": "Kenya - Stamp Duty", "name": "Stamp", "rateFlatAmount": 5.5}
-      """
-    And Tax_Rate table should have exactly 1 records in database
-    And Tax_Rate should match example:
-      """json
       {"name": "Stamp", "rateFlatAmount": 5.5}
+      """
+    And Tax_Rate table should contain exactly these records:
+      """json
+      [{"name": "Stamp", "rateFlatAmount": 5.5}]
       """
 
   Scenario: A fixed value tax type rejects a percentage rate
@@ -338,7 +336,10 @@ Feature: Tax rates
       """
     Then the response status should be 400
     And the response error message should be "<overlapMessage>"
-    And Tax_Rate table should have exactly 1 records in database
+    And Tax_Rate table should contain exactly these records:
+      """json
+      [{"name": "Standard", "startDate": "2030-01-01"}]
+      """
 
     Examples:
       | overlapMessage                                                                                                  |
@@ -370,9 +371,12 @@ Feature: Tax rates
     Then the response status should be 200
     And response contains details:
       """json
-      {"name": "Reduced", "ratePercentage": 5}
+      {"name": "Reduced", "startDate": "2030-06-01"}
       """
-    And Tax_Rate table should have exactly 2 records in database
+    And Tax_Rate table should contain exactly these records:
+      """json
+      [{"name": "Standard", "startDate": "2030-01-01"}, {"name": "Reduced", "startDate": "2030-06-01"}]
+      """
 
   Scenario Outline: Transaction level rates cannot overlap whatever their names
     Given a transaction level tax type named "Service Charge" exists
@@ -393,7 +397,7 @@ Feature: Tax rates
       """json
       {
         "orgJurisdictionTaxTypeId": "{{orgTaxType:Kenya - Service Charge}}",
-        "name": "Reduced",
+        "name": "<name>",
         "ratePercentage": 5,
         "taxIsBilledToCustomerSeparately": false,
         "taxIsIncludedInTaxableAmount": false,
@@ -402,11 +406,15 @@ Feature: Tax rates
       """
     Then the response status should be 400
     And the response error message should be "<overlapMessage>"
-    And Tax_Rate table should have exactly 1 records in database
+    And Tax_Rate table should contain exactly these records:
+      """json
+      [{"name": "Standard", "startDate": "2030-01-01"}]
+      """
 
     Examples:
-      | overlapMessage                                                                                                  |
-      | 'Standard' starts on 2030-01-01 and never expires. Please adjust your dates to avoid this overlap. |
+      | name     | overlapMessage |
+      | Reduced  | 'Standard' starts on 2030-01-01 and never expires. Please adjust your dates to avoid this overlap. |
+      | Standard | 'Standard' starts on 2030-01-01 and never expires. Please adjust your dates to avoid this overlap. |
 
   Scenario: Rates that follow each other without overlap are accepted
     Given the tax rate "Standard 2030" is created with payload:
@@ -433,7 +441,17 @@ Feature: Tax rates
       }
       """
     Then the response status should be 200
-    And Tax_Rate table should have exactly 2 records in database
+    And response contains details:
+      """json
+      {"name": "Standard", "ratePercentage": 18, "startDate": "2031-01-01"}
+      """
+    And Tax_Rate table should contain exactly these records:
+      """json
+      [
+        {"name": "Standard", "startDate": "2030-01-01", "endDate": "2030-12-31"},
+        {"name": "Standard", "startDate": "2031-01-01"}
+      ]
+      """
 
   Scenario: Renaming a rate keeps its dates
     Given the tax rate "Standard" is created with payload:
@@ -454,12 +472,11 @@ Feature: Tax rates
     Then the response status should be 200
     And response contains details:
       """json
-      {"name": "Reduced", "startDate": "2030-01-01"}
+      {"name": "Reduced", "startDate": "2030-01-01", "endDate": null}
       """
-    And Tax_Rate table should have exactly 1 records in database
-    And Tax_Rate should match example:
+    And Tax_Rate table should contain exactly these records:
       """json
-      {"name": "Reduced"}
+      [{"name": "Reduced", "startDate": "2030-01-01"}]
       """
 
   Scenario: Setting an end date on a rate
@@ -483,11 +500,10 @@ Feature: Tax rates
       """json
       {"name": "Standard", "endDate": "2031-12-31"}
       """
-    And Tax_Rate should match example:
+    And Tax_Rate table should contain exactly these records:
       """json
-      {"name": "Standard", "endDate": "2031-12-31"}
+      [{"name": "Standard", "endDate": "2031-12-31"}]
       """
-    And Tax_Rate table should have exactly 1 records in database
 
   Scenario: An end date cannot come before the start date
     Given the tax rate "Standard" is created with payload:
@@ -507,11 +523,10 @@ Feature: Tax rates
       """
     Then the response status should be 400
     And the response error message should be "The start date must be before the end date"
-    And Tax_Rate should match example:
+    And Tax_Rate table should contain exactly these records:
       """json
-      {"name": "Standard", "endDate": null}
+      [{"name": "Standard", "startDate": "2030-01-01", "endDate": null}]
       """
-    And Tax_Rate table should have exactly 1 records in database
 
   Scenario: An end date cannot be set in the past
     Given the tax rate "Standard" is created with payload:
@@ -531,13 +546,12 @@ Feature: Tax rates
       """
     Then the response status should be 400
     And the response error message should be "End date must not be in the past"
-    And Tax_Rate should match example:
+    And Tax_Rate table should contain exactly these records:
       """json
-      {"name": "Standard", "endDate": null}
+      [{"name": "Standard", "endDate": null}]
       """
-    And Tax_Rate table should have exactly 1 records in database
 
-  Scenario Outline: A renamed rate cannot overlap another rate of the same name
+  Scenario Outline: A rate whose end date is extended cannot overlap another rate of the same name
     Given the tax rate "Standard 2030" is created with payload:
       """json
       {
@@ -567,15 +581,59 @@ Feature: Tax rates
       """
     Then the response status should be 400
     And the response error message should be "<overlapMessage>"
-    And Tax_Rate table should have exactly 2 records in database
-    And Tax_Rate should match example:
+    And Tax_Rate table should contain exactly these records:
       """json
-      {"name": "Standard", "endDate": "2030-12-31"}
+      [
+        {"name": "Standard", "startDate": "2030-01-01", "endDate": "2030-12-31"},
+        {"name": "Standard", "startDate": "2031-01-01"}
+      ]
       """
 
     Examples:
       | overlapMessage                                                                                                  |
       | 'Standard' starts on 2031-01-01 and never expires. Please adjust your dates to avoid this overlap. |
+
+  Scenario Outline: A rate renamed to the name of a rate it overlaps is rejected
+    Given the tax rate "Standard" is created with payload:
+      """json
+      {
+        "orgJurisdictionTaxTypeId": "{{orgTaxType:Kenya - VAT}}",
+        "name": "Standard",
+        "ratePercentage": 16,
+        "taxIsBilledToCustomerSeparately": false,
+        "taxIsIncludedInTaxableAmount": false,
+        "startDate": "2030-01-01",
+        "endDate": "2030-12-31"
+      }
+      """
+    And the tax rate "Reduced" is created with payload:
+      """json
+      {
+        "orgJurisdictionTaxTypeId": "{{orgTaxType:Kenya - VAT}}",
+        "name": "Reduced",
+        "ratePercentage": 5,
+        "taxIsBilledToCustomerSeparately": false,
+        "taxIsIncludedInTaxableAmount": false,
+        "startDate": "2030-06-01"
+      }
+      """
+    When I PUT the tax rate path /secured/tax-rates with payload:
+      """json
+      {"id": "{{taxRate:Standard}}", "name": "Reduced"}
+      """
+    Then the response status should be 400
+    And the response error message should be "<overlapMessage>"
+    And Tax_Rate table should contain exactly these records:
+      """json
+      [
+        {"name": "Standard", "startDate": "2030-01-01", "endDate": "2030-12-31"},
+        {"name": "Reduced", "startDate": "2030-06-01"}
+      ]
+      """
+
+    Examples:
+      | overlapMessage |
+      | 'Reduced' starts on 2030-06-01 and never expires. Please adjust your dates to avoid this overlap. |
 
   Scenario: A rate cannot be renamed to a blank name
     Given the tax rate "Standard" is created with payload:
@@ -595,11 +653,10 @@ Feature: Tax rates
       """
     Then the response status should be 400
     And the response error message should be "Name must not be blank"
-    And Tax_Rate should match example:
+    And Tax_Rate table should contain exactly these records:
       """json
-      {"name": "Standard"}
+      [{"name": "Standard"}]
       """
-    And Tax_Rate table should have exactly 1 records in database
 
   Scenario: An update that changes nothing is rejected
     Given the tax rate "Standard" is created with payload:
@@ -619,7 +676,10 @@ Feature: Tax rates
       """
     Then the response status should be 400
     And the response error message should be "Nothing to update"
-    And Tax_Rate table should have exactly 1 records in database
+    And Tax_Rate table should contain exactly these records:
+      """json
+      [{"name": "Standard"}]
+      """
 
   Scenario: Updating a rate that does not exist is rejected
     Given the tax rate "Standard" is created with payload:
@@ -639,8 +699,7 @@ Feature: Tax rates
       """
     Then the response status should be 400
     And the response error message should be "Attempted to Update non-existent record"
-    And Tax_Rate should match example:
+    And Tax_Rate table should contain exactly these records:
       """json
-      {"name": "Standard"}
+      [{"name": "Standard"}]
       """
-    And Tax_Rate table should have exactly 1 records in database

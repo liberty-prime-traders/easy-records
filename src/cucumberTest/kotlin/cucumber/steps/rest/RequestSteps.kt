@@ -12,17 +12,17 @@ class RequestSteps(
   private val injectContext: InjectContext
 ) {
 
-  @When("I {httpMethod} to/from {path}")
+  @When("I {httpMethod} to {path}")
   fun openRequest(method: HttpMethod, path: String) {
     apiClient.exchange(method, injectContext.inject(path))
   }
 
-  @When("I {httpMethod} to/from {path} with payload:")
+  @When("I {httpMethod} to {path} with payload:")
   fun openRequestWithPayload(method: HttpMethod, path: String, payload: String) {
     apiClient.exchange(method, injectContext.inject(path), body = injectContext.inject(payload))
   }
 
-  @When("I {httpMethod} to/from {path} with {parameterStyle} parameters:")
+  @When("I {httpMethod} to {path} with {parameterStyle} parameters:")
   fun openRequestWithParameters(method: HttpMethod, path: String, style: ParameterStyle, parameters: DataTable) {
     val params = parametersFrom(parameters)
     val resolvedPath = injectContext.inject(path)

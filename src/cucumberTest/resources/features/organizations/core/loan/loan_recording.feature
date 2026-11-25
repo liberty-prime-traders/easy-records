@@ -8,42 +8,33 @@ Feature: Recording a loan
     When I POST to /secured/loans with payload:
       """json
       {
-        "lenderContactReference": "#contactReference",
+        "lenderContactReference": "{{contactReference}}",
         "assetAccountCode": "001.001.001",
-        "amount": 100.00,
-        "loanDate": "#today",
+        "amount": 100.0,
+        "loanDate": "{{today}}",
         "note": "Working capital"
       }
       """
     Then the response status should be 200
     And response contains details:
       """json
-      {
-        "lender": {"displayName": "First Bank"},
-        "assetAccount": {"code": "001.001.001"},
-        "amount": 100,
-        "note": "Working capital",
-        "status": "OPEN",
-        "amountRepaid": 0,
-        "outstanding": 100
-      }
+      {"amount": 100, "outstanding": 100, "lender": {"displayName": "First Bank"}, "assetAccount": {"label": "Cash (1.1.1)"}}
       """
     And Loan should match example:
       """json
-      {
-        "lenderContactId": "#contact",
-        "assetAccountCode": "001.001.001",
-        "amount": 100,
-        "loanDate": "#today",
-        "note": "Working capital"
-      }
+      {"lenderContactId": "{{contact}}", "assetAccountCode": "001.001.001", "amount": 100}
       """
     And account "002.004" should have a balance of "100.00"
     And account "001.001.001" should have a balance of "100.00"
     When I GET to /secured/contacts
     Then response contains item with details:
       """json
-      {"referenceNumber": "#contactReference", "payableBalance": 100, "receivableBalance": 0}
+      {
+        "referenceNumber": "{{contactReference}}",
+        "companyName": "First Bank",
+        "payableBalance": 100,
+        "receivableBalance": 0
+      }
       """
     And loans payable should equal the sum of outstanding loans
 
@@ -52,10 +43,10 @@ Feature: Recording a loan
     When I POST to /secured/loans with payload:
       """json
       {
-        "lenderContactReference": "#contactReference",
+        "lenderContactReference": "{{contactReference}}",
         "assetAccountCode": "001.001.001",
-        "amount": 100.00,
-        "loanDate": "#today"
+        "amount": 100.0,
+        "loanDate": "{{today}}"
       }
       """
     Then the response status should be 400
@@ -65,7 +56,7 @@ Feature: Recording a loan
   Scenario: A loan from an unknown lender is rejected
     When I POST to /secured/loans with payload:
       """json
-      {"lenderContactReference": "CT999999", "assetAccountCode": "001.001.001", "amount": 100.00, "loanDate": "#today"}
+      {"lenderContactReference": "CT999999", "assetAccountCode": "001.001.001", "amount": 100.0, "loanDate": "{{today}}"}
       """
     Then the response status should be 400
     And the response error message should be "Lender not found: CT999999"
@@ -74,7 +65,7 @@ Feature: Recording a loan
   Scenario: A loan without a lender is rejected
     When I POST to /secured/loans with payload:
       """json
-      {"lenderContactReference": " ", "assetAccountCode": "001.001.001", "amount": 100.00, "loanDate": "#today"}
+      {"lenderContactReference": " ", "assetAccountCode": "001.001.001", "amount": 100.0, "loanDate": "{{today}}"}
       """
     Then the response status should be 400
     And the response error message should be "Lender is required"
@@ -85,10 +76,10 @@ Feature: Recording a loan
     When I POST to /secured/loans with payload:
       """json
       {
-        "lenderContactReference": "#contactReference",
+        "lenderContactReference": "{{contactReference}}",
         "assetAccountCode": "<account>",
-        "amount": 100.00,
-        "loanDate": "#today"
+        "amount": 100.0,
+        "loanDate": "{{today}}"
       }
       """
     Then the response status should be 400
@@ -106,10 +97,10 @@ Feature: Recording a loan
     When I POST to /secured/loans with payload:
       """json
       {
-        "lenderContactReference": "#contactReference",
+        "lenderContactReference": "{{contactReference}}",
         "assetAccountCode": "001.001.001",
         "amount": <amount>,
-        "loanDate": "#today"
+        "loanDate": "{{today}}"
       }
       """
     Then the response status should be 400
@@ -126,9 +117,9 @@ Feature: Recording a loan
     When I POST to /secured/loans with payload:
       """json
       {
-        "lenderContactReference": "#contactReference",
+        "lenderContactReference": "{{contactReference}}",
         "assetAccountCode": "001.001.001",
-        "amount": 100.00,
+        "amount": 100.0,
         "loanDate": "2001-01-15"
       }
       """
@@ -144,3 +135,5 @@ Feature: Recording a loan
       """
     Then the response status should be 400
     And the response error message should be "Account 002.004 is driven only by loans and cannot take a manual opening balance"
+    And Loan table should have no records in database
+    And account "002.004" should have a balance of "0.00"

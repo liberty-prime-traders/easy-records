@@ -37,6 +37,18 @@ class PaymentMethodUpdateDtoTest {
     }
 
     @Test
+    fun `a provided name is trimmed before it is stored`() {
+        val paymentMethodUpdateDto = PaymentMethodUpdateDto(
+            id = existingPaymentMethod.id,
+            name = Optional.of("  Counter  ")
+        )
+
+        val updated = paymentMethodUpdateDto.applyTo(existingPaymentMethod)
+
+        assertEquals("Counter", updated.name)
+    }
+
+    @Test
     fun `an empty description optional clears the stored description`() {
         val paymentMethodUpdateDto = PaymentMethodUpdateDto(
             id = existingPaymentMethod.id,

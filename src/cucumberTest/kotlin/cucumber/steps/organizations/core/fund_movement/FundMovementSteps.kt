@@ -1,11 +1,11 @@
 package app.myliberty.easy_records.cucumber.steps.organizations.core.fund_movement
 
 import app.myliberty.easy_records.cucumber.support.ApiClient
+import app.myliberty.easy_records.cucumber.support.TestDates
 import io.cucumber.java.en.Given
 import io.cucumber.java.en.When
 import java.math.BigDecimal
 import java.time.LocalDate
-import java.time.ZoneOffset
 import java.util.UUID
 
 class FundMovementSteps(
@@ -37,5 +37,5 @@ class FundMovementSteps(
     apiClient.post("/secured/fund-movements/void", voidRequest)
   }
 
-  private fun today(): LocalDate = LocalDate.now(ZoneOffset.UTC)
+  private fun today(): LocalDate = TestDates.today()
 }

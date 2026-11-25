@@ -25,9 +25,15 @@ class AuthenticatedRequestFactory(
       .baseUri("http://localhost:$port")
       .contentType(ContentType.JSON)
 
-    authContext.authToken?.let { request.header(TestConstants.Tokens.TOKEN_HEADER, it) }
-    injectContext.find(PersistentKey.ORGANIZATION)?.let { request.header(TenantHeaders.ORGANIZATION_ID_HEADER, it.toString()) }
-    injectContext.find(PersistentKey.LOCATION)?.let { request.header(TenantHeaders.LOCATION_ID_HEADER, it.toString()) }
+    authContext.authToken?.let {
+      request.header(TestConstants.Tokens.TOKEN_HEADER, it)
+    }
+    injectContext.find(PersistentKey.ORGANIZATION)?.let {
+      request.header(TenantHeaders.ORGANIZATION_ID_HEADER, it.toString())
+    }
+    injectContext.find(PersistentKey.LOCATION)?.let {
+      request.header(TenantHeaders.LOCATION_ID_HEADER, it.toString())
+    }
     return request
   }
 }

@@ -14,16 +14,14 @@ Feature: Job titles
       {"value": "Cashier"}
       """
     When I GET to /secured/job-title
-    Then response list size is 1
-    And response contains item with details:
+    Then response contains details:
       """json
-      {"value": "Cashier"}
+      [{"value": "Cashier"}]
       """
-    And Job_Title should match example:
+    And Job_Title table should contain exactly these records:
       """json
-      {"value": "Cashier"}
+      [{"value": "Cashier"}]
       """
-    And Job_Title table should have exactly 1 records in database
 
   Scenario Outline: A job title needs a value
     When I POST to /secured/job-title with payload:
@@ -33,7 +31,10 @@ Feature: Job titles
     Then the response status should be 400
     And the response error message should be "A job title must have a value"
     When I GET to /secured/job-title
-    Then response list size is 0
+    Then response contains details:
+      """json
+      []
+      """
     And Job_Title table should have no records in database
 
     Examples:
@@ -53,7 +54,10 @@ Feature: Job titles
       """
     Then the response status should be 400
     And the response error message should be "<message>"
-    And Job_Title table should have exactly 1 records in database
+    And Job_Title table should contain exactly these records:
+      """json
+      [{"value": "Cashier"}]
+      """
 
     Examples:
       | value     | message                                              |

@@ -6,36 +6,22 @@ Feature: Recording owner capital, owner draws and voiding fund movements
   Scenario: Owner capital is saved and raises cash and owner's capital
     When I POST to /secured/fund-movements/capital with payload:
       """json
-      {
-        "accountCode": "001.001.001",
-        "amount": 100.00,
-        "movementDate": "#today",
-        "note": "Owner injects cash"
-      }
+      {"accountCode": "001.001.001", "amount": 100.0, "movementDate": "{{today}}", "note": "Owner injects cash"}
       """
     Then the response status should be 200
     And response contains details:
       """json
       {
         "type": "CONTRIBUTE_CAPITAL_TO_BUSINESS",
-        "debitAccount": {"code": "001.001.001", "label": "Cash"},
-        "creditAccount": {"code": "003.001", "label": "Owner's Capital"},
-        "amount": 100,
-        "movementDate": "#today",
-        "note": "Owner injects cash"
+        "debitAccount": {"code": "001.001.001", "label": "Cash (1.1.1)"},
+        "creditAccount": {"code": "003.001", "label": "Owner's Capital (3.1)"},
+        "amount": 100
       }
       """
-    And Fund_Movement should match example:
+    And Fund_Movement table should contain exactly these records:
       """json
-      {
-        "debitAccountCode": "001.001.001",
-        "creditAccountCode": "003.001",
-        "amount": 100,
-        "movementDate": "#today",
-        "note": "Owner injects cash"
-      }
+      [{"debitAccountCode": "001.001.001", "creditAccountCode": "003.001", "amount": 100}]
       """
-    And Fund_Movement table should have exactly 1 records in database
     And account "001.001.001" should have a balance of "100.00"
     And account "003.001" should have a balance of "100.00"
 
@@ -43,29 +29,25 @@ Feature: Recording owner capital, owner draws and voiding fund movements
     Given the owner has contributed "100.00" of cash
     When I POST to /secured/fund-movements/draw with payload:
       """json
-      {
-        "accountCode": "001.001.001",
-        "amount": 40.00,
-        "movementDate": "#today",
-        "note": "Personal groceries"
-      }
+      {"accountCode": "001.001.001", "amount": 40.0, "movementDate": "{{today}}", "note": "Personal groceries"}
       """
     Then the response status should be 200
     And response contains details:
       """json
       {
         "type": "WITHDRAW_FOR_PERSONAL_USE",
-        "debitAccount": {"code": "003.003", "label": "Owner's Draws"},
-        "creditAccount": {"code": "001.001.001", "label": "Cash"},
-        "amount": 40,
-        "note": "Personal groceries"
+        "debitAccount": {"code": "003.003", "label": "Owner's Draws (3.3)"},
+        "creditAccount": {"code": "001.001.001", "label": "Cash (1.1.1)"},
+        "amount": 40
       }
       """
-    And Fund_Movement should match example:
+    And Fund_Movement table should contain exactly these records:
       """json
-      {"debitAccountCode": "003.003", "creditAccountCode": "001.001.001", "amount": 40, "movementDate": "#today"}
+      [
+        {"debitAccountCode": "001.001.001", "creditAccountCode": "003.001", "amount": 100},
+        {"debitAccountCode": "003.003", "creditAccountCode": "001.001.001", "amount": 40}
+      ]
       """
-    And Fund_Movement table should have exactly 2 records in database
     And account "003.003" should have a balance of "40.00"
     And account "001.001.001" should have a balance of "60.00"
 
@@ -75,14 +57,22 @@ Feature: Recording owner capital, owner draws and voiding fund movements
     Then the response status should be 200
     And response contains details:
       """json
-      {"void": {"voidDate": "#today", "reason": "Entered twice"}}
+      {
+        "type": "CONTRIBUTE_CAPITAL_TO_BUSINESS",
+        "debitAccount": {"label": "Cash (1.1.1)"},
+        "creditAccount": {"label": "Owner's Capital (3.1)"},
+        "amount": 100,
+        "void": {"reason": "Entered twice"}
+      }
       """
-    And Fund_Movement_Void should match example:
+    And Fund_Movement_Void table should contain exactly these records:
       """json
-      {"voidDate": "#today", "reason": "Entered twice"}
+      [{"reason": "Entered twice"}]
       """
-    And Fund_Movement_Void table should have exactly 1 records in database
-    And Fund_Movement table should have exactly 1 records in database
+    And Fund_Movement table should contain exactly these records:
+      """json
+      [{"debitAccountCode": "001.001.001", "creditAccountCode": "003.001", "amount": 100}]
+      """
     And account "001.001.001" should have a balance of "0.00"
     And account "003.001" should have a balance of "0.00"
 
@@ -98,7 +88,7 @@ Feature: Recording owner capital, owner draws and voiding fund movements
   Scenario Outline: A movement into an account that cannot hold cash is rejected
     When I POST to /secured/fund-movements/capital with payload:
       """json
-      {"accountCode": "<account>", "amount": 100.00, "movementDate": "#today"}
+      {"accountCode": "<account>", "amount": 100.0, "movementDate": "{{today}}"}
       """
     Then the response status should be 400
     And the response error message should be "<error>"
@@ -113,7 +103,7 @@ Feature: Recording owner capital, owner draws and voiding fund movements
   Scenario Outline: A movement whose amount is not positive is rejected
     When I POST to /secured/fund-movements/capital with payload:
       """json
-      {"accountCode": "001.001.001", "amount": <amount>, "movementDate": "#today"}
+      {"accountCode": "001.001.001", "amount": <amount>, "movementDate": "{{today}}"}
       """
     Then the response status should be 400
     And the response error message should be "<error>"
@@ -127,8 +117,10 @@ Feature: Recording owner capital, owner draws and voiding fund movements
   Scenario: A movement dated outside every open fiscal period leaves nothing behind
     When I POST to /secured/fund-movements/capital with payload:
       """json
-      {"accountCode": "001.001.001", "amount": 100.00, "movementDate": "2001-01-15"}
+      {"accountCode": "001.001.001", "amount": 100.0, "movementDate": "2001-01-15"}
       """
     Then the response status should be 400
     And the response error message should be "No open fiscal period for 2001-01-15"
     And Fund_Movement table should have no records in database
+    And account "001.001.001" should have a balance of "0.00"
+    And account "003.001" should have a balance of "0.00"

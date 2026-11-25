@@ -5,12 +5,19 @@ import app.myliberty.easy_records.organizations.business.core.tag.api.TagDto
 import app.myliberty.easy_records.organizations.business.core.tag.api.TagService
 import app.myliberty.easy_records.organizations.business.core.tag.api.TagUpdateDto
 import app.myliberty.easy_records.organizations.business.core.tag.mapping.TagMapper
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
 import org.mockito.ArgumentMatchers.argThat
+import org.mockito.Mockito.doThrow
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.never
 import org.mockito.Mockito.verify
+import org.mockito.Mockito.verifyNoInteractions
+import org.springframework.dao.DataIntegrityViolationException
+import org.springframework.http.HttpStatus
 import java.time.OffsetDateTime
 import java.util.Optional
 import java.util.UUID
@@ -83,5 +90,26 @@ class TagServiceTest {
         tagService.deleteTag(unknownTagId)
 
         verify(tagCache, never()).deleteTag(unknownTagId)
+    }
+
+    @Test
+    fun `an explicit null tag name is rejected instead of keeping the stored name`() {
+        val updateDto = TagUpdateDto(id = existingTagId, tagName = Optional.empty())
+
+        val exception = assertThrows(LibertyGenericException::class.java) { tagService.updateTag(updateDto) }
+
+        assertEquals(TagService.NAME_IS_REQUIRED, exception.message)
+        verifyNoInteractions(tagCache)
+    }
+
+    @Test
+    fun `deleting a tag still in use is rejected as a bad request`() {
+        `when`(tagCache.getAllTags()).thenReturn(listOf(existingTag))
+        doThrow(DataIntegrityViolationException("tag is referenced")).`when`(tagCache).deleteTag(existingTagId)
+
+        val exception = assertThrows(LibertyGenericException::class.java) { tagService.deleteTag(existingTagId) }
+
+        assertEquals(TagService.TAG_IN_USE, exception.message)
+        assertEquals(HttpStatus.BAD_REQUEST, exception.statusCode)
     }
 }

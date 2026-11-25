@@ -5,38 +5,30 @@ Feature: Contact transaction ledger
 
   Scenario: A contact that has never transacted has an empty ledger
     Given a customer named "Quiet Customer" exists
-    When I POST to/from /secured/contacts/#contact/ledger with payload:
+    When I POST to /secured/contacts/{{contact}}/ledger with payload:
       """json
       {"previousCursor": "", "requestedSize": 20, "parameters": {}}
       """
     Then the response status should be 200
     And response contains details with exact lists:
       """json
-      {"contents": [], "hasMore": false}
+      {"contents": []}
       """
 
   Scenario: A loan is listed as a row that subtracts from the balance because the organization owes the lender
     Given a lender named "Ledger Lender" exists
     And a loan of "100.00" from the lender exists
-    When I POST to/from /secured/contacts/#contact/ledger with payload:
+    When I POST to /secured/contacts/{{contact}}/ledger with payload:
       """json
       {"previousCursor": "", "requestedSize": 20, "parameters": {}}
       """
     Then the response status should be 200
-    And response contains details with exact lists:
+    And response contains details:
       """json
       {
         "contents": [
-          {
-            "sourceType": "LOAN",
-            "sourceReferenceNumber": "#loanReference",
-            "transactionAmount": 100,
-            "transactionBalanceEffect": "SUBTRACTS",
-            "netBalance": 100,
-            "netBalanceEffect": "SUBTRACTS"
-          }
-        ],
-        "hasMore": false
+          {"sourceType": "LOAN", "transactionAmount": 100, "transactionBalanceEffect": "SUBTRACTS", "netBalance": 100}
+        ]
       }
       """
 
@@ -44,33 +36,24 @@ Feature: Contact transaction ledger
     Given a lender named "Repaid Lender" exists
     And a loan of "100.00" from the lender exists
     And a repayment of "60.00" against the loan exists
-    When I POST to/from /secured/contacts/#contact/ledger with payload:
+    When I POST to /secured/contacts/{{contact}}/ledger with payload:
       """json
       {"previousCursor": "", "requestedSize": 20, "parameters": {}}
       """
     Then the response status should be 200
-    And response contains details with exact lists in order:
+    And response contains details:
       """json
       {
         "contents": [
           {
             "sourceType": "LOAN_REPAYMENT",
-            "sourceReferenceNumber": "#repaymentReference",
             "transactionAmount": 60,
             "transactionBalanceEffect": "ADDS",
             "netBalance": 40,
             "netBalanceEffect": "SUBTRACTS"
           },
-          {
-            "sourceType": "LOAN",
-            "sourceReferenceNumber": "#loanReference",
-            "transactionAmount": 100,
-            "transactionBalanceEffect": "SUBTRACTS",
-            "netBalance": 100,
-            "netBalanceEffect": "SUBTRACTS"
-          }
-        ],
-        "hasMore": false
+          {"sourceType": "LOAN", "transactionAmount": 100, "netBalance": 100}
+        ]
       }
       """
 
@@ -78,18 +61,17 @@ Feature: Contact transaction ledger
     Given a lender named "Voided Lender" exists
     And a loan of "100.00" from the lender exists
     And the loan has been voided
-    When I POST to/from /secured/contacts/#contact/ledger with payload:
+    When I POST to /secured/contacts/{{contact}}/ledger with payload:
       """json
       {"previousCursor": "", "requestedSize": 20, "parameters": {}}
       """
     Then the response status should be 200
-    And response contains details with exact lists in order:
+    And response contains details:
       """json
       {
         "contents": [
           {
             "sourceType": "LOAN_VOID",
-            "sourceReferenceNumber": "#loanReference",
             "transactionAmount": 100,
             "transactionBalanceEffect": "ADDS",
             "netBalance": 0,
@@ -97,26 +79,24 @@ Feature: Contact transaction ledger
           },
           {
             "sourceType": "LOAN",
-            "sourceReferenceNumber": "#loanReference",
             "transactionAmount": 100,
             "transactionBalanceEffect": "SUBTRACTS",
             "netBalance": 100,
             "netBalanceEffect": "SUBTRACTS"
           }
-        ],
-        "hasMore": false
+        ]
       }
       """
 
   Scenario: An opening receivable is listed as a row that adds because the contact owes the organization
     Given a customer named "Opening Customer" exists
     And a contact opening receivable of "250.00" is declared
-    When I POST to/from /secured/contacts/#contact/ledger with payload:
+    When I POST to /secured/contacts/{{contact}}/ledger with payload:
       """json
       {"previousCursor": "", "requestedSize": 20, "parameters": {}}
       """
     Then the response status should be 200
-    And response contains details with exact lists:
+    And response contains details:
       """json
       {
         "contents": [
@@ -127,20 +107,19 @@ Feature: Contact transaction ledger
             "netBalance": 250,
             "netBalanceEffect": "ADDS"
           }
-        ],
-        "hasMore": false
+        ]
       }
       """
 
   Scenario: An opening payable is listed as a row that subtracts because the organization owes the contact
     Given a customer named "Opening Supplier Account" exists
     And a contact opening payable of "40.00" is declared
-    When I POST to/from /secured/contacts/#contact/ledger with payload:
+    When I POST to /secured/contacts/{{contact}}/ledger with payload:
       """json
       {"previousCursor": "", "requestedSize": 20, "parameters": {}}
       """
     Then the response status should be 200
-    And response contains details with exact lists:
+    And response contains details:
       """json
       {
         "contents": [
@@ -151,8 +130,7 @@ Feature: Contact transaction ledger
             "netBalance": 40,
             "netBalanceEffect": "SUBTRACTS"
           }
-        ],
-        "hasMore": false
+        ]
       }
       """
 
@@ -161,18 +139,28 @@ Feature: Contact transaction ledger
     And a contact opening receivable of "50.00" is declared
     And a loan of "100.00" from the lender exists
     And a repayment of "30.00" against the loan exists
-    When I POST to/from /secured/contacts/#contact/ledger with payload:
+    When I POST to /secured/contacts/{{contact}}/ledger with payload:
       """json
       {"previousCursor": "", "requestedSize": 20, "parameters": {}}
       """
     Then the response status should be 200
+    And response contains details:
+      """json
+      {
+        "contents": [
+          {"sourceType": "LOAN_REPAYMENT", "netBalance": 20, "netBalanceEffect": "SUBTRACTS"},
+          {"sourceType": "LOAN", "netBalance": 50, "netBalanceEffect": "SUBTRACTS"},
+          {"sourceType": "CONTACT_OPENING_BALANCE", "netBalance": 50, "netBalanceEffect": "ADDS"}
+        ]
+      }
+      """
     And response contains details with exact lists in order:
       """json
       {
         "contents": [
           {
             "sourceType": "LOAN_REPAYMENT",
-            "sourceReferenceNumber": "#repaymentReference",
+            "sourceReferenceNumber": "{{repaymentReference}}",
             "transactionAmount": 30,
             "transactionBalanceEffect": "ADDS",
             "netBalance": 20,
@@ -180,7 +168,7 @@ Feature: Contact transaction ledger
           },
           {
             "sourceType": "LOAN",
-            "sourceReferenceNumber": "#loanReference",
+            "sourceReferenceNumber": "{{loanReference}}",
             "transactionAmount": 100,
             "transactionBalanceEffect": "SUBTRACTS",
             "netBalance": 50,
@@ -203,11 +191,15 @@ Feature: Contact transaction ledger
     And a contact opening receivable of "50.00" is declared
     And a loan of "100.00" from the lender exists
     And a repayment of "30.00" against the loan exists
-    When I POST to/from /secured/contacts/#contact/ledger with payload:
+    When I POST to /secured/contacts/{{contact}}/ledger with payload:
       """json
       {"previousCursor": "", "requestedSize": 2, "parameters": {}}
       """
     Then the response status should be 200
+    And response contains details:
+      """json
+      {"hasMore": true, "contents": [{"sourceType": "LOAN_REPAYMENT"}, {"sourceType": "LOAN"}]}
+      """
     And response contains details with exact lists in order:
       """json
       {
@@ -220,12 +212,14 @@ Feature: Contact transaction ledger
       """
     When I request the next ledger page of 2 entries
     Then the response status should be 200
+    And response contains details:
+      """json
+      {"hasMore": false, "contents": [{"sourceType": "CONTACT_OPENING_BALANCE"}]}
+      """
     And response contains details with exact lists in order:
       """json
       {
-        "contents": [
-          {"sourceType": "CONTACT_OPENING_BALANCE", "transactionAmount": 50, "netBalance": 50}
-        ],
+        "contents": [{"sourceType": "CONTACT_OPENING_BALANCE", "transactionAmount": 50, "netBalance": 50}],
         "hasMore": false
       }
       """

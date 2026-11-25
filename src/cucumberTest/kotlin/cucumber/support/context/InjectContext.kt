@@ -1,8 +1,7 @@
 package app.myliberty.easy_records.cucumber.support.context
 
+import app.myliberty.easy_records.cucumber.support.TestDates
 import org.springframework.stereotype.Component
-import java.time.LocalDate
-import java.time.ZoneOffset
 import java.util.UUID
 
 @Component
@@ -11,11 +10,11 @@ class InjectContext {
   private val multiStore = mutableMapOf<String, MutableList<String>>()
   private val persistentStore = mutableMapOf<String, MutableList<String>>()
 
-  fun store(key: TransientKey, value: UUID) {
-    multiStore.getOrPut(key.key) { mutableListOf() }.add(value.toString())
+  fun store(key: ContextKey, value: UUID) {
+    storeText(key, value.toString())
   }
 
-  fun storeText(key: TransientKey, value: String) {
+  fun storeText(key: ContextKey, value: String) {
     multiStore.getOrPut(key.key) { mutableListOf() }.add(value)
   }
 
@@ -25,7 +24,23 @@ class InjectContext {
 
   fun find(key: ContextKey, index: Int? = null): UUID? = findString(key, index)?.let { UUID.fromString(it) }
 
-  fun get(key: ContextKey, index: Int? = null): UUID = checkNotNull(find(key, index)) { "No value found in context for key '${key.key}'" }
+  fun get(key: ContextKey, index: Int? = null): UUID =
+    checkNotNull(find(key, index)) { "No value found in context for key '${key.key}'" }
+
+  fun storeNamed(kind: TransientKey, name: String, value: UUID) {
+    storeNamedText(kind, name, value.toString())
+  }
+
+  fun storeNamedText(kind: TransientKey, name: String, value: String) {
+    multiStore.getOrPut(namedKey(kind, name)) { mutableListOf() }.add(value)
+  }
+
+  fun getNamed(kind: TransientKey, name: String): UUID = UUID.fromString(getNamedText(kind, name))
+
+  fun getNamedText(kind: TransientKey, name: String): String =
+    checkNotNull(multiStore[namedKey(kind, name)]?.lastOrNull()) {
+      "No ${kind.key} named \"$name\" was created by a fixture in this scenario"
+    }
 
   fun findString(key: ContextKey, index: Int? = null): String? {
     val store = when (key) {
@@ -36,19 +51,27 @@ class InjectContext {
   }
 
   fun inject(text: String): String =
-    PLACEHOLDER_PATTERN.replace(text) { match ->
-      val parts = match.groupValues[1].split("->")
-      val keyStr = parts[0]
-      if (keyStr == TODAY) return@replace LocalDate.now(ZoneOffset.UTC).toString()
-      val index = parts.getOrNull(1)?.toIntOrNull()
-      KEY_LOOKUP[keyStr]?.let { findString(it, index) } ?: match.value
+    PLACEHOLDER_PATTERN.replace(text) { match -> resolvePlaceholder(match.groupValues[1]) ?: match.value }
+
+  private fun resolvePlaceholder(token: String): String? {
+    if (token == TODAY) return TestDates.today().toString()
+    if (token.contains(':')) {
+      val kindToken = token.substringBefore(':')
+      val kind = KEY_LOOKUP[kindToken] as? TransientKey ?: error("Unknown named fixture kind '$kindToken'")
+      return getNamedText(kind, token.substringAfter(':'))
     }
+    val parts = token.split("->")
+    val key = KEY_LOOKUP[parts[0]] ?: return null
+    return findString(key, parts.getOrNull(1)?.toIntOrNull())
+  }
 
   fun clear() = multiStore.clear()
 
+  private fun namedKey(kind: TransientKey, name: String): String = "${kind.key}:$name"
+
   companion object {
     private const val TODAY = "today"
-    private val PLACEHOLDER_PATTERN = Regex("#([^\"\\s.!?,:;()\\[\\]{}/_]+)")
+    private val PLACEHOLDER_PATTERN = Regex("\\{\\{([^{}]+)}}")
     private val KEY_LOOKUP: Map<String, ContextKey> = buildMap {
       PersistentKey.entries.forEach { put(it.key, it) }
       TransientKey.entries.forEach { put(it.key, it) }

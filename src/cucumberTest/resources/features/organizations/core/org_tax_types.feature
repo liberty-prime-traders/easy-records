@@ -9,7 +9,7 @@ Feature: Organization tax types
     And tax configuration is active
 
   Scenario: An organization starts with no tax types registered
-    When I GET to secured/org-tax-types
+    When I GET to /secured/org-tax-types
     Then the response status should be 200
     And response list size is 0
 
@@ -18,17 +18,11 @@ Feature: Organization tax types
     And a jurisdiction named "Kenya" exists
     And a tax type named "VAT" exists
     And the tax type "VAT" applies in the jurisdiction "Kenya"
-    When I GET to secured/org-tax-types/available
+    When I GET to /secured/org-tax-types/available
     Then the response status should be 200
     And response contains details:
       """json
-      {
-        "label": "Kenya",
-        "selectable": false,
-        "children": [
-          {"label": "Kenya - VAT", "selectable": true, "data": "RECOVERABLE"}
-        ]
-      }
+      [{"label": "Kenya", "children": [{"label": "Kenya - VAT", "selectable": true}]}]
       """
 
   Scenario: Registering a jurisdiction tax type removes it from available
@@ -39,10 +33,13 @@ Feature: Organization tax types
     And a payable tax account named "VAT Payable" exists
     And a recoverable tax account named "VAT Recoverable" exists
     And the organization has registered "Kenya - VAT" with payable "VAT Payable" and recoverable "VAT Recoverable"
-    When I GET to secured/org-tax-types/available
+    When I GET to /secured/org-tax-types/available
     Then the response status should be 200
     And response list size is 0
-    And Org_Jurisdiction_Tax_Type table should have exactly 1 records in database
+    And Org_Jurisdiction_Tax_Type table should contain exactly these records:
+      """json
+      [{"payableAccountCode": "002.002.001", "recoverableAccountCode": "001.001.004.001"}]
+      """
 
   Scenario: Creating a tax type stores it and shows its account names
     Given a jurisdiction type named "Country" exists
@@ -64,21 +61,25 @@ Feature: Organization tax types
     Then the response status should be 200
     And response contains details:
       """json
-      {
-        "taxLabel": "Kenya - VAT",
-        "taxRecoveryType": "RECOVERABLE",
-        "status": "ACTIVE",
-        "payableAccountCode": "002.002.001",
-        "payableAccount": "VAT Payable (2.2.1)",
-        "recoverableAccountCode": "001.001.004.001",
-        "recoverableAccount": "VAT Recoverable (1.1.4.1)"
-      }
+      [
+        {
+          "taxLabel": "Kenya - VAT",
+          "payableAccount": "VAT Payable (2.2.1)",
+          "recoverableAccount": "VAT Recoverable (1.1.4.1)"
+        }
+      ]
       """
-    When I GET to secured/org-tax-types
+    When I GET to /secured/org-tax-types
     Then response list size is 1
-    And response contains item with details:
+    And response contains details:
       """json
-      {"taxLabel": "Kenya - VAT", "payableAccount": "VAT Payable (2.2.1)"}
+      [
+        {
+          "taxLabel": "Kenya - VAT",
+          "payableAccount": "VAT Payable (2.2.1)",
+          "recoverableAccount": "VAT Recoverable (1.1.4.1)"
+        }
+      ]
       """
     And Org_Jurisdiction_Tax_Type should match example:
       """json
@@ -101,9 +102,16 @@ Feature: Organization tax types
       ]
       """
     Then the response status should be 200
-    And response contains item with details:
+    And response contains details:
       """json
-      {"taxLabel": "UK - Levy", "taxRecoveryType": "NON_RECOVERABLE", "payableAccountCode": "002.002.001"}
+      [
+        {
+          "taxLabel": "UK - Levy",
+          "taxRecoveryType": "NON_RECOVERABLE",
+          "payableAccount": "VAT Payable (2.2.1)",
+          "recoverableAccount": null
+        }
+      ]
       """
     And Org_Jurisdiction_Tax_Type should match example:
       """json
@@ -136,7 +144,24 @@ Feature: Organization tax types
       """
     Then the response status should be 200
     And response list size is 2
-    And Org_Jurisdiction_Tax_Type table should have exactly 2 records in database
+    And response contains details:
+      """json
+      [
+        {
+          "taxLabel": "Kenya - VAT",
+          "payableAccount": "VAT Payable (2.2.1)",
+          "recoverableAccount": "VAT Recoverable (1.1.4.1)"
+        },
+        {"taxLabel": "UK - Levy", "payableAccount": "VAT Payable (2.2.1)", "recoverableAccount": null}
+      ]
+      """
+    And Org_Jurisdiction_Tax_Type table should contain exactly these records:
+      """json
+      [
+        {"payableAccountCode": "002.002.001", "recoverableAccountCode": "001.001.004.001"},
+        {"payableAccountCode": "002.002.001", "recoverableAccountCode": null}
+      ]
+      """
 
   Scenario: A payable account must exist
     Given a jurisdiction type named "Country" exists
@@ -333,7 +358,10 @@ Feature: Organization tax types
       """
     Then the response status should be 400
     And the response error message should be "Kenya - VAT is already registered for this organization"
-    And Org_Jurisdiction_Tax_Type table should have exactly 1 records in database
+    And Org_Jurisdiction_Tax_Type table should contain exactly these records:
+      """json
+      [{"payableAccountCode": "002.002.001", "recoverableAccountCode": "001.001.004.001"}]
+      """
 
   Scenario: A jurisdiction tax type that does not exist is rejected
     Given a payable tax account named "VAT Payable" exists
@@ -387,7 +415,7 @@ Feature: Organization tax types
     Then the response status should be 200
     And response contains details:
       """json
-      {"taxLabel": "Kenya - VAT", "status": "INACTIVE", "payableAccountCode": "002.002.001"}
+      {"taxLabel": "Kenya - VAT", "status": "INACTIVE"}
       """
     And Org_Jurisdiction_Tax_Type should match example:
       """json
@@ -410,7 +438,7 @@ Feature: Organization tax types
     Then the response status should be 200
     And response contains details:
       """json
-      {"payableAccountCode": "002.002.002", "payableAccount": "VAT Interest Payable (2.2.2)"}
+      {"taxLabel": "Kenya - VAT", "payableAccountCode": "002.002.002", "payableAccount": "VAT Interest Payable (2.2.2)"}
       """
     And Org_Jurisdiction_Tax_Type should match example:
       """json
@@ -433,7 +461,7 @@ Feature: Organization tax types
     And the response error message should be "Kenya - VAT requires a recoverable account"
     And Org_Jurisdiction_Tax_Type should match example:
       """json
-      {"payableAccountCode": "002.002.001", "recoverableAccountCode": "001.001.004.001"}
+      {"recoverableAccountCode": "001.001.004.001"}
       """
 
   Scenario: Updating a non-recoverable registration drops the recoverable account it is given
@@ -449,9 +477,13 @@ Feature: Organization tax types
       {"id": "{{orgTaxType:UK - Levy}}", "recoverableAccountCode": "{{taxAccount:VAT Recoverable}}"}
       """
     Then the response status should be 200
+    And response contains details:
+      """json
+      {"taxLabel": "UK - Levy", "payableAccount": "VAT Payable (2.2.1)", "recoverableAccount": null}
+      """
     And Org_Jurisdiction_Tax_Type should match example:
       """json
-      {"payableAccountCode": "002.002.001", "recoverableAccountCode": null}
+      {"recoverableAccountCode": null}
       """
 
   Scenario: Updating a registration that does not exist is rejected
@@ -468,8 +500,7 @@ Feature: Organization tax types
       """
     Then the response status should be 400
     And the response error message should be "Attempted to Update non-existent record"
-    And Org_Jurisdiction_Tax_Type table should have exactly 1 records in database
-    And Org_Jurisdiction_Tax_Type should match example:
+    And Org_Jurisdiction_Tax_Type table should contain exactly these records:
       """json
-      {"status": "ACTIVE"}
+      [{"status": "ACTIVE"}]
       """

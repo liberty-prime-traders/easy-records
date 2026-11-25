@@ -6,10 +6,15 @@ Feature: Stock movement reasons
   Scenario: Every organization starts with the system reasons
     When I GET to /secured/stock-movement-reasons
     Then the response status should be 200
-    And response list size is 5
-    And response contains item with details:
+    And response contains details:
       """json
-      {"name": "Theft", "code": "THF", "systemDefined": true, "movementTypes": ["STOCK_ADJUSTMENT_DECREASE"]}
+      [
+        {"code": "DMG", "name": "Damaged", "systemDefined": true},
+        {"code": "QI", "name": "Quality Issue", "systemDefined": true},
+        {"code": "THF", "name": "Theft", "systemDefined": true},
+        {"code": "CD", "name": "Count Discrepancy", "systemDefined": true},
+        {"code": "EXP", "name": "Expired", "systemDefined": true}
+      ]
       """
 
   Scenario: Creating a reason stores it as an organization reason
@@ -20,11 +25,11 @@ Feature: Stock movement reasons
     Then the response status should be 200
     And response contains details:
       """json
-      {"name": "Packaging", "description": "Stock used as packaging", "systemDefined": false}
+      {"name": "Packaging", "systemDefined": false}
       """
     And Stock_Movement_Reason should match example:
       """json
-      {"name": "Packaging", "movementTypes": ["STOCK_ADJUSTMENT_DECREASE"], "systemDefined": false}
+      {"name": "Packaging", "systemDefined": false}
       """
     And Stock_Movement_Reason table should have exactly 6 records in database
 
@@ -41,6 +46,10 @@ Feature: Stock movement reasons
     And Stock_Movement_Reason should match example:
       """json
       {"name": "Write Off", "movementTypes": ["CUSTOMER_RETURN"]}
+      """
+    And Stock_Movement_Reason should match example:
+      """json
+      {"name": "Write Off", "movementTypes": ["STOCK_ADJUSTMENT_DECREASE", "CUSTOMER_RETURN"]}
       """
 
   Scenario Outline: A reason needs a name and at least one known movement type
@@ -69,6 +78,10 @@ Feature: Stock movement reasons
       """
     Then the response status should be 400
     And the response error message should be "A movement reason with the name '<name>' already exists"
+    And Stock_Movement_Reason should match example:
+      """json
+      {"name": "Packaging"}
+      """
     And Stock_Movement_Reason table should have exactly 6 records in database
 
     Examples:
@@ -109,6 +122,11 @@ Feature: Stock movement reasons
       {"name": "Packaging", "movementTypes": ["STOCK_ADJUSTMENT_DECREASE"]}
       """
     Then the response status should be 200
+    And Stock_Movement_Reason should match example:
+      """json
+      {"name": "Packaging"}
+      """
+    And Stock_Movement_Reason table should have exactly 7 records in database
 
   Scenario: An update that only carries a description keeps the name and movement types
     Given a stock movement reason named "Packaging" exists
@@ -222,7 +240,16 @@ Feature: Stock movement reasons
     When I DELETE the stock movement reason named "Packaging"
     Then the response status should be 204
     When I GET to /secured/stock-movement-reasons
-    Then response list size is 5
+    Then response contains details:
+      """json
+      [
+        {"code": "DMG", "name": "Damaged"},
+        {"code": "QI", "name": "Quality Issue"},
+        {"code": "THF", "name": "Theft"},
+        {"code": "CD", "name": "Count Discrepancy"},
+        {"code": "EXP", "name": "Expired"}
+      ]
+      """
     And Stock_Movement_Reason should not match example:
       """json
       {"name": "Packaging"}

@@ -66,7 +66,7 @@ class BoilerPlateDataInitializer(
       createOrganization(passRecordId)
       createLocation()
       createOrgUser()
-      organizationCache.getAllOrganizations().find { it.subdomain == SUBDOMAIN }?.let { ensureOrganizationUserIsMember(it) }
+      ensureDefaultMemberships()
     } else {
       registerExistingUsers()
       TestUserRegistry.platformAdminUserId?.let { grantPlatformAdminRole(it) }
@@ -77,18 +77,22 @@ class BoilerPlateDataInitializer(
           injectContext.persist(PersistentKey.LOCATION, location.id)
         }
         SessionContextProvider.clear()
-        ensureOrganizationUserIsMember(organization)
       }
+      ensureDefaultMemberships()
     }
   }
 
-  // Membership is protected from the per-scenario reset, so the default user stays a member and can call member-gated endpoints.
-  private fun ensureOrganizationUserIsMember(organization: OrganizationDto) {
-    val userId = checkNotNull(TestUserRegistry.organizationUserId) { "Organization user was not registered" }
+  // Memberships are protected from the per-scenario reset, so the default users are re-asserted as members before each
+  // scenario and can call member-gated endpoints even after a scenario has ended their membership.
+  fun ensureDefaultMemberships() {
+    val organization: OrganizationDto = checkNotNull(
+      organizationCache.getAllOrganizations().find { it.subdomain == SUBDOMAIN }
+    ) { "Test organization was not created" }
+    val userIds = listOfNotNull(TestUserRegistry.platformAdminUserId, TestUserRegistry.organizationUserId)
     ServiceAccountContext.runWithServiceAccount<Unit>(ServiceAccount.RECORD_INITIALIZER) {
       SessionContextProvider.initOrganization(organization)
       try {
-        organizationMembershipSeeder.ensureMember(userId)
+        userIds.forEach { userId -> organizationMembershipSeeder.ensureMember(userId) }
       } finally {
         SessionContextProvider.clear()
       }

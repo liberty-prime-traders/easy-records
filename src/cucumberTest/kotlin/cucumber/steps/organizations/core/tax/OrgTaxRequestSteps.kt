@@ -2,12 +2,12 @@ package app.myliberty.easy_records.cucumber.steps.organizations.core.tax
 
 import io.cucumber.java.en.When
 import org.springframework.http.HttpMethod
-import app.myliberty.easy_records.cucumber.fixtures.organizations.core.tax.OrgTaxFixtureRegistry
 import app.myliberty.easy_records.cucumber.support.ApiClient
+import app.myliberty.easy_records.cucumber.support.context.InjectContext
 
 class OrgTaxRequestSteps(
   private val apiClient: ApiClient,
-  private val orgTaxFixtureRegistry: OrgTaxFixtureRegistry,
+  private val injectContext: InjectContext,
 ) {
 
   @When("I {httpMethod} the organization tax path {path} with payload:")
@@ -15,7 +15,7 @@ class OrgTaxRequestSteps(
     apiClient.exchange(
       method,
       path,
-      body = orgTaxFixtureRegistry.resolveTokens(payload),
+      body = injectContext.inject(payload),
     )
   }
 }

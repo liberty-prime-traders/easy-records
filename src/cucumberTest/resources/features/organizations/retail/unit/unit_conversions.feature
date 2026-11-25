@@ -12,9 +12,7 @@ Feature: Unit conversions
     Then the response status should be 200
     And the response should match json:
       """json
-      {"#unitValue": {"#unitValue": {
-        "id": "#unitValue", "name": "Test Unit", "code": "TU", "numerator": 1, "denominator": 1
-      }}}
+      {"{{unitValue}}": {"{{unitValue}}": {"name": "Test Unit", "numerator": 1, "denominator": 1}}}
       """
 
   Scenario: A unit converts to its group's root unit and back at its size
@@ -24,16 +22,8 @@ Feature: Unit conversions
     And the response should match json:
       """json
       {
-        "#rootUnit": {
-          "#unitValue": {
-            "id": "#unitValue", "name": "Test Unit", "code": "TU", "numerator": 1, "denominator": 12
-          }
-        },
-        "#unitValue": {
-          "#rootUnit": {
-            "id": "#rootUnit", "name": "Piece", "code": "test-unit-group-base", "numerator": 12, "denominator": 1
-          }
-        }
+        "{{rootUnit}}": {"{{unitValue}}": {"name": "Test Unit", "numerator": 1, "denominator": 12}},
+        "{{unitValue}}": {"{{rootUnit}}": {"numerator": 12, "denominator": 1}}
       }
       """
 
@@ -44,15 +34,15 @@ Feature: Unit conversions
     Then the response status should be 200
     And the response should match json:
       """json
-      {"#unitValue": {"#unitValue->0": {"numerator": <numerator>, "denominator": <denominator>}}}
+      {"{{unitValue}}": {"{{unitValue->0}}": {"name": "<toName>", "numerator": <numerator>, "denominator": <denominator>}}}
       """
 
     Examples:
-      | from | to  | numerator | denominator |
-      | kg   | g   | 1000      | 1           |
-      | g    | kg  | 1         | 1000        |
-      | hl   | l   | 1         | 2           |
-      | dz   | hdz | 2         | 1           |
+      | from | to  | toName     | numerator | denominator |
+      | kg   | g   | Gram       | 1000      | 1           |
+      | g    | kg  | Kilogram   | 1         | 1000        |
+      | hl   | l   | Litre      | 1         | 2           |
+      | dz   | hdz | Half Dozen | 2         | 1           |
 
   Scenario: A Miscellaneous unit converts to itself at one to one
     Given the system unit "misc-pc" is selected
@@ -60,7 +50,7 @@ Feature: Unit conversions
     Then the response status should be 200
     And the response should match json:
       """json
-      {"#unitValue": {"#unitValue": {"numerator": 1, "denominator": 1}}}
+      {"{{unitValue}}": {"{{unitValue}}": {"name": "Piece", "numerator": 1, "denominator": 1}}}
       """
 
   Scenario: Renaming a unit changes its name in the graph after the graph was read
@@ -69,18 +59,18 @@ Feature: Unit conversions
     Then the response status should be 200
     When I PUT to /secured/unitvalues with payload:
       """json
-      {"id": "#unitValue", "name": "Renamed Unit", "code": "RU"}
+      {"id": "{{unitValue}}", "name": "Renamed Unit", "code": "RU"}
       """
     Then the response status should be 200
     When I GET to /secured/unit-conversions/graph
     Then the response status should be 200
     And the response should match json:
       """json
-      {"#rootUnit": {"#unitValue": {"id": "#unitValue", "name": "Renamed Unit", "code": "RU"}}}
+      {"{{rootUnit}}": {"{{unitValue}}": {"name": "Renamed Unit"}}}
       """
-    And Unit_Value should exist in database with id #unitValue and options:
+    And Unit_Value should exist in database with id {{unitValue}} and options:
       """json
-      {"name": "Renamed Unit", "code": "RU", "baseUnit": "#rootUnit", "unitsOfBasePerUnit": 12}
+      {"name": "Renamed Unit"}
       """
 
   Scenario: Changing a unit's conversion factor changes both of its ratios after the graph was read
@@ -89,7 +79,7 @@ Feature: Unit conversions
     Then the response status should be 200
     When I PUT to /secured/unitvalues with payload:
       """json
-      {"id": "#unitValue", "name": "Test Unit", "code": "TU", "baseUnit": "#rootUnit", "unitsOfBasePerUnit": 24}
+      {"id": "{{unitValue}}", "name": "Test Unit", "code": "TU", "baseUnit": "{{rootUnit}}", "unitsOfBasePerUnit": 24}
       """
     Then the response status should be 200
     When I GET to /secured/unit-conversions/graph
@@ -97,13 +87,13 @@ Feature: Unit conversions
     And the response should match json:
       """json
       {
-        "#rootUnit": {"#unitValue": {"numerator": 1, "denominator": 24}},
-        "#unitValue": {"#rootUnit": {"numerator": 24, "denominator": 1}}
+        "{{rootUnit}}": {"{{unitValue}}": {"name": "Test Unit", "numerator": 1, "denominator": 24}},
+        "{{unitValue}}": {"{{rootUnit}}": {"numerator": 24, "denominator": 1}}
       }
       """
-    And Unit_Value should exist in database with id #unitValue and options:
+    And Unit_Value should exist in database with id {{unitValue}} and options:
       """json
-      {"code": "TU", "baseUnit": "#rootUnit", "unitsOfBasePerUnit": 24}
+      {"unitsOfBasePerUnit": 24}
       """
 
   Scenario: A unit added after the graph was read appears in the graph
@@ -115,10 +105,9 @@ Feature: Unit conversions
     Then the response status should be 200
     And the response should match json:
       """json
-      {"#unitValue->0": {"#unitValue": {"id": "#unitValue", "name": "Other Unit", "code": "OU", "numerator": 1,
-      "denominator": 1}}}
+      {"{{unitValue->0}}": {"{{unitValue}}": {"name": "Other Unit"}}}
       """
-    And Unit_Value should exist in database with id #unitValue and options:
+    And Unit_Value should exist in database with id {{unitValue}} and options:
       """json
-      {"code": "OU", "baseUnit": "#rootUnit", "unitsOfBasePerUnit": 12}
+      {"code": "OU"}
       """

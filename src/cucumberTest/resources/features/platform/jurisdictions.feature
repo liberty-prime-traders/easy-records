@@ -18,9 +18,9 @@ Feature: Jurisdictions
       {"name": "Kenya", "jurisdictionType": "Country"}
       """
     When I GET to /secured/jurisdictions
-    Then response contains item with details:
+    Then response contains details:
       """json
-      {"name": "Kenya", "jurisdictionType": "Country"}
+      [{"name": "Kenya", "jurisdictionType": "Country"}]
       """
     And Jurisdiction should match example:
       """json
@@ -115,7 +115,7 @@ Feature: Jurisdictions
     And the response error message should be "Circular hierarchy detected: Nairobi cannot be set as parent of Kenya because it is a descendant of Kenya"
     And Jurisdiction should match example:
       """json
-      {"name": "Kenya"}
+      {"name": "Kenya", "parentJurisdictionId": null}
       """
 
   Scenario: Deleting a jurisdiction removes it

@@ -33,6 +33,6 @@ class OpeningSettlementFixtureState {
   }
 
   companion object {
-    private const val SETTLEMENT_REFERENCE_PLACEHOLDER = "#settlementReference"
+    private const val SETTLEMENT_REFERENCE_PLACEHOLDER = "{{settlementReference}}"
   }
 }

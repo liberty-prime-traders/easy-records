@@ -31,9 +31,18 @@ Feature: Tax types
       }
       """
     When I GET to /secured/tax-types
-    Then response contains item with details:
+    Then response contains details:
       """json
-      {"name": "GST"}
+      [
+        {
+          "name": "GST",
+          "description": "Goods and services tax",
+          "calculationMethod": "PERCENTAGE",
+          "taxRecoveryType": "RECOVERABLE",
+          "taxApplicationLevel": "LINE_ITEM",
+          "taxTriggers": ["SALE", "PURCHASE_RETURN"]
+        }
+      ]
       """
     And Tax_Type should match example:
       """json
@@ -91,7 +100,10 @@ Feature: Tax types
       """
     Then the response status should be 400
     And the response error message should be "A tax type named '<name>' already exists"
-    And Tax_Type table should have exactly 1 records in database
+    And Tax_Type table should contain exactly these records:
+      """json
+      [{"name": "GST"}]
+      """
 
     Examples:
       | name  |
@@ -109,10 +121,6 @@ Feature: Tax types
       """json
       {"name": "VAT"}
       """
-    And Tax_Type should match example:
-      """json
-      {"name": "VAT"}
-      """
     When I POST to /secured/tax-types with payload:
       """json
       {
@@ -124,7 +132,10 @@ Feature: Tax types
       }
       """
     Then the response status should be 200
-    And Tax_Type table should have exactly 2 records in database
+    And Tax_Type table should contain exactly these records:
+      """json
+      [{"name": "VAT"}, {"name": "GST"}]
+      """
 
   Scenario: A partial edit that only carries a description keeps the other settings
     Given a tax type named "GST" exists
@@ -167,11 +178,10 @@ Feature: Tax types
       """
     Then the response status should be 400
     And the response error message should be "A tax type named 'gst' already exists"
-    And Tax_Type should match example:
+    And Tax_Type table should contain exactly these records:
       """json
-      {"name": "VAT"}
+      [{"name": "VAT"}, {"name": "GST"}]
       """
-    And Tax_Type table should have exactly 2 records in database
 
   Scenario: Updating a tax type that does not exist is rejected
     When I PUT to /secured/tax-types with payload:

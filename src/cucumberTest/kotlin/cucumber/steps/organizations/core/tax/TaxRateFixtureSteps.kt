@@ -1,10 +1,6 @@
 package app.myliberty.easy_records.cucumber.steps.organizations.core.tax
 
 import io.cucumber.java.en.Given
-import app.myliberty.easy_records.cucumber.fixtures.organizations.core.tax.OrgTaxFixtureRegistry
-import app.myliberty.easy_records.cucumber.fixtures.organizations.core.tax.TaxRateFixtureRegistry
-import app.myliberty.easy_records.cucumber.fixtures.platform.PlatformTaxFixtureRegistry
-import app.myliberty.easy_records.cucumber.fixtures.platform.PlatformTaxKind
 import app.myliberty.easy_records.cucumber.fixtures.platform.TaxTypeFixtureBuilder
 import app.myliberty.easy_records.cucumber.support.ApiClient
 import app.myliberty.easy_records.platform.business.tax_type.api.TaxApplicationLevel
@@ -12,13 +8,13 @@ import app.myliberty.easy_records.platform.business.tax_type.api.TaxCalculationM
 import app.myliberty.easy_records.platform.business.tax_type.api.TaxRecoveryType
 import app.myliberty.easy_records.platform.business.tax_type.api.TaxTrigger
 import app.myliberty.easy_records.platform.business.tax_type.api.TaxTypeInsertDto
+import app.myliberty.easy_records.cucumber.support.context.InjectContext
+import app.myliberty.easy_records.cucumber.support.context.TransientKey
 
 class TaxRateFixtureSteps(
   private val apiClient: ApiClient,
   private val taxTypeFixtureBuilder: TaxTypeFixtureBuilder,
-  private val platformTaxFixtureRegistry: PlatformTaxFixtureRegistry,
-  private val orgTaxFixtureRegistry: OrgTaxFixtureRegistry,
-  private val taxRateFixtureRegistry: TaxRateFixtureRegistry,
+  private val injectContext: InjectContext,
 ) {
 
   @Given("a fixed value tax type named {string} exists")
@@ -32,7 +28,7 @@ class TaxRateFixtureSteps(
         taxTriggers = setOf(TaxTrigger.SALE),
       ),
     )
-    platformTaxFixtureRegistry.register(PlatformTaxKind.TAX_TYPE, taxTypeName, taxTypeId)
+    injectContext.storeNamed(TransientKey.TAX_TYPE, taxTypeName, taxTypeId)
   }
 
   @Given("a transaction level tax type named {string} exists")
@@ -46,14 +42,14 @@ class TaxRateFixtureSteps(
         taxTriggers = setOf(TaxTrigger.SALE),
       ),
     )
-    platformTaxFixtureRegistry.register(PlatformTaxKind.TAX_TYPE, taxTypeName, taxTypeId)
+    injectContext.storeNamed(TransientKey.TAX_TYPE, taxTypeName, taxTypeId)
   }
 
   @Given("the tax rate {string} is created with payload:")
   fun createTaxRate(taxRateLabel: String, payload: String) {
-    val resolvedPayload = taxRateFixtureRegistry.resolveTokens(orgTaxFixtureRegistry.resolveTokens(payload))
+    val resolvedPayload = injectContext.inject(payload)
     val response = apiClient.post("/secured/tax-rates", resolvedPayload)
     check(response.statusCode == 200) { "Failed to create tax rate: ${response.asString()}" }
-    taxRateFixtureRegistry.register(taxRateLabel, response.jsonPath().getString("id"))
+    injectContext.storeNamedText(TransientKey.TAX_RATE, taxRateLabel, response.jsonPath().getString("id"))
   }
 }

@@ -6,6 +6,7 @@ import app.myliberty.easy_records.organizations.business.core.payment_method.Pay
 import app.myliberty.easy_records.organizations.business.core.payment_method.PaymentMethodCache
 import app.myliberty.easy_records.organizations.business.core.payment_method.PaymentMethodMapper
 import app.myliberty.easy_records.util.business.StringUtils
+import app.myliberty.easy_records.util.exceptions.DeletingNonExistingRecordException
 import app.myliberty.easy_records.util.exceptions.QueriedByEmptyIdException
 import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException
@@ -24,24 +25,25 @@ class PaymentMethodService(
 ) {
 
     fun createPaymentMethod(paymentMethodInsertDto: PaymentMethodInsertDto): PaymentMethodResponseDto {
-        validateNameOnSave(Optional.ofNullable(paymentMethodInsertDto.name))
+        val trimmedName = validateNameOnSave(Optional.ofNullable(paymentMethodInsertDto.name))
         paymentAccountValidator.validate(paymentMethodInsertDto.accountCode)
-        val dto = paymentMethodCache.create(paymentMethodInsertDto)
+        val dto = paymentMethodCache.create(paymentMethodInsertDto.copy(name = trimmedName))
         val accountNamesByCode = accountService.getAccountNamesByCode()
         return paymentMethodMapper.toResponseDto(dto, accountNamesByCode[dto.accountCode])
     }
 
-    private fun validateNameOnSave(optionalName: Optional<String>?, id: UUID? = null) {
+    private fun validateNameOnSave(optionalName: Optional<String>?, id: UUID? = null): String {
         val name = StringUtils.getValueOrException(optionalName, "A Payment Method must have a name")
         paymentMethodCache.getAllPaymentMethods()
             .find { StringUtils.isEquivalent(it.name, name) && !Objects.equals(it.id, id) }
             ?.let { throw LibertyGenericException("A Payment Method using the name '$name' already exists") }
+        return name
     }
 
     fun updatePaymentMethod(paymentMethodUpdateDto: PaymentMethodUpdateDto): PaymentMethodResponseDto {
         val id = paymentMethodUpdateDto.id ?: throw QueriedByEmptyIdException()
         val existing = paymentMethodCache.getAllPaymentMethods().find { it.id == id } ?: throw UpdatingNonExistingRecordException()
-        validateNameOnSave(paymentMethodUpdateDto.name, paymentMethodUpdateDto.id)
+        paymentMethodUpdateDto.name?.let { validateNameOnSave(it, paymentMethodUpdateDto.id) }
         val updated = paymentMethodUpdateDto.applyTo(existing)
         paymentAccountValidator.validate(updated.accountCode)
         val saved = paymentMethodCache.save(updated)
@@ -50,6 +52,7 @@ class PaymentMethodService(
     }
 
     fun deletePaymentMethod(id: UUID) {
+        paymentMethodCache.getAllPaymentMethods().find { it.id == id } ?: throw DeletingNonExistingRecordException()
         paymentMethodCache.deletePaymentMethod(id)
     }
 }

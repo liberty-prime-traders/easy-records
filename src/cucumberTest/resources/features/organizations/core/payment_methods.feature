@@ -14,9 +14,9 @@ Feature: Payment methods
       {"name": "Till", "description": "Counter cash", "accountCode": "001.001.001", "linkedAccount": "Cash (1.1.1)"}
       """
     When I GET to /secured/payment-methods
-    Then response contains item with details:
+    Then response contains details:
       """json
-      {"name": "Till", "accountCode": "001.001.001", "linkedAccount": "Cash (1.1.1)"}
+      [{"name": "Till", "description": "Counter cash", "accountCode": "001.001.001", "linkedAccount": "Cash (1.1.1)"}]
       """
     And Payment_Method should match example:
       """json
@@ -70,7 +70,10 @@ Feature: Payment methods
     And the response error message should be "A Payment Method using the name '<shownName>' already exists"
     When I GET to /secured/payment-methods
     Then response list size is 1
-    And Payment_Method table should have exactly 1 records in database
+    And Payment_Method table should contain exactly these records:
+      """json
+      [{"name": "Till"}]
+      """
 
     Examples:
       | name    | shownName |
@@ -83,109 +86,105 @@ Feature: Payment methods
     Given a payment method named "Till" exists
     When I PUT the payment method with payload:
       """json
-      {"id": "#paymentMethod", "name": "TILL", "accountCode": "001.001.001"}
+      {"id": "{{paymentMethod}}", "name": "TILL", "accountCode": "001.001.001"}
       """
     Then the response status should be 200
-    And Payment_Method should match example:
+    And Payment_Method table should contain exactly these records:
       """json
-      {"name": "TILL", "accountCode": "001.001.001"}
+      [{"name": "TILL"}]
       """
-    And Payment_Method table should have exactly 1 records in database
 
   Scenario: Renaming a payment method frees its old name
     Given a payment method named "Till" exists
     When I PUT the payment method with payload:
       """json
-      {"id": "#paymentMethod", "name": "Counter", "accountCode": "001.001.001"}
+      {"id": "{{paymentMethod}}", "name": "Counter", "accountCode": "001.001.001"}
       """
     Then the response status should be 200
-    And Payment_Method should match example:
-      """json
-      {"name": "Counter"}
-      """
     When I POST to /secured/payment-methods with payload:
       """json
       {"name": "Till", "accountCode": "001.001.001"}
       """
     Then the response status should be 200
-    And Payment_Method table should have exactly 2 records in database
+    And Payment_Method table should contain exactly these records:
+      """json
+      [{"name": "Counter"}, {"name": "Till"}]
+      """
 
   Scenario: A payment method cannot take the name of another payment method
     Given a payment method named "Card" exists
     And a payment method named "Till" exists
     When I PUT the payment method with payload:
       """json
-      {"id": "#paymentMethod", "name": "card", "accountCode": "001.001.001"}
+      {"id": "{{paymentMethod}}", "name": "card", "accountCode": "001.001.001"}
       """
     Then the response status should be 400
     And the response error message should be "A Payment Method using the name 'card' already exists"
-    And Payment_Method should match example:
+    And Payment_Method table should contain exactly these records:
       """json
-      {"name": "Till"}
+      [{"name": "Till"}, {"name": "Card"}]
       """
-    And Payment_Method table should have exactly 2 records in database
 
   Scenario: Renaming without an account keeps the linked account
     Given a payment method named "Till" exists
     When I PUT the payment method with payload:
       """json
-      {"id": "#paymentMethod", "name": "Counter"}
+      {"id": "{{paymentMethod}}", "name": "Counter"}
       """
     Then the response status should be 200
-    And Payment_Method should match example:
+    And response contains details:
       """json
-      {"name": "Counter", "accountCode": "001.001.001"}
+      {"name": "Counter", "linkedAccount": "Cash (1.1.1)"}
       """
-    And Payment_Method table should have exactly 1 records in database
+    And Payment_Method table should contain exactly these records:
+      """json
+      [{"name": "Counter", "accountCode": "001.001.001"}]
+      """
 
   Scenario: A null description clears the payment method's description
     Given a payment method named "Till" exists
     And I PUT the payment method with payload:
       """json
-      {"id": "#paymentMethod", "name": "Till", "description": "Temporary"}
+      {"id": "{{paymentMethod}}", "name": "Till", "description": "Temporary"}
       """
     When I PUT the payment method with payload:
       """json
-      {"id": "#paymentMethod", "name": "Till", "description": null}
+      {"id": "{{paymentMethod}}", "name": "Till", "description": null}
       """
     Then the response status should be 200
-    And Payment_Method should match example:
+    And Payment_Method table should contain exactly these records:
       """json
-      {"name": "Till", "description": null}
+      [{"name": "Till", "description": null}]
       """
-    And Payment_Method table should have exactly 1 records in database
 
   Scenario: An update cannot point the payment method at an account that does not exist
     Given a payment method named "Till" exists
     When I PUT the payment method with payload:
       """json
-      {"id": "#paymentMethod", "name": "Till", "accountCode": "999.999"}
+      {"id": "{{paymentMethod}}", "name": "Till", "accountCode": "999.999"}
       """
     Then the response status should be 400
     And the response error message should be "Payment method account not found: 999.999"
-    And Payment_Method should match example:
+    And Payment_Method table should contain exactly these records:
       """json
-      {"name": "Till", "accountCode": "001.001.001"}
+      [{"name": "Till", "accountCode": "001.001.001"}]
       """
-    And Payment_Method table should have exactly 1 records in database
 
   Scenario: An update cannot clear the account
     Given a payment method named "Till" exists
     When I PUT the payment method with payload:
       """json
-      {"id": "#paymentMethod", "name": "Till", "accountCode": ""}
+      {"id": "{{paymentMethod}}", "name": "Till", "accountCode": ""}
       """
     Then the response status should be 400
     And the response error message should be "A Payment Method must have an account"
-    And Payment_Method should match example:
+    And Payment_Method table should contain exactly these records:
       """json
-      {"name": "Till", "accountCode": "001.001.001"}
+      [{"name": "Till", "accountCode": "001.001.001"}]
       """
-    And Payment_Method table should have exactly 1 records in database
-    And Payment_Method table should have exactly 1 records in database
 
   Scenario: An update without an id is rejected
-    When I PUT to/from /secured/payment-methods with payload:
+    When I PUT to /secured/payment-methods with payload:
       """json
       {"name": "Till", "accountCode": "001.001.001"}
       """
@@ -196,7 +195,7 @@ Feature: Payment methods
     And Payment_Method table should have no records in database
 
   Scenario: An update to a payment method that does not exist is rejected
-    When I PUT to/from /secured/payment-methods with payload:
+    When I PUT to /secured/payment-methods with payload:
       """json
       {"id": "00000000-0000-0000-0000-000000000001", "name": "Till", "accountCode": "001.001.001"}
       """
@@ -213,8 +212,65 @@ Feature: Payment methods
     Then the response status should be 204
     When I GET to /secured/payment-methods
     Then response list size is 1
+    And Payment_Method table should contain exactly these records:
+      """json
+      [{"name": "Card"}]
+      """
+
+  Scenario: A payment method name is stored without surrounding spaces
+    When I POST to /secured/payment-methods with payload:
+      """json
+      {"name": "  Till  ", "accountCode": "001.001.001"}
+      """
+    Then the response status should be 200
+    And response contains details:
+      """json
+      {"name": "Till"}
+      """
     And Payment_Method should match example:
       """json
-      {"name": "Card"}
+      {"name": "Till"}
       """
-    And Payment_Method table should have exactly 1 records in database
+
+  Scenario: An update may leave the name out and keeps the stored name
+    Given a payment method named "Till" exists
+    When I PUT the payment method with payload:
+      """json
+      {"id": "{{paymentMethod}}", "description": "Cash drawer"}
+      """
+    Then the response status should be 200
+    And Payment_Method should match example:
+      """json
+      {"name": "Till", "description": "Cash drawer"}
+      """
+
+  Scenario: An update may not null the name
+    Given a payment method named "Till" exists
+    When I PUT the payment method with payload:
+      """json
+      {"id": "{{paymentMethod}}", "name": null}
+      """
+    Then the response status should be 400
+    And the response error message should be "A Payment Method must have a name"
+    And Payment_Method should match example:
+      """json
+      {"name": "Till"}
+      """
+
+  Scenario: Deleting a payment method that does not exist is rejected
+    When I DELETE to /secured/payment-methods/00000000-0000-0000-0000-000000000001
+    Then the response status should be 400
+    And the response error message should be "Attempted to Delete non-existent record"
+    When I GET to /secured/payment-methods
+    Then response list size is 0
+    And Payment_Method table should have no records in database
+
+  Scenario: Deleting a payment method with an id that is not a UUID is rejected
+    Given a payment method named "Till" exists
+    When I DELETE to /secured/payment-methods/not-a-uuid
+    Then the response status should be 400
+    And the response error message should be "Invalid value for id"
+    And Payment_Method table should contain exactly these records:
+      """json
+      [{"name": "Till"}]
+      """

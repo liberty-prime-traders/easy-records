@@ -21,23 +21,44 @@ Feature: Bulk import of unit groups and their units
       }
       """
     Then the response status should be 200
-    And response list size is 2
+    And response contains details:
+      """json
+      [{"name": "Packaging"}, {"name": "Fabric"}]
+      """
     When I GET to /secured/unitvalues
-    Then response contains item with details:
+    Then response contains details:
       """json
-      {"code": "pal", "baseUnitName": "Crate", "unitsOfBasePerUnit": 20}
+      [
+        {"code": "g", "name": "Gram"},
+        {"code": "kg", "name": "Kilogram"},
+        {"code": "ml", "name": "Millilitre"},
+        {"code": "l", "name": "Litre"},
+        {"code": "hl", "name": "Half Litre"},
+        {"code": "pc", "name": "Piece"},
+        {"code": "dz", "name": "Dozen"},
+        {"code": "hdz", "name": "Half Dozen"},
+        {"code": "misc-pc", "name": "Piece"},
+        {"code": "packaging-base", "name": "Piece"},
+        {"code": "pal", "name": "Pallet", "baseUnitName": "Crate", "unitsOfBasePerUnit": 20},
+        {"code": "crt", "name": "Crate", "baseUnitName": "Box", "unitsOfBasePerUnit": 10},
+        {"code": "box", "name": "Box", "baseUnitName": "Piece", "unitsOfBasePerUnit": 6},
+        {"code": "fabric-base", "name": "Piece"}
+      ]
       """
-    And response contains item with details:
+    And Unit_Group table should contain exactly these records:
       """json
-      {"code": "crt", "baseUnitName": "Box", "unitsOfBasePerUnit": 10}
+      [
+        {"name": "Miscellaneous"},
+        {"name": "Weight"},
+        {"name": "Volume"},
+        {"name": "Count"},
+        {"name": "Packaging"},
+        {"name": "Fabric"}
+      ]
       """
-    And response contains item with details:
+    And Unit_Value should match example:
       """json
-      {"code": "box", "baseUnitName": "Piece", "unitsOfBasePerUnit": 6}
-      """
-    And response contains item with details:
-      """json
-      {"code": "fabric-base", "name": "Piece", "systemDefined": true}
+      {"code": "pal", "unitsOfBasePerUnit": 20}
       """
 
   Scenario: A payload that restates seeded system data reuses it
@@ -57,12 +78,33 @@ Feature: Bulk import of unit groups and their units
       """
     Then the response status should be 200
     When I GET to /secured/unitgroups
-    Then the response field "findAll { it.name == 'Weight' }.size()" should be "1"
-    When I GET to /secured/unitvalues
-    Then the response field "findAll { it.code == 'kg' }.size()" should be "1"
-    And response contains item with details:
+    Then response contains details:
       """json
-      {"code": "t", "baseUnitName": "Kilogram", "unitsOfBasePerUnit": 1000}
+      [{"name": "Miscellaneous"}, {"name": "Weight"}, {"name": "Volume"}, {"name": "Count"}]
+      """
+    When I GET to /secured/unitvalues
+    Then response contains details:
+      """json
+      [
+        {"code": "g", "name": "Gram"},
+        {"code": "kg", "name": "Kilogram"},
+        {"code": "ml", "name": "Millilitre"},
+        {"code": "l", "name": "Litre"},
+        {"code": "hl", "name": "Half Litre"},
+        {"code": "pc", "name": "Piece"},
+        {"code": "dz", "name": "Dozen"},
+        {"code": "hdz", "name": "Half Dozen"},
+        {"code": "misc-pc", "name": "Piece"},
+        {"code": "t", "name": "Tonne", "baseUnitName": "Kilogram", "unitsOfBasePerUnit": 1000}
+      ]
+      """
+    And Unit_Group table should contain exactly these records:
+      """json
+      [{"name": "Miscellaneous"}, {"name": "Weight"}, {"name": "Volume"}, {"name": "Count"}]
+      """
+    And Unit_Value should match example:
+      """json
+      {"code": "t", "unitsOfBasePerUnit": 1000}
       """
 
   Scenario: A rejected payload saves nothing and reports every problem
@@ -113,25 +155,75 @@ Feature: Bulk import of unit groups and their units
       """json
       {"code": "loose"}
       """
+    And Unit_Group table should contain exactly these records:
+      """json
+      [{"name": "Miscellaneous"}, {"name": "Weight"}, {"name": "Volume"}, {"name": "Count"}]
+      """
+    And Unit_Value should not match example:
+      """json
+      {"code": "fine"}
+      """
 
   Scenario: Importing the same payload twice is rejected the second time
     Given I POST to /secured/unitgroups/bulk with payload:
       """json
-      {"unitGroups": [{"name": "Eggs", "unitValues": [{"name": "Dozen", "code": "egg-dz", "baseUnitCode": "__piece__", "unitsOfBasePerUnit": 12}]}]}
+      {
+        "unitGroups": [
+          {
+            "name": "Eggs",
+            "unitValues": [{"name": "Dozen", "code": "egg-dz", "baseUnitCode": "__piece__", "unitsOfBasePerUnit": 12}]
+          }
+        ]
+      }
       """
     When I POST to /secured/unitgroups/bulk with payload:
       """json
-      {"unitGroups": [{"name": "Eggs", "unitValues": [{"name": "Dozen", "code": "egg-dz", "baseUnitCode": "__piece__", "unitsOfBasePerUnit": 12}]}]}
+      {
+        "unitGroups": [
+          {
+            "name": "Eggs",
+            "unitValues": [{"name": "Dozen", "code": "egg-dz", "baseUnitCode": "__piece__", "unitsOfBasePerUnit": 12}]
+          }
+        ]
+      }
       """
     Then the response status should be 400
     And response contains details:
       """json
-      {"body": ["Group 'Eggs': name already exists in the database", "Unit value 'egg-dz': code already exists in the database"]}
+      {
+        "body": [
+          "Group 'Eggs': name already exists in the database",
+          "Unit value 'Dozen': name already exists in the 'Eggs' group",
+          "Unit value 'egg-dz': code already exists in the database"
+        ]
+      }
+      """
+    And Unit_Group table should contain exactly these records:
+      """json
+      [{"name": "Miscellaneous"}, {"name": "Weight"}, {"name": "Volume"}, {"name": "Count"}, {"name": "Eggs"}]
       """
     When I GET to /secured/unitgroups
-    Then the response field "findAll { it.name == 'Eggs' }.size()" should be "1"
+    Then response contains details:
+      """json
+      [{"name": "Miscellaneous"}, {"name": "Weight"}, {"name": "Volume"}, {"name": "Count"}, {"name": "Eggs"}]
+      """
     When I GET to /secured/unitvalues
-    Then the response field "findAll { it.code == 'egg-dz' }.size()" should be "1"
+    Then response contains details:
+      """json
+      [
+        {"code": "g", "name": "Gram"},
+        {"code": "kg", "name": "Kilogram"},
+        {"code": "ml", "name": "Millilitre"},
+        {"code": "l", "name": "Litre"},
+        {"code": "hl", "name": "Half Litre"},
+        {"code": "pc", "name": "Piece"},
+        {"code": "dz", "name": "Dozen"},
+        {"code": "hdz", "name": "Half Dozen"},
+        {"code": "misc-pc", "name": "Piece"},
+        {"code": "eggs-base", "name": "Piece"},
+        {"code": "egg-dz", "name": "Dozen", "baseUnitName": "Piece", "unitsOfBasePerUnit": 12}
+      ]
+      """
 
   Scenario Outline: A bulk group name cannot match an existing group on letters and digits
     Given a unit group named "Pack Size" exists
@@ -148,6 +240,10 @@ Feature: Bulk import of unit groups and their units
     Then response contains no item with details:
       """json
       {"name": "<name>"}
+      """
+    And Unit_Group table should contain exactly these records:
+      """json
+      [{"name": "Miscellaneous"}, {"name": "Weight"}, {"name": "Volume"}, {"name": "Count"}, {"name": "Pack Size"}]
       """
 
     Examples:
@@ -173,6 +269,10 @@ Feature: Bulk import of unit groups and their units
       """json
       {"name": "Pack Size"}
       """
+    And Unit_Group table should contain exactly these records:
+      """json
+      [{"name": "Miscellaneous"}, {"name": "Weight"}, {"name": "Volume"}, {"name": "Count"}]
+      """
 
     Examples:
       | name        |
@@ -189,8 +289,14 @@ Feature: Bulk import of unit groups and their units
       """
     Then the response status should be 200
     When I GET to /secured/unitgroups
-    Then the response field "findAll { it.systemDefined }.size()" should be "4"
-    And the response field "size()" should be "4"
+    Then response contains details:
+      """json
+      [{"name": "Miscellaneous"}, {"name": "Weight"}, {"name": "Volume"}, {"name": "Count"}]
+      """
+    And Unit_Group table should contain exactly these records:
+      """json
+      [{"name": "Miscellaneous"}, {"name": "Weight"}, {"name": "Volume"}, {"name": "Count"}]
+      """
 
     Examples:
       | name   |

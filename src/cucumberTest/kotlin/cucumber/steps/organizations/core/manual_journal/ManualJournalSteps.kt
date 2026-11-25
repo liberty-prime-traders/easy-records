@@ -3,6 +3,7 @@ package app.myliberty.easy_records.cucumber.steps.organizations.core.manual_jour
 import app.myliberty.easy_records.cucumber.support.ApiClient
 import app.myliberty.easy_records.cucumber.support.context.InjectContext
 import app.myliberty.easy_records.cucumber.support.context.ResponseContext
+import app.myliberty.easy_records.cucumber.support.context.TransientKey
 import io.cucumber.java.en.Given
 import io.cucumber.java.en.Then
 import io.cucumber.java.en.When
@@ -22,7 +23,7 @@ class ManualJournalSteps(
     val manualJournalCreateRequest = mapOf(
       "summary" to "Rent accrued against owner's capital",
       "details" to "Month-end accrual",
-      "postingDate" to injectContext.inject("#today"),
+      "postingDate" to injectContext.inject("{{today}}"),
       "lines" to listOf(
         mapOf(
           "accountCode" to "005.003",
@@ -40,7 +41,9 @@ class ManualJournalSteps(
     )
     val response = apiClient.post("/secured/manual-journals", manualJournalCreateRequest)
     check(response.statusCode == 200) { "Manual journal fixture failed: ${response.statusCode} ${response.asString()}" }
-    rememberedReferenceNumber = response.jsonPath().getString("referenceNumber")
+    val createdReferenceNumber = response.jsonPath().getString("referenceNumber")
+    rememberedReferenceNumber = createdReferenceNumber
+    injectContext.storeText(TransientKey.MANUAL_JOURNAL, createdReferenceNumber)
   }
 
   @When("I reverse the last manual journal with reason {string}")
@@ -72,6 +75,9 @@ class ManualJournalSteps(
     responseContext.lastResponse?.jsonPath()?.getString("referenceNumber")
 
   private fun postReversal(referenceNumber: String, reason: String) {
-    apiClient.post("/secured/manual-journals/$referenceNumber/reversal", mapOf("reason" to reason))
+    val response = apiClient.post("/secured/manual-journals/$referenceNumber/reversal", mapOf("reason" to reason))
+    if (response.statusCode == 200) {
+      injectContext.storeText(TransientKey.MANUAL_JOURNAL_REVERSAL, response.jsonPath().getString("referenceNumber"))
+    }
   }
 }

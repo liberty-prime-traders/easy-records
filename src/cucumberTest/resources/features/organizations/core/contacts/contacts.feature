@@ -6,27 +6,56 @@ Feature: Contacts
   Scenario: Creating an organization contact stores it and lists it with its type
     When I POST to /secured/contacts with payload:
       """json
-      {"contactTypes": ["CUSTOMER"], "identityType": "ORGANIZATION", "companyName": "Acme Traders",
-       "email": "orders@acme.example", "phone": "0712345678", "creditLimit": 1500, "notes": "Pays on delivery"}
+      {
+        "contactTypes": ["CUSTOMER"],
+        "identityType": "ORGANIZATION",
+        "companyName": "Acme Traders",
+        "email": "orders@acme.example",
+        "phone": "0712345678",
+        "creditLimit": 1500,
+        "notes": "Pays on delivery"
+      }
       """
     Then the response status should be 200
     And response contains details:
       """json
-      {"companyName": "Acme Traders", "fullName": "Acme Traders", "identityType": "ORGANIZATION",
-       "contactTypes": ["CUSTOMER"], "email": "orders@acme.example", "creditLimit": 1500.00,
-       "status": "ACTIVE", "systemDefined": false}
+      {
+        "contactTypes": ["CUSTOMER"],
+        "identityType": "ORGANIZATION",
+        "companyName": "Acme Traders",
+        "email": "orders@acme.example",
+        "phone": "0712345678",
+        "creditLimit": 1500.0,
+        "notes": "Pays on delivery"
+      }
       """
     When I GET to /secured/contacts
-    Then response contains item with details:
+    Then response contains details:
       """json
-      {"companyName": "Acme Traders", "contactTypes": ["CUSTOMER"]}
+      [
+        {
+          "contactTypes": ["CUSTOMER"],
+          "identityType": "ORGANIZATION",
+          "companyName": "Acme Traders",
+          "email": "orders@acme.example",
+          "phone": "0712345678",
+          "creditLimit": 1500.0,
+          "notes": "Pays on delivery"
+        }
+      ]
       """
-    And Contact should match example:
+    And Contact table should contain exactly these records:
       """json
-      {"companyName": "Acme Traders", "contactTypes": ["CUSTOMER"], "email": "orders@acme.example",
-       "notes": "Pays on delivery", "status": "ACTIVE"}
+      [
+        {
+          "companyName": "Acme Traders",
+          "contactTypes": ["CUSTOMER"],
+          "email": "orders@acme.example",
+          "notes": "Pays on delivery"
+        },
+        {"firstName": "Walk-In Customer"}
+      ]
       """
-    And Contact table should have exactly 2 records in database
 
   Scenario: Creating a person stores the first and last name as the full name
     When I POST to /secured/contacts with payload:
@@ -36,27 +65,29 @@ Feature: Contacts
     Then the response status should be 200
     And response contains details:
       """json
-      {"firstName": "Ann", "lastName": "Lee", "fullName": "Ann Lee", "identityType": "INDIVIDUAL",
-       "contactTypes": ["SUPPLIER", "EMPLOYEE"]}
+      {"firstName": "Ann", "lastName": "Lee", "fullName": "Ann Lee"}
       """
-    And Contact should match example:
+    And Contact table should contain exactly these records:
       """json
-      {"firstName": "Ann", "lastName": "Lee", "companyName": null, "contactTypes": ["SUPPLIER", "EMPLOYEE"]}
+      [{"firstName": "Ann", "lastName": "Lee"}, {"firstName": "Walk-In Customer"}]
       """
-    And Contact table should have exactly 2 records in database
 
   Scenario: An organization keeps only its company name when a person's names are sent with it
     When I POST to /secured/contacts with payload:
       """json
-      {"contactTypes": ["SUPPLIER"], "identityType": "ORGANIZATION", "companyName": "Beta Ltd",
-       "firstName": "Ignored", "lastName": "Ignored"}
+      {
+        "contactTypes": ["SUPPLIER"],
+        "identityType": "ORGANIZATION",
+        "companyName": "Beta Ltd",
+        "firstName": "Ignored",
+        "lastName": "Ignored"
+      }
       """
     Then the response status should be 200
-    And Contact should match example:
+    And Contact table should contain exactly these records:
       """json
-      {"companyName": "Beta Ltd", "firstName": null, "lastName": null}
+      [{"companyName": "Beta Ltd", "firstName": null, "lastName": null}, {"firstName": "Walk-In Customer"}]
       """
-    And Contact table should have exactly 2 records in database
 
   Scenario: A contact can be created as suspended
     When I POST to /secured/contacts with payload:
@@ -68,11 +99,10 @@ Feature: Contacts
       """json
       {"companyName": "Beta Ltd", "status": "SUSPENDED"}
       """
-    And Contact should match example:
+    And Contact table should contain exactly these records:
       """json
-      {"companyName": "Beta Ltd", "status": "SUSPENDED"}
+      [{"companyName": "Beta Ltd", "status": "SUSPENDED"}, {"firstName": "Walk-In Customer"}]
       """
-    And Contact table should have exactly 2 records in database
 
   Scenario Outline: A contact needs one contact type on its own
     When I POST to /secured/contacts with payload:
@@ -83,7 +113,10 @@ Feature: Contacts
     And the response error message should be "<message>"
     When I GET to /secured/contacts
     Then response list size is 1
-    And Contact table should have exactly 1 records in database
+    And Contact table should contain exactly these records:
+      """json
+      [{"firstName": "Walk-In Customer"}]
+      """
 
     Examples:
       | contactTypes            | message                                                  |
@@ -97,7 +130,10 @@ Feature: Contacts
       """
     Then the response status should be 400
     And the response error message should be "Identity type ORGANIZATION requires company name"
-    And Contact table should have exactly 1 records in database
+    And Contact table should contain exactly these records:
+      """json
+      [{"firstName": "Walk-In Customer"}]
+      """
 
   Scenario: A person without a first name is rejected
     When I POST to /secured/contacts with payload:
@@ -106,7 +142,10 @@ Feature: Contacts
       """
     Then the response status should be 400
     And the response error message should be "Identity type INDIVIDUAL requires first name"
-    And Contact table should have exactly 1 records in database
+    And Contact table should contain exactly these records:
+      """json
+      [{"firstName": "Walk-In Customer"}]
+      """
 
   Scenario: A person with no name at all is rejected as an unreadable body
     When I POST to /secured/contacts with payload:
@@ -115,7 +154,10 @@ Feature: Contacts
       """
     Then the response status should be 400
     And the response error message should be "The request body could not be read"
-    And Contact table should have exactly 1 records in database
+    And Contact table should contain exactly these records:
+      """json
+      [{"firstName": "Walk-In Customer"}]
+      """
 
   Scenario Outline: A company name is unique ignoring case and spacing
     Given a customer named "Acme Traders" exists
@@ -125,7 +167,10 @@ Feature: Contacts
       """
     Then the response status should be 400
     And the response error message should be "A Contact with company '<name>' already exists"
-    Then Contact table should have exactly 2 records in database
+    And Contact table should contain exactly these records:
+      """json
+      [{"firstName": "Walk-In Customer"}, {"companyName": "Acme Traders"}]
+      """
 
     Examples:
       | name           |
@@ -140,7 +185,10 @@ Feature: Contacts
       """
     Then the response status should be 400
     And the response error message should be "A Contact with person 'Ann Lee' already exists"
-    Then Contact table should have exactly 2 records in database
+    And Contact table should contain exactly these records:
+      """json
+      [{"firstName": "Walk-In Customer"}, {"companyName": "Ann Lee"}]
+      """
 
   Scenario: Names that differ by punctuation are different companies
     Given a customer named "Acme Traders" exists
@@ -149,7 +197,10 @@ Feature: Contacts
       {"contactTypes": ["CUSTOMER"], "identityType": "ORGANIZATION", "companyName": "Acme-Traders"}
       """
     Then the response status should be 200
-    And Contact table should have exactly 3 records in database
+    And Contact table should contain exactly these records:
+      """json
+      [{"firstName": "Walk-In Customer"}, {"companyName": "Acme Traders"}, {"companyName": "Acme-Traders"}]
+      """
 
   Scenario: A bulk import creates every row with its own types and identity
     When I POST to /secured/contacts/bulk with payload:
@@ -161,14 +212,21 @@ Feature: Contacts
       """
     Then the response status should be 200
     And response list size is 2
-    And response contains details with exact lists in order:
+    And response contains details:
       """json
       [
-        {"companyName": "Acme Traders", "identityType": "ORGANIZATION", "contactTypes": ["CUSTOMER", "SUPPLIER"]},
-        {"fullName": "Ann Lee", "identityType": "INDIVIDUAL", "contactTypes": ["CUSTOMER"]}
+        {"contactTypes": ["CUSTOMER", "SUPPLIER"], "identityType": "ORGANIZATION", "companyName": "Acme Traders"},
+        {"contactTypes": ["CUSTOMER"], "identityType": "INDIVIDUAL", "firstName": "Ann", "lastName": "Lee"}
       ]
       """
-    And Contact table should have exactly 3 records in database
+    And Contact table should contain exactly these records:
+      """json
+      [
+        {"firstName": "Walk-In Customer"},
+        {"companyName": "Acme Traders", "contactTypes": ["CUSTOMER", "SUPPLIER"]},
+        {"firstName": "Ann", "lastName": "Lee", "contactTypes": ["CUSTOMER"]}
+      ]
+      """
 
   Scenario: A bulk import reports every bad row and saves none of them
     Given a customer named "Acme Traders" exists
@@ -187,22 +245,27 @@ Feature: Contacts
     And the response error message should be "Bulk contact import validation failed"
     And response contains details with exact lists in order:
       """json
-      {"body": [
-        "Row 1: A Contact with company 'ACME traders' already exists",
-        "Row 2: Unknown contact type 'XYZ'",
-        "Row 3: Identity type INDIVIDUAL requires first name",
-        "Row 5: A Contact with company 'gamma co' appears more than once in the request",
-        "Row 6: At least one contact type required"
-      ]}
+      {
+        "body": [
+          "Row 1: A Contact with company 'ACME traders' already exists",
+          "Row 2: Unknown contact type 'XYZ'",
+          "Row 3: Identity type INDIVIDUAL requires first name",
+          "Row 5: A Contact with company 'gamma co' appears more than once in the request",
+          "Row 6: At least one contact type required"
+        ]
+      }
       """
-    And Contact table should have exactly 2 records in database
+    And Contact table should contain exactly these records:
+      """json
+      [{"firstName": "Walk-In Customer"}, {"companyName": "Acme Traders"}]
+      """
 
   Scenario: The walk-in customer is listed as system defined
     When I GET to /secured/contacts
     Then response list size is 1
-    And response contains item with details:
+    And response contains details:
       """json
-      {"fullName": "Walk-In Customer", "identityType": "INDIVIDUAL", "systemDefined": true}
+      [{"firstName": "Walk-In Customer", "systemDefined": true}]
       """
 
   Scenario: The walk-in customer cannot be modified
@@ -212,32 +275,54 @@ Feature: Contacts
       """
     Then the response status should be 400
     And the response error message should be "System-defined contacts cannot be modified"
-    And Contact should match example:
+    And Contact table should contain exactly these records:
       """json
-      {"firstName": "Walk-In Customer", "notes": null, "systemDefined": true}
+      [{"firstName": "Walk-In Customer", "notes": null}]
       """
-    And Contact table should have exactly 1 records in database
 
   Scenario: An update that only carries an email keeps the other fields
     Given a customer named "Acme Traders" exists
     When I PUT to /secured/contacts with payload:
       """json
-      {"id": "#contact", "email": "sales@acme.example"}
+      {"id": "{{contact}}", "email": "sales@acme.example"}
       """
     Then the response status should be 200
-    And Contact should exist in database with id #contact and options:
+    And Contact should exist in database with id {{contact}} and options:
       """json
       {"companyName": "Acme Traders", "email": "sales@acme.example", "contactTypes": ["CUSTOMER"]}
+      """
+
+  Scenario: An update that only carries an email keeps the phone, notes and status
+    Given a customer named "Acme Traders" exists
+    When I PUT to /secured/contacts with payload:
+      """json
+      {"id": "{{contact}}", "phone": "0712345678", "notes": "Pays on delivery"}
+      """
+    Then the response status should be 200
+    When I PUT to /secured/contacts with payload:
+      """json
+      {"id": "{{contact}}", "email": "sales@acme.example"}
+      """
+    Then the response status should be 200
+    And Contact should exist in database with id {{contact}} and options:
+      """json
+      {
+        "companyName": "Acme Traders",
+        "email": "sales@acme.example",
+        "phone": "0712345678",
+        "notes": "Pays on delivery",
+        "status": "ACTIVE"
+      }
       """
 
   Scenario: An update can suspend a contact
     Given a customer named "Acme Traders" exists
     When I PUT to /secured/contacts with payload:
       """json
-      {"id": "#contact", "status": "SUSPENDED"}
+      {"id": "{{contact}}", "status": "SUSPENDED"}
       """
     Then the response status should be 200
-    And Contact should exist in database with id #contact and options:
+    And Contact should exist in database with id {{contact}} and options:
       """json
       {"companyName": "Acme Traders", "status": "SUSPENDED"}
       """
@@ -246,11 +331,11 @@ Feature: Contacts
     Given a customer named "Acme Traders" exists
     When I PUT to /secured/contacts with payload:
       """json
-      {"id": "#contact", "contactTypes": []}
+      {"id": "{{contact}}", "contactTypes": []}
       """
     Then the response status should be 400
     And the response error message should be "At least one contact type required"
-    And Contact should exist in database with id #contact and options:
+    And Contact should exist in database with id {{contact}} and options:
       """json
       {"companyName": "Acme Traders", "contactTypes": ["CUSTOMER"]}
       """
@@ -259,13 +344,13 @@ Feature: Contacts
     Given a customer named "Acme Traders" exists
     When I PUT to /secured/contacts with payload:
       """json
-      {"id": "#contact", "identityType": "INDIVIDUAL"}
+      {"id": "{{contact}}", "identityType": "INDIVIDUAL"}
       """
     Then the response status should be 400
     And the response error message should be "Identity type INDIVIDUAL requires first name"
-    And Contact should exist in database with id #contact and options:
+    And Contact should exist in database with id {{contact}} and options:
       """json
-      {"companyName": "Acme Traders", "contactTypes": ["CUSTOMER"]}
+      {"companyName": "Acme Traders"}
       """
 
   Scenario: An update cannot rename a contact to a name another contact already uses
@@ -273,15 +358,18 @@ Feature: Contacts
     And a customer named "Beta Ltd" exists
     When I PUT to /secured/contacts with payload:
       """json
-      {"id": "#contact", "companyName": "acme traders"}
+      {"id": "{{contact}}", "companyName": "acme traders"}
       """
     Then the response status should be 400
     And the response error message should be "A Contact with company 'acme traders' already exists"
-    And Contact should exist in database with id #contact and options:
+    And Contact should exist in database with id {{contact}} and options:
       """json
       {"companyName": "Beta Ltd"}
       """
-    And Contact table should have exactly 3 records in database
+    And Contact table should contain exactly these records:
+      """json
+      [{"firstName": "Walk-In Customer"}, {"companyName": "Acme Traders"}, {"companyName": "Beta Ltd"}]
+      """
 
   Scenario: An update for a contact that does not exist is rejected
     Given a customer named "Acme Traders" exists
@@ -291,4 +379,7 @@ Feature: Contacts
       """
     Then the response status should be 400
     And the response error message should be "Attempted to Update non-existent record"
-    And Contact table should have exactly 2 records in database
+    And Contact table should contain exactly these records:
+      """json
+      [{"firstName": "Walk-In Customer"}, {"companyName": "Acme Traders"}]
+      """

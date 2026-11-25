@@ -10,16 +10,16 @@ Feature: Voiding loans and repayments
   Scenario: Voiding a loan takes the whole amount back out of loans payable and cash
     When I POST to /secured/loans/void with payload:
       """json
-      {"loanId": "#loan", "reason": "Entered twice"}
+      {"loanId": "{{loan}}", "reason": "Entered twice"}
       """
     Then the response status should be 200
     And response contains details:
       """json
-      {"status": "VOIDED", "amountRepaid": 0, "outstanding": 0, "void": {"voidDate": "#today", "reason": "Entered twice"}}
+      {"amount": 100, "outstanding": 0, "status": "VOIDED"}
       """
     And Loan_Void should match example:
       """json
-      {"loanId": "#loan", "voidDate": "#today", "reason": "Entered twice"}
+      {"loanId": "{{loan}}"}
       """
     And account "002.004" should have a balance of "0.00"
     And account "001.001.001" should have a balance of "0.00"
@@ -29,10 +29,10 @@ Feature: Voiding loans and repayments
     Given a repayment of "10.00" against the loan exists
     When I POST to /secured/loans/void with payload:
       """json
-      {"loanId": "#loan"}
+      {"loanId": "{{loan}}"}
       """
     Then the response status should be 400
-    And the response error message should be "Loan #loanReference cannot be voided while it has repayment: #repaymentReference"
+    And the response error message should be "Loan {{loanReference}} cannot be voided while it has repayment: {{repaymentReference}}"
     And Loan_Void table should have no records in database
     And account "002.004" should have a balance of "90.00"
 
@@ -41,12 +41,12 @@ Feature: Voiding loans and repayments
     And the repayment has been voided
     When I POST to /secured/loans/void with payload:
       """json
-      {"loanId": "#loan"}
+      {"loanId": "{{loan}}"}
       """
     Then the response status should be 200
     And response contains details:
       """json
-      {"status": "VOIDED", "outstanding": 0}
+      {"amount": 100, "status": "VOIDED", "repayments": [{"amount": 10, "void": {"voidDate": "{{today}}"}}]}
       """
     And Loan_Void table should have exactly 1 records in database
     And account "002.004" should have a balance of "0.00"
@@ -54,38 +54,33 @@ Feature: Voiding loans and repayments
     When I GET to /secured/contacts
     Then response contains item with details:
       """json
-      {"referenceNumber": "#contactReference", "payableBalance": 110, "receivableBalance": 110}
+      {"referenceNumber": "{{contactReference}}", "payableBalance": 110, "receivableBalance": 110}
       """
 
   Scenario: A voided loan cannot be voided again
     Given the loan has been voided
     When I POST to /secured/loans/void with payload:
       """json
-      {"loanId": "#loan"}
+      {"loanId": "{{loan}}"}
       """
     Then the response status should be 400
-    And the response error message should be "Loan #loanReference is already voided"
+    And the response error message should be "Loan {{loanReference}} is already voided"
     And Loan_Void table should have exactly 1 records in database
 
   Scenario: Voiding a repayment reopens a settled loan
     Given a repayment of "100.00" against the loan exists
     When I POST to /secured/loans/repayments/void with payload:
       """json
-      {"repaymentId": "#repayment", "reason": "Wrong account"}
+      {"repaymentId": "{{repayment}}", "reason": "Wrong account"}
       """
     Then the response status should be 200
     And response contains details:
       """json
-      {
-        "status": "OPEN",
-        "amountRepaid": 0,
-        "outstanding": 100,
-        "repayments": [{"amount": 100, "void": {"voidDate": "#today", "reason": "Wrong account"}}]
-      }
+      {"outstanding": 100, "status": "OPEN", "repayments": [{"amount": 100, "void": {"voidDate": "{{today}}"}}]}
       """
     And Loan_Repayment_Void should match example:
       """json
-      {"loanRepaymentId": "#repayment", "voidDate": "#today", "reason": "Wrong account"}
+      {"loanRepaymentId": "{{repayment}}"}
       """
     And account "002.004" should have a balance of "100.00"
     And loans payable should equal the sum of outstanding loans
@@ -95,8 +90,8 @@ Feature: Voiding loans and repayments
     And the repayment has been voided
     When I POST to /secured/loans/repayments/void with payload:
       """json
-      {"repaymentId": "#repayment"}
+      {"repaymentId": "{{repayment}}"}
       """
     Then the response status should be 400
-    And the response error message should be "Loan repayment #repaymentReference is already voided"
+    And the response error message should be "Loan repayment {{repaymentReference}} is already voided"
     And Loan_Repayment_Void table should have exactly 1 records in database

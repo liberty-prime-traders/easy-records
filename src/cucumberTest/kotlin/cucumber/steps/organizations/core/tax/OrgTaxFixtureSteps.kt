@@ -5,10 +5,6 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import io.cucumber.java.en.Given
 import app.myliberty.easy_records.configuration.session.ServiceAccountContext
 import app.myliberty.easy_records.configuration.session.SessionContextProvider
-import app.myliberty.easy_records.cucumber.fixtures.organizations.core.tax.OrgTaxFixtureRegistry
-import app.myliberty.easy_records.cucumber.fixtures.organizations.core.tax.OrgTaxKind
-import app.myliberty.easy_records.cucumber.fixtures.platform.PlatformTaxFixtureRegistry
-import app.myliberty.easy_records.cucumber.fixtures.platform.PlatformTaxKind
 import app.myliberty.easy_records.cucumber.fixtures.platform.TaxTypeFixtureBuilder
 import app.myliberty.easy_records.cucumber.support.ApiClient
 import app.myliberty.easy_records.cucumber.support.TestUserRegistry
@@ -26,6 +22,7 @@ import app.myliberty.easy_records.platform.business.tax_type.api.TaxTrigger
 import app.myliberty.easy_records.platform.business.tax_type.api.TaxTypeInsertDto
 import app.myliberty.easy_records.util.enums.ServiceAccount
 import java.util.UUID
+import app.myliberty.easy_records.cucumber.support.context.TransientKey
 
 class OrgTaxFixtureSteps(
   private val apiClient: ApiClient,
@@ -33,8 +30,6 @@ class OrgTaxFixtureSteps(
   private val organizationCache: OrganizationCache,
   private val organizationAdminService: OrganizationAdminService,
   private val taxTypeFixtureBuilder: TaxTypeFixtureBuilder,
-  private val platformTaxFixtureRegistry: PlatformTaxFixtureRegistry,
-  private val orgTaxFixtureRegistry: OrgTaxFixtureRegistry,
 ) {
 
   private val objectMapper = jacksonObjectMapper()
@@ -51,7 +46,7 @@ class OrgTaxFixtureSteps(
     val platformAdminUserId = checkNotNull(TestUserRegistry.platformAdminUserId) {
       "Platform admin was not registered"
     }
-    val organizationId = UUID.fromString(injectContext.inject("#organization"))
+    val organizationId = UUID.fromString(injectContext.inject("{{organization}}"))
     val organization = organizationCache.getAllOrganizations().first { it.id == organizationId }
     ServiceAccountContext.runWithServiceAccount<Unit>(ServiceAccount.RECORD_INITIALIZER) {
       SessionContextProvider.initOrganization(organization)
@@ -74,36 +69,36 @@ class OrgTaxFixtureSteps(
         taxTriggers = setOf(TaxTrigger.SALE),
       ),
     )
-    platformTaxFixtureRegistry.register(PlatformTaxKind.TAX_TYPE, taxTypeName, taxTypeId)
+    injectContext.storeNamed(TransientKey.TAX_TYPE, taxTypeName, taxTypeId)
   }
 
   @Given("the tax type {string} applies in the jurisdiction {string}")
   fun linkTaxTypeToJurisdiction(taxTypeName: String, jurisdictionName: String) {
-    val jurisdictionId = platformTaxFixtureRegistry.idOf(PlatformTaxKind.JURISDICTION, jurisdictionName)
-    val taxTypeId = platformTaxFixtureRegistry.idOf(PlatformTaxKind.TAX_TYPE, taxTypeName)
+    val jurisdictionId = injectContext.getNamed(TransientKey.JURISDICTION, jurisdictionName)
+    val taxTypeId = injectContext.getNamed(TransientKey.TAX_TYPE, taxTypeName)
     putJurisdiction(mapOf("id" to jurisdictionId, "taxTypesToAddOrReactivate" to listOf(taxTypeId)))
     val taxTypeLabel = "$jurisdictionName - $taxTypeName"
     val linkId = linkIdFromAvailableTree(taxTypeLabel)
-    orgTaxFixtureRegistry.register(OrgTaxKind.JURISDICTION_TAX_TYPE, taxTypeLabel, linkId)
+    injectContext.storeNamedText(TransientKey.JURISDICTION_TAX_TYPE, taxTypeLabel, linkId)
   }
 
   @Given("the tax type {string} is stopped in the jurisdiction {string}")
   fun stopTaxTypeInJurisdiction(taxTypeName: String, jurisdictionName: String) {
-    val jurisdictionId = platformTaxFixtureRegistry.idOf(PlatformTaxKind.JURISDICTION, jurisdictionName)
-    val taxTypeId = platformTaxFixtureRegistry.idOf(PlatformTaxKind.TAX_TYPE, taxTypeName)
+    val jurisdictionId = injectContext.getNamed(TransientKey.JURISDICTION, jurisdictionName)
+    val taxTypeId = injectContext.getNamed(TransientKey.TAX_TYPE, taxTypeName)
     putJurisdiction(mapOf("id" to jurisdictionId, "taxTypesToDiscontinue" to listOf(taxTypeId)))
   }
 
   @Given("a payable tax account named {string} exists")
   fun createPayableTaxAccount(accountName: String) {
     val accountCode = createChildAccount(accountName, SystemAccount.TAX_PAYABLE.code)
-    orgTaxFixtureRegistry.register(OrgTaxKind.TAX_ACCOUNT, accountName, accountCode)
+    injectContext.storeNamedText(TransientKey.TAX_ACCOUNT, accountName, accountCode)
   }
 
   @Given("a recoverable tax account named {string} exists")
   fun createRecoverableTaxAccount(accountName: String) {
     val accountCode = createChildAccount(accountName, SystemAccount.TAX_RECOVERABLE.code)
-    orgTaxFixtureRegistry.register(OrgTaxKind.TAX_ACCOUNT, accountName, accountCode)
+    injectContext.storeNamedText(TransientKey.TAX_ACCOUNT, accountName, accountCode)
   }
 
   @Given("the organization has registered {string} with payable {string} and recoverable {string}")
@@ -117,11 +112,11 @@ class OrgTaxFixtureSteps(
   }
 
   private fun postOrgTaxType(taxLabel: String, payableAccountName: String, recoverableAccountName: String?) {
-    val jurisdictionTaxTypeLabelValue = orgTaxFixtureRegistry.valueOf(OrgTaxKind.JURISDICTION_TAX_TYPE, taxLabel)
+    val jurisdictionTaxTypeLabelValue = injectContext.getNamedText(TransientKey.JURISDICTION_TAX_TYPE, taxLabel)
     val jurisdictionTaxTypeId = UUID.fromString(jurisdictionTaxTypeLabelValue)
-    val payableAccountCode = orgTaxFixtureRegistry.valueOf(OrgTaxKind.TAX_ACCOUNT, payableAccountName)
+    val payableAccountCode = injectContext.getNamedText(TransientKey.TAX_ACCOUNT, payableAccountName)
     val recoverableAccountCode = recoverableAccountName?.let {
-      orgTaxFixtureRegistry.valueOf(OrgTaxKind.TAX_ACCOUNT, it)
+      injectContext.getNamedText(TransientKey.TAX_ACCOUNT, it)
     }
     val insertDto = OrgJurisdictionTaxTypeInsertDto(
       jurisdictionTaxTypeId = jurisdictionTaxTypeId,
@@ -130,7 +125,7 @@ class OrgTaxFixtureSteps(
     )
     val response = apiClient.post("/secured/org-tax-types", listOf(insertDto))
     check(response.statusCode == 200) { "Failed to register org tax type: ${response.asString()}" }
-    orgTaxFixtureRegistry.register(OrgTaxKind.ORG_TAX_TYPE, taxLabel, response.jsonPath().getString("[0].id"))
+    injectContext.storeNamedText(TransientKey.ORG_TAX_TYPE, taxLabel, response.jsonPath().getString("[0].id"))
   }
 
   private fun createChildAccount(accountName: String, parentAccountCode: String): String {

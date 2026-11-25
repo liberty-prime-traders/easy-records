@@ -21,7 +21,6 @@ class ExpenseSteps(
 ) {
 
   private val objectMapper = jacksonObjectMapper()
-  private var selectedExpenseTypeId: String? = null
   private var recordedExpenseReference: String? = null
 
   @Given("a service provider named {string} exists")
@@ -35,8 +34,9 @@ class ExpenseSteps(
     }
     val expenseTypeNodes = objectMapper.readTree(expenseTypeListResponse.asString())
     val matchingExpenseTypeNode = expenseTypeNodes.firstOrNull { it.path("name").asText() == expenseTypeName }
-    selectedExpenseTypeId = checkNotNull(matchingExpenseTypeNode) { "No expense type named $expenseTypeName" }
+    val matchingExpenseTypeId = checkNotNull(matchingExpenseTypeNode) { "No expense type named $expenseTypeName" }
       .path("id").asText()
+    injectContext.storeText(TransientKey.SELECTED_EXPENSE_TYPE, matchingExpenseTypeId)
   }
 
   @Given("a custom expense type named {string} exists")
@@ -49,7 +49,7 @@ class ExpenseSteps(
     )
     val response = apiClient.post(EXPENSE_TYPES_PATH, expenseTypeInsertRequest)
     check(response.statusCode == 200) { "Expense type fixture failed: ${response.statusCode} ${response.asString()}" }
-    selectedExpenseTypeId = response.jsonPath().getString("id")
+    injectContext.storeText(TransientKey.SELECTED_EXPENSE_TYPE, response.jsonPath().getString("id"))
   }
 
   @When("I update the selected expense type with payload:")
@@ -93,11 +93,12 @@ class ExpenseSteps(
     assertEquals(expectedMessageWithReference, actualMessage, "Expected error message '$expectedMessageWithReference'")
   }
 
-  private fun withSelectedExpenseType(payload: String): String =
-    injectContext.inject(payload).replace(SELECTED_EXPENSE_TYPE_TOKEN, selectedExpenseType())
+  private fun withSelectedExpenseType(payload: String): String = injectContext.inject(payload)
 
   private fun selectedExpenseType(): String =
-    checkNotNull(selectedExpenseTypeId) { "No expense type has been selected in this scenario" }
+    checkNotNull(injectContext.findString(TransientKey.SELECTED_EXPENSE_TYPE)) {
+      "No expense type has been selected in this scenario"
+    }
 
   private fun recordedExpenseReferenceValue(): String =
     checkNotNull(recordedExpenseReference) { "No expense has been recorded in this scenario" }
@@ -121,7 +122,6 @@ class ExpenseSteps(
     const val ORG_EXPENSES_PATH = "/secured/org-expenses"
     const val CONTACTS_PATH = "/secured/contacts"
     const val CUSTOM_EXPENSE_ACCOUNT_CODE = "005.009"
-    const val SELECTED_EXPENSE_TYPE_TOKEN = "#selectedExpenseType"
-    const val RECORDED_EXPENSE_TOKEN = "#recordedExpenseReference"
+    const val RECORDED_EXPENSE_TOKEN = "{{recordedExpenseReference}}"
   }
 }

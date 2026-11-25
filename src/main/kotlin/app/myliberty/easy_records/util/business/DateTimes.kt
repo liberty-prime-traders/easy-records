@@ -54,8 +54,8 @@ object DateTimes {
     }
 
     fun todayIsInRange(dateRange: DateRange): Boolean {
-        return dateRange.start.isBefore(Local.Now.organization())
-                && dateRange.end.isAfter(Local.Now.organization())
+        val today = Local.Now.organization()
+        return !dateRange.start.isAfter(today) && !dateRange.end.isBefore(today)
     }
 
 }

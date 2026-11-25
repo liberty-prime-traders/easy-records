@@ -1,5 +1,6 @@
 package app.myliberty.easy_records.organizations.business.core.tag.api
 
+import app.myliberty.easy_records.util.business.StringUtils
 import java.io.Serializable
 import java.util.Optional
 import java.util.UUID
@@ -13,7 +14,7 @@ data class TagUpdateDto(
 
     fun applyTo(existing: TagDto): TagDto = existing.copy(
         category = category?.orElse(existing.category) ?: existing.category,
-        tagName = tagName?.orElse(existing.tagName) ?: existing.tagName,
+        tagName = StringUtils.useIfProvided(tagName, existing.tagName) ?: existing.tagName,
         description = description?.orElse(existing.description) ?: existing.description
     )
 }

@@ -1,5 +1,6 @@
 package app.myliberty.easy_records.organizations.business.core.location.api
 
+import app.myliberty.easy_records.util.business.StringUtils
 import java.io.Serializable
 import java.util.Optional
 
@@ -12,7 +13,7 @@ data class LocationUpdateDto(
 
     fun applyTo(existing: LocationDto): LocationDto = existing.copy(
         locationType = locationType?.orElse(existing.locationType) ?: existing.locationType,
-        name = name?.orElse(existing.name) ?: existing.name,
+        name = StringUtils.useIfProvided(name, existing.name) ?: existing.name,
         description = description?.orElse(existing.description) ?: existing.description,
         timezone = timezone?.orElse(existing.timezone) ?: existing.timezone
     )

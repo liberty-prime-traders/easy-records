@@ -12,7 +12,7 @@ Feature: Searching loans
   Scenario Outline: A lender's loans are listed by status
     When I search the loans created in the last day with parameters:
       """json
-      {"lenderContactReferences": ["#contactReference"], "statuses": ["<status>"]}
+      {"lenderContactReferences": ["{{contactReference}}"], "statuses": ["<status>"]}
       """
     Then the response status should be 200
     And response contains details with exact lists:

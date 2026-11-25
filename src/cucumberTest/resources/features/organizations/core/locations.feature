@@ -8,9 +8,9 @@ Feature: Locations
   Scenario: Members can list the organization's locations
     When I GET to /secured/locations
     Then the response status should be 200
-    And response contains item with details:
+    And response contains details:
       """json
-      {"name": "Test Location", "locationType": "SHOP"}
+      [{"name": "Test Location"}]
       """
 
   Scenario: A regular organization user cannot create a location (403)
@@ -21,9 +21,13 @@ Feature: Locations
       """
     Then the response status should be 403
     When I GET to /secured/locations
-    Then response contains no item with details:
+    Then response contains details:
       """json
-      {"description": "Not stored"}
+      [{"name": "Test Location"}]
+      """
+    And response contains no item with details:
+      """json
+      [{"name": "Remote Depot"}]
       """
 
   Scenario Outline: A location needs a name
@@ -35,9 +39,9 @@ Feature: Locations
     Then the response status should be 400
     And the response error message should be "A location must have a name"
     When I GET to /secured/locations
-    Then response contains no item with details:
+    Then response contains details:
       """json
-      {"description": "Not stored"}
+      [{"name": "Test Location"}]
       """
 
     Examples:
@@ -55,9 +59,13 @@ Feature: Locations
     Then the response status should be 400
     And the response error message should be "The request body could not be read"
     When I GET to /secured/locations
-    Then response contains no item with details:
+    Then response contains details:
       """json
-      {"description": "Not stored"}
+      [{"name": "Test Location"}]
+      """
+    And response contains no item with details:
+      """json
+      [{"name": "Remote Depot"}]
       """
 
   Scenario Outline: Location names are unique ignoring case and spaces
@@ -69,9 +77,9 @@ Feature: Locations
     Then the response status should be 400
     And the response error message should be "A location with the name <name> already exists"
     When I GET to /secured/locations
-    Then response contains no item with details:
+    Then response contains details:
       """json
-      {"description": "Not stored"}
+      [{"name": "Test Location"}]
       """
 
     Examples:
@@ -89,12 +97,16 @@ Feature: Locations
     Then the response status should be 400
     And the response error message should be "'Mars/Olympus' is not a valid timezone"
     When I GET to /secured/locations
-    Then response contains no item with details:
+    Then response contains details:
       """json
-      {"name": "Remote Depot"}
+      [{"name": "Test Location"}]
+      """
+    And response contains no item with details:
+      """json
+      [{"name": "Remote Depot"}]
       """
 
-  Scenario Outline: An update must carry a name
+  Scenario Outline: An update may not blank or null the name
     Given I am authenticated as a platform admin
     When I PUT to /secured/locations with payload:
       """json
@@ -102,16 +114,28 @@ Feature: Locations
       """
     Then the response status should be 400
     And the response error message should be "A location must have a name"
-    And Location should exist in database with id #location and options:
+    And Location should exist in database with id {{location}} and options:
       """json
-      {"name": "Test Location", "description": null, "timezone": "Africa/Addis_Ababa"}
+      {"name": "Test Location"}
       """
 
     Examples:
       | payload                                      |
       | {"name": ""}                                 |
       | {"name": "   ", "description": "Not stored"} |
-      | {"description": "Not stored"}                |
+      | {"name": null, "description": "Not stored"}  |
+
+  Scenario: An update that leaves the name out keeps the stored name
+    Given I am authenticated as a platform admin
+    When I PUT to /secured/locations with payload:
+      """json
+      {"description": "Back room"}
+      """
+    Then the response status should be 200
+    And Location should exist in database with id {{location}} and options:
+      """json
+      {"name": "Test Location", "description": "Back room"}
+      """
 
   Scenario: An update must keep a valid timezone
     Given I am authenticated as a platform admin
@@ -121,9 +145,9 @@ Feature: Locations
       """
     Then the response status should be 400
     And the response error message should be "'Mars/Olympus' is not a valid timezone"
-    And Location should exist in database with id #location and options:
+    And Location should exist in database with id {{location}} and options:
       """json
-      {"name": "Test Location", "timezone": "Africa/Addis_Ababa"}
+      {"timezone": "Africa/Addis_Ababa"}
       """
 
   Scenario: An update may repeat the location's own name
@@ -135,9 +159,9 @@ Feature: Locations
     Then the response status should be 200
     And response contains details:
       """json
-      {"name": "Test Location", "locationType": "SHOP"}
+      {"name": "Test Location"}
       """
-    And Location should exist in database with id #location and options:
+    And Location should exist in database with id {{location}} and options:
       """json
-      {"name": "Test Location", "timezone": "Africa/Addis_Ababa"}
+      {"name": "Test Location"}
       """

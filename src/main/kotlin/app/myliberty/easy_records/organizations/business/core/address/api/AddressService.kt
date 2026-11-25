@@ -1,6 +1,6 @@
 package app.myliberty.easy_records.organizations.business.core.address.api
 
-import app.myliberty.easy_records.configuration.datasource.TransactionalOnLocationSchema
+import app.myliberty.easy_records.configuration.datasource.TransactionalOnOrganizationSchema
 import app.myliberty.easy_records.organizations.business.core.address.AddressCache
 import app.myliberty.easy_records.organizations.business.core.address.AddressMapper
 import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException
@@ -8,13 +8,13 @@ import org.springframework.stereotype.Service
 import java.util.Objects
 
 @Service
-@TransactionalOnLocationSchema
+@TransactionalOnOrganizationSchema
 class AddressService(
     private val addressMapper: AddressMapper,
     private val addressCache: AddressCache
 ) {
 
-    @TransactionalOnLocationSchema(readOnly = true)
+    @TransactionalOnOrganizationSchema(readOnly = true)
     fun getAllAddresses(): Collection<AddressResponseDto> {
         return addressCache.getAllAddresses().map { addressMapper.toDto(it) }
     }

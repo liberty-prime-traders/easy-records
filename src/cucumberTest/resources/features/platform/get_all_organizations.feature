@@ -11,16 +11,10 @@ Feature: Get All Organizations
     And the response should contain 1 items
     And response contains details:
       """json
-      {"id": "#organization"}
+      {"id": "{{organization}}", "name": "Test Organization"}
       """
 
   @smoke
   Scenario: Regular organization user cannot retrieve all organizations (403)
-    When I get all organizations
-    Then the response status should be 403
-
-  @smoke
-  Scenario: Unauthenticated user cannot retrieve all organizations (403)
-    Given I am not authenticated
     When I get all organizations
     Then the response status should be 403

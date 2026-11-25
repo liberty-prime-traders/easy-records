@@ -4,6 +4,7 @@ import io.cucumber.java.After
 import io.cucumber.java.Before
 import io.cucumber.java.Scenario
 import app.myliberty.easy_records.cucumber.support.ApiClient
+import app.myliberty.easy_records.cucumber.support.initialization.BoilerPlateDataInitializer
 import app.myliberty.easy_records.cucumber.support.KafkaConsumerTestSupport
 import app.myliberty.easy_records.cucumber.support.cleanup.CacheCleaner
 import app.myliberty.easy_records.cucumber.support.cleanup.TestDatabaseCleaner
@@ -11,7 +12,10 @@ import app.myliberty.easy_records.cucumber.support.context.AuthContext
 import app.myliberty.easy_records.cucumber.support.context.InjectContext
 import app.myliberty.easy_records.cucumber.support.context.KafkaContext
 import app.myliberty.easy_records.cucumber.support.context.ResponseContext
+import app.myliberty.easy_records.cucumber.support.context.PersistentKey
+import app.myliberty.easy_records.configuration.session.SessionContextProvider
 import app.myliberty.easy_records.platform.business.feature.api.Feature
+import app.myliberty.easy_records.platform.business.organization.OrganizationCache
 import java.net.URI
 
 class TestHooks(
@@ -23,6 +27,8 @@ class TestHooks(
   private val kafkaContext: KafkaContext,
   private val cacheCleaner: CacheCleaner,
   private val apiClient: ApiClient,
+  private val boilerPlateDataInitializer: BoilerPlateDataInitializer,
+  private val organizationCache: OrganizationCache,
 ) {
 
   @Before
@@ -36,6 +42,18 @@ class TestHooks(
     kafkaContext.reset()
     authContext.initialize()
     responseContext.reset()
+    initializeOrganizationSession()
+  }
+
+  private fun initializeOrganizationSession() {
+    val organizationId = injectContext.get(PersistentKey.ORGANIZATION)
+    val organization = organizationCache.getAllOrganizations().first { it.id == organizationId }
+    SessionContextProvider.initOrganization(organization)
+  }
+
+  @After
+  fun clearSession() {
+    SessionContextProvider.clear()
   }
 
   private fun resetDatabaseState() {
@@ -45,6 +63,7 @@ class TestHooks(
     activateDefaultFeatures()
     generateOpenFiscalPeriod()
     seedOrganizationDefaults()
+    boilerPlateDataInitializer.ensureDefaultMemberships()
   }
 
   @Before("@publishes-to-kafka")

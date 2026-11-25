@@ -10,9 +10,16 @@ Feature: Contact opening balance
     Then the response status should be 200
     And the contact's listed net opening balance should be "50.00" with effect "ADDS"
     And the contact's listed balances should be receivable "100.00" and payable "50.00"
-    And Contact_Opening_Balance table should have exactly 3 records in database
+    And Contact_Opening_Balance table should contain exactly these records:
+      """json
+      [
+        {"contactReferenceNumber": "{{contactReference}}", "subledgerDirection": "PAYABLE", "amount": "40.00"},
+        {"contactReferenceNumber": "{{contactReference}}", "subledgerDirection": "RECEIVABLE", "amount": "100.00"},
+        {"contactReferenceNumber": "{{contactReference}}", "subledgerDirection": "RECEIVABLE", "amount": "90.00"}
+      ]
+      """
 
-  Scenario: A downward payable revision flips the net opening effect and posts the reduction to the receivable column
+  Scenario: A downward payable revision lowers the net opening balance and posts the reduction to the receivable column
     Given an opening balance contact exists
     When I set the contact's opening balances to payable "40.00" and receivable "0.00"
     And I set the contact's opening balances to payable "25.00" and receivable "0.00"
@@ -23,7 +30,13 @@ Feature: Contact opening balance
       | subledgerDirection | amount | balanceEffect |
       | PAYABLE            | 40.00  | SUBTRACTS     |
       | PAYABLE            | 25.00  | SUBTRACTS     |
-    And Contact_Opening_Balance table should have exactly 2 records in database
+    And Contact_Opening_Balance table should contain exactly these records:
+      """json
+      [
+        {"contactReferenceNumber": "{{contactReference}}", "subledgerDirection": "PAYABLE", "amount": "40.00"},
+        {"contactReferenceNumber": "{{contactReference}}", "subledgerDirection": "PAYABLE", "amount": "25.00"}
+      ]
+      """
 
   Scenario: An upward receivable revision raises the listed receivable and keeps the net effect ADDS
     Given an opening balance contact exists
@@ -36,7 +49,13 @@ Feature: Contact opening balance
       | subledgerDirection | amount | balanceEffect |
       | RECEIVABLE         | 100.00 | ADDS          |
       | RECEIVABLE         | 150.00 | ADDS          |
-    And Contact_Opening_Balance table should have exactly 2 records in database
+    And Contact_Opening_Balance table should contain exactly these records:
+      """json
+      [
+        {"contactReferenceNumber": "{{contactReference}}", "subledgerDirection": "RECEIVABLE", "amount": "100.00"},
+        {"contactReferenceNumber": "{{contactReference}}", "subledgerDirection": "RECEIVABLE", "amount": "150.00"}
+      ]
+      """
 
   Scenario: Revising a receivable to zero clears the net opening effect and keeps the earlier postings in the listed balances
     Given an opening balance contact exists
@@ -49,7 +68,13 @@ Feature: Contact opening balance
       | subledgerDirection | amount | balanceEffect |
       | RECEIVABLE         | 100.00 | ADDS          |
       | RECEIVABLE         | 0.00   | ZERO          |
-    And Contact_Opening_Balance table should have exactly 2 records in database
+    And Contact_Opening_Balance table should contain exactly these records:
+      """json
+      [
+        {"contactReferenceNumber": "{{contactReference}}", "subledgerDirection": "RECEIVABLE", "amount": "100.00"},
+        {"contactReferenceNumber": "{{contactReference}}", "subledgerDirection": "RECEIVABLE", "amount": "0.00"}
+      ]
+      """
 
   Scenario: Re-declaring an unchanged balance records no revision
     Given an opening balance contact exists
@@ -59,7 +84,10 @@ Feature: Contact opening balance
     And the contact's opening balance history should be:
       | subledgerDirection | amount | balanceEffect |
       | RECEIVABLE         | 100.00 | ADDS          |
-    And Contact_Opening_Balance table should have exactly 1 records in database
+    And Contact_Opening_Balance table should contain exactly these records:
+      """json
+      [{"contactReferenceNumber": "{{contactReference}}", "subledgerDirection": "RECEIVABLE", "amount": "100.00"}]
+      """
 
   Scenario: The history lists revisions oldest first across both directions
     Given an opening balance contact exists
@@ -72,7 +100,14 @@ Feature: Contact opening balance
       | RECEIVABLE         | 100.00 | ADDS          |
       | PAYABLE            | 40.00  | SUBTRACTS     |
       | RECEIVABLE         | 90.00  | ADDS          |
-    And Contact_Opening_Balance table should have exactly 3 records in database
+    And Contact_Opening_Balance table should contain exactly these records:
+      """json
+      [
+        {"contactReferenceNumber": "{{contactReference}}", "subledgerDirection": "RECEIVABLE", "amount": "100.00"},
+        {"contactReferenceNumber": "{{contactReference}}", "subledgerDirection": "PAYABLE", "amount": "40.00"},
+        {"contactReferenceNumber": "{{contactReference}}", "subledgerDirection": "RECEIVABLE", "amount": "90.00"}
+      ]
+      """
 
   Scenario Outline: A malformed opening balance is rejected and leaves no revision
     Given an opening balance contact exists
@@ -101,4 +136,11 @@ Feature: Contact opening balance
     Then the response status should be 200
     And the contact's listed net opening balance should be "80.00" with effect "ADDS"
     And the contact's listed balances should be receivable "120.00" and payable "40.00"
-    And Contact_Opening_Balance table should have exactly 3 records in database
+    And Contact_Opening_Balance table should contain exactly these records:
+      """json
+      [
+        {"contactReferenceNumber": "{{contactReference}}", "subledgerDirection": "PAYABLE", "amount": "40.00"},
+        {"contactReferenceNumber": "{{contactReference}}", "subledgerDirection": "RECEIVABLE", "amount": "100.00"},
+        {"contactReferenceNumber": "{{contactReference}}", "subledgerDirection": "RECEIVABLE", "amount": "120.00"}
+      ]
+      """

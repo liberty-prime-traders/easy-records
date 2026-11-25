@@ -33,6 +33,15 @@ class LocationUpdateDtoTest {
     }
 
     @Test
+    fun `a provided name is trimmed before it is stored`() {
+        val locationUpdateDto = LocationUpdateDto(name = Optional.of("  Cold Store  "))
+
+        val updated = locationUpdateDto.applyTo(storedLocation)
+
+        assertEquals("Cold Store", updated.name)
+    }
+
+    @Test
     fun `a provided type and timezone replace the stored values and the schema is never changed`() {
         val locationUpdateDto = LocationUpdateDto(
             locationType = Optional.of(LocationType.STORE),

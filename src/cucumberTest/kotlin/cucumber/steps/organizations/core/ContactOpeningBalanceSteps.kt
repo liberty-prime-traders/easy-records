@@ -1,6 +1,8 @@
 package app.myliberty.easy_records.cucumber.steps.organizations.core
 
 import app.myliberty.easy_records.cucumber.support.ApiClient
+import app.myliberty.easy_records.cucumber.support.rest.JsonSubsetMatcher
+import app.myliberty.easy_records.cucumber.support.rest.SubsetOptions
 import app.myliberty.easy_records.cucumber.support.context.InjectContext
 import app.myliberty.easy_records.cucumber.support.context.ResponseContext
 import app.myliberty.easy_records.cucumber.support.context.TransientKey
@@ -9,6 +11,7 @@ import app.myliberty.easy_records.organizations.business.core.contact.api.Contac
 import app.myliberty.easy_records.organizations.business.core.contact.api.ContactType
 import app.myliberty.easy_records.organizations.business.core.contact.api.IdentityType
 import com.fasterxml.jackson.databind.DeserializationFeature
+import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import io.cucumber.datatable.DataTable
 import io.cucumber.java.en.Given
@@ -87,23 +90,12 @@ class ContactOpeningBalanceSteps(
       "/secured/contact-opening-balances/history",
       mapOf("contactReferenceNumber" to contactReferenceNumber)
     )
-    val actualRevisionRows = objectMapper.readTree(historyResponse.asString()).toList()
-    val expectedRows = expectedRevisions.asMaps()
-
-    assertEquals(
-      expectedRows.map { expectedRow -> expectedRow.getValue("subledgerDirection") },
-      actualRevisionRows.map { actualRow -> actualRow.path("subledgerDirection").asText() },
-      "history directions, oldest first"
-    )
-    assertEquals(
-      expectedRows.map { expectedRow -> expectedRow.getValue("amount") },
-      actualRevisionRows.map { actualRow -> actualRow.path("amount").asText() },
-      "history amounts, oldest first"
-    )
-    assertEquals(
-      expectedRows.map { expectedRow -> expectedRow.getValue("balanceEffect") },
-      actualRevisionRows.map { actualRow -> actualRow.path("balanceEffect").asText() },
-      "history balance effects, oldest first"
+    val expectedRevisionsJson = objectMapper.valueToTree<JsonNode>(expectedRevisions.asMaps())
+    JsonSubsetMatcher.assertJsonSubset(
+      expectedRevisionsJson,
+      objectMapper.readTree(historyResponse.asString()),
+      SubsetOptions(exactLists = true, inOrder = true),
+      subject = "opening balance history",
     )
   }
 

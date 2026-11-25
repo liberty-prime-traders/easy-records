@@ -8,7 +8,7 @@ import org.springframework.http.HttpMethod
 import java.util.UUID
 
 // The InjectContext placeholder keys are an enum shared with every domain, so the payment method id is kept here and
-// substituted into "#paymentMethod" by the steps below. The scenario's Given always runs before these steps.
+// substituted into "{{paymentMethod}}" by the steps below. The scenario's Given always runs before these steps.
 class PaymentMethodSteps(
   private val paymentMethodFixtureBuilder: PaymentMethodFixtureBuilder,
   private val apiClient: ApiClient
@@ -37,6 +37,6 @@ class PaymentMethodSteps(
 
   private companion object {
     const val PAYMENT_METHODS_PATH = "/secured/payment-methods"
-    const val PLACEHOLDER = "#paymentMethod"
+    const val PLACEHOLDER = "{{paymentMethod}}"
   }
 }

@@ -17,9 +17,9 @@ Feature: Jurisdiction types
       {"name": "Province", "description": "First-level division"}
       """
     When I GET to /secured/jurisdiction-types
-    Then response contains item with details:
+    Then response contains details:
       """json
-      {"name": "Province", "description": "First-level division"}
+      [{"name": "Province", "description": "First-level division"}]
       """
     And Jurisdiction_Type should match example:
       """json
@@ -48,7 +48,10 @@ Feature: Jurisdiction types
       """
     Then the response status should be 400
     And the response error message should be "A jurisdiction type named '<name>' already exists"
-    And Jurisdiction_Type table should have exactly 1 records in database
+    And Jurisdiction_Type table should contain exactly these records:
+      """json
+      [{"name": "Province"}]
+      """
 
     Examples:
       | name       |
@@ -57,6 +60,12 @@ Feature: Jurisdiction types
 
   Scenario: Renaming a jurisdiction type frees its old name
     Given a jurisdiction type named "Province" exists
+    When I POST to /secured/jurisdiction-types with payload:
+      """json
+      {"name": "Province"}
+      """
+    Then the response status should be 400
+    And the response error message should be "A jurisdiction type named 'Province' already exists"
     When I PUT the platform path /secured/jurisdiction-types with payload:
       """json
       {"id": "{{jurisdictionType:Province}}", "name": "Territory"}
@@ -66,16 +75,15 @@ Feature: Jurisdiction types
       """json
       {"name": "Territory"}
       """
-    And Jurisdiction_Type should match example:
-      """json
-      {"name": "Territory"}
-      """
     When I POST to /secured/jurisdiction-types with payload:
       """json
       {"name": "Province"}
       """
     Then the response status should be 200
-    And Jurisdiction_Type table should have exactly 2 records in database
+    And Jurisdiction_Type table should contain exactly these records:
+      """json
+      [{"name": "Territory"}, {"name": "Province"}]
+      """
 
   Scenario: An update that only carries a description keeps the name
     Given a jurisdiction type named "Province" exists
@@ -127,11 +135,10 @@ Feature: Jurisdiction types
       """
     Then the response status should be 400
     And the response error message should be "A jurisdiction type named '<name>' already exists"
-    And Jurisdiction_Type should match example:
+    And Jurisdiction_Type table should contain exactly these records:
       """json
-      {"name": "Territory"}
+      [{"name": "Territory"}, {"name": "Province"}]
       """
-    And Jurisdiction_Type table should have exactly 2 records in database
 
     Examples:
       | name      |

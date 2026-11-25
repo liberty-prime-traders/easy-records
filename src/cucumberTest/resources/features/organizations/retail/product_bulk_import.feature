@@ -7,10 +7,7 @@ Feature: Bulk import of categories, product groups and products
     When I POST to /secured/products/bulk with payload:
       """json
       {
-        "categories": [
-          {"name": "Grocery", "description": "Food and drink"},
-          {"name": "Household"}
-        ],
+        "categories": [{"name": "Grocery", "description": "Food and drink"}, {"name": "Household"}],
         "productGroups": [
           {"name": "Dairy", "categoryName": "Grocery"},
           {"name": "Cleaning", "categoryName": "Household", "description": "Soaps and sprays"}
@@ -32,12 +29,15 @@ Feature: Bulk import of categories, product groups and products
       """
     And Organization_Product should match example:
       """json
-      {"productName": "Whole Milk", "nameKey": "wholemilk", "description": "One litre"}
+      {"productName": "Whole Milk", "description": "One litre"}
       """
     When I GET to /secured/product-groups
-    Then response contains item with details:
+    Then response contains details:
       """json
-      {"groupName": "Cleaning", "categoryName": "Household", "description": "Soaps and sprays"}
+      [
+        {"groupName": "Dairy", "categoryName": "Grocery"},
+        {"groupName": "Cleaning", "description": "Soaps and sprays", "categoryName": "Household"}
+      ]
       """
     When I POST to /secured/products/search with payload:
       """json
@@ -51,13 +51,11 @@ Feature: Bulk import of categories, product groups and products
           {
             "productName": "Whole Milk",
             "description": "One litre",
-            "productGroupName": "Dairy",
             "categoryName": "Grocery",
-            "baseUnit": "Piece",
-            "status": "ACTIVE"
+            "productGroupName": "Dairy"
           },
-          {"productName": "Butter", "productGroupName": "Dairy", "categoryName": "Grocery"},
-          {"productName": "Dish Soap", "productGroupName": "Cleaning", "categoryName": "Household"}
+          {"productName": "Butter", "categoryName": "Grocery", "productGroupName": "Dairy"},
+          {"productName": "Dish Soap", "categoryName": "Household", "productGroupName": "Cleaning"}
         ]
       }
       """
@@ -90,7 +88,7 @@ Feature: Bulk import of categories, product groups and products
       """
     Then response contains details:
       """json
-      {"contents": [{"productName": "Ham", "productGroupName": "Cold Cuts"}]}
+      {"contents": [{"productName": "Ham", "categoryName": "Fresh Dairy", "productGroupName": "Cold Cuts"}]}
       """
 
     Examples:
@@ -109,11 +107,7 @@ Feature: Bulk import of categories, product groups and products
     When I POST to /secured/products/bulk with payload:
       """json
       {
-        "categories": [
-          {"name": "Grocery"},
-          {"name": "grocery!"},
-          {"name": "---"}
-        ],
+        "categories": [{"name": "Grocery"}, {"name": "grocery!"}, {"name": "---"}],
         "productGroups": [
           {"name": "Dairy"},
           {"name": "Bakery", "categoryName": "Nowhere"},
@@ -145,8 +139,20 @@ Feature: Bulk import of categories, product groups and products
       }
       """
     And Product_Category table should have exactly 1 records in database
+    And Product_Category table should contain exactly these records:
+      """json
+      [{"categoryName": "Staples"}]
+      """
     And Product_Group table should have exactly 1 records in database
+    And Product_Group table should contain exactly these records:
+      """json
+      [{"groupName": "Pantry Items"}]
+      """
     And Organization_Product table should have exactly 1 records in database
+    And Organization_Product table should contain exactly these records:
+      """json
+      [{"productName": "Whole Milk"}]
+      """
 
   Scenario Outline: A product row needs a name, a group and a unit code
     When I POST to /secured/products/bulk with payload:
@@ -208,9 +214,7 @@ Feature: Bulk import of categories, product groups and products
     And a product named "Whole Milk" exists
     When I POST to /secured/products/bulk with payload:
       """json
-      {
-        "products": [{"name": "<spelling>", "groupName": "Pantry Items", "unitCode": "pc"}]
-      }
+      {"products": [{"name": "<spelling>", "groupName": "Pantry Items", "unitCode": "pc"}]}
       """
     Then the response status should be 400
     And response contains details:
@@ -231,14 +235,8 @@ Feature: Bulk import of categories, product groups and products
       {
         "categories": [{"name": "Fresh Dairy"}, {"name": "<spelling>"}],
         "productGroups": [
-          {
-            "name": "Cold Cuts",
-            "categoryName": "Fresh Dairy"
-          },
-          {
-            "name": "<groupSpelling>",
-            "categoryName": "Fresh Dairy"
-          }
+          {"name": "Cold Cuts", "categoryName": "Fresh Dairy"},
+          {"name": "<groupSpelling>", "categoryName": "Fresh Dairy"}
         ]
       }
       """

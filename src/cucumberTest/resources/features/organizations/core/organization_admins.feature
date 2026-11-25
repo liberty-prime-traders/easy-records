@@ -7,19 +7,19 @@ Feature: Organization users, admins and liberty access
     Given I am authenticated as a platform admin
     And the organization user "platform-admin@test.local" has the organization role "MANAGE_ORGANIZATION_USERS"
     And a user "ada@test.local" named "Ada Lovelace" who is an active organization member
-    When I GET from secured/organization-users
+    When I GET to /secured/organization-users
     Then response returns with status 200
     And response contains details:
       """json
-      { "email": "org-user@test.local", "fullName": "Fake Organization User", "active": true }
+      {"email": "org-user@test.local", "fullName": "Fake Organization User", "active": true}
       """
     And response contains details:
       """json
-      { "email": "ada@test.local", "fullName": "Ada Lovelace", "active": true }
+      {"email": "ada@test.local", "fullName": "Ada Lovelace", "active": true}
       """
 
   Scenario: The default organization user cannot list organization users
-    When I GET from secured/organization-users
+    When I GET to /secured/organization-users
     Then response returns with status 403
 
   Scenario: Access detail lists the roles and add-on permissions granted to a member
@@ -30,11 +30,11 @@ Feature: Organization users, admins and liberty access
     And the organization user "ada@test.local" has the add-on permission "MANAGE_ORGANIZATION_ACCESS"
     When I request the access detail of the organization user "ada@test.local"
     Then response returns with status 200
-    And response contains details with exact lists:
+    And response contains details:
       """json
       {
-        "roles": [ { "role": "VIEW_ORGANIZATION_USERS" } ],
-        "addOnPermissions": [ { "permission": "MANAGE_ORGANIZATION_ACCESS" } ]
+        "roles": [{"role": "VIEW_ORGANIZATION_USERS"}],
+        "addOnPermissions": [{"permission": "MANAGE_ORGANIZATION_ACCESS"}]
       }
       """
 
@@ -43,9 +43,9 @@ Feature: Organization users, admins and liberty access
     And the organization user "platform-admin@test.local" has the organization role "MANAGE_ORGANIZATION_USERS"
     When I request the access detail of the organization user "org-user@test.local"
     Then response returns with status 200
-    And response contains details with exact lists:
+    And response contains details:
       """json
-      { "roles": [], "addOnPermissions": [] }
+      {"roles": [], "addOnPermissions": []}
       """
 
   Scenario: Terminating a member ends the membership and removes every role and permission
@@ -58,9 +58,8 @@ Feature: Organization users, admins and liberty access
     Then response returns with status 200
     And response contains details:
       """json
-      { "user": "Ada Lovelace", "endOn": "^.+$" }
+      [{"user": "Ada Lovelace"}]
       """
-    And response list size is 1
     And the organization membership of "ada@test.local" should have ended in database
     And the organization user "ada@test.local" should hold no organization roles or add-on permissions in database
 
@@ -78,7 +77,7 @@ Feature: Organization users, admins and liberty access
     Given I am authenticated as a platform admin
     And the organization user "platform-admin@test.local" has the organization role "MANAGE_ORGANIZATION_USERS"
     And a user "ada@test.local" named "Ada Lovelace" who is an active organization member
-    When I POST to secured/organization-users/terminate with payload:
+    When I POST to /secured/organization-users/terminate with payload:
       """json
       []
       """
@@ -99,9 +98,12 @@ Feature: Organization users, admins and liberty access
     Then response returns with status 200
     And response contains details:
       """json
-      { "user": "Ada Lovelace", "endOn": null }
+      {"user": "Ada Lovelace"}
       """
-    And Organization_Admin table should have exactly 1 records in database
+    And Organization_Admin table should contain exactly these records:
+      """json
+      [{"endOn": null}]
+      """
 
   Scenario: Terminating an organization admin ends the admin record and keeps it
     Given I am authenticated as a platform admin
@@ -109,18 +111,27 @@ Feature: Organization users, admins and liberty access
     And the organization user "ada@test.local" is an organization admin
     When I terminate the organization admin "ada@test.local"
     Then response returns with status 204
-    And Organization_Admin should match example:
+    And Organization_Admin table should contain exactly these records:
       """json
-      { "endOn": "^.+$" }
+      [{"endOn": "^{{today}}.*$"}]
       """
-    And Organization_Admin table should have exactly 1 records in database
 
   Scenario: Only organization admins can list the admin history
-    When I GET from secured/organization-admins
+    When I GET to /secured/organization-admins
     Then response returns with status 403
 
+  Scenario: An organization admin can list the admin history
+    Given I am authenticated as a platform admin
+    And the organization user "platform-admin@test.local" is an organization admin
+    When I GET to /secured/organization-admins
+    Then response returns with status 200
+    And response contains details:
+      """json
+      [{"user": "Fake Platform Admin"}]
+      """
+
   Scenario: The default organization user is not reported as an admin
-    When I GET from secured/organization-admins/is-admin
+    When I GET to /secured/organization-admins/is-admin
     Then response returns with status 200
     And response contains details:
       """json
@@ -130,7 +141,7 @@ Feature: Organization users, admins and liberty access
   Scenario: A platform admin recorded as an organization admin is reported as an admin
     Given I am authenticated as a platform admin
     And the organization user "platform-admin@test.local" is an organization admin
-    When I GET from secured/organization-admins/is-admin
+    When I GET to /secured/organization-admins/is-admin
     Then response returns with status 200
     And response contains details:
       """json
@@ -138,17 +149,17 @@ Feature: Organization users, admins and liberty access
       """
 
   Scenario: The default organization user has no liberty permissions
-    When I GET from secured/liberty-permissions
+    When I GET to /secured/liberty-permissions
     Then response returns with status 200
     And the response should be an empty list
 
-  Scenario: Liberty permissions report only the liberty-level add-on, not permissions bundled in roles
+  Scenario: Liberty permissions omit a granted role's permissions and report the add-on
     Given I am authenticated as a platform admin
     And the organization user "platform-admin@test.local" has the organization role "MANAGE_ORGANIZATION_USERS"
     And the organization user "platform-admin@test.local" has the add-on permission "MANAGE_ORGANIZATION_ACCESS"
-    When I GET from secured/liberty-permissions
+    When I GET to /secured/liberty-permissions
     Then response returns with status 200
-    And response contains details with exact lists:
+    And response contains details:
       """json
-      [ "MANAGE_ORGANIZATION_ACCESS" ]
+      ["MANAGE_ORGANIZATION_ACCESS"]
       """
