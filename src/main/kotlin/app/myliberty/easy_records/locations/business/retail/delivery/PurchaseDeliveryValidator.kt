@@ -48,12 +48,12 @@ class PurchaseDeliveryValidator(
         lineDto.userProvidedQuantityDelivered,
         storageUnitsPerUserProvidedUnitByPurchaseLineId.getValue(lineDto.purchaseLineId)
       )
-      if (delivered > purchaseLine.storageQuantityRemaining) {
+      if (delivered > purchaseLine.storagePendingDeliveryQty) {
         throw LibertyGenericException(
           maximumQuantityMessageOf(
             locationProducts.getValue(purchaseLine.locationProductId).label,
             breakdownByLocationProductId.getValue(purchaseLine.locationProductId),
-            purchaseLine.storageQuantityRemaining,
+            purchaseLine.storagePendingDeliveryQty,
             delivered
           )
         )

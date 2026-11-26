@@ -66,7 +66,7 @@ class DeliveryHandlerForPurchaseTest {
     fun `under-delivery by one storage unit leaves the line open`() {
         deliverStorage("17")
 
-        assertEquals(0, BigDecimal("1").compareTo(purchaseLine.storageQuantityRemaining().toStorageQuantity()))
+        assertEquals(0, BigDecimal("1").compareTo(purchaseLine.storagePendingDeliveryQty().toStorageQuantity()))
         assertEquals(PurchaseStatus.PARTIALLY_DELIVERED, purchase.purchaseStatus)
     }
 

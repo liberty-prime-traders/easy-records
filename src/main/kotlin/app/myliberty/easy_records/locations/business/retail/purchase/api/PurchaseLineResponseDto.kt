@@ -22,15 +22,15 @@ data class PurchaseLineResponseDto(
   @field:JsonSerialize(using = StripZeroesAndRound::class)
   val quantityDelivered: BigDecimal,
   @field:JsonSerialize(using = StripZeroesAndRound::class)
-  val quantityYetToBeDelivered: BigDecimal,
+  val quantityPendingDelivery: BigDecimal,
   val quantityCanceled: BigDecimal,
-  val quantityExpected: BigDecimal,
+  val quantityNetOrdered: BigDecimal,
   val storageQuantityDelivered: BigDecimal,
-  val storageQuantityYetToBeDelivered: BigDecimal,
+  val storagePendingDeliveryQty: BigDecimal,
   val storageQuantityCanceled: BigDecimal,
-  val storageQuantityExpected: BigDecimal,
+  val storageNetOrderedQty: BigDecimal,
   val quantityDeliveredBreakdown: String,
-  val quantityYetToBeDeliveredBreakdown: String,
+  val quantityPendingDeliveryBreakdown: String,
   val quantityCanceledBreakdown: String,
-  val quantityExpectedBreakdown: String,
+  val quantityNetOrderedBreakdown: String,
 ) : Serializable

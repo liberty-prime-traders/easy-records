@@ -45,14 +45,19 @@ class PurchaseLineEntity(
 
 ) : HasLocationProduct, HasReferenceEntity() {
 
-  fun storageQuantityOrdered(): ExactQuantity = ExactQuantity.ofStorageFromUserProvided(userProvidedQuantityOrdered, storageUnitsPerUserProvidedUnit)
+  fun storageGrossOrderedQty(): ExactQuantity = ExactQuantity.ofStorageFromUserProvided(
+    userProvidedQuantityOrdered,
+    storageUnitsPerUserProvidedUnit
+  )
 
-  fun storageQuantityExpected(): ExactQuantity = storageQuantityOrdered() - ExactQuantity.ofStorage(storageQuantityCanceled)
+  fun storageNetOrderedQty(): ExactQuantity =
+    storageGrossOrderedQty() - ExactQuantity.ofStorage(storageQuantityCanceled)
 
-  fun storageQuantityRemaining(): ExactQuantity = storageQuantityExpected() - ExactQuantity.ofStorage(storageQuantityDelivered)
+  fun storagePendingDeliveryQty(): ExactQuantity =
+    storageNetOrderedQty() - ExactQuantity.ofStorage(storageQuantityDelivered)
 
   fun getTotalCost(): BigDecimal = Decimals.MoneyScale.divide(
-    unitCost.multiply(storageQuantityExpected().toStorageQuantity()),
+    unitCost.multiply(storageNetOrderedQty().toStorageQuantity()),
     BigDecimal.valueOf(storageUnitsPerUserProvidedUnit)
   )
 

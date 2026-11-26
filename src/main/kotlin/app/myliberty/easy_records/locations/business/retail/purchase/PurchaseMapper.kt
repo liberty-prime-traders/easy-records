@@ -60,7 +60,7 @@ object PurchaseMapper {
     unitCost = purchaseLineEntity.unitCost,
     unitId = purchaseLineEntity.unitId,
     storageUnitsPerUserProvidedUnit = purchaseLineEntity.storageUnitsPerUserProvidedUnit,
-    storageQuantityExpected = purchaseLineEntity.storageQuantityExpected(),
-    storageQuantityRemaining = purchaseLineEntity.storageQuantityRemaining()
+    storageNetOrderedQty = purchaseLineEntity.storageNetOrderedQty(),
+    storagePendingDeliveryQty = purchaseLineEntity.storagePendingDeliveryQty()
   )
 }

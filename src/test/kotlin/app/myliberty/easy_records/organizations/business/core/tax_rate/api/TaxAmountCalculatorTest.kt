@@ -3,7 +3,9 @@ package app.myliberty.easy_records.organizations.business.core.tax_rate.api
 import app.myliberty.easy_records.support.WithDefaultOrganizationSession
 import app.myliberty.easy_records.organizations.business.core.tax_rate.api.TaxAmountCalculator.ActiveTaxTypeForCalculation
 import app.myliberty.easy_records.platform.business.tax_type.api.TaxCalculationMethod
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
 import java.math.BigDecimal
 import java.util.UUID
@@ -81,6 +83,86 @@ class TaxAmountCalculatorTest {
         assertEquals(BigDecimal("0.00"), taxCalculationEntries.first().taxAmount)
         assertEquals(BigDecimal("7.13"), taxCalculationEntries.last().taxAmount)
     }
+
+    @Test
+    fun `a fixed value tax is its flat amount rounded to the money scale whatever the taxable amount`() {
+        val taxCalculationEntry = TaxAmountCalculator.calculate(
+            taxableAmount = BigDecimal("500.00"),
+            activeTaxTypes = listOf(flatTax("2.505", taxIsIncludedInTaxableAmount = false)),
+        ).entries.single()
+
+        assertEquals(0, BigDecimal("2.51").compareTo(taxCalculationEntry.taxAmount))
+        assertEquals(0, BigDecimal("500.00").compareTo(taxCalculationEntry.resolvedTaxableBase))
+    }
+
+    @Test
+    fun `an included fixed value tax is taken out of the gross before the included percentage tax`() {
+        val taxCalculationResult = TaxAmountCalculator.calculate(
+            taxableAmount = BigDecimal("110.00"),
+            activeTaxTypes = listOf(
+                flatTax("10.00", taxIsIncludedInTaxableAmount = true),
+                percentageTax("10", taxIsIncludedInTaxableAmount = true),
+            ),
+        )
+        val flatEntry = taxCalculationResult.entries.first()
+        val percentageEntry = taxCalculationResult.entries.last()
+
+        assertEquals(0, BigDecimal("90.91").compareTo(percentageEntry.resolvedTaxableBase))
+        assertEquals(0, BigDecimal("10.00").compareTo(flatEntry.taxAmount))
+        assertEquals(0, BigDecimal("9.09").compareTo(percentageEntry.taxAmount))
+        assertEquals(
+            0,
+            BigDecimal("110.00").compareTo(percentageEntry.resolvedTaxableBase + flatEntry.taxAmount + percentageEntry.taxAmount)
+        )
+    }
+
+    @Test
+    fun `a percentage tax without a percentage is refused instead of taxing nothing`() {
+        val taxWithoutPercentage = percentageTax("5", taxIsIncludedInTaxableAmount = false)
+            .copy(activeTaxRateDto = ActiveTaxRateDto(null, null, true, false))
+
+        val refusal = assertThrows(LibertyGenericException::class.java) {
+            TaxAmountCalculator.calculate(BigDecimal("100.00"), listOf(taxWithoutPercentage))
+        }
+
+        assertEquals("Tax rate missing ratePercentage", refusal.message)
+    }
+
+    @Test
+    fun `a fixed value tax without a flat amount is refused instead of taxing nothing`() {
+        val taxWithoutFlatAmount = flatTax("5", taxIsIncludedInTaxableAmount = false)
+            .copy(activeTaxRateDto = ActiveTaxRateDto(null, null, true, false))
+
+        val refusal = assertThrows(LibertyGenericException::class.java) {
+            TaxAmountCalculator.calculate(BigDecimal("100.00"), listOf(taxWithoutFlatAmount))
+        }
+
+        assertEquals("Tax rate missing rateFlatAmount", refusal.message)
+    }
+
+    @Test
+    fun `only taxes billed separately count toward the amount billed to the customer`() {
+        val billedSeparately = percentageTax("10", taxIsIncludedInTaxableAmount = false)
+        val notBilledSeparately = percentageTax("5", taxIsIncludedInTaxableAmount = false)
+            .let { it.copy(activeTaxRateDto = it.activeTaxRateDto.copy(taxIsBilledToCustomerSeparately = false)) }
+
+        val taxCalculationResult = TaxAmountCalculator.calculate(BigDecimal("100.00"), listOf(billedSeparately, notBilledSeparately))
+
+        assertEquals(listOf(true, false), taxCalculationResult.entries.map { it.taxIsBilledToCustomerSeparately })
+        assertEquals(0, BigDecimal("10.00").compareTo(taxCalculationResult.taxBilled))
+    }
+
+    private fun flatTax(rateFlatAmount: String, taxIsIncludedInTaxableAmount: Boolean) = ActiveTaxTypeForCalculation(
+        orgJurisdictionTaxTypeId = UUID.randomUUID(),
+        jurisdictionTaxTypeId = UUID.randomUUID(),
+        calculationMethod = TaxCalculationMethod.FIXED_VALUE,
+        activeTaxRateDto = ActiveTaxRateDto(
+            ratePercentage = null,
+            rateFlatAmount = BigDecimal(rateFlatAmount),
+            taxIsBilledToCustomerSeparately = true,
+            taxIsIncludedInTaxableAmount = taxIsIncludedInTaxableAmount,
+        ),
+    )
 
     private fun percentageTax(ratePercentage: String, taxIsIncludedInTaxableAmount: Boolean) = ActiveTaxTypeForCalculation(
         orgJurisdictionTaxTypeId = UUID.randomUUID(),

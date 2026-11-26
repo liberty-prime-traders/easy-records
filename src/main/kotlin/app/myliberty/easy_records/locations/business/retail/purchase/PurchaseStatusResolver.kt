@@ -9,7 +9,7 @@ object PurchaseStatusResolver {
         purchaseLines: List<PurchaseLineEntity>,
         statusWhenLinesOpenAndNothingDelivered: () -> PurchaseStatus = { PurchaseStatus.ORDERED }
     ): PurchaseStatus {
-        val allAccountedFor = purchaseLines.none { it.storageQuantityRemaining().isPositive() }
+        val allAccountedFor = purchaseLines.none { it.storagePendingDeliveryQty().isPositive() }
         val anyDelivered = purchaseLines.any { it.storageQuantityDelivered > BigDecimal.ZERO }
         return when {
             allAccountedFor && !anyDelivered -> PurchaseStatus.CANCELED

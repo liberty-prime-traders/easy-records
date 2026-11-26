@@ -199,10 +199,10 @@ twin, so all three compare exactly:
 
 Derived values (`PurchaseLineEntity`, all `ExactQuantity` in storage units):
 
-- `storageQuantityOrdered() = userProvidedQuantityOrdered × storageUnitsPerUserProvidedUnit`
-- `storageQuantityExpected() = storageQuantityOrdered() − storageQuantityCanceled`
-- `storageQuantityRemaining() = storageQuantityExpected() − storageQuantityDelivered`
-- `getTotalCost()` is `unitCost × storageQuantityExpected ÷ storageUnitsPerUserProvidedUnit`, rounded once to cents (`Decimals.MoneyScale`, half-up);
+- `storageGrossOrderedQty() = userProvidedQuantityOrdered × storageUnitsPerUserProvidedUnit`
+- `storageNetOrderedQty() = storageGrossOrderedQty() − storageQuantityCanceled`
+- `storagePendingDeliveryQty() = storageNetOrderedQty() − storageQuantityDelivered`
+- `getTotalCost()` is `unitCost × storageNetOrderedQty ÷ storageUnitsPerUserProvidedUnit`, rounded once to cents (`Decimals.MoneyScale`, half-up);
   nothing canceled gives `unitCost × userProvidedQuantityOrdered`.
 
 `locationProductId` is `updatable = false` on the entity — once a line is
@@ -303,7 +303,7 @@ live in the `delivery/` package and are coordinated through
    - Quantity > 0; unit cost > 0.
    - `PurchaseDeliveryValidator.guardWithinRemaining` compares in storage units: the delivery's exact storage quantity
      (typed quantity × the delivery line's own captured `storageUnitsPerUserProvidedUnit`) must not exceed the line's
-     `storageQuantityRemaining` (ordered − canceled − delivered). One storage unit over is rejected and one under
+     `storagePendingDeliveryQty` (ordered − canceled − delivered). One storage unit over is rejected and one under
      leaves the line open.
    - There is **no product-active check** here. Active status is enforced
      only on the purchase-side flows (create / convertDraftToOrder /
@@ -426,7 +426,7 @@ The ceiling reconciles those views by stage:
 | Fully delivered (every line's remaining ≤ 0) | `deliveredTotal`               | The PO is now historical; what we *actually received* is what we owe.                                                                            |
 
 "Fully delivered" requires `deliveredTotal > 0` AND every line's
-no positive `storageQuantityRemaining` — i.e. `storageQuantityDelivered + storageQuantityCanceled ≥
+no positive `storagePendingDeliveryQty` — i.e. `storageQuantityDelivered + storageQuantityCanceled ≥
 ` the ordered storage quantity for every line. Once true, the ceiling **locks** to
 `deliveredTotal` and the `recordPayment` guard kicks in (see below).
 
@@ -570,8 +570,8 @@ called out here because the purchase package is a common reference point.
 - Entities (`PurchaseEntity`, `PurchaseLineEntity`, `PurchaseDeliveryEntity`,
   `PurchaseDeliveryLineEntity`, `SupplierPaymentEntity`) carry only column
   annotations and insert/update restrictions. Tiny helpers live on the
-  *line* entities: `PurchaseLineEntity.storageQuantityExpected` /
-  `storageQuantityRemaining` / `getTotalCost` and
+  *line* entities: `PurchaseLineEntity.storageNetOrderedQty` /
+  `storagePendingDeliveryQty` / `getTotalCost` and
   `PurchaseDeliveryLineEntity.lineTotal`. The header entities have no
   helper methods.
 - Domain DTOs (`PurchaseLineDto`, `PurchaseDeliveryContext`,

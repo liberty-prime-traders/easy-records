@@ -48,11 +48,11 @@ object PurchaseValidator {
 
   // Cancel is absolute: it replaces the counter, which plus delivered may not exceed ordered, in storage units
   fun guardCancelQuantity(line: PurchaseLineEntity, storageQuantityToCancel: ExactQuantity, quantityBreakdown: QuantityBreakdown) {
-    val maxCancelable = line.storageQuantityOrdered() - ExactQuantity.ofStorage(line.storageQuantityDelivered)
+    val maxCancelable = line.storageGrossOrderedQty() - ExactQuantity.ofStorage(line.storageQuantityDelivered)
     if (storageQuantityToCancel > maxCancelable)
       throw LibertyGenericException(
         "Cannot cancel ${quantityBreakdown.render(storageQuantityToCancel)} of line ${line.requiredReference()}. " +
-          "Ordered: ${quantityBreakdown.render(line.storageQuantityOrdered())}, " +
+          "Ordered: ${quantityBreakdown.render(line.storageGrossOrderedQty())}, " +
           "Delivered: ${quantityBreakdown.render(ExactQuantity.ofStorage(line.storageQuantityDelivered))}, " +
           "Max cancelable: ${quantityBreakdown.render(maxCancelable)}"
       )
