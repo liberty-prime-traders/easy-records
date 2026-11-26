@@ -1,9 +1,16 @@
 package app.myliberty.easy_records.organizations.business.core.account
 
 import app.myliberty.easy_records.organizations.business.core.account.api.AccountPosting
+import app.myliberty.easy_records.util.business.StringUtils
 import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 
 object AccountAssertions {
+
+    fun assertSiblingNameAvailable(newName: String, siblings: Collection<AccountDto>) {
+        if (siblings.any { sibling -> StringUtils.isEquivalent(sibling.name, newName) }) {
+            throw LibertyGenericException("Sibling is already registered with the same name")
+        }
+    }
 
     fun assertPostable(
         accounts: Collection<AccountDto>,

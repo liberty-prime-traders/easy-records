@@ -22,4 +22,23 @@ class AccountDataFetcherLabelsTest {
 
         assertEquals(mapOf(cashAccountDto.code to cashAccountDto.label), labelsByCode)
     }
+
+    @Test
+    fun `names and types are returned only for the requested codes`() {
+        `when`(accountCache.getAll()).thenReturn(accountDtos)
+        val cashAccountDto = accountDtos.first { it.code == SystemAccount.CASH.code }
+
+        val namesAndTypesByCode = accountDataFetcher.getNamesAndTypesByCodes(setOf(SystemAccount.CASH.code, "999.999"))
+
+        assertEquals(
+            mapOf(
+                cashAccountDto.code to AccountNameAndTypeDto(
+                    code = cashAccountDto.code,
+                    name = cashAccountDto.name,
+                    accountType = cashAccountDto.accountType
+                )
+            ),
+            namesAndTypesByCode
+        )
+    }
 }

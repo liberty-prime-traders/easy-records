@@ -57,7 +57,7 @@ class AccountResponseBuilder(
         rolledUpBalances: Map<String, BigDecimal>,
         rolledUpOpeningBalances: Map<String, BigDecimal>
     ): AccountResponseDto {
-        val currentBalance = rolledUpBalances[account.code] ?: BigDecimal.ZERO
+        val currentBalance = rolledUpBalances.getValue(account.code)
         val canGainChildren = canGainChildren(account, accountsByCode[account.parentAccountCode])
         val balanceEffect = BalanceEffect.ofBalance(currentBalance, account.accountType.balanceEffect())
         return AccountResponseDto(
@@ -73,7 +73,7 @@ class AccountResponseBuilder(
             parentAccount = accountsByCode[account.parentAccountCode]?.label,
             accountIsExtensible = canGainChildren,
             balanceEffect = balanceEffect,
-            openingBalance = rolledUpOpeningBalances[account.code] ?: BigDecimal.ZERO
+            openingBalance = rolledUpOpeningBalances.getValue(account.code)
         )
     }
 

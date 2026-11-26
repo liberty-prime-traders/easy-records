@@ -1,12 +1,19 @@
 package app.myliberty.easy_records.cucumber.steps.organizations.core
 
 import io.cucumber.java.en.Given
+import io.cucumber.java.en.Then
 import io.cucumber.java.en.When
 import app.myliberty.easy_records.cucumber.support.ApiClient
+import app.myliberty.easy_records.cucumber.support.AccountBalanceReader
+import app.myliberty.easy_records.support.TestConstants
+import org.awaitility.Awaitility.await
+import java.math.BigDecimal
+import java.time.Duration
 import kotlin.test.assertEquals
 
 class AccountSteps(
-  private val apiClient: ApiClient
+  private val apiClient: ApiClient,
+  private val accountBalanceReader: AccountBalanceReader
 ) {
 
   @Given("a root account named {string} of type {string} exists")
@@ -40,6 +47,21 @@ class AccountSteps(
   fun renameAccountWithCode(accountCode: String, newAccountName: String) {
     val accountId = accountIdForCode(accountCode)
     apiClient.put("/secured/accounts", mapOf("id" to accountId, "name" to newAccountName))
+  }
+
+  @Then("account {string} should have a balance of {string}")
+  fun verifyAccountBalance(accountCode: String, expectedBalance: String) {
+    await().alias("balance of $accountCode should become $expectedBalance")
+      .atMost(Duration.ofMillis(TestConstants.Timeouts.KAFKA_SYNC_MS))
+      .pollInterval(Duration.ofMillis(TestConstants.Timeouts.KAFKA_POLL_INTERVAL_MS))
+      .untilAsserted {
+        val actualBalance = accountBalanceReader.balanceOf(accountCode)
+        assertEquals(
+          0,
+          BigDecimal(expectedBalance).compareTo(actualBalance),
+          "balance of $accountCode expected $expectedBalance but was $actualBalance"
+        )
+      }
   }
 
   private fun accountIdForCode(accountCode: String): String {

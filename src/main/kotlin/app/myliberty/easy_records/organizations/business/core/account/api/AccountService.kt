@@ -90,6 +90,12 @@ class AccountService(
         if (existing.accountIsSystemMaintained) {
             throw LibertyGenericException("System accounts cannot be renamed")
         }
+        dto.name.ifPresent { newName ->
+            val siblings = accountCache.getAllFresh().filter { account ->
+                account.id != existing.id && account.parentAccountCode == existing.parentAccountCode
+            }
+            AccountAssertions.assertSiblingNameAvailable(newName, siblings)
+        }
         val saved = accountCache.update(dto.applyTo(existing))
         return accountResponseBuilder.buildResponse(saved)
     }

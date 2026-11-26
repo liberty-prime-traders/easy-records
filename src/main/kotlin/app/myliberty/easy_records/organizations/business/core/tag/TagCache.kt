@@ -38,6 +38,5 @@ class TagCache(
     @CacheEvict(allEntries = true)
     fun deleteTag(id: UUID) {
         tagRepository.deleteById(id)
-        tagRepository.flush()
     }
 }
