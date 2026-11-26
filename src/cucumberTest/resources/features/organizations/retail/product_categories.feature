@@ -14,9 +14,9 @@ Feature: Product categories
       {"categoryName": "Dairy", "description": "Milk and cheese"}
       """
     When I GET to /secured/product-category
-    Then response contains item with details:
+    Then response contains details:
       """json
-      {"categoryName": "Dairy", "description": "Milk and cheese"}
+      [{"categoryName": "Dairy", "description": "Milk and cheese"}]
       """
     And Product_Category should match example:
       """json
@@ -31,7 +31,11 @@ Feature: Product categories
     Then the response status should be 400
     And the response error message should be "A category must have a name"
     When I GET to /secured/product-category
-    Then response list size is 0
+    Then response contains details:
+      """json
+      []
+      """
+    And Product_Category table should have no records in database
 
     Examples:
       | payload                 |
@@ -48,7 +52,14 @@ Feature: Product categories
     Then the response status should be 400
     And the response error message should be "A category with the name <name> already exists."
     When I GET to /secured/product-category
-    Then response list size is 1
+    Then response contains details:
+      """json
+      [{"categoryName": "Fresh Dairy"}]
+      """
+    And Product_Category table should contain exactly these records:
+      """json
+      [{"categoryName": "Fresh Dairy"}]
+      """
 
     Examples:
       | name          |
@@ -66,7 +77,11 @@ Feature: Product categories
     Then the response status should be 400
     And the response error message should be "A category name must contain at least one letter or digit"
     When I GET to /secured/product-category
-    Then response list size is 0
+    Then response contains details:
+      """json
+      []
+      """
+    And Product_Category table should have no records in database
 
     Examples:
       | name |
@@ -79,14 +94,14 @@ Feature: Product categories
     Given a category named "Dairy" exists
     When I PUT to /secured/product-category with payload:
       """json
-      {"id": "#category", "categoryName": "Cold Dairy"}
+      {"id": "{{category}}", "categoryName": "Cold Dairy"}
       """
     Then the response status should be 200
     And response contains details:
       """json
-      {"id": "#category", "categoryName": "Cold Dairy"}
+      {"id": "{{category}}", "categoryName": "Cold Dairy"}
       """
-    And Product_Category should exist in database with id #category and options:
+    And Product_Category should exist in database with id {{category}} and options:
       """json
       {"categoryName": "Cold Dairy"}
       """
@@ -95,15 +110,19 @@ Feature: Product categories
       {"categoryName": "Dairy"}
       """
     Then the response status should be 200
+    And Product_Category table should contain exactly these records:
+      """json
+      [{"categoryName": "Cold Dairy"}, {"categoryName": "Dairy"}]
+      """
 
   Scenario: An update that only carries a description keeps the name
     Given a category named "Dairy" exists
     When I PUT to /secured/product-category with payload:
       """json
-      {"id": "#category", "description": "Milk and cheese"}
+      {"id": "{{category}}", "description": "Milk and cheese"}
       """
     Then the response status should be 200
-    And Product_Category should exist in database with id #category and options:
+    And Product_Category should exist in database with id {{category}} and options:
       """json
       {"categoryName": "Dairy", "description": "Milk and cheese"}
       """
@@ -112,16 +131,16 @@ Feature: Product categories
     Given a category named "Dairy" exists
     And I PUT to /secured/product-category with payload:
       """json
-      {"id": "#category", "description": "Temporary"}
+      {"id": "{{category}}", "description": "Temporary"}
       """
     When I PUT to /secured/product-category with payload:
       """json
-      {"id": "#category", "description": null}
+      {"id": "{{category}}", "description": null}
       """
     Then the response status should be 200
-    And Product_Category should exist in database with id #category and options:
+    And Product_Category should exist in database with id {{category}} and options:
       """json
-      {"categoryName": "Dairy", "description": null}
+      {"description": null}
       """
 
   Scenario Outline: A category cannot be renamed to another category's name
@@ -129,11 +148,11 @@ Feature: Product categories
     And a category named "Bakery" exists
     When I PUT to /secured/product-category with payload:
       """json
-      {"id": "#category", "categoryName": "<name>"}
+      {"id": "{{category}}", "categoryName": "<name>"}
       """
     Then the response status should be 400
     And the response error message should be "A category with the name <name> already exists."
-    And Product_Category should exist in database with id #category and options:
+    And Product_Category should exist in database with id {{category}} and options:
       """json
       {"categoryName": "Bakery"}
       """
@@ -149,11 +168,11 @@ Feature: Product categories
     Given a category named "Dairy" exists
     When I PUT to /secured/product-category with payload:
       """json
-      {"id": "#category", "categoryName": null}
+      {"id": "{{category}}", "categoryName": null}
       """
     Then the response status should be 400
     And the response error message should be "A category must have a name"
-    And Product_Category should exist in database with id #category and options:
+    And Product_Category should exist in database with id {{category}} and options:
       """json
       {"categoryName": "Dairy"}
       """
@@ -165,19 +184,23 @@ Feature: Product categories
       """
     Then the response status should be 400
     And the response error message should be "Attempted to Update non-existent record"
+    And Product_Category table should have no records in database
 
   Scenario: Deleting a category removes it
     Given a category exists
-    When I DELETE to /secured/product-category/#category
+    When I DELETE to /secured/product-category/{{category}}
     Then the response status should be 204
     When I GET to /secured/product-category
-    Then response list size is 0
-    And Product_Category should not exist in database with id #category
+    Then response contains details:
+      """json
+      []
+      """
+    And Product_Category should not exist in database with id {{category}}
 
   Scenario: A category that holds a product group cannot be deleted
     Given a category exists
     And a product group exists
-    When I DELETE to /secured/product-category/#category
+    When I DELETE to /secured/product-category/{{category}}
     Then the response status should be 400
     And the response error message should be "A category with product groups cannot be deleted; move or delete those groups first"
-    And Product_Category should exist in database with id #category
+    And Product_Category should exist in database with id {{category}}

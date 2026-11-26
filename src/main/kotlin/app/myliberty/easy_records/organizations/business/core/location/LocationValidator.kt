@@ -27,11 +27,13 @@ class LocationValidator(private val locationCache: LocationCache) {
     }
 
     fun validateLocationUpdate(locationUpdateDto: LocationUpdateDto) {
-        val name = StringUtils.getValueOrException(locationUpdateDto.name, NAME_IS_REQUIRED)
-        val locationId = SessionContextProvider.getLocationId()
-        locationCache.getAllLocations()
-            .find { StringUtils.isEquivalent(it.name, name) && !Objects.equals(it.id, locationId) }
-            ?.let { throw LibertyGenericException(String.format(NAME_ALREADY_EXISTS, name)) }
+        locationUpdateDto.name?.let { providedName ->
+            val name = StringUtils.getValueOrException(providedName, NAME_IS_REQUIRED)
+            val locationId = SessionContextProvider.getLocationId()
+            locationCache.getAllLocations()
+                .find { StringUtils.isEquivalent(it.name, name) && !Objects.equals(it.id, locationId) }
+                ?.let { throw LibertyGenericException(String.format(NAME_ALREADY_EXISTS, name)) }
+        }
         DateTimes.validateTimezone(locationUpdateDto.timezone)
     }
 

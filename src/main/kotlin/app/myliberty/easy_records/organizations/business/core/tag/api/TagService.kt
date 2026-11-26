@@ -7,6 +7,7 @@ import app.myliberty.easy_records.organizations.business.core.tag.mapping.TagMap
 import app.myliberty.easy_records.util.business.StringUtils
 import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException
+import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.stereotype.Service
 import java.util.Objects
 import java.util.UUID
@@ -62,28 +63,37 @@ class TagService(
     }
 
     private fun validateTagUpdate(tagUpdateDto: TagUpdateDto) {
-        val name = StringUtils.getValueOrException(tagUpdateDto.tagName, NAME_IS_REQUIRED)
+        tagUpdateDto.tagName?.let { providedName ->
+            val name = StringUtils.getValueOrException(providedName, NAME_IS_REQUIRED)
 
-        tagCache.getAllTags()
-            .find { StringUtils.isEquivalent(it.tagName, name) && it.id != tagUpdateDto.id }
-            ?.let { throw LibertyGenericException(String.format(NAME_ALREADY_EXISTS, name)) }
+            tagCache.getAllTags()
+                .find { StringUtils.isEquivalent(it.tagName, name) && it.id != tagUpdateDto.id }
+                ?.let { throw LibertyGenericException(String.format(NAME_ALREADY_EXISTS, name)) }
 
-        val similarTags = tagRepository.findSimilarTags(name, SIMILARITY_THRESHOLD)
-            .filter { it.id != tagUpdateDto.id }
-            .map { tagMapper.toResponseDto(tagMapper.toDomainDto(it)) }
+            val similarTags = tagRepository.findSimilarTags(name, SIMILARITY_THRESHOLD)
+                .filter { it.id != tagUpdateDto.id }
+                .map { tagMapper.toResponseDto(tagMapper.toDomainDto(it)) }
 
-        if (similarTags.isNotEmpty()) {
-            throwTagSimilarityException(name, similarTags)
+            if (similarTags.isNotEmpty()) {
+                throwTagSimilarityException(name, similarTags)
+            }
         }
     }
 
     fun deleteTag(id: UUID) {
-        tagCache.getAllTags().find { it.id == id }?.apply { tagCache.deleteTag(id) }
+        tagCache.getAllTags().find { it.id == id }?.apply {
+            try {
+                tagCache.deleteTag(id)
+            } catch (_: DataIntegrityViolationException) {
+                throw LibertyGenericException(TAG_IN_USE)
+            }
+        }
     }
 
     companion object {
         const val NAME_IS_REQUIRED = "A tag must have a name"
         const val NAME_ALREADY_EXISTS = "A tag with the name %s already exists."
+        const val TAG_IN_USE = "A tag that is in use cannot be deleted"
         const val SIMILARITY_THRESHOLD = 0.4
     }
 }

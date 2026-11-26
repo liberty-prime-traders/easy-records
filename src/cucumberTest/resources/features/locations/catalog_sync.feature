@@ -12,7 +12,12 @@ Feature: Catalog Sync
   Scenario: A created product appears in the location catalog with its group and unit
     When I POST to /secured/products with payload:
       """json
-      {"productName": "Whole Milk", "description": "One litre", "productGroupId": "#productGroup", "baseUnitId": "#unitValue"}
+      {
+        "productName": "Whole Milk",
+        "description": "One litre",
+        "productGroupId": "{{productGroup}}",
+        "baseUnitId": "{{unitValue}}"
+      }
       """
     Then the response status should be 200
     And the location catalog should contain a product matching:
@@ -32,12 +37,12 @@ Feature: Catalog Sync
     Given a product named "Whole Milk" exists
     When I PUT to /secured/products with payload:
       """json
-      {"id": "#product", "productName": "Skim Milk", "description": "Fat free"}
+      {"id": "{{product}}", "productName": "Skim Milk", "description": "Fat free"}
       """
     Then the response status should be 200
     And the location catalog should contain a product matching:
       """json
-      {"orgProductId": "#product", "productName": "Skim Milk", "description": "Fat free", "productGroupName": "Dairy"}
+      {"orgProductId": "{{product}}", "productName": "Skim Milk", "description": "Fat free", "productGroupName": "Dairy"}
       """
     And the location catalog should hold 1 product
 
@@ -47,22 +52,22 @@ Feature: Catalog Sync
     And a product group named "Beverages" exists
     When I PUT to /secured/products with payload:
       """json
-      {"id": "#product", "productGroupId": "#productGroup"}
+      {"id": "{{product}}", "productGroupId": "{{productGroup}}"}
       """
     Then the response status should be 200
     And the location catalog should contain a product matching:
       """json
-      {"orgProductId": "#product", "productName": "Whole Milk", "productGroupName": "Beverages"}
+      {"orgProductId": "{{product}}", "productName": "Whole Milk", "productGroupName": "Beverages"}
       """
 
   @consumes-from-kafka
   Scenario: Discontinuing a product discontinues it in the location catalog
     Given a product named "Whole Milk" exists
-    When I PUT to /secured/products/#product/deactivate
+    When I PUT to /secured/products/{{product}}/deactivate
     Then the response status should be 200
     And the location catalog should contain a product matching:
       """json
-      {"orgProductId": "#product", "productName": "Whole Milk", "status": "DISCONTINUED"}
+      {"orgProductId": "{{product}}", "productName": "Whole Milk", "status": "DISCONTINUED"}
       """
 
   @consumes-from-kafka
@@ -70,7 +75,7 @@ Feature: Catalog Sync
     Given a location named "Second Shop" exists
     When I POST to /secured/products with payload:
       """json
-      {"productName": "Whole Milk", "productGroupId": "#productGroup", "baseUnitId": "#unitValue"}
+      {"productName": "Whole Milk", "productGroupId": "{{productGroup}}", "baseUnitId": "{{unitValue}}"}
       """
     Then the response status should be 200
     And the location catalog should contain a product matching:

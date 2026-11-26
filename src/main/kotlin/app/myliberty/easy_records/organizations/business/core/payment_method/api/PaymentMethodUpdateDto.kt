@@ -15,7 +15,7 @@ data class PaymentMethodUpdateDto(
 ): Serializable {
 
     fun applyTo(existing: PaymentMethodDto): PaymentMethodDto = existing.copy(
-        name = name?.orElse(existing.name) ?: existing.name,
+        name = StringUtils.useIfProvided(name, existing.name) ?: existing.name,
         description = StringUtils.useIfProvided(description, existing.description),
         accountCode = StringUtils.useIfProvided(accountCode, existing.accountCode)
             ?: throw LibertyGenericException("A Payment Method must have an account")

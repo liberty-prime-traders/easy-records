@@ -33,6 +33,7 @@ class TestDatabaseCleaner(
     private val PROTECTED_TABLES = setOf(
       "databasechangelog",
       "databasechangeloglock",
+      "revinfo",
 
       TableNames.DB_VERSION,
       TableNames.SYS_USER,

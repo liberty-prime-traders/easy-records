@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: enable-pg-stat-statements-extension-public
+      author: ezra
+      comment: Create pg_stat_statements in public schema; requires shared_preload_libraries and superuser
+      failOnError: false
+      changes:
+        - sql:
+            sql: CREATE EXTENSION IF NOT EXISTS pg_stat_statements SCHEMA public

@@ -1,6 +1,8 @@
 package app.myliberty.easy_records.cucumber.steps.organizations.core.loan
 
 import app.myliberty.easy_records.cucumber.support.ApiClient
+import app.myliberty.easy_records.cucumber.support.TestDates
+import app.myliberty.easy_records.support.TestConstants
 import app.myliberty.easy_records.cucumber.support.AuthenticatedRequestFactory
 import app.myliberty.easy_records.cucumber.support.context.InjectContext
 import app.myliberty.easy_records.cucumber.support.context.ResponseContext
@@ -15,7 +17,9 @@ import io.cucumber.java.en.Given
 import io.cucumber.java.en.Then
 import io.cucumber.java.en.When
 import io.restassured.response.Response
+import org.awaitility.Awaitility.await
 import java.math.BigDecimal
+import java.time.Duration
 import java.time.LocalDate
 import java.time.OffsetDateTime
 import java.time.ZoneOffset
@@ -110,12 +114,17 @@ class LoanSteps(
 
   @Then("account {string} should have a balance of {string}")
   fun verifyAccountBalance(accountCode: String, expectedBalance: String) {
-    val actualBalance = accountBalance(accountCode)
-    assertEquals(
-      0,
-      BigDecimal(expectedBalance).compareTo(actualBalance),
-      "balance of $accountCode expected $expectedBalance but was $actualBalance"
-    )
+    await().alias("balance of $accountCode should become $expectedBalance")
+      .atMost(Duration.ofMillis(TestConstants.Timeouts.KAFKA_SYNC_MS))
+      .pollInterval(Duration.ofMillis(TestConstants.Timeouts.KAFKA_POLL_INTERVAL_MS))
+      .untilAsserted {
+        val actualBalance = accountBalance(accountCode)
+        assertEquals(
+          0,
+          BigDecimal(expectedBalance).compareTo(actualBalance),
+          "balance of $accountCode expected $expectedBalance but was $actualBalance"
+        )
+      }
   }
 
   @Then("loans payable should equal the sum of outstanding loans")
@@ -218,5 +227,5 @@ class LoanSteps(
     }
   }
 
-  private fun today(): LocalDate = LocalDate.now(ZoneOffset.UTC)
+  private fun today(): LocalDate = TestDates.today()
 }

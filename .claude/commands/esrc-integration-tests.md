@@ -57,7 +57,9 @@ Feature names describe business behavior, not endpoints.
   existing row, a derived key) also asserts the stored value, so "reused" means the stored name is unchanged and no
   second row exists. Outlines and bulk imports follow the same rule.
 - Open every JSON doc string as `"""json` so the IDE colors it.
-- Business data in the feature, never IDs. Reference created rows with `#key` (latest) or `#key->0`.
+- Business data in the feature, never IDs. Reference created rows with `{{key}}` (latest) or `{{key->0}}`.
+- Named fixture values use the same braces with a kind and a name: `{{taxType:VAT}}`, `{{jurisdiction:Province}}`. The
+  kind is a key, so a new kind is one entry in `TransientKey`.
 - Assert the exact message (`the response error message should be "..."`). A bare status on a 400 proves nothing about
   why. Bulk errors are asserted on `body` with `response contains details:`.
 - Assert absence with `response contains no item with details:`. Where seeded data shares the list, count with a JSON
@@ -91,6 +93,10 @@ organization user by default.
 - Name the fixtures a scenario asserts on (`a product group named "Dairy" exists`) instead of `a product group exists`
   plus a default-name expectation: the feature then states its own data.
 - Steps contain no assertions about other domains. Row checks belong in `Then` steps or follow-up requests.
+- One registry per domain. Jurisdiction types, jurisdictions and tax types are separate domains, so each has its own
+  registry (`JurisdictionFixtureRegistry`, `TaxTypeFixtureRegistry`). A single registry that mixes domains couples their
+  state (the jurisdiction builder's "latest type" slot lived in the tax registry) and makes token resolution unclear.
+  Request steps resolve every registry they depend on.
 
 ## Gotchas
 
@@ -118,6 +124,21 @@ organization user by default.
 - A step that fails to parse a response hides the cause. Check the status first and put the body in the failure message.
 - A failing scenario is a finding first: decide whether the product or the scenario is wrong before editing either. Do
   not weaken an assertion to make it pass.
+
+## End-user readability
+
+Features are read by people who run the product, not only by engineers. A scenario passes only if a non-technical reader
+can tell what happened from its response and database checks alone:
+
+- The response shows the business figures the title is about: amounts, running balances, status, direction (owes us or
+  we owe), dates, and the names of the things acted on. Ids, timestamps and internal enums are not enough on their own.
+- A history or ledger list shows each row's amount and running figure, so the rows read as a story (a loan of 100.00,
+  then a repayment of 60.00 leaving 40.00 owed).
+- Keep a property when it carries meaning for that reader. Pruning to "only what the title names" is not enough when the
+  title is about a row: a row with no numbers says nothing.
+- Values come from the scenario's own steps or from fixtures and code you can name. Never guess.
+- Judge with the question: would a non-technical reader know what this scenario shows from the response alone? If not,
+  add the figures the title needs, not ids.
 
 ## Score before running
 

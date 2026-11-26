@@ -220,7 +220,7 @@ class ContactOpeningBalanceServiceTest {
             listOf(ContactSubledgerDirection.RECEIVABLE, ContactSubledgerDirection.PAYABLE, ContactSubledgerDirection.PAYABLE),
             history.map { it.subledgerDirection }
         )
-        assertEquals(listOf("100.0000", "40.0000", "0.0000"), history.map { it.amount.toPlainString() })
+        assertEquals(listOf("100.00", "40.00", "0.00"), history.map { it.amount.toString() })
         assertEquals(
             listOf(BalanceEffect.ADDS, BalanceEffect.SUBTRACTS, BalanceEffect.ZERO),
             history.map { it.balanceEffect }

@@ -9,21 +9,21 @@ Feature: Product groups
   Scenario: Creating a group stores it under its category
     When I POST to /secured/product-groups with payload:
       """json
-      {"groupName": "Milk", "description": "Fresh milk", "categoryId": "#category"}
+      {"groupName": "Milk", "description": "Fresh milk", "categoryId": "{{category}}"}
       """
     Then the response status should be 200
     And response contains details:
       """json
-      {"groupName": "Milk", "description": "Fresh milk", "categoryId": "#category", "categoryName": "Test Category"}
+      {"groupName": "Milk", "description": "Fresh milk", "categoryId": "{{category}}", "categoryName": "Test Category"}
       """
     When I GET to /secured/product-groups
-    Then response contains item with details:
+    Then response contains details:
       """json
-      {"groupName": "Milk", "categoryName": "Test Category"}
+      [{"groupName": "Milk", "description": "Fresh milk", "categoryId": "{{category}}", "categoryName": "Test Category"}]
       """
     And Product_Group should match example:
       """json
-      {"groupName": "Milk", "description": "Fresh milk", "categoryId": "#category"}
+      {"groupName": "Milk", "description": "Fresh milk", "categoryId": "{{category}}"}
       """
 
   Scenario Outline: A group needs a name and a category
@@ -34,13 +34,17 @@ Feature: Product groups
     Then the response status should be 400
     And the response error message should be "<message>"
     When I GET to /secured/product-groups
-    Then response list size is 0
+    Then response contains details:
+      """json
+      []
+      """
+    And Product_Group table should have no records in database
 
     Examples:
       | payload                                         | message                            |
-      | {"groupName": "", "categoryId": "#category"}    | A product group must have a name   |
-      | {"groupName": "   ", "categoryId": "#category"} | A product group must have a name   |
-      | {"categoryId": "#category"}                     | The request body could not be read |
+      | {"groupName": "", "categoryId": "{{category}}"}    | A product group must have a name   |
+      | {"groupName": "   ", "categoryId": "{{category}}"} | A product group must have a name   |
+      | {"categoryId": "{{category}}"}                     | The request body could not be read |
       | {"groupName": "Milk"}                           | The request body could not be read |
 
   Scenario: A group cannot point at a category that does not exist
@@ -51,18 +55,29 @@ Feature: Product groups
     Then the response status should be 400
     And the response error message should be "The category ID provided does not exist."
     When I GET to /secured/product-groups
-    Then response list size is 0
+    Then response contains details:
+      """json
+      []
+      """
+    And Product_Group table should have no records in database
 
   Scenario Outline: Group names are unique on their letters and digits alone
     Given a product group named "Fresh Milk" exists
     When I POST to /secured/product-groups with payload:
       """json
-      {"groupName": "<name>", "categoryId": "#category"}
+      {"groupName": "<name>", "categoryId": "{{category}}"}
       """
     Then the response status should be 400
     And the response error message should be "A product group with the name <name> already exists."
     When I GET to /secured/product-groups
-    Then response list size is 1
+    Then response contains details:
+      """json
+      [{"groupName": "Fresh Milk"}]
+      """
+    And Product_Group table should contain exactly these records:
+      """json
+      [{"groupName": "Fresh Milk"}]
+      """
 
     Examples:
       | name         |
@@ -75,12 +90,16 @@ Feature: Product groups
   Scenario Outline: A group name needs a letter or digit
     When I POST to /secured/product-groups with payload:
       """json
-      {"groupName": "<name>", "categoryId": "#category"}
+      {"groupName": "<name>", "categoryId": "{{category}}"}
       """
     Then the response status should be 400
     And the response error message should be "A product group name must contain at least one letter or digit"
     When I GET to /secured/product-groups
-    Then response list size is 0
+    Then response contains details:
+      """json
+      []
+      """
+    And Product_Group table should have no records in database
 
     Examples:
       | name |
@@ -94,54 +113,62 @@ Feature: Product groups
     And a category named "Other" exists
     When I POST to /secured/product-groups with payload:
       """json
-      {"groupName": "Milk", "categoryId": "#category"}
+      {"groupName": "Milk", "categoryId": "{{category}}"}
       """
     Then the response status should be 400
     And the response error message should be "A product group with the name Milk already exists."
+    And Product_Group table should contain exactly these records:
+      """json
+      [{"groupName": "Milk"}]
+      """
 
   Scenario: Renaming a group frees its old name
     Given a product group named "Milk" exists
     When I PUT to /secured/product-groups with payload:
       """json
-      {"id": "#productGroup", "groupName": "Cold Milk"}
+      {"id": "{{productGroup}}", "groupName": "Cold Milk"}
       """
     Then the response status should be 200
-    And Product_Group should exist in database with id #productGroup and options:
+    And Product_Group should exist in database with id {{productGroup}} and options:
       """json
       {"groupName": "Cold Milk"}
       """
     When I POST to /secured/product-groups with payload:
       """json
-      {"groupName": "Milk", "categoryId": "#category"}
+      {"groupName": "Milk", "categoryId": "{{category}}"}
       """
     Then the response status should be 200
+    And Product_Group table should contain exactly these records:
+      """json
+      [{"groupName": "Cold Milk"}, {"groupName": "Milk"}]
+      """
 
   Scenario: An update that only carries a description keeps the name and category
     Given a product group named "Milk" exists
     When I PUT to /secured/product-groups with payload:
       """json
-      {"id": "#productGroup", "description": "Fresh milk"}
+      {"id": "{{productGroup}}", "description": "Fresh milk"}
       """
     Then the response status should be 200
-    And Product_Group should exist in database with id #productGroup and options:
+    And Product_Group should exist in database with id {{productGroup}} and options:
       """json
-      {"groupName": "Milk", "description": "Fresh milk", "categoryId": "#category"}
+      {"groupName": "Milk", "description": "Fresh milk", "categoryId": "{{category}}"}
       """
 
   Scenario: A null description clears the group's description
     Given a product group named "Milk" exists
     And I PUT to /secured/product-groups with payload:
       """json
-      {"id": "#productGroup", "description": "Temporary"}
+      {"id": "{{productGroup}}", "description": "Temporary"}
       """
     When I PUT to /secured/product-groups with payload:
       """json
-      {"id": "#productGroup", "description": null}
+      {"id": "{{productGroup}}", "description": null}
       """
     Then the response status should be 200
-    And Product_Group should exist in database with id #productGroup and options:
+    And Product_Group should exist in database with id {{productGroup}} and options:
       """json
-      {"groupName": "Milk", "description": null}
+      {"description": null}
       """
 
   Scenario: A group can move to another category
@@ -149,29 +176,29 @@ Feature: Product groups
     And a category named "Other" exists
     When I PUT to /secured/product-groups with payload:
       """json
-      {"id": "#productGroup", "categoryId": "#category"}
+      {"id": "{{productGroup}}", "categoryId": "{{category}}"}
       """
     Then the response status should be 200
     And response contains details:
       """json
-      {"groupName": "Milk", "categoryName": "Other"}
+      {"id": "{{productGroup}}", "categoryId": "{{category}}", "categoryName": "Other"}
       """
-    And Product_Group should exist in database with id #productGroup and options:
+    And Product_Group should exist in database with id {{productGroup}} and options:
       """json
-      {"categoryId": "#category"}
+      {"categoryId": "{{category}}"}
       """
 
   Scenario Outline: A group cannot be moved to a missing or empty category
     Given a product group named "Milk" exists
     When I PUT to /secured/product-groups with payload:
       """json
-      {"id": "#productGroup", "categoryId": <categoryId>}
+      {"id": "{{productGroup}}", "categoryId": <categoryId>}
       """
     Then the response status should be 400
     And the response error message should be "<message>"
-    And Product_Group should exist in database with id #productGroup and options:
+    And Product_Group should exist in database with id {{productGroup}} and options:
       """json
-      {"categoryId": "#category"}
+      {"categoryId": "{{category}}"}
       """
 
     Examples:
@@ -184,11 +211,11 @@ Feature: Product groups
     And a product group named "Cheese" exists
     When I PUT to /secured/product-groups with payload:
       """json
-      {"id": "#productGroup", "groupName": "<name>"}
+      {"id": "{{productGroup}}", "groupName": "<name>"}
       """
     Then the response status should be 400
     And the response error message should be "A product group with the name <name> already exists."
-    And Product_Group should exist in database with id #productGroup and options:
+    And Product_Group should exist in database with id {{productGroup}} and options:
       """json
       {"groupName": "Cheese"}
       """
@@ -207,20 +234,24 @@ Feature: Product groups
       """
     Then the response status should be 400
     And the response error message should be "Attempted to Update non-existent record"
+    And Product_Group table should have no records in database
 
   Scenario: Deleting a group removes it
     Given a product group exists
-    When I DELETE to /secured/product-groups/#productGroup
+    When I DELETE to /secured/product-groups/{{productGroup}}
     Then the response status should be 204
     When I GET to /secured/product-groups
-    Then response list size is 0
-    And Product_Group should not exist in database with id #productGroup
+    Then response contains details:
+      """json
+      []
+      """
+    And Product_Group should not exist in database with id {{productGroup}}
 
   Scenario: A group that holds a product cannot be deleted
     Given a product group exists
     And the system unit "pc" is selected
     And a product named "Whole Milk" exists
-    When I DELETE to /secured/product-groups/#productGroup
+    When I DELETE to /secured/product-groups/{{productGroup}}
     Then the response status should be 400
     And the response error message should be "A product group with products cannot be deleted; move those products to another group first"
-    And Product_Group should exist in database with id #productGroup
+    And Product_Group should exist in database with id {{productGroup}}

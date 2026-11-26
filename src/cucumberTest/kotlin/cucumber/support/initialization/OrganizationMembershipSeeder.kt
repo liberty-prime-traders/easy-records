@@ -10,9 +10,13 @@ import java.util.UUID
 class OrganizationMembershipSeeder(private val organizationUserCache: OrganizationUserCache) {
 
   // Needs the organization session. Membership only, no roles: scenarios that test access grant their own.
+  // The membership table survives the reset, so a membership that a scenario ended is reactivated here.
   @TransactionalOnOrganizationSchema
   fun ensureMember(userId: UUID) {
-    if (organizationUserCache.getOrganizationUsers().any { it.userId == userId }) return
-    organizationUserCache.create(OrganizationUserInsertDto(userId = userId))
+    val existingMembership = organizationUserCache.getOrganizationUsers().find { it.userId == userId }
+    when {
+      existingMembership == null -> organizationUserCache.create(OrganizationUserInsertDto(userId = userId))
+      !existingMembership.isActive() -> organizationUserCache.save(existingMembership.copy(endOn = null))
+    }
   }
 }

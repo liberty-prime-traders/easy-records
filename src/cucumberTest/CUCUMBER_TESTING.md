@@ -47,7 +47,7 @@ Other tags: `@ignore` to skip everywhere.
 
 If the organization already exists (container reuse across runs), it rehydrates from the cache instead of recreating.
 
-Every scenario starts with a real organization and location already in place. Reference them with `#organization` and `#location`.
+Every scenario starts with a real organization and location already in place. Reference them with `{{organization}}` and `{{location}}`.
 
 ---
 
@@ -71,12 +71,12 @@ Fixture steps create prerequisite data through the real API and store the result
 ```gherkin
 Given a category exists
 Given a product group exists      # requires: category
-Given a unit group exists         # also stores the group's root unit as #rootUnit
-Given a unit exists               # requires: unit group; based on #rootUnit
-Given the system unit "pc" is selected   # a seeded unit as #unitValue, enough for a product's base unit
+Given a unit group exists         # also stores the group's root unit as {{rootUnit}}
+Given a unit exists               # requires: unit group; based on {{rootUnit}}
+Given the system unit "pc" is selected   # a seeded unit as {{unitValue}}, enough for a product's base unit
 Given a category named "Dairy" exists
 Given a product group named "Milk" exists    # in the latest category
-Given a product named "Whole Milk" exists    # in the latest group, based on the latest #unitValue
+Given a product named "Whole Milk" exists    # in the latest group, based on the latest {{unitValue}}
 ```
 
 Products can be created individually or in bulk:
@@ -101,7 +101,7 @@ Both resolve `PRODUCT_GROUP` and `UNIT_VALUE` from `InjectContext`. Feature file
 - **Transient** (`TransientKey`) — cleared before every scenario
 - **Persistent** (`PersistentKey`) — survives for the entire test session
 
-When a step creates something, it stores the resulting ID under its key. Later steps reference it with `#keyname` (last added) or `#keyname->index` (0-based).
+When a step creates something, it stores the resulting ID under its key. Later steps reference it with `{{keyname}}` (last added) or `{{keyname->index}}` (0-based).
 
 **TransientKey names:** `product`, `category`, `productGroup`, `unitGroup`, `unitValue`, `rootUnit` (root of the latest unit group), `contact`
 
@@ -113,7 +113,7 @@ Given the following products exist:
   | Widget A    | first       |
   | Widget B    | second      |
 
-When I DELETE from /secured/products/#product->1
+When I DELETE from /secured/products/{{product->1}}
 ```
 
 `AuthenticatedRequestFactory` automatically attaches `X-Organization-Id` and `X-Location-Id` headers from `InjectContext` on every request — no manual header setup needed.
@@ -122,7 +122,7 @@ When I DELETE from /secured/products/#product->1
 
 ## DataTable to DTO
 
-Column names must match DTO field names exactly. `DtoConverter` resolves `#key` and `#key->index` placeholders before Jackson parses.
+Column names must match DTO field names exactly. `DtoConverter` resolves `{{key}}` and `{{key->index}}` placeholders before Jackson parses.
 
 Special cell value: `NULL` → `null`
 
@@ -136,21 +136,21 @@ Given the following products exist:
 
 ## Request / Response Steps
 
-No quotes around paths; `#injectionKey` and `<exampleVar>` resolve before the request fires. `lastError` is populated automatically when status ≥ 400.
+No quotes around paths; `{{injectionKey}}` and `<exampleVar>` resolve before the request fires. `lastError` is populated automatically when status ≥ 400.
 
 ### Requests
 
 ```gherkin
 When I GET from secured/products
-When I GET from secured/products/#productId
+When I GET from secured/products/{{productId}}
 When I POST to secured/products with payload:
   """json
-  { "productName": "Widget", "productGroupId": "#productGroup" }
+  { "productName": "Widget", "productGroupId": "{{productGroup}}" }
   """
 When I GET from secured/products with query parameters:
   | active | true |
   | limit  | 10   |
-When I DELETE from secured/products/#productId
+When I DELETE from secured/products/{{productId}}
 ```
 
 Pick `to` or `from` to read naturally for the verb — they're equivalent. Replace `query` with `matrix` for matrix parameters. Supported methods: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`.
@@ -175,7 +175,7 @@ Then response contains no item with details:
   """
 Then response contains details with exact lists in order:
   """json
-  { "lines": [ {"productId": "#product->0"}, {"productId": "#product->1"} ] }
+  { "lines": [ {"productId": "{{product->0}}"}, {"productId": "{{product->1}}"} ] }
   """
 ```
 
@@ -196,9 +196,9 @@ One step file (`DatabaseSteps.kt`) covers every entity. **No per-entity step fil
 Entity names in features use snake_case with capitalized words (`Organization_Product`, `Sale_Line`). Lookup ignores case and underscores so `OrganizationProduct` resolves to the same package.
 
 ```gherkin
-Then Organization_Product should exist in database with id #productId
-Then Organization_Product should not exist in database with id #productId
-Then Organization_Product should exist in database with id #productId and options:
+Then Organization_Product should exist in database with id {{productId}}
+Then Organization_Product should not exist in database with id {{productId}}
+Then Organization_Product should exist in database with id {{productId}} and options:
   """json
   { "productName": "Widget", "isActive": true }
   """

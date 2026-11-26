@@ -84,6 +84,38 @@ class DatabaseSteps(
     checkRecordCount(pkg, 0)
   }
 
+  // Each expected record must claim its own row, so two identical expectations cannot both pass on one row
+  @Then("{dataSourcePackage} table should contain exactly these records:")
+  fun checkExactRecords(pkg: DataSourcePackage, detail: String) = inSchema(pkg) {
+    val expected = readTree(detail)
+    assertTrue(expected.isArray, "${pkg.displayName} exact list must be a JSON array")
+    val actualRows = pkg.repository.findAll().map { objectMapper.valueToTree<JsonNode>(it) }
+    assertEquals(expected.size(), actualRows.size, "${pkg.displayName} record count mismatch")
+
+    val rowClaimedBy = arrayOfNulls<Int>(actualRows.size)
+    fun claimRow(expectedIndex: Int, visited: BooleanArray): Boolean {
+      for (rowIndex in actualRows.indices) {
+        val matches = !visited[rowIndex] &&
+          JsonSubsetMatcher.isJsonSubset(expected[expectedIndex], actualRows[rowIndex])
+        if (!matches) continue
+        visited[rowIndex] = true
+        val previousClaim = rowClaimedBy[rowIndex]
+        if (previousClaim == null || claimRow(previousClaim, visited)) {
+          rowClaimedBy[rowIndex] = expectedIndex
+          return true
+        }
+      }
+      return false
+    }
+
+    val unmatched = (0 until expected.size()).filterNot { claimRow(it, BooleanArray(actualRows.size)) }
+    assertTrue(
+      unmatched.isEmpty(),
+      "No ${pkg.displayName} row matches expected record(s) at indexes $unmatched.\n" +
+        "Expected:\n$expected\nActual rows:\n${actualRows.joinToString("\n")}",
+    )
+  }
+
   private fun inSchema(pkg: DataSourcePackage, assertions: () -> Unit) {
     schemaScopedRunner.run(pkg.entityClass, assertions)
   }

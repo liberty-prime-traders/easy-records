@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.http.converter.HttpMessageNotReadableException
 import org.springframework.security.authorization.AuthorizationDeniedException
 import org.springframework.web.bind.annotation.ExceptionHandler
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException
 import org.springframework.web.bind.annotation.RestControllerAdvice
 import org.springframework.web.servlet.resource.NoResourceFoundException
 import java.time.Instant
@@ -52,6 +53,17 @@ class GlobalExceptionHandler {
         return ResponseEntity
             .status(HttpStatus.INTERNAL_SERVER_ERROR)
             .body(ApiError("An unexpected error occurred"))
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException::class)
+    fun handleArgumentTypeMismatch(
+        ex: MethodArgumentTypeMismatchException,
+        req: HttpServletRequest
+    ): ResponseEntity<ApiError> {
+        log.warn("Invalid ${ex.name} on ${req.method} ${req.requestURI}: ${ex.value}")
+        return ResponseEntity
+            .status(HttpStatus.BAD_REQUEST)
+            .body(ApiError("Invalid value for ${ex.name}"))
     }
 
     @ExceptionHandler(AuthorizationDeniedException::class)

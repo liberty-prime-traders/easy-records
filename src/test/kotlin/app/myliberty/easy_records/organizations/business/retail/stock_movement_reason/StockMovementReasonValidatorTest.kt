@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.`when`
+import java.time.OffsetDateTime
+import java.util.Optional
 import java.util.UUID
 
 class StockMovementReasonValidatorTest {
@@ -37,4 +39,22 @@ class StockMovementReasonValidatorTest {
             validator.validateUpdate(StockMovementReasonUpdateDto(id = UUID.randomUUID(), movementTypes = emptySet()))
         }
     }
+
+    @Test
+    fun `renaming a reason to the name it already has is accepted`() {
+        val samplesReasonId = UUID.randomUUID()
+        `when`(cache.getAll()).thenReturn(listOf(orgReasonDto(samplesReasonId, "Samples")))
+        validator.validateUpdate(StockMovementReasonUpdateDto(id = samplesReasonId, name = Optional.of("Samples")))
+    }
+
+    private fun orgReasonDto(reasonId: UUID, reasonName: String) = StockMovementReasonDto(
+        id = reasonId,
+        referenceNumber = "SMR000001",
+        createdById = UUID.randomUUID(),
+        createdOn = OffsetDateTime.parse("2026-01-01T10:00:00Z"),
+        name = reasonName,
+        description = null,
+        movementTypes = setOf(MovementType.SALE),
+        systemDefined = false
+    )
 }

@@ -99,6 +99,31 @@ class FundMovementServiceTest {
     }
 
     @Test
+    fun `a blank account code is rejected with the message for its field before anything is saved or posted`() {
+        val amount = PositiveMoney.of(BigDecimal("10"))
+
+        val transferBlankFromException = assertThrows(LibertyGenericException::class.java) {
+            fundMovementService.createTransfer(FundMovementTransferRequest(" ", cashCode, amount, movementDate))
+        }
+        val transferBlankToException = assertThrows(LibertyGenericException::class.java) {
+            fundMovementService.createTransfer(FundMovementTransferRequest(cashCode, " ", amount, movementDate))
+        }
+        val capitalBlankException = assertThrows(LibertyGenericException::class.java) {
+            fundMovementService.createCapital(FundMovementCapitalRequest(" ", amount, movementDate))
+        }
+        val drawBlankException = assertThrows(LibertyGenericException::class.java) {
+            fundMovementService.createDraw(FundMovementDrawRequest(" ", amount, movementDate))
+        }
+
+        assertEquals("From account is required", transferBlankFromException.message)
+        assertEquals("To account is required", transferBlankToException.message)
+        assertEquals("Account is required", capitalBlankException.message)
+        assertEquals("Account is required", drawBlankException.message)
+        verify(fundMovementRepository, never()).save(any(FundMovementEntity::class.java))
+        assertTrue(postedRequests.isEmpty())
+    }
+
+    @Test
     fun `a transfer debits the destination and credits the source`() {
         fundMovementService.createTransfer(FundMovementTransferRequest(cashCode, digitalPaymentsCode, PositiveMoney.of(BigDecimal("10")), movementDate))
 
