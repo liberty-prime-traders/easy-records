@@ -18,7 +18,8 @@ A scenario costs an HTTP round trip, a real Postgres and a per-scenario reset. A
 - **Atomicity**: a rejected request leaves nothing behind.
 
 Everything else is a unit test: a validator branch, a guard clause, a message format, arithmetic. If a `*ValidatorTest`
-already covers a rule, do not repeat it as a scenario. Do not write unauthenticated-403 scenarios per feature: authentication is one cross-cutting rule, and a copy per endpoint multiplies with the suite.
+already covers a rule, do not repeat it as a scenario.
+Do not write unauthenticated-403 scenarios per feature: authentication is one cross-cutting rule, and a copy per endpoint multiplies with the suite.
 
 ## Before writing: find the unit-test gap
 
@@ -147,6 +148,12 @@ Read `.claude/instructions.md` before any Kotlin, then `.claude-local/integratio
 8/10 before it runs. An expected status or message that does not match the code fails the run, so those two items gate
 the score. When a scenario fails for a reason that applies beyond it, add a line to that file and grep the suite for the
 same mistake before declaring it fixed.
+
+## Coverage: keep unit and integration complementary
+
+Verify a package with `/esrc-coverage-loop <domain> [tier]`, or by hand with `./scripts/verify.sh <domain> [tier]`
+(add `--mutate` for PIT). The loop sweeps, judges the overlap, writes the missing tests and re-checks. Cucumber owns
+wiring and cross-domain flows; unit tests own branches and edge cases.
 
 ## Finish
 

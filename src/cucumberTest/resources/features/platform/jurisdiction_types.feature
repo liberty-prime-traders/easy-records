@@ -26,6 +26,18 @@ Feature: Jurisdiction types
       {"name": "Province", "description": "First-level division"}
       """
 
+  # The insert path maps the just-saved entity straight onto the response, so the id, creation time and reference
+  # number must all be populated at persist time, before any flush.
+  Scenario: Creating a jurisdiction type returns its persist-time defaults
+    When I POST to /secured/jurisdiction-types with payload:
+      """json
+      {"name": "Province"}
+      """
+    Then the response status should be 200
+    And the response should contain field "id"
+    And the response should contain field "referenceNumber"
+    And the response should contain field "createdOn"
+
   Scenario Outline: A jurisdiction type needs a name
     When I POST to /secured/jurisdiction-types with payload:
       """json

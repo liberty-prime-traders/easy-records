@@ -17,6 +17,12 @@ class EntryTypeSignTest {
     }
 
     @Test
+    fun `the opposite of a debit is a credit and the opposite of a credit is a debit`() {
+        assertEquals(EntryType.CREDIT, EntryType.DEBIT.opposite())
+        assertEquals(EntryType.DEBIT, EntryType.CREDIT.opposite())
+    }
+
+    @Test
     fun `an account type takes the side from its normal balance, contra accounts included`() {
         assertEquals(ten, AccountType.ASSET.amountInNormalDirection(EntryType.DEBIT, ten))
         assertEquals(ten.negate(), AccountType.ASSET.amountInNormalDirection(EntryType.CREDIT, ten))

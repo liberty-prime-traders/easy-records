@@ -2,7 +2,7 @@ package app.myliberty.easy_records.cucumber.steps.organizations.core.loan
 
 import app.myliberty.easy_records.cucumber.support.ApiClient
 import app.myliberty.easy_records.cucumber.support.TestDates
-import app.myliberty.easy_records.support.TestConstants
+import app.myliberty.easy_records.cucumber.support.AccountBalanceReader
 import app.myliberty.easy_records.cucumber.support.AuthenticatedRequestFactory
 import app.myliberty.easy_records.cucumber.support.context.InjectContext
 import app.myliberty.easy_records.cucumber.support.context.ResponseContext
@@ -17,9 +17,7 @@ import io.cucumber.java.en.Given
 import io.cucumber.java.en.Then
 import io.cucumber.java.en.When
 import io.restassured.response.Response
-import org.awaitility.Awaitility.await
 import java.math.BigDecimal
-import java.time.Duration
 import java.time.LocalDate
 import java.time.OffsetDateTime
 import java.time.ZoneOffset
@@ -34,7 +32,8 @@ class LoanSteps(
   private val apiClient: ApiClient,
   private val authenticatedRequestFactory: AuthenticatedRequestFactory,
   private val injectContext: InjectContext,
-  private val loanTestDatabase: LoanTestDatabase
+  private val loanTestDatabase: LoanTestDatabase,
+  private val accountBalanceReader: AccountBalanceReader
 ) {
 
   private val cashAccountCode = "001.001.001"
@@ -112,21 +111,6 @@ class LoanSteps(
     }
   }
 
-  @Then("account {string} should have a balance of {string}")
-  fun verifyAccountBalance(accountCode: String, expectedBalance: String) {
-    await().alias("balance of $accountCode should become $expectedBalance")
-      .atMost(Duration.ofMillis(TestConstants.Timeouts.KAFKA_SYNC_MS))
-      .pollInterval(Duration.ofMillis(TestConstants.Timeouts.KAFKA_POLL_INTERVAL_MS))
-      .untilAsserted {
-        val actualBalance = accountBalance(accountCode)
-        assertEquals(
-          0,
-          BigDecimal(expectedBalance).compareTo(actualBalance),
-          "balance of $accountCode expected $expectedBalance but was $actualBalance"
-        )
-      }
-  }
-
   @Then("loans payable should equal the sum of outstanding loans")
   fun verifyLoansPayableEqualsOutstandingLoans() {
     val allLoansRequest = searchRequest(lastDayCreatedRange(), requestedSize = 200)
@@ -135,7 +119,7 @@ class LoanSteps(
     val outstandingTotal = outstandingAmounts.fold(BigDecimal.ZERO) { runningTotal, outstandingAmount ->
       runningTotal + BigDecimal(outstandingAmount.toString())
     }
-    val loansPayableBalance = accountBalance(loansPayableAccountCode)
+    val loansPayableBalance = accountBalanceReader.balanceOf(loansPayableAccountCode)
     assertEquals(
       0,
       outstandingTotal.compareTo(loansPayableBalance),
@@ -200,13 +184,6 @@ class LoanSteps(
     "createdFrom" to OffsetDateTime.now(ZoneOffset.UTC).minusDays(1).toString(),
     "createdBefore" to OffsetDateTime.now(ZoneOffset.UTC).plusDays(1).toString()
   )
-
-  private fun accountBalance(accountCode: String): BigDecimal {
-    val accountsJson = objectMapper.readTree(apiClient.get("/secured/accounts").asString())
-    val accountNodes = accountsJson.findParents("code")
-    val accountNode = accountNodes.firstOrNull { accountNode -> accountNode.path("code").asText() == accountCode }
-    return BigDecimal(checkNotNull(accountNode) { "No account with code $accountCode" }.path("currentBalance").asText())
-  }
 
   private fun postStatusCode(url: String, requestBody: Any): Int =
     authenticatedRequestFactory.jsonRequest().body(requestBody).post(url).statusCode

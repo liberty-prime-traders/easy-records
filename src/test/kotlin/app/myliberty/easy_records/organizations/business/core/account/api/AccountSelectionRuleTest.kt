@@ -139,6 +139,16 @@ class AccountSelectionRuleTest {
         return AccountSelectionService(accountDataFetcher, Mockito.mock(AccountStructureLock::class.java))
     }
 
+    @Test
+    fun `a candidate carries the display label of its account`() {
+        val orgBank = accountDto("001.003", AccountType.ASSET, null)
+
+        val candidate = candidatesOf(orgBank).single { it.code == orgBank.code }
+
+        assertEquals(orgBank.label, candidate.label)
+        assertTrue(candidate.label.isNotBlank())
+    }
+
     private fun candidatesOf(vararg orgAccountDtos: AccountDto): List<AccountSelectionCandidate> =
         AccountSelectionCandidate.fromAccounts(systemAccountDtos + orgAccountDtos)
 

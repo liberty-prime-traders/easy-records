@@ -197,6 +197,12 @@ Feature: Accounts
   Scenario: A reactivated account accepts children again
     Given a root account named "Equipment Loans" of type "LIABILITY" exists
     And I deactivate the account with code "100"
+    When I POST to /secured/accounts/child with payload:
+      """json
+      {"parentAccountCode": "100", "name": "Bank Loans"}
+      """
+    Then the response status should be 400
+    And the response error message should be "Cannot add children to inactive account 'Equipment Loans' (100)"
     When I activate the account with code "100"
     Then the response status should be 200
     And response contains details:
@@ -239,4 +245,49 @@ Feature: Accounts
     And Account should match example:
       """json
       {"code": "001.001.005", "name": "Digital Payments"}
+      """
+
+  Scenario: A second child under the same parent takes the next code
+    Given a root account named "Equipment Loans" of type "LIABILITY" exists
+    And a child account named "Bank Loans" exists under "100"
+    When I POST to /secured/accounts/child with payload:
+      """json
+      {"parentAccountCode": "100", "name": "Vehicle Loans"}
+      """
+    Then the response status should be 200
+    And response contains details:
+      """json
+      {"code": "100.002", "name": "Vehicle Loans", "parentAccountCode": "100"}
+      """
+    And Account should match example:
+      """json
+      {"code": "100.002", "name": "Vehicle Loans", "parentAccountCode": "100"}
+      """
+
+  Scenario: A user account cannot be renamed to a name already in use
+    Given a root account named "Equipment Loans" of type "LIABILITY" exists
+    And a root account named "Vehicle Loans" of type "LIABILITY" exists
+    When I rename the account with code "101" to "Equipment Loans"
+    Then the response status should be 400
+    When I GET to /secured/accounts
+    Then response contains item with details:
+      """json
+      {"code": "101", "name": "Vehicle Loans"}
+      """
+    And Account should match example:
+      """json
+      {"code": "101", "name": "Vehicle Loans"}
+      """
+    And Account should not match example:
+      """json
+      {"name": "Equipment Loans", "code": "101"}
+      """
+
+  @consumes-from-kafka
+  Scenario: A contributed amount is reflected in the cash account balance
+    Given the owner has contributed "500.00" of cash
+    Then account "001.001.001" should have a balance of "500.00"
+    And Account should match example:
+      """json
+      {"code": "001.001.001", "currentBalance": 500}
       """

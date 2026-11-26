@@ -4,7 +4,6 @@ import app.myliberty.easy_records.organizations.business.core.account.api.Accoun
 import app.myliberty.easy_records.organizations.business.core.account.api.AccountInsertDto
 import app.myliberty.easy_records.organizations.business.core.account.api.AccountUsagesFinder
 import app.myliberty.easy_records.organizations.business.core.account.api.SystemAccount
-import app.myliberty.easy_records.util.business.StringUtils
 import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.springframework.stereotype.Service
 
@@ -38,7 +37,7 @@ class ChildAccountCreator(
         accountsByCode: Map<String, AccountDto>
     ) {
         ensureParentCanGainChild(parent)
-        preventNameCollisionAmongSiblings(childCreateRequest, siblings)
+        AccountAssertions.assertSiblingNameAvailable(childCreateRequest.name, siblings)
         preventSystemAccountGainingGrandChild(parent, accountsByCode)
         accountUsagesFinder.failOnUsagesForCode(parent.code, "have children added to it")
     }
@@ -63,11 +62,4 @@ class ChildAccountCreator(
             throw LibertyGenericException("Cannot add further children under '${parent.label}'")
         }
     }
-
-    private fun preventNameCollisionAmongSiblings(childCreateRequest: AccountChildCreateRequest, siblings: List<AccountDto>) {
-        siblings.find { StringUtils.isEquivalent(it.name, childCreateRequest.name) }
-            ?.let { throw LibertyGenericException("Sibling is already registered with the same name") }
-    }
-
-
 }

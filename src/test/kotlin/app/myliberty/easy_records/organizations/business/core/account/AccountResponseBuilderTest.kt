@@ -1,14 +1,19 @@
 package app.myliberty.easy_records.organizations.business.core.account
 
+import app.myliberty.easy_records.organizations.business.core.account.api.AccountType
 import app.myliberty.easy_records.organizations.business.core.account.api.RecordingAccountService
 import app.myliberty.easy_records.organizations.business.core.account.api.SystemAccount
 import app.myliberty.easy_records.organizations.business.core.opening_balance.api.OpeningBalanceReader
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.mockito.ArgumentMatchers.anySet
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.`when`
 import java.math.BigDecimal
+import java.time.OffsetDateTime
+import java.util.UUID
 
 class AccountResponseBuilderTest {
 
@@ -58,4 +63,86 @@ class AccountResponseBuilderTest {
         `when`(accountRepository.findBalancesByCodes(anySet())).thenReturn(balances)
         `when`(openingBalanceReader.getAmountsByAccountCodes(anySet())).thenReturn(emptyMap())
     }
+
+    @Test
+    fun `a system account missing from the system account list is not extensible`() {
+        stubLeafBalances()
+        val unlisted = responseAccount("001.099", AccountType.ASSET, "001", systemMaintained = true)
+
+        val response = accountResponseBuilder.buildResponse(listOf(unlisted)).single()
+
+        assertFalse(response.accountIsExtensible)
+    }
+
+    @Test
+    fun `an account under a single-level extension point is not itself extensible`() {
+        stubLeafBalances()
+        val digitalPayments = RecordingAccountService.accountDto(SystemAccount.DIGITAL_PAYMENTS, accountIsActive = true)
+        val paymentAccount = responseAccount("001.001.005.001", AccountType.ASSET, "001.001.005")
+
+        val responsesByCode = accountResponseBuilder.buildResponse(listOf(digitalPayments, paymentAccount)).associateBy { it.code }
+
+        assertTrue(responsesByCode.getValue("001.001.005").accountIsExtensible)
+        assertFalse(responsesByCode.getValue("001.001.005.001").accountIsExtensible)
+    }
+
+    @Test
+    fun `a user root account can gain children`() {
+        stubLeafBalances()
+        val userRoot = responseAccount("100", AccountType.LIABILITY, parentAccountCode = null)
+
+        assertTrue(accountResponseBuilder.buildResponse(listOf(userRoot)).single().accountIsExtensible)
+    }
+
+    @Test
+    fun `a user account under a user account can gain children`() {
+        stubLeafBalances()
+        val userParent = responseAccount("100", AccountType.LIABILITY, parentAccountCode = null)
+        val userChild = responseAccount("100.001", AccountType.LIABILITY, parentAccountCode = "100")
+
+        val responsesByCode = accountResponseBuilder.buildResponse(listOf(userParent, userChild)).associateBy { it.code }
+
+        assertTrue(responsesByCode.getValue("100.001").accountIsExtensible)
+    }
+
+    @Test
+    fun `a user account under a system account that takes no children can gain children`() {
+        stubLeafBalances()
+        val currentAssets = RecordingAccountService.accountDto(SystemAccount.CURRENT_ASSETS, accountIsActive = true)
+        val userUnderCurrentAssets = responseAccount("001.001.009", AccountType.ASSET, parentAccountCode = "001.001")
+
+        val responsesByCode = accountResponseBuilder.buildResponse(listOf(currentAssets, userUnderCurrentAssets)).associateBy { it.code }
+
+        assertTrue(responsesByCode.getValue("001.001.009").accountIsExtensible)
+    }
+
+    @Test
+    fun `a child shows its parent's display label and a root shows none`() {
+        stubLeafBalances()
+        val userParent = responseAccount("100", AccountType.LIABILITY, parentAccountCode = null)
+        val userChild = responseAccount("100.001", AccountType.LIABILITY, parentAccountCode = "100")
+
+        val responsesByCode = accountResponseBuilder.buildResponse(listOf(userParent, userChild)).associateBy { it.code }
+
+        assertEquals(userParent.label, responsesByCode.getValue("100.001").parentAccount)
+        assertEquals(null, responsesByCode.getValue("100").parentAccount)
+    }
+
+    private fun responseAccount(
+        code: String,
+        accountType: AccountType,
+        parentAccountCode: String?,
+        systemMaintained: Boolean = false
+    ) = AccountDto(
+        id = UUID.randomUUID(),
+        createdById = UUID.randomUUID(),
+        createdOn = OffsetDateTime.now(),
+        code = code,
+        name = "Account $code",
+        accountType = accountType,
+        currencyCode = "KES",
+        accountIsActive = true,
+        accountIsSystemMaintained = systemMaintained,
+        parentAccountCode = parentAccountCode
+    )
 }

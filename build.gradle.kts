@@ -1,163 +1,38 @@
 plugins {
-	kotlin("kapt") version "2.4.21"
-	kotlin("jvm") version "2.4.21"
-	kotlin("plugin.spring") version "2.4.21"
-	kotlin("plugin.jpa") version "2.4.21"
-	id("org.springframework.boot") version "3.5.16"
-	id("io.spring.dependency-management") version "1.1.7"
-	id("com.google.cloud.tools.jib") version "3.5.4"
+    id("easyrecords.spring-boot-app")
+    id("easyrecords.cucumber")
+    id("easyrecords.coverage")
 }
-
-ext["testcontainers.version"] = "1.20.6"
 
 group = "me.ezra-home"
 version = "0.0.1-SNAPSHOT"
 
-jib {
-	from {
-		image = "eclipse-temurin:25-jre"
-		platforms {
-			platform {
-				architecture = "amd64"
-				os = "linux"
-			}
-			platform {
-				architecture = "arm64"
-				os = "linux"
-			}
-		}
-	}
-	to {
-		image = "ezraorina834/easy-records:${project.findProperty("imageTag") ?: "latest"}"
-		tags = setOf(version.toString())
-	}
-}
-
-java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(25)
-		vendor = JvmVendorSpec.ADOPTIUM
-	}
-}
-
-repositories {
-	mavenCentral()
-}
-
-val cucumberTestSourceSet = sourceSets.create("cucumberTest") {
-	compileClasspath += sourceSets.main.get().output + sourceSets.test.get().output
-	runtimeClasspath += sourceSets.main.get().output + sourceSets.test.get().output
-}
-
-val cucumberTestImplementation: Configuration = configurations.getByName("cucumberTestImplementation") {
-	extendsFrom(configurations.testImplementation.get())
-}
-val cucumberTestRuntimeOnly: Configuration = configurations.getByName("cucumberTestRuntimeOnly") {
-	extendsFrom(configurations.testRuntimeOnly.get())
-}
-
 dependencies {
-	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-	implementation("org.springframework.boot:spring-boot-starter-data-redis")
-	implementation("org.springframework.boot:spring-boot-starter-web")
-	implementation("org.springframework.boot:spring-boot-starter-security")
-	implementation("org.springframework.security:spring-security-oauth2-resource-server")
-	implementation("org.springframework.security:spring-security-oauth2-jose")
-	implementation("com.google.api-client:google-api-client:2.7.0")
-	implementation("org.hibernate.orm:hibernate-envers:6.5.3.Final")
-	implementation("org.springframework.kafka:spring-kafka")
+    implementation(libs.spring.boot.starter.data.jpa)
+    implementation(libs.spring.boot.starter.data.redis)
+    implementation(libs.spring.boot.starter.web)
+    implementation(libs.spring.boot.starter.security)
+    implementation(libs.spring.security.oauth2.resource.server)
+    implementation(libs.spring.security.oauth2.jose)
+    implementation(libs.google.api.client)
+    implementation(libs.hibernate.envers)
+    implementation(libs.spring.kafka)
 
-	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-	implementation("com.google.code.gson:gson:2.10.1")
-	implementation("org.jetbrains.kotlin:kotlin-reflect")
-	implementation("org.jetbrains:annotations:24.0.0")
+    implementation(libs.jackson.module.kotlin)
+    implementation(libs.gson)
+    implementation(libs.kotlin.reflect)
+    implementation(libs.jetbrains.annotations)
 
-	implementation("org.liquibase:liquibase-core")
-	runtimeOnly("org.postgresql:postgresql")
+    implementation(libs.liquibase.core)
+    runtimeOnly(libs.postgresql)
 
-	implementation("com.google.guava:guava:33.3.1-jre")
-	implementation("com.github.ben-manes.caffeine:caffeine:3.1.8")
-	implementation("org.springframework.boot:spring-boot-starter-cache")
+    implementation(libs.guava)
+    implementation(libs.caffeine)
+    implementation(libs.spring.boot.starter.cache)
 
-	implementation("org.mapstruct:mapstruct:1.6.3")
-	kapt("org.mapstruct:mapstruct-processor:1.6.3")
-
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	testImplementation("org.springframework.security:spring-security-config")
-	testImplementation("org.springframework.security:spring-security-web")
-	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
-	testImplementation("com.h2database:h2")
-	testImplementation("com.tngtech.archunit:archunit-junit5:1.5.1")
-
-	cucumberTestRuntimeOnly("org.junit.platform:junit-platform-suite-engine")
-	cucumberTestRuntimeOnly("org.junit.platform:junit-platform-launcher")
-	cucumberTestImplementation("io.cucumber:cucumber-java:7.18.1")
-	cucumberTestImplementation("io.cucumber:cucumber-spring:7.18.1")
-	cucumberTestImplementation("io.cucumber:cucumber-junit-platform-engine:7.18.1")
-	cucumberTestImplementation("io.rest-assured:rest-assured:5.4.0")
-	cucumberTestImplementation("io.rest-assured:kotlin-extensions:5.4.0")
-	cucumberTestImplementation("org.junit.platform:junit-platform-suite-api")
-	cucumberTestImplementation("org.testcontainers:postgresql")
-	cucumberTestImplementation("org.testcontainers:kafka")
-	cucumberTestImplementation("org.awaitility:awaitility-kotlin:4.2.1")
-}
-
-kotlin {
-	compilerOptions {
-		freeCompilerArgs.addAll("-Xjsr305=strict")
-	}
-}
-
-kapt {
-	correctErrorTypes = true
-}
-
-allOpen {
-	annotation("jakarta.persistence.Entity")
-	annotation("jakarta.persistence.MappedSuperclass")
-	annotation("jakarta.persistence.Embeddable")
-}
-
-tasks.withType<Test> {
-	useJUnitPlatform()
-	systemProperty("cucumber.junit-platform.naming-strategy", "long")
-	systemProperty("cucumber.filter.tags", System.getProperty("cucumber.filter.tags") ?: "not @ignore")
-}
-
-fun registerCucumberLaneTask(taskName: String, tagExpression: String, descriptionText: String) {
-	tasks.register<Test>(taskName) {
-		group = "verification"
-		description = descriptionText
-		testClassesDirs = cucumberTestSourceSet.output.classesDirs
-		classpath = cucumberTestSourceSet.runtimeClasspath
-		systemProperty("cucumber.filter.tags", tagExpression)
-	}
-}
-
-registerCucumberLaneTask(
-	"cucumberSmokeTest",
-	"@smoke and not @ignore",
-	"Runs only cucumber smoke scenarios."
-)
-
-registerCucumberLaneTask(
-	"cucumberKafkaProducerTest",
-	"@publishes-to-kafka and not @consumes-from-kafka and not @ignore",
-	"Runs cucumber kafka producer scenarios."
-)
-
-registerCucumberLaneTask(
-	"cucumberKafkaConsumerTest",
-	"@consumes-from-kafka and not @ignore",
-	"Runs cucumber kafka consumer scenarios."
-)
-
-registerCucumberLaneTask(
-	"cucumberRegressionTest",
-	"not @ignore",
-	"Runs the full cucumber regression suite."
-)
-
-tasks.matching { it.name == "kaptTestKotlin" }.configureEach {
-	enabled = false
+    testImplementation(libs.spring.boot.starter.test)
+    testImplementation(libs.spring.security.config)
+    testImplementation(libs.spring.security.web)
+    testImplementation(libs.h2)
+    testImplementation(libs.archunit.junit5)
 }
