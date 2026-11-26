@@ -1,5 +1,6 @@
 package app.myliberty.easy_records.cucumber.steps.organizations.core.ledger
 
+import app.myliberty.easy_records.cucumber.support.AccountBalanceReader
 import app.myliberty.easy_records.cucumber.support.AsyncPosting
 import app.myliberty.easy_records.cucumber.support.LedgerEntryRow
 import app.myliberty.easy_records.cucumber.support.LedgerRowReader
@@ -13,6 +14,7 @@ import kotlin.test.assertTrue
 
 class LedgerRowSteps(
   private val ledgerRowReader: LedgerRowReader,
+  private val accountBalanceReader: AccountBalanceReader,
   private val injectContext: InjectContext
 ) {
 
@@ -36,7 +38,14 @@ class LedgerRowSteps(
         BigDecimal(row.getValue("amount"))
       )
     }.sorted()
+    val expectedNameByCode = expectedTable.asMaps()
+      .filter { row -> row.containsKey("name") }
+      .associate { row -> injectContext.inject(row.getValue("account")) to row.getValue("name") }
     AsyncPosting.untilAsserted("ledger entries for $resolvedReference") {
+      val accountNameByCode = accountBalanceReader.allAccounts().associate { it.code to it.name }
+      expectedNameByCode.forEach { (accountCode, expectedName) ->
+        assertEquals(expectedName, accountNameByCode.getValue(accountCode), "name of account $accountCode")
+      }
       val actualLines = ledgerRowReader.entriesFor(resolvedReference).map(::entryLine).sorted()
       assertEquals(expectedLines, actualLines, "ledger entries for $resolvedReference (account|type|amount)")
     }

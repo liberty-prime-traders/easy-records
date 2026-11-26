@@ -15,10 +15,10 @@ Feature: Harness smoke test (throwaway)
     When I POST to /secured/purchases/order with payload:
       """json
       {
-        "supplierId": "{{supplier:Acme Dairy}}",
+        "supplierId": "{{supplierId:Acme Dairy}}",
         "linesToAdd": [
           {
-            "locationProductId": "{{locationProduct:Whole Milk}}",
+            "locationProductId": "{{locationProductId:Whole Milk}}",
             "quantityOrdered": 10,
             "unitId": "{{unitValue}}",
             "unitCost": 5.00
@@ -27,15 +27,15 @@ Feature: Harness smoke test (throwaway)
       }
       """
     Then the response status should be 200
-    And I remember the response field "id" as "purchase"
-    And I remember the response field "lines[0].id" as "purchaseLine"
+    And I remember the response field "id" as "purchaseId"
+    And I remember the response field "lines[0].id" as "purchaseLineId"
     When I POST to /secured/deliveries with payload:
       """json
       {
-        "purchaseId": "{{purchase}}",
+        "purchaseId": "{{purchaseId}}",
         "deliveredAt": "{{now}}",
         "lines": [
-          {"purchaseLineId": "{{purchaseLine}}", "quantityDelivered": 10, "unitId": "{{unitValue}}", "unitCost": 5.00}
+          {"purchaseLineId": "{{purchaseLineId}}", "quantityDelivered": 10, "unitId": "{{unitValue}}", "unitCost": 5.00}
         ]
       }
       """
@@ -43,21 +43,21 @@ Feature: Harness smoke test (throwaway)
     And I remember the response field "deliveries[0].referenceNumber" as "deliveryReference"
     And the ledger group for "{{deliveryReference}}" should have source type "PURCHASE_DELIVERY"
     And the ledger entries for "{{deliveryReference}}" should be exactly:
-      | account     | type   | amount |
-      | 001.001.003 | debit  | 50.00  |
-      | 002.001.001 | credit | 50.00  |
+      | account     | name             | type   | amount |
+      | 001.001.003 | Inventory        | debit  | 50.00  |
+      | 002.001.001 | Trade Payables   | credit | 50.00  |
     And the ledger entries for "{{deliveryReference}}" should balance
     And the subledger entries for "{{deliveryReference}}" should be exactly:
       | contact                         | payable | receivable | running payable | running receivable |
       | {{supplierReference:Acme Dairy}} | 50.00   | 0.00       | 50.00           | 0.00               |
     And the account balances should be:
-      | account     | balance |
-      | 001.001.003 | 50.00   |
-      | 001.001     | 50.00   |
-      | 001         | 50.00   |
-      | 002.001.001 | 50.00   |
-      | 002.001     | 50.00   |
-      | 002         | 50.00   |
+      | account     | name             | balance |
+      | 001.001.003 | Inventory        | 50.00   |
+      | 001.001     | Current Assets   | 50.00   |
+      | 001         | Assets           | 50.00   |
+      | 002.001.001 | Trade Payables   | 50.00   |
+      | 002.001     | Accounts Payable | 50.00   |
+      | 002         | Liabilities      | 50.00   |
     And no other account should have a balance
     And every parent account should equal the sum of its children
     And the location product named "Whole Milk" should have "10" on hand

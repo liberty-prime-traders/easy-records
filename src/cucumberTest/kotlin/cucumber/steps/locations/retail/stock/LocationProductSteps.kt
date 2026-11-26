@@ -26,10 +26,20 @@ class LocationProductSteps(
   @Given("the location product named {string} is available")
   fun rememberLocationProduct(productName: String) {
     AsyncPosting.untilAsserted("location product named $productName in the catalog") {
-      val locationProductId = UUID.fromString(locationProductNamed(productName).path("id").asText())
+      val locationProduct = locationProductNamed(productName)
+      val locationProductId = UUID.fromString(locationProduct.path("id").asText())
+      val locationProductReference = locationProduct.path("referenceNumber").asText()
       injectContext.store(TransientKey.LOCATION_PRODUCT, locationProductId)
       injectContext.storeNamed(TransientKey.LOCATION_PRODUCT, productName, locationProductId)
+      injectContext.storeNamedText(TransientKey.LOCATION_PRODUCT_REFERENCE, productName, locationProductReference)
     }
+  }
+
+  @Given("the location product named {string} is deactivated")
+  fun deactivate(productName: String) {
+    val locationProductId = injectContext.getNamed(TransientKey.LOCATION_PRODUCT, productName)
+    val response = apiClient.put("/secured/location-products/$locationProductId/deactivate")
+    check(response.statusCode == 200) { "Failed to deactivate '$productName': ${response.asString()}" }
   }
 
   @Then("the location product named {string} should have {string} on hand")

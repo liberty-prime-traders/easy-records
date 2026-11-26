@@ -88,7 +88,11 @@ class ResponseSteps(
   fun verifyErrorContains(expectedMessage: String) {
     val error = responseContext.lastError
     assertNotNull(error, "Expected an error response but status was ${responseContext.lastResponse?.statusCode}")
-    assertTrue(error.contains(expectedMessage, ignoreCase = true), "Expected error containing '$expectedMessage' but got: $error")
+    val injectedExpectedMessage = injectContext.inject(expectedMessage)
+    assertTrue(
+      error.contains(injectedExpectedMessage, ignoreCase = true),
+      "Expected error containing '$injectedExpectedMessage' but got: $error"
+    )
   }
 
   @Then("the response error field {string} should be {string}")
