@@ -57,6 +57,8 @@ class InjectContext {
     if (token == TODAY) return TestDates.today().toString()
     if (token == NOW) return TestDates.now().toString()
     if (token == DAY_AGO) return TestDates.now().minusDays(1).toString()
+    if (token == HALF_DAY_AGO) return TestDates.now().minusHours(12).toString()
+    if (token == TWO_DAYS_AGO) return TestDates.now().minusDays(2).toString()
     if (token == DAY_AHEAD) return TestDates.now().plusDays(1).toString()
     if (token.contains(':')) {
       val kindToken = token.substringBefore(':')
@@ -81,6 +83,8 @@ class InjectContext {
     private const val TODAY = "today"
     private const val NOW = "now"
     private const val DAY_AGO = "dayAgo"
+    private const val HALF_DAY_AGO = "halfDayAgo"
+    private const val TWO_DAYS_AGO = "twoDaysAgo"
     private const val DAY_AHEAD = "dayAhead"
     private val PLACEHOLDER_PATTERN = Regex("\\{\\{([^{}]+)}}")
     private val KEY_LOOKUP: Map<String, ContextKey> = buildMap {

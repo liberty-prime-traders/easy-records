@@ -28,6 +28,7 @@ Feature: Canceling ordered quantities
       """json
       {
         "purchaseStatus": "ORDERED",
+        "paymentCeiling": 60.00,
         "lines": [
           {
             "locationProduct": {"productName": "Milk"},
@@ -66,7 +67,10 @@ Feature: Canceling ordered quantities
     Then the response status should be 200
     And response contains details:
       """json
-      {"lines": [{"locationProduct": {"productName": "Milk"}, "quantityCanceled": 2, "quantityNetOrdered": 8}]}
+      {
+        "paymentCeiling": 70.00,
+        "lines": [{"locationProduct": {"productName": "Milk"}, "quantityCanceled": 2, "quantityNetOrdered": 8}]
+      }
       """
     And PurchaseLine should exist in database with id {{purchaseLineId:Milk}} and options:
       """json
@@ -86,6 +90,7 @@ Feature: Canceling ordered quantities
       """json
       {
         "purchaseStatus": "CANCELED",
+        "paymentCeiling": 0,
         "lines": [
           {"locationProduct": {"productName": "Milk"}, "quantityNetOrdered": 0, "quantityPendingDelivery": 0},
           {"locationProduct": {"productName": "Bread"}, "quantityNetOrdered": 0, "quantityPendingDelivery": 0}
@@ -121,4 +126,35 @@ Feature: Canceling ordered quantities
     And Purchase should exist in database with id {{purchaseId}} and options:
       """json
       {"purchaseStatus": "ORDERED"}
+      """
+
+  Scenario: A draft cannot have quantities canceled
+    Given a draft purchase from "Acme Dairy" with lines:
+      | product | quantity | unit cost |
+      | Milk    | 10       | 5.00      |
+    When I PUT to /secured/purchases/{{purchaseId}}/line-cancel-quantities with payload:
+      """json
+      [{"purchaseLineId": "{{purchaseLineId:Milk}}", "quantityCanceled": 1}]
+      """
+    Then the response status should be 400
+    And the response error should contain "Cannot cancel lines on a purchase with status DRAFT"
+    And PurchaseLine should exist in database with id {{purchaseLineId:Milk}} and options:
+      """json
+      {"storageQuantityCanceled": 0}
+      """
+
+  Scenario: An order that is already canceled cannot have quantities canceled again
+    Given the following quantities are canceled on the purchase:
+      | product | quantity |
+      | Milk    | 10       |
+      | Bread   | 12       |
+    When I PUT to /secured/purchases/{{purchaseId}}/line-cancel-quantities with payload:
+      """json
+      [{"purchaseLineId": "{{purchaseLineId:Milk}}", "quantityCanceled": 1}]
+      """
+    Then the response status should be 400
+    And the response error should contain "Cannot cancel lines on a purchase with status CANCELED"
+    And PurchaseLine should exist in database with id {{purchaseLineId:Milk}} and options:
+      """json
+      {"storageQuantityCanceled": 10}
       """

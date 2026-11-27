@@ -11,6 +11,7 @@ Feature: Fiscal periods
       {"current": true, "closable": false}
       """
 
+  @regular-fiscal-period
   Scenario: Year-end closing the period that covers today is refused
     Given the open fiscal period is named "Trial Period"
     And the open fiscal period is not a year-end period

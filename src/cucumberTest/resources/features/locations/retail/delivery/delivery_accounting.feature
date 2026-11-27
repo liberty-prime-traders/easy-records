@@ -102,8 +102,10 @@ Feature: Books posted by a delivery
         "purchaseId": "{{purchaseId}}",
         "deliveredAt": "{{now}}",
         "lines": [
-          {"purchaseLineId": "{{purchaseLineId:Milk}}", "quantityDelivered": 11,
-           "unitId": "{{unitValue}}", "unitCost": 5.00}
+          {
+            "purchaseLineId": "{{purchaseLineId:Milk}}", "quantityDelivered": 11,
+            "unitId": "{{unitValue}}", "unitCost": 5.00
+          }
         ]
       }
       """

@@ -1,4 +1,4 @@
-package app.myliberty.easy_records.cucumber.steps.locations.retail.purchase
+package app.myliberty.easy_records.cucumber.steps.locations.retail.delivery
 
 import app.myliberty.easy_records.cucumber.support.ApiClient
 import app.myliberty.easy_records.cucumber.support.context.InjectContext
@@ -15,9 +15,14 @@ class PurchaseDeliverySteps(
 
   @Given("a delivery is recorded on the purchase with lines:")
   fun recordDelivery(deliveryLinesTable: DataTable) {
+    recordDeliveryAt("{{now}}", deliveryLinesTable)
+  }
+
+  @Given("a delivery dated {string} is recorded on the purchase with lines:")
+  fun recordDeliveryAt(deliveredAt: String, deliveryLinesTable: DataTable) {
     val deliveryRequest = mapOf(
       "purchaseId" to injectContext.get(TransientKey.PURCHASE).toString(),
-      "deliveredAt" to injectContext.inject("{{now}}"),
+      "deliveredAt" to injectContext.inject(deliveredAt),
       "lines" to deliveryLinesTable.asMaps().map { row ->
         mapOf(
           "purchaseLineId" to injectContext.getNamed(TransientKey.PURCHASE_LINE, row.getValue("product")).toString(),

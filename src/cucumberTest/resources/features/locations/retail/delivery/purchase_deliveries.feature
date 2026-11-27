@@ -26,8 +26,10 @@ Feature: Receiving a delivery against an order
         "deliveredAt": "{{now}}",
         "notes": "First truck",
         "lines": [
-          {"purchaseLineId": "{{purchaseLineId:Milk}}", "quantityDelivered": 4,
-           "unitId": "{{unitValue}}", "unitCost": 5.00}
+          {
+            "purchaseLineId": "{{purchaseLineId:Milk}}", "quantityDelivered": 4,
+            "unitId": "{{unitValue}}", "unitCost": 5.00
+          }
         ]
       }
       """
@@ -64,10 +66,14 @@ Feature: Receiving a delivery against an order
         "purchaseId": "{{purchaseId}}",
         "deliveredAt": "{{now}}",
         "lines": [
-          {"purchaseLineId": "{{purchaseLineId:Milk}}", "quantityDelivered": 6,
-           "unitId": "{{unitValue}}", "unitCost": 5.00},
-          {"purchaseLineId": "{{purchaseLineId:Bread}}", "quantityDelivered": 12,
-           "unitId": "{{unitValue}}", "unitCost": 2.50}
+          {
+            "purchaseLineId": "{{purchaseLineId:Milk}}", "quantityDelivered": 6,
+            "unitId": "{{unitValue}}", "unitCost": 5.00
+          },
+          {
+            "purchaseLineId": "{{purchaseLineId:Bread}}", "quantityDelivered": 12,
+            "unitId": "{{unitValue}}", "unitCost": 2.50
+          }
         ]
       }
       """
@@ -101,10 +107,14 @@ Feature: Receiving a delivery against an order
         "purchaseId": "{{purchaseId}}",
         "deliveredAt": "{{now}}",
         "lines": [
-          {"purchaseLineId": "{{purchaseLineId:Milk}}", "quantityDelivered": 10,
-           "unitId": "{{unitValue}}", "unitCost": 6.00},
-          {"purchaseLineId": "{{purchaseLineId:Bread}}", "quantityDelivered": 12,
-           "unitId": "{{unitValue}}", "unitCost": 2.50}
+          {
+            "purchaseLineId": "{{purchaseLineId:Milk}}", "quantityDelivered": 10,
+            "unitId": "{{unitValue}}", "unitCost": 6.00
+          },
+          {
+            "purchaseLineId": "{{purchaseLineId:Bread}}", "quantityDelivered": 12,
+            "unitId": "{{unitValue}}", "unitCost": 2.50
+          }
         ]
       }
       """
@@ -129,10 +139,14 @@ Feature: Receiving a delivery against an order
         "purchaseId": "{{purchaseId}}",
         "deliveredAt": "{{now}}",
         "lines": [
-          {"purchaseLineId": "{{purchaseLineId:Bread}}", "quantityDelivered": 3,
-           "unitId": "{{unitValue}}", "unitCost": 2.50},
-          {"purchaseLineId": "{{purchaseLineId:Milk}}", "quantityDelivered": 11,
-           "unitId": "{{unitValue}}", "unitCost": 5.00}
+          {
+            "purchaseLineId": "{{purchaseLineId:Bread}}", "quantityDelivered": 3,
+            "unitId": "{{unitValue}}", "unitCost": 2.50
+          },
+          {
+            "purchaseLineId": "{{purchaseLineId:Milk}}", "quantityDelivered": 11,
+            "unitId": "{{unitValue}}", "unitCost": 5.00
+          }
         ]
       }
       """
@@ -164,10 +178,14 @@ Feature: Receiving a delivery against an order
         "purchaseId": "{{purchaseId}}",
         "deliveredAt": "{{now}}",
         "lines": [
-          {"purchaseLineId": "{{purchaseLineId:Milk}}", "quantityDelivered": 1,
-           "unitId": "{{unitValue}}", "unitCost": 5.00},
-          {"purchaseLineId": "{{purchaseLineId:Milk}}", "quantityDelivered": 2,
-           "unitId": "{{unitValue}}", "unitCost": 5.00}
+          {
+            "purchaseLineId": "{{purchaseLineId:Milk}}", "quantityDelivered": 1,
+            "unitId": "{{unitValue}}", "unitCost": 5.00
+          },
+          {
+            "purchaseLineId": "{{purchaseLineId:Milk}}", "quantityDelivered": 2,
+            "unitId": "{{unitValue}}", "unitCost": 5.00
+          }
         ]
       }
       """
@@ -182,8 +200,10 @@ Feature: Receiving a delivery against an order
         "purchaseId": "{{purchaseId}}",
         "deliveredAt": "{{dayAhead}}",
         "lines": [
-          {"purchaseLineId": "{{purchaseLineId:Milk}}", "quantityDelivered": 1,
-           "unitId": "{{unitValue}}", "unitCost": 5.00}
+          {
+            "purchaseLineId": "{{purchaseLineId:Milk}}", "quantityDelivered": 1,
+            "unitId": "{{unitValue}}", "unitCost": 5.00
+          }
         ]
       }
       """
@@ -203,8 +223,10 @@ Feature: Receiving a delivery against an order
         "purchaseId": "{{purchaseId}}",
         "deliveredAt": "{{now}}",
         "lines": [
-          {"purchaseLineId": "{{purchaseLineId:Milk}}", "quantityDelivered": 1,
-           "unitId": "{{unitValue}}", "unitCost": 5.00}
+          {
+            "purchaseLineId": "{{purchaseLineId:Milk}}", "quantityDelivered": 1,
+            "unitId": "{{unitValue}}", "unitCost": 5.00
+          }
         ]
       }
       """
@@ -222,11 +244,59 @@ Feature: Receiving a delivery against an order
         "purchaseId": "{{purchaseId}}",
         "deliveredAt": "{{now}}",
         "lines": [
-          {"purchaseLineId": "{{purchaseLineId:Milk}}", "quantityDelivered": 1,
-           "unitId": "{{unitValue}}", "unitCost": 5.00}
+          {
+            "purchaseLineId": "{{purchaseLineId:Milk}}", "quantityDelivered": 1,
+            "unitId": "{{unitValue}}", "unitCost": 5.00
+          }
         ]
       }
       """
     Then the response status should be 400
     And the response error should contain "Cannot record a delivery on a draft purchase. Confirm the order first."
     And PurchaseDelivery table should have no records in database
+
+  Scenario: A delivery against an order that is already fully delivered is rejected
+    Given a delivery is recorded on the purchase with lines:
+      | product | quantity | unit cost |
+      | Milk    | 10       | 5.00      |
+      | Bread   | 12       | 2.50      |
+    When I POST to /secured/deliveries with payload:
+      """json
+      {
+        "purchaseId": "{{purchaseId}}",
+        "deliveredAt": "{{now}}",
+        "lines": [
+          {
+            "purchaseLineId": "{{purchaseLineId:Milk}}",
+            "quantityDelivered": 1,
+            "unitId": "{{unitValue}}",
+            "unitCost": 5.00
+          }
+        ]
+      }
+      """
+    Then the response status should be 400
+    And the response error should contain "Cannot record a delivery on a fully delivered purchase."
+    And PurchaseDelivery table should have exactly 1 records in database
+
+  Scenario: A delivery dated before any open fiscal period is rejected and writes nothing
+    When I POST to /secured/deliveries with payload:
+      """json
+      {
+        "purchaseId": "{{purchaseId}}",
+        "deliveredAt": "2020-01-15T12:00:00Z",
+        "lines": [
+          {
+            "purchaseLineId": "{{purchaseLineId:Milk}}",
+            "quantityDelivered": 1,
+            "unitId": "{{unitValue}}",
+            "unitCost": 5.00
+          }
+        ]
+      }
+      """
+    Then the response status should be 400
+    And the response error should contain "No open fiscal period for date"
+    And PurchaseDelivery table should have no records in database
+    And StockEntry table should have no records in database
+    And LedgerEntryGroup table should have no records in database
