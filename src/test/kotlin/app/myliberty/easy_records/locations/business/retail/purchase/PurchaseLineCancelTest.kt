@@ -51,7 +51,7 @@ class PurchaseLineCancelTest {
 
         cancel(line, "13", storageUnitsPerUserProvidedUnit = 1L)
 
-        assertFalse(line.storageQuantityRemaining().isPositive())
+        assertFalse(line.storagePendingDeliveryQty().isPositive())
     }
 
     @Test
@@ -60,8 +60,8 @@ class PurchaseLineCancelTest {
 
         cancel(line, "0.72", storageUnitsPerUserProvidedUnit = line.storageUnitsPerUserProvidedUnit)
 
-        assertTrue(line.storageQuantityRemaining().isPositive())
-        assertEquals(0, BigDecimal("0.04").compareTo(line.storageQuantityRemaining().toStorageQuantity()))
+        assertTrue(line.storagePendingDeliveryQty().isPositive())
+        assertEquals(0, BigDecimal("0.04").compareTo(line.storagePendingDeliveryQty().toStorageQuantity()))
     }
 
     @Test
@@ -72,7 +72,7 @@ class PurchaseLineCancelTest {
         cancel(line, "2", storageUnitsPerUserProvidedUnit = 1L)
 
         assertEquals(0, BigDecimal("2").compareTo(line.storageQuantityCanceled))
-        assertTrue(line.storageQuantityRemaining().isPositive())
+        assertTrue(line.storagePendingDeliveryQty().isPositive())
     }
 
     @Test
@@ -98,6 +98,6 @@ class PurchaseLineCancelTest {
     fun `a line captured at 18 keeps its ordered storage quantity whatever the unit is later changed to`() {
         val line = oneBaleLineWith5PiecesDelivered()
 
-        assertEquals(0, BigDecimal("18").compareTo(line.storageQuantityOrdered().toStorageQuantity()))
+        assertEquals(0, BigDecimal("18").compareTo(line.storageGrossOrderedQty().toStorageQuantity()))
     }
 }

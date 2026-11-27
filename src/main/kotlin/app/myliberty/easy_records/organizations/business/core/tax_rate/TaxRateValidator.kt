@@ -120,8 +120,6 @@ class TaxRateValidator(
             TaxCalculationMethod.FIXED_VALUE -> {
                 if (rateFlatAmount == null)
                     throw LibertyGenericException("rateFlatAmount is required for FIXED_VALUE tax types")
-                if (rateFlatAmount < BigDecimal.ZERO)
-                    throw LibertyGenericException("rateFlatAmount must not be negative")
                 if (ratePercentage != null)
                     throw LibertyGenericException("ratePercentage must not be provided for FIXED_VALUE tax types")
             }

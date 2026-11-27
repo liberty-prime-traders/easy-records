@@ -31,7 +31,7 @@ class PurchaseDeliveryRevisionValidator(
       revisedLine.userProvidedQuantityDelivered,
       revisedLine.storageUnitsPerUserProvidedUnit
     )
-    val netRemaining = purchaseLineDto.storageQuantityRemaining + revisedStorageQuantity
+    val netRemaining = purchaseLineDto.storagePendingDeliveryQty + revisedStorageQuantity
     return purchaseDeliveryValidator.maximumQuantityProblem(
       revisedLine.requiredReference(), purchaseLineDto.locationProductId, netRemaining, replacementStorageQuantity
     )

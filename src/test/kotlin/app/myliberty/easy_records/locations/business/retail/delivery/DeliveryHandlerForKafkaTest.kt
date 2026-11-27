@@ -96,8 +96,8 @@ class DeliveryHandlerForKafkaTest {
                         unitCost = BigDecimal("5.00"),
                         storageUnitsPerUserProvidedUnit = 1L,
                         unitId = unitId,
-                        storageQuantityExpected = ExactQuantity.ofStorage(BigDecimal("2")),
-                        storageQuantityRemaining = ExactQuantity.ZERO
+                        storageNetOrderedQty = ExactQuantity.ofStorage(BigDecimal("2")),
+                        storagePendingDeliveryQty = ExactQuantity.ZERO
                     )
                 )
             )

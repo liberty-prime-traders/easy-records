@@ -11,6 +11,6 @@ data class PurchaseLineDto(
     var unitCost: BigDecimal,
     val storageUnitsPerUserProvidedUnit: Long,
     val unitId: UUID,
-    val storageQuantityExpected: ExactQuantity,
-    val storageQuantityRemaining: ExactQuantity
+    val storageNetOrderedQty: ExactQuantity,
+    val storagePendingDeliveryQty: ExactQuantity
 )

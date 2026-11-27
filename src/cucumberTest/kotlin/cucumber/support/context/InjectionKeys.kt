@@ -32,4 +32,11 @@ enum class TransientKey(override val key: String) : ContextKey {
   MANUAL_JOURNAL("manualJournal"),
   MANUAL_JOURNAL_REVERSAL("manualJournalReversal"),
   SELECTED_EXPENSE_TYPE("selectedExpenseType"),
+  SUPPLIER("supplier"),
+  SUPPLIER_REFERENCE("supplierReference"),
+  LOCATION_PRODUCT("locationProduct"),
+  PURCHASE("purchase"),
+  PURCHASE_REFERENCE("purchaseReference"),
+  PURCHASE_LINE("purchaseLine"),
+  DELIVERY_REFERENCE("deliveryReference"),
 }

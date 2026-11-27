@@ -49,15 +49,15 @@ class PurchaseDeliveryRevisionValidatorTest {
         status = status
     ).also { it.referenceNumber = "DLL000001" }
 
-    private fun purchaseLine(storageQuantityRemaining: String) = PurchaseLineDto(
+    private fun purchaseLine(storagePendingDeliveryQty: String) = PurchaseLineDto(
         id = UUID.randomUUID(),
         purchaseId = UUID.randomUUID(),
         locationProductId = locationProductId,
         unitCost = BigDecimal("10.00"),
         storageUnitsPerUserProvidedUnit = 1L,
         unitId = UUID.randomUUID(),
-        storageQuantityExpected = ExactQuantity.ofStorage(BigDecimal("10")),
-        storageQuantityRemaining = ExactQuantity.ofStorage(BigDecimal(storageQuantityRemaining))
+        storageNetOrderedQty = ExactQuantity.ofStorage(BigDecimal("10")),
+        storagePendingDeliveryQty = ExactQuantity.ofStorage(BigDecimal(storagePendingDeliveryQty))
     )
 
     @Test

@@ -65,8 +65,8 @@ class PurchaseDeliveryLineReplacerTest {
         unitCost = BigDecimal("5.0000"),
         storageUnitsPerUserProvidedUnit = 12L,
         unitId = revisedLine.unitId,
-        storageQuantityExpected = ExactQuantity.ofStorage(BigDecimal("240")),
-        storageQuantityRemaining = ExactQuantity.ZERO,
+        storageNetOrderedQty = ExactQuantity.ofStorage(BigDecimal("240")),
+        storagePendingDeliveryQty = ExactQuantity.ZERO,
     )
 
     private fun givenStorageUnitsPerUserProvidedUnit(unitId: UUID, storageUnitsPerUserProvidedUnit: Long) {

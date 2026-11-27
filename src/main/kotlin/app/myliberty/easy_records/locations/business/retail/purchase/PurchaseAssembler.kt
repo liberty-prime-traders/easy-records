@@ -109,8 +109,8 @@ class PurchaseAssembler(
       val storageUnitsPerBaseUnit = unitConversionGraph.getSizeInRoot(product.baseUnitId)
       val delivered = ExactQuantity.ofStorage(line.storageQuantityDelivered)
       val canceled = ExactQuantity.ofStorage(line.storageQuantityCanceled)
-      val expected = line.storageQuantityExpected()
-      val remaining = line.storageQuantityRemaining()
+      val netOrderedQty = line.storageNetOrderedQty()
+      val pendingDeliveryQty = line.storagePendingDeliveryQty()
       PurchaseLineResponseDto(
         id = line.id!!,
         referenceNumber = line.requiredReference(),
@@ -120,17 +120,23 @@ class PurchaseAssembler(
         unitCost = line.unitCost,
         lineTotal = line.getTotalCost(),
         quantityDelivered = delivered.toDisplayQuantity(line.storageUnitsPerUserProvidedUnit, RoundingMode.HALF_UP),
-        quantityYetToBeDelivered = remaining.toDisplayQuantity(line.storageUnitsPerUserProvidedUnit, RoundingMode.HALF_UP),
+        quantityPendingDelivery = pendingDeliveryQty.toDisplayQuantity(
+          line.storageUnitsPerUserProvidedUnit,
+          RoundingMode.HALF_UP
+        ),
         quantityCanceled = canceled.toDisplayQuantity(line.storageUnitsPerUserProvidedUnit, RoundingMode.HALF_UP),
-        quantityExpected = expected.toDisplayQuantity(line.storageUnitsPerUserProvidedUnit, RoundingMode.HALF_UP),
+        quantityNetOrdered = netOrderedQty.toDisplayQuantity(
+          line.storageUnitsPerUserProvidedUnit,
+          RoundingMode.HALF_UP
+        ),
         storageQuantityDelivered = delivered.toStorageQuantity(),
-        storageQuantityYetToBeDelivered = remaining.toStorageQuantity(),
+        storagePendingDeliveryQty = pendingDeliveryQty.toStorageQuantity(),
         storageQuantityCanceled = canceled.toStorageQuantity(),
-        storageQuantityExpected = expected.toStorageQuantity(),
+        storageNetOrderedQty = netOrderedQty.toStorageQuantity(),
         quantityDeliveredBreakdown = quantityBreakdown.render(delivered),
-        quantityYetToBeDeliveredBreakdown = quantityBreakdown.render(remaining),
+        quantityPendingDeliveryBreakdown = quantityBreakdown.render(pendingDeliveryQty),
         quantityCanceledBreakdown = quantityBreakdown.render(canceled),
-        quantityExpectedBreakdown = quantityBreakdown.render(expected),
+        quantityNetOrderedBreakdown = quantityBreakdown.render(netOrderedQty),
         locationProduct = product
       )
     }
