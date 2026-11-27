@@ -147,6 +147,67 @@ class LoanResponseBuilderTest {
     }
 
     @Test
+    fun `an empty page reads nothing`() {
+        val responses = loanResponseBuilder.buildResponses(emptyList(), emptyMap())
+
+        assertEquals(emptyList<Any>(), responses)
+        verifyNoInteractions(loanRepaymentRepository, loanStatusRepository, loanVoidRepository, loanRepaymentVoidRepository)
+    }
+
+    @Test
+    fun `loan note, repayment note and repayment void reason are carried into the response`() {
+        val loanEntity = LoanEntity(lender.id, cashCode, BigDecimal("100.0000"), LocalDate.of(2026, 3, 1), "Working capital")
+            .also { stamp(it, "LOAN000010") }
+        val loanDto = loanMapper.toDto(loanEntity).withStatus("0", "100", LoanStatus.OPEN)
+        val repaymentEntity = LoanRepaymentEntity(loanDto.id, cashCode, BigDecimal("10.0000"), LocalDate.of(2026, 3, 2), "First instalment")
+            .also { stamp(it, "LNRP000010") }
+            .also { repaymentEntities.add(it) }
+        repaymentVoidEntities.add(
+            LoanRepaymentVoidEntity(repaymentEntity.id!!, LocalDate.of(2026, 3, 3), "Wrong account").also { stamp(it, "LRPV000010") }
+        )
+
+        val response = build(loanDto).single()
+
+        assertEquals("Working capital", response.note)
+        assertEquals("First instalment", response.repayments.single().note)
+        assertEquals("Wrong account", response.repayments.single().void!!.reason)
+    }
+
+    @Test
+    fun `repayments created at the same instant are listed by id`() {
+        val loanDto = loan("100.0000").withStatus("20", "80", LoanStatus.OPEN)
+        val sharedCreatedOn = OffsetDateTime.parse("2026-03-02T10:00:00Z")
+        val repaymentIds = listOf(
+            UUID.fromString("00000000-0000-0000-0000-000000000002"),
+            UUID.fromString("00000000-0000-0000-0000-000000000001")
+        )
+        repaymentIds.forEach { repaymentId ->
+            val repaymentEntity = repayment(loanDto, "10.0000")
+            repaymentEntity.id = repaymentId
+            repaymentEntity.createdOn = sharedCreatedOn
+        }
+
+        val response = build(loanDto).single()
+
+        assertEquals(repaymentIds.sorted(), response.repayments.map { it.id })
+    }
+
+    @Test
+    fun `repayments are listed oldest first whatever their ids`() {
+        val loanDto = loan("100.0000").withStatus("20", "80", LoanStatus.OPEN)
+        val olderRepayment = repayment(loanDto, "10.0000")
+        olderRepayment.id = UUID.fromString("00000000-0000-0000-0000-000000000009")
+        olderRepayment.createdOn = OffsetDateTime.parse("2026-03-02T10:00:00Z")
+        val newerRepayment = repayment(loanDto, "10.0000")
+        newerRepayment.id = UUID.fromString("00000000-0000-0000-0000-000000000001")
+        newerRepayment.createdOn = OffsetDateTime.parse("2026-03-02T11:00:00Z")
+
+        val response = build(loanDto).single()
+
+        assertEquals(listOf(olderRepayment.id, newerRepayment.id), response.repayments.map { it.id })
+    }
+
+    @Test
     fun `a response built from supplied status figures never reads the view`() {
         val loanDto = loan("100.0000")
 

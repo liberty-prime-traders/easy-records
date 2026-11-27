@@ -9,6 +9,7 @@ import app.myliberty.easy_records.organizations.business.core.ledger.SubledgerEn
 import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerSourceType
 import org.springframework.stereotype.Component
 import java.math.BigDecimal
+import java.util.UUID
 
 data class LedgerGroupRow(val referenceNumber: String, val sourceType: LedgerSourceType)
 
@@ -33,6 +34,16 @@ class LedgerRowReader(
   fun groupsFor(sourceReferenceNumber: String): List<LedgerGroupRow> =
     schemaScopedRunner.run(LedgerEntryGroupEntity::class.java) {
       groupEntitiesFor(sourceReferenceNumber).map { LedgerGroupRow(it.requiredReference(), it.sourceType) }
+    }
+
+  fun countGroupsOfType(sourceType: LedgerSourceType): Int =
+    schemaScopedRunner.run(LedgerEntryGroupEntity::class.java) {
+      ledgerEntryGroupRepository.findAll().count { it.sourceType == sourceType }
+    }
+
+  fun fiscalPeriodIdFor(sourceReferenceNumber: String): UUID =
+    schemaScopedRunner.run(LedgerEntryGroupEntity::class.java) {
+      groupEntitiesFor(sourceReferenceNumber).single().fiscalPeriodId
     }
 
   fun entriesFor(sourceReferenceNumber: String): List<LedgerEntryRow> =

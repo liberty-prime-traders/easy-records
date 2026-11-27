@@ -5,16 +5,23 @@ import app.myliberty.easy_records.organizations.business.core.contact.ContactRes
 import app.myliberty.easy_records.organizations.business.core.contact.ContactValidator
 import app.myliberty.easy_records.organizations.business.core.contact_opening_balance.api.ContactOpeningBalanceReader
 import app.myliberty.easy_records.organizations.business.core.ledger.api.SubledgerBalanceDto
+import app.myliberty.easy_records.organizations.business.core.ledger.api.SubledgerEntryResponse
 import app.myliberty.easy_records.organizations.business.core.ledger.api.SubledgerService
 import app.myliberty.easy_records.util.business.MoneyDisplay
 import app.myliberty.easy_records.util.business.mappers.MoneyQualifier
 import app.myliberty.easy_records.util.business.mappers.StringQualifier
 import app.myliberty.easy_records.util.business.mappers.UserQualifier
+import app.myliberty.easy_records.util.exceptions.UpdatingNonExistingRecordException
+import app.myliberty.easy_records.util.paging.PageRequest
+import app.myliberty.easy_records.util.paging.PageResponse
 import app.myliberty.easy_records.util.ui_models.BalanceEffect
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertSame
+import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
+import org.mockito.Mockito.verifyNoInteractions
 import org.mockito.Mockito.`when`
 import java.math.BigDecimal
 import java.time.OffsetDateTime
@@ -88,6 +95,29 @@ class ContactServiceTest {
         val withoutOpeningBalance = contactResponsesByReference.getValue("CT000002")
         assertEquals(MoneyDisplay.of(BigDecimal.ZERO), withoutOpeningBalance.netOpeningBalance)
         assertEquals(BalanceEffect.ZERO, withoutOpeningBalance.netOpeningBalanceEffect)
+    }
+
+    @Test
+    fun `a contact's ledger is read by its reference number with the requested cursor and size`() {
+        val contactDto = contactDto("CT000007")
+        `when`(contactCache.getAllContacts()).thenReturn(listOf(contactDto("CT000001"), contactDto))
+        val expectedPage = PageResponse<SubledgerEntryResponse, String>("cursor-2", true, emptyList())
+        `when`(subledgerService.getEntries("CT000007", "cursor-1", 25)).thenReturn(expectedPage)
+
+        val pageResponse = contactService.getLedger(contactDto.id, PageRequest("cursor-1", 25, ContactLedgerSearchParameters()))
+
+        assertSame(expectedPage, pageResponse)
+    }
+
+    @Test
+    fun `the ledger of an unknown contact is rejected before any entry is read`() {
+        `when`(contactCache.getAllContacts()).thenReturn(listOf(contactDto("CT000001")))
+
+        assertThrows(UpdatingNonExistingRecordException::class.java) {
+            contactService.getLedger(UUID.randomUUID(), PageRequest("", 20, ContactLedgerSearchParameters()))
+        }
+
+        verifyNoInteractions(subledgerService)
     }
 
     private fun contactDto(referenceNumber: String) = ContactDto(

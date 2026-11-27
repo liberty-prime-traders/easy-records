@@ -18,6 +18,12 @@ class ProductSteps(
     }
   }
 
+  @Given("a product named {string} with base unit {string} exists")
+  fun createNamedProductWithBaseUnit(name: String, unitCode: String) {
+    val baseUnitId = injectContext.getNamed(TransientKey.UNIT_VALUE, unitCode)
+    injectContext.store(TransientKey.PRODUCT, productFixtureBuilder.createNamedWithBaseUnit(name, baseUnitId))
+  }
+
   @Given("a product named {string} exists")
   fun createNamedProduct(name: String) {
     injectContext.store(TransientKey.PRODUCT, productFixtureBuilder.createNamed(name))

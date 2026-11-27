@@ -56,6 +56,21 @@ class LoanSearchValidatorTest {
     }
 
     @Test
+    fun `a loan date range in order, or on a single day, is accepted`() {
+        val orderedLoanDates = boundedParameters.copy(
+            loanDateFrom = LocalDate.of(2026, 1, 1),
+            loanDateBefore = LocalDate.of(2026, 2, 1)
+        )
+        val sameDayLoanDates = boundedParameters.copy(
+            loanDateFrom = LocalDate.of(2026, 1, 1),
+            loanDateBefore = LocalDate.of(2026, 1, 1)
+        )
+
+        assertDoesNotThrow { LoanSearchValidator.guardValidParameters(orderedLoanDates) }
+        assertDoesNotThrow { LoanSearchValidator.guardValidParameters(sameDayLoanDates) }
+    }
+
+    @Test
     fun `more than fifty lender references are rejected`() {
         val tooManyLenders = boundedParameters.copy(lenderContactReferences = List(51) { index -> "CT$index" })
 

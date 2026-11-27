@@ -7,6 +7,7 @@ import java.math.BigDecimal
 
 data class AccountBalanceRow(
   val code: String,
+  val name: String,
   val accountType: AccountType,
   val parentAccountCode: String?,
   val currentBalance: BigDecimal
@@ -32,6 +33,7 @@ class AccountBalanceReader(
     return objectMapper.readTree(accountsResponse.asString()).map { accountNode ->
       AccountBalanceRow(
         code = accountNode.path("code").asText(),
+        name = accountNode.path("name").asText(),
         accountType = AccountType.valueOf(accountNode.path("accountType").asText()),
         parentAccountCode = accountNode.path("parentAccountCode").takeUnless { it.isNull }?.asText(),
         currentBalance = BigDecimal(accountNode.path("currentBalance").asText())

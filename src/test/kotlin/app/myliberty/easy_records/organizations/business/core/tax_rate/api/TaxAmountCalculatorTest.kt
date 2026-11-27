@@ -152,6 +152,19 @@ class TaxAmountCalculatorTest {
         assertEquals(0, BigDecimal("10.00").compareTo(taxCalculationResult.taxBilled))
     }
 
+    @Test
+    fun `included percentage taxes split the tax by rate and give the rounding remainder to the last one`() {
+        val taxCalculationEntries = TaxAmountCalculator.calculate(
+            taxableAmount = BigDecimal("10.00"),
+            activeTaxTypes = listOf(
+                percentageTax("10", taxIsIncludedInTaxableAmount = true),
+                percentageTax("10", taxIsIncludedInTaxableAmount = true),
+            ),
+        ).entries
+
+        assertEquals(listOf(BigDecimal("0.84"), BigDecimal("0.83")), taxCalculationEntries.map { it.taxAmount })
+    }
+
     private fun flatTax(rateFlatAmount: String, taxIsIncludedInTaxableAmount: Boolean) = ActiveTaxTypeForCalculation(
         orgJurisdictionTaxTypeId = UUID.randomUUID(),
         jurisdictionTaxTypeId = UUID.randomUUID(),

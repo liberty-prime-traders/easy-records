@@ -26,6 +26,9 @@ class ProductFixtureBuilder(
 
   fun createNamed(name: String): UUID = create(defaultDto().copy(productName = name))
 
+  fun createNamedWithBaseUnit(name: String, baseUnitId: UUID): UUID =
+    create(defaultDto().copy(productName = name, baseUnitId = baseUnitId))
+
   override fun fromRow(row: Map<String, String>) =
     dtoConverter.fromRow(row, defaultDto(), OrganizationProductInsertDto::class.java)
 }

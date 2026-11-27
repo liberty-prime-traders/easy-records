@@ -4,7 +4,9 @@ import io.cucumber.java.After
 import io.cucumber.java.Before
 import io.cucumber.java.Scenario
 import app.myliberty.easy_records.cucumber.support.ApiClient
+import app.myliberty.easy_records.cucumber.support.TestDates
 import app.myliberty.easy_records.cucumber.support.initialization.BoilerPlateDataInitializer
+import app.myliberty.easy_records.cucumber.support.initialization.PastFiscalPeriodSeeder
 import app.myliberty.easy_records.cucumber.support.KafkaConsumerTestSupport
 import app.myliberty.easy_records.cucumber.support.cleanup.CacheCleaner
 import app.myliberty.easy_records.cucumber.support.cleanup.TestDatabaseCleaner
@@ -29,13 +31,14 @@ class TestHooks(
   private val apiClient: ApiClient,
   private val boilerPlateDataInitializer: BoilerPlateDataInitializer,
   private val organizationCache: OrganizationCache,
+  private val pastFiscalPeriodSeeder: PastFiscalPeriodSeeder,
 ) {
 
   @Before
   fun beforeScenario(scenario: Scenario) {
     val continuesSharedState = SHARED_STATE_TAG in scenario.sourceTagNames && scenario.uri == featureWithFreshState
     if (!continuesSharedState) {
-      resetDatabaseState()
+      resetDatabaseState(regularFiscalPeriod = REGULAR_FISCAL_PERIOD_TAG in scenario.sourceTagNames)
       featureWithFreshState = scenario.uri
     }
     injectContext.clear()
@@ -43,6 +46,11 @@ class TestHooks(
     authContext.initialize()
     responseContext.reset()
     initializeOrganizationSession()
+  }
+
+  @Before(value = "@past-fiscal-periods", order = AFTER_FRESH_STATE)
+  fun seedPastFiscalPeriod() {
+    pastFiscalPeriodSeeder.seed()
   }
 
   private fun initializeOrganizationSession() {
@@ -56,11 +64,12 @@ class TestHooks(
     SessionContextProvider.clear()
   }
 
-  private fun resetDatabaseState() {
+  private fun resetDatabaseState(regularFiscalPeriod: Boolean) {
     testDatabaseCleaner.clean()
     cacheCleaner.clearAllCaches()
     authContext.authenticateAsPlatformAdmin()
     activateDefaultFeatures()
+    if (regularFiscalPeriod) moveFiscalYearEndAwayFromToday()
     generateOpenFiscalPeriod()
     seedOrganizationDefaults()
     boilerPlateDataInitializer.ensureDefaultMemberships()
@@ -98,7 +107,15 @@ class TestHooks(
     check(response.statusCode == 200) { "Failed to seed organization defaults: ${response.asString()}" }
   }
 
-  // Generation starts from yesterday on an empty calendar, so the period covering today is open.
+  // The default configuration ends the fiscal year in the month it is created, so the first period is always a
+  // year-end one. Six months out makes the period covering today an ordinary one.
+  private fun moveFiscalYearEndAwayFromToday() {
+    val fiscalYearEndMonth = (TestDates.today().monthValue + 5) % MONTHS_IN_YEAR + 1
+    val response = apiClient.put("/secured/accounting-config", mapOf("fiscalYearEndMonth" to fiscalYearEndMonth))
+    check(response.statusCode == 200) { "Failed to move the fiscal year end: ${response.asString()}" }
+  }
+
+  // Generation starts today on an empty calendar, so only today's period is open; @past-fiscal-periods adds a past one.
   private fun generateOpenFiscalPeriod() {
     val response = apiClient.post("/secured/fiscal-periods/nudge")
     check(response.statusCode == 200) { "Failed to generate fiscal periods: ${response.asString()}" }
@@ -106,6 +123,9 @@ class TestHooks(
 
   companion object {
     private const val SHARED_STATE_TAG = "@shared-state"
+    private const val AFTER_FRESH_STATE = 20000
+    private const val REGULAR_FISCAL_PERIOD_TAG = "@regular-fiscal-period"
+    private const val MONTHS_IN_YEAR = 12
 
     // Hooks are built per scenario, so the feature that last got clean data is kept here.
     private var featureWithFreshState: URI? = null

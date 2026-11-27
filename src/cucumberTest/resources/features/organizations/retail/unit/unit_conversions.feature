@@ -111,3 +111,27 @@ Feature: Unit conversions
       """json
       {"code": "OU"}
       """
+
+  Scenario: Units chained over several levels convert across the chain in lowest terms
+    Given a unit group named "Beverages" with base unit "Bottle" coded "btl" exists
+    And a unit named "Six-pack" coded "sixpk" equal to 6 of unit "btl" exists
+    And a unit named "Crate" coded "crate" equal to 4 of unit "sixpk" exists
+    And a unit named "Pallet" coded "pallet" equal to 10 of unit "crate" exists
+    When I GET to /secured/unit-conversions/graph
+    Then the response status should be 200
+    And the response should match json:
+      """json
+      {
+        "{{unitValue:pallet}}": {
+          "{{unitValue:btl}}": {"name": "Bottle", "numerator": 240, "denominator": 1},
+          "{{unitValue:sixpk}}": {"name": "Six-pack", "numerator": 40, "denominator": 1},
+          "{{unitValue:crate}}": {"name": "Crate", "numerator": 10, "denominator": 1}
+        },
+        "{{unitValue:sixpk}}": {
+          "{{unitValue:pallet}}": {"name": "Pallet", "numerator": 1, "denominator": 40}
+        },
+        "{{unitValue:btl}}": {
+          "{{unitValue:crate}}": {"name": "Crate", "numerator": 1, "denominator": 24}
+        }
+      }
+      """

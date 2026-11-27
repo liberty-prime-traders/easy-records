@@ -20,11 +20,17 @@ class AccountTreeSteps(
     val expectedBalanceByCode = expectedTable.asMaps().associate { row ->
       row.getValue("account") to BigDecimal(row.getValue("balance"))
     }
+    val expectedNameByCode = expectedTable.asMaps()
+      .filter { row -> row.containsKey("name") }
+      .associate { row -> row.getValue("account") to row.getValue("name") }
     accountCodesAssertedInScenario.addAll(expectedBalanceByCode.keys)
     AsyncPosting.untilAsserted("account balances $expectedBalanceByCode") {
-      val actualBalanceByCode = accountBalanceReader.allAccounts().associate { it.code to it.currentBalance }
+      val accountRowByCode = accountBalanceReader.allAccounts().associateBy { it.code }
+      expectedNameByCode.forEach { (accountCode, expectedName) ->
+        assertEquals(expectedName, accountRowByCode.getValue(accountCode).name, "name of account $accountCode")
+      }
       expectedBalanceByCode.forEach { (accountCode, expectedBalance) ->
-        val actualBalance = actualBalanceByCode.getValue(accountCode)
+        val actualBalance = accountRowByCode.getValue(accountCode).currentBalance
         val mismatchMessage = "balance of $accountCode: expected $expectedBalance but was $actualBalance"
         assertEquals(0, expectedBalance.compareTo(actualBalance), mismatchMessage)
       }

@@ -1,6 +1,7 @@
 package app.myliberty.easy_records.cucumber.steps.organizations.core.fiscalperiod
 
 import app.myliberty.easy_records.cucumber.support.ApiClient
+import app.myliberty.easy_records.cucumber.support.TestDates
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import io.cucumber.java.en.Given
@@ -22,6 +23,21 @@ class FiscalPeriodSteps(private val apiClient: ApiClient) {
     }
   }
 
+  @Given("the past fiscal period is named {string}")
+  fun namePastFiscalPeriod(name: String) {
+    val periodsResponse = apiClient.get("/secured/fiscal-periods")
+    val periods = objectMapper.readTree(periodsResponse.asString())
+    val today = TestDates.today().toString()
+    val pastPeriod = checkNotNull(periods.firstOrNull { period -> period.path("endDate").asText() < today }) {
+      "No fiscal period ended before today; tag the scenario @past-fiscal-periods: ${periodsResponse.asString()}"
+    }
+    val renameRequest = mapOf("id" to pastPeriod.path("id").asText(), "name" to name)
+    val renameResponse = apiClient.put("/secured/fiscal-periods/rename", renameRequest)
+    check(renameResponse.statusCode == 200) {
+      "Failed to rename the past fiscal period: ${renameResponse.statusCode} ${renameResponse.asString()}"
+    }
+  }
+
   @When("I rename the open fiscal period to {string}")
   fun renameTheOpenFiscalPeriod(name: String) {
     renameOpenFiscalPeriod(name)
@@ -38,6 +54,11 @@ class FiscalPeriodSteps(private val apiClient: ApiClient) {
   @When("I year-end close the open fiscal period")
   fun yearEndCloseOpenFiscalPeriod() {
     apiClient.post("/secured/fiscal-periods/${requireOpenPeriodId()}/year-end-close")
+  }
+
+  @When("I close the open fiscal period")
+  fun closeOpenFiscalPeriod() {
+    apiClient.post("/secured/fiscal-periods/close", listOf(requireOpenPeriodId()))
   }
 
   private fun renameOpenFiscalPeriod(name: String): Response {
