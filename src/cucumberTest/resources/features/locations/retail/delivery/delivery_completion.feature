@@ -96,17 +96,24 @@ Feature: Completing orders by delivery
       }
       """
 
-  Scenario: A delivery dated yesterday is accepted and posts to the books like any other
-    Given a delivery dated "{{dayAgo}}" is recorded on the purchase with lines:
+  Scenario: A delivery is posted in the fiscal period of its own date, not of the day it was recorded
+    Given the past fiscal period is named "Yesterday Period"
+    And the open fiscal period is named "Today Period"
+    And a delivery dated "{{dayAgo}}" is recorded on the purchase with lines:
       | product | quantity | unit cost |
       | Milk    | 4        | 5.00      |
     Then the ledger group for "{{deliveryReference}}" should have source type "PURCHASE_DELIVERY"
+    And the ledger group for "{{deliveryReference}}" should be posted in the fiscal period named "Yesterday Period"
     And the ledger entries for "{{deliveryReference}}" should be exactly:
       | account     | name           | type   | amount |
       | 001.001.003 | Inventory      | debit  | 20.00  |
       | 002.001.001 | Trade Payables | credit | 20.00  |
     And the location product named "Milk" should have "4" on hand
-    And PurchaseDelivery table should have exactly 1 records in database
+    When a delivery is recorded on the purchase with lines:
+      | product | quantity | unit cost |
+      | Milk    | 6        | 5.00      |
+    Then the ledger group for "{{deliveryReference}}" should be posted in the fiscal period named "Today Period"
+    And PurchaseDelivery table should have exactly 2 records in database
 
   Scenario: The supplier's payable balance grows with each delivery
     Given a delivery is recorded on the purchase with lines:

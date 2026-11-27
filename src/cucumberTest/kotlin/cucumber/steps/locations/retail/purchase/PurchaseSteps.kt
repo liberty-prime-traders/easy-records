@@ -1,6 +1,7 @@
 package app.myliberty.easy_records.cucumber.steps.locations.retail.purchase
 
 import app.myliberty.easy_records.cucumber.support.ApiClient
+import app.myliberty.easy_records.cucumber.support.PurchaseRequests
 import app.myliberty.easy_records.cucumber.support.context.InjectContext
 import app.myliberty.easy_records.cucumber.support.context.ResponseContext
 import app.myliberty.easy_records.cucumber.support.context.TransientKey
@@ -8,11 +9,11 @@ import io.cucumber.datatable.DataTable
 import io.cucumber.java.en.Given
 import io.restassured.response.Response
 import java.math.BigDecimal
-import java.util.UUID
 
 class PurchaseSteps(
   private val apiClient: ApiClient,
-  private val injectContext: InjectContext
+  private val injectContext: InjectContext,
+  private val purchaseRequests: PurchaseRequests
 ) {
 
   @Given("a draft purchase from {string} with lines:")
@@ -37,26 +38,20 @@ class PurchaseSteps(
   }
 
   private fun createPurchase(path: String, supplierName: String, linesTable: DataTable) {
-    val purchaseRequest = mapOf(
-      "supplierId" to injectContext.getNamed(TransientKey.SUPPLIER, supplierName).toString(),
-      "linesToAdd" to linesTable.asMaps().map { row ->
-        val locationProductId = injectContext.getNamed(TransientKey.LOCATION_PRODUCT, row.getValue("product"))
-        mapOf(
-          "locationProductId" to locationProductId.toString(),
-          "quantityOrdered" to BigDecimal(row.getValue("quantity")),
-          "unitId" to unitIdOf(row).toString(),
-          "unitCost" to BigDecimal(row.getValue("unit cost"))
-        )
-      }
+    val orderLines = linesTable.asMaps().map { row ->
+      purchaseRequests.orderLine(
+        locationProductId = injectContext.getNamed(TransientKey.LOCATION_PRODUCT, row.getValue("product")),
+        quantity = BigDecimal(row.getValue("quantity")),
+        unitId = purchaseRequests.unitIdOf(row),
+        unitCost = BigDecimal(row.getValue("unit cost"))
+      )
+    }
+    val purchaseRequest = purchaseRequests.orderRequest(
+      injectContext.getNamed(TransientKey.SUPPLIER, supplierName), orderLines
     )
     val response = apiClient.post(path, purchaseRequest)
     check(response.statusCode == 200) { "Failed to create purchase at $path: ${response.asString()}" }
     rememberPurchase(response)
-  }
-
-  private fun unitIdOf(row: Map<String, String>): UUID {
-    val unitCode = row["unit"] ?: return injectContext.get(TransientKey.UNIT_VALUE)
-    return injectContext.getNamed(TransientKey.UNIT_VALUE, unitCode)
   }
 
   private fun rememberPurchase(response: Response) {

@@ -115,6 +115,20 @@ class StockIncreaseRecorderTest {
     }
 
     @Test
+    fun `a single spec returns the id of the one layer it opened`() {
+        `when`(stockBalanceFetcher.getLatestBalances(anyCollection())).thenReturn(mapOf(firstLocationProductId to BigDecimal("0")))
+        `when`(productStockBreakdownProvider.forLocationProducts(anyCollection())).thenReturn(mapOf(firstLocationProductId to pieceBreakdown))
+        var savedEntry: StockEntryEntity? = null
+        `when`(stockEntryRepository.save(any(StockEntryEntity::class.java))).thenAnswer { invocation ->
+            invocation.getArgument<StockEntryEntity>(0).also { it.id = UUID.randomUUID(); savedEntry = it }
+        }
+
+        val entryId = stockIncreaseRecorder.record(spec(firstLocationProductId, "10", "LINE-1"))
+
+        assertEquals(savedEntry!!.id, entryId)
+    }
+
+    @Test
     fun `no specs means no lock, no read and no write`() {
         stockIncreaseRecorder.record(emptyList())
 

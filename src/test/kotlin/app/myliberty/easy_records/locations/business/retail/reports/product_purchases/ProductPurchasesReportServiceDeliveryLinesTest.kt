@@ -12,16 +12,19 @@ import app.myliberty.easy_records.organizations.business.retail.product_category
 import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.QuantityBreakdownFactory
 import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.UnitConversionGraph
 import app.myliberty.easy_records.organizations.business.retail.unitconversion.api.UnitConversionGraphFacade
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import app.myliberty.easy_records.util.paging.PageRequest
 import app.myliberty.easy_records.util.quantity.BreakdownUnit
 import app.myliberty.easy_records.util.quantity.QuantityBreakdown
 import app.myliberty.easy_records.util.queries.KeysetSearchCursor
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.mock
+import org.mockito.Mockito.verifyNoInteractions
 import org.mockito.Mockito.`when`
 import java.math.BigDecimal
 import java.time.OffsetDateTime
@@ -127,6 +130,29 @@ class ProductPurchasesReportServiceDeliveryLinesTest {
     assertFalse(page.hasMore)
     assertTrue(page.contents.isEmpty())
     assertEquals(previousCursor.encode(), page.currentCursor)
+  }
+
+  @Test
+  fun `an unknown location product is refused before any delivery line is read`() {
+    val unknownLocationProductId = UUID.randomUUID()
+    `when`(locationProductDataFetcher.findSummaryByIds(listOf(unknownLocationProductId))).thenReturn(emptyMap())
+
+    val refusal = assertThrows(LibertyGenericException::class.java) {
+      service.searchDeliveryLines(unknownLocationProductId, pageRequest(previousCursor = "", requestedSize = 2))
+    }
+
+    assertTrue(refusal.message.contains("Location product not found: $unknownLocationProductId"))
+    verifyNoInteractions(productPurchasesReportFetcher)
+  }
+
+  @Test
+  fun `a page size outside the allowed range is refused before any line is read`() {
+    val refusal = assertThrows(LibertyGenericException::class.java) {
+      service.searchDeliveryLines(locationProductId, pageRequest(previousCursor = "", requestedSize = 0))
+    }
+
+    assertTrue(refusal.message.contains("requestedSize must be between 1 and 500"))
+    verifyNoInteractions(productPurchasesReportFetcher)
   }
 
   private fun pageRequest(previousCursor: String, requestedSize: Int) = PageRequest(

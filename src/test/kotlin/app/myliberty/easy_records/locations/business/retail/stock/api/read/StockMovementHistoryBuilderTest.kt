@@ -107,6 +107,32 @@ class StockMovementHistoryBuilderTest {
     }
 
     @Test
+    fun `a unit the conversion graph no longer knows shows no ratio note`() {
+        val unitMissingFromGraphId = UUID.randomUUID()
+        givenMovements(movement(18L, unitId = unitMissingFromGraphId))
+        `when`(unitValueFetcher.getUnitNamesById())
+            .thenReturn(mapOf(pieceId to "Piece", baleId to "Bale", unitMissingFromGraphId to "Crate"))
+
+        val row = builder.build(locationProductId).single()
+
+        assertNull(row.conversionDriftNote)
+        assertEquals("entered 2 Bales", row.quantityEntered)
+    }
+
+    @Test
+    fun `a movement shows the name of its reason and one without a reason shows none`() {
+        val damagedReasonId = UUID.randomUUID()
+        val movementWithReason = movement(18L).also { it.reasonId = damagedReasonId }
+        givenMovements(movementWithReason, movement(18L))
+        `when`(stockMovementReasonFetcher.getNamesById()).thenReturn(mapOf(damagedReasonId to "Damaged"))
+
+        val rows = builder.build(locationProductId).toList()
+
+        assertEquals("Damaged", rows[0].reason)
+        assertNull(rows[1].reason)
+    }
+
+    @Test
     fun `a page of rows loads units, the unit graph and reasons once`() {
         givenMovements(*Array(100) { movement(18L) })
 

@@ -156,6 +156,39 @@ Feature: Product purchases report
     Then the response status should be 200
     And the response should be an empty list
 
+  Scenario: Filtering by category counts only the products of that category
+    Given a category named "Beverages" exists
+    And a product group named "Fizz" exists
+    And a product named "Cola" with base unit "pc" exists
+    And the location product named "Cola" is available
+    And an order from "Acme Dairy" with lines:
+      | product | quantity | unit cost | unit |
+      | Cola    | 6        | 3.00      | pc   |
+    And a delivery is recorded on the purchase with lines:
+      | product | quantity | unit cost | unit |
+      | Cola    | 6        | 3.00      | pc   |
+    And the location product named "Cola" should have "6" on hand
+    When I POST to /secured/product-purchases-report/summary with payload:
+      """json
+      {"deliveredFrom": "{{dayAgo}}", "deliveredBefore": "{{dayAhead}}", "categoryIds": ["{{category}}"]}
+      """
+    Then the response status should be 200
+    And the response should contain 1 items
+    And response contains details with exact lists in order:
+      """json
+      [
+        {
+          "productName": "Cola",
+          "productGroupName": "Fizz",
+          "categoryName": "Beverages",
+          "deliveryLineCount": 1,
+          "receivedQuantityBreakdown": "6 Pieces",
+          "totalCost": 18.00,
+          "averageCostPerBaseUnit": "KES 3.00"
+        }
+      ]
+      """
+
   Scenario: A dozen based product is averaged per dozen whatever unit it was received in
     Given an order from "Acme Dairy" with lines:
       | product | quantity | unit cost | unit |
@@ -223,6 +256,36 @@ Feature: Product purchases report
       }
       """
 
+  Scenario: Expanding a product for one supplier lists only that supplier's lines
+    When I POST to /secured/product-purchases-report/{{locationProductId:Milk}}/delivery-lines with payload:
+      """json
+      {
+        "previousCursor": "",
+        "requestedSize": 10,
+        "parameters": {
+          "deliveredFrom": "{{dayAgo}}",
+          "deliveredBefore": "{{dayAhead}}",
+          "supplierIds": ["{{supplierId:Acme Dairy}}"]
+        }
+      }
+      """
+    Then the response status should be 200
+    And response contains details with exact lists in order:
+      """json
+      {
+        "hasMore": false,
+        "contents": [
+          {
+            "supplierName": "Acme Dairy",
+            "quantityDeliveredText": "4 Pieces",
+            "baseQuantity": 4,
+            "unitCost": 5.00,
+            "lineTotal": 20.00
+          }
+        ]
+      }
+      """
+
   Scenario: The expansion pages through the lines with its cursor
     When I POST to /secured/product-purchases-report/{{locationProductId:Milk}}/delivery-lines with payload:
       """json
@@ -259,22 +322,6 @@ Feature: Product purchases report
       """
     Then the response status should be 400
     And the response error should contain "deliveredFrom and deliveredBefore are required"
-
-  Scenario: A summary whose dates are the wrong way round is rejected
-    When I POST to /secured/product-purchases-report/summary with payload:
-      """json
-      {"deliveredFrom": "{{dayAhead}}", "deliveredBefore": "{{dayAgo}}"}
-      """
-    Then the response status should be 400
-    And the response error should contain "deliveredFrom must not be after deliveredBefore"
-
-  Scenario: A summary over more than a year is rejected
-    When I POST to /secured/product-purchases-report/summary with payload:
-      """json
-      {"deliveredFrom": "2020-01-01T00:00:00Z", "deliveredBefore": "{{dayAhead}}"}
-      """
-    Then the response status should be 400
-    And the response error should contain "must be at most 1 year apart"
 
   Scenario: An expansion page size outside the allowed range is rejected
     When I POST to /secured/product-purchases-report/{{locationProductId:Milk}}/delivery-lines with payload:

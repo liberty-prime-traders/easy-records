@@ -56,3 +56,16 @@ Feature: Searching loans
       """
     Then the response status should be 400
     And the response error message should be "createdFrom and createdBefore must be at most 1 year apart"
+
+  Scenario: A loan is fetched by its reference with its lender and repayment
+    When I GET to /secured/loans/{{loanReference}}
+    Then the response status should be 200
+    And response contains details:
+      """json
+      {"amount": 50, "outstanding": 0, "status": "SETTLED", "lender": {"displayName": "First Bank"}}
+      """
+
+  Scenario: Fetching a loan by an unknown reference is rejected
+    When I GET to /secured/loans/LOAN999999
+    Then the response status should be 400
+    And the response error message should be "Loan not found: LOAN999999"

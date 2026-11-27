@@ -2,6 +2,7 @@ package app.myliberty.easy_records.cucumber.steps.locations.retail.delivery
 
 import app.myliberty.easy_records.cucumber.support.ApiClient
 import app.myliberty.easy_records.cucumber.support.AsyncPosting
+import app.myliberty.easy_records.cucumber.support.PurchaseRequests
 import app.myliberty.easy_records.cucumber.support.context.InjectContext
 import app.myliberty.easy_records.cucumber.support.context.TransientKey
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
@@ -14,7 +15,8 @@ import kotlin.test.assertEquals
 // Each row is its own order and delivery, so every row leaves its own FIFO layer for later sale scenarios.
 class DeliveredStockSteps(
   private val apiClient: ApiClient,
-  private val injectContext: InjectContext
+  private val injectContext: InjectContext,
+  private val purchaseRequests: PurchaseRequests
 ) {
 
   private val objectMapper = jacksonObjectMapper()
@@ -24,7 +26,7 @@ class DeliveredStockSteps(
     val locationProductId = injectContext.getNamed(TransientKey.LOCATION_PRODUCT, productName)
     val supplierId = injectContext.getNamed(TransientKey.SUPPLIER, supplierName)
     layersTable.asMaps().forEach { layerRow ->
-      val unitId = unitIdOf(layerRow)
+      val unitId = purchaseRequests.unitIdOf(layerRow)
       val quantity = BigDecimal(layerRow.getValue("quantity"))
       val unitCost = BigDecimal(layerRow.getValue("unit cost"))
       val orderedPurchase = orderLayer(supplierId, locationProductId, quantity, unitId, unitCost)
@@ -39,16 +41,8 @@ class DeliveredStockSteps(
     unitId: UUID,
     unitCost: BigDecimal
   ): OrderedPurchase {
-    val orderRequest = mapOf(
-      "supplierId" to supplierId.toString(),
-      "linesToAdd" to listOf(
-        mapOf(
-          "locationProductId" to locationProductId.toString(),
-          "quantityOrdered" to quantity,
-          "unitId" to unitId.toString(),
-          "unitCost" to unitCost
-        )
-      )
+    val orderRequest = purchaseRequests.orderRequest(
+      supplierId, listOf(purchaseRequests.orderLine(locationProductId, quantity, unitId, unitCost))
     )
     val orderResponse = apiClient.post("/secured/purchases/order", orderRequest)
     check(orderResponse.statusCode == 200) { "Failed to order stock: ${orderResponse.asString()}" }
@@ -61,17 +55,10 @@ class DeliveredStockSteps(
   }
 
   private fun deliverLayer(orderedPurchase: OrderedPurchase, quantity: BigDecimal, unitId: UUID, unitCost: BigDecimal) {
-    val deliveryRequest = mapOf(
-      "purchaseId" to orderedPurchase.purchaseId.toString(),
-      "deliveredAt" to injectContext.inject("{{now}}"),
-      "lines" to listOf(
-        mapOf(
-          "purchaseLineId" to orderedPurchase.purchaseLineId.toString(),
-          "quantityDelivered" to quantity,
-          "unitId" to unitId.toString(),
-          "unitCost" to unitCost
-        )
-      )
+    val deliveryRequest = purchaseRequests.deliveryRequest(
+      orderedPurchase.purchaseId,
+      "{{now}}",
+      listOf(purchaseRequests.deliveryLine(orderedPurchase.purchaseLineId, quantity, unitId, unitCost))
     )
     val deliveryResponse = apiClient.post("/secured/deliveries", deliveryRequest)
     check(deliveryResponse.statusCode == 200) { "Failed to deliver stock: ${deliveryResponse.asString()}" }
@@ -92,11 +79,6 @@ class DeliveredStockSteps(
       val delivery = purchase.path("deliveries").first { it.path("referenceNumber").asText() == deliveryReference }
       assertEquals("RECEIVED", delivery.path("status").asText(), "status of delivery $deliveryReference")
     }
-  }
-
-  private fun unitIdOf(layerRow: Map<String, String>): UUID {
-    val unitCode = layerRow["unit"] ?: return injectContext.get(TransientKey.UNIT_VALUE)
-    return injectContext.getNamed(TransientKey.UNIT_VALUE, unitCode)
   }
 
   private data class OrderedPurchase(val purchaseId: UUID, val purchaseReference: String, val purchaseLineId: UUID)

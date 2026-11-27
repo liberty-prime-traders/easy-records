@@ -294,3 +294,66 @@ Feature: Ordering in different units
       """json
       {"storageQuantityCanceled": 0}
       """
+
+  Scenario: A unit edited between two orders gives each order line the size it was ordered with
+    Given a unit group named "Beverages" with base unit "Bottle" coded "btl" exists
+    And a unit named "Crate" coded "crate" equal to 12 of unit "btl" exists
+    And a product named "Cola" with base unit "crate" exists
+    And the location product named "Cola" is available
+    And an order from "Acme Dairy" with lines:
+      | product | quantity | unit cost | unit  |
+      | Cola    | 2        | 120.00    | crate |
+    And I PUT to /secured/unitvalues with payload:
+      """json
+      {
+        "id": "{{unitValue:crate}}",
+        "name": "Crate",
+        "code": "crate",
+        "baseUnit": "{{unitValue:btl}}",
+        "unitsOfBasePerUnit": 10
+      }
+      """
+    When I POST to /secured/purchases/order with payload:
+      """json
+      {
+        "supplierId": "{{supplierId:Acme Dairy}}",
+        "linesToAdd": [
+          {
+            "locationProductId": "{{locationProductId:Cola}}",
+            "quantityOrdered": 2,
+            "unitId": "{{unitValue:crate}}",
+            "unitCost": 100.00
+          }
+        ]
+      }
+      """
+    Then the response status should be 200
+    And response contains details:
+      """json
+      {
+        "orderedTotal": 200,
+        "lines": [
+          {
+            "quantityOrdered": 2,
+            "lineTotal": 200,
+            "storageNetOrderedQty": 20,
+            "quantityNetOrderedBreakdown": "2 Crates"
+          }
+        ]
+      }
+      """
+    And PurchaseLine table should contain exactly these records:
+      """json
+      [
+        {
+          "userProvidedQuantityOrdered": 2,
+          "unitCost": 120,
+          "storageUnitsPerUserProvidedUnit": 12
+        },
+        {
+          "userProvidedQuantityOrdered": 2,
+          "unitCost": 100,
+          "storageUnitsPerUserProvidedUnit": 10
+        }
+      ]
+      """

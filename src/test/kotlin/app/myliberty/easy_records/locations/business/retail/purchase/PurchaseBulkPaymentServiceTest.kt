@@ -284,6 +284,37 @@ class PurchaseBulkPaymentServiceTest {
   }
 
   @Test
+  fun `each recorded payment carries the batch payment method, date and notes and no delivery`() {
+    val purchase = stubPurchase(january)
+    givenFetched(purchase)
+
+    record(listOf(purchase), "40.00")
+
+    val recordedCreateDto = recordedCreateDtos.single()
+    assertEquals(paymentMethodId, recordedCreateDto.paymentMethodId)
+    assertEquals(paymentDate, recordedCreateDto.paymentDate)
+    assertEquals("bulk", recordedCreateDto.notes)
+    assertEquals(null, recordedCreateDto.deliveryId)
+  }
+
+  @Test
+  fun `the batch is recorded with purchase info for every selected purchase`() {
+    val first = stubPurchase(january)
+    val second = stubPurchase(january.plusDays(1))
+    givenFetched(first, second)
+    val recordedPurchaseIds = mutableListOf<Set<UUID>>()
+    doAnswer { invocation ->
+      recordedPurchaseIds.add(invocation.getArgument<Map<UUID, Any>>(3).keys)
+      emptyList<SupplierPaymentResponseDto>()
+    }.`when`(supplierPaymentService)
+      .recordPaymentsForLockedPurchases(anyNonNull(), anyNonNull(), anyNonNull(), anyNonNull())
+
+    record(listOf(first, second), "150.00")
+
+    assertEquals(listOf(setOf(first.id!!, second.id!!)), recordedPurchaseIds)
+  }
+
+  @Test
   fun `rejects more than twenty purchases in one batch`() {
     val purchases = (1..21).map { stubPurchase(january.plusDays(it.toLong())) }
     givenFetched(*purchases.toTypedArray())
@@ -292,6 +323,26 @@ class PurchaseBulkPaymentServiceTest {
 
     assertTrue(exception.message.contains("20"))
     verifyNothingRecorded()
+  }
+
+  @Test
+  fun `rejects a batch with no purchases selected`() {
+    givenFetched()
+
+    val exception = assertThrows<LibertyGenericException> { record(emptyList(), "10.00") }
+
+    assertEquals("At least one purchase must be selected", exception.message)
+    verifyNothingRecorded()
+  }
+
+  @Test
+  fun `accepts exactly twenty purchases in one batch`() {
+    val purchases = (1..20).map { stubPurchase(january.plusDays(it.toLong())) }
+    givenFetched(*purchases.toTypedArray())
+
+    val response = record(purchases, "2000.00")
+
+    assertEquals(20, appliedPurchaseIds(response).size)
   }
 
   @Test

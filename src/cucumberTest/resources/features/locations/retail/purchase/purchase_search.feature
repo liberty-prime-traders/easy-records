@@ -53,6 +53,7 @@ Feature: Finding purchases
       | "purchaseReferenceNumbers": ["{{purchaseReference->0}}"] | [{"referenceNumber": "{{purchaseReference->0}}"}] |
       | "minAmount": 100                                         | [{"referenceNumber": "{{purchaseReference->2}}"}] |
       | "minAmount": 50, "maxAmount": 100                        | [{"referenceNumber": "{{purchaseReference->0}}"}] |
+      | "maxAmount": 0                                           | [{"referenceNumber": "{{purchaseReference->3}}"}] |
       | "paymentStatuses": ["FULLY_SETTLED"]                     | []                                                |
 
   Scenario: Filters are combined, so an ordered purchase from one supplier leaves out its draft and canceled ones
@@ -211,4 +212,101 @@ Feature: Finding purchases
         {"referenceNumber": "{{purchaseReference->3}}", "purchaseStatus": "CANCELED"},
         {"referenceNumber": "{{purchaseReference->2}}", "purchaseStatus": "ORDERED"}
       ]
+      """
+
+  Scenario: The amount filter prices a partly canceled line at what is still ordered
+    Given an order from "Acme Dairy" with lines:
+      | product | quantity | unit cost |
+      | Milk    | 10       | 5.00      |
+    And the following quantities are canceled on the purchase:
+      | product | quantity |
+      | Milk    | 3        |
+    When I POST to /secured/purchases/search with payload:
+      """json
+      {
+        "previousCursor": "",
+        "requestedSize": 10,
+        "parameters": {
+          "recordedFrom": "{{dayAgo}}",
+          "recordedBefore": "{{dayAhead}}",
+          "minAmount": 35.00,
+          "maxAmount": 35.00
+        }
+      }
+      """
+    Then the response status should be 200
+    And response contains details with exact lists:
+      """json
+      {"contents": [{"referenceNumber": "{{purchaseReference->4}}"}]}
+      """
+    When I POST to /secured/purchases/search with payload:
+      """json
+      {
+        "previousCursor": "",
+        "requestedSize": 10,
+        "parameters": {
+          "recordedFrom": "{{dayAgo}}",
+          "recordedBefore": "{{dayAhead}}",
+          "minAmount": 35.01,
+          "maxAmount": 50.00
+        }
+      }
+      """
+    Then the response status should be 200
+    And response contains details with exact lists:
+      """json
+      {"contents": []}
+      """
+
+  Scenario: The amount range is inclusive at a total built from a fractional cost, a unit factor and a cancel
+    Given a unit group named "Beverages" with base unit "Bottle" coded "btl" exists
+    And a unit named "Trio" coded "trio" equal to 3 of unit "btl" exists
+    And a product named "Cola" with base unit "btl" exists
+    And the location product named "Cola" is available
+    And an order from "Acme Dairy" with lines:
+      | product | quantity | unit cost | unit |
+      | Cola    | 7        | 3.35      | trio |
+    And I PUT to /secured/purchases/{{purchaseId}}/line-cancel-quantities with payload:
+      """json
+      [{"purchaseLineId": "{{purchaseLineId:Cola}}", "quantityCanceled": 5, "unitId": "{{unitValue:btl}}"}]
+      """
+    And PurchaseLine should exist in database with id {{purchaseLineId:Cola}} and options:
+      """json
+      {"storageQuantityCanceled": 5, "storageUnitsPerUserProvidedUnit": 3}
+      """
+    When I POST to /secured/purchases/search with payload:
+      """json
+      {
+        "previousCursor": "",
+        "requestedSize": 10,
+        "parameters": {
+          "recordedFrom": "{{dayAgo}}",
+          "recordedBefore": "{{dayAhead}}",
+          "minAmount": 17.87,
+          "maxAmount": 17.87
+        }
+      }
+      """
+    Then the response status should be 200
+    And response contains details with exact lists:
+      """json
+      {"contents": [{"referenceNumber": "{{purchaseReference->4}}"}]}
+      """
+    When I POST to /secured/purchases/search with payload:
+      """json
+      {
+        "previousCursor": "",
+        "requestedSize": 10,
+        "parameters": {
+          "recordedFrom": "{{dayAgo}}",
+          "recordedBefore": "{{dayAhead}}",
+          "minAmount": 17.88,
+          "maxAmount": 17.89
+        }
+      }
+      """
+    Then the response status should be 200
+    And response contains details with exact lists:
+      """json
+      {"contents": []}
       """

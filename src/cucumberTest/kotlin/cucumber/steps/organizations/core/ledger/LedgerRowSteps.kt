@@ -1,11 +1,13 @@
 package app.myliberty.easy_records.cucumber.steps.organizations.core.ledger
 
 import app.myliberty.easy_records.cucumber.support.AccountBalanceReader
+import app.myliberty.easy_records.cucumber.support.ApiClient
 import app.myliberty.easy_records.cucumber.support.AsyncPosting
 import app.myliberty.easy_records.cucumber.support.LedgerEntryRow
 import app.myliberty.easy_records.cucumber.support.LedgerRowReader
 import app.myliberty.easy_records.cucumber.support.context.InjectContext
 import app.myliberty.easy_records.organizations.business.core.account.api.EntryType
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import io.cucumber.datatable.DataTable
 import io.cucumber.java.en.Then
 import java.math.BigDecimal
@@ -15,8 +17,11 @@ import kotlin.test.assertTrue
 class LedgerRowSteps(
   private val ledgerRowReader: LedgerRowReader,
   private val accountBalanceReader: AccountBalanceReader,
+  private val apiClient: ApiClient,
   private val injectContext: InjectContext
 ) {
+
+  private val objectMapper = jacksonObjectMapper()
 
   @Then("the ledger group for {string} should have source type {string}")
   fun verifyLedgerGroupSourceType(sourceReference: String, expectedSourceType: String) {
@@ -60,6 +65,20 @@ class LedgerRowSteps(
       val debitTotal = totalOf(entryRows, EntryType.DEBIT)
       val creditTotal = totalOf(entryRows, EntryType.CREDIT)
       assertEquals(0, debitTotal.compareTo(creditTotal), "debits $debitTotal differ from credits $creditTotal")
+    }
+  }
+
+  @Then("the ledger group for {string} should be posted in the fiscal period named {string}")
+  fun verifyLedgerGroupFiscalPeriod(sourceReference: String, expectedPeriodName: String) {
+    val resolvedReference = injectContext.inject(sourceReference)
+    AsyncPosting.untilAsserted("ledger group for $resolvedReference in period $expectedPeriodName") {
+      assertTrue(ledgerRowReader.groupsFor(resolvedReference).isNotEmpty(), "no ledger group for $resolvedReference")
+      val periods = objectMapper.readTree(apiClient.get("/secured/fiscal-periods").asString())
+      val expectedPeriod = periods.single { period -> period.path("name").asText() == expectedPeriodName }
+      val postedPeriodId = ledgerRowReader.fiscalPeriodIdFor(resolvedReference).toString()
+      val postedPeriodName = periods.firstOrNull { period -> period.path("id").asText() == postedPeriodId }
+        ?.path("name")?.asText()
+      assertEquals(expectedPeriod.path("id").asText(), postedPeriodId, "posted in period $postedPeriodName")
     }
   }
 

@@ -11,6 +11,8 @@ import app.myliberty.easy_records.util.quantity.ExactQuantity
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
+import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.`when`
 import java.math.BigDecimal
@@ -76,5 +78,32 @@ class DeliveryHandlerForPurchaseTest {
         deliverStorage("6")
 
         assertEquals(PurchaseStatus.FULLY_DELIVERED, purchase.purchaseStatus)
+    }
+
+    @Test
+    fun `a delivery for a line the purchase does not have is refused and nothing is saved`() {
+        val unknownLineId = UUID.randomUUID()
+
+        val refusal = assertThrows<LibertyGenericException> {
+            deliveryHandlerForPurchase.commitDelivery(
+                purchaseId, listOf(DeliveryLineQuantity(unknownLineId, ExactQuantity.ofStorage(BigDecimal.ONE)))
+            )
+        }
+
+        assertEquals("Purchase line $unknownLineId not found", refusal.message)
+        assertEquals(0, BigDecimal.ZERO.compareTo(purchaseLine.storageQuantityDelivered))
+    }
+
+    @Test
+    fun `the delivery context carries the purchase reference supplier and its lines by id`() {
+        purchase.id = purchaseId
+        purchase.referenceNumber = "PO-7"
+
+        val deliveryContext = deliveryHandlerForPurchase.getDeliveryContext(purchaseId)
+
+        assertEquals(purchaseId, deliveryContext.purchaseId)
+        assertEquals("PO-7", deliveryContext.purchaseReferenceNumber)
+        assertEquals(purchase.supplierId, deliveryContext.supplierId)
+        assertEquals(setOf(purchaseLineId), deliveryContext.purchaseLineById.keys)
     }
 }

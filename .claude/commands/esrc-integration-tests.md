@@ -63,13 +63,17 @@ Feature names describe business behavior, not endpoints.
   kind is a key, so a new kind is one entry in `TransientKey`.
 - Assert the exact message (`the response error message should be "..."`). A bare status on a 400 proves nothing about
   why. Bulk errors are asserted on `body` with `response contains details:`.
+- Cucumber asserts one representative refusal per endpoint. When a validator's unit tests already assert every message,
+  do not repeat each rejected value as a scenario or outline row: the unit tests own the messages, cucumber proves the
+  refusal reaches the caller with the right status and message.
 - Assert absence with `response contains no item with details:`. Where seeded data shares the list, count with a JSON
   path, not a list size.
 - A table holds only the values that vary, in small columns; the JSON shape stays in the doc string with `<column>`
   placeholders. Rows that need a different payload shape are separate scenarios, not one table of whole payloads.
   Keep a title to what a reader needs to tell scenarios apart; the rest is in the steps.
 - A rule that holds across many inputs is one `Scenario Outline`, not one scenario per input. Use it for matching rules
-  and for rejected values that share an outcome. Pick rows that differ in kind (separator, case, no separator,
+  and for rejected values that share an outcome, unless unit tests already assert every refusal (then one
+  representative, above). Pick rows that differ in kind (separator, case, no separator,
   punctuation), never two rows through the same branch. Put the varying value in the payload and the expected message.
   A rule over seeded data gets one row per seeded row.
 - `{"field": null}` in expected JSON only matches if the response writes the null. Prefer a populated field.
@@ -122,6 +126,18 @@ organization user by default.
 - A scenario that waits on Kafka asserts on state the consumer wrote, polled with Awaitility. A timeout has three
   suspects, in this order: the event left before the commit (publish only `AFTER_COMMIT`), a cache that lives outside
   the cache manager (the harness clears all through `CacheClearService`), the consumer threw (read its log first).
+- A step that reads state an async consumer writes (ledger rows, stock, postings) must wait until that state exists. The
+  polling helper retries assertion errors only, so a read that throws something else on an empty result (`single()`,
+  `first()`, `getValue`) fails the scenario at once. Assert the rows are present first, then read them.
+- Wait on the last effect the scenario reads, not the action it just took. A report that depends on async delivery needs
+  a step such as `I should have 6 on hand` before the report request.
+- A step in a shared steps file runs in every feature that uses it. Before changing one, grep its users, and keep the
+  change to a precondition or an assertion that cannot alter what other features see.
+- Do not close a seeded past fiscal period in a scenario: other features post into past dates. Close only the current
+  open period, which the reset recreates for the next scenario. In a `@shared-state` feature the reset does not run, so
+  do not close it there either.
+- Take dates from `DateTimes`, never `LocalDate.now()` or `ZoneOffset.UTC`, in steps, fixtures and unit tests alike. A
+  rule about "today" must use the organization's today.
 - A step that fails to parse a response hides the cause. Check the status first and put the body in the failure message.
 - A failing scenario is a finding first: decide whether the product or the scenario is wrong before editing either. Do
   not weaken an assertion to make it pass.

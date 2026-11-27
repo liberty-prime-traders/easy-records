@@ -25,6 +25,7 @@ import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
@@ -221,6 +222,20 @@ class LoanRepaymentServiceTest {
         assertEquals("LNRP000001", posted.sourceReferenceNumber)
         assertEquals(listOf(SystemAccount.DIGITAL_PAYMENTS.code, SystemAccount.LOANS_PAYABLE.code), posted.entries.map { it.accountCode })
         assertEquals(0, BigDecimal("30").compareTo(posted.subledgerEntries.single().payableAmount.toBigDecimal()))
+    }
+
+    @Test
+    fun `a repayment void keeps its trimmed reason and drops a blank one`() {
+        val repayment = LoanRepaymentEntity(loanId, cashCode, BigDecimal("30.0000"), loanDate, null).also { stamp(it, "LNRP000001") }
+        `when`(loanRepaymentRepository.findById(repayment.id!!)).thenReturn(Optional.of(repayment))
+
+        loanRepaymentService.voidRepayment(LoanRepaymentVoidRequest(repayment.id!!, "  wrong account  "))
+        loanRepaymentService.voidRepayment(LoanRepaymentVoidRequest(repayment.id!!, "   "))
+
+        val savedVoids = ArgumentCaptor.forClass(LoanRepaymentVoidEntity::class.java)
+        verify(loanRepaymentVoidRepository, times(2)).save(savedVoids.capture())
+        assertEquals("wrong account", savedVoids.allValues[0].reason)
+        assertNull(savedVoids.allValues[1].reason)
     }
 
     @Test

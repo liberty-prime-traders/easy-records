@@ -66,6 +66,26 @@ class LoanSearchTest {
     }
 
     @Test
+    fun `the loan date range filters the loan date column, lower bound inclusive and upper exclusive`() {
+        val predicate = LoanSearchQueryBuilder.buildPredicate(
+            bounded(LoanSearchParameters(loanDateFrom = LocalDate.of(2026, 1, 5), loanDateBefore = LocalDate.of(2026, 1, 9)))
+        )
+
+        assertTrue(predicate.whereClauses.contains("l.loan_date >= :${LoanSearchParameterNames.LOAN_DATE_FROM}"))
+        assertTrue(predicate.whereClauses.contains("l.loan_date < :${LoanSearchParameterNames.LOAN_DATE_BEFORE}"))
+        assertEquals(LocalDate.of(2026, 1, 5), predicate.params.getValue(LoanSearchParameterNames.LOAN_DATE_FROM))
+        assertEquals(LocalDate.of(2026, 1, 9), predicate.params.getValue(LoanSearchParameterNames.LOAN_DATE_BEFORE))
+    }
+
+    @Test
+    fun `loan references filter on the loan's own reference number`() {
+        val predicate = LoanSearchQueryBuilder.buildPredicate(bounded(LoanSearchParameters(references = listOf("LOAN000007"))))
+
+        assertTrue(predicate.whereClauses.contains("l.reference_number = ANY(:${LoanSearchParameterNames.REFERENCES})"))
+        assertEquals(listOf("LOAN000007"), (predicate.params.getValue(LoanSearchParameterNames.REFERENCES) as Array<*>).toList())
+    }
+
+    @Test
     fun `a status filter matches the loan_status codes, and all or no statuses filter nothing`() {
         fun statusClauses(statuses: Set<LoanStatus>) = LoanSearchQueryBuilder
             .buildPredicate(bounded(LoanSearchParameters(statuses = statuses)))

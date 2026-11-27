@@ -76,6 +76,27 @@ class UnitConversionGraphBuilderTest {
         assertEquals("No conversion target found from Dozen to Gram", exception.message)
     }
 
+    @Test
+    fun `each target carries the target unit's identity and the size ratio in lowest terms`() {
+        val graphBuilder = graphBuilderOver(
+            unitValueOf(pieceId, "Piece", "pc", countableGroupId, baseUnit = null),
+            unitValueOf(dozenId, "Dozen", "dz", countableGroupId, baseUnit = pieceId, unitsOfBasePerUnit = 12)
+        )
+
+        val fullGraph = graphBuilder.getOrLoad().getFullGraph()
+
+        val dozenToPiece = fullGraph.getValue(dozenId).getValue(pieceId)
+        assertEquals(pieceId, dozenToPiece.id)
+        assertEquals("Piece", dozenToPiece.name)
+        assertEquals("pc", dozenToPiece.code)
+        assertEquals(12L, dozenToPiece.numerator)
+        assertEquals(1L, dozenToPiece.denominator)
+        val pieceToDozen = fullGraph.getValue(pieceId).getValue(dozenId)
+        assertEquals("Dozen", pieceToDozen.name)
+        assertEquals(1L, pieceToDozen.numerator)
+        assertEquals(12L, pieceToDozen.denominator)
+    }
+
     private fun graphBuilderOver(vararg unitValues: UnitValueResponseDto): UnitConversionGraphBuilder {
         `when`(unitValueFetcher.getAllUnitValues()).thenReturn(unitValues.toList())
         return UnitConversionGraphBuilder(unitValueFetcher, unitGroupDataFetcher)

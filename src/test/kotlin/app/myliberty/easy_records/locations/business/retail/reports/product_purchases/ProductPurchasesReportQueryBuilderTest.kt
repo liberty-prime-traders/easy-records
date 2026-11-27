@@ -60,4 +60,63 @@ class ProductPurchasesReportQueryBuilderTest {
     assertTrue(sqlQuery.sql.contains("(pd.delivered_at, pdl.id) <"))
     assertEquals(cursor.id, sqlQuery.params[QueryParameterNames.CURSOR_ID])
   }
+
+  @Test
+  fun `summary filters bind the delivery window, the products, the categories and the suppliers it was given`() {
+    val categoryId = UUID.randomUUID()
+    val supplierId = UUID.randomUUID()
+
+    val context = ProductPurchasesReportQueryBuilder.buildPredicate(
+      ProductPurchasesReportParameters(
+        range.fromInclusive,
+        range.beforeExclusive,
+        locationProductIds = listOf(locationProductId),
+        categoryIds = listOf(categoryId),
+        supplierIds = listOf(supplierId)
+      ),
+      range
+    )
+
+    assertTrue(context.whereClauses.contains("pd.delivered_at >= :deliveredFrom"))
+    assertTrue(context.whereClauses.contains("pd.delivered_at < :deliveredBefore"))
+    assertEquals(range.fromInclusive, context.params["deliveredFrom"])
+    assertEquals(range.beforeExclusive, context.params["deliveredBefore"])
+    assertTrue(context.whereClauses.contains("pl.location_product_id = ANY(:locationProductIds)"))
+    assertEquals(listOf(locationProductId), (context.params["locationProductIds"] as Array<*>).toList())
+    assertTrue(context.whereClauses.contains("lp.category_id = ANY(:categoryIds)"))
+    assertEquals(listOf(categoryId), (context.params["categoryIds"] as Array<*>).toList())
+    assertTrue(context.whereClauses.contains("p.supplier_id = ANY(:supplierIds)"))
+    assertEquals(listOf(supplierId), (context.params["supplierIds"] as Array<*>).toList())
+  }
+
+  @Test
+  fun `summary without optional filters adds no product, category or supplier condition`() {
+    val context = ProductPurchasesReportQueryBuilder.buildPredicate(
+      ProductPurchasesReportParameters(range.fromInclusive, range.beforeExclusive),
+      range
+    )
+
+    assertFalse(context.params.containsKey("locationProductIds"))
+    assertFalse(context.params.containsKey("categoryIds"))
+    assertFalse(context.params.containsKey("supplierIds"))
+  }
+
+  @Test
+  fun `expansion binds the product, the supplier filter and the delivery window`() {
+    val supplierId = UUID.randomUUID()
+
+    val sqlQuery = ProductPurchasesReportQueryBuilder.buildDeliveryLinesQuery(
+      locationProductId,
+      ProductPurchasesDeliveryLinesParameters(range.fromInclusive, range.beforeExclusive, listOf(supplierId)),
+      range,
+      null
+    )
+
+    assertTrue(sqlQuery.sql.contains("pl.location_product_id = :locationProductId"))
+    assertEquals(locationProductId, sqlQuery.params["locationProductId"])
+    assertTrue(sqlQuery.sql.contains("p.supplier_id = ANY(:supplierIds)"))
+    assertEquals(listOf(supplierId), (sqlQuery.params["supplierIds"] as Array<*>).toList())
+    assertEquals(range.fromInclusive, sqlQuery.params["deliveredFrom"])
+    assertEquals(range.beforeExclusive, sqlQuery.params["deliveredBefore"])
+  }
 }

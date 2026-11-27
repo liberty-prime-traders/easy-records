@@ -104,6 +104,37 @@ Feature: Ordering from a supplier
       [{"locationProductId": "{{locationProductId:Bread}}", "userProvidedQuantityOrdered": 12, "unitCost": 2.5}]
       """
 
+  Scenario: A line added to a saved draft joins the existing line
+    Given a draft purchase from "Acme Dairy" with lines:
+      | product | quantity | unit cost |
+      | Milk    | 10       | 5.00      |
+    When I PUT to /secured/purchases/draft with payload:
+      """json
+      {
+        "id": "{{purchaseId}}",
+        "linesToAdd": [
+          {
+            "locationProductId": "{{locationProductId:Bread}}",
+            "quantityOrdered": 12,
+            "unitId": "{{unitValue}}",
+            "unitCost": 2.50
+          }
+        ]
+      }
+      """
+    Then the response status should be 200
+    And response contains details:
+      """json
+      {"purchaseStatus": "DRAFT", "orderedTotal": 80}
+      """
+    And PurchaseLine table should contain exactly these records:
+      """json
+      [
+        {"locationProductId": "{{locationProductId:Milk}}", "userProvidedQuantityOrdered": 10, "unitCost": 5},
+        {"locationProductId": "{{locationProductId:Bread}}", "userProvidedQuantityOrdered": 12, "unitCost": 2.5}
+      ]
+      """
+
   Scenario: A draft becomes an order without posting to stock or the books
     Given a draft purchase from "Acme Dairy" with lines:
       | product | quantity | unit cost |

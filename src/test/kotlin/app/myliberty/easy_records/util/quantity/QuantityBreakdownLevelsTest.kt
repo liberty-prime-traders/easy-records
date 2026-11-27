@@ -80,6 +80,34 @@ class QuantityBreakdownLevelsTest {
     assertEquals("2 Dozens 1 Bottle", render(breakdown, "25"))
   }
 
+  @Test
+  fun `a unit of the base unit's size created before it is skipped and the base unit takes the quantity`() {
+    val dozenId = UUID.randomUUID()
+    val earlierDozenId = UUID.randomUUID()
+    val sameSizeUnits = listOf(
+      BreakdownUnit(bottleId, "Bottle", 1, bottleId, createdOn),
+      BreakdownUnit(earlierDozenId, "Doz", 12, bottleId, createdOn.minusMinutes(1)),
+      BreakdownUnit(dozenId, "Dozen", 12, bottleId, createdOn)
+    )
+    val breakdown = QuantityBreakdown.forBaseUnit(sameSizeUnits, dozenId)
+
+    assertEquals("2 Dozens 1 Bottle", render(breakdown, "25"))
+  }
+
+  @Test
+  fun `a non-root unit the size of the root is skipped because the root carries the remainder`() {
+    val dozenId = UUID.randomUUID()
+    val eachId = UUID.randomUUID()
+    val units = listOf(
+      BreakdownUnit(bottleId, "Bottle", 1, bottleId, createdOn),
+      BreakdownUnit(eachId, "Each", 1, bottleId, createdOn),
+      BreakdownUnit(dozenId, "Dozen", 12, bottleId, createdOn)
+    )
+    val breakdown = QuantityBreakdown.forBaseUnit(units, dozenId)
+
+    assertEquals("1 Dozen 1 Bottle", render(breakdown, "13"))
+  }
+
   private fun render(quantityBreakdown: QuantityBreakdown, storageQuantity: String): String =
     quantityBreakdown.render(ExactQuantity.ofStorage(BigDecimal(storageQuantity)))
 }

@@ -271,6 +271,33 @@ class LoanServiceTest {
         assertEquals(listOf(Exception::class), transactional.rollbackFor.toList())
     }
 
+    @Test
+    fun `a loan is fetched by reference and rendered with its lender and no write`() {
+        `when`(loanRepository.findByReferenceNumber("LOAN000001")).thenReturn(loanEntity)
+        val expectedResponse = mock(LoanResponse::class.java)
+        `when`(
+            loanResponseBuilder.buildResponses(
+                listOf(loanMapper.toDto(loanEntity)), mapOf(lenderContactDto.id to lenderContactDto)
+            )
+        ).thenReturn(listOf(expectedResponse))
+
+        val loanResponse = loanService.getLoan("LOAN000001")
+
+        assertTrue(loanResponse === expectedResponse)
+        verify(loanRepository, never()).save(any(LoanEntity::class.java))
+        assertTrue(postedRequests.isEmpty())
+    }
+
+    @Test
+    fun `fetching an unknown loan reference fails naming the reference`() {
+        `when`(loanRepository.findByReferenceNumber("LOAN999999")).thenReturn(null)
+
+        val exception = assertThrows(LibertyGenericException::class.java) { loanService.getLoan("LOAN999999") }
+
+        assertEquals("Loan not found: LOAN999999", exception.message)
+        verifyNoInteractions(loanResponseBuilder)
+    }
+
     private fun savedLoan(): LoanEntity {
         val captor = ArgumentCaptor.forClass(LoanEntity::class.java)
         verify(loanRepository).save(captor.capture())

@@ -8,14 +8,17 @@ import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.mock
+import org.mockito.Mockito.`when`
 import java.math.BigDecimal
 import java.util.UUID
 
 class PurchasePaymentCeilingServiceTest {
 
+    private val purchaseLineRepository = mock(PurchaseLineRepository::class.java)
+    private val purchaseDeliveryDataFetcher = mock(PurchaseDeliveryDataFetcher::class.java)
     private val purchasePaymentCeilingService = PurchasePaymentCeilingService(
-        mock(PurchaseLineRepository::class.java),
-        mock(PurchaseDeliveryDataFetcher::class.java)
+        purchaseLineRepository,
+        purchaseDeliveryDataFetcher
     )
 
     private fun line(ordered: String, unitCost: String, delivered: String = "0", canceled: String = "0") =
@@ -107,5 +110,42 @@ class PurchasePaymentCeilingServiceTest {
 
         assertAmount("20.00", ceiling.amount)
         assertTrue(ceiling.isFullyDelivered)
+    }
+
+    @Test
+    fun `ceilings are computed per purchase from that purchase's own lines and delivered total`() {
+        val undeliveredPurchaseId = UUID.randomUUID()
+        val deliveredPurchaseId = UUID.randomUUID()
+        val emptyPurchaseId = UUID.randomUUID()
+        val undeliveredLine = line("10", "5.00").also { it.purchaseId = undeliveredPurchaseId }
+        val deliveredLine = line("4", "10.00", delivered = "4").also { it.purchaseId = deliveredPurchaseId }
+        val purchaseIds = setOf(undeliveredPurchaseId, deliveredPurchaseId, emptyPurchaseId)
+        `when`(purchaseLineRepository.findByPurchaseIdIn(purchaseIds)).thenReturn(listOf(undeliveredLine, deliveredLine))
+        `when`(purchaseDeliveryDataFetcher.calculateDeliveredTotals(purchaseIds)).thenReturn(
+            mapOf(
+                undeliveredPurchaseId to BigDecimal.ZERO,
+                deliveredPurchaseId to BigDecimal("44.00"),
+                emptyPurchaseId to BigDecimal.ZERO
+            )
+        )
+
+        val ceilingByPurchaseId = purchasePaymentCeilingService.computeCeilings(purchaseIds)
+
+        assertAmount("50.00", ceilingByPurchaseId.getValue(undeliveredPurchaseId).amount)
+        assertFalse(ceilingByPurchaseId.getValue(undeliveredPurchaseId).isFullyDelivered)
+        assertAmount("44.00", ceilingByPurchaseId.getValue(deliveredPurchaseId).amount)
+        assertTrue(ceilingByPurchaseId.getValue(deliveredPurchaseId).isFullyDelivered)
+        assertAmount("0", ceilingByPurchaseId.getValue(emptyPurchaseId).amount)
+    }
+
+    @Test
+    fun `ceiling of one purchase is the entry for that purchase`() {
+        val purchaseId = UUID.randomUUID()
+        val orderedLine = line("3", "2.00").also { it.purchaseId = purchaseId }
+        `when`(purchaseLineRepository.findByPurchaseIdIn(setOf(purchaseId))).thenReturn(listOf(orderedLine))
+        `when`(purchaseDeliveryDataFetcher.calculateDeliveredTotals(setOf(purchaseId)))
+            .thenReturn(mapOf(purchaseId to BigDecimal.ZERO))
+
+        assertAmount("6.00", purchasePaymentCeilingService.computeCeiling(purchaseId).amount)
     }
 }

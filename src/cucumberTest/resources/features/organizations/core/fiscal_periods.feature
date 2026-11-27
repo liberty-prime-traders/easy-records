@@ -35,3 +35,15 @@ Feature: Fiscal periods
       """json
       {"name": "Trial Period"}
       """
+
+  @regular-fiscal-period
+  Scenario: Closing the period that covers today is refused until it has ended
+    Given the open fiscal period is named "Trial Period"
+    And the open fiscal period is not a year-end period
+    When I close the open fiscal period
+    Then the response status should be 400
+    And the response error message should be "Period 'Trial Period' has not ended yet and cannot be closed"
+    And Fiscal_Period should match example:
+      """json
+      {"name": "Trial Period", "closedAt": null}
+      """

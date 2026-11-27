@@ -64,6 +64,22 @@ class PayablePurchaseFinderTest {
   }
 
   @Test
+  fun `returns what the search found, dropping the extra row beyond the payable limit`() {
+    val searchedPurchases = (1..PayablePurchaseFinder.MAX_PAYABLE_RESULTS + 1).map {
+      PurchaseEntity(
+        supplierId = supplierId, purchaseStatus = PurchaseStatus.ORDERED, paymentStatus = PaymentStatus.UNPAID,
+        dateOrdered = january.plusDays(it.toLong())
+      ).also { purchaseEntity -> purchaseEntity.id = UUID.randomUUID() }
+    }
+    doAnswer { searchedPurchases }.`when`(purchaseSearchFetcher)
+      .search(anyNonNull(), noCursor(), anyInt(), anyBoolean())
+
+    val payablePurchases = payablePurchaseFinder.findPayablePurchases(searchDto(january, january.plusMonths(1)))
+
+    assertEquals(searchedPurchases.take(PayablePurchaseFinder.MAX_PAYABLE_RESULTS), payablePurchases)
+  }
+
+  @Test
   fun `needs a range of at most a year, in order, before searching`() {
     assertThrows<LibertyGenericException> {
       payablePurchaseFinder.findPayablePurchases(searchDto(january, january.plusYears(1).plusDays(1)))

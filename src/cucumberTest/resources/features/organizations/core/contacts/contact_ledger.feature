@@ -223,3 +223,52 @@ Feature: Contact transaction ledger
         "hasMore": false
       }
       """
+
+  Scenario: A voided repayment is listed as a reversing row that restores what is owed
+    Given a lender named "Reversed Lender" exists
+    And a loan of "100.00" from the lender exists
+    And a repayment of "60.00" against the loan exists
+    And the repayment has been voided
+    When I POST to /secured/contacts/{{contact}}/ledger with payload:
+      """json
+      {"previousCursor": "", "requestedSize": 20, "parameters": {}}
+      """
+    Then the response status should be 200
+    And response contains details with exact lists in order:
+      """json
+      {
+        "contents": [
+          {
+            "sourceType": "LOAN_REPAYMENT_VOID",
+            "transactionAmount": 60,
+            "transactionBalanceEffect": "SUBTRACTS",
+            "netBalance": 100,
+            "netBalanceEffect": "SUBTRACTS"
+          },
+          {"sourceType": "LOAN_REPAYMENT", "transactionAmount": 60, "netBalance": 40},
+          {"sourceType": "LOAN", "transactionAmount": 100, "netBalance": 100}
+        ],
+        "hasMore": false
+      }
+      """
+
+  Scenario Outline: A ledger page size outside the allowed range is rejected
+    Given a lender named "Paged Lender" exists
+    When I POST to /secured/contacts/{{contact}}/ledger with payload:
+      """json
+      {"previousCursor": "", "requestedSize": <requestedSize>, "parameters": {}}
+      """
+    Then the response status should be 400
+
+    Examples:
+      | requestedSize |
+      | 0             |
+      | 201           |
+
+  Scenario: The ledger of an unknown contact is rejected
+    When I POST to /secured/contacts/00000000-0000-0000-0000-000000000001/ledger with payload:
+      """json
+      {"previousCursor": "", "requestedSize": 20, "parameters": {}}
+      """
+    Then the response status should be 400
+    And the response error message should be "Attempted to Update non-existent record"

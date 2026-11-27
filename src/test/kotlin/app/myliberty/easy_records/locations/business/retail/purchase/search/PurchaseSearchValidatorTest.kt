@@ -121,6 +121,27 @@ class PurchaseSearchValidatorTest {
     }
 
     @Test
+    fun `a purchase date range that is in order or a single instant is accepted`() {
+        val inOrder = validWindow.copy(purchaseDateFrom = windowStart, purchaseDateBefore = windowEnd)
+        val singleInstant = validWindow.copy(purchaseDateFrom = windowStart, purchaseDateBefore = windowStart)
+
+        assertDoesNotThrow { PurchaseSearchValidator.guardValidParameters(inOrder) }
+        assertDoesNotThrow { PurchaseSearchValidator.guardValidParameters(singleInstant) }
+    }
+
+    @Test
+    fun `a payable range in order or a single instant is accepted and a reversed one is refused`() {
+        assertDoesNotThrow { PurchaseSearchValidator.guardValidPayableRange(windowStart, windowEnd) }
+        assertDoesNotThrow { PurchaseSearchValidator.guardValidPayableRange(windowStart, windowStart) }
+
+        val refusal = assertThrows(LibertyGenericException::class.java) {
+            PurchaseSearchValidator.guardValidPayableRange(windowEnd, windowStart)
+        }
+
+        assertEquals("orderedFrom must not be after orderedBefore", refusal.message)
+    }
+
+    @Test
     fun `a page size outside 1 to 200 is refused and the limits are accepted`() {
         listOf(1, 200).forEach { pageSize ->
             assertDoesNotThrow { PurchaseSearchValidator.guardValidPageSize(pageSize) }

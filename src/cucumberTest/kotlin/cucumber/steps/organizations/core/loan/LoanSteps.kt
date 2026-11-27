@@ -4,13 +4,14 @@ import app.myliberty.easy_records.cucumber.support.ApiClient
 import app.myliberty.easy_records.cucumber.support.TestDates
 import app.myliberty.easy_records.cucumber.support.AccountBalanceReader
 import app.myliberty.easy_records.cucumber.support.AuthenticatedRequestFactory
+import app.myliberty.easy_records.cucumber.support.LedgerRowReader
 import app.myliberty.easy_records.cucumber.support.context.InjectContext
 import app.myliberty.easy_records.cucumber.support.context.ResponseContext
 import app.myliberty.easy_records.cucumber.support.context.TransientKey
 import app.myliberty.easy_records.organizations.business.core.contact.api.ContactInsertDto
 import app.myliberty.easy_records.organizations.business.core.contact.api.ContactType
 import app.myliberty.easy_records.organizations.business.core.contact.api.IdentityType
-import app.myliberty.easy_records.temp.LoanTestDatabase
+import app.myliberty.easy_records.organizations.business.core.ledger.api.LedgerSourceType
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import io.cucumber.java.en.Given
@@ -32,7 +33,7 @@ class LoanSteps(
   private val apiClient: ApiClient,
   private val authenticatedRequestFactory: AuthenticatedRequestFactory,
   private val injectContext: InjectContext,
-  private val loanTestDatabase: LoanTestDatabase,
+  private val ledgerRowReader: LedgerRowReader,
   private val accountBalanceReader: AccountBalanceReader
 ) {
 
@@ -129,7 +130,7 @@ class LoanSteps(
 
   @Then("no loan ledger groups should exist")
   fun verifyNoLoanLedgerGroups() {
-    assertEquals(0, loanTestDatabase.countLedgerGroupsOfType("LN"))
+    assertEquals(0, ledgerRowReader.countGroupsOfType(LedgerSourceType.LOAN))
   }
 
   @Then("exactly one request should succeed in every round")

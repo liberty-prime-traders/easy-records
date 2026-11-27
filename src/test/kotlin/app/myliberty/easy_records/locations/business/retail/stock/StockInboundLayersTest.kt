@@ -59,6 +59,15 @@ class StockInboundLayersTest {
     }
 
     @Test
+    fun `a layer of no quantity has a zero rate instead of dividing by zero`() {
+        val layer = StockInboundLayers.newLayer(
+            spec("1", 18L, "100.0000").copy(storageQuantity = ExactQuantity.ofStorage(BigDecimal.ZERO))
+        )
+
+        assertEquals(0, BigDecimal.ZERO.compareTo(layer.unitCost))
+    }
+
+    @Test
     fun `the inbound movement stores the typed text, the captured ratio and both breakdown texts`() {
         val spec = spec("2", 18L, "200.0000")
         val layer = StockInboundLayers.newLayer(spec).also { it.id = UUID.randomUUID() }
