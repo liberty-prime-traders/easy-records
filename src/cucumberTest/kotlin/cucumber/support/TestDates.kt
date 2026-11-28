@@ -11,7 +11,13 @@ object TestDates {
 
     private val ORGANIZATION_ZONE: ZoneId = ZoneId.of("Africa/Addis_Ababa")
 
+    private val DATABASE_ZONE: ZoneId = ZoneId.of("UTC")
+
     fun today(): LocalDate = LocalDate.now(ORGANIZATION_ZONE)
+
+    // A timestamp read back from the database is in UTC, which is a different calendar day from the organization's
+    // for three hours of every day.
+    fun todayInDatabaseZone(): LocalDate = LocalDate.now(DATABASE_ZONE)
 
     fun now(): OffsetDateTime = OffsetDateTime.now(ORGANIZATION_ZONE)
 }

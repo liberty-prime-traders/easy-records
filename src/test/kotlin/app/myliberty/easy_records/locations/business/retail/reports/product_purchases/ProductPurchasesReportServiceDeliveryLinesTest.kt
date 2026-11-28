@@ -110,6 +110,21 @@ class ProductPurchasesReportServiceDeliveryLinesTest {
   }
 
   @Test
+  fun `each delivery line carries its own purchase and delivery reference numbers`() {
+    val rows = listOf(
+      rawRow(from.plusDays(2), purchaseReferenceNumber = "PO000007", deliveryReferenceNumber = "DL000009"),
+      rawRow(from.plusDays(1), purchaseReferenceNumber = "PO000003", deliveryReferenceNumber = "DL000004")
+    )
+    `when`(productPurchasesReportFetcher.fetchDeliveryLines(locationProductId, deliveryLinesParameters, range, null, 2))
+      .thenReturn(rows)
+
+    val page = service.searchDeliveryLines(locationProductId, pageRequest(previousCursor = "", requestedSize = 2))
+
+    assertEquals(listOf("PO000007", "PO000003"), page.contents.map { it.purchaseReferenceNumber })
+    assertEquals(listOf("DL000009", "DL000004"), page.contents.map { it.deliveryReferenceNumber })
+  }
+
+  @Test
   fun `an empty page keeps the cursor it was given`() {
     val previousCursor = KeysetSearchCursor(from.plusDays(1), UUID.randomUUID())
     `when`(
@@ -161,10 +176,14 @@ class ProductPurchasesReportServiceDeliveryLinesTest {
     parameters = deliveryLinesParameters
   )
 
-  private fun rawRow(deliveredAt: OffsetDateTime) = ProductPurchasesDeliveryLineRawRow(
+  private fun rawRow(
+    deliveredAt: OffsetDateTime,
+    purchaseReferenceNumber: String = "PO000001",
+    deliveryReferenceNumber: String = "DL000001"
+  ) = ProductPurchasesDeliveryLineRawRow(
     id = UUID.randomUUID(),
-    purchaseReferenceNumber = "PO000001",
-    deliveryReferenceNumber = "DL000001",
+    purchaseReferenceNumber = purchaseReferenceNumber,
+    deliveryReferenceNumber = deliveryReferenceNumber,
     deliveredAt = deliveredAt,
     supplierId = supplierId,
     unitId = baseUnitId,

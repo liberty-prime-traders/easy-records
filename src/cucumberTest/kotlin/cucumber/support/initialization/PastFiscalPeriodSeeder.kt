@@ -1,5 +1,6 @@
 package app.myliberty.easy_records.cucumber.support.initialization
 
+import app.myliberty.easy_records.cucumber.support.TestDates
 import app.myliberty.easy_records.cucumber.support.database.SchemaScopedRunner
 import app.myliberty.easy_records.organizations.business.core.accounting_config.api.OrgAccountingConfigService
 import app.myliberty.easy_records.organizations.business.core.fiscal_period.FiscalPeriodEntity
@@ -18,10 +19,13 @@ class PastFiscalPeriodSeeder(
 
   fun seed() {
     schemaScopedRunner.run(FiscalPeriodEntity::class.java) {
-      val currentPeriod = checkNotNull(fiscalPeriodRepository.findTopByOrderByEndDateDesc()) {
+      // Generation also creates the next period when today is near a period end, so the latest period is not today's.
+      val today = TestDates.today()
+      val allPeriods = fiscalPeriodRepository.findAll()
+      val currentPeriod = checkNotNull(allPeriods.firstOrNull { today in it.startDate..it.endDate }) {
         "Generate the current fiscal period before seeding a past one"
       }
-      if (fiscalPeriodRepository.findAll().any { it.endDate < currentPeriod.startDate }) return@run
+      if (allPeriods.any { it.endDate < currentPeriod.startDate }) return@run
       val fiscalYearEndMonth = checkNotNull(orgAccountingConfigService.getConfig()) {
         "Accounting configuration has not been initialized"
       }.fiscalYearEndMonth

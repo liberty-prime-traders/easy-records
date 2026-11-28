@@ -115,3 +115,137 @@ Feature: Stock layers created by a delivery
         {"storageBatchSize": 6, "batchCost": 36.00, "unitCost": 6, "status": "ACTIVE"}
       ]
       """
+
+  Scenario: A stock decrease empties the oldest layer first and leaves the newer one partly used
+    Given stock of "Milk" is delivered by "Acme Dairy" in layers:
+      | quantity | unit cost |
+      | 5        | 5.00      |
+      | 6        | 6.00      |
+    And the location product named "Milk" should have "11" on hand
+    When I POST to /secured/stock-adjustments with payload:
+      """json
+      {
+        "locationProductId": "{{locationProductId:Milk}}",
+        "category": "INTERNAL_USE",
+        "quantity": 7,
+        "unitId": "{{unitValue}}",
+        "note": "Staff breakfast"
+      }
+      """
+    Then the response status should be 200
+    And response contains details:
+      """json
+      {"category": "INTERNAL_USE", "direction": "DECREASE", "quantity": 7, "quantityText": "7 Pieces", "totalCost": 37}
+      """
+    And the location product named "Milk" should have "4" on hand
+    And StockEntry table should contain exactly these records:
+      """json
+      [
+        {"storageBatchSize": 5, "storageQuantityRemaining": 0, "batchCost": 25.00, "costRemaining": 0.00},
+        {"storageBatchSize": 6, "storageQuantityRemaining": 4, "batchCost": 36.00, "costRemaining": 24.00}
+      ]
+      """
+    And StockMovement table should contain exactly these records:
+      """json
+      [
+        {"movementType": "PURCHASE_RECEIVED", "storageMovedQuantity": 5, "storageRemainingQuantity": 5, "movedCost": 25.00},
+        {"movementType": "PURCHASE_RECEIVED", "storageMovedQuantity": 6, "storageRemainingQuantity": 11, "movedCost": 36.00},
+        {
+          "movementType": "STOCK_ADJUSTMENT_DECREASE", "storageMovedQuantity": 5, "storageRemainingQuantity": 6,
+          "movedCost": 25.00, "wholeLineQuantityText": "7 Pieces"
+        },
+        {
+          "movementType": "STOCK_ADJUSTMENT_DECREASE", "storageMovedQuantity": 2, "storageRemainingQuantity": 4,
+          "movedCost": 12.00, "wholeLineQuantityText": "7 Pieces"
+        }
+      ]
+      """
+
+  Scenario: A later decrease finishes the partly used layer before it opens the next one
+    Given stock of "Milk" is delivered by "Acme Dairy" in layers:
+      | quantity | unit cost |
+      | 5        | 5.00      |
+      | 6        | 6.00      |
+    And the location product named "Milk" should have "11" on hand
+    And I POST to /secured/stock-adjustments with payload:
+      """json
+      {
+        "locationProductId": "{{locationProductId:Milk}}",
+        "category": "INTERNAL_USE",
+        "quantity": 3,
+        "unitId": "{{unitValue}}",
+        "note": "Staff breakfast"
+      }
+      """
+    And the location product named "Milk" should have "8" on hand
+    When I POST to /secured/stock-adjustments with payload:
+      """json
+      {
+        "locationProductId": "{{locationProductId:Milk}}",
+        "category": "INTERNAL_USE",
+        "quantity": 4,
+        "unitId": "{{unitValue}}",
+        "note": "Tasting table"
+      }
+      """
+    Then the response status should be 200
+    And response contains details:
+      """json
+      {"quantity": 4, "quantityText": "4 Pieces", "totalCost": 22, "note": "Tasting table"}
+      """
+    And the location product named "Milk" should have "4" on hand
+    And StockEntry table should contain exactly these records:
+      """json
+      [
+        {"storageBatchSize": 5, "storageQuantityRemaining": 0, "batchCost": 25.00, "costRemaining": 0.00},
+        {"storageBatchSize": 6, "storageQuantityRemaining": 4, "batchCost": 36.00, "costRemaining": 24.00}
+      ]
+      """
+    And StockMovement table should contain exactly these records:
+      """json
+      [
+        {"movementType": "PURCHASE_RECEIVED", "storageMovedQuantity": 5, "storageRemainingQuantity": 5, "movedCost": 25.00},
+        {"movementType": "PURCHASE_RECEIVED", "storageMovedQuantity": 6, "storageRemainingQuantity": 11, "movedCost": 36.00},
+        {
+          "movementType": "STOCK_ADJUSTMENT_DECREASE", "storageMovedQuantity": 3, "storageRemainingQuantity": 8,
+          "movedCost": 15.00, "wholeLineQuantityText": "3 Pieces"
+        },
+        {
+          "movementType": "STOCK_ADJUSTMENT_DECREASE", "storageMovedQuantity": 2, "storageRemainingQuantity": 6,
+          "movedCost": 10.00, "wholeLineQuantityText": "4 Pieces"
+        },
+        {
+          "movementType": "STOCK_ADJUSTMENT_DECREASE", "storageMovedQuantity": 2, "storageRemainingQuantity": 4,
+          "movedCost": 12.00, "wholeLineQuantityText": "4 Pieces"
+        }
+      ]
+      """
+
+  Scenario: A stock decrease larger than what is on hand is refused and every layer stays whole
+    Given stock of "Milk" is delivered by "Acme Dairy" in layers:
+      | quantity | unit cost |
+      | 5        | 5.00      |
+      | 6        | 6.00      |
+    And the location product named "Milk" should have "11" on hand
+    When I POST to /secured/stock-adjustments with payload:
+      """json
+      {
+        "locationProductId": "{{locationProductId:Milk}}",
+        "category": "INTERNAL_USE",
+        "quantity": 12,
+        "unitId": "{{unitValue}}",
+        "note": "Staff breakfast"
+      }
+      """
+    Then the response status should be 400
+    And the response error should contain "Milk. Available: 11 Pieces, Requested: 12 Pieces"
+    And the location product named "Milk" should have "11" on hand
+    And StockEntry table should contain exactly these records:
+      """json
+      [
+        {"storageBatchSize": 5, "storageQuantityRemaining": 5, "batchCost": 25.00, "costRemaining": 25.00},
+        {"storageBatchSize": 6, "storageQuantityRemaining": 6, "batchCost": 36.00, "costRemaining": 36.00}
+      ]
+      """
+    And StockMovement table should have exactly 2 records in database
+    And StockAdjustment table should have no records in database

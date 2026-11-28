@@ -113,7 +113,7 @@ Feature: Organization users, admins and liberty access
     Then response returns with status 204
     And Organization_Admin table should contain exactly these records:
       """json
-      [{"endOn": "^{{today}}.*$"}]
+      [{"endOn": "^{{todayUtc}}.*$"}]
       """
 
   Scenario: Only organization admins can list the admin history

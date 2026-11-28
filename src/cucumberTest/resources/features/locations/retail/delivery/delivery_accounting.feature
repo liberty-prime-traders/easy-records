@@ -74,6 +74,53 @@ Feature: Books posted by a delivery
     And every parent account should equal the sum of its children
     And LedgerEntryGroup table should have exactly 2 records in database
 
+  Scenario: Two suppliers' deliveries post their own groups and each supplier's payable stays separate
+    Given a supplier named "Bulk Bakers" exists
+    And a delivery is recorded on the purchase with lines:
+      | product | quantity | unit cost |
+      | Milk    | 4        | 5.00      |
+    And the ledger group for "{{deliveryReference}}" should have source type "PURCHASE_DELIVERY"
+    And an order from "Bulk Bakers" with lines:
+      | product | quantity | unit cost |
+      | Bread   | 12       | 2.50      |
+    When a delivery is recorded on the purchase with lines:
+      | product | quantity | unit cost |
+      | Bread   | 12       | 2.50      |
+    Then the ledger group for "{{deliveryReference->1}}" should have source type "PURCHASE_DELIVERY"
+    And the ledger entries for "{{deliveryReference->0}}" should be exactly:
+      | account     | name           | type   | amount |
+      | 001.001.003 | Inventory      | debit  | 20.00  |
+      | 002.001.001 | Trade Payables | credit | 20.00  |
+    And the ledger entries for "{{deliveryReference->1}}" should be exactly:
+      | account     | name           | type   | amount |
+      | 001.001.003 | Inventory      | debit  | 30.00  |
+      | 002.001.001 | Trade Payables | credit | 30.00  |
+    And the subledger entries for "{{deliveryReference->0}}" should be exactly:
+      | contact                          | payable | receivable | running payable | running receivable |
+      | {{supplierReference:Acme Dairy}} | 20.00   | 0.00       | 20.00           | 0.00               |
+    And the subledger entries for "{{deliveryReference->1}}" should be exactly:
+      | contact                           | payable | receivable | running payable | running receivable |
+      | {{supplierReference:Bulk Bakers}} | 30.00   | 0.00       | 30.00           | 0.00               |
+    And the account balances should be:
+      | account     | name             | balance |
+      | 001.001.003 | Inventory        | 50.00   |
+      | 001.001     | Current Assets   | 50.00   |
+      | 001         | Assets           | 50.00   |
+      | 002.001.001 | Trade Payables   | 50.00   |
+      | 002.001     | Accounts Payable | 50.00   |
+      | 002         | Liabilities      | 50.00   |
+    And no other account should have a balance
+    When I GET to /secured/contacts
+    Then response contains item with details:
+      """json
+      {"referenceNumber": "{{supplierReference:Acme Dairy}}", "payableBalance": 20, "receivableBalance": 0}
+      """
+    And response contains item with details:
+      """json
+      {"referenceNumber": "{{supplierReference:Bulk Bakers}}", "payableBalance": 30, "receivableBalance": 0}
+      """
+    And LedgerEntryGroup table should have exactly 2 records in database
+
   Scenario: The delivered cost, not the order cost, is what is booked
     Given a delivery is recorded on the purchase with lines:
       | product | quantity | unit cost |

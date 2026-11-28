@@ -115,7 +115,8 @@ class TestHooks(
     check(response.statusCode == 200) { "Failed to move the fiscal year end: ${response.asString()}" }
   }
 
-  // Generation starts today on an empty calendar, so only today's period is open; @past-fiscal-periods adds a past one.
+  // Generation starts today on an empty calendar, so no period is in the past; @past-fiscal-periods adds one. Near a
+  // period end it also creates the next period, so the latest period is not always today's.
   private fun generateOpenFiscalPeriod() {
     val response = apiClient.post("/secured/fiscal-periods/nudge")
     check(response.statusCode == 200) { "Failed to generate fiscal periods: ${response.asString()}" }

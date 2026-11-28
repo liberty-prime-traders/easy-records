@@ -3,6 +3,8 @@ package app.myliberty.easy_records.util.quantity
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import app.myliberty.easy_records.util.exceptions.LibertyGenericException
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertNotEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
@@ -50,5 +52,54 @@ class UserProvidedQuantityTest {
     fun `it travels as a bare JSON number in both directions`() {
         assertEquals("2.5", objectMapper.writeValueAsString(UserProvidedQuantity.of(BigDecimal("2.5"))))
         assertEquals(UserProvidedQuantity.of(BigDecimal("2.5")), objectMapper.readValue("2.5", UserProvidedQuantity::class.java))
+    }
+
+    @Test
+    fun `a third significant decimal is refused with the decimal places message and two are accepted`() {
+        val exception = assertThrows(LibertyGenericException::class.java) { UserProvidedQuantity.of(BigDecimal("1.255")) }
+
+        assertEquals("Quantity can have at most 2 decimal places", exception.message)
+        assertEquals(BigDecimal("1.25"), UserProvidedQuantity.of(BigDecimal("1.25")).toBigDecimal())
+        assertEquals(BigDecimal("0.01"), UserProvidedQuantity.of(BigDecimal("0.01")).toBigDecimal())
+    }
+
+    @Test
+    fun `a tiny nonzero quantity below two decimals is refused rather than treated as zero`() {
+        assertThrows(LibertyGenericException::class.java) { UserProvidedQuantity.of(BigDecimal("0.001")) }
+    }
+
+    @Test
+    fun `only zero reads as zero`() {
+        assertTrue(UserProvidedQuantity.of(BigDecimal("0")).isZero())
+        assertFalse(UserProvidedQuantity.of(BigDecimal("0.01")).isZero())
+        assertFalse(UserProvidedQuantity.of(BigDecimal("5")).isZero())
+    }
+
+    @Test
+    fun `a small negative quantity is rejected with the negative message`() {
+        val exception = assertThrows(LibertyGenericException::class.java) { UserProvidedQuantity.of(BigDecimal("-0.01")) }
+
+        assertEquals("Quantity must not be negative", exception.message)
+    }
+
+    @Test
+    fun `a quantity just under the maximum is accepted and keeps its value`() {
+        val justUnderMaximum = QuantityLimits.MAX_USER_QUANTITY.subtract(BigDecimal("0.01"))
+
+        assertEquals(justUnderMaximum, UserProvidedQuantity.of(justUnderMaximum).toBigDecimal())
+    }
+
+    @Test
+    fun `quantities of different values are not equal and never equal a bare number`() {
+        val quantity = UserProvidedQuantity.of(BigDecimal("1.5"))
+
+        assertNotEquals(quantity, UserProvidedQuantity.of(BigDecimal("1.51")))
+        assertFalse(quantity.equals(BigDecimal("1.5")))
+    }
+
+    @Test
+    fun `a JSON number outside the limits is refused on the way in`() {
+        assertThrows(Exception::class.java) { objectMapper.readValue("-1", UserProvidedQuantity::class.java) }
+        assertThrows(Exception::class.java) { objectMapper.readValue("1.234", UserProvidedQuantity::class.java) }
     }
 }

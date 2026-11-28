@@ -55,6 +55,7 @@ class InjectContext {
 
   private fun resolvePlaceholder(token: String): String? {
     if (token == TODAY) return TestDates.today().toString()
+    if (token == TODAY_IN_DATABASE_ZONE) return TestDates.todayInDatabaseZone().toString()
     if (token == NOW) return TestDates.now().toString()
     if (token == DAY_AGO) return TestDates.now().minusDays(1).toString()
     if (token == HALF_DAY_AGO) return TestDates.now().minusHours(12).toString()
@@ -81,6 +82,7 @@ class InjectContext {
 
   companion object {
     private const val TODAY = "today"
+    private const val TODAY_IN_DATABASE_ZONE = "todayUtc"
     private const val NOW = "now"
     private const val DAY_AGO = "dayAgo"
     private const val HALF_DAY_AGO = "halfDayAgo"

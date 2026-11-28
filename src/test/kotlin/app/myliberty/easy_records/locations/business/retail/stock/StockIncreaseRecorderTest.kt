@@ -5,6 +5,7 @@ import app.myliberty.easy_records.locations.business.core.lock.api.EntityAdvisor
 import app.myliberty.easy_records.locations.business.retail.stock.api.read.StockBalanceFetcher
 import app.myliberty.easy_records.organizations.business.retail.stock_item_source.api.StockItemSource
 import app.myliberty.easy_records.organizations.business.retail.stock_movement_reason.api.MovementType
+import app.myliberty.easy_records.util.business.lock.LockNamespaces
 import app.myliberty.easy_records.util.quantity.BreakdownUnit
 import app.myliberty.easy_records.util.quantity.ExactQuantity
 import app.myliberty.easy_records.util.quantity.QuantityBreakdown
@@ -13,6 +14,10 @@ import org.junit.jupiter.api.Test
 import org.mockito.ArgumentMatchers.any
 import org.mockito.ArgumentMatchers.anyList
 import org.mockito.ArgumentMatchers.anyCollection
+import org.mockito.ArgumentMatchers.anyString
+import org.mockito.Mockito.inOrder
+import org.mockito.Mockito.times
+import org.mockito.Mockito.verify
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.verifyNoInteractions
 import org.mockito.Mockito.`when`
@@ -133,5 +138,63 @@ class StockIncreaseRecorderTest {
         stockIncreaseRecorder.record(emptyList())
 
         verifyNoInteractions(entityAdvisoryLock, stockBalanceFetcher, stockEntryRepository, stockMovementRepository)
+    }
+
+    private fun stubBalancesBreakdownsAndEntrySaves() {
+        `when`(stockBalanceFetcher.getLatestBalances(anyCollection())).thenReturn(
+            mapOf(firstLocationProductId to BigDecimal("0"), secondLocationProductId to BigDecimal("0"))
+        )
+        `when`(productStockBreakdownProvider.forLocationProducts(anyCollection())).thenReturn(
+            mapOf(firstLocationProductId to pieceBreakdown, secondLocationProductId to pieceBreakdown)
+        )
+        `when`(stockEntryRepository.save(any(StockEntryEntity::class.java))).thenAnswer { invocation ->
+            invocation.getArgument<StockEntryEntity>(0).also { it.id = UUID.randomUUID() }
+        }
+    }
+
+    @Test
+    fun `the product lock is taken for the increased product before its balance is read or any stock is written`() {
+        stubBalancesBreakdownsAndEntrySaves()
+
+        stockIncreaseRecorder.record(spec(firstLocationProductId, "10", "LINE-1"))
+
+        val lockBeforeReadAndWrites = inOrder(
+            entityAdvisoryLock, stockBalanceFetcher, stockEntryRepository, stockMovementRepository
+        )
+        lockBeforeReadAndWrites.verify(entityAdvisoryLock).acquire(LockNamespaces.PRODUCT, setOf(firstLocationProductId))
+        lockBeforeReadAndWrites.verify(stockBalanceFetcher).getLatestBalances(listOf(firstLocationProductId))
+        lockBeforeReadAndWrites.verify(stockEntryRepository).save(any(StockEntryEntity::class.java))
+        lockBeforeReadAndWrites.verify(stockMovementRepository).saveAll(anyList<StockMovementEntity>())
+    }
+
+    @Test
+    fun `every distinct product in a batch is locked once and a repeated product is not locked twice`() {
+        stubBalancesBreakdownsAndEntrySaves()
+
+        stockIncreaseRecorder.record(
+            listOf(
+                spec(firstLocationProductId, "10", "LINE-1"),
+                spec(secondLocationProductId, "3", "LINE-2"),
+                spec(firstLocationProductId, "20", "LINE-3"),
+            )
+        )
+
+        verify(entityAdvisoryLock, times(1)).acquire(
+            LockNamespaces.PRODUCT, setOf(firstLocationProductId, secondLocationProductId)
+        )
+        verify(entityAdvisoryLock, times(1)).acquire(
+            anyString(), anyCollection<UUID>()
+        )
+    }
+
+    @Test
+    fun `each separate increase takes its own lock for its own product`() {
+        stubBalancesBreakdownsAndEntrySaves()
+
+        stockIncreaseRecorder.record(spec(firstLocationProductId, "10", "LINE-1"))
+        stockIncreaseRecorder.record(spec(secondLocationProductId, "3", "LINE-2"))
+
+        verify(entityAdvisoryLock).acquire(LockNamespaces.PRODUCT, setOf(firstLocationProductId))
+        verify(entityAdvisoryLock).acquire(LockNamespaces.PRODUCT, setOf(secondLocationProductId))
     }
 }

@@ -315,6 +315,108 @@ Feature: Product purchases report
       {"hasMore": false, "contents": [{"supplierName": "Acme Dairy", "lineTotal": 20.00}]}
       """
 
+  Scenario: A revised line is left out of the totals and only its replacement is counted
+    Given the delivery line of "Milk" on delivery "{{deliveryReference->0}}" is remembered
+    When I POST to /secured/deliveries/line-revisions with payload:
+      """json
+      {
+        "revisedDeliveryLineId": "{{deliveryLineId:Milk}}",
+        "userProvidedQuantityDelivered": 2,
+        "unitId": "{{unitValue:pc}}",
+        "unitCost": 7.00,
+        "reason": "Supplier short-shipped"
+      }
+      """
+    Then the response status should be 200
+    And response contains details:
+      """json
+      {
+        "deliveries": [
+          {
+            "lines": [
+              {"locationProduct": {"productName": "Milk"}, "quantityDelivered": 4, "unitCost": 5, "status": "REVISED"},
+              {"locationProduct": {"productName": "Milk"}, "quantityDelivered": 2, "unitCost": 7, "status": "ACTIVE"}
+            ]
+          }
+        ]
+      }
+      """
+    And the location product named "Milk" should have "8" on hand
+    And PurchaseDeliveryLine table should have exactly 4 records in database
+    And StockEntry table should contain exactly these records:
+      """json
+      [
+        {"storageBatchSize": 4, "storageQuantityRemaining": 0, "status": "REPLACED"},
+        {"storageBatchSize": 2, "storageQuantityRemaining": 2, "status": "ACTIVE"},
+        {"storageBatchSize": 5, "storageQuantityRemaining": 5, "status": "ACTIVE"},
+        {"storageBatchSize": 6, "storageQuantityRemaining": 6, "status": "ACTIVE"}
+      ]
+      """
+    When I POST to /secured/product-purchases-report/summary with payload:
+      """json
+      {
+        "deliveredFrom": "{{dayAgo}}",
+        "deliveredBefore": "{{dayAhead}}",
+        "locationProductIds": ["{{locationProductId:Milk}}"]
+      }
+      """
+    Then the response status should be 200
+    And response contains details with exact lists in order:
+      """json
+      [
+        {
+          "productName": "Milk",
+          "deliveryLineCount": 2,
+          "receivedQuantityBreakdown": "8 Pieces",
+          "totalCost": 50.00,
+          "averageCostPerBaseUnit": "KES 6.25"
+        }
+      ]
+      """
+
+  Scenario: Expanding a product still lists its revised line next to the replacement
+    Given the delivery line of "Milk" on delivery "{{deliveryReference->0}}" is remembered
+    And I POST to /secured/deliveries/line-revisions with payload:
+      """json
+      {
+        "revisedDeliveryLineId": "{{deliveryLineId:Milk}}",
+        "userProvidedQuantityDelivered": 2,
+        "unitId": "{{unitValue:pc}}",
+        "unitCost": 7.00,
+        "reason": "Supplier short-shipped"
+      }
+      """
+    And the location product named "Milk" should have "8" on hand
+    When I POST to /secured/product-purchases-report/{{locationProductId:Milk}}/delivery-lines with payload:
+      """json
+      {
+        "previousCursor": "",
+        "requestedSize": 10,
+        "parameters": {"deliveredFrom": "{{dayAgo}}", "deliveredBefore": "{{dayAhead}}"}
+      }
+      """
+    Then the response status should be 200
+    And response contains details with exact lists:
+      """json
+      {
+        "hasMore": false,
+        "contents": [
+          {
+            "supplierName": "Bulk Bakers", "quantityDeliveredText": "6 Pieces",
+            "unitCost": 6.00, "lineTotal": 36.00, "status": "ACTIVE"
+          },
+          {
+            "supplierName": "Acme Dairy", "quantityDeliveredText": "4 Pieces",
+            "unitCost": 5.00, "lineTotal": 20.00, "status": "REVISED"
+          },
+          {
+            "supplierName": "Acme Dairy", "quantityDeliveredText": "2 Pieces",
+            "unitCost": 7.00, "lineTotal": 14.00, "status": "ACTIVE"
+          }
+        ]
+      }
+      """
+
   Scenario: A summary without both dates is rejected
     When I POST to /secured/product-purchases-report/summary with payload:
       """json

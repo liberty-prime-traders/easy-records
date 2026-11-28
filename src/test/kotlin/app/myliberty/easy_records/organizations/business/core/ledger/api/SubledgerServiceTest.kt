@@ -17,6 +17,7 @@ import app.myliberty.easy_records.util.queries.KeysetSearchCursor
 import app.myliberty.easy_records.util.ui_models.BalanceEffect
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertSame
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
@@ -182,6 +183,98 @@ class SubledgerServiceTest {
         assertEquals(0, BigDecimal("2").compareTo(driftedBalance.runningReceivable))
         assertEquals(BigDecimal("5.0"), matchingBalance.runningPayable)
         verify(subledgerBalanceRepository, never()).save(driftedBalance)
+    }
+
+    private fun stubStoredBalanceAndEntryTotals(
+        storedBalance: SubledgerBalanceEntity,
+        expectedPayable: String,
+        expectedReceivable: String
+    ) {
+        val contacts = setOf(storedBalance.contactReferenceNumber)
+        `when`(subledgerEntryRepository.sumAmountsForContacts(contacts)).thenReturn(
+            listOf(
+                StubSubledgerAmountTotals(
+                    storedBalance.contactReferenceNumber, BigDecimal(expectedPayable), BigDecimal(expectedReceivable)
+                )
+            )
+        )
+        `when`(subledgerBalanceRepository.findByContactReferenceNumberIn(contacts)).thenReturn(listOf(storedBalance))
+    }
+
+    @Test
+    fun `reconciling corrects a stored balance whose payable alone drifted and keeps its receivable`() {
+        val storedBalance = SubledgerBalanceEntity(contactReferenceNumber, BigDecimal("9.0000"), BigDecimal("7.0000"))
+        stubStoredBalanceAndEntryTotals(storedBalance, "5.0000", "7.0000")
+
+        subledgerService.reconcileBalances(setOf(contactReferenceNumber))
+
+        assertEquals(0, BigDecimal("5").compareTo(storedBalance.runningPayable))
+        assertEquals(0, BigDecimal("7").compareTo(storedBalance.runningReceivable))
+        verify(subledgerBalanceRepository, never()).save(storedBalance)
+    }
+
+    @Test
+    fun `reconciling corrects a stored balance whose receivable alone drifted and keeps its payable`() {
+        val storedBalance = SubledgerBalanceEntity(contactReferenceNumber, BigDecimal("5.0000"), BigDecimal("1.0000"))
+        stubStoredBalanceAndEntryTotals(storedBalance, "5.0000", "7.0000")
+
+        subledgerService.reconcileBalances(setOf(contactReferenceNumber))
+
+        assertEquals(0, BigDecimal("5").compareTo(storedBalance.runningPayable))
+        assertEquals(0, BigDecimal("7").compareTo(storedBalance.runningReceivable))
+        verify(subledgerBalanceRepository, never()).save(storedBalance)
+    }
+
+    @Test
+    fun `reconciling zeroes a stored balance when the contact has no entries left`() {
+        val storedBalance = SubledgerBalanceEntity(contactReferenceNumber, BigDecimal("3.0000"), BigDecimal("4.0000"))
+        `when`(subledgerEntryRepository.sumAmountsForContacts(setOf(contactReferenceNumber))).thenReturn(emptyList())
+        `when`(subledgerBalanceRepository.findByContactReferenceNumberIn(setOf(contactReferenceNumber)))
+            .thenReturn(listOf(storedBalance))
+
+        subledgerService.reconcileBalances(setOf(contactReferenceNumber))
+
+        assertEquals(0, BigDecimal.ZERO.compareTo(storedBalance.runningPayable))
+        assertEquals(0, BigDecimal.ZERO.compareTo(storedBalance.runningReceivable))
+    }
+
+    @Test
+    fun `reconciling treats a stored balance that differs only in scale as matching and leaves the instances alone`() {
+        val storedPayable = BigDecimal("5.0")
+        val storedReceivable = BigDecimal("7.0")
+        val storedBalance = SubledgerBalanceEntity(contactReferenceNumber, storedPayable, storedReceivable)
+        stubStoredBalanceAndEntryTotals(storedBalance, "5.0000", "7.0000")
+
+        subledgerService.reconcileBalances(setOf(contactReferenceNumber))
+
+        assertSame(storedPayable, storedBalance.runningPayable)
+        assertSame(storedReceivable, storedBalance.runningReceivable)
+        verify(subledgerBalanceRepository, never()).save(storedBalance)
+    }
+
+    @Test
+    fun `reconciling a mix creates the missing row and corrects the drifted one in the same pass`() {
+        val driftedContact = "CT000002"
+        val missingContact = "CT000003"
+        val driftedBalance = SubledgerBalanceEntity(driftedContact, BigDecimal("1"), BigDecimal("1"))
+        val contacts = setOf(driftedContact, missingContact)
+        `when`(subledgerEntryRepository.sumAmountsForContacts(contacts)).thenReturn(
+            listOf(
+                StubSubledgerAmountTotals(driftedContact, BigDecimal("30.0000"), BigDecimal("2.0000")),
+                StubSubledgerAmountTotals(missingContact, BigDecimal("8.0000"), BigDecimal("9.0000"))
+            )
+        )
+        `when`(subledgerBalanceRepository.findByContactReferenceNumberIn(contacts)).thenReturn(listOf(driftedBalance))
+
+        subledgerService.reconcileBalances(contacts)
+
+        val balanceCaptor = ArgumentCaptor.forClass(SubledgerBalanceEntity::class.java)
+        verify(subledgerBalanceRepository).save(balanceCaptor.capture())
+        assertEquals(missingContact, balanceCaptor.value.contactReferenceNumber)
+        assertEquals(0, BigDecimal("8").compareTo(balanceCaptor.value.runningPayable))
+        assertEquals(0, BigDecimal("9").compareTo(balanceCaptor.value.runningReceivable))
+        assertEquals(0, BigDecimal("30").compareTo(driftedBalance.runningPayable))
+        assertEquals(0, BigDecimal("2").compareTo(driftedBalance.runningReceivable))
     }
 
     @Test

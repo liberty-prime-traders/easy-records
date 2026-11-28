@@ -41,5 +41,9 @@ enum class TransientKey(override val key: String) : ContextKey {
   PURCHASE_LINE("purchaseLineId"),
   PURCHASE_LINE_REFERENCE("purchaseLineReference"),
   DELIVERY_REFERENCE("deliveryReference"),
+  DELIVERY_LINE("deliveryLineId"),
+  PAYMENT_METHOD("paymentMethodId"),
+  SUPPLIER_PAYMENT("supplierPaymentId"),
+  SUPPLIER_PAYMENT_REFERENCE("supplierPaymentReference"),
   SEARCH_CURSOR("searchCursor"),
 }

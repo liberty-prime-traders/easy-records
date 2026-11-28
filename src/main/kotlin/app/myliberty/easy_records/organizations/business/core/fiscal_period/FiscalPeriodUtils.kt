@@ -34,8 +34,7 @@ object FiscalPeriodUtils {
         return when ((elapsed % 91L).toInt()) {
             in 0..27 -> 0
             in 28..55 -> 1
-            in 56..90 -> 2
-            else -> throw IllegalStateException("elapsed % 91 out of range: $elapsed")
+            else -> 2
         }
     }
 }
